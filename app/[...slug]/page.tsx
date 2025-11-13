@@ -13,10 +13,12 @@ interface PageProps {
   }
 }
 
-export const revalidate = 3600
+export const revalidate = 300 // Revalidate every 5 minutes to catch new articles
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const slug = params.slug.join('/')
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://sarcasm.wiki'
+  const url = `${baseUrl}/${slug}`
   
   try {
     const mdcContent = await getPageMDC(slug)
@@ -24,6 +26,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     if (!mdcContent) {
       return {
         title: slug.replace(/_/g, ' '),
+        alternates: {
+          canonical: url,
+        },
       }
     }
     
@@ -31,10 +36,22 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       title: mdcContent.metadata.title,
       description: mdcContent.metadata.description,
       keywords: mdcContent.metadata.keywords,
+      alternates: {
+        canonical: url,
+      },
       openGraph: {
         title: mdcContent.metadata.title,
         description: mdcContent.metadata.description,
         type: 'article',
+        url: url,
+        publishedTime: mdcContent.metadata.createdAt,
+        modifiedTime: mdcContent.metadata.updatedAt,
+        siteName: 'Sarcasm Wiki',
+      },
+      twitter: {
+        card: 'summary_large_image',
+        title: mdcContent.metadata.title,
+        description: mdcContent.metadata.description,
       },
     }
   } catch (error: any) {
@@ -42,10 +59,16 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       return {
         title: `${slug.replace(/_/g, ' ')} - Generation in Progress`,
         description: 'This page is currently being generated. Please try again in a moment.',
+        alternates: {
+          canonical: url,
+        },
       }
     }
     return {
       title: slug.replace(/_/g, ' '),
+      alternates: {
+        canonical: url,
+      },
     }
   }
 }
@@ -67,34 +90,64 @@ export default async function WikiPage({ params }: PageProps) {
     const { content, metadata } = mdcContent
     const title = metadata.title
     const htmlContent = await renderMarkdownToHtml(content)
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://sarcasm.wiki'
+    const url = `${baseUrl}/${slug}`
+
+    const structuredData = {
+      '@context': 'https://schema.org',
+      '@type': 'Article',
+      headline: title,
+      description: metadata.description,
+      url: url,
+      datePublished: metadata.createdAt,
+      dateModified: metadata.updatedAt,
+      author: {
+        '@type': 'Organization',
+        name: 'Sarcasm Wiki',
+      },
+      publisher: {
+        '@type': 'Organization',
+        name: 'Sarcasm Wiki',
+      },
+      mainEntityOfPage: {
+        '@type': 'WebPage',
+        '@id': url,
+      },
+    }
 
   return (
-    <main style={{ padding: '2rem', maxWidth: '1200px', margin: '0 auto' }}>
-      <div style={{ marginBottom: '1rem' }}>
-        <Link 
-          href="/"
-          style={{
-            color: '#0066cc',
-            textDecoration: 'none',
-            fontSize: '0.9rem'
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+      <main style={{ padding: '2rem', maxWidth: '1200px', margin: '0 auto' }}>
+        <div style={{ marginBottom: '1rem' }}>
+          <Link 
+            href="/"
+            style={{
+              color: '#0066cc',
+              textDecoration: 'none',
+              fontSize: '0.9rem'
+            }}
+          >
+            ← Back to home
+          </Link>
+        </div>
+        <h1>{title}</h1>
+        <article 
+          style={{ 
+            marginTop: '2rem',
+            background: '#fff',
+            padding: '2rem',
+            borderRadius: '8px',
+            boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
           }}
         >
-          ← Back to home
-        </Link>
-      </div>
-      <h1>{title}</h1>
-      <article 
-        style={{ 
-          marginTop: '2rem',
-          background: '#fff',
-          padding: '2rem',
-          borderRadius: '8px',
-          boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
-        }}
-      >
-        <ArticleContent htmlContent={htmlContent} />
-      </article>
-    </main>
+          <ArticleContent htmlContent={htmlContent} />
+        </article>
+      </main>
+    </>
   )
   } catch (error: any) {
     if (error.message === 'RATE_LIMIT_EXCEEDED') {

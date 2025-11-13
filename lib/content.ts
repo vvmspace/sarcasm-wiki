@@ -198,7 +198,7 @@ async function saveContent(slug: string, metadata: ContentMetadata, content: str
   await fs.writeFile(filePath, mdcContent, 'utf-8')
 }
 
-export async function getLatestArticles(limit: number = 7): Promise<ContentMetadata[]> {
+export async function getAllArticles(): Promise<ContentMetadata[]> {
   try {
     await fs.mkdir(CONTENT_DIR, { recursive: true })
     const files = await fs.readdir(CONTENT_DIR)
@@ -217,16 +217,22 @@ export async function getLatestArticles(limit: number = 7): Promise<ContentMetad
       }
     }
     
-    articles.sort((a, b) => {
-      const dateA = a.updatedAt || a.createdAt || '0'
-      const dateB = b.updatedAt || b.createdAt || '0'
-      return dateB.localeCompare(dateA)
-    })
-    
-    return articles.slice(0, limit)
+    return articles
   } catch (error) {
-    console.error('Error getting latest articles:', error)
+    console.error('Error getting all articles:', error)
     return []
   }
+}
+
+export async function getLatestArticles(limit: number = 7): Promise<ContentMetadata[]> {
+  const articles = await getAllArticles()
+  
+  articles.sort((a, b) => {
+    const dateA = a.updatedAt || a.createdAt || '0'
+    const dateB = b.updatedAt || b.createdAt || '0'
+    return dateB.localeCompare(dateA)
+  })
+  
+  return articles.slice(0, limit)
 }
 

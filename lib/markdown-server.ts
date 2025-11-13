@@ -1,8 +1,20 @@
-import { remark } from 'remark'
-import remarkGfm from 'remark-gfm'
-import remarkHtml from 'remark-html'
+// Dynamic imports for ES modules - must be called at runtime, not module load time
+async function loadRemarkModules() {
+  const remarkModule = await import('remark')
+  const remarkGfmModule = await import('remark-gfm')
+  const remarkHtmlModule = await import('remark-html')
+  
+  return {
+    remark: remarkModule.remark,
+    remarkGfm: remarkGfmModule.default,
+    remarkHtml: remarkHtmlModule.default
+  }
+}
 
 export async function renderMarkdownToHtml(markdown: string): Promise<string> {
+  // Load remark modules dynamically
+  const { remark, remarkGfm, remarkHtml } = await loadRemarkModules()
+  
   markdown = markdown.replace(/\[([^\]]+)\]\(https?:\/\/[^)]+\)/g, '$1')
   markdown = markdown.replace(/\[([^\]]+)\]\(www\.[^)]+\)/g, '$1')
   markdown = markdown.replace(/https?:\/\/[^\s\)]+/g, (url) => {

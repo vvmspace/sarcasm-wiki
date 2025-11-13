@@ -88,7 +88,7 @@ export async function generateMiniArticle(slug: string): Promise<string | null> 
   try {
     const title = slug.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())
     const systemPrompt = await getSystemPrompt(true)
-    const userPrompt = `Create a comprehensive Wikipedia-style article about "${title}" in your style. The article should be informative, engaging, and at least 2000-3000 characters long. Include multiple sections with headings (##), detailed explanations, and internal links to related topics in Markdown format [text](/article_name). Write in the same sarcastic, witty style as Emma. Make it substantial and well-structured.`
+    const userPrompt = `Create a comprehensive Wikipedia-style article about "${title}" in your style. The article should be informative, engaging, and at least 2000-3000 characters long. Include multiple sections with headings (##), detailed explanations, and CRITICAL: Include AT LEAST 5-10 internal links to related topics throughout the article in Markdown format [text](/article_name). Every section should have multiple internal links. Links should be natural and relevant to the content. Examples of linkable terms: related concepts, historical figures, places, technologies, theories, etc. Write in the same sarcastic, witty style as Emma. Make it substantial and well-structured. Return ONLY the article content in Markdown format with internal links.`
     
     console.log(`[GENERATE] Prompts loaded (system: ${systemPrompt.length} chars, user: ${userPrompt.length} chars)`)
 
@@ -129,7 +129,7 @@ export async function generateMiniArticle(slug: string): Promise<string | null> 
       try {
         const title = slug.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())
         const systemPrompt = await getSystemPrompt(true)
-        const userPrompt = `Create a comprehensive Wikipedia-style article about "${title}" in your style. The article should be informative, engaging, and at least 2000-3000 characters long. Include multiple sections with headings (##), detailed explanations, and internal links to related topics in Markdown format [text](/article_name). Write in the same sarcastic, witty style as Emma. Make it substantial and well-structured.`
+        const userPrompt = `Create a comprehensive Wikipedia-style article about "${title}" in your style. The article should be informative, engaging, and at least 2000-3000 characters long. Include multiple sections with headings (##), detailed explanations, and CRITICAL: Include AT LEAST 10-15 internal links to related topics throughout the article in Markdown format [text](/article_name). Every section should have multiple internal links. Links should be natural and relevant to the content. Examples of linkable terms: related concepts, historical figures, places, technologies, theories, etc. Write in the same sarcastic, witty style as Emma. Make it substantial and well-structured. Return ONLY the article content in Markdown format with internal links.`
         
         const model = genAI.getGenerativeModel({ 
           model: 'gemini-2.5-flash',

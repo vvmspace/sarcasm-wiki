@@ -198,3 +198,35 @@ async function saveContent(slug: string, metadata: ContentMetadata, content: str
   await fs.writeFile(filePath, mdcContent, 'utf-8')
 }
 
+export async function getLatestArticles(limit: number = 7): Promise<ContentMetadata[]> {
+  try {
+    await fs.mkdir(CONTENT_DIR, { recursive: true })
+    const files = await fs.readdir(CONTENT_DIR)
+    const mdcFiles = files.filter(file => file.endsWith('.mdc'))
+    
+    const articles: ContentMetadata[] = []
+    
+    for (const file of mdcFiles) {
+      try {
+        const filePath = path.join(CONTENT_DIR, file)
+        const content = await fs.readFile(filePath, 'utf-8')
+        const parsed = parseMDC(content)
+        articles.push(parsed.metadata)
+      } catch (error) {
+        console.warn(`Failed to parse ${file}:`, error)
+      }
+    }
+    
+    articles.sort((a, b) => {
+      const dateA = a.updatedAt || a.createdAt || '0'
+      const dateB = b.updatedAt || b.createdAt || '0'
+      return dateB.localeCompare(dateA)
+    })
+    
+    return articles.slice(0, limit)
+  } catch (error) {
+    console.error('Error getting latest articles:', error)
+    return []
+  }
+}
+

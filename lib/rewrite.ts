@@ -62,6 +62,107 @@ async function rewriteChunk(chunk: string, isFirst: boolean = false, chunkIndex?
   }
 }
 
+function isValidSlug(slug: string): boolean {
+  return /^[A-Za-z0-9_-]+$/.test(slug)
+}
+
+export async function generateMiniArticle(slug: string): Promise<string | null> {
+  const startTime = Date.now()
+  console.log(`[GENERATE] Starting mini article generation for: ${slug}`)
+  
+  if (!process.env.GEMINI_API_KEY) {
+    console.error('[GENERATE] ERROR: GEMINI_API_KEY not set')
+    throw new Error('GEMINI_API_KEY not set')
+  }
+
+  if (slug) {
+    console.log(`[GENERATE] Checking rate limit for: ${slug}`)
+    const canGenerate = await checkAndStartGeneration(slug)
+    if (!canGenerate) {
+      console.log(`[GENERATE] Rate limit exceeded for: ${slug}`)
+      throw new Error('RATE_LIMIT_EXCEEDED')
+    }
+    console.log(`[GENERATE] Rate limit passed for: ${slug}`)
+  }
+
+  try {
+    const title = slug.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())
+    const systemPrompt = await getSystemPrompt(true)
+    const userPrompt = `Create a comprehensive Wikipedia-style article about "${title}" in your style. The article should be informative, engaging, and at least 2000-3000 characters long. Include multiple sections with headings (##), detailed explanations, and internal links to related topics in Markdown format [text](/article_name). Write in the same sarcastic, witty style as Emma. Make it substantial and well-structured.`
+    
+    console.log(`[GENERATE] Prompts loaded (system: ${systemPrompt.length} chars, user: ${userPrompt.length} chars)`)
+
+    const modelName = 'gemini-2.5-flash-lite'
+    const model = genAI.getGenerativeModel({ 
+      model: modelName,
+      systemInstruction: systemPrompt,
+      generationConfig: {
+        temperature: 0.7,
+        maxOutputTokens: 32000,
+      },
+    })
+
+    console.log(`[GENERATE] Calling Gemini API with ${modelName}...`)
+    const apiStartTime = Date.now()
+    const result = await model.generateContent(userPrompt)
+    const apiDuration = Date.now() - apiStartTime
+    console.log(`[GENERATE] API response received from ${modelName} (${apiDuration}ms)`)
+
+    const response = result.response
+    const text = response.text()
+    
+    if (!text || text.trim().length < 200) {
+      console.error(`[GENERATE] ERROR: Empty or too short response (${text?.length || 0} chars)`)
+      throw new Error('Empty or too short response from API')
+    }
+    
+    const totalDuration = Date.now() - startTime
+    console.log(`[GENERATE] Mini article generation completed for: ${slug} (${text.length} chars, ${totalDuration}ms total, ${apiDuration}ms API)`)
+    return text
+  } catch (error: any) {
+    const totalDuration = Date.now() - startTime
+    console.error(`[GENERATE] ERROR after ${totalDuration}ms for: ${slug}:`, error?.status || error?.message || error)
+    
+    // If 503 error, try with flash model
+    if (error?.status === 503) {
+      console.log(`[GENERATE] 503 error with lite model, retrying with gemini-2.5-flash...`)
+      try {
+        const title = slug.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())
+        const systemPrompt = await getSystemPrompt(true)
+        const userPrompt = `Create a comprehensive Wikipedia-style article about "${title}" in your style. The article should be informative, engaging, and at least 2000-3000 characters long. Include multiple sections with headings (##), detailed explanations, and internal links to related topics in Markdown format [text](/article_name). Write in the same sarcastic, witty style as Emma. Make it substantial and well-structured.`
+        
+        const model = genAI.getGenerativeModel({ 
+          model: 'gemini-2.5-flash',
+          systemInstruction: systemPrompt,
+          generationConfig: {
+            temperature: 0.7,
+            maxOutputTokens: 32000,
+          },
+        })
+
+        const result = await model.generateContent(userPrompt)
+        const text = result.response.text()
+        
+        if (!text || text.trim().length < 200) {
+          throw new Error('Empty or too short response from API')
+        }
+        
+        console.log(`[GENERATE] Mini article generation completed with flash model for: ${slug} (${text.length} chars)`)
+        return text
+      } catch (retryError: any) {
+        console.error(`[GENERATE] ERROR on retry:`, retryError?.status || retryError?.message || retryError)
+        throw new Error('API_ERROR')
+      }
+    }
+    
+    if (error.message === 'RATE_LIMIT_EXCEEDED') {
+      throw error
+    }
+    
+    throw new Error('GENERATE_ERROR')
+  }
+}
+
 export async function rewriteContent(content: string, links?: Map<string, string>, slug?: string): Promise<string | null> {
   const startTime = Date.now()
   console.log(`[REWRITE] Starting content rewrite for: ${slug || 'unknown'} (${content.length} chars, ${links?.size || 0} links)`)

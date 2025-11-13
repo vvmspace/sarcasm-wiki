@@ -1,7 +1,7 @@
 import fs from 'fs/promises'
 import path from 'path'
 import { fetchWikipediaContent } from './wikipedia'
-import { rewriteContent } from './rewrite'
+import { rewriteContent, generateMiniArticle } from './rewrite'
 import { parseMDC, generateMDC, generateMetadataFromContent, type MDCContent, type ContentMetadata } from './mdc'
 
 const CONTENT_DIR = path.join(process.cwd(), 'content')
@@ -61,7 +61,55 @@ async function fetchAndSaveContent(slug: string): Promise<MDCContent | null> {
     const wikiDuration = Date.now() - wikiStartTime
     
     if (!wikipediaData || !wikipediaData.content || wikipediaData.content.trim().length < 50) {
-      console.warn(`[CONTENT] No content found for: ${slug} (${wikiDuration}ms)`)
+      console.warn(`[CONTENT] No Wikipedia content found for: ${slug} (${wikiDuration}ms)`)
+      
+      // Check if slug is valid and generate mini article
+      if (/^[A-Za-z0-9_-]+$/.test(slug)) {
+        console.log(`[CONTENT] Slug is valid, generating mini article for: ${slug}`)
+        try {
+          const generatedContent = await generateMiniArticle(slug)
+          
+          if (!generatedContent || generatedContent.trim().length < 200) {
+            console.warn(`[CONTENT] Mini article generation failed or returned empty for: ${slug}`)
+            return null
+          }
+          
+          console.log(`[CONTENT] Mini article generated for: ${slug} (${generatedContent.length} chars)`)
+          
+          const finalContent = removeReferencesSection(generatedContent)
+          
+          let existingMetadata: ContentMetadata | null = null
+          const filePath = path.join(CONTENT_DIR, `${slug}.mdc`)
+          try {
+            const existingContent = await fs.readFile(filePath, 'utf-8')
+            existingMetadata = parseMDC(existingContent).metadata
+            console.log(`[CONTENT] Found existing metadata for: ${slug} (created: ${existingMetadata.createdAt})`)
+          } catch (error) {
+            console.log(`[CONTENT] No existing file for: ${slug}, creating new metadata`)
+          }
+          
+          const metadata = generateMetadataFromContent(slug, finalContent, existingMetadata?.createdAt)
+          console.log(`[CONTENT] Generated metadata for: ${slug} (title: ${metadata.title}, keywords: ${metadata.keywords.length})`)
+          
+          console.log(`[CONTENT] Saving generated content for: ${slug} (${finalContent.length} chars)`)
+          const saveStartTime = Date.now()
+          await saveContent(slug, metadata, finalContent)
+          const saveDuration = Date.now() - saveStartTime
+          
+          const totalDuration = Date.now() - startTime
+          console.log(`[CONTENT] Mini article generation completed for: ${slug} (${totalDuration}ms total, save ${saveDuration}ms)`)
+          
+          return { metadata, content: finalContent }
+        } catch (error: any) {
+          if (error.message === 'RATE_LIMIT_EXCEEDED') {
+            console.log(`[CONTENT] Rate limit exceeded for: ${slug}, throwing error`)
+            throw error
+          }
+          console.error(`[CONTENT] Mini article generation failed for ${slug}:`, error.message)
+          return null
+        }
+      }
+      
       return null
     }
 

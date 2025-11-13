@@ -62,10 +62,19 @@ async function fetchAndSaveContent(slug: string): Promise<MDCContent | null> {
     const { content: wikipediaContent, links } = wikipediaData
     console.log(`Preparing to rewrite content for: ${slug} (${wikipediaContent.length} chars, ${links.size} links)`)
 
-    let rewrittenContent = await rewriteContent(wikipediaContent, links, slug)
-    if (!rewrittenContent || rewrittenContent.trim().length < 50) {
-      console.warn(`Rewriting failed or returned empty for: ${slug}`)
-      rewrittenContent = wikipediaContent
+    let rewrittenContent: string | null
+    try {
+      rewrittenContent = await rewriteContent(wikipediaContent, links, slug)
+      if (!rewrittenContent || rewrittenContent.trim().length < 50) {
+        console.warn(`Rewriting failed or returned empty for: ${slug}`)
+        return null
+      }
+    } catch (error: any) {
+      if (error.message === 'RATE_LIMIT_EXCEEDED') {
+        throw error
+      }
+      console.error(`Rewriting failed for ${slug}, not saving original content:`, error.message)
+      return null
     }
     
     const finalContent = removeReferencesSection(rewrittenContent)

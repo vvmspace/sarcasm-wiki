@@ -6,8 +6,7 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '')
 
 async function rewriteChunk(chunk: string, isFirst: boolean = false): Promise<string> {
   if (!process.env.GEMINI_API_KEY) {
-    console.warn('GEMINI_API_KEY not set')
-    return chunk
+    throw new Error('GEMINI_API_KEY not set')
   }
 
   const systemPrompt = await getSystemPrompt(isFirst)
@@ -25,17 +24,20 @@ async function rewriteChunk(chunk: string, isFirst: boolean = false): Promise<st
   const result = await model.generateContent(userPrompt)
 
   const response = result.response
-  return response.text() || chunk
+  const text = response.text()
+  if (!text || text.trim().length < 50) {
+    throw new Error('Empty or too short response from API')
+  }
+  return text
 }
 
 export async function rewriteContent(content: string, links?: Map<string, string>, slug?: string): Promise<string | null> {
   if (!process.env.GEMINI_API_KEY) {
-    console.warn('GEMINI_API_KEY not set, returning original content')
-    return content
+    throw new Error('GEMINI_API_KEY not set')
   }
 
   if (!content || content.trim().length < 100) {
-    return content
+    throw new Error('Content too short to rewrite')
   }
 
   if (slug) {
@@ -51,7 +53,7 @@ export async function rewriteContent(content: string, links?: Map<string, string
     
     if (content.length <= maxChunkLength) {
       const rewritten = await rewriteChunk(content, true)
-      return rewritten || content
+      return rewritten
     }
 
     const sections = content.split(/\n\n## /)
@@ -79,9 +81,14 @@ export async function rewriteContent(content: string, links?: Map<string, string
 
     const finalContent = rewrittenChunks.join('\n\n')
     return finalContent
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error rewriting content:', error)
-    return content
+    // Don't return original content on API errors - throw to prevent saving
+    if (error?.status === 503 || error?.status === 429 || error?.status === 500) {
+      throw new Error('API_ERROR')
+    }
+    // For other errors, also don't save original
+    throw new Error('REWRITE_ERROR')
   }
 }
 

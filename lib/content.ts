@@ -51,54 +51,80 @@ export async function getPageMDC(slug: string, forceRefresh: boolean = false): P
 }
 
 async function fetchAndSaveContent(slug: string): Promise<MDCContent | null> {
+  const startTime = Date.now()
+  console.log(`[CONTENT] Starting content generation for: ${slug}`)
+  
   try {
-    console.log(`Fetching Wikipedia content for: ${slug}`)
+    console.log(`[CONTENT] Fetching Wikipedia content for: ${slug}`)
+    const wikiStartTime = Date.now()
     const wikipediaData = await fetchWikipediaContent(slug)
+    const wikiDuration = Date.now() - wikiStartTime
+    
     if (!wikipediaData || !wikipediaData.content || wikipediaData.content.trim().length < 50) {
-      console.warn(`No content found for: ${slug}`)
+      console.warn(`[CONTENT] No content found for: ${slug} (${wikiDuration}ms)`)
       return null
     }
 
     const { content: wikipediaContent, links } = wikipediaData
-    console.log(`Preparing to rewrite content for: ${slug} (${wikipediaContent.length} chars, ${links.size} links)`)
+    console.log(`[CONTENT] Wikipedia content fetched for: ${slug} (${wikipediaContent.length} chars, ${links.size} links, ${wikiDuration}ms)`)
 
     let rewrittenContent: string | null
     try {
+      console.log(`[CONTENT] Starting rewrite for: ${slug}`)
+      const rewriteStartTime = Date.now()
       rewrittenContent = await rewriteContent(wikipediaContent, links, slug)
+      const rewriteDuration = Date.now() - rewriteStartTime
+      
       if (!rewrittenContent || rewrittenContent.trim().length < 50) {
-        console.warn(`Rewriting failed or returned empty for: ${slug}`)
+        console.warn(`[CONTENT] Rewriting failed or returned empty for: ${slug} (${rewriteDuration}ms)`)
         return null
       }
+      console.log(`[CONTENT] Rewrite completed for: ${slug} (${rewrittenContent.length} chars, ${rewriteDuration}ms)`)
     } catch (error: any) {
       if (error.message === 'RATE_LIMIT_EXCEEDED') {
+        console.log(`[CONTENT] Rate limit exceeded for: ${slug}, throwing error`)
         throw error
       }
-      console.error(`Rewriting failed for ${slug}, not saving original content:`, error.message)
+      console.error(`[CONTENT] Rewriting failed for ${slug}, not saving original content:`, error.message)
       return null
     }
     
+    console.log(`[CONTENT] Removing references section for: ${slug}`)
     const finalContent = removeReferencesSection(rewrittenContent)
+    const refsRemoved = rewrittenContent.length - finalContent.length
+    if (refsRemoved > 0) {
+      console.log(`[CONTENT] Removed ${refsRemoved} chars from references section for: ${slug}`)
+    }
     
     let existingMetadata: ContentMetadata | null = null
     const filePath = path.join(CONTENT_DIR, `${slug}.mdc`)
     try {
       const existingContent = await fs.readFile(filePath, 'utf-8')
       existingMetadata = parseMDC(existingContent).metadata
+      console.log(`[CONTENT] Found existing metadata for: ${slug} (created: ${existingMetadata.createdAt})`)
     } catch (error) {
-      // File doesn't exist, that's fine
+      console.log(`[CONTENT] No existing file for: ${slug}, creating new metadata`)
     }
     
     const metadata = generateMetadataFromContent(slug, finalContent, existingMetadata?.createdAt)
+    console.log(`[CONTENT] Generated metadata for: ${slug} (title: ${metadata.title}, keywords: ${metadata.keywords.length})`)
     
-    console.log(`Saving content for: ${slug} (${finalContent.length} chars, original: ${wikipediaContent.length} chars, links: ${links.size})`)
+    console.log(`[CONTENT] Saving content for: ${slug} (${finalContent.length} chars, original: ${wikipediaContent.length} chars, links: ${links.size})`)
+    const saveStartTime = Date.now()
     await saveContent(slug, metadata, finalContent)
+    const saveDuration = Date.now() - saveStartTime
+    
+    const totalDuration = Date.now() - startTime
+    console.log(`[CONTENT] Content generation completed for: ${slug} (${totalDuration}ms total: wiki ${wikiDuration}ms, rewrite ${rewriteDuration}ms, save ${saveDuration}ms)`)
     
     return { metadata, content: finalContent }
   } catch (error: any) {
+    const totalDuration = Date.now() - startTime
     if (error.message === 'RATE_LIMIT_EXCEEDED') {
+      console.log(`[CONTENT] Rate limit exceeded for: ${slug} (${totalDuration}ms), throwing error`)
       throw error
     }
-    console.error('Error fetching and saving content:', error)
+    console.error(`[CONTENT] Error fetching and saving content for: ${slug} (${totalDuration}ms):`, error?.message || error)
     return null
   }
 }

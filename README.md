@@ -9,14 +9,22 @@ Next.js application that fetches Wikipedia pages, rewrites them, and saves as Ma
 npm install
 ```
 
-2. Create `.env` file with your Gemini API key:
+2. Create `.env` file with your configuration:
 ```
 GEMINI_API_KEY=your_key_here
+PORT=3000
 ```
 
 3. Run development server:
 ```bash
 npm run dev
+```
+
+The server will run on the port specified in `PORT` environment variable in `.env` file (default: 3000).
+
+You can also set the port directly when running:
+```bash
+PORT=8080 npm run dev
 ```
 
 ## Usage

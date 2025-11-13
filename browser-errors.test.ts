@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test'
 
-const BASE_URL = 'http://localhost:3000'
+const BASE_URL = process.env.BASE_URL || `http://localhost:${process.env.PORT || 3000}`
 
 test.describe('Browser Console Errors', () => {
   test('should not have console errors on home page', async ({ page }) => {

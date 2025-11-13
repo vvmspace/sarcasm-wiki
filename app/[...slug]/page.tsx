@@ -6,6 +6,7 @@ import { getRateLimitInfo } from '@/lib/rate-limit'
 import { renderMarkdownToHtml } from '@/lib/markdown-server'
 import Link from 'next/link'
 import ArticleContent from '../components/ArticleContent'
+import AnalyticsEvent from '../components/AnalyticsEvent'
 
 interface PageProps {
   params: {
@@ -115,11 +116,20 @@ export default async function WikiPage({ params }: PageProps) {
       },
     }
 
+  const contentType = metadata.contentType || 'rewritten'
+  const eventName = contentType === 'created' ? 'content_created' : 'content_rewritten'
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+      <AnalyticsEvent
+        eventName={eventName}
+        eventCategory="content"
+        eventLabel={contentType}
+        slug={slug}
       />
       <main style={{ padding: '2rem', maxWidth: '1200px', margin: '0 auto' }}>
         <div style={{ marginBottom: '1rem' }}>

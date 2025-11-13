@@ -89,6 +89,7 @@ async function fetchAndSaveContent(slug: string): Promise<MDCContent | null> {
           }
           
           const metadata = generateMetadataFromContent(slug, finalContent, existingMetadata?.createdAt)
+          metadata.contentType = 'created'
           console.log(`[CONTENT] Generated metadata for: ${slug} (title: ${metadata.title}, keywords: ${metadata.keywords.length})`)
           
           console.log(`[CONTENT] Saving generated content for: ${slug} (${finalContent.length} chars)`)
@@ -156,6 +157,7 @@ async function fetchAndSaveContent(slug: string): Promise<MDCContent | null> {
     }
     
     const metadata = generateMetadataFromContent(slug, finalContent, existingMetadata?.createdAt)
+    metadata.contentType = 'rewritten'
     console.log(`[CONTENT] Generated metadata for: ${slug} (title: ${metadata.title}, keywords: ${metadata.keywords.length})`)
     
     console.log(`[CONTENT] Saving content for: ${slug} (${finalContent.length} chars, original: ${wikipediaContent.length} chars, links: ${links.size})`)

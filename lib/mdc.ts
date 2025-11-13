@@ -5,6 +5,7 @@ export interface ContentMetadata {
   slug: string
   createdAt?: string
   updatedAt?: string
+  contentType?: 'rewritten' | 'created'
 }
 
 export interface MDCContent {
@@ -51,6 +52,10 @@ export function parseMDC(mdcContent: string): MDCContent {
       metadata.createdAt = value
     } else if (key === 'updatedAt') {
       metadata.updatedAt = value
+    } else if (key === 'contentType') {
+      if (value === 'rewritten' || value === 'created') {
+        metadata.contentType = value
+      }
     }
   }
   
@@ -72,6 +77,7 @@ keywords: ${metadata.keywords.join(', ')}
 slug: "${metadata.slug}"
 ${metadata.createdAt ? `createdAt: "${metadata.createdAt}"` : ''}
 ${metadata.updatedAt ? `updatedAt: "${metadata.updatedAt}"` : ''}
+${metadata.contentType ? `contentType: "${metadata.contentType}"` : ''}
 ---
 
 ${content}`

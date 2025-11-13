@@ -64,7 +64,7 @@ async function fetchAndSaveContent(slug: string): Promise<MDCContent | null> {
       console.warn(`[CONTENT] No Wikipedia content found for: ${slug} (${wikiDuration}ms)`)
       
       // Check if slug is valid and generate mini article
-      if (/^[A-Za-z0-9_-]+$/.test(slug)) {
+      if (/^[A-Za-z0-9_,-]+$/.test(slug)) {
         console.log(`[CONTENT] Slug is valid, generating mini article for: ${slug}`)
         try {
           const generatedContent = await generateMiniArticle(slug)

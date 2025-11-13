@@ -69,11 +69,12 @@ async function fetchAndSaveContent(slug: string): Promise<MDCContent | null> {
     console.log(`[CONTENT] Wikipedia content fetched for: ${slug} (${wikipediaContent.length} chars, ${links.size} links, ${wikiDuration}ms)`)
 
     let rewrittenContent: string | null
+    let rewriteDuration = 0
     try {
       console.log(`[CONTENT] Starting rewrite for: ${slug}`)
       const rewriteStartTime = Date.now()
       rewrittenContent = await rewriteContent(wikipediaContent, links, slug)
-      const rewriteDuration = Date.now() - rewriteStartTime
+      rewriteDuration = Date.now() - rewriteStartTime
       
       if (!rewrittenContent || rewrittenContent.trim().length < 50) {
         console.warn(`[CONTENT] Rewriting failed or returned empty for: ${slug} (${rewriteDuration}ms)`)

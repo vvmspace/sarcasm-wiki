@@ -4,12 +4,13 @@ import { checkAndStartGeneration } from './rate-limit'
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '')
 
-async function rewriteChunk(chunk: string, isFirst: boolean = false, chunkIndex?: number, totalChunks?: number): Promise<string> {
+async function rewriteChunk(chunk: string, isFirst: boolean = false, chunkIndex?: number, totalChunks?: number, useFlash: boolean = false): Promise<string> {
   const startTime = Date.now()
   const chunkInfo = totalChunks ? `[${chunkIndex}/${totalChunks}]` : ''
   const chunkType = isFirst ? 'first' : 'subsequent'
+  const modelName = useFlash ? 'gemini-2.5-flash' : 'gemini-2.5-flash-lite'
   
-  console.log(`[REWRITE] Starting chunk rewrite ${chunkInfo} (${chunkType}, ${chunk.length} chars)`)
+  console.log(`[REWRITE] Starting chunk rewrite ${chunkInfo} (${chunkType}, ${chunk.length} chars, model: ${modelName})`)
   
   if (!process.env.GEMINI_API_KEY) {
     console.error('[REWRITE] ERROR: GEMINI_API_KEY not set')
@@ -22,7 +23,7 @@ async function rewriteChunk(chunk: string, isFirst: boolean = false, chunkIndex?
     console.log(`[REWRITE] Prompts loaded ${chunkInfo} (system: ${systemPrompt.length} chars, user: ${userPrompt.length} chars)`)
 
     const model = genAI.getGenerativeModel({ 
-      model: 'gemini-2.5-flash',
+      model: modelName,
       systemInstruction: systemPrompt,
       generationConfig: {
         temperature: 0.7,
@@ -30,11 +31,11 @@ async function rewriteChunk(chunk: string, isFirst: boolean = false, chunkIndex?
       },
     })
 
-    console.log(`[REWRITE] Calling Gemini API ${chunkInfo}...`)
+    console.log(`[REWRITE] Calling Gemini API ${chunkInfo} with ${modelName}...`)
     const apiStartTime = Date.now()
     const result = await model.generateContent(userPrompt)
     const apiDuration = Date.now() - apiStartTime
-    console.log(`[REWRITE] API response received ${chunkInfo} (${apiDuration}ms)`)
+    console.log(`[REWRITE] API response received ${chunkInfo} from ${modelName} (${apiDuration}ms)`)
 
     const response = result.response
     const text = response.text()
@@ -45,11 +46,18 @@ async function rewriteChunk(chunk: string, isFirst: boolean = false, chunkIndex?
     }
     
     const totalDuration = Date.now() - startTime
-    console.log(`[REWRITE] Chunk rewrite completed ${chunkInfo} (${text.length} chars, ${totalDuration}ms total, ${apiDuration}ms API)`)
+    console.log(`[REWRITE] Chunk rewrite completed ${chunkInfo} with ${modelName} (${text.length} chars, ${totalDuration}ms total, ${apiDuration}ms API)`)
     return text
   } catch (error: any) {
     const totalDuration = Date.now() - startTime
-    console.error(`[REWRITE] ERROR ${chunkInfo} after ${totalDuration}ms:`, error?.status || error?.message || error)
+    console.error(`[REWRITE] ERROR ${chunkInfo} with ${modelName} after ${totalDuration}ms:`, error?.status || error?.message || error)
+    
+    // If 503 error and we haven't tried flash model yet, retry with flash
+    if (error?.status === 503 && !useFlash) {
+      console.log(`[REWRITE] 503 error with ${modelName}, retrying with gemini-2.5-flash...`)
+      return await rewriteChunk(chunk, isFirst, chunkIndex, totalChunks, true)
+    }
+    
     throw error
   }
 }

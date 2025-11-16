@@ -1,19 +1,26 @@
 // Dynamic imports for ES modules - must be called at runtime, not module load time
 async function loadRemarkModules() {
-  const remarkModule = await import('remark')
-  const remarkGfmModule = await import('remark-gfm')
-  const remarkHtmlModule = await import('remark-html')
+  const { unified } = await import('unified')
+  const remarkParse = (await import('remark-parse')).default
+  const remarkGfm = (await import('remark-gfm')).default
+  const remarkMath = (await import('remark-math')).default
+  const remarkRehype = (await import('remark-rehype')).default
+  const rehypeKatex = (await import('rehype-katex')).default
+  const rehypeStringify = (await import('rehype-stringify')).default
   
   return {
-    remark: remarkModule.remark,
-    remarkGfm: remarkGfmModule.default,
-    remarkHtml: remarkHtmlModule.default
+    unified,
+    remarkParse,
+    remarkGfm,
+    remarkMath,
+    remarkRehype,
+    rehypeKatex,
+    rehypeStringify
   }
 }
 
 export async function renderMarkdownToHtml(markdown: string): Promise<string> {
-  // Load remark modules dynamically
-  const { remark, remarkGfm, remarkHtml } = await loadRemarkModules()
+  const { unified, remarkParse, remarkGfm, remarkMath, remarkRehype, rehypeKatex, rehypeStringify } = await loadRemarkModules()
   
   markdown = markdown.replace(/\[([^\]]+)\]\(https?:\/\/[^)]+\)/g, '$1')
   markdown = markdown.replace(/\[([^\]]+)\]\(www\.[^)]+\)/g, '$1')
@@ -25,9 +32,13 @@ export async function renderMarkdownToHtml(markdown: string): Promise<string> {
     return url.replace(/^www\./, '')
   })
   
-  const processor = remark()
+  const processor = unified()
+    .use(remarkParse)
     .use(remarkGfm)
-    .use(remarkHtml, { sanitize: false })
+    .use(remarkMath)
+    .use(remarkRehype, { allowDangerousHtml: true })
+    .use(rehypeKatex)
+    .use(rehypeStringify, { allowDangerousHtml: true })
 
   const result = await processor.process(markdown)
   let html = String(result)

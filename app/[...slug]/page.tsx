@@ -7,6 +7,8 @@ import { renderMarkdownToHtml } from '@/lib/markdown-server'
 import Link from 'next/link'
 import ArticleContent from '../components/ArticleContent'
 import AnalyticsEvent from '../components/AnalyticsEvent'
+import { logNotFound } from '@/lib/not-found-logger'
+import { headers } from 'next/headers'
 
 interface PageProps {
   params: {
@@ -76,8 +78,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function WikiPage({ params }: PageProps) {
   const slug = params.slug.join('/')
+  const headersList = await headers()
+  const referer = headersList.get('referer') || undefined
+  const userAgent = headersList.get('user-agent') || undefined
   
   if (slug.includes('_next') || slug.includes('webpack') || slug.includes('hot-update') || slug.startsWith('.')) {
+    await logNotFound(slug, referer, userAgent)
     notFound()
   }
   
@@ -85,6 +91,7 @@ export default async function WikiPage({ params }: PageProps) {
     const mdcContent = await getPageMDC(slug)
 
     if (!mdcContent) {
+      await logNotFound(slug, referer, userAgent)
       notFound()
     }
 

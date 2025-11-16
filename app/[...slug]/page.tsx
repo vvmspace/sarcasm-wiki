@@ -18,10 +18,19 @@ interface PageProps {
 
 export const revalidate = 300 // Revalidate every 5 minutes to catch new articles
 
+function decodeSlug(slug: string): string {
+  try {
+    return decodeURIComponent(slug)
+  } catch {
+    return slug
+  }
+}
+
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const slug = params.slug.join('/')
+  const rawSlug = params.slug.join('/')
+  const slug = decodeSlug(rawSlug)
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://sarcasm.wiki'
-  const url = `${baseUrl}/${slug}`
+  const url = `${baseUrl}/${rawSlug}`
   
   try {
     const mdcContent = await getPageMDC(slug)
@@ -77,7 +86,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function WikiPage({ params }: PageProps) {
-  const slug = params.slug.join('/')
+  const rawSlug = params.slug.join('/')
+  const slug = decodeSlug(rawSlug)
   const headersList = await headers()
   const referer = headersList.get('referer') || undefined
   const userAgent = headersList.get('user-agent') || undefined
@@ -99,7 +109,7 @@ export default async function WikiPage({ params }: PageProps) {
     const title = metadata.title
     const htmlContent = await renderMarkdownToHtml(content)
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://sarcasm.wiki'
-    const url = `${baseUrl}/${slug}`
+    const url = `${baseUrl}/${rawSlug}`
 
     const structuredData = {
       '@context': 'https://schema.org',

@@ -63,7 +63,7 @@ async function rewriteChunk(chunk: string, isFirst: boolean = false, chunkIndex?
 }
 
 function isValidSlug(slug: string): boolean {
-  return /^[A-Za-z0-9_,-]+$/.test(slug)
+  return /^[A-Za-z0-9_,:\- ]+$/.test(slug)
 }
 
 export async function generateMiniArticle(slug: string): Promise<string | null> {

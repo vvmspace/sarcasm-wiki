@@ -6,13 +6,18 @@ import { parseMDC, generateMDC, generateMetadataFromContent, type MDCContent, ty
 
 const CONTENT_DIR = path.join(process.cwd(), 'content')
 
+function normalizeFileName(slug: string): string {
+  return slug.replace(/:/g, '_')
+}
+
 export async function getPageContent(slug: string, forceRefresh: boolean = false): Promise<string | null> {
   const mdcContent = await getPageMDC(slug, forceRefresh)
   return mdcContent?.content || null
 }
 
 export async function getPageMDC(slug: string, forceRefresh: boolean = false): Promise<MDCContent | null> {
-  const filePath = path.join(CONTENT_DIR, `${slug}.mdc`)
+  const fileName = normalizeFileName(slug)
+  const filePath = path.join(CONTENT_DIR, `${fileName}.mdc`)
 
   if (forceRefresh) {
     try {
@@ -64,7 +69,8 @@ async function fetchAndSaveContent(slug: string): Promise<MDCContent | null> {
       console.warn(`[CONTENT] No Wikipedia content found for: ${slug} (${wikiDuration}ms)`)
       
       // Check if slug is valid and generate mini article
-      if (/^[A-Za-z0-9_,-]+$/.test(slug)) {
+      // Allow Category: pages and other valid Wikipedia page names
+      if (/^[A-Za-z0-9_,:\- ]+$/.test(slug)) {
         console.log(`[CONTENT] Slug is valid, generating mini article for: ${slug}`)
         try {
           const generatedContent = await generateMiniArticle(slug)
@@ -79,7 +85,8 @@ async function fetchAndSaveContent(slug: string): Promise<MDCContent | null> {
           const finalContent = removeReferencesSection(generatedContent)
           
           let existingMetadata: ContentMetadata | null = null
-          const filePath = path.join(CONTENT_DIR, `${slug}.mdc`)
+          const fileName = normalizeFileName(slug)
+          const filePath = path.join(CONTENT_DIR, `${fileName}.mdc`)
           try {
             const existingContent = await fs.readFile(filePath, 'utf-8')
             existingMetadata = parseMDC(existingContent).metadata
@@ -147,7 +154,8 @@ async function fetchAndSaveContent(slug: string): Promise<MDCContent | null> {
     }
     
     let existingMetadata: ContentMetadata | null = null
-    const filePath = path.join(CONTENT_DIR, `${slug}.mdc`)
+    const fileName = normalizeFileName(slug)
+    const filePath = path.join(CONTENT_DIR, `${fileName}.mdc`)
     try {
       const existingContent = await fs.readFile(filePath, 'utf-8')
       existingMetadata = parseMDC(existingContent).metadata
@@ -195,7 +203,8 @@ function removeReferencesSection(content: string): string {
 
 async function saveContent(slug: string, metadata: ContentMetadata, content: string): Promise<void> {
   await fs.mkdir(CONTENT_DIR, { recursive: true })
-  const filePath = path.join(CONTENT_DIR, `${slug}.mdc`)
+  const fileName = normalizeFileName(slug)
+  const filePath = path.join(CONTENT_DIR, `${fileName}.mdc`)
   const mdcContent = generateMDC(metadata, content)
   await fs.writeFile(filePath, mdcContent, 'utf-8')
 }

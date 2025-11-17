@@ -5,6 +5,8 @@ import { rewriteContent, generateMiniArticle } from './rewrite'
 import { parseMDC, generateMDC, generateMetadataFromContent, type MDCContent, type ContentMetadata } from './mdc'
 
 const CONTENT_DIR = path.join(process.cwd(), 'content')
+const CACHE_DIR = path.join(process.cwd(), '.temp')
+const LATEST_ARTICLES_CACHE = path.join(CACHE_DIR, 'latest-articles.json')
 
 function normalizeFileName(slug: string): string {
   return slug.replace(/:/g, '_')
@@ -31,25 +33,18 @@ export async function getPageMDC(slug: string, forceRefresh: boolean = false): P
   try {
     const mdcContent = await fs.readFile(filePath, 'utf-8')
     if (mdcContent.trim().length < 50) {
-      return await fetchAndSaveContent(slug)
+      return null
     }
     
     try {
       return parseMDC(mdcContent)
     } catch (error) {
-      console.warn(`Invalid MDC format for ${slug}, regenerating...`)
-      return await fetchAndSaveContent(slug)
+      console.warn(`Invalid MDC format for ${slug}, will be regenerated via queue`)
+      return null
     }
   } catch (error) {
     if ((error as NodeJS.ErrnoException).code === 'ENOENT') {
-      try {
-        return await fetchAndSaveContent(slug)
-      } catch (fetchError: any) {
-        if (fetchError.message === 'RATE_LIMIT_EXCEEDED') {
-          throw fetchError
-        }
-        throw error
-      }
+      return null
     }
     throw error
   }
@@ -207,6 +202,19 @@ async function saveContent(slug: string, metadata: ContentMetadata, content: str
   const filePath = path.join(CONTENT_DIR, `${fileName}.mdc`)
   const mdcContent = generateMDC(metadata, content)
   await fs.writeFile(filePath, mdcContent, 'utf-8')
+  
+  try {
+    await updateLatestArticlesCache(metadata, 7)
+  } catch (error) {
+    console.error('Error updating latest articles cache:', error)
+  }
+  
+  try {
+    const { updateStats } = await import('./queue')
+    await updateStats(slug)
+  } catch (error) {
+    console.error('Error updating stats after save:', error)
+  }
 }
 
 export async function getAllArticles(): Promise<ContentMetadata[]> {
@@ -245,15 +253,165 @@ export async function getAllArticles(): Promise<ContentMetadata[]> {
   }
 }
 
+export async function countArticles(): Promise<number> {
+  try {
+    await fs.mkdir(CONTENT_DIR, { recursive: true })
+    const files = await fs.readdir(CONTENT_DIR)
+    const mdcFiles = files.filter(file => file.endsWith('.mdc'))
+    return mdcFiles.length
+  } catch (error) {
+    console.error('Error counting articles:', error)
+    return 0
+  }
+}
+
+async function parseMetadataOnly(filePath: string, fileName: string): Promise<ContentMetadata | null> {
+  try {
+    const fileHandle = await fs.open(filePath, 'r')
+    const buffer = Buffer.alloc(2048)
+    const { bytesRead } = await fileHandle.read(buffer, 0, 2048, 0)
+    await fileHandle.close()
+    
+    const content = buffer.toString('utf-8', 0, bytesRead)
+    const frontmatterMatch = content.match(/^---\s*\n([\s\S]*?)\n---/)
+    
+    if (!frontmatterMatch) {
+      return null
+    }
+    
+    const frontmatter = frontmatterMatch[1]
+    const metadata: Partial<ContentMetadata> = {}
+    const lines = frontmatter.split('\n')
+    
+    for (const line of lines) {
+      const colonIndex = line.indexOf(':')
+      if (colonIndex === -1) continue
+      
+      const key = line.substring(0, colonIndex).trim()
+      let value = line.substring(colonIndex + 1).trim()
+      
+      if (value.startsWith('"') && value.endsWith('"')) {
+        value = value.slice(1, -1)
+      } else if (value.startsWith("'") && value.endsWith("'")) {
+        value = value.slice(1, -1)
+      }
+      
+      if (key === 'keywords') {
+        metadata.keywords = value.split(',').map(k => k.trim()).filter(k => k.length > 0)
+      } else if (key === 'title') {
+        metadata.title = value
+      } else if (key === 'description') {
+        metadata.description = value
+      } else if (key === 'slug') {
+        metadata.slug = value
+      } else if (key === 'createdAt') {
+        metadata.createdAt = value
+      } else if (key === 'updatedAt') {
+        metadata.updatedAt = value
+      } else if (key === 'contentType') {
+        if (value === 'rewritten' || value === 'created') {
+          metadata.contentType = value
+        }
+      }
+    }
+    
+    if (!metadata.title || !metadata.description) {
+      return null
+    }
+    
+    if (!metadata.slug) {
+      const baseFileName = fileName.replace('.mdc', '')
+      if (baseFileName.startsWith('Category_')) {
+        metadata.slug = baseFileName.replace(/^Category_/, 'Category:')
+      } else {
+        metadata.slug = baseFileName
+      }
+    }
+    
+    return metadata as ContentMetadata
+  } catch (error) {
+    return null
+  }
+}
+
+async function updateLatestArticlesCache(newArticle: ContentMetadata, limit: number = 7): Promise<void> {
+  try {
+    await fs.mkdir(CACHE_DIR, { recursive: true })
+    
+    let cached: ContentMetadata[] = []
+    try {
+      const content = await fs.readFile(LATEST_ARTICLES_CACHE, 'utf-8')
+      cached = JSON.parse(content)
+    } catch {
+      // Cache doesn't exist, start fresh
+    }
+    
+    const existingIndex = cached.findIndex(a => a.slug === newArticle.slug)
+    if (existingIndex >= 0) {
+      cached.splice(existingIndex, 1)
+    }
+    
+    cached.unshift(newArticle)
+    cached = cached.slice(0, limit)
+    
+    await fs.writeFile(LATEST_ARTICLES_CACHE, JSON.stringify(cached, null, 2), 'utf-8')
+  } catch (error) {
+    console.error('Error updating latest articles cache:', error)
+  }
+}
+
 export async function getLatestArticles(limit: number = 7): Promise<ContentMetadata[]> {
-  const articles = await getAllArticles()
-  
-  articles.sort((a, b) => {
-    const dateA = a.updatedAt || a.createdAt || '0'
-    const dateB = b.updatedAt || b.createdAt || '0'
-    return dateB.localeCompare(dateA)
-  })
-  
-  return articles.slice(0, limit)
+  try {
+    await fs.mkdir(CACHE_DIR, { recursive: true })
+    
+    let cached: ContentMetadata[] = []
+    try {
+      const content = await fs.readFile(LATEST_ARTICLES_CACHE, 'utf-8')
+      cached = JSON.parse(content)
+    } catch {
+      // Cache doesn't exist, need to rebuild
+    }
+    
+    if (cached.length > 0) {
+      return cached.slice(0, limit)
+    }
+    
+    // Cache is empty, rebuild from files
+    await fs.mkdir(CONTENT_DIR, { recursive: true })
+    const files = await fs.readdir(CONTENT_DIR)
+    const mdcFiles = files.filter(file => file.endsWith('.mdc'))
+    
+    const articlesWithDates: Array<{ metadata: ContentMetadata, date: string }> = []
+    
+    for (const file of mdcFiles) {
+      try {
+        const filePath = path.join(CONTENT_DIR, file)
+        const metadata = await parseMetadataOnly(filePath, file)
+        
+        if (metadata) {
+          const date = metadata.updatedAt || metadata.createdAt || '0'
+          articlesWithDates.push({ metadata, date })
+        }
+      } catch (error) {
+        console.warn(`Failed to parse metadata from ${file}:`, error)
+      }
+    }
+    
+    articlesWithDates.sort((a, b) => b.date.localeCompare(a.date))
+    
+    const latest = articlesWithDates.slice(0, limit).map(item => item.metadata)
+    
+    // Save to cache
+    try {
+      await fs.writeFile(LATEST_ARTICLES_CACHE, JSON.stringify(latest, null, 2), 'utf-8')
+    } catch (error) {
+      console.error('Error saving latest articles cache:', error)
+    }
+    
+    return latest
+  } catch (error) {
+    console.error('Error getting latest articles:', error)
+    return []
+  }
 }
 

@@ -19,7 +19,8 @@ interface PageProps {
   }
 }
 
-export const revalidate = 300 // Revalidate every 5 minutes to catch new articles
+export const dynamicParams = true
+export const revalidate = false
 
 function decodeSlug(slug: string): string {
   try {
@@ -112,18 +113,14 @@ export default async function WikiPage({ params }: PageProps) {
         const added = await addToQueue(slug)
         if (added) {
           console.log(`[PAGE] Added ${slug} to generation queue`)
-          return <QueuedPage slug={slug} title={title} />
         }
-      } else {
-        return <QueuedPage slug={slug} title={title} />
       }
       
-      await logNotFound(slug, referer, userAgent)
-      notFound()
+      return <QueuedPage slug={slug} title={title} />
     }
 
     const { content, metadata } = mdcContent
-    const title = metadata.title
+    const pageTitle = metadata.title
     const htmlContent = await renderMarkdownToHtml(content)
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://sarcasm.wiki'
     const url = `${baseUrl}/${rawSlug}`
@@ -131,7 +128,7 @@ export default async function WikiPage({ params }: PageProps) {
     const structuredData = {
       '@context': 'https://schema.org',
       '@type': 'Article',
-      headline: title,
+      headline: pageTitle,
       description: metadata.description,
       url: url,
       datePublished: metadata.createdAt,
@@ -178,7 +175,7 @@ export default async function WikiPage({ params }: PageProps) {
             ← Back to home
           </Link>
         </div>
-        <h1>{title}</h1>
+        <h1>{pageTitle}</h1>
         <article 
           style={{ 
             marginTop: '2rem',

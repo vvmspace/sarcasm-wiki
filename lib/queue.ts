@@ -13,6 +13,7 @@ interface QueueItem {
 interface GenerationStats {
   inStack: number
   generated: number
+  lastGenerated?: string
 }
 
 async function ensureQueueDir(): Promise<void> {
@@ -33,6 +34,7 @@ export async function addToQueue(slug: string): Promise<boolean> {
     
     const exists = queue.some(item => item.slug === slug)
     if (exists) {
+      console.log(`[QUEUE] Slug ${slug} already in queue, skipping`)
       return false
     }
     
@@ -42,7 +44,19 @@ export async function addToQueue(slug: string): Promise<boolean> {
     })
     
     await fs.writeFile(QUEUE_FILE, JSON.stringify(queue, null, 2), 'utf-8')
-    await updateStats()
+    
+    console.log(`[QUEUE] Added ${slug} to queue. Queue size: ${queue.length}`)
+    console.log(`[QUEUE] Queue after addition: [${queue.map(item => item.slug).join(', ')}]`)
+    
+    let stats: GenerationStats = { inStack: 0, generated: 0 }
+    try {
+      const content = await fs.readFile(STATS_FILE, 'utf-8')
+      stats = JSON.parse(content)
+    } catch {
+      // File doesn't exist, will be created by updateStats
+    }
+    stats.inStack = queue.length
+    await fs.writeFile(STATS_FILE, JSON.stringify(stats, null, 2), 'utf-8')
     
     return true
   } catch (error) {
@@ -64,12 +78,29 @@ export async function getNextFromQueue(): Promise<string | null> {
     }
     
     if (queue.length === 0) {
+      console.log('[QUEUE] Queue is empty')
       return null
     }
     
+    console.log(`[QUEUE] Getting next from queue. Queue before removal (${queue.length} items): [${queue.map(item => item.slug).join(', ')}]`)
+    
     const item = queue.shift()!
     await fs.writeFile(QUEUE_FILE, JSON.stringify(queue, null, 2), 'utf-8')
-    await updateStats()
+    
+    console.log(`[QUEUE] Removed ${item.slug} from queue. Queue after removal (${queue.length} items): [${queue.map(item => item.slug).join(', ')}]`)
+    
+    let stats: GenerationStats = { inStack: 0, generated: 0 }
+    try {
+      const content = await fs.readFile(STATS_FILE, 'utf-8')
+      stats = JSON.parse(content)
+    } catch {
+      // File doesn't exist, will be created by updateStats
+    }
+    stats.inStack = queue.length
+    if (stats.lastGenerated) {
+      // Preserve lastGenerated when updating inStack
+    }
+    await fs.writeFile(STATS_FILE, JSON.stringify(stats, null, 2), 'utf-8')
     
     return item.slug
   } catch (error) {
@@ -116,22 +147,34 @@ export async function isInQueue(slug: string): Promise<boolean> {
   }
 }
 
-async function updateStats(): Promise<void> {
+export async function updateStats(lastGeneratedSlug?: string): Promise<void> {
   try {
     await ensureQueueDir()
     
     const inStack = await getQueueLength()
     
+    let stats: GenerationStats = { inStack: 0, generated: 0 }
+    try {
+      const content = await fs.readFile(STATS_FILE, 'utf-8')
+      stats = JSON.parse(content)
+    } catch {
+      // File doesn't exist, start with defaults
+    }
+    
     let generated = 0
     try {
-      const { getAllArticles } = await import('./content')
-      const articles = await getAllArticles()
-      generated = articles.length
+      const { countArticles } = await import('./content')
+      generated = await countArticles()
     } catch (error) {
       console.error('Error counting articles:', error)
     }
     
-    const stats: GenerationStats = { inStack, generated }
+    stats.inStack = inStack
+    stats.generated = generated
+    if (lastGeneratedSlug) {
+      stats.lastGenerated = lastGeneratedSlug
+    }
+    
     await fs.writeFile(STATS_FILE, JSON.stringify(stats, null, 2), 'utf-8')
   } catch (error) {
     console.error('Error updating stats:', error)
@@ -139,25 +182,7 @@ async function updateStats(): Promise<void> {
 }
 
 export async function incrementGenerated(): Promise<void> {
-  try {
-    await ensureQueueDir()
-    
-    const inStack = await getQueueLength()
-    
-    let generated = 0
-    try {
-      const { getAllArticles } = await import('./content')
-      const articles = await getAllArticles()
-      generated = articles.length
-    } catch (error) {
-      console.error('Error counting articles:', error)
-    }
-    
-    const stats: GenerationStats = { inStack, generated }
-    await fs.writeFile(STATS_FILE, JSON.stringify(stats, null, 2), 'utf-8')
-  } catch (error) {
-    console.error('Error updating generated count:', error)
-  }
+  await updateStats()
 }
 
 export async function getStats(): Promise<GenerationStats> {
@@ -166,16 +191,39 @@ export async function getStats(): Promise<GenerationStats> {
     
     const inStack = await getQueueLength()
     
-    let generated = 0
+    let stats: GenerationStats = { inStack: 0, generated: 0 }
     try {
-      const { getAllArticles } = await import('./content')
-      const articles = await getAllArticles()
-      generated = articles.length
-    } catch (error) {
-      console.error('Error counting articles:', error)
+      const content = await fs.readFile(STATS_FILE, 'utf-8')
+      stats = JSON.parse(content)
+    } catch {
+      await updateStats()
+      try {
+        const content = await fs.readFile(STATS_FILE, 'utf-8')
+        stats = JSON.parse(content)
+      } catch {
+        return { inStack: 0, generated: 0 }
+      }
     }
     
-    return { inStack, generated }
+    stats.inStack = inStack
+    
+    if (stats.generated === 0 || !stats.lastGenerated) {
+      try {
+        const { countArticles, getLatestArticles } = await import('./content')
+        stats.generated = await countArticles()
+        
+        if (stats.generated > 0 && !stats.lastGenerated) {
+          const latestArticles = await getLatestArticles(1)
+          if (latestArticles.length > 0) {
+            stats.lastGenerated = latestArticles[0].slug
+          }
+        }
+      } catch (error) {
+        console.error('Error getting articles for stats:', error)
+      }
+    }
+    
+    return stats
   } catch (error) {
     console.error('Error getting stats:', error)
     return { inStack: 0, generated: 0 }

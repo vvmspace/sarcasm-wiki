@@ -1,15 +1,17 @@
-import { getNextFromQueue, incrementGenerated } from './queue'
+import { getNextFromQueue, addToQueue } from './queue'
 import { getPageMDC } from './content'
 
 let isProcessing = false
 let intervalId: NodeJS.Timeout | null = null
+let isStarted = false
 
 export function startQueueProcessor(): void {
-  if (intervalId) {
+  if (intervalId || isStarted) {
     return
   }
   
-  console.log('[QUEUE PROCESSOR] Starting queue processor (1 minute interval)')
+  isStarted = true
+  console.log('[QUEUE PROCESSOR] Starting queue processor (45 seconds interval)')
   
   intervalId = setInterval(async () => {
     if (isProcessing) {
@@ -34,7 +36,6 @@ export function startQueueProcessor(): void {
         const mdcContent = await getPageMDC(slug, true)
         
         if (mdcContent) {
-          await incrementGenerated()
           console.log(`[QUEUE PROCESSOR] Successfully generated: ${slug}`)
         } else {
           console.warn(`[QUEUE PROCESSOR] Failed to generate: ${slug}`)
@@ -53,13 +54,14 @@ export function startQueueProcessor(): void {
     } finally {
       isProcessing = false
     }
-  }, 60 * 1000)
+  }, 45 * 1000)
 }
 
 export function stopQueueProcessor(): void {
   if (intervalId) {
     clearInterval(intervalId)
     intervalId = null
+    isStarted = false
     console.log('[QUEUE PROCESSOR] Stopped')
   }
 }

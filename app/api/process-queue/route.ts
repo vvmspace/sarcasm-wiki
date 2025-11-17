@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { getNextFromQueue, incrementGenerated } from '@/lib/queue'
+import { getNextFromQueue, addToQueue } from '@/lib/queue'
 import { getPageMDC } from '@/lib/content'
 
 export async function POST() {
@@ -16,7 +16,6 @@ export async function POST() {
       const mdcContent = await getPageMDC(slug, true)
       
       if (mdcContent) {
-        await incrementGenerated()
         console.log(`[QUEUE] Successfully generated: ${slug}`)
         return NextResponse.json({ 
           success: true, 
@@ -34,7 +33,6 @@ export async function POST() {
     } catch (error: any) {
       if (error.message === 'RATE_LIMIT_EXCEEDED') {
         console.log(`[QUEUE] Rate limit exceeded for: ${slug}, re-adding to queue`)
-        const { addToQueue } = await import('@/lib/queue')
         await addToQueue(slug)
         return NextResponse.json({ 
           success: false, 

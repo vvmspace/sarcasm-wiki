@@ -1,35 +1,10 @@
-'use client'
+import { getStats } from '@/lib/queue'
+import Link from 'next/link'
 
-import { useEffect, useState } from 'react'
+export const revalidate = 60
 
-export default function QueueStatus() {
-  const [stats, setStats] = useState({ inStack: 0, generated: 0 })
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    const fetchStats = async () => {
-      try {
-        const response = await fetch('/api/queue-stats')
-        if (response.ok) {
-          const data = await response.json()
-          setStats(data)
-        }
-      } catch (error) {
-        console.error('Error fetching queue stats:', error)
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    fetchStats()
-    const interval = setInterval(fetchStats, 5000)
-    
-    return () => clearInterval(interval)
-  }, [])
-
-  if (loading) {
-    return null
-  }
+export default async function QueueStatus() {
+  const stats = await getStats()
 
   return (
     <footer style={{
@@ -40,13 +15,27 @@ export default function QueueStatus() {
       fontSize: '0.9rem',
       color: '#666'
     }}>
-      <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', flexWrap: 'wrap' }}>
+      <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', flexWrap: 'wrap', alignItems: 'center' }}>
         <span>
           <strong>In stack:</strong> {stats.inStack}
         </span>
         <span>
           <strong>Generated:</strong> {stats.generated}
         </span>
+        {stats.lastGenerated && (
+          <span>
+            <strong>Last:</strong>{' '}
+            <Link
+              href={`/${encodeURIComponent(stats.lastGenerated)}`}
+              style={{
+                color: '#0066cc',
+                textDecoration: 'none'
+              }}
+            >
+              {stats.lastGenerated.replace(/_/g, ' ')}
+            </Link>
+          </span>
+        )}
       </div>
     </footer>
   )

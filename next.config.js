@@ -16,6 +16,7 @@ const nextConfig = {
           '**/logs/**',
           '**/test-results/**',
           '**/playwright-report/**',
+          '**/.temp/**',
         ],
       }
     }

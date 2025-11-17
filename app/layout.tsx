@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Script from 'next/script'
 import 'katex/dist/katex.min.css'
 import './globals.css'
+import QueueStatus from './components/QueueStatus'
 
 export const metadata: Metadata = {
   title: 'Sarcasm Wiki',
@@ -29,6 +30,7 @@ export default function RootLayout({
           `}
         </Script>
         {children}
+        <QueueStatus />
       </body>
     </html>
   )

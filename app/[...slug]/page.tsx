@@ -2,13 +2,16 @@ import { notFound } from 'next/navigation'
 import { getPageMDC } from '@/lib/content'
 import type { Metadata } from 'next'
 import RateLimitPage from '../components/RateLimitPage'
+import QueuedPage from '../components/QueuedPage'
 import { getRateLimitInfo } from '@/lib/rate-limit'
 import { renderMarkdownToHtml } from '@/lib/markdown-server'
 import Link from 'next/link'
 import ArticleContent from '../components/ArticleContent'
 import AnalyticsEvent from '../components/AnalyticsEvent'
 import { logNotFound } from '@/lib/not-found-logger'
+import { addToQueue, isInQueue } from '@/lib/queue'
 import { headers } from 'next/headers'
+import '@/lib/queue-init'
 
 interface PageProps {
   params: {
@@ -101,6 +104,20 @@ export default async function WikiPage({ params }: PageProps) {
     const mdcContent = await getPageMDC(slug)
 
     if (!mdcContent) {
+      const inQueue = await isInQueue(slug)
+      
+      const title = slug.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())
+      
+      if (!inQueue) {
+        const added = await addToQueue(slug)
+        if (added) {
+          console.log(`[PAGE] Added ${slug} to generation queue`)
+          return <QueuedPage slug={slug} title={title} />
+        }
+      } else {
+        return <QueuedPage slug={slug} title={title} />
+      }
+      
       await logNotFound(slug, referer, userAgent)
       notFound()
     }

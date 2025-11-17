@@ -222,6 +222,16 @@ export async function getAllArticles(): Promise<ContentMetadata[]> {
         const filePath = path.join(CONTENT_DIR, file)
         const content = await fs.readFile(filePath, 'utf-8')
         const parsed = parseMDC(content)
+        
+        if (!parsed.metadata.slug) {
+          const fileName = file.replace('.mdc', '')
+          if (fileName.startsWith('Category_')) {
+            parsed.metadata.slug = fileName.replace(/^Category_/, 'Category:')
+          } else {
+            parsed.metadata.slug = fileName
+          }
+        }
+        
         articles.push(parsed.metadata)
       } catch (error) {
         console.warn(`Failed to parse ${file}:`, error)

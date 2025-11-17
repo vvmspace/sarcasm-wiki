@@ -4,11 +4,21 @@ import { checkAndStartGeneration } from './rate-limit'
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '')
 
-async function rewriteChunk(chunk: string, isFirst: boolean = false, chunkIndex?: number, totalChunks?: number, useFlash: boolean = false): Promise<string> {
+const MODELS = [
+  'gemini-2.5-flash',
+  'gemini-2.5-flash-lite',
+  'gemini-2.5-pro'
+]
+
+function getRandomModel(): string {
+  return MODELS[Math.floor(Math.random() * MODELS.length)]
+}
+
+async function rewriteChunk(chunk: string, isFirst: boolean = false, chunkIndex?: number, totalChunks?: number, retryModel?: string): Promise<string> {
   const startTime = Date.now()
   const chunkInfo = totalChunks ? `[${chunkIndex}/${totalChunks}]` : ''
   const chunkType = isFirst ? 'first' : 'subsequent'
-  const modelName = useFlash ? 'gemini-2.5-flash' : 'gemini-2.5-flash-lite'
+  const modelName = retryModel || getRandomModel()
   
   console.log(`[REWRITE] Starting chunk rewrite ${chunkInfo} (${chunkType}, ${chunk.length} chars, model: ${modelName})`)
   
@@ -52,10 +62,11 @@ async function rewriteChunk(chunk: string, isFirst: boolean = false, chunkIndex?
     const totalDuration = Date.now() - startTime
     console.error(`[REWRITE] ERROR ${chunkInfo} with ${modelName} after ${totalDuration}ms:`, error?.status || error?.message || error)
     
-    // If 503 error and we haven't tried flash model yet, retry with flash
-    if (error?.status === 503 && !useFlash) {
-      console.log(`[REWRITE] 503 error with ${modelName}, retrying with gemini-2.5-flash...`)
-      return await rewriteChunk(chunk, isFirst, chunkIndex, totalChunks, true)
+    // If 503 error, retry with a different random model
+    if (error?.status === 503 && !retryModel) {
+      const retryModelName = getRandomModel()
+      console.log(`[REWRITE] 503 error with ${modelName}, retrying with ${retryModelName}...`)
+      return await rewriteChunk(chunk, isFirst, chunkIndex, totalChunks, retryModelName)
     }
     
     throw error
@@ -92,7 +103,7 @@ export async function generateMiniArticle(slug: string): Promise<string | null> 
     
     console.log(`[GENERATE] Prompts loaded (system: ${systemPrompt.length} chars, user: ${userPrompt.length} chars)`)
 
-    const modelName = 'gemini-2.5-flash-lite'
+    const modelName = getRandomModel()
     const model = genAI.getGenerativeModel({ 
       model: modelName,
       systemInstruction: systemPrompt,
@@ -123,16 +134,17 @@ export async function generateMiniArticle(slug: string): Promise<string | null> 
     const totalDuration = Date.now() - startTime
     console.error(`[GENERATE] ERROR after ${totalDuration}ms for: ${slug}:`, error?.status || error?.message || error)
     
-    // If 503 error, try with flash model
+    // If 503 error, try with a different random model
     if (error?.status === 503) {
-      console.log(`[GENERATE] 503 error with lite model, retrying with gemini-2.5-flash...`)
+      const retryModelName = getRandomModel()
+      console.log(`[GENERATE] 503 error, retrying with ${retryModelName}...`)
       try {
         const title = slug.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())
         const systemPrompt = await getSystemPrompt(true)
         const userPrompt = `Create a comprehensive Wikipedia-style article about "${title}" in your style. The article should be informative, engaging, and at least 2000-3000 characters long. Include multiple sections with headings (##), detailed explanations, and CRITICAL: Include AT LEAST 10-15 internal links to related topics throughout the article in Markdown format [text](/article_name). Every section should have multiple internal links. Links should be natural and relevant to the content. Examples of linkable terms: related concepts, historical figures, places, technologies, theories, etc. Write in the same sarcastic, witty style as Emma. Make it substantial and well-structured. Return ONLY the article content in Markdown format with internal links.`
         
         const model = genAI.getGenerativeModel({ 
-          model: 'gemini-2.5-flash',
+          model: retryModelName,
           systemInstruction: systemPrompt,
           generationConfig: {
             temperature: 0.7,
@@ -147,7 +159,7 @@ export async function generateMiniArticle(slug: string): Promise<string | null> 
           throw new Error('Empty or too short response from API')
         }
         
-        console.log(`[GENERATE] Mini article generation completed with flash model for: ${slug} (${text.length} chars)`)
+        console.log(`[GENERATE] Mini article generation completed with ${retryModelName} for: ${slug} (${text.length} chars)`)
         return text
       } catch (retryError: any) {
         console.error(`[GENERATE] ERROR on retry:`, retryError?.status || retryError?.message || retryError)

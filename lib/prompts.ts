@@ -38,7 +38,7 @@ export async function getUserPrompt(content: string, isFirst: boolean = false): 
     if (!userFirstPrompt) {
       userFirstPrompt = await loadPrompt('user-first.md')
     }
-    return `${userFirstPrompt}\n\n${content}`
+    return `${userFirstPrompt}\n\n${content}\n\nArticle:`
   } else {
     if (!userContinuePrompt) {
       userContinuePrompt = await loadPrompt('user-continue.md')

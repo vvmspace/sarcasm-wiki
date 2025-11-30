@@ -1,17 +1,21 @@
 import { startQueueProcessor } from './queue-processor'
 
-let initialized = false
+declare global {
+  var __queueProcessorInitialized: boolean | undefined
+}
 
 export function initQueueProcessor(): void {
-  if (initialized) {
+  if (typeof window !== 'undefined') {
     return
   }
   
-  if (typeof window === 'undefined') {
-    startQueueProcessor()
-    initialized = true
-    console.log('[QUEUE INIT] Queue processor initialized')
+  if (global.__queueProcessorInitialized) {
+    return
   }
+  
+  startQueueProcessor()
+  global.__queueProcessorInitialized = true
+  console.log('[QUEUE INIT] Queue processor initialized')
 }
 
 if (typeof window === 'undefined') {

@@ -1,19 +1,22 @@
 import { getNextFromQueue, addToQueue } from './queue'
 import { getPageMDC } from './content'
 
+declare global {
+  var __queueProcessorIntervalId: NodeJS.Timeout | null | undefined
+  var __queueProcessorStarted: boolean | undefined
+}
+
 let isProcessing = false
-let intervalId: NodeJS.Timeout | null = null
-let isStarted = false
 
 export function startQueueProcessor(): void {
-  if (intervalId || isStarted) {
+  if (global.__queueProcessorIntervalId || global.__queueProcessorStarted) {
     return
   }
   
-  isStarted = true
+  global.__queueProcessorStarted = true
   console.log('[QUEUE PROCESSOR] Starting queue processor (45 seconds interval)')
   
-  intervalId = setInterval(async () => {
+  global.__queueProcessorIntervalId = setInterval(async () => {
     if (isProcessing) {
       console.log('[QUEUE PROCESSOR] Already processing, skipping')
       return
@@ -33,7 +36,7 @@ export function startQueueProcessor(): void {
       console.log(`[QUEUE PROCESSOR] Processing: ${slug}`)
       
       try {
-        const mdcContent = await getPageMDC(slug, true)
+        const mdcContent = await getPageMDC(slug, true, true)
         
         if (mdcContent) {
           console.log(`[QUEUE PROCESSOR] Successfully generated: ${slug}`)
@@ -43,7 +46,6 @@ export function startQueueProcessor(): void {
       } catch (error: any) {
         if (error.message === 'RATE_LIMIT_EXCEEDED') {
           console.log(`[QUEUE PROCESSOR] Rate limit exceeded for: ${slug}, re-adding to queue`)
-          const { addToQueue } = await import('./queue')
           await addToQueue(slug)
         } else {
           console.error(`[QUEUE PROCESSOR] Error processing ${slug}:`, error)
@@ -58,10 +60,10 @@ export function startQueueProcessor(): void {
 }
 
 export function stopQueueProcessor(): void {
-  if (intervalId) {
-    clearInterval(intervalId)
-    intervalId = null
-    isStarted = false
+  if (global.__queueProcessorIntervalId) {
+    clearInterval(global.__queueProcessorIntervalId)
+    global.__queueProcessorIntervalId = null
+    global.__queueProcessorStarted = false
     console.log('[QUEUE PROCESSOR] Stopped')
   }
 }

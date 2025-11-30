@@ -77,7 +77,7 @@ function isValidSlug(slug: string): boolean {
   return /^[A-Za-z0-9_,:\- ]+$/.test(slug)
 }
 
-export async function generateMiniArticle(slug: string): Promise<string | null> {
+export async function generateMiniArticle(slug: string, waitForLock: boolean = false): Promise<string | null> {
   const startTime = Date.now()
   console.log(`[GENERATE] Starting mini article generation for: ${slug}`)
   
@@ -88,7 +88,7 @@ export async function generateMiniArticle(slug: string): Promise<string | null> 
 
   if (slug) {
     console.log(`[GENERATE] Checking rate limit for: ${slug}`)
-    const canGenerate = await checkAndStartGeneration(slug)
+    const canGenerate = await checkAndStartGeneration(slug, waitForLock)
     if (!canGenerate) {
       console.log(`[GENERATE] Rate limit exceeded for: ${slug}`)
       throw new Error('RATE_LIMIT_EXCEEDED')
@@ -175,7 +175,7 @@ export async function generateMiniArticle(slug: string): Promise<string | null> 
   }
 }
 
-export async function rewriteContent(content: string, links?: Map<string, string>, slug?: string): Promise<string | null> {
+export async function rewriteContent(content: string, links?: Map<string, string>, slug?: string, waitForLock: boolean = false): Promise<string | null> {
   const startTime = Date.now()
   console.log(`[REWRITE] Starting content rewrite for: ${slug || 'unknown'} (${content.length} chars, ${links?.size || 0} links)`)
   
@@ -191,7 +191,7 @@ export async function rewriteContent(content: string, links?: Map<string, string
 
   if (slug) {
     console.log(`[REWRITE] Checking rate limit for: ${slug}`)
-    const canGenerate = await checkAndStartGeneration(slug)
+    const canGenerate = await checkAndStartGeneration(slug, waitForLock)
     if (!canGenerate) {
       console.log(`[REWRITE] Rate limit exceeded for: ${slug}`)
       throw new Error('RATE_LIMIT_EXCEEDED')

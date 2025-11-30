@@ -17,7 +17,7 @@ export async function getPageContent(slug: string, forceRefresh: boolean = false
   return mdcContent?.content || null
 }
 
-export async function getPageMDC(slug: string, forceRefresh: boolean = false): Promise<MDCContent | null> {
+export async function getPageMDC(slug: string, forceRefresh: boolean = false, waitForLock: boolean = false): Promise<MDCContent | null> {
   const fileName = normalizeFileName(slug)
   const filePath = path.join(CONTENT_DIR, `${fileName}.mdc`)
 
@@ -27,7 +27,7 @@ export async function getPageMDC(slug: string, forceRefresh: boolean = false): P
     } catch (error) {
       // File doesn't exist, that's fine
     }
-    return await fetchAndSaveContent(slug)
+    return await fetchAndSaveContent(slug, waitForLock)
   }
 
   try {
@@ -50,7 +50,7 @@ export async function getPageMDC(slug: string, forceRefresh: boolean = false): P
   }
 }
 
-async function fetchAndSaveContent(slug: string): Promise<MDCContent | null> {
+async function fetchAndSaveContent(slug: string, waitForLock: boolean = false): Promise<MDCContent | null> {
   const startTime = Date.now()
   console.log(`[CONTENT] Starting content generation for: ${slug}`)
   
@@ -68,7 +68,7 @@ async function fetchAndSaveContent(slug: string): Promise<MDCContent | null> {
       if (/^[A-Za-z0-9_,:\- ]+$/.test(slug)) {
         console.log(`[CONTENT] Slug is valid, generating mini article for: ${slug}`)
         try {
-          const generatedContent = await generateMiniArticle(slug)
+          const generatedContent = await generateMiniArticle(slug, waitForLock)
           
           if (!generatedContent || generatedContent.trim().length < 200) {
             console.warn(`[CONTENT] Mini article generation failed or returned empty for: ${slug}`)
@@ -124,7 +124,7 @@ async function fetchAndSaveContent(slug: string): Promise<MDCContent | null> {
     try {
       console.log(`[CONTENT] Starting rewrite for: ${slug}`)
       const rewriteStartTime = Date.now()
-      rewrittenContent = await rewriteContent(wikipediaContent, links, slug)
+      rewrittenContent = await rewriteContent(wikipediaContent, links, slug, waitForLock)
       rewriteDuration = Date.now() - rewriteStartTime
       
       if (!rewrittenContent || rewrittenContent.trim().length < 50) {

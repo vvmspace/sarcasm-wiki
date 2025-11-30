@@ -7,23 +7,53 @@ const RATE_LIMIT_LOCK_FILE = path.join(RATE_LIMIT_DIR, 'global.lock')
 const RATE_LIMIT_DURATION = 60 * 1000
 const LOCK_RETRY_DELAY = 10
 const LOCK_MAX_RETRIES = 10
+const LOCK_TIMEOUT = 5 * 60 * 1000
 
-// Simple file-based lock to prevent race conditions
-async function acquireLock(): Promise<boolean> {
-  for (let attempt = 0; attempt < LOCK_MAX_RETRIES; attempt++) {
+async function isLockStale(): Promise<boolean> {
+  try {
+    const stats = await fs.stat(RATE_LIMIT_LOCK_FILE)
+    const age = Date.now() - stats.mtimeMs
+    return age > LOCK_TIMEOUT
+  } catch (error) {
+    return false
+  }
+}
+
+async function forceReleaseLock(): Promise<void> {
+  try {
+    await fs.unlink(RATE_LIMIT_LOCK_FILE)
+    console.log('Force released stale lock file')
+  } catch (error) {
+    // Lock file might not exist, that's fine
+  }
+}
+
+async function acquireLock(waitForRelease: boolean = false): Promise<boolean> {
+  const maxAttempts = waitForRelease ? 300 : LOCK_MAX_RETRIES
+  
+  for (let attempt = 0; attempt < maxAttempts; attempt++) {
     try {
       await fs.mkdir(RATE_LIMIT_DIR, { recursive: true })
-      // Try to create lock file with exclusive flag (O_EXCL)
+      
+      if (await isLockStale()) {
+        console.log('Lock file is stale, force releasing')
+        await forceReleaseLock()
+      }
+      
       const fd = await fs.open(RATE_LIMIT_LOCK_FILE, 'wx')
       await fd.close()
       return true
     } catch (error: any) {
       if (error.code === 'EEXIST') {
-        // Lock file exists, wait a bit and retry
-        await new Promise(resolve => setTimeout(resolve, LOCK_RETRY_DELAY))
-        continue
+        if (waitForRelease && attempt < maxAttempts - 1) {
+          await new Promise(resolve => setTimeout(resolve, LOCK_RETRY_DELAY))
+          continue
+        } else if (!waitForRelease) {
+          await new Promise(resolve => setTimeout(resolve, LOCK_RETRY_DELAY))
+          continue
+        }
+        return false
       }
-      // Other error, fail
       return false
     }
   }
@@ -38,7 +68,7 @@ async function releaseLock(): Promise<void> {
   }
 }
 
-export async function checkAndStartGeneration(slug: string): Promise<boolean> {
+export async function checkAndStartGeneration(slug: string, waitForLock: boolean = false): Promise<boolean> {
   try {
     if (slug.includes('_next') || slug.includes('webpack') || slug.includes('hot-update') || slug.startsWith('.')) {
       return false
@@ -46,10 +76,13 @@ export async function checkAndStartGeneration(slug: string): Promise<boolean> {
     
     await fs.mkdir(RATE_LIMIT_DIR, { recursive: true })
     
-    // Acquire lock to prevent race conditions
-    const lockAcquired = await acquireLock()
+    const lockAcquired = await acquireLock(waitForLock)
     if (!lockAcquired) {
-      console.log(`Rate limit BLOCKED: Could not acquire lock (another request is processing)`)
+      if (waitForLock) {
+        console.log(`Rate limit BLOCKED: Could not acquire lock after waiting (timeout)`)
+      } else {
+        console.log(`Rate limit BLOCKED: Could not acquire lock (another request is processing)`)
+      }
       return false
     }
     

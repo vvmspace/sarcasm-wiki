@@ -163,7 +163,7 @@ export default async function WikiPage({ params }: PageProps) {
         slug={slug}
       />
       <main style={{ padding: '2rem', maxWidth: '1200px', margin: '0 auto' }}>
-        <div style={{ marginBottom: '1rem' }}>
+        <div style={{ marginBottom: '1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <Link 
             href="/"
             style={{
@@ -174,6 +174,18 @@ export default async function WikiPage({ params }: PageProps) {
           >
             ← Back to home
           </Link>
+          {metadata.previousArticle && (
+            <Link
+              href={`/${encodeURIComponent(metadata.previousArticle.slug)}`}
+              style={{
+                color: '#0066cc',
+                textDecoration: 'none',
+                fontSize: '0.9rem'
+              }}
+            >
+              ← {metadata.previousArticle.title}
+            </Link>
+          )}
         </div>
         <h1>{pageTitle}</h1>
         <article 

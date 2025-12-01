@@ -198,6 +198,22 @@ function removeReferencesSection(content: string): string {
 
 async function saveContent(slug: string, metadata: ContentMetadata, content: string): Promise<void> {
   await fs.mkdir(CONTENT_DIR, { recursive: true })
+  
+  if (!metadata.previousArticle) {
+    try {
+      const latestArticles = await getLatestArticles(1)
+      if (latestArticles.length > 0 && latestArticles[0].slug !== slug) {
+        metadata.previousArticle = {
+          slug: latestArticles[0].slug,
+          title: latestArticles[0].title
+        }
+        console.log(`[CONTENT] Set previousArticle for ${slug}: ${metadata.previousArticle.slug} (${metadata.previousArticle.title})`)
+      }
+    } catch (error) {
+      console.warn(`[CONTENT] Could not get previous article for ${slug}:`, error)
+    }
+  }
+  
   const fileName = normalizeFileName(slug)
   const filePath = path.join(CONTENT_DIR, `${fileName}.mdc`)
   const mdcContent = generateMDC(metadata, content)

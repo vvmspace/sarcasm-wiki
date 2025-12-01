@@ -6,6 +6,10 @@ export interface ContentMetadata {
   createdAt?: string
   updatedAt?: string
   contentType?: 'rewritten' | 'created'
+  previousArticle?: {
+    slug: string
+    title: string
+  }
 }
 
 export interface MDCContent {
@@ -56,6 +60,30 @@ export function parseMDC(mdcContent: string): MDCContent {
       if (value === 'rewritten' || value === 'created') {
         metadata.contentType = value
       }
+    } else if (key === 'previousArticleSlug') {
+      if (!metadata.previousArticle) {
+        metadata.previousArticle = { slug: value, title: '' }
+      } else {
+        metadata.previousArticle.slug = value
+      }
+    } else if (key === 'previousArticleTitle') {
+      if (!metadata.previousArticle) {
+        metadata.previousArticle = { slug: '', title: value }
+      } else {
+        metadata.previousArticle.title = value
+      }
+    } else if (key === 'previousArticle') {
+      // Legacy format: just slug as string
+      try {
+        const parsed = JSON.parse(value)
+        if (parsed && typeof parsed === 'object' && parsed.slug && parsed.title) {
+          metadata.previousArticle = { slug: parsed.slug, title: parsed.title }
+        }
+      } catch {
+        if (value) {
+          metadata.previousArticle = { slug: value, title: value.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) }
+        }
+      }
     }
   }
   
@@ -70,19 +98,31 @@ export function parseMDC(mdcContent: string): MDCContent {
 }
 
 export function generateMDC(metadata: ContentMetadata, content: string): string {
-  const frontmatter = `---
-title: "${metadata.title}"
-description: "${metadata.description}"
-keywords: ${metadata.keywords.join(', ')}
-slug: "${metadata.slug}"
-${metadata.createdAt ? `createdAt: "${metadata.createdAt}"` : ''}
-${metadata.updatedAt ? `updatedAt: "${metadata.updatedAt}"` : ''}
-${metadata.contentType ? `contentType: "${metadata.contentType}"` : ''}
----
-
-${content}`
+  const lines: string[] = [
+    '---',
+    `title: "${metadata.title}"`,
+    `description: "${metadata.description}"`,
+    `keywords: ${metadata.keywords.join(', ')}`,
+    `slug: "${metadata.slug}"`
+  ]
   
-  return frontmatter
+  if (metadata.createdAt) {
+    lines.push(`createdAt: "${metadata.createdAt}"`)
+  }
+  if (metadata.updatedAt) {
+    lines.push(`updatedAt: "${metadata.updatedAt}"`)
+  }
+  if (metadata.contentType) {
+    lines.push(`contentType: "${metadata.contentType}"`)
+  }
+  if (metadata.previousArticle) {
+    lines.push(`previousArticleSlug: "${metadata.previousArticle.slug}"`)
+    lines.push(`previousArticleTitle: "${metadata.previousArticle.title}"`)
+  }
+  
+  lines.push('---', '', content)
+  
+  return lines.join('\n')
 }
 
 export function generateMetadataFromContent(slug: string, content: string, existingCreatedAt?: string): ContentMetadata {

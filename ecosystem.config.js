@@ -24,6 +24,24 @@ module.exports = {
       log_file: './logs/pm2-combined.log',
       time: true,
     },
+    {
+      name: 'health-check',
+      script: 'health-check.js',
+      cwd: './',
+      exec_mode: 'fork',
+      instances: 1,
+      autorestart: true,
+      watch: false,
+      env: {
+        PING_URL: process.env.PING_URL || 'https://sarcasm.wiki/',
+        PING_INTERVAL: process.env.PING_INTERVAL || '3600',
+        PM2_APP_NAME: 'sarcasm-wiki-dev',
+      },
+      error_file: './logs/health-check-error.log',
+      out_file: './logs/health-check-out.log',
+      log_file: './logs/health-check-combined.log',
+      time: true,
+    },
   ],
 };
 

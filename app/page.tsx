@@ -5,11 +5,15 @@ export const revalidate = 60
 
 export default async function Home() {
   const examples = [
+    'Sarcasm',
+    'Wikipedia',
     'Artificial_intelligence',
     'Machine_learning',
     'Quantum_computing',
     'Blockchain',
-    'Neural_network'
+    'Neural_network',
+    'Ebat_kolotit',
+    'Hue_moe'
   ]
 
   const latestArticles = await getLatestArticles(7)

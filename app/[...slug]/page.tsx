@@ -104,11 +104,16 @@ export default async function WikiPage({ params }: PageProps) {
 
     if (!mdcContent) {
       const inQueue = await isInQueue(slug)
-      if (!inQueue) {
+      const isValidSlug = /^[A-Za-z0-9_,:\- ]+$/.test(slug)
+      
+      if (!inQueue && isValidSlug) {
         await addToQueue(slug)
       }
-      // Instead of rendering here, we call notFound() to return 404 status code.
-      // The custom not-found.tsx will then use the same layout.
+      
+      if (!isValidSlug) {
+        await logNotFound(slug, referer, userAgent)
+      }
+      
       notFound()
     }
 

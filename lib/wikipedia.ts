@@ -155,8 +155,12 @@ export async function fetchWikipediaContent(title: string): Promise<{ content: s
     }
 
     return { content, links }
-  } catch (error) {
-    console.error('Error fetching Wikipedia content:', error)
+  } catch (error: any) {
+    console.error('Error fetching Wikipedia content:', {
+      title,
+      message: error?.message,
+      stack: error?.stack
+    })
     return null
   }
 }

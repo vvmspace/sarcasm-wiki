@@ -38,7 +38,7 @@ export async function addToQueue(slug: string): Promise<boolean> {
       return false
     }
     
-    queue.unshift({
+    queue.push({
       slug,
       addedAt: new Date().toISOString(),
     })

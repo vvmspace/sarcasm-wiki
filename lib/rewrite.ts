@@ -51,7 +51,7 @@ async function rewriteChunk(chunk: string, isFirst: boolean = false, chunkIndex?
     const text = response.text()
     
     if (!text || text.trim().length < 50) {
-      console.error(`[REWRITE] ERROR ${chunkInfo}: Empty or too short response (${text?.length || 0} chars)`)
+      console.error(`[REWRITE] ERROR ${chunkInfo}: Empty or too short response (${text?.length || 0} chars). Full response:`, JSON.stringify(response))
       throw new Error('Empty or too short response from API')
     }
     
@@ -132,7 +132,11 @@ export async function generateMiniArticle(slug: string, waitForLock: boolean = f
     return text
   } catch (error: any) {
     const totalDuration = Date.now() - startTime
-    console.error(`[GENERATE] ERROR after ${totalDuration}ms for: ${slug}:`, error?.status || error?.message || error)
+    console.error(`[GENERATE] ERROR after ${totalDuration}ms for: ${slug}:`, {
+      status: error?.status,
+      message: error?.message,
+      details: error?.response?.data || error?.response || 'No extra details'
+    })
     
     // If 503 error, try with a different random model
     if (error?.status === 503) {

@@ -178,7 +178,11 @@ async function fetchAndSaveContent(slug: string, waitForLock: boolean = false): 
       console.log(`[CONTENT] Rate limit exceeded for: ${slug} (${totalDuration}ms), throwing error`)
       throw error
     }
-    console.error(`[CONTENT] Error fetching and saving content for: ${slug} (${totalDuration}ms):`, error?.message || error)
+    console.error(`[CONTENT] Error fetching and saving content for: ${slug} (${totalDuration}ms):`, {
+      message: error?.message,
+      stack: error?.stack,
+      slug
+    })
     return null
   }
 }

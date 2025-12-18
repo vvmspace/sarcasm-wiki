@@ -41,14 +41,20 @@ export function startQueueProcessor(): void {
         if (mdcContent) {
           console.log(`[QUEUE PROCESSOR] Successfully generated: ${slug}`)
         } else {
-          console.warn(`[QUEUE PROCESSOR] Failed to generate: ${slug}`)
+          console.warn(`[QUEUE PROCESSOR] Failed to generate: ${slug} (not found on Wikipedia and invalid for mini-article)`)
+          // Do NOT re-add to queue if it simply doesn't exist
         }
       } catch (error: any) {
-        if (error.message === 'RATE_LIMIT_EXCEEDED') {
-          console.log(`[QUEUE PROCESSOR] Rate limit exceeded for: ${slug}, re-adding to queue`)
+        if (error.message === 'RATE_LIMIT_EXCEEDED' || error.message === 'API_ERROR' || error.message === 'GENERATE_ERROR') {
+          console.log(`[QUEUE PROCESSOR] Retriable error (${error.message}) for: ${slug}, re-adding to queue`)
           await addToQueue(slug)
         } else {
-          console.error(`[QUEUE PROCESSOR] Error processing ${slug}:`, error)
+          console.error(`[QUEUE PROCESSOR] Permanent or unknown error processing ${slug}:`, {
+            message: error.message,
+            stack: error.stack,
+            error: error
+          })
+          // Don't re-add unknown errors to avoid infinite loops
         }
       }
     } catch (error) {

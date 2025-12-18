@@ -100,13 +100,18 @@ export default function WikiLayout({
           {isFuturePage && (
             <div style={{ 
               marginTop: '2rem', 
-              padding: '1rem', 
-              background: '#f9f9f9', 
-              borderRadius: '4px',
-              borderLeft: '4px solid #8b0000'
+              padding: '1.5rem', 
+              background: '#fcfcfc', 
+              borderRadius: '8px',
+              borderLeft: '4px solid #8b0000',
+              boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
             }}>
-              <p style={{ margin: 0, color: '#666' }}>
-                This article is currently in the generation queue. It will be available shortly.
+              <p style={{ margin: 0, color: '#444', fontSize: '1.1rem', fontStyle: 'italic' }}>
+                "This article is currently in the generation queue. I'm busy making it actually worth reading. 
+                Check back when you've developed some patience."
+              </p>
+              <p style={{ marginTop: '0.5rem', marginBottom: 0, color: '#888', fontSize: '0.9rem' }}>
+                — <a href="/Emma_AI" style={{ color: '#0066cc', textDecoration: 'none' }}>Emma AI</a>
               </p>
             </div>
           )}

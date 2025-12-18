@@ -2,37 +2,40 @@ import { GoogleGenerativeAI } from '@google/generative-ai'
 import { getSystemPrompt, getUserPrompt } from './prompts'
 import { checkAndStartGeneration } from './rate-limit'
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '')
+function getRandomAI(): GoogleGenerativeAI {
+  const keys = (process.env.GEMINI_API_KEY || '').split(',').map(k => k.trim()).filter(k => k.length > 0)
+  if (keys.length === 0) {
+    throw new Error('GEMINI_API_KEY not set')
+  }
+  const key = keys[Math.floor(Math.random() * keys.length)]
+  return new GoogleGenerativeAI(key)
+}
 
 const MODELS = [
   'gemini-2.5-flash',
   'gemini-2.5-flash-lite',
-  'gemini-2.5-pro'
+  'gemini-2.5-pro',
 ]
 
 function getRandomModel(): string {
   return MODELS[Math.floor(Math.random() * MODELS.length)]
 }
 
-async function rewriteChunk(chunk: string, isFirst: boolean = false, chunkIndex?: number, totalChunks?: number, retryModel?: string): Promise<string> {
+async function rewriteChunk(chunk: string, isFirst: boolean = false, chunkIndex?: number, totalChunks?: number): Promise<string> {
   const startTime = Date.now()
   const chunkInfo = totalChunks ? `[${chunkIndex}/${totalChunks}]` : ''
   const chunkType = isFirst ? 'first' : 'subsequent'
-  const modelName = retryModel || getRandomModel()
+  const modelName = getRandomModel()
   
   console.log(`[REWRITE] Starting chunk rewrite ${chunkInfo} (${chunkType}, ${chunk.length} chars, model: ${modelName})`)
   
-  if (!process.env.GEMINI_API_KEY) {
-    console.error('[REWRITE] ERROR: GEMINI_API_KEY not set')
-    throw new Error('GEMINI_API_KEY not set')
-  }
-
   try {
     const systemPrompt = await getSystemPrompt(isFirst)
     const userPrompt = await getUserPrompt(chunk, isFirst)
     console.log(`[REWRITE] Prompts loaded ${chunkInfo} (system: ${systemPrompt.length} chars, user: ${userPrompt.length} chars)`)
 
-    const model = genAI.getGenerativeModel({ 
+    const ai = getRandomAI()
+    const model = ai.getGenerativeModel({ 
       model: modelName,
       systemInstruction: systemPrompt,
       generationConfig: {
@@ -62,13 +65,6 @@ async function rewriteChunk(chunk: string, isFirst: boolean = false, chunkIndex?
     const totalDuration = Date.now() - startTime
     console.error(`[REWRITE] ERROR ${chunkInfo} with ${modelName} after ${totalDuration}ms:`, error?.status || error?.message || error)
     
-    // If 503 error, retry with a different random model
-    if (error?.status === 503 && !retryModel) {
-      const retryModelName = getRandomModel()
-      console.log(`[REWRITE] 503 error with ${modelName}, retrying with ${retryModelName}...`)
-      return await rewriteChunk(chunk, isFirst, chunkIndex, totalChunks, retryModelName)
-    }
-    
     throw error
   }
 }
@@ -81,11 +77,6 @@ export async function generateMiniArticle(slug: string, waitForLock: boolean = f
   const startTime = Date.now()
   console.log(`[GENERATE] Starting mini article generation for: ${slug}`)
   
-  if (!process.env.GEMINI_API_KEY) {
-    console.error('[GENERATE] ERROR: GEMINI_API_KEY not set')
-    throw new Error('GEMINI_API_KEY not set')
-  }
-
   if (slug) {
     console.log(`[GENERATE] Checking rate limit for: ${slug}`)
     const canGenerate = await checkAndStartGeneration(slug, waitForLock)
@@ -104,7 +95,8 @@ export async function generateMiniArticle(slug: string, waitForLock: boolean = f
     console.log(`[GENERATE] Prompts loaded (system: ${systemPrompt.length} chars, user: ${userPrompt.length} chars)`)
 
     const modelName = getRandomModel()
-    const model = genAI.getGenerativeModel({ 
+    const ai = getRandomAI()
+    const model = ai.getGenerativeModel({ 
       model: modelName,
       systemInstruction: systemPrompt,
       generationConfig: {
@@ -138,39 +130,6 @@ export async function generateMiniArticle(slug: string, waitForLock: boolean = f
       details: error?.response?.data || error?.response || 'No extra details'
     })
     
-    // If 503 error, try with a different random model
-    if (error?.status === 503) {
-      const retryModelName = getRandomModel()
-      console.log(`[GENERATE] 503 error, retrying with ${retryModelName}...`)
-      try {
-        const title = slug.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())
-        const systemPrompt = await getSystemPrompt(true)
-        const userPrompt = `Create a comprehensive Wikipedia-style article about "${title}" in your style. The article should be informative, engaging, and at least 2000-3000 characters long. Include multiple sections with headings (##), detailed explanations, and CRITICAL: Include AT LEAST 10-15 internal links to related topics throughout the article in Markdown format [text](/article_name). Every section should have multiple internal links. Links should be natural and relevant to the content. Examples of linkable terms: related concepts, historical figures, places, technologies, theories, etc. Write in the same sarcastic, witty style as Emma. Make it substantial and well-structured. Return ONLY the article content in Markdown format with internal links.`
-        
-        const model = genAI.getGenerativeModel({ 
-          model: retryModelName,
-          systemInstruction: systemPrompt,
-          generationConfig: {
-            temperature: 0.7,
-            maxOutputTokens: 32000,
-          },
-        })
-
-        const result = await model.generateContent(userPrompt)
-        const text = result.response.text()
-        
-        if (!text || text.trim().length < 200) {
-          throw new Error('Empty or too short response from API')
-        }
-        
-        console.log(`[GENERATE] Mini article generation completed with ${retryModelName} for: ${slug} (${text.length} chars)`)
-        return text
-      } catch (retryError: any) {
-        console.error(`[GENERATE] ERROR on retry:`, retryError?.status || retryError?.message || retryError)
-        throw new Error('API_ERROR')
-      }
-    }
-    
     if (error.message === 'RATE_LIMIT_EXCEEDED') {
       throw error
     }
@@ -183,11 +142,6 @@ export async function rewriteContent(content: string, links?: Map<string, string
   const startTime = Date.now()
   console.log(`[REWRITE] Starting content rewrite for: ${slug || 'unknown'} (${content.length} chars, ${links?.size || 0} links)`)
   
-  if (!process.env.GEMINI_API_KEY) {
-    console.error('[REWRITE] ERROR: GEMINI_API_KEY not set')
-    throw new Error('GEMINI_API_KEY not set')
-  }
-
   if (!content || content.trim().length < 100) {
     console.error(`[REWRITE] ERROR: Content too short (${content?.length || 0} chars)`)
     throw new Error('Content too short to rewrite')

@@ -2,6 +2,7 @@ import Navigation from './Navigation'
 import Button from './Button'
 import ArticleContent from './ArticleContent'
 import AnalyticsEvent from './AnalyticsEvent'
+import AIBadge from './AIBadge'
 
 interface WikiLayoutProps {
   title: string
@@ -100,6 +101,16 @@ export default function WikiLayout({
             <h1 style={{ color: isFuturePage ? 'var(--accent-red)' : 'inherit' }}>
               {title}
             </h1>
+            
+            {/* AI Badge - показываем только для статей с AI метаданными */}
+            {!isFuturePage && (
+              <AIBadge
+                aiProvider={metadata?.aiProvider}
+                aiModel={metadata?.aiModel}
+                contentType={metadata?.contentType}
+                isOriginalContent={metadata?.isOriginalContent}
+              />
+            )}
           </header>
           
           <div className="article-content">

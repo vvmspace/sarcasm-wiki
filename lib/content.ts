@@ -12,6 +12,11 @@ const LATEST_ARTICLES_CACHE = path.join(CACHE_DIR, 'latest-articles.json')
 const fileCache = new Map<string, { content: string, timestamp: number, stats: any }>()
 const FILE_CACHE_TTL = 30000 // 30 seconds in dev mode
 
+// Cache for existing articles list
+let existingArticlesCache: Set<string> | null = null
+let existingArticlesCacheTime = 0
+const EXISTING_ARTICLES_CACHE_TTL = 60000 // 1 minute
+
 async function readFileWithCache(filePath: string): Promise<string | null> {
   if (process.env.NODE_ENV === 'development') {
     const cached = fileCache.get(filePath)
@@ -51,6 +56,51 @@ async function readFileWithCache(filePath: string): Promise<string | null> {
     }
     throw error
   }
+}
+
+export async function getExistingArticlesSlugs(): Promise<Set<string>> {
+  const now = Date.now()
+  
+  // Return cached version if still valid
+  if (existingArticlesCache && (now - existingArticlesCacheTime) < EXISTING_ARTICLES_CACHE_TTL) {
+    return existingArticlesCache
+  }
+  
+  try {
+    await fs.mkdir(CONTENT_DIR, { recursive: true })
+    const files = await fs.readdir(CONTENT_DIR)
+    const mdcFiles = files.filter(file => file.endsWith('.mdc'))
+    
+    const slugs = new Set<string>()
+    
+    for (const file of mdcFiles) {
+      const fileName = file.replace('.mdc', '')
+      
+      // Convert filename back to slug
+      if (fileName.startsWith('Category_')) {
+        slugs.add(fileName.replace(/^Category_/, 'Category:'))
+      } else {
+        slugs.add(fileName)
+      }
+    }
+    
+    existingArticlesCache = slugs
+    existingArticlesCacheTime = now
+    
+    console.log(`[CONTENT] Cached ${slugs.size} existing articles`)
+    return slugs
+  } catch (error) {
+    console.error('Error getting existing articles:', error)
+    return new Set()
+  }
+}
+
+export function articleExists(slug: string): boolean {
+  if (!existingArticlesCache) {
+    return false // Will be checked async
+  }
+  
+  return existingArticlesCache.has(slug)
 }
 
 function normalizeFileName(slug: string): string {
@@ -267,6 +317,10 @@ async function saveContent(slug: string, metadata: ContentMetadata, content: str
   const filePath = path.join(CONTENT_DIR, `${fileName}.mdc`)
   const mdcContent = generateMDC(metadata, content)
   await fs.writeFile(filePath, mdcContent, 'utf-8')
+  
+  // Invalidate existing articles cache since we added a new one
+  existingArticlesCache = null
+  existingArticlesCacheTime = 0
   
   try {
     await updateLatestArticlesCache(metadata, 7)

@@ -71,6 +71,10 @@ export async function renderMarkdownToHtml(markdown: string): Promise<string> {
     return cached
   }
   
+  // Load existing articles for link checking
+  const { getExistingArticlesSlugs } = await import('./content')
+  const existingArticles = await getExistingArticlesSlugs()
+  
   const { unified, remarkParse, remarkGfm, remarkMath, remarkRehype, rehypeKatex, rehypeStringify } = await loadRemarkModules()
   
   // Pre-process markdown for better performance
@@ -96,18 +100,33 @@ export async function renderMarkdownToHtml(markdown: string): Promise<string> {
   const result = await processor.process(processedMarkdown)
   let html = String(result)
   
-  // Post-process HTML
+  // Post-process HTML with link existence checking
   html = html.replace(/<a[^>]*href=["']([^"']+)["'][^>]*>([^<]*?)<\/a>/gi, (match, href, text) => {
     const cleanHref = href.trim()
+    
     if (cleanHref.startsWith('/') && !cleanHref.startsWith('//')) {
+      // This is an internal link
+      const slug = cleanHref.substring(1) // Remove leading slash
+      const decodedSlug = decodeURIComponent(slug)
+      
+      // Check if article exists
+      const exists = existingArticles.has(decodedSlug)
+      
+      let className = 'internal-link'
+      if (!exists) {
+        className += ' missing-link'
+      }
+      
       if (match.includes('class="internal-link"')) {
-        return match
+        return match.replace('class="internal-link"', `class="${className}"`)
       }
       if (match.includes('class=')) {
-        return match.replace(/class="([^"]+)"/, 'class="$1 internal-link"')
+        return match.replace(/class="([^"]+)"/, `class="$1 ${className}"`)
       }
-      return match.replace('>', ' class="internal-link">')
+      return match.replace('>', ` class="${className}">`)
     }
+    
+    // External link - remove it and return just text
     return text || ''
   })
   

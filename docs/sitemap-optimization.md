@@ -51,6 +51,11 @@ public/sitemaps/
 3. If no files exist - generates synchronously
 4. On errors serves fallback
 
+#### URL Ordering
+- **Homepage**: Always first with priority 1.0
+- **Articles**: Sorted by creation date (newest first) with priority 0.8
+- **Split**: Maximum 1000 URLs per sitemap file
+
 #### Caching
 - **Browser**: 1 hour for fresh files, 5 minutes on errors
 - **Server**: 3 hours between regenerations

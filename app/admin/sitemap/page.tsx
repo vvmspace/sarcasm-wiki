@@ -158,6 +158,7 @@ export default function SitemapAdminPage() {
         <p><strong>Automatic Schedule:</strong> Every 3 hours</p>
         <p><strong>Cache Duration:</strong> 3 hours</p>
         <p><strong>URLs per File:</strong> 1000</p>
+        <p><strong>Sort Order:</strong> By creation date (newest first)</p>
         <p><strong>Main Sitemap:</strong> <a href="/sitemap.xml" target="_blank">/sitemap.xml</a></p>
       </div>
     </div>

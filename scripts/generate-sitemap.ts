@@ -61,6 +61,15 @@ async function generateSitemaps() {
   const articles = await getAllArticles()
   console.log(`[SITEMAP] Found ${articles.length} articles`)
 
+  // Sort articles by creation date (newest first)
+  const sortedArticles = articles.sort((a, b) => {
+    const dateA = new Date(a.updatedAt || a.createdAt || '1970-01-01').getTime()
+    const dateB = new Date(b.updatedAt || b.createdAt || '1970-01-01').getTime()
+    return dateB - dateA // Descending order (newest first)
+  })
+
+  console.log(`[SITEMAP] Articles sorted by date (newest first)`)
+
   // Create array of all URLs
   const allUrls: SitemapUrl[] = [
     {
@@ -69,7 +78,7 @@ async function generateSitemaps() {
       changeFrequency: 'hourly',
       priority: 1.0,
     },
-    ...articles.map(article => ({
+    ...sortedArticles.map(article => ({
       url: `${BASE_URL}/${article.slug}`,
       lastModified: article.updatedAt || article.createdAt || new Date().toISOString(),
       changeFrequency: 'daily' as const,

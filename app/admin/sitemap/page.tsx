@@ -106,7 +106,9 @@ export default function SitemapAdminPage() {
           borderRadius: '4px',
           marginBottom: '20px'
         }}>
-          ✅ Last generation completed at: {new Date(lastGeneration).toLocaleString()}
+          <span suppressHydrationWarning>
+            ✅ Last generation completed at: {new Date(lastGeneration).toLocaleString()}
+          </span>
         </div>
       )}
 
@@ -122,7 +124,7 @@ export default function SitemapAdminPage() {
           <p>Loading...</p>
         ) : status.success && status.metadata ? (
           <div>
-            <p><strong>Generated:</strong> {new Date(status.metadata.generatedAt).toLocaleString()}</p>
+            <p><strong>Generated:</strong> <span suppressHydrationWarning>{new Date(status.metadata.generatedAt).toLocaleString()}</span></p>
             <p><strong>Age:</strong> {status.metadata.ageHours.toFixed(1)} hours</p>
             <p><strong>Total URLs:</strong> {status.metadata.totalUrls.toLocaleString()}</p>
             <p><strong>Sitemap Files:</strong> {status.metadata.sitemapCount}</p>

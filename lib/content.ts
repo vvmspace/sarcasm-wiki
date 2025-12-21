@@ -9,30 +9,42 @@ const CONTENT_DIR = path.join(process.cwd(), 'content')
 const CACHE_DIR = path.join(process.cwd(), '.temp')
 const LATEST_ARTICLES_CACHE = path.join(CACHE_DIR, 'latest-articles.json')
 
-// Development cache for file operations
+// Lightning fast file cache ⚡
 const fileCache = new Map<string, { content: string, timestamp: number, stats: any }>()
-const FILE_CACHE_TTL = 30000 // 30 seconds in dev mode
+const FILE_CACHE_TTL = process.env.NODE_ENV === 'development' ? 15000 : 120000 // 15s dev, 2min prod
+const MAX_FILE_CACHE_SIZE = 200
 
-// Cache for existing articles list
+function maintainFileCache(): void {
+  if (fileCache.size > MAX_FILE_CACHE_SIZE) {
+    const entries = Array.from(fileCache.entries())
+    entries.sort((a, b) => a[1].timestamp - b[1].timestamp)
+    // Remove oldest 40% for lightning performance
+    const toRemove = Math.floor(MAX_FILE_CACHE_SIZE * 0.4)
+    for (let i = 0; i < toRemove; i++) {
+      fileCache.delete(entries[i][0])
+    }
+  }
+}
+
+// Lightning fast existing articles cache ⚡
 let existingArticlesCache: Set<string> | null = null
 let existingArticlesCacheTime = 0
-const EXISTING_ARTICLES_CACHE_TTL = 60000 // 1 minute
+const EXISTING_ARTICLES_CACHE_TTL = 30000 // 30 seconds for lightning updates
 
 async function readFileWithCache(filePath: string): Promise<string | null> {
-  if (process.env.NODE_ENV === 'development') {
-    const cached = fileCache.get(filePath)
-    if (cached) {
-      try {
-        const stats = await fs.stat(filePath)
-        if (stats.mtime.getTime() === cached.stats.mtime.getTime() && 
-            Date.now() - cached.timestamp < FILE_CACHE_TTL) {
-          return cached.content
-        }
-      } catch (error) {
-        // File doesn't exist anymore
-        fileCache.delete(filePath)
-        return null
+  // Lightning cache works in all environments ⚡
+  const cached = fileCache.get(filePath)
+  if (cached) {
+    try {
+      const stats = await fs.stat(filePath)
+      if (stats.mtime.getTime() === cached.stats.mtime.getTime() && 
+          Date.now() - cached.timestamp < FILE_CACHE_TTL) {
+        return cached.content
       }
+    } catch (error) {
+      // File doesn't exist anymore
+      fileCache.delete(filePath)
+      return null
     }
   }
   
@@ -42,13 +54,13 @@ async function readFileWithCache(filePath: string): Promise<string | null> {
       fs.stat(filePath)
     ])
     
-    if (process.env.NODE_ENV === 'development') {
-      fileCache.set(filePath, {
-        content,
-        timestamp: Date.now(),
-        stats: { mtime: stats.mtime }
-      })
-    }
+    // Lightning cache management
+    maintainFileCache()
+    fileCache.set(filePath, {
+      content,
+      timestamp: Date.now(),
+      stats: { mtime: stats.mtime }
+    })
     
     return content
   } catch (error) {

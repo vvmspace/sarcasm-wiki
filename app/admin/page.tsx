@@ -18,6 +18,7 @@ interface AIStats {
     originalContentCounts: { original: number, rewritten: number }
     topProvider: string
     topModel: string
+    lastUpdated: string
   }
   timestamp: string
 }
@@ -551,11 +552,15 @@ export default function AdminPage() {
               color: '#6c757d',
               textAlign: 'right'
             }}>
-              API updated: {new Date(aiStats.timestamp).toLocaleString()}
+              <span suppressHydrationWarning>
+                API updated: {new Date(aiStats.timestamp).toLocaleString()}
+              </span>
               {aiStats.providerUsage?.lastUpdated && (
                 <>
                   <br />
-                  Cache updated: {new Date(aiStats.providerUsage.lastUpdated).toLocaleString()}
+                  <span suppressHydrationWarning>
+                    Cache updated: {new Date(aiStats.providerUsage.lastUpdated).toLocaleString()}
+                  </span>
                 </>
               )}
             </div>

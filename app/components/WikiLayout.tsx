@@ -3,6 +3,8 @@ import Button from './Button'
 import ArticleContent from './ArticleContent'
 import AnalyticsEvent from './AnalyticsEvent'
 import AIBadge from './AIBadge'
+import SimpleQueueFooter from './SimpleQueueFooter'
+import ServerPerformanceStats from './ServerPerformanceStats'
 
 interface WikiLayoutProps {
   title: string
@@ -137,6 +139,9 @@ export default function WikiLayout({
           </div>
         </article>
       </main>
+      
+      <SimpleQueueFooter />
+      <ServerPerformanceStats />
     </>
   )
 }

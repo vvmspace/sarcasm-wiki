@@ -7,7 +7,6 @@ import { renderMarkdownToHtml } from '@/lib/markdown-server'
 import { logNotFound } from '@/lib/not-found-logger'
 import { addToQueue, isInQueue } from '@/lib/queue'
 import { headers } from 'next/headers'
-import '@/lib/queue-init'
 
 import WikiLayout from '../components/WikiLayout'
 
@@ -18,31 +17,49 @@ interface PageProps {
 }
 
 export const dynamicParams = true
-export const revalidate = process.env.NODE_ENV === 'development' ? 0 : false
+export const revalidate = process.env.NODE_ENV === 'development' ? 0 : 300 // Lightning fast: 5min revalidation ⚡
+export const fetchCache = 'default-cache' // Aggressive caching
+export const runtime = 'nodejs' // Fastest runtime
 
-// Development cache for faster page loads
-const devCache = new Map<string, { data: any, timestamp: number }>()
-const DEV_CACHE_TTL = 30000 // 30 seconds in dev mode
+// Lightning fast cache settings ⚡
+const sharedCache = new Map<string, { 
+  mdcContent: any, 
+  htmlContent?: string,
+  metadata?: Metadata,
+  timestamp: number 
+}>()
+const CACHE_TTL = process.env.NODE_ENV === 'development' ? 15000 : 600000 // 15s dev, 10min prod (more aggressive)
 
-function getFromDevCache<T>(key: string): T | null {
-  if (process.env.NODE_ENV !== 'development') return null
-  
-  const cached = devCache.get(key)
+// Lightning fast cache with LRU eviction
+const MAX_CACHE_SIZE = 1000
+function maintainCacheSize() {
+  if (sharedCache.size > MAX_CACHE_SIZE) {
+    const entries = Array.from(sharedCache.entries())
+    entries.sort((a, b) => a[1].timestamp - b[1].timestamp)
+    // Remove oldest 20% of entries
+    const toRemove = Math.floor(MAX_CACHE_SIZE * 0.2)
+    for (let i = 0; i < toRemove; i++) {
+      sharedCache.delete(entries[i][0])
+    }
+  }
+}
+
+function getFromSharedCache(key: string) {
+  const cached = sharedCache.get(key)
   if (!cached) return null
   
-  if (Date.now() - cached.timestamp > DEV_CACHE_TTL) {
-    devCache.delete(key)
+  if (Date.now() - cached.timestamp > CACHE_TTL) {
+    sharedCache.delete(key)
     return null
   }
   
-  return cached.data as T
+  return cached
 }
 
-function setDevCache<T>(key: string, data: T): void {
-  if (process.env.NODE_ENV !== 'development') return
-  
-  devCache.set(key, {
-    data,
+function setSharedCache(key: string, data: any): void {
+  maintainCacheSize() // Lightning fast cache management ⚡
+  sharedCache.set(key, {
+    ...data,
     timestamp: Date.now()
   })
 }
@@ -55,38 +72,62 @@ function decodeSlug(slug: string): string {
   }
 }
 
+// Fast path checks
+function shouldBlock(slug: string): boolean {
+  const blockedPaths = [
+    'wp-admin', 'wp-content', 'wp-includes', 'wp-login.php', 'wp-config.php',
+    'xmlrpc.php', 'admin', 'administrator', 'phpmyadmin', '.env', '.git',
+    'config', 'setup-config.php', 'install.php', 'readme.html', 'license.txt'
+  ]
+  
+  return blockedPaths.some(blocked => slug.startsWith(blocked) || slug.includes(`/${blocked}`)) ||
+         slug.includes('_next') || slug.includes('webpack') || slug.includes('hot-update') || slug.startsWith('.')
+}
+
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const rawSlug = params.slug.join('/')
   const slug = decodeSlug(rawSlug)
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://sarcasm.wiki'
   const url = `${baseUrl}/${rawSlug}`
   
-  // Check dev cache first
-  const cacheKey = `metadata:${slug}`
-  const cached = getFromDevCache<Metadata>(cacheKey)
-  if (cached) {
-    return cached
+  // Fast path for blocked content
+  if (shouldBlock(slug)) {
+    return {
+      title: '404 - Page Not Found',
+      alternates: { canonical: url }
+    }
+  }
+  
+  const cacheKey = `content:${slug}`
+  let cached = getFromSharedCache(cacheKey)
+  
+  // If we have cached metadata, return it immediately
+  if (cached?.metadata) {
+    return cached.metadata
   }
   
   try {
-    const mdcContent = await getPageMDC(slug)
+    // Only fetch MDC if not cached
+    let mdcContent = cached?.mdcContent
+    if (!mdcContent) {
+      mdcContent = await getPageMDC(slug)
+      // Cache the MDC content for reuse in the page component
+      setSharedCache(cacheKey, { mdcContent })
+      cached = getFromSharedCache(cacheKey)
+    }
     
     let metadata: Metadata
     if (!mdcContent) {
       metadata = {
         title: slug.replace(/_/g, ' '),
-        alternates: {
-          canonical: url,
-        },
+        alternates: { canonical: url }
       }
     } else {
       metadata = {
         title: mdcContent.metadata.title,
         description: mdcContent.metadata.description,
         keywords: mdcContent.metadata.keywords,
-        alternates: {
-          canonical: url,
-        },
+        alternates: { canonical: url },
         openGraph: {
           title: mdcContent.metadata.title,
           description: mdcContent.metadata.description,
@@ -104,28 +145,29 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       }
     }
     
-    setDevCache(cacheKey, metadata)
-    return metadata
-  } catch (error: any) {
-    let metadata: Metadata
-    if (error.message === 'RATE_LIMIT_EXCEEDED') {
-      metadata = {
-        title: `${slug.replace(/_/g, ' ')} - Generation in Progress`,
-        description: 'This page is currently being generated. Please try again in a moment.',
-        alternates: {
-          canonical: url,
-        },
-      }
-    } else {
-      metadata = {
-        title: slug.replace(/_/g, ' '),
-        alternates: {
-          canonical: url,
-        },
-      }
+    // Cache the metadata
+    if (cached) {
+      cached.metadata = metadata
     }
     
-    setDevCache(cacheKey, metadata)
+    return metadata
+  } catch (error: any) {
+    const metadata: Metadata = error.message === 'RATE_LIMIT_EXCEEDED' 
+      ? {
+          title: `${slug.replace(/_/g, ' ')} - Generation in Progress`,
+          description: 'This page is currently being generated. Please try again in a moment.',
+          alternates: { canonical: url }
+        }
+      : {
+          title: slug.replace(/_/g, ' '),
+          alternates: { canonical: url }
+        }
+    
+    // Cache error metadata too
+    if (cached) {
+      cached.metadata = metadata
+    }
+    
     return metadata
   }
 }
@@ -134,55 +176,70 @@ export default async function WikiPage({ params }: PageProps) {
   const rawSlug = params.slug.join('/')
   const slug = decodeSlug(rawSlug)
   
-  // Block WordPress and scanner paths
-  const blockedPaths = [
-    'wp-admin', 'wp-content', 'wp-includes', 'wp-login.php', 'wp-config.php',
-    'xmlrpc.php', 'admin', 'administrator', 'phpmyadmin', '.env', '.git',
-    'config', 'setup-config.php', 'install.php', 'readme.html', 'license.txt'
-  ]
-  
-  if (blockedPaths.some(blocked => slug.startsWith(blocked) || slug.includes(`/${blocked}`))) {
+  // Fast path for blocked content
+  if (shouldBlock(slug)) {
     notFound()
   }
   
-  // Fast path for development assets
-  if (slug.includes('_next') || slug.includes('webpack') || slug.includes('hot-update') || slug.startsWith('.')) {
-    notFound()
-  }
-  
-  // Check dev cache first
-  const cacheKey = `page:${slug}`
-  const cached = getFromDevCache<any>(cacheKey)
-  if (cached) {
-    return cached
-  }
-  
-  const headersList = await headers()
-  const referer = headersList.get('referer') || undefined
-  const userAgent = headersList.get('user-agent') || undefined
+  const cacheKey = `content:${slug}`
+  let cached = getFromSharedCache(cacheKey)
   
   try {
-    const mdcContent = await getPageMDC(slug)
+    // Reuse MDC content from metadata generation if available
+    let mdcContent = cached?.mdcContent
+    if (!mdcContent) {
+      mdcContent = await getPageMDC(slug)
+      if (!cached) {
+        setSharedCache(cacheKey, { mdcContent })
+        cached = getFromSharedCache(cacheKey)
+      } else {
+        cached.mdcContent = mdcContent
+      }
+    }
 
     if (!mdcContent) {
-      const inQueue = await isInQueue(slug)
-      const isValidSlug = /^[A-Za-z0-9_,:\- ]+$/.test(slug)
-      
-      if (!inQueue && isValidSlug) {
-        await addToQueue(slug)
+      // Handle missing content asynchronously to avoid blocking render
+      const handleMissingContent = async () => {
+        try {
+          const [inQueue, isValidSlug] = await Promise.all([
+            isInQueue(slug),
+            Promise.resolve(/^[A-Za-z0-9_,:\- ]+$/.test(slug))
+          ])
+          
+          if (!inQueue && isValidSlug) {
+            // Don't await - fire and forget
+            addToQueue(slug).catch(console.error)
+          }
+          
+          if (!isValidSlug) {
+            // Don't await - fire and forget
+            const headersList = await headers()
+            const referer = headersList.get('referer') || undefined
+            const userAgent = headersList.get('user-agent') || undefined
+            logNotFound(slug, referer, userAgent).catch(console.error)
+          }
+        } catch (error) {
+          console.error('Error handling missing content:', error)
+        }
       }
       
-      if (!isValidSlug) {
-        await logNotFound(slug, referer, userAgent)
-      }
-      
+      // Fire and forget
+      handleMissingContent()
       notFound()
     }
 
     const { content, metadata } = mdcContent
-    const htmlContent = await renderMarkdownToHtml(content)
+    
+    // Check if HTML is already cached
+    let htmlContent = cached?.htmlContent
+    if (!htmlContent) {
+      htmlContent = await renderMarkdownToHtml(content)
+      if (cached) {
+        cached.htmlContent = htmlContent
+      }
+    }
 
-    const pageComponent = (
+    return (
       <WikiLayout
         title={metadata.title}
         htmlContent={htmlContent}
@@ -191,25 +248,16 @@ export default async function WikiPage({ params }: PageProps) {
         rawSlug={rawSlug}
       />
     )
-    
-    setDevCache(cacheKey, pageComponent)
-    return pageComponent
   } catch (error: any) {
     if (error.message === 'RATE_LIMIT_EXCEEDED') {
       const rateLimitInfo = await getRateLimitInfo()
       
-      const remainingSeconds = rateLimitInfo?.remainingSeconds || 60
-      const lastSlug = rateLimitInfo?.lastSlug
-      
-      const rateLimitComponent = (
+      return (
         <RateLimitPage 
-          initialRemainingSeconds={remainingSeconds}
-          lastSlug={lastSlug}
+          initialRemainingSeconds={rateLimitInfo?.remainingSeconds || 60}
+          lastSlug={rateLimitInfo?.lastSlug}
         />
       )
-      
-      setDevCache(cacheKey, rateLimitComponent)
-      return rateLimitComponent
     }
     throw error
   }

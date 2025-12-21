@@ -18,7 +18,3 @@ export function initQueueProcessor(): void {
   console.log('[QUEUE INIT] Queue processor initialized')
 }
 
-if (typeof window === 'undefined') {
-  initQueueProcessor()
-}
-

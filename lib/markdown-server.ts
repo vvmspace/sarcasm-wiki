@@ -25,13 +25,25 @@ async function loadRemarkModules() {
   return remarkModules
 }
 
-// Development cache for rendered markdown
+// Lightning fast markdown cache ⚡
 const markdownCache = new Map<string, { html: string, timestamp: number }>()
-const MARKDOWN_CACHE_TTL = 60000 // 1 minute in dev mode
+const MARKDOWN_CACHE_TTL = process.env.NODE_ENV === 'development' ? 30000 : 300000 // 30s dev, 5min prod
+const MAX_MARKDOWN_CACHE_SIZE = 500
+
+function maintainMarkdownCache(): void {
+  if (markdownCache.size > MAX_MARKDOWN_CACHE_SIZE) {
+    const entries = Array.from(markdownCache.entries())
+    entries.sort((a, b) => a[1].timestamp - b[1].timestamp)
+    // Remove oldest 30% for lightning performance
+    const toRemove = Math.floor(MAX_MARKDOWN_CACHE_SIZE * 0.3)
+    for (let i = 0; i < toRemove; i++) {
+      markdownCache.delete(entries[i][0])
+    }
+  }
+}
 
 function getCachedMarkdown(markdown: string): string | null {
-  if (process.env.NODE_ENV !== 'development') return null
-  
+  // Lightning cache works in all environments ⚡
   const hash = Buffer.from(markdown).toString('base64').slice(0, 32)
   const cached = markdownCache.get(hash)
   
@@ -46,22 +58,13 @@ function getCachedMarkdown(markdown: string): string | null {
 }
 
 function setCachedMarkdown(markdown: string, html: string): void {
-  if (process.env.NODE_ENV !== 'development') return
+  maintainMarkdownCache() // Lightning cache management ⚡
   
   const hash = Buffer.from(markdown).toString('base64').slice(0, 32)
   markdownCache.set(hash, {
     html,
     timestamp: Date.now()
   })
-  
-  // Cleanup old entries
-  if (markdownCache.size > 100) {
-    const entries = Array.from(markdownCache.entries())
-    entries.sort((a, b) => a[1].timestamp - b[1].timestamp)
-    for (let i = 0; i < 20; i++) {
-      markdownCache.delete(entries[i][0])
-    }
-  }
 }
 
 export async function renderMarkdownToHtml(markdown: string): Promise<string> {

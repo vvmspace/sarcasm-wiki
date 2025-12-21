@@ -1,4 +1,5 @@
 import { startCronScheduler } from './cron-scheduler'
+import { initQueueProcessor } from './queue-init'
 
 let isStartupComplete = false
 
@@ -9,6 +10,9 @@ export function runStartupTasks() {
   }
 
   console.log('[STARTUP] Running startup tasks...')
+
+  // Initialize queue processor
+  initQueueProcessor()
 
   // Start cron scheduler
   if (process.env.NODE_ENV === 'production' || process.env.ENABLE_CRON === 'true') {

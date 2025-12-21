@@ -1,9 +1,10 @@
-import Link from 'next/link'
 import { getLatestArticles } from '@/lib/content'
 import Navigation from './components/Navigation'
 import Hero from './components/Hero'
 import Card from './components/Card'
 import Button from './components/Button'
+import SimpleQueueFooter from './components/SimpleQueueFooter'
+import ServerPerformanceStats from './components/ServerPerformanceStats'
 
 export const revalidate = 60
 
@@ -123,6 +124,9 @@ export default async function Home() {
           </div>
         </section>
       </main>
+      
+      <SimpleQueueFooter />
+      <ServerPerformanceStats />
     </>
   )
 }

@@ -9,9 +9,7 @@ const nextConfig = {
   
   experimental: {
     serverComponentsExternalPackages: ['remark', 'remark-gfm', 'remark-html'],
-    optimizeCss: true,
-    optimizePackageImports: ['react-markdown', 'katex'],
-    // Development optimizations
+    // Lightning fast optimizations ⚡
     turbo: {
       rules: {
         '*.svg': {
@@ -20,6 +18,12 @@ const nextConfig = {
         },
       },
     },
+    // Faster builds and runtime
+    serverMinification: true,
+    swcMinify: true,
+    esmExternals: true,
+    // Preload critical resources
+    optimisticClientCache: true,
   },
   
   // Image optimization
@@ -33,7 +37,7 @@ const nextConfig = {
     removeConsole: process.env.NODE_ENV === 'production',
   },
   
-  // Headers for caching
+  // Headers for lightning performance ⚡
   async headers() {
     return [
       {
@@ -64,7 +68,7 @@ const nextConfig = {
             key: 'Cache-Control',
             value: process.env.NODE_ENV === 'development' 
               ? 'no-cache, no-store, must-revalidate'
-              : 'public, max-age=300, s-maxage=300'
+              : 'public, max-age=60, s-maxage=300, stale-while-revalidate=86400'
           }
         ]
       },
@@ -76,17 +80,29 @@ const nextConfig = {
             value: 'public, max-age=31536000, immutable'
           }
         ]
+      },
+      // Lightning cache for content
+      {
+        source: '/((?!api|_next|admin).*)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: process.env.NODE_ENV === 'development'
+              ? 'no-cache'
+              : 'public, max-age=300, s-maxage=600, stale-while-revalidate=3600'
+          }
+        ]
       }
     ]
   },
   
   webpack: (config, { dev, isServer }) => {
-    // Development optimizations
+    // Lightning development optimizations ⚡
     if (dev) {
       // Faster file watching
       config.watchOptions = {
         ...config.watchOptions,
-        aggregateTimeout: 200,
+        aggregateTimeout: 100, // Faster response
         poll: false,
         ignored: [
           '**/node_modules/**',
@@ -99,18 +115,22 @@ const nextConfig = {
         ],
       }
       
-      // Faster rebuilds
+      // Lightning fast rebuilds
       config.cache = {
         type: 'filesystem',
         buildDependencies: {
           config: [__filename],
         },
+        // Aggressive caching
+        maxMemoryGenerations: 1,
+        memoryCacheUnaffected: true,
       }
       
-      // Optimize module resolution
+      // Optimize module resolution for speed
       config.resolve.symlinks = false
+      config.resolve.cacheWithContext = false
       
-      // Faster source maps
+      // Lightning fast source maps
       config.devtool = 'eval-cheap-module-source-map'
       
       // Reduce bundle analysis overhead
@@ -119,23 +139,54 @@ const nextConfig = {
         removeAvailableModules: false,
         removeEmptyChunks: false,
         splitChunks: false,
+        // Lightning fast module concatenation
+        concatenateModules: false,
+        // Skip expensive optimizations in dev
+        minimize: false,
+        sideEffects: false,
+      }
+      
+      // Faster module loading
+      config.experiments = {
+        ...config.experiments,
+        cacheUnaffected: true,
       }
     }
     
-    // Production optimizations
+    // Lightning production optimizations ⚡
     if (!dev) {
       config.optimization = {
         ...config.optimization,
         splitChunks: {
           chunks: 'all',
+          minSize: 20000,
+          maxSize: 244000,
           cacheGroups: {
             vendor: {
               test: /[\\/]node_modules[\\/]/,
               name: 'vendors',
               chunks: 'all',
+              priority: 10,
+            },
+            common: {
+              name: 'common',
+              minChunks: 2,
+              chunks: 'all',
+              priority: 5,
             },
           },
         },
+        // Lightning fast runtime
+        runtimeChunk: 'single',
+        moduleIds: 'deterministic',
+        chunkIds: 'deterministic',
+      }
+      
+      // Aggressive compression
+      config.resolve.alias = {
+        ...config.resolve.alias,
+        // Lighter alternatives
+        'react/jsx-runtime': 'react/jsx-runtime',
       }
     }
     

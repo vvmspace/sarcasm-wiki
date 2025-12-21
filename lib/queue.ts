@@ -32,20 +32,18 @@ export async function addToQueue(slug: string): Promise<boolean> {
       // File doesn't exist, start with empty queue
     }
     
-    const exists = queue.some(item => item.slug === slug)
-    if (exists) {
-      console.log(`[QUEUE] Slug ${slug} already in queue, skipping`)
-      return false
-    }
+    // Удаляем существующий элемент, если он есть
+    queue = queue.filter(item => item.slug !== slug)
     
-    queue.push({
+    // Добавляем элемент в начало очереди
+    queue.unshift({
       slug,
       addedAt: new Date().toISOString(),
     })
     
     await fs.writeFile(QUEUE_FILE, JSON.stringify(queue, null, 2), 'utf-8')
     
-    console.log(`[QUEUE] Added ${slug} to queue. Queue size: ${queue.length}`)
+    console.log(`[QUEUE] Added ${slug} to front of queue. Queue size: ${queue.length}`)
     console.log(`[QUEUE] Queue after addition: [${queue.map(item => item.slug).join(', ')}]`)
     
     let stats: GenerationStats = { inStack: 0, generated: 0 }

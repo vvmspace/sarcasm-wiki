@@ -53,7 +53,12 @@ public/sitemaps/
 
 #### URL Ordering
 - **Homepage**: Always first with priority 1.0
-- **Articles**: Sorted by creation date (newest first) with priority 0.8
+- **Articles**: Sorted by creation date (newest first)
+- **Priority**: Dynamic calculation based on file size
+  - Formula: `0.6 + 0.3 × (file_size / max_file_size)`
+  - Range: 0.6 (smallest files) to 0.9 (largest files)
+  - Uses file system stats for fast calculation
+  - Larger files typically indicate more comprehensive content
 - **Split**: Maximum 1000 URLs per sitemap file
 
 #### Caching
@@ -123,4 +128,6 @@ For external cron setup:
 - ✅ Automatic background updates
 - ✅ Built-in cron scheduler for self-hosted
 - ✅ Admin interface for monitoring
+- ✅ Dynamic priority based on file size (fast calculation)
+- ✅ No content parsing required for generation
 - ✅ Minimal server load

@@ -70,11 +70,34 @@ export async function GET(request: NextRequest) {
       
       // If no old sitemap exists, generate synchronously
       console.log('[SITEMAP] No existing sitemap, generating synchronously...')
-      await generateSitemaps()
-      sitemapContent = await getSitemapIndex()
-      
-      if (!sitemapContent) {
-        throw new Error('Failed to generate sitemap')
+      try {
+        await generateSitemaps()
+        sitemapContent = await getSitemapIndex()
+        
+        if (!sitemapContent) {
+          throw new Error('Failed to generate sitemap content')
+        }
+      } catch (error) {
+        console.error('[SITEMAP] Synchronous generation failed:', error)
+        // Return a minimal fallback sitemap
+        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://sarcasm.wiki'
+        const fallbackSitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>${baseUrl}</loc>
+    <lastmod>${new Date().toISOString()}</lastmod>
+    <changefreq>hourly</changefreq>
+    <priority>1.0</priority>
+  </url>
+</urlset>`
+        
+        return new NextResponse(fallbackSitemap, {
+          status: 200,
+          headers: {
+            'Content-Type': 'application/xml',
+            'Cache-Control': 'public, max-age=300', // 5 minutes cache on error
+          },
+        })
       }
     }
     

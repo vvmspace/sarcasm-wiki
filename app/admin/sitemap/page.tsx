@@ -11,6 +11,11 @@ interface SitemapStatus {
     sitemapFiles: string[]
     age: number
     ageHours: number
+    maxFileSize?: number
+    priorityRange?: {
+      min: number
+      max: number
+    }
   }
   error?: string
 }
@@ -121,6 +126,12 @@ export default function SitemapAdminPage() {
             <p><strong>Age:</strong> {status.metadata.ageHours.toFixed(1)} hours</p>
             <p><strong>Total URLs:</strong> {status.metadata.totalUrls.toLocaleString()}</p>
             <p><strong>Sitemap Files:</strong> {status.metadata.sitemapCount}</p>
+            {status.metadata.maxFileSize && (
+              <p><strong>Max File Size:</strong> {(status.metadata.maxFileSize / 1024).toFixed(1)} KB</p>
+            )}
+            {status.metadata.priorityRange && (
+              <p><strong>Priority Range:</strong> {status.metadata.priorityRange.min.toFixed(2)} - {status.metadata.priorityRange.max.toFixed(2)}</p>
+            )}
             <p><strong>Status:</strong> 
               <span style={{ 
                 color: status.metadata.ageHours > 3 ? '#dc3545' : '#28a745',
@@ -159,6 +170,7 @@ export default function SitemapAdminPage() {
         <p><strong>Cache Duration:</strong> 3 hours</p>
         <p><strong>URLs per File:</strong> 1000</p>
         <p><strong>Sort Order:</strong> By creation date (newest first)</p>
+        <p><strong>Priority Formula:</strong> 0.6 + 0.3 × (file_size / max_file_size)</p>
         <p><strong>Main Sitemap:</strong> <a href="/sitemap.xml" target="_blank">/sitemap.xml</a></p>
       </div>
     </div>

@@ -8,8 +8,8 @@ import QueueStatus from './components/QueueStatus'
 import '../lib/startup'
 
 export const metadata: Metadata = {
-  title: 'Sarcasm Wiki',
-  description: 'Wikipedia content rephrased',
+  title: 'Sarcasm Wiki - AI-Enhanced Knowledge',
+  description: 'Wikipedia articles reimagined with artificial intelligence. Discover knowledge with a fresh perspective.',
 }
 
 export default function RootLayout({

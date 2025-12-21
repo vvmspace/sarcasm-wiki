@@ -7,35 +7,31 @@ export default async function QueueStatus() {
   const stats = await getStats()
 
   return (
-    <footer style={{
-      marginTop: '3rem',
-      padding: '1.5rem',
-      borderTop: '1px solid #e0e0e0',
-      textAlign: 'center',
-      fontSize: '0.9rem',
-      color: '#666'
-    }}>
-      <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', flexWrap: 'wrap', alignItems: 'center' }}>
-        <span>
-          <strong>In stack:</strong> {stats.inStack}
-        </span>
-        <span>
-          <strong>Generated:</strong> {stats.generated}
-        </span>
-        {stats.lastGenerated && (
-          <span>
-            <strong>Last:</strong>{' '}
-            <Link
-              href={`/${encodeURIComponent(stats.lastGenerated)}`}
-              style={{
-                color: '#0066cc',
-                textDecoration: 'none'
-              }}
-            >
-              {stats.lastGenerated.replace(/_/g, ' ')}
-            </Link>
-          </span>
-        )}
+    <footer className="footer">
+      <div className="footer-content">
+        <div className="footer-stats">
+          <div className="stat">
+            <span className="stat-label">In Queue</span>
+            <span className="stat-value">{stats.inStack}</span>
+          </div>
+          
+          <div className="stat">
+            <span className="stat-label">Generated</span>
+            <span className="stat-value">{stats.generated}</span>
+          </div>
+          
+          {stats.lastGenerated && (
+            <div className="stat">
+              <span className="stat-label">Latest</span>
+              <Link
+                href={`/${encodeURIComponent(stats.lastGenerated)}`}
+                className="stat-link"
+              >
+                {stats.lastGenerated.replace(/_/g, ' ')}
+              </Link>
+            </div>
+          )}
+        </div>
       </div>
     </footer>
   )

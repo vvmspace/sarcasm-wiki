@@ -1,4 +1,5 @@
-import Link from 'next/link'
+import Navigation from './Navigation'
+import Button from './Button'
 import ArticleContent from './ArticleContent'
 import AnalyticsEvent from './AnalyticsEvent'
 
@@ -61,60 +62,68 @@ export default function WikiLayout({
           slug={slug}
         />
       )}
-      <main style={{ padding: '2rem', maxWidth: '1200px', margin: '0 auto' }}>
-        <div style={{ marginBottom: '1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <Link 
+      
+      <Navigation />
+      
+      <main className="container">
+        <div className="article-header">
+          <Button 
+            variant="ghost" 
             href="/"
-            style={{
-              color: '#0066cc',
-              textDecoration: 'none',
-              fontSize: '0.9rem'
-            }}
+            icon={
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" />
+              </svg>
+            }
           >
-            ← Back to home
-          </Link>
+            Back to Home
+          </Button>
+          
           {metadata?.previousArticle && (
-            <Link
+            <Button 
+              variant="outline" 
+              size="sm"
               href={`/${encodeURIComponent(metadata.previousArticle.slug)}`}
-              style={{
-                color: '#0066cc',
-                textDecoration: 'none',
-                fontSize: '0.9rem'
-              }}
+              icon={
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" />
+                </svg>
+              }
             >
-              ← {metadata.previousArticle.title}
-            </Link>
+              {metadata.previousArticle.title}
+            </Button>
           )}
         </div>
-        <h1 style={{ color: isFuturePage ? '#8b0000' : 'inherit' }}>{title}</h1>
-        <article 
-          style={{ 
-            marginTop: '2rem',
-            background: '#fff',
-            padding: '2rem',
-            borderRadius: '8px',
-            boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
-          }}
-        >
-          <ArticleContent htmlContent={htmlContent} />
-          {isFuturePage && (
-            <div style={{ 
-              marginTop: '2rem', 
-              padding: '1.5rem', 
-              background: '#fcfcfc', 
-              borderRadius: '8px',
-              borderLeft: '4px solid #8b0000',
-              boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
-            }}>
-              <p style={{ margin: 0, color: '#444', fontSize: '1.1rem', fontStyle: 'italic' }}>
-                "This article is currently in the generation queue. I'm busy making it actually worth reading. 
-                Check back when you've developed some patience."
-              </p>
-              <p style={{ marginTop: '0.5rem', marginBottom: 0, color: '#888', fontSize: '0.9rem' }}>
-                — <a href="/Emma_AI" style={{ color: '#0066cc', textDecoration: 'none' }}>Emma AI</a>
-              </p>
-            </div>
-          )}
+
+        <article className="article">
+          <header className="article-title-section">
+            <h1 style={{ color: isFuturePage ? 'var(--accent-red)' : 'inherit' }}>
+              {title}
+            </h1>
+          </header>
+          
+          <div className="article-content">
+            <ArticleContent htmlContent={htmlContent} />
+            
+            {isFuturePage && (
+              <div className="future-notice">
+                <div className="future-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,17A1.5,1.5 0 0,1 10.5,15.5A1.5,1.5 0 0,1 12,14A1.5,1.5 0 0,1 13.5,15.5A1.5,1.5 0 0,1 12,17M12,10.5C10.9,10.5 10,9.6 10,8.5C10,7.4 10.9,6.5 12,6.5C13.1,6.5 14,7.4 14,8.5C14,9.6 13.1,10.5 12,10.5Z" />
+                  </svg>
+                </div>
+                <div className="future-content">
+                  <p className="future-message">
+                    "This article is currently in the generation queue. I'm busy making it actually worth reading. 
+                    Check back when you've developed some patience."
+                  </p>
+                  <p className="future-author">
+                    — <a href="/Emma_AI">Emma AI</a>
+                  </p>
+                </div>
+              </div>
+            )}
+          </div>
         </article>
       </main>
     </>

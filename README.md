@@ -1,45 +1,137 @@
-# Sarcasm Wiki
+# Sarcasm Wiki - Modern Design
 
-Next.js application that fetches Wikipedia pages, rewrites them, and saves as Markdown files.
+A Wikipedia content reimagining platform with a premium modern design system.
 
-## Setup
+## 🎨 Design Philosophy
 
-1. Install dependencies:
-```bash
-npm install
+This project features a complete design system emphasizing:
+- **Premium Quality**: High-end materials and finishes
+- **Performance**: Fast animations and responsiveness  
+- **Minimalism**: Clean lines and whitespace
+- **Precision**: Attention to detail
+- **Innovation**: Modern technologies and approaches
+
+## 🎨 Design System
+
+### Color Palette
+- **White**: `#ffffff` - Primary white
+- **Pearl White**: `#f8f9fa` - Background tones
+- **Primary Blue**: `#1976d2` - Primary actions
+- **Accent Red**: `#ff4444` - Hover states and accents
+- **Charcoal**: `#202124` - Primary text
+
+### Components
+- **Navigation** - Premium navigation with blur effects
+- **Hero** - Animated hero sections with gradients
+- **Card** - Elegant cards with hover effects
+- **Button** - Multiple variants and sizes
+- **Stats** - Statistics with trend indicators
+- **Loading** - Animated loading states
+- **Notification** - Toast notifications
+- **ErrorPage** - Styled error pages
+
+## 🚀 Features
+
+- **AI-Enhanced Content**: Wikipedia articles rewritten with AI
+- **Premium Design**: BMW M3-inspired interface
+- **Responsive**: Optimized for all devices
+- **Performance**: Fast loading and smooth animations
+- **Accessibility**: WCAG compliant components
+- **SEO Optimized**: Automatic sitemap generation
+
+## 🛠 Tech Stack
+
+- **Framework**: Next.js 14
+- **Styling**: CSS with BMW M3 design tokens
+- **Typography**: Inter font family
+- **Icons**: Material Design Icons
+- **Deployment**: Vercel/PM2 ready
+
+## 📱 Pages
+
+- **Home** (`/`) - Main landing page with latest articles
+- **Showcase** (`/showcase`) - Design system demonstration
+- **Admin** (`/admin`) - Content management
+- **Articles** (`/[slug]`) - Individual article pages
+
+## 🎯 Usage
+
+### View the Design System
+Visit `/showcase` to see all components in action.
+
+### Component Import
+```tsx
+import {
+  BMWNavigation,
+  BMWHero,
+  BMWCard,
+  BMWButton
+} from './app/components'
 ```
 
-2. Create `.env` file with your configuration:
-```
-GEMINI_API_KEY=your_key_here
-PORT=3000
-```
-
-3. Run development server:
-```bash
-npm run dev
+### Example Usage
+```tsx
+<BMWHero 
+  title="Premium Content"
+  description="Experience knowledge with BMW M3 elegance"
+  primaryAction={{ text: "Explore", href: "/articles" }}
+/>
 ```
 
-The server will run on the port specified in `PORT` environment variable in `.env` file (default: 3000).
+## 🏁 Getting Started
 
-You can also set the port directly when running:
-```bash
-PORT=8080 npm run dev
+1. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+2. **Set up environment**
+   ```bash
+   # Create .env file
+   GEMINI_API_KEY=your_key_here
+   PORT=3000
+   ```
+
+3. **Start development server**
+   ```bash
+   npm run dev
+   ```
+
+4. **Visit the application**
+   - Main site: `http://localhost:3000`
+   - Design showcase: `http://localhost:3000/showcase`
+
+## 📖 Documentation
+
+- **Design System**: See `BMW_M3_DESIGN.md` for complete documentation
+- **Components**: All components are documented with TypeScript interfaces
+- **Styles**: Global styles in `app/globals.css`
+
+## 🎨 Design Highlights
+
+- **Premium Typography**: Inter font with optimized weights
+- **Smooth Animations**: 0.2s-0.3s transitions with easing
+- **Hover Effects**: Subtle transforms and shadow changes  
+- **Color Harmony**: BMW M-series inspired palette
+- **Responsive Grid**: Auto-fit layouts for all screen sizes
+
+## 🔧 Customization
+
+The design system uses CSS custom properties for easy theming:
+
+```css
+:root {
+  --bmw-white: #ffffff;
+  --bmw-m-blue: #1976d2;
+  --bmw-accent-red: #ff4444;
+  /* ... more variables */
+}
 ```
 
-## Usage
+## 📄 License
 
-Navigate to any Wikipedia article by URL:
-- `/Artificial_intelligence`
-- `/Machine_learning`
-- `/Quantum_computing`
+This project showcases a BMW M3-inspired design system for educational and demonstration purposes.
 
-The app will:
-1. Check if an MD file exists for the article
-2. If not, fetch from Wikipedia
-3. Rewrite the content using Google Gemini
-4. Save as MD file in `/content` directory
-5. Display the rewritten content
+---
 
-# sarcasm-wiki
-# sarcasm-wiki
+**Experience premium web design inspired by automotive excellence.** 🏎️

@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import Script from 'next/script'
 import 'katex/dist/katex.min.css'
 import './globals.css'
@@ -10,7 +10,12 @@ import '../lib/startup'
 export const metadata: Metadata = {
   title: 'Sarcasm Wiki - AI-Enhanced Knowledge',
   description: 'Wikipedia articles reimagined with artificial intelligence. Discover knowledge with a fresh perspective.',
-  viewport: 'width=device-width, initial-scale=1, maximum-scale=5',
+}
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
   themeColor: '#1976d2',
 }
 

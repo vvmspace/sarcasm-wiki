@@ -134,6 +134,17 @@ export default async function WikiPage({ params }: PageProps) {
   const rawSlug = params.slug.join('/')
   const slug = decodeSlug(rawSlug)
   
+  // Block WordPress and scanner paths
+  const blockedPaths = [
+    'wp-admin', 'wp-content', 'wp-includes', 'wp-login.php', 'wp-config.php',
+    'xmlrpc.php', 'admin', 'administrator', 'phpmyadmin', '.env', '.git',
+    'config', 'setup-config.php', 'install.php', 'readme.html', 'license.txt'
+  ]
+  
+  if (blockedPaths.some(blocked => slug.startsWith(blocked) || slug.includes(`/${blocked}`))) {
+    notFound()
+  }
+  
   // Fast path for development assets
   if (slug.includes('_next') || slug.includes('webpack') || slug.includes('hot-update') || slug.startsWith('.')) {
     notFound()

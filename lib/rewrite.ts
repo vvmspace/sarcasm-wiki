@@ -1,69 +1,42 @@
-import { GoogleGenerativeAI } from '@google/generative-ai'
+import { getAIManager } from './ai-providers'
 import { getSystemPrompt, getUserPrompt } from './prompts'
 import { checkAndStartGeneration } from './rate-limit'
 
-function getRandomAI(): GoogleGenerativeAI {
-  const keys = (process.env.GEMINI_API_KEY || '').split(',').map(k => k.trim()).filter(k => k.length > 0)
-  if (keys.length === 0) {
-    throw new Error('GEMINI_API_KEY not set')
-  }
-  const key = keys[Math.floor(Math.random() * keys.length)]
-  return new GoogleGenerativeAI(key)
-}
-
-const MODELS = [
-  'gemini-2.5-flash',
-  'gemini-2.5-flash-lite',
-  'gemini-2.5-pro',
-]
-
-function getRandomModel(): string {
-  return MODELS[Math.floor(Math.random() * MODELS.length)]
-}
-
-async function rewriteChunk(chunk: string, isFirst: boolean = false, chunkIndex?: number, totalChunks?: number): Promise<string> {
+async function rewriteChunk(chunk: string, isFirst: boolean = false, chunkIndex?: number, totalChunks?: number): Promise<{ content: string, provider: string, model: string }> {
   const startTime = Date.now()
   const chunkInfo = totalChunks ? `[${chunkIndex}/${totalChunks}]` : ''
   const chunkType = isFirst ? 'first' : 'subsequent'
-  const modelName = getRandomModel()
   
-  console.log(`[REWRITE] Starting chunk rewrite ${chunkInfo} (${chunkType}, ${chunk.length} chars, model: ${modelName})`)
+  console.log(`[REWRITE] Starting chunk rewrite ${chunkInfo} (${chunkType}, ${chunk.length} chars)`)
   
   try {
     const systemPrompt = await getSystemPrompt(isFirst)
     const userPrompt = await getUserPrompt(chunk, isFirst)
     console.log(`[REWRITE] Prompts loaded ${chunkInfo} (system: ${systemPrompt.length} chars, user: ${userPrompt.length} chars)`)
 
-    const ai = getRandomAI()
-    const model = ai.getGenerativeModel({ 
-      model: modelName,
-      systemInstruction: systemPrompt,
-      generationConfig: {
-        temperature: 0.7,
-        maxOutputTokens: 32000,
-      },
-    })
-
-    console.log(`[REWRITE] Calling Gemini API ${chunkInfo} with ${modelName}...`)
-    const apiStartTime = Date.now()
-    const result = await model.generateContent(userPrompt)
-    const apiDuration = Date.now() - apiStartTime
-    console.log(`[REWRITE] API response received ${chunkInfo} from ${modelName} (${apiDuration}ms)`)
-
-    const response = result.response
-    const text = response.text()
+    const aiManager = getAIManager()
     
-    if (!text || text.trim().length < 50) {
-      console.error(`[REWRITE] ERROR ${chunkInfo}: Empty or too short response (${text?.length || 0} chars). Full response:`, JSON.stringify(response))
-      throw new Error('Empty or too short response from API')
+    console.log(`[REWRITE] Calling AI API ${chunkInfo}...`)
+    const apiStartTime = Date.now()
+    const result = await aiManager.generateContent(userPrompt, systemPrompt)
+    const apiDuration = Date.now() - apiStartTime
+    console.log(`[REWRITE] AI response received ${chunkInfo} (${apiDuration}ms)`)
+    
+    if (!result.content || result.content.trim().length < 50) {
+      console.error(`[REWRITE] ERROR ${chunkInfo}: Empty or too short response (${result.content?.length || 0} chars)`)
+      throw new Error('Empty or too short response from AI API')
     }
     
     const totalDuration = Date.now() - startTime
-    console.log(`[REWRITE] Chunk rewrite completed ${chunkInfo} with ${modelName} (${text.length} chars, ${totalDuration}ms total, ${apiDuration}ms API)`)
-    return text
+    console.log(`[REWRITE] Chunk rewrite completed ${chunkInfo} (${result.content.length} chars, ${totalDuration}ms total, ${apiDuration}ms API)`)
+    return {
+      content: result.content,
+      provider: result.provider,
+      model: result.model
+    }
   } catch (error: any) {
     const totalDuration = Date.now() - startTime
-    console.error(`[REWRITE] ERROR ${chunkInfo} with ${modelName} after ${totalDuration}ms:`, error?.status || error?.message || error)
+    console.error(`[REWRITE] ERROR ${chunkInfo} after ${totalDuration}ms:`, error?.status || error?.message || error)
     
     throw error
   }
@@ -73,7 +46,7 @@ function isValidSlug(slug: string): boolean {
   return /^[A-Za-z0-9_,:\- ]+$/.test(slug)
 }
 
-export async function generateMiniArticle(slug: string, waitForLock: boolean = false): Promise<string | null> {
+export async function generateMiniArticle(slug: string, waitForLock: boolean = false): Promise<{ content: string, provider: string, model: string } | null> {
   const startTime = Date.now()
   console.log(`[GENERATE] Starting mini article generation for: ${slug}`)
   
@@ -90,38 +63,52 @@ export async function generateMiniArticle(slug: string, waitForLock: boolean = f
   try {
     const title = slug.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())
     const systemPrompt = await getSystemPrompt(true)
-    const userPrompt = `Create a comprehensive Wikipedia-style article about "${title}" in your style. The article should be informative, engaging, and at least 2000-3000 characters long. Include multiple sections with headings (##), detailed explanations, and CRITICAL: Include AT LEAST 5-10 internal links to related topics throughout the article in Markdown format [text](/article_name). Every section should have multiple internal links. Links should be natural and relevant to the content. Examples of linkable terms: related concepts, historical figures, places, technologies, theories, etc. Write in the same sarcastic, witty style as Emma. Make it substantial and well-structured. Return ONLY the article content in Markdown format with internal links.`
+    const userPrompt = `Create a comprehensive, detailed Wikipedia-style article about "${title}" in your signature sarcastic style. 
+
+REQUIREMENTS:
+- The article MUST be substantial and comprehensive (4000-6000 characters minimum)
+- Include 6-8 major sections with detailed subsections using ## and ### headings
+- Write in the same witty, sarcastic tone as Emma Monday
+- Include AT LEAST 15-20 internal links to related topics in Markdown format [text](/article_name)
+- Every section should have multiple internal links naturally integrated
+- Cover the topic thoroughly from multiple angles (history, significance, impact, controversies, etc.)
+- Make it engaging and informative while maintaining the sarcastic edge
+- Include specific details, examples, and context
+- End with a substantial conclusion section
+
+STRUCTURE EXAMPLE:
+## Introduction (with context and significance)
+## Historical Background (origins, development)
+## Key Characteristics/Features (detailed breakdown)
+## Cultural/Social Impact (broader implications)
+## Controversies or Criticisms (if applicable)
+## Modern Relevance (current status, future)
+## Conclusion (synthesis and final thoughts)
+
+Remember: This should be as comprehensive and detailed as a rewritten Wikipedia article. Don't hold back on length or depth. Return ONLY the article content in Markdown format with extensive internal links.`
     
     console.log(`[GENERATE] Prompts loaded (system: ${systemPrompt.length} chars, user: ${userPrompt.length} chars)`)
 
-    const modelName = getRandomModel()
-    const ai = getRandomAI()
-    const model = ai.getGenerativeModel({ 
-      model: modelName,
-      systemInstruction: systemPrompt,
-      generationConfig: {
-        temperature: 0.7,
-        maxOutputTokens: 32000,
-      },
-    })
+    const aiManager = getAIManager()
 
-    console.log(`[GENERATE] Calling Gemini API with ${modelName}...`)
+    console.log(`[GENERATE] Calling AI API...`)
     const apiStartTime = Date.now()
-    const result = await model.generateContent(userPrompt)
+    const result = await aiManager.generateContent(userPrompt, systemPrompt)
     const apiDuration = Date.now() - apiStartTime
-    console.log(`[GENERATE] API response received from ${modelName} (${apiDuration}ms)`)
-
-    const response = result.response
-    const text = response.text()
+    console.log(`[GENERATE] AI response received (${apiDuration}ms)`)
     
-    if (!text || text.trim().length < 200) {
-      console.error(`[GENERATE] ERROR: Empty or too short response (${text?.length || 0} chars)`)
-      throw new Error('Empty or too short response from API')
+    if (!result.content || result.content.trim().length < 1000) {
+      console.error(`[GENERATE] ERROR: Empty or too short response (${result.content?.length || 0} chars, minimum 1000 required)`)
+      throw new Error('Empty or too short response from AI API')
     }
     
     const totalDuration = Date.now() - startTime
-    console.log(`[GENERATE] Mini article generation completed for: ${slug} (${text.length} chars, ${totalDuration}ms total, ${apiDuration}ms API)`)
-    return text
+    console.log(`[GENERATE] Mini article generation completed for: ${slug} (${result.content.length} chars, ${totalDuration}ms total, ${apiDuration}ms API)`)
+    return {
+      content: result.content,
+      provider: result.provider,
+      model: result.model
+    }
   } catch (error: any) {
     const totalDuration = Date.now() - startTime
     console.error(`[GENERATE] ERROR after ${totalDuration}ms for: ${slug}:`, {
@@ -138,7 +125,7 @@ export async function generateMiniArticle(slug: string, waitForLock: boolean = f
   }
 }
 
-export async function rewriteContent(content: string, links?: Map<string, string>, slug?: string, waitForLock: boolean = false): Promise<string | null> {
+export async function rewriteContent(content: string, links?: Map<string, string>, slug?: string, waitForLock: boolean = false): Promise<{ content: string, provider: string, model: string } | null> {
   const startTime = Date.now()
   console.log(`[REWRITE] Starting content rewrite for: ${slug || 'unknown'} (${content.length} chars, ${links?.size || 0} links)`)
   
@@ -163,10 +150,10 @@ export async function rewriteContent(content: string, links?: Map<string, string
     
     if (content.length <= maxChunkLength) {
       console.log(`[REWRITE] Content fits in single chunk (${content.length} chars), rewriting...`)
-      const rewritten = await rewriteChunk(content, true)
+      const result = await rewriteChunk(content, true)
       const duration = Date.now() - startTime
-      console.log(`[REWRITE] Content rewrite completed for: ${slug || 'unknown'} (${rewritten.length} chars, ${duration}ms)`)
-      return rewritten
+      console.log(`[REWRITE] Content rewrite completed for: ${slug || 'unknown'} (${result.content.length} chars, ${duration}ms)`)
+      return result
     }
 
     console.log(`[REWRITE] Content too large (${content.length} chars), splitting into chunks...`)
@@ -189,17 +176,23 @@ export async function rewriteContent(content: string, links?: Map<string, string
 
     console.log(`[REWRITE] Split into ${chunks.length} chunks: ${chunks.map(c => c.length).join(', ')} chars`)
     const rewrittenChunks: string[] = []
+    let lastResult: any = null
     
     for (let i = 0; i < chunks.length; i++) {
       console.log(`[REWRITE] Processing chunk ${i + 1}/${chunks.length}...`)
-      const rewritten = await rewriteChunk(chunks[i], i === 0, i + 1, chunks.length)
-      rewrittenChunks.push(rewritten)
+      const result = await rewriteChunk(chunks[i], i === 0, i + 1, chunks.length)
+      rewrittenChunks.push(result.content)
+      lastResult = result // Сохраняем информацию о последнем провайдере
     }
 
     const finalContent = rewrittenChunks.join('\n\n')
     const duration = Date.now() - startTime
     console.log(`[REWRITE] Content rewrite completed for: ${slug || 'unknown'} (${finalContent.length} chars from ${content.length} original, ${chunks.length} chunks, ${duration}ms)`)
-    return finalContent
+    return {
+      content: finalContent,
+      provider: lastResult?.provider || 'unknown',
+      model: lastResult?.model || 'unknown'
+    }
   } catch (error: any) {
     const duration = Date.now() - startTime
     console.error(`[REWRITE] ERROR after ${duration}ms for: ${slug || 'unknown'}:`, error?.status || error?.message || error)

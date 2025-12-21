@@ -3,6 +3,7 @@ import path from 'path'
 import { fetchWikipediaContent } from './wikipedia'
 import { rewriteContent, generateMiniArticle } from './rewrite'
 import { parseMDC, generateMDC, generateMetadataFromContent, type MDCContent, type ContentMetadata } from './mdc'
+import { updateAIStatsOnAdd, updateAIStatsOnUpdate } from './ai-stats'
 
 const CONTENT_DIR = path.join(process.cwd(), 'content')
 const CACHE_DIR = path.join(process.cwd(), '.temp')
@@ -163,16 +164,16 @@ async function fetchAndSaveContent(slug: string, waitForLock: boolean = false): 
       if (/^[A-Za-z0-9_,:\- ]+$/.test(slug)) {
         console.log(`[CONTENT] Slug is valid, generating mini article for: ${slug}`)
         try {
-          const generatedContent = await generateMiniArticle(slug, waitForLock)
+          const generatedResult = await generateMiniArticle(slug, waitForLock)
           
-          if (!generatedContent || generatedContent.trim().length < 200) {
-            console.warn(`[CONTENT] Mini article generation failed or returned empty for: ${slug}`)
+          if (!generatedResult || !generatedResult.content || generatedResult.content.trim().length < 1000) {
+            console.warn(`[CONTENT] Mini article generation failed or returned too short content for: ${slug}`)
             return null
           }
           
-          console.log(`[CONTENT] Mini article generated for: ${slug} (${generatedContent.length} chars)`)
+          console.log(`[CONTENT] Mini article generated for: ${slug} (${generatedResult.content.length} chars)`)
           
-          const finalContent = removeReferencesSection(generatedContent)
+          const finalContent = removeReferencesSection(generatedResult.content)
           
           let existingMetadata: ContentMetadata | null = null
           const fileName = normalizeFileName(slug)
@@ -187,7 +188,16 @@ async function fetchAndSaveContent(slug: string, waitForLock: boolean = false): 
           
           const metadata = generateMetadataFromContent(slug, finalContent, existingMetadata?.createdAt)
           metadata.contentType = 'created'
-          console.log(`[CONTENT] Generated metadata for: ${slug} (title: ${metadata.title}, keywords: ${metadata.keywords.length})`)
+          metadata.isOriginalContent = true // Флаг для статей без исходника с Wikipedia
+          
+          // Сохраняем информацию о провайдере и модели из результата генерации
+          if (generatedResult && generatedResult.provider && generatedResult.model) {
+            metadata.aiProvider = generatedResult.provider
+            metadata.aiModel = generatedResult.model
+            console.log(`[CONTENT] AI info saved for ${slug}: ${generatedResult.provider} / ${generatedResult.model}`)
+          }
+          
+          console.log(`[CONTENT] Generated metadata for: ${slug} (title: ${metadata.title}, keywords: ${metadata.keywords.length}, isOriginal: ${metadata.isOriginalContent})`)
           
           console.log(`[CONTENT] Saving generated content for: ${slug} (${finalContent.length} chars)`)
           const saveStartTime = Date.now()
@@ -214,19 +224,19 @@ async function fetchAndSaveContent(slug: string, waitForLock: boolean = false): 
     const { content: wikipediaContent, links } = wikipediaData
     console.log(`[CONTENT] Wikipedia content fetched for: ${slug} (${wikipediaContent.length} chars, ${links.size} links, ${wikiDuration}ms)`)
 
-    let rewrittenContent: string | null
+    let rewrittenResult: any
     let rewriteDuration = 0
     try {
       console.log(`[CONTENT] Starting rewrite for: ${slug}`)
       const rewriteStartTime = Date.now()
-      rewrittenContent = await rewriteContent(wikipediaContent, links, slug, waitForLock)
+      rewrittenResult = await rewriteContent(wikipediaContent, links, slug, waitForLock)
       rewriteDuration = Date.now() - rewriteStartTime
       
-      if (!rewrittenContent || rewrittenContent.trim().length < 50) {
+      if (!rewrittenResult || !rewrittenResult.content || rewrittenResult.content.trim().length < 50) {
         console.warn(`[CONTENT] Rewriting failed or returned empty for: ${slug} (${rewriteDuration}ms)`)
         return null
       }
-      console.log(`[CONTENT] Rewrite completed for: ${slug} (${rewrittenContent.length} chars, ${rewriteDuration}ms)`)
+      console.log(`[CONTENT] Rewrite completed for: ${slug} (${rewrittenResult.content.length} chars, ${rewriteDuration}ms)`)
     } catch (error: any) {
       if (error.message === 'RATE_LIMIT_EXCEEDED') {
         console.log(`[CONTENT] Rate limit exceeded for: ${slug}, throwing error`)
@@ -237,8 +247,8 @@ async function fetchAndSaveContent(slug: string, waitForLock: boolean = false): 
     }
     
     console.log(`[CONTENT] Removing references section for: ${slug}`)
-    const finalContent = removeReferencesSection(rewrittenContent)
-    const refsRemoved = rewrittenContent.length - finalContent.length
+    const finalContent = removeReferencesSection(rewrittenResult.content)
+    const refsRemoved = rewrittenResult.content.length - finalContent.length
     if (refsRemoved > 0) {
       console.log(`[CONTENT] Removed ${refsRemoved} chars from references section for: ${slug}`)
     }
@@ -256,7 +266,16 @@ async function fetchAndSaveContent(slug: string, waitForLock: boolean = false): 
     
     const metadata = generateMetadataFromContent(slug, finalContent, existingMetadata?.createdAt)
     metadata.contentType = 'rewritten'
-    console.log(`[CONTENT] Generated metadata for: ${slug} (title: ${metadata.title}, keywords: ${metadata.keywords.length})`)
+    metadata.isOriginalContent = false // Статья переписана с Wikipedia
+    
+    // Сохраняем информацию о провайдере и модели из результата rewrite
+    if (rewrittenResult && rewrittenResult.provider && rewrittenResult.model) {
+      metadata.aiProvider = rewrittenResult.provider
+      metadata.aiModel = rewrittenResult.model
+      console.log(`[CONTENT] AI info saved for ${slug}: ${rewrittenResult.provider} / ${rewrittenResult.model}`)
+    }
+    
+    console.log(`[CONTENT] Generated metadata for: ${slug} (title: ${metadata.title}, keywords: ${metadata.keywords.length}, isOriginal: ${metadata.isOriginalContent})`)
     
     console.log(`[CONTENT] Saving content for: ${slug} (${finalContent.length} chars, original: ${wikipediaContent.length} chars, links: ${links.size})`)
     const saveStartTime = Date.now()
@@ -315,8 +334,34 @@ async function saveContent(slug: string, metadata: ContentMetadata, content: str
   
   const fileName = normalizeFileName(slug)
   const filePath = path.join(CONTENT_DIR, `${fileName}.mdc`)
+  
+  // Проверяем, существует ли файл для определения операции (добавление или обновление)
+  let isUpdate = false
+  let oldMetadata: ContentMetadata | null = null
+  
+  try {
+    const existingContent = await fs.readFile(filePath, 'utf-8')
+    const existingMDC = parseMDC(existingContent)
+    oldMetadata = existingMDC.metadata
+    isUpdate = true
+    console.log(`[CONTENT] Updating existing article: ${slug}`)
+  } catch (error) {
+    console.log(`[CONTENT] Creating new article: ${slug}`)
+  }
+  
   const mdcContent = generateMDC(metadata, content)
   await fs.writeFile(filePath, mdcContent, 'utf-8')
+  
+  // Обновляем статистику AI
+  try {
+    if (isUpdate && oldMetadata) {
+      await updateAIStatsOnUpdate(oldMetadata, metadata)
+    } else {
+      await updateAIStatsOnAdd(metadata)
+    }
+  } catch (error) {
+    console.error('[CONTENT] Error updating AI statistics:', error)
+  }
   
   // Invalidate existing articles cache since we added a new one
   existingArticlesCache = null

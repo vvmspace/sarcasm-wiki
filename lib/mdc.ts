@@ -6,6 +6,9 @@ export interface ContentMetadata {
   createdAt?: string
   updatedAt?: string
   contentType?: 'rewritten' | 'created'
+  isOriginalContent?: boolean // true если статья создана без исходника с Wikipedia
+  aiProvider?: string
+  aiModel?: string
   previousArticle?: {
     slug: string
     title: string
@@ -60,6 +63,12 @@ export function parseMDC(mdcContent: string): MDCContent {
       if (value === 'rewritten' || value === 'created') {
         metadata.contentType = value
       }
+    } else if (key === 'isOriginalContent') {
+      metadata.isOriginalContent = value === 'true'
+    } else if (key === 'aiProvider') {
+      metadata.aiProvider = value
+    } else if (key === 'aiModel') {
+      metadata.aiModel = value
     } else if (key === 'previousArticleSlug') {
       if (!metadata.previousArticle) {
         metadata.previousArticle = { slug: value, title: '' }
@@ -114,6 +123,15 @@ export function generateMDC(metadata: ContentMetadata, content: string): string 
   }
   if (metadata.contentType) {
     lines.push(`contentType: "${metadata.contentType}"`)
+  }
+  if (metadata.isOriginalContent) {
+    lines.push(`isOriginalContent: "${metadata.isOriginalContent}"`)
+  }
+  if (metadata.aiProvider) {
+    lines.push(`aiProvider: "${metadata.aiProvider}"`)
+  }
+  if (metadata.aiModel) {
+    lines.push(`aiModel: "${metadata.aiModel}"`)
   }
   if (metadata.previousArticle) {
     lines.push(`previousArticleSlug: "${metadata.previousArticle.slug}"`)

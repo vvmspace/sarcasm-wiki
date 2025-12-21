@@ -14,7 +14,7 @@ export function startQueueProcessor(): void {
   }
   
   global.__queueProcessorStarted = true
-  console.log('[QUEUE PROCESSOR] Starting queue processor (120 seconds interval)')
+  console.log('[QUEUE PROCESSOR] Starting queue processor (45 seconds interval)')
   
   global.__queueProcessorIntervalId = setInterval(async () => {
     if (isProcessing) {
@@ -62,7 +62,7 @@ export function startQueueProcessor(): void {
     } finally {
       isProcessing = false
     }
-  }, 120 * 1000)
+  }, 45 * 1000)
 }
 
 export function stopQueueProcessor(): void {

@@ -193,7 +193,18 @@ async function test5_FullFlowWithCache() {
 async function runAllTests() {
   console.log('\n🧪 FINAL SYSTEM TESTS')
   console.log('='.repeat(60))
-  console.log(`Environment: ${process.env.GEMINI_API_KEY ? '✅ API Key set' : '⚠️  No API Key'}`)
+  
+  // Check AI providers
+  const hasGemini = !!process.env.GEMINI_API_KEY
+  const hasOpenRouter = !!process.env.OPENROUTER_API_KEY  
+  const hasOpenAI = !!process.env.OPENAI_API_KEY
+  const totalProviders = [hasGemini, hasOpenRouter, hasOpenAI].filter(Boolean).length
+  
+  console.log(`AI Providers: ${totalProviders > 0 ? '✅' : '⚠️'} ${totalProviders} provider(s) configured`)
+  if (hasGemini) console.log('  - ✅ Gemini API')
+  if (hasOpenRouter) console.log('  - ✅ OpenRouter API') 
+  if (hasOpenAI) console.log('  - ✅ OpenAI API')
+  if (totalProviders === 0) console.log('  - ⚠️ No AI providers configured')
   
   const results = {
     test1: await test1_NoReferencesSection(),

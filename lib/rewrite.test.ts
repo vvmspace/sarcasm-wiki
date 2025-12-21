@@ -1,36 +1,46 @@
 import { rewriteContent } from './rewrite'
 
 describe('rewrite', () => {
-  const originalEnv = process.env.GEMINI_API_KEY
+  const originalGeminiEnv = process.env.GEMINI_API_KEY
+  const originalOpenRouterEnv = process.env.OPENROUTER_API_KEY
+  const originalOpenAIEnv = process.env.OPENAI_API_KEY
 
   beforeAll(() => {
-    if (!process.env.GEMINI_API_KEY) {
+    // Ensure at least one API key is set for tests
+    if (!process.env.GEMINI_API_KEY && !process.env.OPENROUTER_API_KEY && !process.env.OPENAI_API_KEY) {
       process.env.GEMINI_API_KEY = 'test-key'
     }
   })
 
   afterAll(() => {
-    process.env.GEMINI_API_KEY = originalEnv
+    process.env.GEMINI_API_KEY = originalGeminiEnv
+    process.env.OPENROUTER_API_KEY = originalOpenRouterEnv
+    process.env.OPENAI_API_KEY = originalOpenAIEnv
   })
 
   describe('rewriteContent', () => {
-    it('should return original content if API key is not set', async () => {
-      const originalKey = process.env.GEMINI_API_KEY
+    it('should throw error if no API keys are set', async () => {
+      const originalGemini = process.env.GEMINI_API_KEY
+      const originalOpenRouter = process.env.OPENROUTER_API_KEY
+      const originalOpenAI = process.env.OPENAI_API_KEY
+      
       delete process.env.GEMINI_API_KEY
+      delete process.env.OPENROUTER_API_KEY
+      delete process.env.OPENAI_API_KEY
       
       const testContent = 'This is a test content with [a link](/Test) inside.'
-      const result = await rewriteContent(testContent)
       
-      expect(result).toBe(testContent)
+      await expect(rewriteContent(testContent)).rejects.toThrow()
       
-      process.env.GEMINI_API_KEY = originalKey
+      process.env.GEMINI_API_KEY = originalGemini
+      process.env.OPENROUTER_API_KEY = originalOpenRouter
+      process.env.OPENAI_API_KEY = originalOpenAI
     })
 
-    it('should return content for short input', async () => {
-      const testContent = 'Short content'
-      const result = await rewriteContent(testContent)
+    it('should handle content too short for rewriting', async () => {
+      const testContent = 'Short'
       
-      expect(result).toBe(testContent)
+      await expect(rewriteContent(testContent)).rejects.toThrow('Content too short to rewrite')
     })
 
     it('should handle content with links', async () => {

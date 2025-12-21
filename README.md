@@ -87,8 +87,15 @@ import {
 
 2. **Set up environment**
    ```bash
-   # Create .env file
-   GEMINI_API_KEY=your_key_here
+   # Create .env file with AI provider keys (at least one required)
+   GEMINI_API_KEY=your_gemini_key_here
+   OPENROUTER_API_KEY=your_openrouter_key_here
+   OPENAI_API_KEY=your_openai_key_here
+   
+   # Multiple keys supported (comma-separated for load balancing)
+   GEMINI_API_KEY=key1,key2,key3
+   OPENROUTER_API_KEY=key1,key2
+   
    PORT=3000
    ```
 

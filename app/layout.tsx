@@ -4,6 +4,9 @@ import 'katex/dist/katex.min.css'
 import './globals.css'
 import QueueStatus from './components/QueueStatus'
 
+// Import startup tasks (server-side only)
+import '../lib/startup'
+
 export const metadata: Metadata = {
   title: 'Sarcasm Wiki',
   description: 'Wikipedia content rephrased',

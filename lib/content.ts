@@ -8,6 +8,51 @@ const CONTENT_DIR = path.join(process.cwd(), 'content')
 const CACHE_DIR = path.join(process.cwd(), '.temp')
 const LATEST_ARTICLES_CACHE = path.join(CACHE_DIR, 'latest-articles.json')
 
+// Development cache for file operations
+const fileCache = new Map<string, { content: string, timestamp: number, stats: any }>()
+const FILE_CACHE_TTL = 30000 // 30 seconds in dev mode
+
+async function readFileWithCache(filePath: string): Promise<string | null> {
+  if (process.env.NODE_ENV === 'development') {
+    const cached = fileCache.get(filePath)
+    if (cached) {
+      try {
+        const stats = await fs.stat(filePath)
+        if (stats.mtime.getTime() === cached.stats.mtime.getTime() && 
+            Date.now() - cached.timestamp < FILE_CACHE_TTL) {
+          return cached.content
+        }
+      } catch (error) {
+        // File doesn't exist anymore
+        fileCache.delete(filePath)
+        return null
+      }
+    }
+  }
+  
+  try {
+    const [content, stats] = await Promise.all([
+      fs.readFile(filePath, 'utf-8'),
+      fs.stat(filePath)
+    ])
+    
+    if (process.env.NODE_ENV === 'development') {
+      fileCache.set(filePath, {
+        content,
+        timestamp: Date.now(),
+        stats: { mtime: stats.mtime }
+      })
+    }
+    
+    return content
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code === 'ENOENT') {
+      return null
+    }
+    throw error
+  }
+}
+
 function normalizeFileName(slug: string): string {
   return slug.replace(/:/g, '_')
 }
@@ -24,29 +69,29 @@ export async function getPageMDC(slug: string, forceRefresh: boolean = false, wa
   if (forceRefresh) {
     try {
       await fs.unlink(filePath)
+      if (process.env.NODE_ENV === 'development') {
+        fileCache.delete(filePath)
+      }
     } catch (error) {
       // File doesn't exist, that's fine
     }
     return await fetchAndSaveContent(slug, waitForLock)
   }
 
+  const mdcContent = await readFileWithCache(filePath)
+  if (!mdcContent) {
+    return null
+  }
+  
+  if (mdcContent.trim().length < 50) {
+    return null
+  }
+  
   try {
-    const mdcContent = await fs.readFile(filePath, 'utf-8')
-    if (mdcContent.trim().length < 50) {
-      return null
-    }
-    
-    try {
-      return parseMDC(mdcContent)
-    } catch (error) {
-      console.warn(`Invalid MDC format for ${slug}, will be regenerated via queue`)
-      return null
-    }
+    return parseMDC(mdcContent)
   } catch (error) {
-    if ((error as NodeJS.ErrnoException).code === 'ENOENT') {
-      return null
-    }
-    throw error
+    console.warn(`Invalid MDC format for ${slug}, will be regenerated via queue`)
+    return null
   }
 }
 

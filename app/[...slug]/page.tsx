@@ -18,7 +18,34 @@ interface PageProps {
 }
 
 export const dynamicParams = true
-export const revalidate = false
+export const revalidate = process.env.NODE_ENV === 'development' ? 0 : false
+
+// Development cache for faster page loads
+const devCache = new Map<string, { data: any, timestamp: number }>()
+const DEV_CACHE_TTL = 30000 // 30 seconds in dev mode
+
+function getFromDevCache<T>(key: string): T | null {
+  if (process.env.NODE_ENV !== 'development') return null
+  
+  const cached = devCache.get(key)
+  if (!cached) return null
+  
+  if (Date.now() - cached.timestamp > DEV_CACHE_TTL) {
+    devCache.delete(key)
+    return null
+  }
+  
+  return cached.data as T
+}
+
+function setDevCache<T>(key: string, data: T): void {
+  if (process.env.NODE_ENV !== 'development') return
+  
+  devCache.set(key, {
+    data,
+    timestamp: Date.now()
+  })
+}
 
 function decodeSlug(slug: string): string {
   try {
@@ -34,11 +61,63 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://sarcasm.wiki'
   const url = `${baseUrl}/${rawSlug}`
   
+  // Check dev cache first
+  const cacheKey = `metadata:${slug}`
+  const cached = getFromDevCache<Metadata>(cacheKey)
+  if (cached) {
+    return cached
+  }
+  
   try {
     const mdcContent = await getPageMDC(slug)
     
+    let metadata: Metadata
     if (!mdcContent) {
-      return {
+      metadata = {
+        title: slug.replace(/_/g, ' '),
+        alternates: {
+          canonical: url,
+        },
+      }
+    } else {
+      metadata = {
+        title: mdcContent.metadata.title,
+        description: mdcContent.metadata.description,
+        keywords: mdcContent.metadata.keywords,
+        alternates: {
+          canonical: url,
+        },
+        openGraph: {
+          title: mdcContent.metadata.title,
+          description: mdcContent.metadata.description,
+          type: 'article',
+          url: url,
+          publishedTime: mdcContent.metadata.createdAt,
+          modifiedTime: mdcContent.metadata.updatedAt,
+          siteName: 'Sarcasm Wiki',
+        },
+        twitter: {
+          card: 'summary_large_image',
+          title: mdcContent.metadata.title,
+          description: mdcContent.metadata.description,
+        },
+      }
+    }
+    
+    setDevCache(cacheKey, metadata)
+    return metadata
+  } catch (error: any) {
+    let metadata: Metadata
+    if (error.message === 'RATE_LIMIT_EXCEEDED') {
+      metadata = {
+        title: `${slug.replace(/_/g, ' ')} - Generation in Progress`,
+        description: 'This page is currently being generated. Please try again in a moment.',
+        alternates: {
+          canonical: url,
+        },
+      }
+    } else {
+      metadata = {
         title: slug.replace(/_/g, ' '),
         alternates: {
           canonical: url,
@@ -46,58 +125,30 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       }
     }
     
-    return {
-      title: mdcContent.metadata.title,
-      description: mdcContent.metadata.description,
-      keywords: mdcContent.metadata.keywords,
-      alternates: {
-        canonical: url,
-      },
-      openGraph: {
-        title: mdcContent.metadata.title,
-        description: mdcContent.metadata.description,
-        type: 'article',
-        url: url,
-        publishedTime: mdcContent.metadata.createdAt,
-        modifiedTime: mdcContent.metadata.updatedAt,
-        siteName: 'Sarcasm Wiki',
-      },
-      twitter: {
-        card: 'summary_large_image',
-        title: mdcContent.metadata.title,
-        description: mdcContent.metadata.description,
-      },
-    }
-  } catch (error: any) {
-    if (error.message === 'RATE_LIMIT_EXCEEDED') {
-      return {
-        title: `${slug.replace(/_/g, ' ')} - Generation in Progress`,
-        description: 'This page is currently being generated. Please try again in a moment.',
-        alternates: {
-          canonical: url,
-        },
-      }
-    }
-    return {
-      title: slug.replace(/_/g, ' '),
-      alternates: {
-        canonical: url,
-      },
-    }
+    setDevCache(cacheKey, metadata)
+    return metadata
   }
 }
 
 export default async function WikiPage({ params }: PageProps) {
   const rawSlug = params.slug.join('/')
   const slug = decodeSlug(rawSlug)
+  
+  // Fast path for development assets
+  if (slug.includes('_next') || slug.includes('webpack') || slug.includes('hot-update') || slug.startsWith('.')) {
+    notFound()
+  }
+  
+  // Check dev cache first
+  const cacheKey = `page:${slug}`
+  const cached = getFromDevCache<any>(cacheKey)
+  if (cached) {
+    return cached
+  }
+  
   const headersList = await headers()
   const referer = headersList.get('referer') || undefined
   const userAgent = headersList.get('user-agent') || undefined
-  
-  if (slug.includes('_next') || slug.includes('webpack') || slug.includes('hot-update') || slug.startsWith('.')) {
-    await logNotFound(slug, referer, userAgent)
-    notFound()
-  }
   
   try {
     const mdcContent = await getPageMDC(slug)
@@ -120,7 +171,7 @@ export default async function WikiPage({ params }: PageProps) {
     const { content, metadata } = mdcContent
     const htmlContent = await renderMarkdownToHtml(content)
 
-    return (
+    const pageComponent = (
       <WikiLayout
         title={metadata.title}
         htmlContent={htmlContent}
@@ -129,6 +180,9 @@ export default async function WikiPage({ params }: PageProps) {
         rawSlug={rawSlug}
       />
     )
+    
+    setDevCache(cacheKey, pageComponent)
+    return pageComponent
   } catch (error: any) {
     if (error.message === 'RATE_LIMIT_EXCEEDED') {
       const rateLimitInfo = await getRateLimitInfo()
@@ -136,12 +190,15 @@ export default async function WikiPage({ params }: PageProps) {
       const remainingSeconds = rateLimitInfo?.remainingSeconds || 60
       const lastSlug = rateLimitInfo?.lastSlug
       
-      return (
+      const rateLimitComponent = (
         <RateLimitPage 
           initialRemainingSeconds={remainingSeconds}
           lastSlug={lastSlug}
         />
       )
+      
+      setDevCache(cacheKey, rateLimitComponent)
+      return rateLimitComponent
     }
     throw error
   }

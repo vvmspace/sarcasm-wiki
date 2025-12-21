@@ -10,6 +10,8 @@ import '../lib/startup'
 export const metadata: Metadata = {
   title: 'Sarcasm Wiki - AI-Enhanced Knowledge',
   description: 'Wikipedia articles reimagined with artificial intelligence. Discover knowledge with a fresh perspective.',
+  viewport: 'width=device-width, initial-scale=1, maximum-scale=5',
+  themeColor: '#1976d2',
 }
 
 export default function RootLayout({
@@ -19,6 +21,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        {/* DNS Prefetch for performance */}
+        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+        
+        {/* Preconnect for faster loading */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+      </head>
       <body>
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-FTMHQLQ4LN"

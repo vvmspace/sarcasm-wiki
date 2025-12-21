@@ -11,6 +11,15 @@ const nextConfig = {
     serverComponentsExternalPackages: ['remark', 'remark-gfm', 'remark-html'],
     optimizeCss: true,
     optimizePackageImports: ['react-markdown', 'katex'],
+    // Development optimizations
+    turbo: {
+      rules: {
+        '*.svg': {
+          loaders: ['@svgr/webpack'],
+          as: '*.js',
+        },
+      },
+    },
   },
   
   // Image optimization
@@ -53,7 +62,9 @@ const nextConfig = {
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=300, s-maxage=300'
+            value: process.env.NODE_ENV === 'development' 
+              ? 'no-cache, no-store, must-revalidate'
+              : 'public, max-age=300, s-maxage=300'
           }
         ]
       },
@@ -70,9 +81,13 @@ const nextConfig = {
   },
   
   webpack: (config, { dev, isServer }) => {
+    // Development optimizations
     if (dev) {
+      // Faster file watching
       config.watchOptions = {
         ...config.watchOptions,
+        aggregateTimeout: 200,
+        poll: false,
         ignored: [
           '**/node_modules/**',
           '**/.next/**',
@@ -82,6 +97,28 @@ const nextConfig = {
           '**/playwright-report/**',
           '**/.temp/**',
         ],
+      }
+      
+      // Faster rebuilds
+      config.cache = {
+        type: 'filesystem',
+        buildDependencies: {
+          config: [__filename],
+        },
+      }
+      
+      // Optimize module resolution
+      config.resolve.symlinks = false
+      
+      // Faster source maps
+      config.devtool = 'eval-cheap-module-source-map'
+      
+      // Reduce bundle analysis overhead
+      config.optimization = {
+        ...config.optimization,
+        removeAvailableModules: false,
+        removeEmptyChunks: false,
+        splitChunks: false,
       }
     }
     

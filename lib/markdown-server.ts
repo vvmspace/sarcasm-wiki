@@ -82,6 +82,30 @@ export async function renderMarkdownToHtml(markdown: string): Promise<string> {
   
   // Pre-process markdown for better performance
   let processedMarkdown = markdown
+
+  // If the entire document is wrapped in a single code fence, unwrap it.
+  // This happens when upstream generation accidentally wraps the whole article in ```.
+  // Keep this very strict to avoid breaking legitimate fenced code blocks inside articles.
+  {
+    const trimmed = processedMarkdown.trim()
+    const fullFenceMatch = trimmed.match(/^```[^\r\n]*\r?\n([\s\S]*?)\r?\n?```$/)
+    if (fullFenceMatch) {
+      processedMarkdown = fullFenceMatch[1]
+    } else if (trimmed.startsWith('```')) {
+      // Fallback for malformed content where the whole document starts with ```markdown
+      // but the closing ``` is missing. Only strip the opening fence if there are no
+      // other fences in the remaining text.
+      const firstLineEnd = trimmed.indexOf('\n')
+      if (firstLineEnd > -1) {
+        const rest = trimmed.slice(firstLineEnd + 1)
+        if (!rest.includes('```')) {
+          processedMarkdown = rest
+        }
+      }
+    }
+  }
+
+  processedMarkdown = processedMarkdown
     .replace(/\[([^\]]+)\]\(https?:\/\/[^)]+\)/g, '$1')
     .replace(/\[([^\]]+)\]\(www\.[^)]+\)/g, '$1')
     .replace(/https?:\/\/[^\s\)]+/g, (url) => {

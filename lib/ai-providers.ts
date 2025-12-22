@@ -131,7 +131,6 @@ class OpenRouterProvider implements AIProvider {
     // Новые бесплатные модели
     'mistralai/devstral-2512:free',
     'nvidia/nemotron-3-nano-30b-a3b:free',
-    'xiaomi/mimo-v2-flash:free',
     'allenai/olmo-3.1-32b-think:free',
     'nex-agi/deepseek-v3.1-nex-n1:free',
     'tngtech/deepseek-r1t2-chimera:free'

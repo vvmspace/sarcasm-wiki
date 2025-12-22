@@ -1,54 +1,12 @@
-import { getLatestArticlesWithImagePriority } from '@/lib/content'
 import Navigation from './components/Navigation'
 import Hero from './components/Hero'
 import Card from './components/Card'
 import Button from './components/Button'
 import SimpleQueueFooter from './components/SimpleQueueFooter'
 import ServerPerformanceStats from './components/ServerPerformanceStats'
-import fs from 'fs/promises'
-import path from 'path'
+import { getHomeState } from '@/lib/home-state'
 
 export const revalidate = 60
-
-// Кэшированная функция для получения изображений (оптимизированная)
-async function getImagePathsForArticles(articles: Array<{ slug: string }>): Promise<Map<string, string>> {
-  const imageMap = new Map<string, string>()
-  
-  try {
-    // Читаем метаданные изображений вместо сканирования файловой системы
-    const imagesMetadataFile = path.join(process.cwd(), '.temp', 'images-metadata.json')
-    const content = await fs.readFile(imagesMetadataFile, 'utf-8')
-    const metadata = JSON.parse(content)
-    
-    // Create map slug -> imagePath from metadata
-    for (const image of metadata.images || []) {
-      imageMap.set(image.slug, image.imagePath)
-    }
-    
-    console.log(`[PAGE] Loaded ${imageMap.size} image paths from metadata`)
-  } catch (error) {
-    console.warn('[PAGE] Could not load images metadata, falling back to filesystem check')
-    
-    // Fallback: check filesystem only for needed articles
-    const imagesDir = path.join(process.cwd(), 'public', 'images')
-    const extensions = ['jpg', 'jpeg', 'png', 'svg']
-    
-    for (const article of articles) {
-      for (const ext of extensions) {
-        const imagePath = path.join(imagesDir, `${article.slug}.${ext}`)
-        try {
-          await fs.access(imagePath)
-          imageMap.set(article.slug, `/images/${article.slug}.${ext}`)
-          break // Нашли изображение, переходим к следующей статье
-        } catch {
-          // Файл не существует, пробуем следующее расширение
-        }
-      }
-    }
-  }
-  
-  return imageMap
-}
 
 export default async function Home() {
   const examples = [
@@ -61,10 +19,8 @@ export default async function Home() {
     'Neural_network'
   ]
 
-  const latestArticles = await getLatestArticlesWithImagePriority(6)
-  
-  // Get all image paths in one request
-  const imageMap = await getImagePathsForArticles(latestArticles)
+  const state = await getHomeState({ limit: 12 })
+  const latestArticles = state.latestArticles
 
   return (
     <>
@@ -104,7 +60,7 @@ export default async function Home() {
                   description={article.description || 'Explore this AI-enhanced article'}
                   href={`/${article.slug}`}
                   variant="default"
-                  image={imageMap.get(article.slug) || undefined}
+                  image={article.image || undefined}
                   icon={
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                       <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z" />

@@ -151,7 +151,34 @@ export async function getPageMDC(slug: string, forceRefresh: boolean = false, wa
   }
   
   try {
-    return parseMDC(mdcContent)
+    const parsed = parseMDC(mdcContent)
+
+    // Some legacy/generated articles accidentally wrap the entire document in a single fenced block
+    // like ```markdown ... ```. Unwrap it here so all downstream renderers see clean markdown.
+    let normalizedBody = parsed.content
+    {
+      const trimmed = normalizedBody.trim()
+      const fullFenceMatch = trimmed.match(/^```[^\r\n]*\r?\n([\s\S]*?)\r?\n?```$/)
+      if (fullFenceMatch) {
+        normalizedBody = fullFenceMatch[1]
+      } else if (trimmed.startsWith('```')) {
+        // Fallback for malformed articles where the whole document starts with ```markdown
+        // but the closing ``` is missing. Only strip the opening fence if there are no
+        // other fences in the remaining text (so we don't break legitimate code blocks).
+        const firstLineEnd = trimmed.indexOf('\n')
+        if (firstLineEnd > -1) {
+          const rest = trimmed.slice(firstLineEnd + 1)
+          if (!rest.includes('```')) {
+            normalizedBody = rest
+          }
+        }
+      }
+    }
+
+    return {
+      metadata: parsed.metadata,
+      content: normalizedBody
+    }
   } catch (error) {
     console.warn(`Invalid MDC format for ${slug}, will be regenerated via queue`)
     return null
@@ -361,7 +388,18 @@ async function saveContent(slug: string, metadata: ContentMetadata, content: str
     console.log(`[CONTENT] Creating new article: ${slug}`)
   }
   
-  const mdcContent = generateMDC(metadata, content)
+  let normalizedContent = content
+  // If the entire document is wrapped in a single code fence, unwrap it.
+  // This happens when upstream generation accidentally returns ```markdown ... ```.
+  {
+    const trimmed = normalizedContent.trim()
+    const fullFenceMatch = trimmed.match(/^```[^\r\n]*\r?\n([\s\S]*?)\r?\n?```$/)
+    if (fullFenceMatch) {
+      normalizedContent = fullFenceMatch[1]
+    }
+  }
+
+  const mdcContent = generateMDC(metadata, normalizedContent)
   await fs.writeFile(filePath, mdcContent, 'utf-8')
   
   // Update AI statistics
@@ -529,6 +567,17 @@ async function parseMetadataOnly(filePath: string, fileName: string): Promise<Co
   }
 }
 
+export async function getMetadataOnlyBySlug(slug: string): Promise<ContentMetadata | null> {
+  try {
+    await fs.mkdir(CONTENT_DIR, { recursive: true })
+    const fileName = `${normalizeFileName(slug)}.mdc`
+    const filePath = path.join(CONTENT_DIR, fileName)
+    return await parseMetadataOnly(filePath, fileName)
+  } catch {
+    return null
+  }
+}
+
 async function updateLatestArticlesCache(newArticle: ContentMetadata, limit: number = 7): Promise<void> {
   try {
     await fs.mkdir(CACHE_DIR, { recursive: true })
@@ -654,37 +703,48 @@ export async function getLatestArticlesWithImagePriority(limit: number = 7): Pro
     const recentArticles = articlesWithDates.slice(0, maxArticlesToCheck)
     
     // Get list of last 50 images from metadata
-    let existingImageSlugs: Set<string> = new Set()
+    let imageGeneratedAtBySlug: Map<string, string> = new Map()
     try {
       const imagesMetadata = await getImagesMetadata()
       // Take last 50 images for performance
       const recentImages = imagesMetadata.images.slice(-50)
-      existingImageSlugs = new Set(recentImages.map(img => img.slug))
-      console.log(`[CONTENT] Loaded ${existingImageSlugs.size} recent image slugs`)
+      imageGeneratedAtBySlug = new Map(
+        recentImages
+          .filter(img => !!img.slug)
+          .map(img => [img.slug, img.generatedAt || '0'] as const)
+      )
+      console.log(`[CONTENT] Loaded ${imageGeneratedAtBySlug.size} recent image slugs`)
     } catch (error) {
       console.warn('[CONTENT] Could not load images metadata:', error)
     }
     
-    // Separate articles into those with images and without
-    const articlesWithImages: ContentMetadata[] = []
-    const articlesWithoutImages: ContentMetadata[] = []
-    
-    for (const { metadata } of recentArticles) {
-      if (existingImageSlugs.has(metadata.slug)) {
-        articlesWithImages.push(metadata)
-      } else {
-        articlesWithoutImages.push(metadata)
+    // Sort:
+    // - first: articles with the freshest images (by generatedAt)
+    // - then: articles without images by article date
+    // - tie-breaker: article date
+    const sortedArticles = [...recentArticles].sort((a, b) => {
+      const aImageDate = imageGeneratedAtBySlug.get(a.metadata.slug) || '0'
+      const bImageDate = imageGeneratedAtBySlug.get(b.metadata.slug) || '0'
+
+      const aHasImage = aImageDate !== '0'
+      const bHasImage = bImageDate !== '0'
+
+      if (aHasImage && bHasImage) {
+        const diff = bImageDate.localeCompare(aImageDate)
+        if (diff !== 0) return diff
+      } else if (aHasImage !== bHasImage) {
+        return aHasImage ? -1 : 1
       }
-    }
-    
-    // Combine: first with images, then without
-    const sortedArticles = [...articlesWithImages, ...articlesWithoutImages]
+
+      return b.date.localeCompare(a.date)
+    }).map(item => item.metadata)
     
     // Return needed amount
     const result = sortedArticles.slice(0, limit)
     
     const duration = Date.now() - startTime
-    console.log(`[CONTENT] Loaded ${result.length} articles with image priority in ${duration}ms (${articlesWithImages.length} with images, ${articlesWithoutImages.length} without)`)
+    const imagesCount = result.filter(a => (imageGeneratedAtBySlug.get(a.slug) || '0') !== '0').length
+    console.log(`[CONTENT] Loaded ${result.length} articles with image priority in ${duration}ms (${imagesCount} with images)`) 
     
     return result
   } catch (error) {
@@ -697,7 +757,7 @@ export async function getLatestArticlesWithImagePriority(limit: number = 7): Pro
 /**
  * Gets images metadata (used in optimized version)
  */
-async function getImagesMetadata(): Promise<{ images: Array<{ slug: string }> }> {
+async function getImagesMetadata(): Promise<{ images: Array<{ slug: string, generatedAt?: string, imagePath?: string }> }> {
   try {
     const imagesMetadataFile = path.join(process.cwd(), '.temp', 'images-metadata.json')
     const content = await fs.readFile(imagesMetadataFile, 'utf-8')

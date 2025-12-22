@@ -3,6 +3,7 @@ import path from 'path'
 
 const SITEMAP_DIR = path.join(process.cwd(), 'public', 'sitemaps')
 const CONTENT_DIR = path.join(process.cwd(), 'content')
+const IMAGES_METADATA_FILE = path.join(process.cwd(), '.temp', 'images-metadata.json')
 const URLS_PER_SITEMAP = 1000
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://sarcasm.wiki'
 
@@ -104,6 +105,16 @@ ${sitemapEntries}
 </sitemapindex>`
 }
 
+async function getImageSlugsForSitemap(): Promise<Set<string>> {
+  try {
+    const content = await fs.readFile(IMAGES_METADATA_FILE, 'utf-8')
+    const parsed = JSON.parse(content) as { images?: Array<{ slug?: string }> }
+    return new Set((parsed.images || []).map(img => img.slug).filter((slug): slug is string => !!slug))
+  } catch {
+    return new Set()
+  }
+}
+
 async function generateSitemaps() {
   const startTime = Date.now()
   console.log('[SITEMAP] Starting sitemap generation...')
@@ -186,6 +197,9 @@ async function generateSitemaps() {
 
   console.log(`[SITEMAP] Articles sorted by date (newest first)`)
 
+  const imageSlugs = await getImageSlugsForSitemap()
+  console.log(`[SITEMAP] Loaded ${imageSlugs.size} image slugs for priority boost`)
+
   // Create array of all URLs with dynamic priority based on file size
   const allUrls: SitemapUrl[] = [
     {
@@ -198,7 +212,10 @@ async function generateSitemaps() {
       // Calculate priority: 0.6 + 0.3 * (fileSize / maxFileSize)
       const sizeRatio = article.fileSize / maxFileSize
       const calculatedPriority = 0.6 + 0.3 * sizeRatio
-      const priority = Math.round(calculatedPriority * 100) / 100 // Round to 2 decimal places
+      const hasImage = imageSlugs.has(article.slug)
+      const imageBoost = hasImage ? 0.1 : 0
+      const calculatedWithBoost = calculatedPriority + imageBoost
+      const priority = Math.round(calculatedWithBoost * 100) / 100 // Round to 2 decimal places
       
       return {
         url: `${BASE_URL}/${article.slug}`,

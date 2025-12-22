@@ -149,11 +149,55 @@ export function generateMetadataFromContent(slug: string, content: string, exist
   const firstParagraph = content
     .split('\n\n')
     .find(p => p.trim().length > 50 && !p.startsWith('#')) || ''
+
+  const decodeHtmlEntities = (input: string): string => {
+    return input
+      .replace(/&nbsp;/g, ' ')
+      .replace(/&amp;/g, '&')
+      .replace(/&lt;/g, '<')
+      .replace(/&gt;/g, '>')
+      .replace(/&quot;/g, '"')
+      .replace(/&apos;/g, "'")
+      .replace(/&#x([0-9a-fA-F]+);/g, (_m, hex) => {
+        try {
+          return String.fromCodePoint(parseInt(hex, 16))
+        } catch {
+          return _m
+        }
+      })
+      .replace(/&#(\d+);/g, (_m, num) => {
+        try {
+          return String.fromCodePoint(parseInt(num, 10))
+        } catch {
+          return _m
+        }
+      })
+  }
+
+  const stripSimpleMarkdown = (input: string): string => {
+    return input
+      .replace(/\*\*([^*]+)\*\*/g, '$1')
+      .replace(/__([^_]+)__/g, '$1')
+      .replace(/\*([^*]+)\*/g, '$1')
+      .replace(/_([^_]+)_/g, '$1')
+      .replace(/`([^`]+)`/g, '$1')
+      .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+  }
   
   const description = firstParagraph
     .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
     .replace(/\n/g, ' ')
     .trim()
+  
+  const cleanedDescription = (() => {
+    const decoded = decodeHtmlEntities(description)
+    const unmarked = stripSimpleMarkdown(decoded)
+    const normalized = unmarked.replace(/\s+/g, ' ').trim()
+    const titlePrefix = new RegExp(`^${title.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\s+`, 'i')
+    return normalized.replace(titlePrefix, '')
+  })()
+  
+  const finalDescription = cleanedDescription
     .substring(0, 160)
     .replace(/\s+\S*$/, '') + '...'
   
@@ -182,7 +226,7 @@ export function generateMetadataFromContent(slug: string, content: string, exist
   
   return {
     title,
-    description,
+    description: finalDescription,
     keywords,
     slug,
     createdAt: existingCreatedAt || now,

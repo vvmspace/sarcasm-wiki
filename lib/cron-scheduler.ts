@@ -26,7 +26,7 @@ export function startCronScheduler() {
   })
 
   // Generate images for articles every 15 minutes
-  cron.schedule('*/5 * * * *', async () => {
+  cron.schedule('*/7 * * * *', async () => {
     console.log('[CRON] Starting scheduled image generation...')
     try {
       const result = await generateImageForLatestArticle()

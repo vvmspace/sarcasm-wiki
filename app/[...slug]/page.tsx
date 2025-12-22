@@ -7,6 +7,7 @@ import { renderMarkdownToHtml } from '@/lib/markdown-server'
 import { logNotFound } from '@/lib/not-found-logger'
 import { addToQueue, isInQueue } from '@/lib/queue'
 import { headers } from 'next/headers'
+import { getImageForArticle } from '@/lib/image-generator'
 
 import WikiLayout from '../components/WikiLayout'
 
@@ -26,6 +27,7 @@ const sharedCache = new Map<string, {
   mdcContent: any, 
   htmlContent?: string,
   metadata?: Metadata,
+  articleImage?: string | null,
   timestamp: number 
 }>()
 const CACHE_TTL = process.env.NODE_ENV === 'development' ? 15000 : 600000 // 15s dev, 10min prod (more aggressive)
@@ -115,6 +117,15 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       setSharedCache(cacheKey, { mdcContent })
       cached = getFromSharedCache(cacheKey)
     }
+
+    // Resolve article image (and cache it) for OG/Twitter tags
+    let articleImage = cached?.articleImage
+    if (articleImage === undefined) {
+      articleImage = mdcContent ? await getImageForArticle(slug) : null
+      if (cached) {
+        cached.articleImage = articleImage
+      }
+    }
     
     let metadata: Metadata
     if (!mdcContent) {
@@ -123,6 +134,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         alternates: { canonical: url }
       }
     } else {
+      const absoluteImageUrl = articleImage ? `${baseUrl}${articleImage}` : undefined
       metadata = {
         title: mdcContent.metadata.title,
         description: mdcContent.metadata.description,
@@ -136,11 +148,24 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
           publishedTime: mdcContent.metadata.createdAt,
           modifiedTime: mdcContent.metadata.updatedAt,
           siteName: 'Sarcasm Wiki',
+          ...(absoluteImageUrl
+            ? {
+                images: [
+                  {
+                    url: absoluteImageUrl,
+                    width: 1600,
+                    height: 800,
+                    alt: mdcContent.metadata.title,
+                  },
+                ],
+              }
+            : {}),
         },
         twitter: {
           card: 'summary_large_image',
           title: mdcContent.metadata.title,
           description: mdcContent.metadata.description,
+          ...(absoluteImageUrl ? { images: [absoluteImageUrl] } : {}),
         },
       }
     }
@@ -229,6 +254,15 @@ export default async function WikiPage({ params }: PageProps) {
     }
 
     const { content, metadata } = mdcContent
+
+    // Resolve article image once and reuse
+    let articleImage = cached?.articleImage
+    if (articleImage === undefined) {
+      articleImage = await getImageForArticle(slug)
+      if (cached) {
+        cached.articleImage = articleImage
+      }
+    }
     
     // Check if HTML is already cached
     let htmlContent = cached?.htmlContent
@@ -246,6 +280,7 @@ export default async function WikiPage({ params }: PageProps) {
         slug={slug}
         metadata={metadata}
         rawSlug={rawSlug}
+        articleImage={articleImage || null}
       />
     )
   } catch (error: any) {

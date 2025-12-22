@@ -1,5 +1,6 @@
 import { startCronScheduler } from './cron-scheduler'
 import { initQueueProcessor } from './queue-init'
+import { startHomeStateRebuildListener } from './home-state'
 
 let isStartupComplete = false
 
@@ -10,6 +11,9 @@ export function runStartupTasks() {
   }
 
   console.log('[STARTUP] Running startup tasks...')
+
+  // Listen for rebuild events for prebuilt JSON state (e.g. home page)
+  startHomeStateRebuildListener()
 
   // Initialize queue processor
   initQueueProcessor()

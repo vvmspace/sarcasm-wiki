@@ -5,7 +5,6 @@ import AnalyticsEvent from './AnalyticsEvent'
 import AIBadge from './AIBadge'
 import SimpleQueueFooter from './SimpleQueueFooter'
 import ServerPerformanceStats from './ServerPerformanceStats'
-import { getImageForArticle } from '@/lib/image-generator'
 
 interface WikiLayoutProps {
   title: string
@@ -14,6 +13,7 @@ interface WikiLayoutProps {
   slug: string
   metadata?: any
   rawSlug: string
+  articleImage?: string | null
 }
 
 export default async function WikiLayout({ 
@@ -22,13 +22,13 @@ export default async function WikiLayout({
   isFuturePage, 
   slug, 
   metadata,
-  rawSlug 
+  rawSlug,
+  articleImage
 }: WikiLayoutProps) {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://sarcasm.wiki'
   const url = `${baseUrl}/${rawSlug}`
 
-  // Get article image if available
-  const articleImage = !isFuturePage ? await getImageForArticle(slug) : null
+  const absoluteImageUrl = articleImage ? `${baseUrl}${articleImage}` : undefined
 
   const structuredData = {
     '@context': 'https://schema.org',
@@ -50,6 +50,7 @@ export default async function WikiLayout({
       '@type': 'WebPage',
       '@id': url,
     },
+    ...(absoluteImageUrl ? { image: [absoluteImageUrl] } : {}),
   }
 
   const contentType = metadata?.contentType || 'rewritten'
@@ -67,6 +68,8 @@ export default async function WikiLayout({
           eventCategory="content"
           eventLabel={contentType}
           slug={slug}
+          aiProvider={metadata?.aiProvider}
+          aiModel={metadata?.aiModel}
         />
       )}
       

@@ -21,7 +21,7 @@ export async function GET(request: Request) {
       testResult = `Error: ${error.message}`
     }
     
-    // Получаем статистику использования провайдеров из кэша
+    // Get AI provider usage statistics from cache
     let providerUsageStats
     try {
       if (rebuild) {

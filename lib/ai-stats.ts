@@ -26,7 +26,7 @@ export async function getAIStats(): Promise<AIStatsData> {
     const content = await fs.readFile(AI_STATS_CACHE, 'utf-8')
     return JSON.parse(content)
   } catch (error) {
-    // Если файл не существует, возвращаем пустую статистику
+    // If file doesn't exist, return empty statistics
     return {
       totalArticlesWithAI: 0,
       totalArticles: 0,
@@ -77,7 +77,7 @@ function calculateTopItems(stats: AIStatsData): void {
 }
 
 /**
- * Обновляет статистику при добавлении новой статьи
+ * Updates statistics when adding new article
  */
 export async function updateAIStatsOnAdd(metadata: {
   aiProvider?: string
@@ -95,14 +95,14 @@ export async function updateAIStatsOnAdd(metadata: {
     if (metadata.aiProvider) {
       stats.totalArticlesWithAI++
       
-      // Обновляем счетчик провайдера
+      // Update provider counter
       stats.providerCounts[metadata.aiProvider] = (stats.providerCounts[metadata.aiProvider] || 0) + 1
       
-      // Обновляем счетчик модели
+      // Update model counter
       if (metadata.aiModel) {
         stats.modelCounts[metadata.aiModel] = (stats.modelCounts[metadata.aiModel] || 0) + 1
         
-        // Обновляем разбивку провайдер-модель
+        // Update provider-model breakdown
         if (!stats.providerModelBreakdown[metadata.aiProvider]) {
           stats.providerModelBreakdown[metadata.aiProvider] = {}
         }
@@ -111,19 +111,19 @@ export async function updateAIStatsOnAdd(metadata: {
       }
     }
     
-    // Обновляем счетчики типов контента
+    // Update content type counters
     if (metadata.contentType) {
       stats.contentTypeCounts[metadata.contentType]++
     }
     
-    // Обновляем счетчики оригинального контента
+    // Update original content counters
     if (metadata.isOriginalContent === true) {
       stats.originalContentCounts.original++
     } else if (metadata.isOriginalContent === false) {
       stats.originalContentCounts.rewritten++
     }
     
-    // Обновляем топ провайдера и модели
+    // Update top provider and model
     calculateTopItems(stats)
     
     stats.lastUpdated = new Date().toISOString()
@@ -134,7 +134,7 @@ export async function updateAIStatsOnAdd(metadata: {
 }
 
 /**
- * Обновляет статистику при обновлении существующей статьи
+ * Updates statistics when updating existing article
  */
 export async function updateAIStatsOnUpdate(
   oldMetadata: {
@@ -204,7 +204,7 @@ export async function updateAIStatsOnUpdate(
       stats.originalContentCounts.rewritten++
     }
     
-    // Обновляем топ провайдера и модели
+    // Update top provider and model
     calculateTopItems(stats)
     
     stats.lastUpdated = new Date().toISOString()
@@ -215,7 +215,7 @@ export async function updateAIStatsOnUpdate(
 }
 
 /**
- * Полная перестройка статистики из всех статей (для миграции или восстановления)
+ * Complete rebuild of statistics from all articles (for migration or recovery)
  */
 export async function rebuildAIStats(): Promise<void> {
   try {

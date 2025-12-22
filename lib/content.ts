@@ -200,9 +200,9 @@ async function fetchAndSaveContent(slug: string, waitForLock: boolean = false): 
           
           const metadata = generateMetadataFromContent(slug, finalContent, existingMetadata?.createdAt)
           metadata.contentType = 'created'
-          metadata.isOriginalContent = true // Флаг для статей без исходника с Wikipedia
+          metadata.isOriginalContent = true // Flag for articles without Wikipedia source
           
-          // Сохраняем информацию о провайдере и модели из результата генерации
+          // Save AI provider and model information from generation result
           if (generatedResult && generatedResult.provider && generatedResult.model) {
             metadata.aiProvider = generatedResult.provider
             metadata.aiModel = generatedResult.model
@@ -278,9 +278,9 @@ async function fetchAndSaveContent(slug: string, waitForLock: boolean = false): 
     
     const metadata = generateMetadataFromContent(slug, finalContent, existingMetadata?.createdAt)
     metadata.contentType = 'rewritten'
-    metadata.isOriginalContent = false // Статья переписана с Wikipedia
+    metadata.isOriginalContent = false // Article rewritten from Wikipedia
     
-    // Сохраняем информацию о провайдере и модели из результата rewrite
+    // Save AI provider and model information from rewrite result
     if (rewrittenResult && rewrittenResult.provider && rewrittenResult.model) {
       metadata.aiProvider = rewrittenResult.provider
       metadata.aiModel = rewrittenResult.model
@@ -347,7 +347,7 @@ async function saveContent(slug: string, metadata: ContentMetadata, content: str
   const fileName = normalizeFileName(slug)
   const filePath = path.join(CONTENT_DIR, `${fileName}.mdc`)
   
-  // Проверяем, существует ли файл для определения операции (добавление или обновление)
+  // Check if file exists to determine operation (add or update)
   let isUpdate = false
   let oldMetadata: ContentMetadata | null = null
   
@@ -364,7 +364,7 @@ async function saveContent(slug: string, metadata: ContentMetadata, content: str
   const mdcContent = generateMDC(metadata, content)
   await fs.writeFile(filePath, mdcContent, 'utf-8')
   
-  // Обновляем статистику AI
+  // Update AI statistics
   try {
     if (isUpdate && oldMetadata) {
       await updateAIStatsOnUpdate(oldMetadata, metadata)
@@ -404,7 +404,23 @@ export async function getAllArticles(): Promise<ContentMetadata[]> {
     for (const file of mdcFiles) {
       try {
         const filePath = path.join(CONTENT_DIR, file)
+        
+        // Check that file exists
+        try {
+          await fs.access(filePath)
+        } catch (error) {
+          console.warn(`[CONTENT] File ${file} not found, skipping`)
+          continue
+        }
+        
         const content = await fs.readFile(filePath, 'utf-8')
+        
+        // Check that file is not empty
+        if (!content || content.trim().length < 10) {
+          console.warn(`[CONTENT] File ${file} is empty or too short, skipping`)
+          continue
+        }
+        
         const parsed = parseMDC(content)
         
         if (!parsed.metadata.slug) {
@@ -418,10 +434,13 @@ export async function getAllArticles(): Promise<ContentMetadata[]> {
         
         articles.push(parsed.metadata)
       } catch (error) {
-        console.warn(`Failed to parse ${file}:`, error)
+        console.warn(`[CONTENT] Failed to parse ${file}:`, error instanceof Error ? error.message : 'Unknown error')
+        // Continue processing other files
+        continue
       }
     }
     
+    console.log(`[CONTENT] Successfully loaded ${articles.length} articles (${mdcFiles.length} files checked)`)
     return articles
   } catch (error) {
     console.error('Error getting all articles:', error)
@@ -581,13 +600,110 @@ export async function getLatestArticles(limit: number = 7): Promise<ContentMetad
     try {
       await fs.writeFile(LATEST_ARTICLES_CACHE, JSON.stringify(latest, null, 2), 'utf-8')
     } catch (error) {
-      console.error('Error saving latest articles cache:', error)
+      console.warn('Failed to save latest articles cache:', error)
     }
     
     return latest
   } catch (error) {
     console.error('Error getting latest articles:', error)
     return []
+  }
+}
+
+/**
+ * Gets latest articles with image priority (OPTIMIZED VERSION)
+ * Works only with last 50 articles and 50 images for performance
+ */
+export async function getLatestArticlesWithImagePriority(limit: number = 7): Promise<ContentMetadata[]> {
+  try {
+    console.log(`[CONTENT] Getting latest articles with image priority (limit: ${limit})`)
+    const startTime = Date.now()
+    
+    // Get last 50 articles (limit for performance)
+    const maxArticlesToCheck = 50
+    await fs.mkdir(CONTENT_DIR, { recursive: true })
+    const files = await fs.readdir(CONTENT_DIR)
+    const mdcFiles = files.filter(file => file.endsWith('.mdc'))
+    
+    const articlesWithDates: Array<{ 
+      metadata: ContentMetadata, 
+      date: string
+    }> = []
+    
+    // Parse only last 50 files for performance
+    const filesToCheck = mdcFiles.slice(0, maxArticlesToCheck)
+    
+    for (const file of filesToCheck) {
+      try {
+        const filePath = path.join(CONTENT_DIR, file)
+        const metadata = await parseMetadataOnly(filePath, file)
+        
+        if (metadata) {
+          const date = metadata.updatedAt || metadata.createdAt || '0'
+          articlesWithDates.push({ metadata, date })
+        }
+      } catch (error) {
+        console.warn(`Failed to parse metadata from ${file}:`, error)
+      }
+    }
+    
+    // Sort by date (newest first)
+    articlesWithDates.sort((a, b) => b.date.localeCompare(a.date))
+    
+    // Take only last 50 articles
+    const recentArticles = articlesWithDates.slice(0, maxArticlesToCheck)
+    
+    // Get list of last 50 images from metadata
+    let existingImageSlugs: Set<string> = new Set()
+    try {
+      const imagesMetadata = await getImagesMetadata()
+      // Take last 50 images for performance
+      const recentImages = imagesMetadata.images.slice(-50)
+      existingImageSlugs = new Set(recentImages.map(img => img.slug))
+      console.log(`[CONTENT] Loaded ${existingImageSlugs.size} recent image slugs`)
+    } catch (error) {
+      console.warn('[CONTENT] Could not load images metadata:', error)
+    }
+    
+    // Separate articles into those with images and without
+    const articlesWithImages: ContentMetadata[] = []
+    const articlesWithoutImages: ContentMetadata[] = []
+    
+    for (const { metadata } of recentArticles) {
+      if (existingImageSlugs.has(metadata.slug)) {
+        articlesWithImages.push(metadata)
+      } else {
+        articlesWithoutImages.push(metadata)
+      }
+    }
+    
+    // Combine: first with images, then without
+    const sortedArticles = [...articlesWithImages, ...articlesWithoutImages]
+    
+    // Return needed amount
+    const result = sortedArticles.slice(0, limit)
+    
+    const duration = Date.now() - startTime
+    console.log(`[CONTENT] Loaded ${result.length} articles with image priority in ${duration}ms (${articlesWithImages.length} with images, ${articlesWithoutImages.length} without)`)
+    
+    return result
+  } catch (error) {
+    console.error('Error getting latest articles with image priority:', error)
+    // Fallback to regular method
+    return await getLatestArticles(limit)
+  }
+}
+
+/**
+ * Gets images metadata (used in optimized version)
+ */
+async function getImagesMetadata(): Promise<{ images: Array<{ slug: string }> }> {
+  try {
+    const imagesMetadataFile = path.join(process.cwd(), '.temp', 'images-metadata.json')
+    const content = await fs.readFile(imagesMetadataFile, 'utf-8')
+    return JSON.parse(content)
+  } catch (error) {
+    return { images: [] }
   }
 }
 

@@ -6,7 +6,7 @@ export interface ContentMetadata {
   createdAt?: string
   updatedAt?: string
   contentType?: 'rewritten' | 'created'
-  isOriginalContent?: boolean // true если статья создана без исходника с Wikipedia
+  isOriginalContent?: boolean // true if article was created without Wikipedia source
   aiProvider?: string
   aiModel?: string
   previousArticle?: {

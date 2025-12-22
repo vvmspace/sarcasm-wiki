@@ -1,5 +1,6 @@
 import cron from 'node-cron'
 import { generateSitemaps } from '../scripts/generate-sitemap'
+import { generateImageForLatestArticle } from './image-generator'
 
 let isSchedulerStarted = false
 
@@ -19,6 +20,23 @@ export function startCronScheduler() {
       console.log('[CRON] Scheduled sitemap generation completed successfully')
     } catch (error) {
       console.error('[CRON] Scheduled sitemap generation failed:', error)
+    }
+  }, {
+    timezone: "UTC"
+  })
+
+  // Generate images for articles every 15 minutes
+  cron.schedule('*/5 * * * *', async () => {
+    console.log('[CRON] Starting scheduled image generation...')
+    try {
+      const result = await generateImageForLatestArticle()
+      if (result.success) {
+        console.log(`[CRON] Scheduled image generation completed: ${result.message}`)
+      } else {
+        console.log(`[CRON] Scheduled image generation skipped: ${result.message}`)
+      }
+    } catch (error) {
+      console.error('[CRON] Scheduled image generation failed:', error)
     }
   }, {
     timezone: "UTC"
@@ -83,6 +101,19 @@ export async function triggerSitemapGeneration() {
     return { success: true, message: 'Sitemap generation completed' }
   } catch (error) {
     console.error('[CRON] Manual sitemap generation failed:', error)
+    return { success: false, message: error instanceof Error ? error.message : 'Unknown error' }
+  }
+}
+
+// Manual trigger for image generation (can be called via API)
+export async function triggerImageGeneration() {
+  console.log('[CRON] Manual image generation triggered')
+  try {
+    const result = await generateImageForLatestArticle()
+    console.log(`[CRON] Manual image generation result: ${result.message}`)
+    return result
+  } catch (error) {
+    console.error('[CRON] Manual image generation failed:', error)
     return { success: false, message: error instanceof Error ? error.message : 'Unknown error' }
   }
 }

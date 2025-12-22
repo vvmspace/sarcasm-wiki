@@ -182,7 +182,7 @@ export async function rewriteContent(content: string, links?: Map<string, string
       console.log(`[REWRITE] Processing chunk ${i + 1}/${chunks.length}...`)
       const result = await rewriteChunk(chunks[i], i === 0, i + 1, chunks.length)
       rewrittenChunks.push(result.content)
-      lastResult = result // Сохраняем информацию о последнем провайдере
+      lastResult = result // Save information about last provider
     }
 
     const finalContent = rewrittenChunks.join('\n\n')

@@ -7,7 +7,7 @@ interface ServerDataProviderProps {
 }
 
 export default async function ServerDataProvider({ children }: ServerDataProviderProps) {
-  // Получаем все данные один раз на сервере
+  // Get all data once on server
   const [queueStats, performanceData] = await Promise.all([
     getStats(),
     getPerformanceData()

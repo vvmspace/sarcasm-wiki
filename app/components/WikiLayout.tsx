@@ -5,6 +5,7 @@ import AnalyticsEvent from './AnalyticsEvent'
 import AIBadge from './AIBadge'
 import SimpleQueueFooter from './SimpleQueueFooter'
 import ServerPerformanceStats from './ServerPerformanceStats'
+import { getImageForArticle } from '@/lib/image-generator'
 
 interface WikiLayoutProps {
   title: string
@@ -15,7 +16,7 @@ interface WikiLayoutProps {
   rawSlug: string
 }
 
-export default function WikiLayout({ 
+export default async function WikiLayout({ 
   title, 
   htmlContent, 
   isFuturePage, 
@@ -25,6 +26,9 @@ export default function WikiLayout({
 }: WikiLayoutProps) {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://sarcasm.wiki'
   const url = `${baseUrl}/${rawSlug}`
+
+  // Get article image if available
+  const articleImage = !isFuturePage ? await getImageForArticle(slug) : null
 
   const structuredData = {
     '@context': 'https://schema.org',
@@ -114,6 +118,18 @@ export default function WikiLayout({
               />
             )}
           </header>
+          
+          {/* Article Image */}
+          {articleImage && (
+            <div className="article-image">
+              <img 
+                src={articleImage} 
+                alt={`${title}`}
+                title={`${title}`}
+                className="article-hero-image"
+              />
+            </div>
+          )}
           
           <div className="article-content">
             <ArticleContent htmlContent={htmlContent} />

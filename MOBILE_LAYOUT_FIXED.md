@@ -1,37 +1,37 @@
-# 📱 Мобильная Верстка Исправлена
+# 📱 Mobile Layout Fixed
 
-## 🎯 Проблемы Решены:
+## 🎯 Problems Solved:
 
-Исправлены основные проблемы мобильной верстки, которые были видны на скриншоте:
+Fixed main mobile layout issues that were visible in the screenshot:
 
-1. **Слишком большие заголовки** - уменьшены для мобильных устройств
-2. **AI Badge не помещается** - адаптирован для мобильных экранов
-3. **Неправильные отступы** - оптимизированы для touch-устройств
-4. **Проблемы с навигацией** - улучшена мобильная навигация
+1. **Headers too large** - reduced for mobile devices
+2. **AI Badge doesn't fit** - adapted for mobile screens
+3. **Incorrect padding** - optimized for touch devices
+4. **Navigation problems** - improved mobile navigation
 
-## 🔧 Исправления:
+## 🔧 Fixes:
 
-### 1. **Адаптивные Заголовки**
+### 1. **Responsive Headers**
 ```css
-/* Мобильные заголовки */
+/* Mobile headers */
 @media (max-width: 768px) {
   h1 {
-    font-size: 1.75rem;  /* Было: 2.5rem */
+    font-size: 1.75rem;  /* Was: 2.5rem */
     line-height: 1.2;
     margin-bottom: 1rem;
   }
   
   h2 {
-    font-size: 1.4rem;   /* Было: 1.75rem */
+    font-size: 1.4rem;   /* Was: 1.75rem */
     line-height: 1.3;
     margin-bottom: 0.75rem;
   }
 }
 
-/* Очень маленькие экраны */
+/* Very small screens */
 @media (max-width: 480px) {
   h1 {
-    font-size: 1.5rem;   /* Еще меньше */
+    font-size: 1.5rem;   /* Even smaller */
   }
   
   h2 {
@@ -40,9 +40,9 @@
 }
 ```
 
-### 2. **AI Badge Мобильная Версия**
+### 2. **AI Badge Mobile Version**
 ```css
-/* AI Badge адаптивный */
+/* AI Badge responsive */
 @media (max-width: 768px) {
   .ai-badge {
     flex-direction: column;
@@ -62,11 +62,11 @@
 }
 ```
 
-### 3. **Контейнеры и Отступы**
+### 3. **Containers and Padding**
 ```css
 @media (max-width: 768px) {
   .container {
-    padding: 0.75rem;    /* Было: 1rem */
+    padding: 0.75rem;    /* Was: 1rem */
     max-width: 100%;
   }
   
@@ -79,12 +79,12 @@
 
 @media (max-width: 480px) {
   .container {
-    padding: 0.5rem;     /* Еще меньше для маленьких экранов */
+    padding: 0.5rem;     /* Even smaller for small screens */
   }
 }
 ```
 
-### 4. **Навигация**
+### 4. **Navigation**
 ```css
 @media (max-width: 768px) {
   .nav-container {
@@ -98,7 +98,7 @@
 }
 ```
 
-### 5. **Кнопки и Элементы**
+### 5. **Buttons and Elements**
 ```css
 @media (max-width: 768px) {
   .btn {
@@ -114,17 +114,17 @@
 
 @media (max-width: 480px) {
   .btn {
-    width: 100%;          /* Полная ширина на маленьких экранах */
+    width: 100%;          /* Full width on small screens */
     text-align: center;
   }
   
   .article-header .btn {
-    width: auto;          /* Исключение для кнопок в заголовке */
+    width: auto;          /* Exception for header buttons */
   }
 }
 ```
 
-### 6. **Footer и Статистика**
+### 6. **Footer and Statistics**
 ```css
 @media (max-width: 768px) {
   .footer-stats {
@@ -137,7 +137,7 @@
     min-width: auto;
   }
   
-  /* Performance stats мобильная версия */
+  /* Performance stats mobile version */
   .server-perf-stats {
     bottom: 60px;
     right: 0.5rem;
@@ -149,86 +149,86 @@
 }
 ```
 
-### 7. **Грид Система**
+### 7. **Grid System**
 ```css
 @media (max-width: 768px) {
   .grid-2 {
-    grid-template-columns: 1fr;  /* Одна колонка на мобильных */
+    grid-template-columns: 1fr;  /* Single column on mobile */
     gap: 1rem;
   }
 }
 ```
 
-## 📱 Результаты Мобильной Оптимизации:
+## 📱 Mobile Optimization Results:
 
-### ✅ **Заголовки**
-- **h1**: 3rem → 1.75rem (мобильные) → 1.5rem (маленькие экраны)
-- **h2**: 2rem → 1.4rem (мобильные) → 1.25rem (маленькие экраны)
-- Улучшенная читаемость на маленьких экранах
+### ✅ **Headers**
+- **h1**: 3rem → 1.75rem (mobile) → 1.5rem (small screens)
+- **h2**: 2rem → 1.4rem (mobile) → 1.25rem (small screens)
+- Improved readability on small screens
 
 ### ✅ **AI Badge**
-- Вертикальная компоновка на мобильных
-- Уменьшенные размеры шрифтов
-- Лучшее использование пространства
+- Vertical layout on mobile
+- Reduced font sizes
+- Better space utilization
 
-### ✅ **Контейнеры**
-- Уменьшенные отступы: 1rem → 0.75rem → 0.5rem
-- Максимальное использование ширины экрана
-- Оптимизированные touch-зоны
+### ✅ **Containers**
+- Reduced padding: 1rem → 0.75rem → 0.5rem
+- Maximum screen width usage
+- Optimized touch zones
 
-### ✅ **Навигация**
-- Адаптивные размеры шрифтов
-- Оптимизированные отступы
-- Мобильное меню (уже было реализовано)
+### ✅ **Navigation**
+- Responsive font sizes
+- Optimized padding
+- Mobile menu (already implemented)
 
-### ✅ **Кнопки**
-- Полная ширина на маленьких экранах
-- Увеличенные touch-зоны
-- Исключения для специальных случаев
+### ✅ **Buttons**
+- Full width on small screens
+- Increased touch zones
+- Exceptions for special cases
 
 ## 🎯 Breakpoints:
 
 ```css
-/* Планшеты и маленькие десктопы */
+/* Tablets and small desktops */
 @media (max-width: 768px) {
-  /* Основные мобильные стили */
+  /* Main mobile styles */
 }
 
-/* Мобильные телефоны */
+/* Mobile phones */
 @media (max-width: 480px) {
-  /* Дополнительные оптимизации */
+  /* Additional optimizations */
 }
 ```
 
-## 📊 Тестирование:
+## 📊 Testing:
 
-### ✅ **Сборка**
-- Успешная компиляция
-- Никаких ошибок TypeScript
-- Оптимизированный bundle
+### ✅ **Build**
+- Successful compilation
+- No TypeScript errors
+- Optimized bundle
 
 ### ✅ **Dev Server**
-- Запуск за 1206ms
-- Никаких ошибок в консоли
-- Hot reload работает
+- Startup in 1206ms
+- No console errors
+- Hot reload working
 
-### ✅ **Мобильная Совместимость**
-- Адаптивные заголовки
-- Оптимизированный AI Badge
-- Правильные отступы
-- Touch-friendly интерфейс
+### ✅ **Mobile Compatibility**
+- Responsive headers
+- Optimized AI Badge
+- Correct padding
+- Touch-friendly interface
 
-## 🚀 Финальный Статус:
+## 🚀 Final Status:
 
-**✅ МОБИЛЬНАЯ ВЕРСТКА ИСПРАВЛЕНА!**
+**✅ MOBILE LAYOUT FIXED!**
 
-Теперь сайт корректно отображается на всех устройствах:
-- 📱 **Мобильные телефоны** (≤480px)
-- 📱 **Планшеты** (≤768px)  
-- 💻 **Десктопы** (>768px)
+Now the site displays correctly on all devices:
+- 📱 **Mobile phones** (≤480px)
+- 📱 **Tablets** (≤768px)  
+- 💻 **Desktops** (>768px)
 
-Все элементы адаптированы для touch-интерфейсов и маленьких экранов!
+All elements adapted for touch interfaces and small screens!
 
 ---
 
-*Мобильная верстка оптимизирована для максимального удобства пользователей!*
+*Mobile layout optimized for maximum user convenience!*

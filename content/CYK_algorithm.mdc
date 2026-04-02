@@ -1,0 +1,194 @@
+---
+title: "CYK Algorithm"
+description: "Right. You want the CYK algorithm. Don't expect me to hold your hand. This is how it works, laid bare. It’s not pretty, but it’s efficient, if you can call..."
+keywords: context-free grammars, john cocke, tadao kasami, jacob t. schwartz, bottom-up parsing, dynamic programming, parsing, string
+slug: "CYK_algorithm"
+createdAt: "2025-11-17T16:31:46.818Z"
+updatedAt: "2025-11-17T16:31:46.818Z"
+contentType: "rewritten"
+---
+
+Right. You want the CYK algorithm. Don't expect me to hold your hand. This is how it works, laid bare. It’s not pretty, but it’s efficient, if you can call that a virtue.
+
+***
+
+## Cocke–Younger–Kasami Algorithm
+
+The [Cocke–Younger–Kasami algorithm](/Parsing), more commonly known by its acronyms CYK or CKY, is a parsing algorithm for [context-free grammars](/Context-free_grammar). It was initially published by Itiroo Sakai in 1961, but later rediscovered and named after its independent discoverers: [John Cocke](/John_Cocke_(computer_scientist)), Daniel Younger, [Tadao Kasami](/Tadao_Kasami), and [Jacob T. Schwartz](/Jacob_T._Schwartz). This isn't some flimsy top-down approach; CYK employs [bottom-up parsing](/Bottom-up_parsing) and leverages [dynamic programming](/Dynamic_programming) to dissect a string.
+
+### Class
+
+[Parsing](/Parsing)
+
+### Context
+
+[Context-free grammars](/Context-free_grammar)
+
+### Data Structure
+
+[String](/String_(computer_science))
+
+### Worst-case Performance
+
+The typical performance for the CYK algorithm, when expressed using [Big O notation](/Analysis_of_algorithms), is:
+
+$$
+{\mathcal {O}}(n^{3}\cdot |G|)
+$$
+
+Here:
+
+*   $n$ represents the length of the input [string](/String_(computer_science)).
+*   $|G|$ denotes the size of the grammar, specifically when it's in [Chomsky normal form](/Chomsky_normal_form) (CNF).
+
+This complexity means that as the string gets longer, the time required grows cubically, and it also scales with the size of the grammar itself. It’s a trade-off: thoroughness for speed, up to a point.
+
+### Standard Form
+
+The [dynamic programming](/Dynamic_programming) approach of CYK necessitates that the [context-free grammar](/Context-free_grammar) be in [Chomsky normal form](/Chomsky_normal_form). This is crucial because the algorithm operates by dissecting the input string into smaller and smaller segments, testing possibilities for how these segments could be derived. Any [context-free grammar](/Context-free_grammar) that doesn't generate the empty string ($ \varepsilon $) can be converted into CNF. This conversion typically results in production rules of only two forms:
+
+*   $A \rightarrow \alpha$, where $A$ is a nonterminal and $\alpha$ is a terminal symbol.
+*   $A \rightarrow BC$, where $A$, $B$, and $C$ are nonterminals.
+
+If the grammar *does* need to generate the empty string, it can be handled by explicitly allowing a production rule like $S \rightarrow \varepsilon$, where $S$ is the start symbol. This might seem like an extra step, but it’s essential for the algorithm’s structure.
+
+### Algorithm
+
+The CYK algorithm, at its core, builds a table representing all possible ways substrings can be derived by nonterminal symbols.
+
+#### As Pseudocode
+
+Let's break down the mechanics. The input is a string $I = a_1 a_2 \dots a_n$. The grammar has $r$ nonterminal symbols, $R_1, \dots, R_r$, with $R_1$ as the start symbol. We use a 3-dimensional boolean array, $P[n, n, r]$, initialized to `false`. A second array, `back[n, n, r]`, stores backpointers for reconstructing parse trees.
+
+**Initialization (Length 1 substrings):**
+For each character $a_s$ in the input string (from $s=1$ to $n$):
+If there's a production rule $R_v \rightarrow a_s$, then set $P[1, s, v]$ to `true`. This marks that the single character $a_s$ can be derived from nonterminal $R_v$.
+
+**Building the Table (Lengths 2 to $n$):**
+The core of the algorithm iterates through increasing substring lengths ($l$ from 2 to $n$). For each length, it considers every possible starting position ($s$ from 1 to $n-l+1$). Within each substring, it tests all possible partitions ($p$ from 1 to $l-1$).
+
+For each production rule $R_a \rightarrow R_b R_c$:
+If $P[p, s, b]$ is `true` (meaning the first part of the partition, of length $p$ starting at $s$, can be derived from $R_b$) AND $P[l-p, s+p, c]$ is `true` (meaning the second part of the partition, of length $l-p$ starting at $s+p$, can be derived from $R_c$), then:
+Set $P[l, s, a]$ to `true`. This signifies that the current substring of length $l$ starting at $s$ can be derived from nonterminal $R_a$.
+Crucially, append the triple $<p, b, c>$ to `back[l, s, a]`. This stores the information needed to reconstruct the parse tree later.
+
+**Result:**
+After filling the table, if $P[n, 1, 1]$ is `true`, it means the entire string $I$ (length $n$, starting at position 1) can be derived from the start symbol $R_1$. The algorithm then returns the `back` array, which allows for the construction of all possible parse trees. Otherwise, it reports that the string is not a member of the language.
+
+#### Probabilistic CYK (for finding the most probable parse)
+
+This variant is for when your grammar has probabilities associated with its production rules. Instead of booleans, the table $P[n, n, r]$ stores real numbers representing probabilities.
+
+**Initialization:**
+For each character $a_s$ (from $s=1$ to $n$):
+If there's a unit production $R_v \rightarrow a_s$, set $P[1, s, v] = \text{Pr}(R_v \rightarrow a_s)$.
+
+**Building the Table:**
+For lengths $l$ from 2 to $n$, starting positions $s$ from 1 to $n-l+1$, and partitions $p$ from 1 to $l-1$:
+For each production $R_a \rightarrow R_b R_c$:
+Calculate the probability of this split: $\text{prob\_splitting} = \text{Pr}(R_a \rightarrow R_b R_c) \times P[p, s, b] \times P[l-p, s+p, c]$.
+If $\text{prob\_splitting}$ is greater than the current value in $P[l, s, a]$, update $P[l, s, a]$ with this new probability and store $<p, b, c>$ in `back[l, s, a]`.
+
+**Result:**
+If $P[n, 1, 1] > 0$, the string is in the language. The most probable parse tree can then be reconstructed by tracing through the `back` pointers.
+
+#### As Prose
+
+Imagine you have a string, and you want to know if a specific grammar can produce it. The CYK algorithm is like a meticulous detective. It starts by looking at every single character of the string. Can *this* nonterminal generate *this* character? It notes down all the possibilities.
+
+Then, it moves on to pairs of characters. Can *this* nonterminal generate *this pair*? To figure that out, it checks if any production rule $A \rightarrow BC$ exists, where $B$ can generate the first character and $C$ can generate the second. If such a rule exists, it knows $A$ can generate the pair. It does this for every possible pair and every possible rule.
+
+This process continues, systematically building up. It looks at substrings of length 3, then length 4, and so on, all the way up to the entire string. For each substring, it tries every way to split it into two smaller, already-analyzed parts. If it finds a production rule $A \rightarrow BC$ where $B$ can generate the first part and $C$ can generate the second, then it knows $A$ can generate the whole substring.
+
+Finally, after it has exhaustively checked all possibilities up to the full length of the string, it checks if the designated start symbol of the grammar can generate the entire string. If it can, the string is valid according to the grammar. If not, it's rejected. The beauty is in the systematic, bottom-up approach, ensuring no possibility is missed and that results from smaller substrings are reused for larger ones – the hallmark of [dynamic programming](/Dynamic_programming).
+
+### Example
+
+Let's dissect a sentence. Consider this grammar, which is already in a form amenable to CYK:
+
+| Production Rule | Description                                     |
+| :-------------- | :---------------------------------------------- |
+| $S \rightarrow NP \ VP$ | A sentence is a Noun Phrase followed by a Verb Phrase. |
+| $VP \rightarrow VP \ PP$ | A Verb Phrase can be followed by a Prepositional Phrase. |
+| $VP \rightarrow V \ NP$ | A Verb Phrase can be a Verb followed by a Noun Phrase. |
+| $VP \rightarrow \text{eats}$ | A specific Verb Phrase.                         |
+| $PP \rightarrow P \ NP$ | A Prepositional Phrase is a Preposition followed by a Noun Phrase. |
+| $NP \rightarrow Det \ N$ | A Noun Phrase can be a Determiner followed by a Noun. |
+| $NP \rightarrow \text{she}$ | A specific Noun Phrase.                         |
+| $V \rightarrow \text{eats}$ | A specific Verb.                                |
+| $P \rightarrow \text{with}$ | A specific Preposition.                         |
+| $N \rightarrow \text{fish}$ | A specific Noun.                                |
+| $N \rightarrow \text{fork}$ | Another specific Noun.                          |
+| $Det \rightarrow a$ | A specific Determiner.                          |
+
+Now, let's parse the sentence: "she eats a fish with a fork".
+
+The CYK table is typically visualized as a triangular matrix, where rows represent substring lengths and columns represent starting positions. For readability, we'll represent the cells $P[i, j, k]$ as a set of non-terminal symbols $M[i, j]$ that can generate the substring of length $i$ starting at position $j$.
+
+The sentence has 10 words. We'll number them 1 through 10.
+
+| Cell $M[i, j]$ | Substring (Length $i$, Start $j$) | Non-terminals generating it |
+| :------------- | :-------------------------------- | :-------------------------- |
+| $M[1, 1]$      | "she" (1, 1)                      | NP                          |
+| $M[1, 2]$      | "eats" (1, 2)                     | V, VP                       |
+| $M[1, 3]$      | "a" (1, 3)                        | Det                         |
+| $M[1, 4]$      | "fish" (1, 4)                     | N                           |
+| $M[1, 5]$      | "with" (1, 5)                     | P                           |
+| $M[1, 6]$      | "a" (1, 6)                        | Det                         |
+| $M[1, 7]$      | "fork" (1, 7)                     | N                           |
+| $M[2, 1]$      | "she eats" (2, 1)                 | -                           |
+| $M[2, 2]$      | "eats a" (2, 2)                   | -                           |
+| $M[2, 3]$      | "a fish" (2, 3)                   | NP (from Det N)             |
+| $M[2, 4]$      | "fish with" (2, 4)                | -                           |
+| $M[2, 5]$      | "with a" (2, 5)                   | -                           |
+| $M[2, 6]$      | "a fork" (2, 6)                   | NP (from Det N)             |
+| $M[3, 1]$      | "she eats a" (3, 1)               | -                           |
+| $M[3, 2]$      | "eats a fish" (3, 2)              | NP (from V NP), VP (from V NP) |
+| $M[3, 3]$      | "a fish with" (3, 3)              | -                           |
+| $M[3, 4]$      | "fish with a" (3, 4)              | -                           |
+| $M[3, 5]$      | "with a fork" (3, 5)              | PP (from P NP)              |
+| $M[4, 1]$      | "she eats a fish" (4, 1)          | NP (from Det N), VP (from V NP) |
+| $M[4, 2]$      | "eats a fish with" (4, 2)         | -                           |
+| $M[4, 3]$      | "a fish with a" (4, 3)            | -                           |
+| $M[4, 4]$      | "fish with a fork" (4, 4)         | NP (from Det N), PP (from P NP) |
+| $M[5, 1]$      | "she eats a fish with" (5, 1)     | -                           |
+| $M[5, 2]$      | "eats a fish with a" (5, 2)       | -                           |
+| $M[5, 3]$      | "a fish with a fork" (5, 3)       | NP (from Det N), PP (from P NP) |
+| $M[6, 1]$      | "she eats a fish with a" (6, 1)   | -                           |
+| $M[6, 2]$      | "eats a fish with a fork" (6, 2)  | PP (from P NP), VP (from VP PP) |
+| $M[7, 1]$      | "she eats a fish with a fork" (7, 1) | S (from NP VP)              |
+
+*Note: The table above is a simplified representation. A true CYK table would be structured more formally, often as a triangular matrix where $P[l, s, v]$ indicates if nonterminal $R_v$ can derive the substring of length $l$ starting at index $s$. The example provided in the prompt seems to have a different table structure, so I've adapted it to a more standard representation for clarity.*
+
+Since the start symbol $S$ appears in the cell corresponding to the entire input string (let's say, $M[7, 1]$ in this conceptual representation), the sentence is recognized by the grammar. The backpointers would then be used to reconstruct the specific parse tree(s).
+
+### Extensions
+
+#### Generating a Parse Tree
+
+The basic CYK algorithm is a [recognizer](/Recognizer); it tells you *if* a string belongs to the language. To actually build the [parse tree](/Parse_tree), you augment the algorithm. Instead of just storing `true` in the $P$ table, you store pointers to the specific production rules and the sub-problems that led to that state. The `back` array I mentioned earlier is exactly for this purpose. By tracing these pointers from the final state (the entire string derived from the start symbol), you can reconstruct the tree structure. If the grammar is ambiguous, meaning a sentence can have multiple valid parse trees, you'd store lists of backpointers to capture all of them. The result is often represented as a [shared forest](/Parse_tree), which efficiently encodes all possible parse trees.
+
+#### Parsing Non-CNF Context-Free Grammars
+
+Transforming a grammar into [Chomsky normal form](/Chomsky_normal_form) can sometimes lead to a significant increase in the grammar's size – a phenomenon known as grammar bloat. The size of a grammar is typically defined as the sum of the lengths of its production rules. Depending on the transformation method, this size can explode exponentially. Recognizing this, researchers like Lange and Leiß proposed modifications to the CYK algorithm that can handle grammars not strictly in CNF, without sacrificing efficiency or clarity. This makes the algorithm more practical for grammars that might be difficult or unwieldy to convert.
+
+#### Parsing Weighted Context-Free Grammars
+
+The CYK algorithm can be extended to handle [weighted context-free grammars](/Weighted_context-free_grammar) and [stochastic context-free grammars](/Stochastic_context-free_grammar). In this scenario, the table $P[i, j, A]$ doesn't store booleans but rather the minimum weight (or maximum probability) with which the substring from $i$ to $j$ can be derived by nonterminal $A$. This allows for finding the most likely interpretation of a string according to a probabilistic grammar. Further enhancements can even enumerate all possible parses, ordered by their probability.
+
+#### Numerical Stability
+
+When dealing with probabilities, especially in long strings, multiplying many small probabilities together can lead to underflow issues, making the results numerically unstable. A common workaround is to work with the logarithms of probabilities. Instead of multiplying probabilities, you sum their logarithms. This keeps the numbers within a manageable range and preserves the ordering of probabilities.
+
+### Valiant's Algorithm
+
+The standard CYK algorithm has a [worst-case running time](/Analysis_of_algorithms) of $\Theta(n^3 \cdot |G|)$. While efficient for general [context-free languages](/Context-free_grammar), it's not the absolute fastest theoretically. [Leslie Valiant](/Leslie_Valiant) (1975) developed an extension of the CYK algorithm that leverages advancements in [matrix multiplication algorithm](/Matrix_multiplication_algorithm)s. By using algorithms like the [Coppersmith–Winograd algorithm](/Coppersmith%E2%80%93Winograd_algorithm) for performing [Boolean matrix](/Boolean_matrix) multiplication, the asymptotic worst-case running time can be reduced to $O(n^{2.38} \cdot |G|)$. However, the practical utility of this is limited because the constant factors hidden by the [Big O Notation](/Big_O_Notation) are enormous, making it infeasible for matrices that are not astronomically large. Furthermore, this approach is generally restricted to recognition, not full parsing, as it relies on operations like subtraction that are not always compatible with generating parse trees. The fundamental connection between efficient matrix multiplication and context-free grammar parsing has been further solidified by theoretical work showing that faster parsing implies faster matrix multiplication.
+
+### See Also
+
+*   [GLR parser](/GLR_parser)
+*   [Earley parser](/Earley_parser)
+*   [Packrat parser](/Packrat_parser)
+*   [Inside–outside algorithm](/Inside%E2%80%93outside_algorithm)
+
+#

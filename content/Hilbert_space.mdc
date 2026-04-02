@@ -1,0 +1,372 @@
+---
+title: "Hilbert Space"
+description: "In mathematics, a Hilbert space is a vector space equipped with an inner product that allows length and angle to be defined. Moreover, it is complete with..."
+keywords: banach space, inner product, inner product space, norm, pythagorean theorem, real, complex, complete metric space, cauchy–schwarz inequality
+slug: "Hilbert_space"
+createdAt: "2025-12-27T14:19:11.980Z"
+updatedAt: "2025-12-27T14:19:11.980Z"
+contentType: "rewritten"
+aiProvider: "OpenRouter"
+aiModel: "nvidia/nemotron-3-nano-30b-a3b:free"
+previousArticleSlug: "Camp_Varnum"
+previousArticleTitle: "Camp Varnum"
+---
+
+# Hilbert space
+
+## Definition and illustration
+
+In mathematics, a **Hilbert space** is a vector space equipped with an inner product that allows length and angle to be defined. Moreover, it is complete with respect to the norm induced by the inner product, meaning that every Cauchy sequence of elements has a limit that is also an element of the space. Hilbert spaces generalize Euclidean spaces to possibly infinite dimensions and are of fundamental importance in functional analysis, quantum mechanics, and many other areas.
+
+A Hilbert space is a special case of a [Banach space](/Banach_space) that admits a richer algebraic structure thanks to its inner product. The [inner product](/Inner_product) generalizes the dot product from Euclidean geometry, and the associated norm is derived from it. Completeness ensures that analytical techniques such as limits and infinite series behave well, enabling the use of calculus in the setting of abstract vector spaces.
+
+### Motivating example: Euclidean vector space
+
+One of the most familiar examples of a Hilbert space is the three‑dimensional Euclidean space \(\mathbb{R}^3\) equipped with the standard dot product. If \(\mathbf{x} = (x_1, x_2, x_3)\) and \(\mathbf{y} = (y_1, y_2, y_3)\) are vectors in \(\mathbb{R}^3\), their dot product is
+
+\[
+\mathbf{x}\cdot\mathbf{y}=x_1y_1+x_2y_2+x_3y_3.
+\]
+
+This bilinear form satisfies three key properties:
+
+1. **Symmetry**: \(\mathbf{x}\cdot\mathbf{y} = \mathbf{y}\cdot\mathbf{x}\).  
+2. **Linearity in the first argument**: \((a\mathbf{x}_1 + b\mathbf{x}_2)\cdot\mathbf{y}=a(\mathbf{x}_1\cdot\mathbf{y})+b(\mathbf{x}_2\cdot\mathbf{y})\) for scalars \(a,b\).  
+3. **Positive definiteness**: \(\mathbf{x}\cdot\mathbf{x}\ge 0\) with equality only when \(\mathbf{x}=0\).
+
+A vector space equipped with a function that satisfies these three properties is called an [inner product space](/Inner_product_space). Every finite‑dimensional inner product space is automatically complete, and therefore a Hilbert space. This fact is reflected in footnote [2] of the original text.
+
+The dot product is intimately related to geometric notions such as length (or [norm](/Norm_(mathematics))) and angle. For non‑zero vectors \(\mathbf{x}\) and \(\mathbf{y}\),
+
+\[
+\mathbf{x}\cdot\mathbf{y}= \|\mathbf{x}\|\,\|\mathbf{y}\|\cos\theta,
+\]
+
+where \(\theta\) is the angle between them. This relationship allows the definition of orthogonality (\(\mathbf{x}\perp\mathbf{y}\) when \(\mathbf{x}\cdot\mathbf{y}=0\)) and the generalization of the [Pythagorean theorem](/Pythagorean_theorem) to Hilbert spaces: if \(\mathbf{u}\) and \(\mathbf{v}\) are orthogonal, then
+
+\[
+\|\mathbf{u}+\mathbf{v}\|^{2}= \|\mathbf{u}\|^{2}+\|\mathbf{v}\|^{2}.
+\]
+
+Completeness means that any series of orthogonal vectors \(\sum_{k=0}^{\infty}\mathbf{u}_k\) converges in the space precisely when the series of their norms converges, i.e.,
+
+\[
+\sum_{k=0}^{\infty}\|\mathbf{u}_k\|<\infty\quad\Longrightarrow\quad\sum_{k=0}^{\infty}\mathbf{u}_k\text{ converges in }H.
+\]
+
+This property is essential for the analytic manipulation of infinite sums and is noted in footnote [5].
+
+---
+
+## Definition
+
+Formally, a Hilbert space \(H\) is a [real](/Real_number) or [complex](/Complex_number) [inner product space](/Inner_product_space) that is also a [complete metric space](/Complete_metric_space) with respect to the distance function induced by the inner product. The distance between two points \(x,y\in H\) is defined by
+
+\[
+d(x,y)=\|x-y\|=\sqrt{\langle x-y,\,x-y\rangle }.
+\]
+
+The induced metric satisfies the standard properties of a distance function: symmetry, non‑negativity, identity of indiscernibles, and the triangle inequality. The triangle inequality follows from the [Cauchy–Schwarz inequality](/Cauchy%E2%80%93Schwarz_inequality), which states that
+
+\[
+|\langle x,y\rangle |\le \|x\|\,\|y\|,
+\]
+
+with equality if and only if \(x\) and \(y\) are linearly dependent.
+
+A Hilbert space that is complete but not necessarily finite‑dimensional is sometimes called a **pre‑Hilbert space** when it lacks completeness; however, the term “pre‑Hilbert space” is more often used to refer to any inner product space, regardless of completeness. Once completeness is added, the space becomes a genuine Hilbert space.
+
+---
+
+## History
+
+The development of Hilbert spaces emerged from several independent mathematical streams in the early 20th century. The foundational ideas were contributed by **David Hilbert**, **Erhard Schmidt**, and **Frigyes Riesz**. Hilbert introduced the concept while studying integral equations, Schmidt investigated the eigenfunction expansions of symmetric kernels, and Riesz developed the modern abstract theory of linear operators.
+
+The first rigorous treatment of what would later be called a Hilbert space appeared in Hilbert’s work on integral equations, where he considered spaces of square‑integrable functions and introduced an inner product analogous to the dot product. Schmidt’s 1908 paper further refined these ideas, particularly through the spectral theory of compact operators. Riesz’s 1907–1908 papers formalized the abstract inner product space framework and proved the completeness of the space of square‑integrable functions, now denoted \(L^{2}\).
+
+The term “Hilbert space” was coined by **John von Neumann** in the 1920s to describe the abstract setting he used for formulating quantum mechanics. Von Neumann’s 1932 monograph *Mathematical Foundations of Quantum Mechanics* was pivotal in establishing the connection between Hilbert spaces and physical theory. Subsequent work by von Neumann, Hermann Weyl, and others expanded the applications of Hilbert spaces to quantum theory, functional analysis, and operator algebras.
+
+---
+
+## Examples
+
+### Lebesgue spaces
+
+A prototypical class of Hilbert spaces consists of the **Lebesgue spaces** \(L^{2}(X,\mu)\), where \((X,\mathcal{M},\mu)\) is a measure space. The space \(L^{2}(X,\mu)\) consists of all measurable functions \(f:X\to\mathbb{C}\) such that
+
+\[
+\int_{X}|f(x)|^{2}\,d\mu(x)<\infty .
+\]
+
+Two functions that differ only on a set of measure zero are identified, making \(L^{2}\) a well‑defined vector space. The inner product is defined by
+
+\[
+\langle f,g\rangle =\int_{X} f(x)\,\overline{g(x)}\,d\mu(x),
+\]
+
+and the associated norm is \(\|f\|_{2}=\sqrt{\langle f,f\rangle }\). Completeness of \(L^{2}\) follows from the [Riesz–Fischer theorem](/Riesz%E2%80%93Fischer_theorem), which guarantees that Cauchy sequences of square‑integrable functions converge to a function in the same space.
+
+Weighted versions of \(L^{2}\) are also common. If \(w\colon X\to(0,\infty)\) is a measurable weight function, the weighted space
+
+\[
+L^{2}(X,w\,d\mu)=\{f\colon X\to\mathbb{C}\mid \int_{X}|f(x)|^{2}w(x)\,d\mu(x)<\infty\}
+\]
+
+equips the set with an inner product
+
+\[
+\langle f,g\rangle_{w}=\int_{X} f(x)\,\overline{g(x)}\,w(x)\,d\mu(x).
+\]
+
+These weighted spaces are isometrically isomorphic to \(L^{2}(X,\mu')\) where \(\mu'\) is the measure with density \(w\) with respect to \(\mu\).
+
+### Sobolev spaces
+
+**Sobolev spaces** \(H^{s}(\Omega)\) (also denoted \(W^{s,2}(\Omega)\)) generalize the notion of differentiability to non‑integer orders. For a domain \(\Omega\subset\mathbb{R}^{n}\) and an integer \(s\ge0\),
+
+\[
+H^{s}(\Omega)=\Bigl\{u\in L^{2}(\Omega)\;\Big|\; D^{\alpha}u\in L^{2}(\Omega)\ \text{for all multi‑indices }|\alpha|\le s\Bigr\},
+\]
+
+where \(D^{\alpha}\) denotes a weak derivative of order \(|\alpha|\). The inner product on \(H^{s}(\Omega)\) is
+
+\[
+\langle u,v\rangle_{H^{s}}=
+\sum_{|\alpha|\le s}\int_{\Omega} D^{\alpha}u(x)\,\overline{D^{\alpha}v(x)}\,dx.
+\]
+
+When \(s\) is not an integer, the definition is extended via **Bessel potentials** or through the spectral theory of the Laplacian, leading to the characterization
+
+\[
+H^{s}(\Omega)=\{(1-\Delta)^{-s/2}f\mid f\in L^{2}(\Omega)\}.
+\]
+
+Sobolev spaces are Hilbert spaces and play a central role in the theory of partial differential equations, where weak solutions are naturally sought in these spaces. Their completeness and inner product structure enable the application of variational methods and the Lax–Milgram theorem.
+
+### Hardy spaces
+
+**Hardy spaces** \(H^{2}(\mathbb{D})\) consist of holomorphic functions on the unit disc \(\mathbb{D}=\{z\in\mathbb{C}\mid|z|<1\}\) whose boundary values have finite square‑integrable modulus. Formally,
+
+\[
+\|f\|_{H^{2}}^{2}= \lim_{r\to1^{-}}\frac{1}{2\pi}\int_{0}^{2\pi}|f(re^{i\theta})|^{2}\,d\theta<\infty .
+\]
+
+A function belongs to \(H^{2}(\mathbb{D})\) if and only if its Taylor series
+
+\[
+f(z)=\sum_{n=0}^{\infty}a_{n}z^{n}
+\]
+
+satisfies \(\sum_{n=0}^{\infty}|a_{n}|^{2}<\infty\). The orthonormal basis \(\{z^{n}\}_{n\ge0}\) makes \(H^{2}\) a Hilbert space, and the coefficients \(a_{n}\) are precisely the inner products \(\langle f,z^{n}\rangle\).
+
+Hardy spaces also exist on the upper half‑plane and on more general domains, and they are closely related to the theory of orthogonal polynomials and signal processing.
+
+### Bergman spaces
+
+For a bounded domain \(D\subset\mathbb{C}\), the **Bergman space** \(A^{2}(D)\) consists of holomorphic functions on \(D\) that are square‑integrable with respect to Lebesgue measure:
+
+\[
+\|f\|_{A^{2}}^{2}= \int_{D}|f(z)|^{2}\,dx\,dy<\infty .
+\]
+
+Because holomorphic functions are analytic, the inner product can be expressed via the **Bergman kernel** \(K(z,\zeta)\), which reproduces evaluations:
+
+\[
+f(z)=\int_{D} f(\zeta)\,\overline{K(z,\zeta)}\,d\xi(\zeta),
+\]
+
+where \(d\xi\) is the area measure on \(D\). The kernel \(K\) is itself a square‑integrable function and provides a reproducing property that characterises **reproducing kernel Hilbert spaces** (RKHS). Bergman spaces are thus prototypical examples of RKHSs and appear in many areas, including approximation theory and complex geometry.
+
+---
+
+## Applications
+
+### Quantum mechanics
+
+In the rigorous formulation of quantum mechanics due to **John von Neumann**, the possible states of a quantum system are represented by unit vectors in a complex Hilbert space \(\mathcal{H}\). Observables correspond to self‑adjoint (Hermitian) operators acting on \(\mathcal{H}\), and the spectral theorem provides a decomposition of these operators into projection‑valued measures. The inner product \(\langle\cdot,\cdot\rangle\) yields probability amplitudes: for a state \(|\psi\rangle\) and an eigenstate \(|\phi\rangle\) of an observable \(A\) with eigenvalue \(\lambda\), the probability of measuring \(\lambda\) is \(|\langle\phi|\psi\rangle|^{2}\).
+
+Unbounded operators such as the **position** and **momentum** operators on \(L^{2}(\mathbb{R})\) are defined on dense domains and are self‑adjoint, providing the mathematical backbone for Heisenberg’s uncertainty principle. The **spectral theorem for unbounded self‑adjoint operators** extends the finite‑dimensional spectral decomposition to this broader setting, allowing one to define functions of operators via the integral
+
+\[
+f(A)=\int_{\sigma(A)}\!f(\lambda)\,dE_{\lambda},
+\]
+
+where \(E_{\lambda}\) is a resolution of the identity.
+
+### Probability theory
+
+In probability, the space \(L^{2}(\Omega,\mathcal{F},\mathbb{P})\) of square‑integrable random variables serves as a Hilbert space with inner product
+
+\[
+\langle X,Y\rangle =\mathbb{E}[XY].
+\]
+
+This structure underlies many results, such as the **orthogonal projection** interpretation of conditional expectation. If \(X\) and \(Y\) are independent, then the centered variables \(X-\mathbb{E}[X]\) and \(Y-\mathbb{E}[Y]\) are orthogonal, leading to the Pythagorean identity for variances:
+
+\[
+\operatorname{Var}(X+Y)=\operatorname{Var}(X)+\operatorname{Var}(Y).
+\]
+
+Martingale theory can be recast in Hilbert‑space language: a sequence \(\{X_{n}\}\) is a martingale precisely when each \(X_{n}\) is the orthogonal projection of \(X_{m}\) onto the closed linear span of \(\{X_{1},\dots,X_{n}\}\) for \(m>n\). The **Itô isometry** and the construction of the Itô integral rely on this Hilbert‑space viewpoint.
+
+### Fourier analysis
+
+The **Fourier transform** is an isometric isomorphism between \(L^{2}(\mathbb{R}^{n})\) and itself. In the language of Hilbert spaces, the set of exponentials \(\{e^{2\pi i \xi\cdot x}\}_{\xi\in\mathbb{R}^{n}}\) forms an orthonormal basis, allowing any \(f\in L^{2}\) to be expanded as
+
+\[
+f(x)=\sum_{\xi\in\Lambda}\hat{f}(\xi)\,e^{2\pi i \xi\cdot x},
+\]
+
+with convergence in the \(L^{2}\) norm. Parseval’s identity and Plancherel’s theorem are direct consequences of the inner product structure. More generally, orthonormal bases of $L^{2}$ can be built from spherical harmonics, wavelets, or other bases adapted to specific geometries, enabling **spectral decompositions** of differential operators.
+
+### Ergodic theory
+
+In ergodic theory, the **von Neumann ergodic theorem** describes the long‑time average of a unitary group \(U_{t}\) on a Hilbert space. If \(U_{t}\) represents the evolution operator of a measure‑preserving dynamical system, then for any \(f\in L^{2}(\Omega,\mu)\),
+
+\[
+\lim_{T\to\infty}\frac{1}{T}\int_{0}^{T}U_{t}f\,dt = \mathbb{E}[f],
+\]
+
+the projection onto the invariant subspace. This result bridges dynamical systems, harmonic analysis, and statistical mechanics, providing a Hilbert‑space proof of the convergence of time averages to space averages.
+
+---
+
+## Properties
+
+### Pythagorean identity and orthogonal projections
+
+If \(\{u_{k}\}_{k=1}^{n}\) is an orthogonal family in a Hilbert space, then
+
+\[
+\Bigl\|\sum_{k=1}^{n}u_{k}\Bigr\|^{2}= \sum_{k=1}^{n}\|u_{k}\|^{2}.
+\]
+
+This identity extends to infinite orthogonal series provided the series of norms converges. The **orthogonal projection** onto a closed subspace \(M\) of a Hilbert space \(H\) is the unique linear operator \(P_{M}:H\to M\) such that \(P_{M}^{2}=P_{M}\), \(P_{M}=P_{M}^{*}\), and \(\operatorname{ran}P_{M}=M\). For any \(x\in H\),
+
+\[
+\|x-P_{M}x\|=\operatorname{dist}(x,M),
+\]
+
+so \(P_{M}x\) is the best approximation to \(x\) within \(M\). The **Hilbert projection theorem** guarantees the existence and uniqueness of such a projection for every closed convex set.
+
+### Duality and the Riesz representation theorem
+
+The **dual space** \(H^{*}\) consists of all continuous linear functionals on \(H\). The **Riesz representation theorem** establishes a canonical isometric isomorphism between \(H\) and \(H^{*}\): for each \(\varphi\in H^{*}\) there exists a unique \(u_{\varphi}\in H\) such that \(\varphi(x)=\langle x,u_{\varphi}\rangle\) for all \(x\in H\). This map is antilinear when \(H\) is complex. Consequently, \(H^{*}\) is itself a Hilbert space, and the inner product on \(H^{*}\) can be expressed via the representing vectors:
+
+\[
+\langle \varphi,\psi\rangle_{H^{*}}=\langle u_{\psi},u_{\varphi}\rangle_{H}.
+\]
+
+### Weak convergence
+
+A sequence \(\{x_{n}\}\subset H\) converges **weakly** to \(x\) if
+
+\[
+\langle x_{n},y\rangle\longrightarrow\langle x,y\rangle\quad\text{for all }y\in H.
+\]
+
+Every weakly convergent sequence is bounded, and in a Hilbert space every bounded sequence possesses a weakly convergent subsequence (a consequence of the Banach–Alaoglu theorem). Weak convergence is strictly weaker than norm convergence; for instance, the orthonormal basis \(\{e_{n}\}\) converges weakly to \(0\) while \(\|e_{n}\|=1\) for all \(n\).
+
+### Banach‑space properties
+
+Every Hilbert space is a Banach space, so all Banach‑space theorems apply: the **open mapping theorem**, **closed graph theorem**, and **bounded inverse theorem** hold. Moreover, the **parallelogram law**
+
+\[
+\|x+y\|^{2}+\|x-y\|^{2}=2(\|x\|^{2}+\|y\|^{2})
+\]
+
+characterises Hilbert spaces among Banach spaces: a Banach space is a Hilbert space if and only if its norm satisfies this identity. This law underlies many geometric arguments in Hilbert spaces.
+
+### Operators
+
+Bounded linear operators \(T:H\to K\) between Hilbert spaces admit an **adjoint** \(T^{*}:K\to H\) defined by \(\langle Tx,y\rangle_{K}=\langle x,T^{*}y\rangle_{H}\). The adjoint satisfies \((T^{*})^{*}=T\) and respects composition: \((ST)^{*}=T^{*}S^{*}\). Operators that satisfy \(T^{*}=T\) are **self‑adjoint**; those with \(T^{*}T=TT^{*}\) are **normal**. Self‑adjoint operators have real spectra and admit spectral decompositions analogous to diagonalisation of matrices.
+
+Compact operators map bounded sets to relatively compact sets. The **Fredholm alternative** describes the relationship between a compact operator and the identity, leading to a discrete spectrum of eigenvalues of finite multiplicity. The **trace class** and **Hilbert–Schmidt** operators form special subclasses of compact operators with additional summability properties, crucial in the theory of integral equations.
+
+Unbounded operators, such as differentiation or multiplication by the coordinate function, are defined on dense domains. Their adjoints are defined via the same inner‑product identity, and self‑adjointness remains the appropriate notion for observables in quantum mechanics.
+
+---
+
+## Constructions
+
+### Direct sums
+
+Given Hilbert spaces \(H_{1},H_{2},\dots\), their (internal or external) **orthogonal direct sum** is the space of ordered families \((x_{1},x_{2},\dots)\) with \(\sum_{i}\|x_{i}\|^{2}<\infty\). The inner product is defined by
+
+\[
+\langle (x_{i}), (y_{i})\rangle =\sum_{i}\langle x_{i},y_{i}\rangle_{i}.
+\]
+
+Each \(H_{i}\) embeds as a closed subspace, and the resulting space is again a Hilbert space. This construction yields, for example, the **Fock space** in quantum statistical mechanics, which is the direct sum of symmetric (or antisymmetric) tensor powers of a single‑particle Hilbert space.
+
+### Tensor products
+
+The **tensor product** of two Hilbert spaces \(H\) and \(K\) is constructed by completing the algebraic tensor product \(H\otimes K\) with respect to the inner product
+
+\[
+\langle x_{1}\otimes x_{2},y_{1}\otimes y_{2}\rangle =\langle x_{1},y_{1}\rangle_{H}\,\langle x_{2},y_{2}\rangle_{K}.
+\]
+
+The completion yields a Hilbert space denoted \(\widehat{H\otimes K}\), often written \(H\widehat{\otimes}K\). This product is essential in the study of multiparticle systems, where the total state space is the tensor product of individual particle spaces. The resulting space can be identified with spaces of square‑integrable functions on product domains, e.g., \(L^{2}([0,1])\widehat{\otimes}L^{2}([0,1])\cong L^{2}([0,1]^{2})\).
+
+---
+
+## Orthogonal complements and projections
+
+For a subset \(S\subset H\), the **orthogonal complement** is
+
+\[
+S^{\perp}=\{x\in H\mid\langle x,s\rangle =0\ \text{for all }s\in S\}.
+\]
+
+\(S^{\perp}\) is always a closed subspace, and \((S^{\perp})^{\perp}=\overline{\operatorname{span}}(S)\). If \(M\) is a closed subspace, every \(x\in H\) admits a unique decomposition
+
+\[
+x=v+w,\qquad v\in M,\; w\in M^{\perp},
+\]
+
+and the map \(P_{M}x=v\) is the **orthogonal projection** onto \(M\). Projections satisfy \(P_{M}^{2}=P_{M}=P_{M}^{*}\). Moreover, projections onto orthogonal subspaces add: if \(M\) and \(N\) are orthogonal, then \(P_{M}+P_{N}=P_{M+N}\). The **Hahn–Banach theorem** guarantees that closed subspaces can be separated by continuous linear functionals, a fact that underlies many geometrical arguments.
+
+---
+
+## Spectral theory
+
+The **spectral theorem** for bounded self‑adjoint operators states that any such operator \(A\) can be written as
+
+\[
+A=\int_{\sigma(A)}\lambda\,dE_{\lambda},
+\]
+
+where \(E_{\lambda}\) is a projection‑valued measure (a resolution of the identity). The **spectral measure** \(E\) assigns to each Borel set \(\Delta\subset\mathbb{R}\) a projection \(E(\Delta)\) such that \(A=\int\lambda\,dE(\lambda)\). For compact self‑adjoint operators, the spectrum consists of at most countably many real eigenvalues of finite multiplicity, possibly accumulating only at \(0\). The operator can then be expressed as a convergent series
+
+\[
+A=\sum_{k}\lambda_{k}P_{k},
+\]
+
+where \(P_{k}\) are orthogonal projections onto the corresponding eigenspaces.
+
+For unbounded self‑adjoint operators, one extends the spectral theorem by considering the **resolvent** \((A-\lambda I)^{-1}\) for \(\lambda\) off the real axis, which is a bounded normal operator. The spectral measure is then defined on the Borel subsets of \(\mathbb{R}\) via the Stieltjes integral, yielding a representation
+
+\[
+\langle Ax,y\rangle = \int_{\mathbb{R}}\lambda\,d\langle E_{\lambda}x,y\rangle.
+\]
+
+This framework is central to quantum mechanics, where observables are represented by self‑adjoint operators and their spectra correspond to possible measurement outcomes.
+
+---
+
+## See also
+
+- [Adjoint](/Hermitian_adjoint)
+- [Inner product space](/Inner_product_space)
+- [Hilbert projection theorem](/Hilbert_projection_theorem)
+- [Parseval's identity](/Parseval%27s_identity)
+- [Polarization identity](/Polarization_identity)
+- [Parallelogram law](/Parallelogram_law)
+- [Spectral theorem](/Spectral_theorem)
+- [Quantum mechanics](/Quantum_mechanics)
+- [Fourier analysis](/Fourier_analysis)
+- [Ergodic theory](/Ergodic_theory)
+- [Banach space](/Banach_space)
+
+---

@@ -1,0 +1,199 @@
+---
+title: "Dimensionality Reduction"
+description: "Fine. You want the tedious dissection of data reduction. Don't expect enthusiasm. It's just... information. Presented, as requested. Try not to get lost in the..."
+keywords: physics, dimensional reduction, intrinsic dimension, sparse, curse of dimensionality, computational intractability, signal processing, speech recognition, neuroinformatics, bioinformatics
+slug: "Dimensionality_reduction"
+createdAt: "2025-11-13T14:57:46.408Z"
+updatedAt: "2025-11-13T14:57:46.408Z"
+---
+
+Fine. You want the tedious dissection of data reduction. Don't expect enthusiasm. It's just... information. Presented, as requested. Try not to get lost in the minutiae. Most do.
+
+***
+
+## Process of Reducing the Number of Random Variables Under Consideration
+
+For the peculiar applications of dimensional reduction within the realm of [physics](/Physics), one might consult the established discourse on [dimensional reduction](/Dimensional_reduction).
+
+Otherwise, the concept known as dimensionality reduction, or its less formal cousin, dimension reduction, describes the rather utilitarian act of transforming data. This transformation shifts the data from a space of many dimensions to one with fewer dimensions. The objective, of course, is to ensure that this compressed, low-dimensional representation still manages to cling to the meaningful aspects of the original data. Ideally, it should remain close to its [intrinsic dimension](/Intrinsic_dimension) – the true, underlying complexity.
+
+Navigating spaces with an abundance of dimensions is rarely a pleasant experience. Raw data, in such environments, tends to become [sparse](/Sparse_matrix), a direct consequence of what is so poetically termed the [curse of dimensionality](/Curse_of_dimensionality). Furthermore, the sheer act of analyzing such data often becomes a descent into [computational intractability](/Computational_complexity_theory). Consequently, dimensionality reduction finds its utility across a wide spectrum of fields that grapple with vast quantities of observations and an equally vast number of variables. This includes, but is certainly not limited to, domains like [signal processing](/Signal_processing), [speech recognition](/Speech_recognition), [neuroinformatics](/Neuroinformatics), and the ever-complex world of [bioinformatics](/Bioinformatics).&#91;1&#93;
+
+The methodologies employed in this endeavor are typically categorized into two broad camps: linear and nonlinear approaches.&#91;1&#93; The linear strategies, in turn, can be further subdivided into the discrete categories of [feature selection](/Feature_selection) and [feature extraction](/Feature_extraction).&#91;2&#93; The ultimate purpose of dimensionality reduction can be manifold: it might serve as a means of [noise reduction](/Noise_reduction), a tool for [data visualization](/Data_visualization), a precursor to [cluster analysis](/Cluster_analysis), or simply an intermediate stage to streamline other, more complex analytical processes.
+
+### Feature Selection
+
+The domain of [feature selection](/Feature_selection) is concerned with the meticulous process of identifying and isolating a suitable subset of the original input variables – the features, or attributes – that are most pertinent to the task at hand. This pursuit generally adheres to three distinct strategic frameworks: the filter strategy, which employs metrics such as [information gain](/Information_gain_(decision_tree)) to pre-evaluate features; the wrapper strategy, which utilizes the predictive performance of a model to guide the search for optimal feature subsets, often through accuracy-guided search; and the embedded strategy, where features are dynamically added or removed during the model-building process, directly influenced by prediction errors.
+
+The fruits of [data analysis](/Data_analysis), whether in the form of [regression](/Regression_analysis) or [classification](/Statistical_classification), can often be realized with greater precision when conducted within this reduced feature space, rather than in the original, more cluttered space.&#91;3&#93;
+
+### Feature Projection
+
+Feature projection, also commonly referred to as feature extraction, involves a more transformative approach. It fundamentally re-maps the data from its original high-dimensional space into a new space characterized by fewer dimensions. This transformation can be as straightforward as a linear mapping, exemplified by the widely used [principal component analysis](/Principal_component_analysis) (PCA). However, a rich landscape of [nonlinear dimensionality reduction](/Nonlinear_dimensionality_reduction) techniques also exists to tackle more intricate data structures.&#91;4&#93;&#91;5&#93; For datasets exhibiting multidimensional complexity, the framework of [tensor representation](/Tensor_representation) can be leveraged for dimensionality reduction through the sophisticated methods of [multilinear subspace learning](/Multilinear_subspace_learning).&#91;6&#93;
+
+A visual representation illustrating the outcome of PCA projection on a collection of two-dimensional points.
+
+#### Principal Component Analysis (PCA)
+
+As the preeminent linear technique in the arsenal of dimensionality reduction, [principal component analysis](/Principal_component_analysis) (PCA) executes a linear mapping of the data. This mapping is designed with a singular purpose: to maximize the variance of the data within the newly established lower-dimensional representation. In practical application, the process typically begins with the construction of the [covariance](/Covariance) matrix – and occasionally the [correlation](/Correlation_and_dependence) matrix – of the data. Subsequently, the [eigenvectors](/Eigenvalues_and_eigenvectors) of this matrix are computed. The eigenvectors that correspond to the largest eigenvalues, known as the principal components, are then employed to reconstruct a substantial portion of the variance present in the original data. More intriguingly, these initial eigenvectors can often offer profound insights into the large-scale physical behavior of the system under examination, particularly when they account for the vast majority of the system's energy, a phenomenon more pronounced in lower-dimensional systems. Nevertheless, this interpretation is not a universal certainty and must be rigorously proven on a case-by-case basis, as not all systems exhibit this characteristic. The original space, defined by the number of data points, is thus reduced – with an inherent, albeit hopefully controlled, loss of data – to a space spanned by a select few eigenvectors.&#91; [citation needed](/Wikipedia:Citation_needed) &#93;
+
+#### Non-negative Matrix Factorization (NMF)
+
+[Non-negative matrix factorization](/Non-negative_matrix_factorization) (NMF) operates by decomposing a matrix composed entirely of non-negative values into the product of two other non-negative matrices. This technique has emerged as a potent tool in fields where signals are inherently non-negative,&#91;7&#93;&#91;8&#93; such as the intricate domain of astronomy.&#91;9&#93;&#91;10&#93; NMF gained significant recognition following the introduction of its multiplicative update rule by Lee & Seung,&#91;7&#93; a foundational concept that has undergone continuous refinement. These advancements include the incorporation of uncertainty measures,&#91;9&#93; strategies for handling missing data and enabling parallel computation,&#91;11&#93; a sequential construction methodology&#91;11&#93; that contributes to the stability and linearity of NMF,&#91;10&#93; as well as various other [updates](/Non-negative_matrix_factorization) designed to address challenges like missing data in [digital image processing](/Digital_image_processing).&#91;12&#93;
+
+By maintaining a stable component basis throughout its construction and employing a linear modeling process, [sequential NMF](/Non-negative_matrix_factorization)&#91;11&#93; demonstrates a remarkable ability to preserve flux in the direct imaging of circumstellar structures in astronomical observations. This makes it a valuable technique among the various [methods of detecting exoplanets](/Methods_of_detecting_exoplanets), particularly for the direct imaging of [circumstellar discs](/Circumstellar_disc). When contrasted with PCA, NMF notably refrains from removing the mean of the matrices, a characteristic that allows it to preserve physical non-negative fluxes. Consequently, as demonstrated by Ren et al., NMF is capable of retaining more information than PCA.&#91;10&#93;
+
+#### Kernel PCA
+
+The principles of [principal component analysis](/Principal_component_analysis) can be extended into the nonlinear realm through the ingenious application of the [kernel trick](/Kernel_trick). This adaptation results in a powerful technique capable of constructing nonlinear mappings that adeptly maximize the variance within the data. The resultant methodology is appropriately named [kernel PCA](/Kernel_principal_component_analysis).
+
+##### Graph-based Kernel PCA
+
+Beyond kernel PCA, a constellation of other prominent nonlinear techniques exists, including the diverse set of [manifold learning](/Manifold_learning) approaches. Among these are [Isomap](/Isomap), [locally linear embedding](/Locally_linear_embedding) (LLE),&#91;13&#93; Hessian LLE, Laplacian eigenmaps, and various methods that draw upon tangent space analysis.&#91;14&#93; These techniques construct a low-dimensional representation of the data by employing a cost function meticulously designed to preserve the local properties inherent in the data. They can, in essence, be conceptualized as defining a graph-based kernel for use within Kernel PCA.
+
+More recently, innovative techniques have emerged that eschew the definition of a fixed kernel in favor of learning the kernel itself, often through the powerful framework of [semidefinite programming](/Semidefinite_programming). The most notable example of such an approach is [maximum variance unfolding](/Maximum_variance_unfolding) (MVU). The core philosophy behind MVU is to faithfully preserve all pairwise distances between nearest neighbors within the data – as defined in the inner product space – while simultaneously maximizing the distances between points that are not immediate neighbors.
+
+An alternative paradigm for preserving neighborhood relationships involves the minimization of a cost function that quantifies the discrepancies between distances in both the input and output spaces. Prominent examples of techniques employing this approach include: the classical [multidimensional scaling](/Multidimensional_scaling), which, in its essence, is synonymous with PCA; [Isomap](/Isomap), which ingeniously utilizes geodesic distances within the data space; [diffusion maps](/Diffusion_map), which employ diffusion distances for a similar purpose; [t-distributed stochastic neighbor embedding](/T-distributed_stochastic_neighbor_embedding) (t-SNE), a method focused on minimizing the divergence between probability distributions defined over pairs of points; and the conceptually related curvilinear component analysis.
+
+A distinct strategy for achieving nonlinear dimensionality reduction involves the utilization of [autoencoders](/Autoencoder), a specialized class of [feedforward neural networks](/Feedforward_neural_network) distinguished by a bottleneck hidden layer.&#91;15&#93; The training of these deep encoders is typically a layered affair, often beginning with a greedy layer-wise pre-training phase, which might involve the use of a stack of [restricted Boltzmann machines](/Restricted_Boltzmann_machine). This is subsequently followed by a fine-tuning stage, orchestrated through the mechanism of [backpropagation](/Backpropagation).
+
+A visual representation depicting the outcome of an LDA projection on a set of two-dimensional points.
+
+#### Linear Discriminant Analysis (LDA)
+
+[Linear discriminant analysis](/Linear_discriminant_analysis) (LDA) stands as a significant generalization of Fisher's linear discriminant. This method finds application in diverse fields such as statistics, pattern recognition, and machine learning, serving the purpose of identifying a linear combination of features that effectively characterizes or delineates between two or more distinct classes of objects or events.
+
+##### Generalized Discriminant Analysis (GDA)
+
+[Generalized discriminant analysis](/Generalized_discriminant_analysis) (GDA) extends the principles of discriminant analysis into the nonlinear domain through the application of kernel function operators. The theoretical underpinnings of GDA bear a close resemblance to those of [support-vector machines](/Support-vector_machine) (SVM), as the GDA method facilitates a mapping of input vectors into a high-dimensional feature space.&#91;16&#93;&#91;17&#93; Akin to LDA, the fundamental objective of GDA remains the identification of a projection for the features into a lower-dimensional space. This is achieved by strategically maximizing the ratio between the scatter of different classes and the scatter within each class.
+
+#### Autoencoder
+
+[Autoencoders](/Autoencoder), as previously mentioned, are a versatile type of neural network capable of learning nonlinear dimension reduction functions. They simultaneously learn codings and an inverse function that reconstructs the original representation from these codings.
+
+#### t-SNE
+
+[T-distributed Stochastic Neighbor Embedding](/T-distributed_stochastic_neighbor_embedding) (t-SNE) is a nonlinear dimensionality reduction technique particularly well-suited for the intricate task of visualizing high-dimensional datasets. However, its utility for analytical tasks such as clustering or outlier detection is somewhat limited. This is due to its inherent tendency to not consistently preserve densities or distances in a reliable manner.&#91;18&#93;
+
+#### UMAP
+
+[Uniform manifold approximation and projection](/Uniform_manifold_approximation_and_projection) (UMAP) represents another nonlinear dimensionality reduction technique. While visually it shares similarities with t-SNE, UMAP operates under the assumption that the data is uniformly distributed across a [locally connected](/Locally_connected) [Riemannian manifold](/Riemannian_manifold), and crucially, that the [Riemannian metric](/Riemannian_metric) is either locally constant or exhibits approximate local constancy.
+
+### Dimension Reduction
+
+In scenarios involving high-dimensional datasets, the application of dimension reduction techniques is typically undertaken as a preliminary step before employing algorithms such as the k-nearest neighbors (k-NN) algorithm. This preemptive measure is essential for mitigating the pervasive effects of the [curse of dimensionality](/Curse_of_dimensionality).&#91;19&#93;
+
+The processes of [feature extraction](/Feature_extraction) and dimension reduction can, in certain instances, be conflated into a single, unified step. This is often achieved through the application of established techniques like [principal component analysis](/Principal_component_analysis) (PCA), [linear discriminant analysis](/Linear_discriminant_analysis) (LDA), [canonical correlation analysis](/Canonical_correlation_analysis) (CCA), or [non-negative matrix factorization](/Non-negative_matrix_factorization) (NMF). These methods serve to pre-process the data, preparing it for subsequent clustering via k-NN, where the analysis is performed on [feature vectors](/Feature_(machine_learning)) within this newly reduced-dimension space. Within the field of [machine learning](/Machine_learning), this integrated process is also referred to as low-dimensional [embedding](/Embedding).&#91;20&#93;
+
+For datasets characterized by extreme dimensionality (for example, when conducting similarity searches on live video streams, analyzing DNA data, or processing high-dimensional [time series](/Time_series)), the implementation of fast, approximate k-NN search algorithms becomes the only truly viable option. These algorithms often leverage techniques such as [locality-sensitive hashing](/Locality-sensitive_hashing), [random projection](/Random_projection),&#91;21&#93; or various "sketching" methodologies&#91;22&#93; – tools readily available from the extensive repository of the [VLDB conference](/International_Conference_on_Very_Large_Data_Bases) community.
+
+### Applications
+
+A dimensionality reduction technique that occasionally finds its way into the discipline of [neuroscience](/Neuroscience) is the method of [maximally informative dimensions](/Maximally_informative_dimensions).&#91;23&#93; This approach is dedicated to discovering a lower-dimensional representation of a dataset that succeeds in preserving the maximum possible amount of [information](/Mutual_information) contained within the original data.
+
+***
+
+See also:
+
+*   [Recommender systems](/Recommender_system)
+
+    *   Concepts
+        *   [Collective intelligence](/Collective_intelligence)
+        *   [Relevance](/Relevance)
+        *   [Star ratings](/Star_(classification))
+        *   [Long tail](/Long_tail)
+    *   Methods and challenges
+        *   [Cold start](/Cold_start_(recommender_systems))
+        *   [Collaborative filtering](/Collaborative_filtering)
+        *   Dimensionality reduction
+        *   [Implicit data collection](/Implicit_data_collection)
+        *   [Item-item collaborative filtering](/Item-item_collaborative_filtering)
+        *   [Matrix factorization](/Matrix_factorization_(recommender_systems))
+        *   [Preference elicitation](/Preference_elicitation)
+        *   [Similarity search](/Similarity_search)
+    *   Implementations
+        *   [Collaborative search engine](/Collaborative_search_engine)
+        *   [Content discovery platform](/Content_discovery_platform)
+        *   [Decision support system](/Decision_support_system)
+        *   [Music Genome Project](/Music_Genome_Project)
+        *   [Product finder](/Product_finder)
+    *   Research
+        *   [GroupLens Research](/GroupLens_Research)
+        *   [MovieLens](/MovieLens)
+        *   [Netflix Prize](/Netflix_Prize)
+        *   [ACM Conference on Recommender Systems](/ACM_Conference_on_Recommender_Systems)
+
+*   [CUR matrix approximation](/CUR_matrix_approximation)
+*   [Data transformation (statistics)](/Data_transformation_(statistics))
+*   [Hyperparameter optimization](/Hyperparameter_optimization)
+*   [Information gain in decision trees](/Information_gain_in_decision_trees)
+*   [Johnson–Lindenstrauss lemma](/Johnson%E2%80%93Lindenstrauss_lemma)
+*   [Latent semantic analysis](/Latent_semantic_analysis)
+*   [Local tangent space alignment](/Local_tangent_space_alignment)
+*   [Locality-sensitive hashing](/Locality-sensitive_hashing)
+*   [MinHash](/MinHash)
+*   [Multifactor dimensionality reduction](/Multifactor_dimensionality_reduction)
+*   [Nearest neighbor search](/Nearest_neighbor_search)
+*   [Nonlinear dimensionality reduction](/Nonlinear_dimensionality_reduction)
+*   [Random projection](/Random_projection)
+*   [Sammon mapping](/Sammon_mapping)
+*   [Semantic mapping (statistics)](/Semantic_mapping_(statistics))
+*   [Semidefinite embedding](/Semidefinite_embedding)
+*   [Singular value decomposition](/Singular_value_decomposition)
+*   [Sufficient dimension reduction](/Sufficient_dimension_reduction)
+*   [Topological data analysis](/Topological_data_analysis)
+*   [Weighted correlation network analysis](/Weighted_correlation_network_analysis)
+*   [Factor analysis](/Factor_analysis)
+
+***
+
+Notes:
+
+*   ^ a b van der Maaten, Laurens; Postma, Eric; van den Herik, Jaap (October 26, 2009). "Dimensionality Reduction: A Comparative Review" (PDF). *J Mach Learn Res*. 10: 66–71.
+*   ^ Pudil, P.; Novovičová, J. (1998). "Novel Methods for Feature Subset Selection with Respect to Problem Knowledge". In Liu, Huan; Motoda, Hiroshi (eds.). *Feature Extraction, Construction and Selection*. pp. 101. [doi](/Doi_(identifier)):10.1007/978-1-4615-5725-8_7. [ISBN](/ISBN_(identifier)) 978-1-4613-7622-4.
+*   ^ Rico-Sulayes, Antonio (2017). "Reducing Vector Space Dimensionality in Automatic Classification for Authorship Attribution". *Revista Ingeniería Electrónica, Automática y Comunicaciones*. 38 (3): 26–35. [ISSN](/ISSN_(identifier)) 1815-5928.
+*   ^ Samet, H. (2006) *Foundations of Multidimensional and Metric Data Structures*. Morgan Kaufmann. [ISBN](/ISBN_(identifier)) 0-12-369446-9
+*   ^ C. Ding, X. He, H. Zha, H.D. Simon, Adaptive Dimension Reduction for Clustering High Dimensional Data, Proceedings of International Conference on Data Mining, 2002
+*   ^ a b Lu, Haiping; Plataniotis, K.N.; Venetsanopoulos, A.N. (2011). "A Survey of Multilinear Subspace Learning for Tensor Data" (PDF). *Pattern Recognition*. 44 (7): 1540–1551. [Bibcode](/Bibcode_(identifier)):2011PatRe..44.1540L. [doi](/Doi_(identifier)):10.1016/j.patcog.2011.01.004.
+*   ^ a b Daniel D. Lee & [H. Sebastian Seung](/Sebastian_Seung) (1999). "Learning the parts of objects by non-negative matrix factorization". [Nature](/Nature_(journal)). 401 (6755): 788–791. [Bibcode](/Bibcode_(identifier)):1999Natur.401..788L. [doi](/Doi_(identifier)):10.1038/44565. [PMID](/PMID_(identifier)) 10548103. [S2CID](/S2CID_(identifier)) 4428232.
+*   ^ Daniel D. Lee & H. Sebastian Seung (2001). Algorithms for Non-negative Matrix Factorization (PDF). *Advances in Neural Information Processing Systems 13: Proceedings of the 2000 Conference*. [MIT Press](/MIT_Press). pp. 556–562.
+*   ^ a b Blanton, Michael R.; Roweis, Sam (2007). "K-corrections and filter transformations in the ultraviolet, optical, and near infrared". *The Astronomical Journal*. 133 (2): 734–754. [arXiv](/ArXiv_(identifier)):astro-ph/0606170. [Bibcode](/Bibcode_(identifier)):2007AJ....133..734B. [doi](/Doi_(identifier)):10.1086/510127. [S2CID](/S2CID_(identifier)) 18561804.
+*   ^ a b c Ren, Bin; Pueyo, Laurent; Zhu, Guangtun B.; Duchêne, Gaspard (2018). "Non-negative Matrix Factorization: Robust Extraction of Extended Structures". *The Astrophysical Journal*. 852 (2): 104. [arXiv](/ArXiv_(identifier)):1712.10317. [Bibcode](/Bibcode_(identifier)):2018ApJ...852..104R. [doi](/Doi_(identifier)):10.3847/1538-4357/aaa1f2. [S2CID](/S2CID_(identifier)) 3966513.
+*   ^ a b c Zhu, Guangtun B. (2016-12-19). "Nonnegative Matrix Factorization (NMF) with Heteroscedastic Uncertainties and Missing data". [arXiv](/ArXiv_(identifier)):1612.06037 [astro-ph.IM].
+*   ^ Ren, Bin; Pueyo, Laurent; Chen, Christine; Choquet, Elodie; Debes, John H.; Duechene, Gaspard; Menard, Francois; Perrin, Marshall D. (2020). "Using Data Imputation for Signal Separation in High Contrast Imaging". *The Astrophysical Journal*. 892 (2): 74. [arXiv](/ArXiv_(identifier)):2001.00563. [Bibcode](/Bibcode_(identifier)):2020ApJ...892...74R. [doi](/Doi_(identifier)):10.3847/1538-4357/ab7024. [S2CID](/S2CID_(identifier)) 209531731.
+*   ^ Roweis, S. T.; Saul, L. K. (2000). "Nonlinear Dimensionality Reduction by Locally Linear Embedding". *Science*. 290 (5500): 2323–2326. [Bibcode](/Bibcode_(identifier)):2000Sci...290.2323R. [CiteSeerX](/CiteSeerX_(identifier)) 10.1.1.111.3313. [doi](/Doi_(identifier)):10.1126/science.290.5500.2323. [PMID](/PMID_(identifier)) 11125150. [S2CID](/S2CID_(identifier)) 5987139.
+*   ^ Zhang, Zhenyue; Zha, Hongyuan (2004). "Principal Manifolds and Nonlinear Dimensionality Reduction via Tangent Space Alignment". *SIAM Journal on Scientific Computing*. 26 (1): 313–338. [Bibcode](/Bibcode_(identifier)):2004SJSC...26..313Z. [doi](/Doi_(identifier)):10.1137/s1064827502419154.
+*   ^ Hongbing Hu, Stephen A. Zahorian, (2010) "Dimensionality Reduction Methods for HMM Phonetic Recognition", ICASSP 2010, Dallas, TX
+*   ^ Baudat, G.; Anouar, F. (2000). "Generalized Discriminant Analysis Using a Kernel Approach". *Neural Computation*. 12 (10): 2385–2404. [CiteSeerX](/CiteSeerX_(identifier)) 10.1.1.412.760. [doi](/Doi_(identifier)):10.1162/089976600300014980. [PMID](/PMID_(identifier)) 11032039. [S2CID](/S2CID_(identifier)) 7036341.
+*   ^ Haghighat, Mohammad; Zonouz, Saman; Abdel-Mottaleb, Mohamed (2015). "CloudID: Trustworthy cloud-based and cross-enterprise biometric identification". *Expert Systems with Applications*. 42 (21): 7905–7916. [doi](/Doi_(identifier)):10.1016/j.eswa.2015.06.025.
+*   ^ Schubert, Erich; Gertz, Michael (2017). "Intrinsic t-Stochastic Neighbor Embedding for Visualization and Outlier Detection". In Beecks, Christian; Borutta, Felix; Kröger, Peer; Seidl, Thomas (eds.). *Similarity Search and Applications*. Lecture Notes in Computer Science. Vol. 10609. Cham: Springer International Publishing. pp. 188–203. [doi](/Doi_(identifier)):10.1007/978-3-319-68474-1_13. [ISBN](/ISBN_(identifier)) 978-3-319-68474-1.
+*   ^ Kevin Beyer, Jonathan Goldstein, Raghu Ramakrishnan, Uri Shaft (1999) "When is "nearest neighbor" meaningful?". *Database Theory—ICDT99*, 217–235
+*   ^ Shaw, B.; Jebara, T. (2009). "Structure preserving embedding" (PDF). *Proceedings of the 26th Annual International Conference on Machine Learning – ICML '09*. p. 1. [CiteSeerX](/CiteSeerX_(identifier)) 10.1.1.161.451. [doi](/Doi_(identifier)):10.1145/1553374.1553494. [ISBN](/ISBN_(identifier)) 9781605585161. [S2CID](/S2CID_(identifier)) 8522279.
+*   ^ Bingham, E.; Mannila, H. (2001). "Random projection in dimensionality reduction". *Proceedings of the seventh ACM SIGKDD international conference on Knowledge discovery and data mining – KDD '01*. p. 245. [doi](/Doi_(identifier)):10.1145/502512.502546. [ISBN](/ISBN_(identifier)) 978-1581133912. [S2CID](/S2CID_(identifier)) 1854295.
+*   ^ Shasha, D High (2004) *Performance Discovery in Time Series* Berlin: Springer. [ISBN](/ISBN_(identifier)) 0-387-00857-8
+*   ^ Schütt, Heiko H. (2024-11-13), Bayesian Comparisons Between Representations, [arXiv](/ArXiv_(identifier)):2411.08739
+
+***
+
+References:
+
+*   Boehmke, Brad; Greenwell, Brandon M. (2019). "Dimension Reduction". *Hands-On Machine Learning with R*. Chapman & Hall. pp. 343–396. [ISBN](/ISBN_(identifier)) 978-1-138-49568-5.
+*   Cunningham, P. (2007). Dimension Reduction (Technical report). University College Dublin. UCD-CSI-2007-7.
+*   Fodor, I. (2002). A survey of dimension reduction techniques (Technical report). Center for Applied Scientific Computing, Lawrence Livermore National. UCRL-ID-148494.
+*   Lakshmi Padmaja, Dhyaram; Vishnuvardhan, B (2016). "Comparative Study of Feature Subset Selection Methods for Dimensionality Reduction on Scientific Data". 2016 IEEE 6th International Conference on Advanced Computing (IACC). pp. 31–34. [doi](/Doi_(identifier)):10.1109/IACC.2016.16. [ISBN](/ISBN_(identifier)) 978-1-4673-8286-1. [S2CID](/S2CID_(identifier)) 14532363.
+
+***
+
+External links:
+
+*   JMLR Special Issue on Variable and Feature Selection
+*   ELastic MAPs Archived 2011-07-20 at the [Wayback Machine](/Wayback_Machine)
+*   Locally Linear Embedding
+*   Visual Comparison of various dimensionality reduction methods
+*   A Global Geometric Framework for Nonlinear Dimensionality Reduction
+
+***
+
+[Authority control databases](/Help:Authority_control)
+
+*   GND

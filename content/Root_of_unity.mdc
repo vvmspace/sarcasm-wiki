@@ -1,0 +1,344 @@
+---
+title: "Root Of Unity"
+description: "A root of unity is a complex number that, when raised to some positive integer power *n*, yields the number 1. Think of it as a number that "comes back to..."
+keywords: number theory, group characters, discrete fourier transform, abraham de moivre, complex numbers, field, algebraic integers, finite field, algebraically closed field
+slug: "Root_of_unity"
+createdAt: "2025-12-01T10:12:17.526Z"
+updatedAt: "2025-12-01T10:12:17.526Z"
+contentType: "rewritten"
+previousArticleSlug: "El_Dorado_Canyon_(Nevada)"
+previousArticleTitle: "El Dorado Canyon (Nevada)"
+---
+
+A root of unity is a complex number that, when raised to some positive integer power *n*, yields the number 1. Think of it as a number that "comes back to itself" after a specific number of multiplications. These numbers are not just mathematical curiosities; they're fundamental tools in various branches of mathematics, including [number theory](/Number_theory), the intricate study of [group characters](/Group_character), and the powerful [discrete Fourier transform](/Discrete_Fourier_transform). They've even earned a nickname, sometimes called de Moivre numbers, after the French mathematician [Abraham de Moivre](/Abraham_de_Moivre), which is rather charming, if a bit predictable.
+
+Roots of unity aren't confined to the realm of [complex numbers](/Complex_number). They can be defined within any [field](/Field_(mathematics)). If the field has a characteristic of zero, then these roots are, predictably, [complex numbers](/Complex_number) that also happen to be [algebraic integers](/Algebraic_integer). Now, for fields with a positive characteristic, the situation shifts. Here, the roots reside within a [finite field](/Finite_field). Interestingly, the converse holds true as well: every non-zero element in a finite field is, in fact, a root of unity. And in any [algebraically closed field](/Algebraically_closed_field), you'll find exactly *n* distinct *n*th roots of unity, unless *n* happens to be a multiple of the field's positive characteristic.
+
+### General Definition
+
+An *n*th root of unity, where *n* is a positive integer, is a number *z* that satisfies the equation:
+
+[1] [2]
+$$ z^n = 1 $$
+
+When we talk about roots of unity without specifying the domain, we usually mean [complex numbers](/Complex_number). This includes the obvious case of 1 itself, and also -1 if *n* is [even](/Parity_(mathematics)) (since -1 is just a complex number with a zero [imaginary part](/Complex_number)). In the complex plane, the *n*th roots of unity are given by the formula:
+
+[3]
+$$ \exp \left({\frac {2k\pi i}{n}}\right)=\cos {\frac {2k\pi }{n}}+i\sin {\frac {2k\pi }{n}},\qquad k=0,1,\dots ,n-1. $$
+
+This formula is elegant, but the defining equation $z^n = 1$ is far more general. It holds true not just in fields, but even within any [ring](/Ring_(mathematics)). So, we can indeed talk about roots of unity residing in fields other than the complex numbers. As mentioned, if the field's [characteristic](/Characteristic_(algebra)) is zero, these roots will be complex numbers. If the characteristic is positive, they'll be found within a [finite field](/Finite_field). It’s a neat bit of symmetry, really. For more on roots of unity in fields with positive characteristic, one might delve into the [Finite field § Roots of unity](/Finite_field) section. For those interested in modular arithmetic, the topic of roots of unity modulo *n* is also covered.
+
+An *n*th root of unity is termed "primitive" if it's not an *m*th root of unity for any smaller positive integer *m*. In other words, it’s the "lowest power" that brings you back to 1. Mathematically, this means:
+
+[4] [5]
+$$ z^n = 1 \quad {\text{and}} \quad z^m \neq 1 \quad \text{for } m=1,2,3,\ldots ,n-1. $$
+
+A helpful shortcut: if *n* is a [prime number](/Prime_number), then all *n*th roots of unity, except for the trivial root 1, are primitive. [6] Going back to the exponential formula, the primitive *n*th roots of unity are precisely those where the integer *k* and *n* are [coprime integers](/Coprime_integers).
+
+The subsequent discussion will focus on complex roots of unity. If you're curious about fields with non-zero characteristic, the [Finite field § Roots of unity](/Finite_field) section is your destination. And for those dealing with modular arithmetic, the "Root of unity modulo n" article will be more relevant.
+
+### Elementary Properties
+
+Every *n*th root of unity *z* has a smallest positive integer *a* such that $z^a = 1$. This *a* is the "order" of the root, and *z* is a primitive *a*th root of unity.
+
+Consider any integer power of an *n*th root of unity. It turns out to be another *n*th root of unity. This is quite straightforward:
+
+[7]
+$$ (z^k)^n = z^{kn} = (z^n)^k = 1^k = 1. $$
+
+This property also holds for negative exponents. In fact, the [reciprocal](/Multiplicative_inverse) of an *n*th root of unity is its [complex conjugate](/Complex_conjugate), and it’s also an *n*th root of unity:
+
+[8]
+$$ \frac{1}{z} = z^{-1} = z^{n-1} = \bar{z}. $$
+
+Now, let's say you have an *n*th root of unity *z*, and you have two integers, *a* and *b*, such that $a \equiv b \pmod n$. This means *a* and *b* leave the same remainder when divided by *n*. In this case, $z^a = z^b$. Why? Because $a = b + kn$ for some integer *k*, and then:
+
+$$ z^a = z^{b+kn} = z^b z^{kn} = z^b (z^n)^k = z^b (1)^k = z^b. $$
+
+This implies that if you're dealing with $z^a$, you can simplify it to $z^r$, where *r* is the remainder when *a* is divided by *n* (so $0 \le r < n$).
+
+If *z* is a primitive *n*th root of unity, then the sequence of its powers, $z^1, z^2, \dots, z^{n-1}, z^n = 1$, gives you all *n* distinct *n*th roots of unity. If any two powers, say $z^a$ and $z^b$ with $1 \le a < b \le n$, were equal, then $z^{b-a}$ would be 1. But since $b-a$ is smaller than *n*, this would contradict the fact that *z* is primitive. Since an *n*th-degree [polynomial equation](/Polynomial_equation) over the [complex numbers](/Complex_number) can have at most *n* roots, we've found them all.
+
+Consequently, if *z* is a primitive *n*th root of unity, then $z^a = z^b$ if and only if $a \equiv b \pmod n$. The converse isn't always true if *z* isn't primitive. For example, if $n=4$, $z=-1$ is a non-primitive 4th root of unity. We have $z^2 = (-1)^2 = 1$ and $z^4 = (-1)^4 = 1$. But $2 \not\equiv 4 \pmod 4$. So, while congruence implies equality of powers, the reverse isn't guaranteed for non-primitive roots.
+
+Now, let *z* be a primitive *n*th root of unity. Consider a power $w = z^k$. This *w* will be a primitive *a*th root of unity, where:
+
+$$ a = \frac{n}{\gcd(k,n)} $$
+
+Here, $\gcd(k,n)$ is the [greatest common divisor](/Greatest_common_divisor) of *k* and *n*. This formula arises because *a* represents the smallest multiple of *k* that is also a multiple of *n*. In other words, *a* is related to the [least common multiple](/Least_common_multiple) of *k* and *n*. Specifically, $ak = \operatorname{lcm}(k,n) = \frac{kn}{\gcd(k,n)}$, which simplifies to $a = \frac{n}{\gcd(k,n)}$.
+
+This means that if *k* and *n* are [coprime](/Coprime), then $z^k$ is also a primitive *n*th root of unity. Consequently, there are exactly $\phi(n)$ distinct primitive *n*th roots of unity, where $\phi$ is [Euler's totient function](/Euler%27s_totient_function). This explains why, if *n* is a prime number, all roots except 1 are primitive.
+
+To put it another way, let $R(n)$ be the set of all *n*th roots of unity and $P(n)$ be the set of primitive *n*th roots. Then $R(n)$ can be expressed as a [disjoint union](/Disjoint_union) of $P(d)$ for all positive [divisors](/Divisor) *d* of *n*:
+
+$$ R(n) = \bigcup_{d\,|\,n} P(d) $$
+
+Since the [cardinality](/Cardinality) of $R(n)$ is *n* and the cardinality of $P(n)$ is $\phi(n)$, this relationship leads directly to the well-known formula:
+
+$$ \sum_{d\,|\,n} \phi(d) = n $$
+
+### Group Properties
+
+#### Group of All Roots of Unity
+
+The set of all roots of unity forms a fascinating mathematical structure. If you take the product of two roots of unity, the result is another root of unity. Similarly, the multiplicative inverse of a root of unity is also a root of unity. Let's say we have $x^m = 1$ and $y^n = 1$. Then $(x^{-1})^m = 1$, and $(xy)^k = 1$, where *k* is the [least common multiple](/Least_common_multiple) of *m* and *n*.
+
+This closure under multiplication and inversion means that the roots of unity form an [abelian group](/Abelian_group) under multiplication. This group is particularly significant as it represents the [torsion subgroup](/Torsion_subgroup) of the [circle group](/Circle_group), which consists of all complex numbers with magnitude 1.
+
+#### Group of *n*th Roots of Unity
+
+For any given integer *n*, the set of *n*th roots of unity also forms a well-behaved structure. The product and multiplicative inverse of any two *n*th roots of unity are themselves *n*th roots of unity. This makes the set of *n*th roots of unity an abelian group under multiplication.
+
+If we pick a primitive *n*th root of unity, say $\omega$, then all other *n*th roots are simply powers of $\omega$. This tells us that the group of *n*th roots of unity is a [cyclic group](/Cyclic_group). The name "cyclic group" itself originates from this property, as these groups are fundamentally linked to the [circle group](/Circle_group).
+
+#### Galois Group of the Primitive *n*th Roots of Unity
+
+Consider the field extension $\mathbb{Q}(\omega)$ of the [rational numbers](/Rational_number) $\mathbb{Q}$, generated by a primitive *n*th root of unity $\omega$. Since all *n*th roots of unity are powers of $\omega$, this field $\mathbb{Q}(\omega)$ contains every *n*th root of unity. Moreover, it's a [Galois extension](/Galois_extension) of $\mathbb{Q}$.
+
+An integer *k* generates a primitive *n*th root of unity $\omega^k$ if and only if *k* and *n* are [coprime](/Coprime). The mapping $\omega \mapsto \omega^k$ induces an [automorphism](/Field_automorphism) of $\mathbb{Q}(\omega)$. This automorphism acts on every *n*th root of unity by raising it to the *k*th power. Every automorphism of $\mathbb{Q}(\omega)$ can be represented in this manner. These automorphisms collectively form the [Galois group](/Galois_group) of $\mathbb{Q}(\omega)$ over the rationals.
+
+The rules of exponentiation reveal that the [composition](/Function_composition) of two such automorphisms corresponds to multiplying their exponents. This leads to a [group isomorphism](/Group_isomorphism) between the [units](/Unit_(ring_theory)) of the ring of integers modulo *n* (denoted $(\mathbb{Z}/n\mathbb{Z})^\times$) and the Galois group of $\mathbb{Q}(\omega)$ over $\mathbb{Q}$. This abelian nature of the Galois group is crucial, as it implies that primitive *n*th roots of unity can be expressed using [radicals](/Radical_expression).
+
+#### Galois Group of the Real Part of the Primitive *n*th Roots of Unity
+
+The real parts of the primitive *n*th roots of unity are intricately connected. They are the roots of the [minimal polynomial](/Minimal_polynomial_(field_theory)) of $2\cos(2\pi/n)$. These roots themselves form a cyclic Galois group.
+
+### Trigonometric Expression
+
+[De Moivre's formula](https://en.wikipedia.org/wiki/De_Moivre%27s_formula), a cornerstone of complex number manipulation, states that for any [real number](/Real_number) *x* and integer *n*:
+
+$$ (\cos x + i \sin x)^n = \cos nx + i \sin nx $$
+
+If we set $x = \frac{2\pi}{n}$, we get a primitive *n*th root of unity:
+
+$$ \left(\cos \frac{2\pi}{n} + i \sin \frac{2\pi}{n}\right)^n = \cos 2\pi + i \sin 2\pi = 1 $$
+
+Crucially, for $k = 1, 2, \dots, n-1$, the *k*th power of this expression is not equal to 1:
+
+$$ \left(\cos \frac{2\pi}{n} + i \sin \frac{2\pi}{n}\right)^k = \cos \frac{2k\pi}{n} + i \sin \frac{2k\pi}{n} \neq 1 $$
+
+This means that $\cos \frac{2\pi}{n} + i \sin \frac{2\pi}{n}$ is indeed a primitive *n*th root of unity.
+
+This trigonometric representation offers a beautiful geometric interpretation. In the [complex plane](/Complex_plane), the *n*th roots of unity are located at the vertices of a [regular *n*-sided polygon](/Regular_polygon) inscribed within the [unit circle](/Unit_circle), with one vertex fixed at the number 1. This geometric insight is the origin of the term "cyclotomic," derived from the Greek words for "circle" and "cut," appearing in phrases like [cyclotomic field](/Cyclotomic_field) and [cyclotomic polynomial](/Cyclotomic_polynomial).
+
+[Euler's formula](/Euler%27s_formula), $e^{ix} = \cos x + i \sin x$, provides an even more concise way to express the *n*th roots of unity:
+
+$$ e^{2\pi i \frac{k}{n}}, \quad 0 \le k < n $$
+
+As established earlier, these are primitive *n*th roots if and only if the fraction $k/n$ is in its lowest terms, meaning *k* and *n* are coprime. Numbers that can be expressed as the [real part](/Complex_number) of a root of unity, like $\cos(2\pi k/n)$, are known as [trigonometric numbers](/Trigonometric_number).
+
+### Algebraic Expression
+
+By their very definition, the *n*th roots of unity are the [roots](/Root_of_a_polynomial) of the [polynomial](/Polynomial) $x^n - 1$. This places them firmly in the category of [algebraic numbers](/Algebraic_number). However, the polynomial $x^n - 1$ is not always [irreducible](/Irreducible_polynomial). The primitive *n*th roots of unity, on the other hand, are the roots of a special irreducible polynomial (over the integers) called the *n*th [cyclotomic polynomial](/Cyclotomic_polynomial), often denoted $\Phi_n(z)$. The degree of this polynomial is precisely $\phi(n)$, [Euler's totient function](/Euler%27s_totient_function), which, as we've seen, counts the number of primitive *n*th roots of unity.
+
+[Galois theory](/Galois_theory) provides a powerful framework for understanding these cyclotomic polynomials. It demonstrates that they can be conveniently solved using [radicals](/Radical_expression). While the simple expression $\sqrt[n]{1}$ might seem like a solution, it's not entirely satisfactory because it includes non-primitive roots (like 1) and doesn't neatly separate the real and imaginary parts. The solvability by radicals means that for any positive integer *n*, there's a specific expression built from integers using root extractions, addition, subtraction, multiplication, and division, which yields exactly the primitive *n*th roots of unity.
+
+[Carl Friedrich Gauss](/Carl_Friedrich_Gauss) famously proved that a primitive *n*th root of unity can be expressed using only [square roots](/Square_root), along with the basic arithmetic operations, if and only if a [regular *n*-gon](/Regular_polygon) can be constructed using a [compass and straightedge](/Compass-and-straightedge_construction). This geometric condition is met if and only if *n* is a [power of two](/Power_of_two) or a product of a power of two and distinct [Fermat primes](/Fermat_prime).
+
+Consider a primitive *n*th root of unity *z*. Its reciprocal, $1/z$, is also a primitive *n*th root of unity. Now, let $r = z + 1/z$. This value *r* is equal to twice the real part of *z*. This relationship is key to understanding $\Phi_n(z)$, which is a [reciprocal polynomial](/Reciprocal_polynomial). A related polynomial, $R_n$, whose roots are these values of *r*, can be derived from $\Phi_n(z)$. The primitive *n*th roots of unity can then be recovered from the roots of $R_n$ by solving the [quadratic equation](/Quadratic_equation):
+
+$$ z^2 - rz + 1 = 0 $$
+
+This means the real part of a primitive root is $r/2$, and its imaginary part is $\pm i \sqrt{1 - (r/2)^2}$. The polynomial $R_n$ is irreducible, and its degree is a power of two precisely when the regular *n*-gon is constructible. Otherwise, while the roots are solvable in radicals, they fall into the [casus irreducibilis](/Casus_irreducibilis), meaning any radical expression will involve non-real roots.
+
+#### Explicit Expressions in Low Degrees
+
+Let's look at some specific examples:
+
+*   **n = 1:** The cyclotomic polynomial is $\Phi_1(x) = x - 1$. The only primitive first root of unity is 1. This root is also a non-primitive *n*th root for any $n > 1$.
+*   **n = 2:** $\Phi_2(x) = x + 1$. The only primitive second root of unity is -1, which is also a non-primitive *n*th root for any even $n > 2$. These two cases (n=1 and n=2) cover all [real](/Real_number) roots of unity.
+*   **n = 3:** $\Phi_3(x) = x^2 + x + 1$. The primitive third ([cube](/Cube_root)) roots of unity are the roots of this [quadratic polynomial](/Quadratic_polynomial):
+    $$ \frac{-1 \pm i\sqrt{3}}{2} $$
+*   **n = 4:** $\Phi_4(x) = x^2 + 1$. The two primitive fourth roots of unity are $i$ and $-i$.
+*   **n = 5:** $\Phi_5(x) = x^4 + x^3 + x^2 + x + 1$. The four primitive fifth roots of unity are the roots of this [quartic polynomial](/Quartic_polynomial). They can be explicitly expressed using radicals:
+    $$ \frac{\varepsilon\sqrt{5}-1}{4} \pm i\frac{\sqrt{10+2\varepsilon\sqrt{5}}}{4} $$
+    where $\varepsilon$ can be either 1 or -1.
+*   **n = 6:** $\Phi_6(x) = x^2 - x + 1$. The two primitive sixth roots of unity are the negatives (and also the square roots) of the primitive cube roots:
+    $$ \frac{1 \pm i\sqrt{3}}{2} $$
+*   **n = 7:** Since 7 is not a Fermat prime, the seventh roots of unity require [cube roots](/Cube_root) for their expression. There are 6 primitive seventh roots, which come in [complex conjugate](/Complex_conjugate) pairs. The sum of a root and its conjugate is twice its real part. These sums are the three real roots of the cubic polynomial $r^3 + r^2 - 2r - 1$. The primitive seventh roots themselves are then given by:
+    $$ \frac{r}{2} \pm i\sqrt{1-\frac{r^2}{4}} $$
+    where *r* represents the roots of the cubic. While these roots can be expressed using square and cube roots, due to the [casus irreducibilis](/Casus_irreducibilis), any such expression will involve non-real cube roots.
+*   **n = 8:** $\Phi_8(x) = x^4 + 1$. The four primitive eighth roots of unity are the square roots of the primitive fourth roots ($\pm i$):
+    $$ \pm \frac{\sqrt{2}}{2} \pm i\frac{\sqrt{2}}{2} $$
+*   **n = 17:** For the 17th root of unity, the real part is particularly notable and relates to the constructibility of the [Heptadecagon](/Heptadecagon).
+
+### Periodicity
+
+Let *z* be a primitive *n*th root of unity. The sequence of its powers, $\dots, z^{-1}, z^0, z^1, \dots$, is *n*-periodic. This is because $z^{j+n} = z^j z^n = z^j \cdot 1 = z^j$ for any integer *j*.
+
+Furthermore, we can consider *n* such sequences, indexed by $k = 1, \dots, n$. For each *k*, the sequence $s_k = (\dots, z^{k \cdot (-1)}, z^{k \cdot 0}, z^{k \cdot 1}, \dots)$ is also *n*-periodic. The set $\{s_1, \dots, s_n\}$ forms a [basis](/Basis_(linear_algebra)) for the [linear space](/Linear_space) of all *n*-periodic sequences of complex numbers. This is a profound statement: any *n*-periodic sequence can be uniquely represented as a [linear combination](/Linear_combination) of powers of a primitive *n*th root of unity:
+
+$$ x_j = \sum_{k} X_k \cdot z^{k \cdot j} = X_1 z^{1 \cdot j} + \dots + X_n z^{n \cdot j} $$
+
+for some complex coefficients $X_1, \dots, X_n$.
+
+This is essentially a form of [Fourier analysis](/Fourier_analysis). If we consider *j* as a discrete time variable, then *k* represents a [frequency](/Frequency), and $X_k$ represents a complex [amplitude](/Amplitude).
+
+If we choose $z = e^{2\pi i / n} = \cos(2\pi/n) + i \sin(2\pi/n)$ as our primitive *n*th root, then $x_j$ can be expressed as a linear combination of sines and cosines:
+
+$$ x_j = \sum_k A_k \cos \frac{2\pi jk}{n} + \sum_k B_k \sin \frac{2\pi jk}{n} $$
+
+This is precisely the form of a [discrete Fourier transform](/Discrete_Fourier_transform).
+
+### Summation
+
+Let SR(*n*) denote the sum of all the *n*th roots of unity, both primitive and non-primitive. Then:
+
+$$ \text{SR}(n) = \begin{cases} 1 & \text{if } n=1 \\ 0 & \text{if } n>1 \end{cases} $$
+
+This result follows directly from [Vieta's formulas](/Vieta%27s_formulas). The *n*th roots of unity are the roots of the polynomial $X^n - 1$. The sum of these roots is the coefficient of the $X^{n-1}$ term, which is 1 if $n=1$ (for $X-1$) and 0 if $n>1$.
+
+Alternatively, for $n>1$, let $S$ be the set of *n*th roots of unity. Since $S$ forms a [group](/Group_(mathematics)) under multiplication, for any root $z \neq 1$, the set $zS$ is identical to $S$. Therefore, the sum of elements in $S$ satisfies $z \cdot \text{SR}(n) = \text{SR}(n)$, which implies $\text{SR}(n) = 0$.
+
+Now, let SP(*n*) be the sum of all the *primitive* *n*th roots of unity. It turns out that:
+
+$$ \text{SP}(n) = \mu(n) $$
+
+where $\mu(n)$ is the [Möbius function](/M%C3%B6bius_function). This connection arises from the relationship between the sets of all roots $R(n)$ and primitive roots $P(n)$: $R(n)$ is the disjoint union of $P(d)$ for all divisors *d* of *n*. This leads to:
+
+$$ \text{SR}(n) = \sum_{d\,|\,n} \text{SP}(d) $$
+
+Applying the [Möbius inversion formula](/M%C3%B6bius_inversion_formula) to this equation yields:
+
+$$ \text{SP}(n) = \sum_{d\,|\,n} \mu(d) \text{SR}\left(\frac{n}{d}\right) $$
+
+In this sum, $\text{SR}(n/d) = 0$ whenever $d < n$ (because $n/d > 1$). The only non-zero term occurs when $d = n$, where $\text{SR}(n/n) = \text{SR}(1) = 1$. Thus, $\text{SP}(n) = \mu(n) \cdot 1 = \mu(n)$.
+
+This result is a specific instance, $c_n(1)$, of [Ramanujan's sum](/Ramanujan%27s_sum) $c_n(s)$, which is defined as the sum of the *s*th powers of the primitive *n*th roots of unity:
+
+$$ c_n(s) = \sum_{\substack{a=1 \\ \gcd(a,n)=1}}^{n} e^{2\pi i \frac{a}{n} s} $$
+
+### Orthogonality
+
+From the summation formulas, we can derive an important [orthogonality](/Orthogonality) relationship. For indices $j$ and $j'$ ranging from 1 to *n*:
+
+$$ \sum_{k=1}^{n} \overline{z^{j \cdot k}} \cdot z^{j' \cdot k} = n \cdot \delta_{j,j'} $$
+
+Here, $\delta_{j,j'}$ is the [Kronecker delta](/Kronecker_delta) (which is 1 if $j=j'$ and 0 otherwise), and *z* is any primitive *n*th root of unity.
+
+This property is fundamental to the [discrete Fourier transform](/Discrete_Fourier_transform). The *n* × *n* matrix *U* with entries $U_{j,k} = n^{-1/2} \cdot z^{j \cdot k}$ defines this transform. While a naive computation of the transform using [Gaussian elimination](/Gaussian_elimination) would take $O(n^3)$ operations, the orthogonality property reveals that *U* is a [unitary matrix](/Unitary_matrix). This means its inverse is simply its complex conjugate:
+
+$$ \sum_{k=1}^{n} \overline{U_{j,k}} \cdot U_{k,j'} = \delta_{j,j'} $$
+
+This insight, first noted by [Gauss](/Carl_Friedrich_Gauss) in the context of [trigonometric interpolation](/Trigonometric_interpolation), allows for efficient computation. Applying *U* or its inverse to a vector typically takes $O(n^2)$ operations. The development of [fast Fourier transform](/Fast_Fourier_transform) algorithms further reduces this to a remarkable $O(n \log n)$ operations.
+
+### Cyclotomic Polynomials
+
+*   Main article: [Cyclotomic polynomial](/Cyclotomic_polynomial)
+
+The polynomial $p(z) = z^n - 1$ has the *n*th roots of unity as its [zeros](/Zero_of_a_function), each with [multiplicity](/Multiplicity_of_a_root) of 1. The *n*th [cyclotomic polynomial](/Cyclotomic_polynomial), denoted $\Phi_n(z)$, is defined such that its zeros are precisely the primitive *n*th roots of unity, each with multiplicity 1.
+
+$$ \Phi_n(z) = \prod_{k=1}^{\varphi(n)} (z - z_k) $$
+
+where $z_1, z_2, \dots, z_{\varphi(n)}$ are the primitive *n*th roots of unity, and $\varphi(n)$ is [Euler's totient function](/Euler%27s_totient_function). A key property is that $\Phi_n(z)$ has integer coefficients and is an [irreducible polynomial](/Irreducible_polynomial) over the rational numbers. For the specific case where *n* is prime, this irreducibility can be demonstrated using [Eisenstein's criterion](/Eisenstein%27s_criterion) applied to a related polynomial derived using the [binomial theorem](/Binomial_theorem).
+
+Every *n*th root of unity is a primitive *d*th root of unity for exactly one positive [divisor](/Divisor) *d* of *n*. This fundamental relationship leads to the factorization of $z^n - 1$:
+
+$$ z^n - 1 = \prod_{d\,|\,n} \Phi_d(z) $$
+
+This formula provides the factorization of $z^n - 1$ into irreducible factors. Here are a few examples:
+
+*   $z^1 - 1 = z - 1$
+*   $z^2 - 1 = (z - 1)(z + 1)$
+*   $z^3 - 1 = (z - 1)(z^2 + z + 1)$
+*   $z^4 - 1 = (z - 1)(z + 1)(z^2 + 1)$
+*   $z^5 - 1 = (z - 1)(z^4 + z^3 + z^2 + z + 1)$
+*   $z^6 - 1 = (z - 1)(z + 1)(z^2 + z + 1)(z^2 - z + 1)$
+*   $z^7 - 1 = (z - 1)(z^6 + z^5 + z^4 + z^3 + z^2 + z + 1)$
+*   $z^8 - 1 = (z - 1)(z + 1)(z^2 + 1)(z^4 + 1)$
+
+Applying the [Möbius inversion](/Möbius_inversion) formula to the factorization yields an explicit expression for the cyclotomic polynomial:
+
+$$ \Phi_n(z) = \prod_{d\,|\,n} \left(z^{\frac{n}{d}} - 1\right)^{\mu(d)} = \prod_{d\,|\,n} \left(z^d - 1\right)^{\mu\left(\frac{n}{d}\right)} $$
+
+where $\mu$ is the [Möbius function](/M%C3%B6bius_function). Using this, we can derive the first few cyclotomic polynomials:
+
+*   $\Phi_1(z) = z - 1$
+*   $\Phi_2(z) = (z^2 - 1)(z - 1)^{-1} = z + 1$
+*   $\Phi_3(z) = (z^3 - 1)(z - 1)^{-1} = z^2 + z + 1$
+*   $\Phi_4(z) = (z^4 - 1)(z^2 - 1)^{-1} = z^2 + 1$
+*   $\Phi_5(z) = (z^5 - 1)(z - 1)^{-1} = z^4 + z^3 + z^2 + z + 1$
+*   $\Phi_6(z) = (z^6 - 1)(z^3 - 1)^{-1}(z^2 - 1)^{-1} = z^2 - z + 1$
+*   $\Phi_7(z) = (z^7 - 1)(z - 1)^{-1} = z^6 + z^5 + z^4 + z^3 + z^2 + z + 1$
+*   $\Phi_8(z) = (z^8 - 1)(z^4 - 1)^{-1} = z^4 + 1$
+
+For a prime number *p*, all the *p*th roots of unity except 1 are primitive. Therefore:
+
+$$ \Phi_p(z) = \frac{z^p - 1}{z - 1} = \sum_{k=0}^{p-1} z^k $$
+
+Substituting any integer $z \ge 2$ into this sum results in a [repunit](/Repunit) in base *z*. This implies that a necessary (though not sufficient) condition for a repunit to be prime is that its length must be prime.
+
+It's worth noting that not all cyclotomic polynomials have coefficients restricted to 0, 1, or -1. The first instance where this occurs is $\Phi_{105}(z)$. The complexity of the coefficients is related to the number of distinct odd prime factors of *n*. If *n* has one or two odd prime factors, the coefficients are indeed limited to 0, 1, or -1. The number 105, being the product of the three smallest odd primes (3, 5, and 7), is the first candidate for a cyclotomic polynomial with coefficients beyond $\pm 1$. A theorem by Schur states that cyclotomic polynomials can have arbitrarily large coefficients in [absolute value](/Absolute_value). Specifically, if $n = p_1 p_2 \dots p_t$ where $p_1 < p_2 < \dots < p_t$ are odd primes, $p_1 + p_2 > p_t$, and *t* is odd, then $1-t$ appears as a coefficient in $\Phi_n(z)$.
+
+There are also known restrictions on the values that cyclotomic polynomials can take when evaluated at integer points. For instance, if *p* is prime, then $d \mid \Phi_p(d)$ if and only if $d \equiv 1 \pmod p$.
+
+Cyclotomic polynomials are inherently solvable in [radicals](/Radical_expression), as roots of unity themselves are radicals. In fact, more refined radical expressions exist where every possible choice of radical values yields a primitive *n*th root of unity. [Gauss](/Carl_Friedrich_Gauss) demonstrated this in 1797, and efficient [algorithms](/Algorithm) exist for computing these expressions.
+
+### Cyclic Groups
+
+The *n*th roots of unity, under multiplication, form a [cyclic group](/Cyclic_group) of [order](/Order_(group_theory)) *n*. These groups represent all possible [finite](/Finite_group) subgroups of the [multiplicative group](/Multiplicative_group) of complex numbers. A primitive *n*th root of unity serves as a [generator](/Generating_set_of_a_group) for this cyclic group.
+
+Furthermore, the *n*th roots of unity provide an irreducible [representation](/Group_representation) for any cyclic group of order *n*. The orthogonality relationship previously discussed can also be derived from [group-theoretic](/Group_theory) principles related to [character groups](/Character_group).
+
+The entries of the [eigenvectors](/Eigenvector) of any [circulant matrix](/Circulant_matrix) (matrices invariant under cyclic shifts) are precisely the roots of unity. This is another consequence of [group representation theory](/Group_representation_theory), related to [Bloch's theorem](/Bloch%27s_theorem). [page needed](/Wikipedia:Citing_sources) In the specific case of a circulant [Hermitian matrix](/Hermitian_matrix), such as a discretized one-dimensional [Laplacian](/Laplacian) with periodic boundary conditions [page needed](/Wikipedia:Citing_sources), the orthogonality of eigenvectors of Hermitian matrices naturally leads to the orthogonality of roots of unity.
+
+### Cyclotomic Fields
+
+*   Main article: [Cyclotomic field](/Cyclotomic_field)
+
+By [adjoining](/Field_extension) a primitive *n*th root of unity to the field of [rational numbers](/Rational_number) $\mathbb{Q}$, we obtain the *n*th [cyclotomic field](/Cyclotomic_field):
+
+$$ \mathbb{Q}(\exp(2\pi i/n)) $$
+
+This field encompasses all *n*th roots of unity and is the [splitting field](/Splitting_field) of the *n*th cyclotomic polynomial over $\mathbb{Q}$. The [field extension](/Field_extension) $\mathbb{Q}(\exp(2\pi i/n)) / \mathbb{Q}$ has a degree of $\phi(n)$, and its [Galois group](/Galois_group) is [naturally](/Natural_transformation) [isomorphic](/Group_isomorphism) to the multiplicative [group of units](/Group_of_units) of the ring $\mathbb{Z}/n\mathbb{Z}$.
+
+Since the Galois group of $\mathbb{Q}(\exp(2\pi i/n)) / \mathbb{Q}$ is abelian, this constitutes an [abelian extension](/Abelian_extension). In fact, every subfield of a cyclotomic field is an abelian extension of the rationals. Consequently, every *n*th root of unity can be expressed using *k*-th roots, where *k* does not exceed $\phi(n)$. [Galois theory](/Galois_theory) allows for explicit descriptions of these extensions using [Gaussian periods](/Gaussian_period). This theory, pioneered by [Gauss](/Carl_Friedrich_Gauss) in his *Disquisitiones Arithmeticae*, predates Galois's work. [page needed](/Wikipedia:Citing_sources)
+
+Conversely, every abelian extension of the rationals is a subfield of some cyclotomic field. This is the essence of a theorem by [Leopold Kronecker](/Leopold_Kronecker), often referred to as the [Kronecker–Weber theorem](/Kronecker%E2%80%93Weber_theorem), with completion by Weber.
+
+### Relation to Quadratic Integers
+
+In the [complex plane](/Complex_plane), the points representing the fifth roots of unity (red) and the sums of a fifth root and its complex conjugate (black) illustrate interesting relationships. The corners of the squares represent the eighth roots of unity.
+
+*   For $n=1$ and $n=2$, the roots of unity (1 and -1) are ordinary [integers](/Integer).
+*   For $n=3$ and $n=6$, the roots of unity are [Eisenstein integers](/Eisenstein_integer), characterized by the discriminant $D=-3$.
+*   For $n=4$, the roots are [Gaussian integers](/Gaussian_integer), with $D=-1$. These include the [imaginary unit](/Imaginary_unit), *i*.
+
+For several other values of *n*, while the primitive roots of unity themselves might not be [quadratic integers](/Quadratic_integer), the sum of a root *z* and its [complex conjugate](/Complex_conjugate) $\bar{z}$ (which is also an *n*th root of unity) *is* a quadratic integer.
+
+*   For $n=5$ and $n=10$, none of the non-real roots (which satisfy a [quartic equation](/Quartic_equation)) are quadratic integers. However, the sum $z + \bar{z} = 2 \cdot \text{Re}(z)$ belongs to the ring $\mathbb{Z}[\frac{1+\sqrt{5}}{2}]$ (with $D=5$). For two pairs of non-real fifth roots, these sums are the inverse of the [golden ratio](/Golden_ratio) ($\phi$) and its negative.
+*   For $n=8$, the sum $z + \bar{z}$ can take values of 0, $\pm 2$, or $\pm \sqrt{2}$ (with $D=2$).
+*   For $n=12$, the sum $z + \bar{z}$ can be 0, $\pm 1$, $\pm 2$, or $\pm \sqrt{3}$ (with $D=3$).
+
+### See Also
+
+*   [Argand system](/Argand_system)
+*   [Circle group](/Circle_group) (the set of unit complex numbers)
+*   [Cyclotomic field](/Cyclotomic_field)
+*   [Group scheme of roots of unity](/Group_scheme_of_roots_of_unity)
+*   [Dirichlet character](/Dirichlet_character)
+*   [Ramanujan's sum](/Ramanujan%27s_sum)
+*   [Witt vector](/Witt_vector)
+*   [Teichmüller character](/Teichm%C3%BCller_character)
+
+### Notes
+
+*   [1] Hadlock, Charles R. (2000). *Field Theory and Its Classical Problems*, Volume 14. Cambridge University Press. pp. 84–86. [ISBN](/ISBN_(identifier)) 978-0-88385-032-9.
+*   [2] Lang, Serge (2002). "Roots of unity". *Algebra*. Springer. pp. 276–277. [ISBN](/ISBN_(identifier)) 978-0-387-95385-4.
+*   [3] Meserve, Bruce E. (1982). *Fundamental Concepts of Algebra*. Dover Publications. p. 52.
+*   [4] Moskowitz, Martin A. (2003). *Adventure in Mathematics*. World Scientific. p. 36. [ISBN](/ISBN_(identifier)) 9789812794949.
+*   [5] Lidl, Rudolf; Pilz, Günter (1984). *Applied Abstract Algebra*. Undergraduate Texts in Mathematics. Springer. p. 149. [doi](/Doi_(identifier)):10.1007/978-1-4615-6465-2. [ISBN](/ISBN_(identifier)) 978-0-387-96166-8.
+*   [6] Morandi, Patrick (1996). *Field and Galois theory*. Graduate Texts in Mathematics. Vol. 167. Springer. p. 74. [doi](/Doi_(identifier)):10.1007/978-1-4612-4040-2. [ISBN](/ISBN_(identifier)) 978-0-387-94753-2.
+*   [7] Reilly, Norman R. (2009). *Introduction to Applied Algebraic Systems*. Oxford University Press. p. 137. [ISBN](/ISBN_(identifier)) 978-0-19-536787-4.
+*   [8] Rotman, Joseph J. (2015). *Advanced Modern Algebra*. Vol. 1 (3rd ed.). American Mathematical Society. p. 129. [ISBN](/ISBN_(identifier)) 9781470415549.
+*   [9] Riesel, Hans (1994). *Prime Factorization and Computer Methods for Factorization*. Springer. p. 306. [ISBN](/ISBN_(identifier)) 0-8176-3743-5.
+*   [10] Apostol, Tom M. (1976). *Introduction to Analytic Number Theory*. Undergraduate Texts in Mathematics. Springer. p. 160. [doi](/Doi_(identifier)):10.1007/978-1-4757-5579-4. [ISBN](/ISBN_(identifier)) 978-1-4419-2805-4.
+*   [11] Lehmer, Emma (1936). "On the magnitude of the coefficients of the cyclotomic polynomial". *Bulletin of the American Mathematical Society*. 42 (6): 389–392. [doi](/Doi_(identifier)):10.1090/S0002-9904-1936-06309-3.
+*   [12] Landau, Susan; Miller, Gary L. (1985). "Solvability by radicals is in polynomial time". *Journal of Computer and System Sciences*. 30 (2): 179–208. [doi](/Doi_(identifier)):10.1016/0022-0000(85)90013-3.
+*   [13] Gauss, Carl F. (1965). *Disquisitiones Arithmeticae*. Yale University Press. §§359–360. [ISBN](/ISBN_(identifier)) 0-300-09473-6.
+*   [14] Weber, Andreas; Keckeisen, Michael. "Solving Cyclotomic Polynomials by Radical Expressions" (PDF). Retrieved 22 June 2007.
+*   [15] Inui, Teturo; Tanabe, Yukito; Onodera, Yoshitaka (1996). *Group Theory and Its Applications in Physics*. Springer.
+*   [16] Strang, Gilbert (1999). "The discrete cosine transform". *SIAM Review*. 41 (1): 135–147. [Bibcode](/Bibcode_(identifier)):1999SIAMR..41..135S. [doi](/Doi_(identifier)):10.1137/S0036144598336745.
+*   [17] The *Disquisitiones* was published in 1801, Galois was born in 1811, died in 1832, but his work wasn't published until 1846.
+
+#

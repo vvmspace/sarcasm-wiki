@@ -1,0 +1,318 @@
+---
+title: "KLM Protocol"
+description: "This whole affair with linear optical quantum computing and its supposed implementation via the KLM scheme feels a bit like trying to build a castle out of..."
+keywords: raymond laflamme, gerard j. milburn, quantum computer, linear optical, single-photon sources, ancilla, quantum teleportations, error corrections, photons
+slug: "KLM_protocol"
+createdAt: "2025-11-19T14:29:31.478Z"
+updatedAt: "2025-11-19T14:29:31.478Z"
+contentType: "rewritten"
+---
+
+This whole affair with [linear optical quantum computing](/Linear_optical_quantum_computing) and its supposed implementation via the KLM scheme feels a bit like trying to build a castle out of mist. It’s theoretically sound, I suppose, but the practicalities… well, they’re a different story.
+
+### Linear Optical Quantum Computing Implementation
+
+There's this persistent note attached to this article, something about missing citations. It’s accurate, in a way. The sources are there, like faint whispers in a crowded room, but they lack the sharp focus, the undeniable imprint of direct observation. It’s a common affliction in these theoretical realms – a beautiful edifice built on conjecture, waiting for the hard evidence to shore it up. So, yes, help is needed to pin down the specifics, to drag those whispers into the light with precise citations. It’s a tedious business, but necessary if anyone actually intends to *do* something with this.
+
+The core of it, the KLM protocol, hatched in the year 2000 from the minds of Knill, [Raymond Laflamme](/Raymond_Laflamme), and [Gerard J. Milburn](/Gerard_J._Milburn), is an attempt to forge a universal [quantum computer](/Quantum_computers) using nothing but the elegant simplicity of [linear optical](/Linear_optics) components. Think mirrors, beam splitters, phase shifters – the usual suspects. It’s a scheme that leans heavily on [single-photon sources](/Single-photon_source) and the ever-watchful eye of photon detectors. The trick? To orchestrate a quantum computation with the bare minimum of resources: just [ancilla](/Ancilla_bit) qubits, the ethereal dance of [quantum teleportations](/Quantum_teleportation), and the ever-present necessity of [error corrections](/Quantum_error_correction). It's ambitious, to say the least.
+
+#### Overview
+
+The KLM scheme’s ingenious, if somewhat roundabout, approach to inducing an interaction between [photons](/Photon) involves projective measurements performed with [photodetectors](/Photodetector). This is where the "non-deterministic" aspect rears its head; it’s not a guaranteed outcome, but a probabilistic one. At its heart, it hinges on a subtle, non-linear sign shift between two [qubits](/Qubit), a feat achieved using a pair of ancilla photons and the selective discarding of unwanted results – a process known as post-selection. It’s built upon demonstrations that, by preparing [entangled states](/Entangled_state) non-deterministically and employing [quantum teleportation](/Quantum_teleportation) for single-qubit operations, the probability of success for quantum gates can be nudged astonishingly close to unity.
+
+However, and this is where the practicalities start to chafe, if the success rate of even a single quantum gate unit isn't sufficiently high, the computational resources required can balloon into the truly astronomical, scaling exponentially. The KLM scheme counters this by positing that proper quantum coding can, in fact, trim the resource requirements. It can make the encoded qubits more accurate and, crucially, render [linear optical quantum computing](/Linear_optical_quantum_computing) robust against the common afflictions of photon loss, detector inefficiency, and the insidious creep of [decoherence](/Decoherence). This means that LOQC, when implemented through the KLM framework, could be a genuinely viable contender in the race for [quantum information processing](/Quantum_information_processing), rivaling other, perhaps more conventional, approaches.
+
+#### Elements of LOQC in the KLM Scheme
+
+##### Qubits and Modes
+
+To avoid getting bogged down in unnecessary specifics, we'll keep the discussion general regarding mode representation. When you see a state like $|0,1\rangle_{VH}$, it signifies a state where there are zero [photons](/Photon) in mode V (imagine this as the "vertical" polarization channel) and one photon in mode H (the "horizontal" polarization channel).
+
+In the KLM protocol, each photon typically resides in one of two distinct modes. These modes are generally separate for different photons, except during the execution of controlled quantum gates like CNOT. When the photons are in distinct modes, they are distinguishable. This allows a qubit state to be represented by a single photon occupying one of two modes, vertical (V) and horizontal (H). For instance, $|0\rangle$ is equivalent to $|0,1\rangle_{VH}$, and $|1\rangle$ is equivalent to $|1,0\rangle_{VH}$. It's common in this context to refer to states defined by mode occupation as [Fock states](/Fock_state).
+
+These notational conventions prove invaluable across various fields, including [quantum computing](/Quantum_computing), [quantum communication](/Quantum_communication), and [quantum cryptography](/Quantum_cryptography). For example, tracking the loss of a single [photon](/Photon) becomes remarkably straightforward with these notations, simply by appending the vacuum state $|0,0\rangle_{VH}$, which represents no photons in those specific modes. Another useful application arises when dealing with two photons in separate modes (perhaps two temporal bins or two arms of an [interferometer](/Interferometer)); it elegantly describes the [entangled](/Qubit) state of these photons. The [singlet state](/Singlet_state), characterized by two linked photons with an overall [spin quantum number](/Spin_quantum_number) $s=0$, can be articulated as follows: if $|1,0\rangle_{VH}^{a}$ and $|0,1\rangle_{VH}^{a}$ represent the basis states of the first separated mode, and $|1,0\rangle_{VH}^{b}$ and $|0,1\rangle_{VH}^{b}$ represent those of the second, then the singlet state is elegantly expressed as $(|1,0\rangle_{VH}^{a}|0,1\rangle_{VH}^{b}-|0,1\rangle_{VH}^{a}|1,0\rangle_{VH}^{b})/\sqrt{2}$.
+
+##### State Measurement/Readout
+
+Within the KLM protocol, the act of reading out or measuring a quantum state is accomplished using [photon](/Photon) detectors strategically placed along specific modes. When a photodetector registers a photon in a particular mode, it signifies that, prior to measurement, that mode was occupied by a single photon. As Knill and his colleagues highlighted in their original proposal, the reliability of these measurement outcomes is profoundly impacted by photon loss and the efficiency of the detectors themselves. The inherent failure modes and the strategies for correcting these errors will be elaborated upon shortly.
+
+In the circuit diagrams presented here, a left-pointed triangle will serve as the visual cue for the state readout operator. [1]
+
+##### Implementations of Elementary Quantum Gates
+
+Setting aside the complexities of error correction and other potential pitfalls for a moment, the fundamental principle underpinning the construction of elementary quantum gates using only mirrors, beam splitters, and phase shifters lies in their ability to collectively perform any arbitrary 1-qubit unitary operation. In essence, these linear optical elements provide a complete set of operators capable of manipulating any single qubit.
+
+The unitary matrix associated with a beam splitter, denoted as $\mathbf{B}_{\theta,\phi}$, takes the form:
+
+$U(\mathbf{B}_{\theta,\phi}) = \begin{bmatrix} \cos \theta & -e^{i\phi} \sin \theta \\ e^{-i\phi} \sin \theta & \cos \theta \end{bmatrix}$
+
+Here, $\theta$ and $\phi$ are determined by the [reflection amplitude](/Reflection_coefficient) $r$ and the [transmission amplitude](/Transmission_coefficient) $t$. For a symmetric beam splitter, where the phase shift $\phi = \frac{\pi}{2}$ under the unitary transformation condition $|t|^2 + |r|^2 = 1$ and $t^{*}r + tr^{*} = 0$, the operator simplifies. It can be shown that:
+
+$U(\mathbf{B}_{\theta,\phi = \frac{\pi}{2}}) = \begin{bmatrix} t & r \\ r & t \end{bmatrix} = \begin{bmatrix} \cos \theta & -i\sin \theta \\ -i\sin \theta & \cos \theta \end{bmatrix} = \cos \theta \hat{I} - i\sin \theta \hat{\sigma}_{x} = e^{-i\theta \hat{\sigma}_{x}}$
+
+This corresponds to a rotation of the single qubit state around the $x$-axis by an angle $2\theta = 2\cos^{-1}(|t|)$ on the [Bloch sphere](/Bloch_sphere).
+
+A mirror can be viewed as an extreme case where the reflection rate is 1. The associated unitary operator is a [rotation matrix](/Rotation_matrix) given by:
+
+$R(\theta) = \begin{bmatrix} \cos \theta & -\sin \theta \\ \sin \theta & \cos \theta \end{bmatrix}$
+
+In many practical applications of beam splitters within quantum information processing (QIP), the [incident angle](/Angle_of_incidence_(optics)) is set to $\theta = 45^{\circ}$.
+
+Similarly, a phase shifter operator $\mathbf{P}_{\phi}$ corresponds to a unitary operator described by $U(\mathbf{P}_{\phi}) = e^{i\phi}$. When expressed in a two-mode format, it can be written as:
+
+$U(\mathbf{P}_{\phi}) = \begin{bmatrix} e^{i\phi} & 0 \\ 0 & 1 \end{bmatrix} = \begin{bmatrix} e^{i\phi /2} & 0 \\ 0 & e^{-i\phi /2} \end{bmatrix} \text{(global phase ignored)} = e^{i\frac{\phi}{2}\hat{\sigma}_{z}}$
+
+This is equivalent to a rotation of $-\phi$ around the $z$-axis.
+
+Since any two $SU(2)$ rotations along orthogonal axes can generate arbitrary rotations on the Bloch sphere, a combination of symmetric beam splitters and mirrors can be employed to realize arbitrary $SU(2)$ operators essential for QIP. The diagrams below illustrate how a [Hadamard gate](/Quantum_gate) and a [Pauli-X gate](/Quantum_gate) (commonly known as the NOT gate) can be implemented using beam splitters (represented as rectangles connecting two sets of crossing lines with parameters $\theta$ and $\phi$) and mirrors (similarly depicted with parameter $R(\theta)$).
+
+[Diagram illustrating the implementation of a Hadamard gate with a beam splitter and a mirror. The quantum circuit is shown in the upper part.]
+
+[Diagram illustrating the implementation of a Pauli-X gate (NOT gate) with a beam splitter. The quantum circuit is shown in the upper part.]
+
+In these diagrams, a qubit is encoded using two mode channels, represented by horizontal lines. $|0\rangle$ signifies a [photon](/Photon) in the upper mode, while $|1\rangle$ represents a photon in the lower mode.
+
+The KLM scheme orchestrates qubit manipulations through a sequence of non-deterministic operations, each with a specific probability of successful execution. The initial step in this process involves the implementation of a nondeterministic conditional sign flip gate.
+
+#### Implementation of Nondeterministic Conditional Sign Flip Gate
+
+A cornerstone of the KLM scheme is the conditional sign flip, or nonlinear sign flip gate (NS-gate), depicted in the figure to the right. This gate imparts a nonlinear phase shift to one mode, contingent upon the state of two ancilla modes.
+
+[Diagram showing a linear optics implementation of the NS-gate. The elements enclosed within the dashed border constitute the linear optics implementation itself, comprising three beam splitters and one phase shifter, with parameters detailed in the accompanying text. Modes 2 and 3 are designated as ancilla modes.]
+
+In the diagram on the right, the labels on the left side of the lower box denote the operational modes. Crucially, the output is only considered valid if a single [photon](/Photon) is detected in mode 2 and no photons are detected in mode 3. The ancilla modes 2 and 3 are initially prepared in the $|1,0\rangle_{2,3}$ state. The variable $x$ represents the phase shift imparted to the output, the specific value of which is dictated by the chosen parameters of the internal optical elements. [1] For the specific case where $x=-1$, the following parameter settings are employed: $\theta_{1}=22.5^{\circ}$, $\phi_{1}=0^{\circ}$, $\theta_{2}=65.5302^{\circ}$, $\phi_{2}=0^{\circ}$, $\theta_{3}=-22.5^{\circ}$, $\phi_{3}=0^{\circ}$, and $\phi_{4}=180^{\circ}$. For the case where $x=e^{i\pi/2}$, alternative parameters can be utilized: $\theta_{1}=36.53^{\circ}$, $\phi_{1}=88.24^{\circ}$, $\theta_{2}=62.25^{\circ}$, $\phi_{2}=-66.53^{\circ}$, $\theta_{3}=-36.53^{\circ}$, $\phi_{3}=-11.25^{\circ}$, and $\phi_{4}=102.24^{\circ}$. By judiciously adjusting the parameters of the beam splitters and phase shifters, or by combining multiple NS gates, a variety of quantum gates can be constructed. Knill, by sharing two ancilla modes, ingeniously devised a controlled-Z gate (illustrated in the figure to the right) with a success rate of 2/27. [5]
+
+[Diagram illustrating the linear optics implementation of a Controlled-Z Gate, with ancilla modes labeled as 2 and 3. The parameters are given as $\theta = 54.74^{\circ}$ and $\theta' = 17.63^{\circ}$.]
+
+The primary advantage of employing NS gates lies in their ability to conditionally process outputs with a certain probability of success, a probability that can, in principle, be enhanced to near certainty. Using the configuration shown in the figure on the right, the success rate for an $x=-1$ NS gate is $1/4$. To further elevate the success rate and address the inherent scalability challenges, the protocol must incorporate gate teleportation, a concept we will explore next.
+
+#### Gates Teleportation and Near-Deterministic Gates
+
+Given the reliance on non-deterministic quantum gates within the KLM framework, a quantum circuit with $N$ gates, each possessing a single-gate success probability of $p$, might only function correctly with a minuscule probability of $p^N$ upon a single execution. Consequently, these operations would necessitate, on average, a staggering $p^{-N}$ repetitions, or the parallel execution of $p^{-N}$ such systems. Either approach leads to an exponential escalation in the required time or computational resources. [ [citation needed](/Wikipedia:Citation_needed) ] In 1999, Gottesman and Chuang proposed a method to circumvent this by preparing probabilistic gates offline from the main quantum circuit, utilizing [quantum teleportation](/Quantum_teleportation). [4] The fundamental idea is to prepare each probabilistic gate independently and then "teleport" the success signal back into the quantum circuit. The accompanying figure provides a visual representation of quantum teleportation. As the diagram shows, the quantum state residing in mode 1 is transferred to mode 3 through a [Bell measurement](/Bell_state) and an entangled [Bell state](/Bell_state) resource $|\Phi^{+}\rangle = \frac{1}{\sqrt{2}}(|01\rangle +|10\rangle)$, where mode 1 can be thought of as the location where the state was initially prepared offline.
+
+The required [Bell state](/Bell_state) resource $|\Phi^{+}\rangle$ can be generated from the state $|10\rangle$ by employing a mirror with the parameter $\theta = \frac{\pi}{4}$.
+
+[Diagram showing the quantum circuit representation of quantum teleportation.]
+
+By leveraging teleportation, numerous probabilistic gates can be prepared concurrently using $n$-[photon](/Photon) [entangled states](/Quantum_entanglement). A control signal is then transmitted to the output mode. By orchestrating $n$ probabilistic gates in parallel offline, a success rate of $\frac{n^2}{(n+1)^2}$ can be achieved, a figure that asymptotically approaches 1 as $n$ increases. This implies that the number of gates required to achieve a specific level of accuracy scales polynomially, rather than exponentially, with respect to the desired precision. In this regard, the KLM protocol demonstrates a commendable resource efficiency. An experimental demonstration of a controlled-NOT gate, originally proposed by Knill using a four-photon input, was successfully carried out in 2011. [6] This experiment yielded an average fidelity of $F=0.82 \pm 0.01$.
+
+#### Error Detection and Correction
+
+As previously discussed, the probability of success for teleportation-based gates can be pushed arbitrarily close to unity by utilizing larger [entangled states](/Entangled_state). However, this asymptotic convergence to a probability of 1 occurs rather gradually with respect to the number of photons, $n$. A more efficient strategy involves encoding against gate failures, or errors, by exploiting the well-defined failure modes inherent in the teleporters. Within the KLM protocol, a teleporter's failure can be detected if zero or $n+1$ photons are registered. If the computing device can be engineered to be robust against accidental measurements of a specific number of photons, then correcting gate failures becomes feasible, thereby enhancing the probability of eventually executing the gate successfully.
+
+Numerous experimental investigations have explored this concept, with notable examples cited in references [7], [8], and [9]. Nevertheless, a considerable number of operations remain necessary to attain a success probability exceedingly close to 1. To truly elevate the KLM protocol into a practical and competitive technology, the development of more efficient quantum gates is imperative. This pursuit forms the subject of the subsequent section.
+
+#### Improvements
+
+This section delves into the advancements and refinements of the KLM protocol that have emerged since its initial proposal.
+
+There exist numerous avenues for enhancing the KLM protocol for [linear optical quantum computing](/Linear_optical_quantum_computing) (LOQC) and bolstering its promise. The following are a selection of proposals drawn from a comprehensive review article [10] and subsequent publications:
+
+*   The integration of [cluster states](/Cluster_state) within optical [quantum computing](/Quantum_computing) frameworks.
+*   A re-evaluation and refinement of circuit-based optical [quantum computing](/Quantum_computing).
+*   The utilization of one-step deterministic multipartite entanglement purification, employing linear optics, to generate entangled photon states. [11]
+
+Several protocols have been developed specifically for leveraging [cluster states](/Cluster_state) to improve the KLM protocol. The computational model facilitated by these protocols aligns with the [one-way quantum computer](/One-way_quantum_computer) paradigm of LOQC implementation:
+
+*   The Yoran-Reznik protocol: This approach ingeniously employs cluster-chains to augment the success probability of teleportation.
+*   The Nielsen protocol: Building upon the Yoran-Reznik protocol, this method enhances it by first utilizing teleportation to introduce additional qubits into the cluster-chains, subsequently employing these expanded chains to further elevate the success probability of teleportation.
+*   The Browne-Rudolph protocol: This protocol represents a further refinement of the Nielsen protocol, wherein teleportation is employed not only to append qubits to cluster-chains but also to fuse them together.
+
+***
+
+See also
+
+*   [Boson sampling](/Boson_sampling)
+
+References
+
+*   [1] Knill, E.; Laflamme, R.; Milburn, G. J. (2001). "A scheme for efficient quantum computation with linear optics". *Nature*. **409** (6816): 46–52. [Bibcode](/Bibcode_(identifier)):2001Natur.409...46K. [doi](/Doi_(identifier)):10.1038/35051009. [PMID](/PMID_(identifier)) 11343107. [S2CID](/S2CID_(identifier)) 4362012.
+*   [2] Adleman, Leonard M.; DeMarrais, Jonathan; Huang, Ming-Deh A. (1997). "Quantum Computability". *SIAM Journal on Computing*. **26** (5): 1524–1540. [doi](/Doi_(identifier)):10.1137/S0097539795293639. [ISSN](/ISSN_(identifier)) 0097-5397.
+*   [3] Bennett, Charles H.; Brassard, Gilles; Crépeau, Claude; Jozsa, Richard; Peres, Asher; Wootters, William K. (1993-03-29). "Teleporting an unknown quantum state via dual classical and Einstein-Podolsky-Rosen channels". *Physical Review Letters*. **70** (13): 1895–1899. [Bibcode](/Bibcode_(identifier)):1993PhRvL..70.1895B. [doi](/Doi_(identifier)):10.1103/PhysRevLett.70.1895. [PMID](/PMID_(identifier)) 10053414.
+*   [4] a b Gottesman, Daniel; Chuang, Isaac L. (1999-11-25). "Demonstrating the viability of universal quantum computation using teleportation and single-qubit operations". *Nature*. **402** (6760): 390–393. [arXiv](/ArXiv_(identifier)):quant-ph/9908010. [Bibcode](/Bibcode_(identifier)):1999Natur.402..390G. [doi](/Doi_(identifier)):10.1038/46503. [ISSN](/ISSN_(identifier)) 0028-0836. [S2CID](/S2CID_(identifier)) 4411647.
+*   [5] Knill, E. (2002-11-14). "Quantum gates using linear optics and postselection". *Physical Review A*. **66** (5) 052306. [arXiv](/ArXiv_(identifier)):quant-ph/0110144. [Bibcode](/Bibcode_(identifier)):2002PhRvA..66e2306K. [doi](/Doi_(identifier)):10.1103/PhysRevA.66.052306. [S2CID](/S2CID_(identifier)) 119529530.
+*   [6] Okamoto, Ryo; O'Brien, Jeremy L.; Hofmann, Holger F.; Takeuchi, Shigeki (2011-06-21). "Realization of a Knill-Laflamme-Milburn controlled-NOT photonic quantum circuit combining effective optical nonlinearities". *Proceedings of the National Academy of Sciences*. **108** (25): 10067–10071. [arXiv](/ArXiv_(identifier)):1006.4743. [Bibcode](/Bibcode_(identifier)):2011PNAS..10810067O. [doi](/Doi_(identifier)):10.1073/pnas.1018839108. [ISSN](/ISSN_(identifier)) 0027-8424. [PMC](/PMC_(identifier)) 3121828. [PMID](/PMID_(identifier)) 21646543.
+*   [7] O'Brien, J. L.; Pryde, G. J.; White, A. G.; Ralph, T. C. (2005-06-09). "High-fidelity Z-measurement error encoding of optical qubits". *Physical Review A*. **71** (6) 060303. [arXiv](/ArXiv_(identifier)):quant-ph/0408064. [Bibcode](/Bibcode_(identifier)):2005PhRvA..71f0303O. [doi](/Doi_(identifier)):10.1103/PhysRevA.71.060303. [S2CID](/S2CID_(identifier)) 21661867.
+*   [8] Hayes, A. J. F.; Gilchrist, A.; Myers, C. R.; Ralph, T. C. (2004-12-01). "Utilizing encoding in scalable linear optics quantum computing". *Journal of Optics B: Quantum and Semiclassical Optics*. **6** (12). IOP Publishing: 533–541. [arXiv](/ArXiv_(identifier)):quant-ph/0408098. [Bibcode](/Bibcode_(identifier)):2004JOptB...6..533H. [doi](/Doi_(identifier)):10.1088/1464-4266/6/12/008. [ISSN](/ISSN_(identifier)) 1464-4266. [S2CID](/S2CID_(identifier)) 119465216.
+*   [9] Pittman, T. B.; Jacobs, B. C.; Franson, J. D. (2005-05-31). "Demonstration of quantum error correction using linear optics". *Physical Review A*. **71** (5) 052332. [arXiv](/ArXiv_(identifier)):quant-ph/0502042. [Bibcode](/Bibcode_(identifier)):2005PhRvA..71e2332P. [doi](/Doi_(identifier)):10.1103/PhysRevA.71.052332. [S2CID](/S2CID_(identifier)) 11679660.
+*   [10] Kok, P.; Munro, W. J.; Nemoto, K.; Ralph, T. C.; Dowling, J. P.; Milburn, G. J. (2007). "Linear optical quantum computing with photonic qubits". *Rev. Mod. Phys*. **79** (1). American Physical Society: 135–174. [arXiv](/ArXiv_(identifier)):quant-ph/0512071. [Bibcode](/Bibcode_(identifier)):2007RvMP...79..135K. [doi](/Doi_(identifier)):10.1103/RevModPhys.79.135. [S2CID](/S2CID_(identifier)) 119335959.
+*   [11] Sheng, Y.-B.; Long, G. L.; Deng, F.-G. (2012). "One-step deterministic multipartite entanglement purification with linear optics". *Physics Letters A*. **2012** (376): 314–319. [Bibcode](/Bibcode_(identifier)):2012PhLA..376..314S. [doi](/Doi_(identifier)):10.1016/j.physleta.2011.09.056. Archived from the original on 2021-01-29. Retrieved 2023-08-13.
+
+***
+
+*   v
+*   t
+*   e
+
+[Quantum information science](/Quantum_information_science)
+
+**General**
+
+*   [DiVincenzo's criteria](/DiVincenzo%27s_criteria)
+*   [NISQ era](/Noisy_intermediate-scale_quantum_era)
+*   [Quantum computing](/Quantum_computing)
+*   [timeline](/Timeline_of_quantum_computing_and_communication)
+*   [Quantum information](/Quantum_information)
+*   [Quantum programming](/Quantum_programming)
+*   [Quantum simulation](/Quantum_simulator)
+*   [Qubit](/Qubit)
+*   [physical vs. logical](/Physical_and_logical_qubits)
+*   [Quantum processors](/List_of_quantum_processors)
+*   [cloud-based](/Cloud-based_quantum_computing)
+
+**Theorems**
+
+*   [Bell's](/Bell%27s_theorem)
+*   [Eastin–Knill](/Eastin%E2%80%93Knill_theorem)
+*   [Gleason's](/Gleason%27s_theorem)
+*   [Gottesman–Knill](/Gottesman%E2%80%93Knill_theorem)
+*   [Holevo's](/Holevo%27s_theorem)
+*   [No-broadcasting](/No-broadcasting_theorem)
+*   [No-cloning](/No-cloning_theorem)
+*   [No-communication](/No-communication_theorem)
+*   [No-deleting](/No-deleting_theorem)
+*   [No-hiding](/No-hiding_theorem)
+*   [No-teleportation](/No-teleportation_theorem)
+*   [PBR](/PBR_theorem)
+*   [Quantum speed limit](/Quantum_speed_limit_theorems)
+*   [Threshold](/Threshold_theorem)
+*   [Solovay–Kitaev](/Solovay%E2%80%93Kitaev_theorem)
+*   [Schrödinger-HJW](/Schr%C3%B6dinger%E2%80%93HJW_theorem)
+
+**Quantum communication**
+
+*   [Classical capacity](/Classical_capacity)
+*   [entanglement-assisted](/Entanglement-assisted_classical_capacity)
+*   [quantum capacity](/Quantum_capacity)
+*   [Entanglement distillation](/Entanglement_distillation)
+*   [Entanglement swapping](/Entanglement_swapping)
+*   [Monogamy of entanglement](/Monogamy_of_entanglement)
+*   [LOCC](/LOCC)
+*   [Quantum channel](/Quantum_channel)
+*   [quantum network](/Quantum_network)
+*   [State purification](/Quantum_state_purification)
+*   [Quantum teleportation](/Quantum_teleportation)
+*   [quantum energy teleportation](/Quantum_energy_teleportation)
+*   [quantum gate teleportation](/Quantum_gate_teleportation)
+*   [Superdense coding](/Superdense_coding)
+
+**Quantum cryptography**
+
+*   [Post-quantum cryptography](/Post-quantum_cryptography)
+*   [Quantum coin flipping](/Quantum_coin_flipping)
+*   [Quantum money](/Quantum_money)
+*   [Quantum key distribution](/Quantum_key_distribution)
+*   [BB84](/BB84)
+*   [SARG04](/SARG04)
+*   [other protocols](/List_of_quantum_key_distribution_protocols)
+*   [Quantum secret sharing](/Quantum_secret_sharing)
+
+**Quantum algorithms**
+
+*   [Algorithmic cooling](/Algorithmic_cooling)
+*   [Amplitude amplification](/Amplitude_amplification)
+*   [Bernstein–Vazirani](/Bernstein%E2%80%93Vazirani_algorithm)
+*   [BHT](/BHT_algorithm)
+*   [Boson sampling](/Boson_sampling)
+*   [Deutsch–Jozsa](/Deutsch%E2%80%93Jozsa_algorithm)
+*   [Grover's](/Grover%27s_algorithm)
+*   [HHL](/HHL_algorithm)
+*   [Hidden subgroup](/Hidden_subgroup_problem)
+*   [Magic state distillation](/Magic_state_distillation)
+*   [Quantum annealing](/Quantum_annealing)
+*   [Quantum counting](/Quantum_counting_algorithm)
+*   [Quantum Fourier transform](/Quantum_Fourier_transform)
+*   [Quantum optimization](/Quantum_optimization_algorithms)
+*   [Quantum phase estimation](/Quantum_phase_estimation_algorithm)
+*   [Shor's](/Shor%27s_algorithm)
+*   [Simon's](/Simon%27s_problem)
+*   [VQE](/Variational_quantum_eigensolver)
+
+**Quantum complexity theory**
+
+*   [BQP](/BQP)
+*   [DQC1](/One_clean_qubit)
+*   [EQP](/Exact_quantum_polynomial_time)
+*   [QIP](/QIP_(complexity))
+*   [QMA](/QMA)
+*   [PostBQP](/PostBQP)
+
+**Quantum processor benchmarks**
+
+*   [Quantum supremacy](/Quantum_supremacy)
+*   [Quantum volume](/Quantum_volume)
+*   [QC scaling laws](/Quantum_computing_scaling_laws)
+*   [Randomized benchmarking](/Randomized_benchmarking)
+*   [XEB](/Cross-entropy_benchmarking)
+*   [Relaxation times](/Relaxation_(NMR))
+*   T 1
+*   T 2
+
+**Quantum computing models**
+
+*   [Adiabatic quantum computation](/Adiabatic_quantum_computation)
+*   [Continuous-variable quantum information](/Continuous-variable_quantum_information)
+*   [One-way quantum computer](/One-way_quantum_computer)
+*   [cluster state](/Cluster_state)
+*   [Quantum circuit](/Quantum_circuit)
+*   [quantum logic gate](/Quantum_logic_gate)
+*   [Quantum machine learning](/Quantum_machine_learning)
+*   [quantum neural network](/Quantum_neural_network)
+*   [Quantum Turing machine](/Quantum_Turing_machine)
+*   [Topological quantum computer](/Topological_quantum_computer)
+*   [Hamiltonian quantum computation](/Hamiltonian_quantum_computation)
+
+**Quantum error correction**
+
+*   Codes
+    *   [5 qubit](/Five-qubit_error_correcting_code)
+    *   [CSS](/CSS_code)
+    *   [GKP](/Gottesman%E2%80%93Kitaev%E2%80%93Preskill_code)
+    *   [quantum convolutional](/Quantum_convolutional_code)
+    *   [stabilizer](/Stabilizer_code)
+    *   [Shor](/Shor_code)
+    *   [Bacon–Shor](/Bacon%E2%80%93Shor_code)
+    *   [Steane](/Steane_code)
+    *   [Toric](/Toric_code)
+    *   gnu
+    *   [Entanglement-assisted](/Entanglement-assisted_stabilizer_formalism)
+
+**Physical implementations**
+
+**Quantum optics**
+
+*   [Cavity QED](/Cavity_quantum_electrodynamics)
+*   [Circuit QED](/Circuit_quantum_electrodynamics)
+*   [Linear optical QC](/Linear_optical_quantum_computing)
+*   KLM protocol
+
+**Ultracold atoms**
+
+*   [Neutral atom QC](/Neutral_atom_quantum_computer)
+*   [Trapped-ion QC](/Trapped-ion_quantum_computer)
+
+**Spin-based**
+
+*   [Kane QC](/Kane_quantum_computer)
+*   [Spin qubit QC](/Spin_qubit_quantum_computer)
+*   [NV center](/Nitrogen-vacancy_center)
+*   [NMR QC](/Nuclear_magnetic_resonance_quantum_computer)
+
+**Superconducting**
+
+*   [Charge qubit](/Charge_qubit)
+*   [Flux qubit](/Flux_qubit)
+*   [Phase qubit](/Phase_qubit)
+*   [Transmon](/Transmon)
+
+**Quantum programming**
+
+*   [OpenQASM](/OpenQASM)–[Qiskit](/Qiskit)–[IBM QX](/IBM_Quantum_Experience)
+*   [Quil](/Quil_(instruction_set_architecture))–[Forest/Rigetti QCS](/Rigetti_Computing)
+*   [Cirq](/Cirq)
+*   [Q#](/Q_Sharp)
+*   [libquantum](/Libquantum)
+*   [many others...](/Quantum_programming)
+
+*   [Quantum information science](/Category:Quantum_information_science)
+*   [Quantum mechanics topics](/Template:Quantum_mechanics_topics)

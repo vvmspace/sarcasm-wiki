@@ -1,0 +1,61 @@
+---
+title: "Locally Linear Embedding"
+description: "Honestly, the idea of rewriting Wikipedia. It’s like being asked to polish a tombstone. But fine. If you insist on wading through this… let’s see what we can..."
+keywords: machine learning, computer vision, random variables, locally-linear embedding, euclidean distance, principal component analysis, least squares, identity matrix
+slug: "Locally_linear_embedding"
+createdAt: "2025-11-17T16:25:54.288Z"
+updatedAt: "2025-11-17T16:25:54.288Z"
+contentType: "rewritten"
+---
+
+Honestly, the idea of rewriting Wikipedia. It’s like being asked to polish a tombstone. But fine. If you insist on wading through this… let’s see what we can salvage. Just don't expect me to enjoy it.
+
+***
+
+### Nonlinear Dimensionality Reduction
+
+This section is about [Nonlinear dimensionality reduction](/Nonlinear_dimensionality_reduction), a set of techniques used in [machine learning](/machine_learning) and [computer vision](/computer_vision) to reduce the number of [random variables](/random_variable) under consideration by obtaining a set of principal variables. Essentially, it's about taking something messy and high-dimensional and trying to find a simpler, more comprehensible representation without losing too much of the crucial information. It’s a way of trying to make sense of the chaos, which, frankly, is a futile endeavor most of the time, but some people seem to find it… *useful*.
+
+#### Locally Linear Embedding
+
+Now, *this* is what you actually asked for. [Locally-linear embedding](/Locally-linear_embedding) (LLE) is one of those methods for [nonlinear dimensionality reduction](/Nonlinear_dimensionality_reduction). It's a bit more sophisticated than just throwing darts at a board. LLE works by assuming that each data point and its *k*-nearest neighbors lie on or near a locally linear subspace. The core idea is to preserve the local geometric structure of the data. It does this by reconstructing each data point from a weighted linear combination of its neighbors. Then, it tries to find a low-dimensional embedding where these same weights can reconstruct the data points. It’s like trying to map a crumpled piece of paper back onto a flat surface, but only by looking at how the tiny wrinkles connect to each other.
+
+##### Algorithm
+
+The LLE algorithm proceeds in three main steps.
+
+1.  **Constructing the neighborhood graph**: First, for each data point $\mathbf{x}_i$, we identify its *k*-nearest neighbors. This is typically done using a distance metric, like the [Euclidean distance](/Euclidean_distance). The choice of *k* is crucial, and frankly, often arbitrary. Too small, and you miss important connections. Too large, and you might as well be doing [Principal Component Analysis](/Principal_Component_Analysis) and calling it a day. The result is a graph where the nodes are the data points, and edges connect neighbors. It's a very rudimentary way of showing who’s “talking” to whom in the high-dimensional space.
+
+2.  **Compute the weights**: For each data point $\mathbf{x}_i$, we find the weights $\mathbf{W}_{ij}$ that best reconstruct $\mathbf{x}_i$ as a linear combination of its neighbors $\mathbf{x}_j$. Specifically, LLE minimizes the reconstruction error:
+    $$ \epsilon(\mathbf{W}) = \sum_{i=1}^{N} \left\| \mathbf{x}_i - \sum_{j=1}^{k} \mathbf{W}_{ij} \mathbf{x}_j \right\|^2 $$
+    subject to the constraint that $\sum_{j=1}^{k} \mathbf{W}_{ij} = 1$ for each $i$. This constraint ensures that the weights are invariant to translations. In simpler terms, it’s trying to figure out the precise recipe of neighbors that creates the original point. If a point is in a dense cluster, its neighbors will contribute significantly. If it’s on the edge, its weights might be more skewed. This step is often solved using a [least squares](/least_squares) approach for each point. The weights are sparse, meaning $\mathbf{W}_{ij} = 0$ if $\mathbf{x}_j$ is not one of the *k*-nearest neighbors of $\mathbf{x}_i$. This sparsity is key to LLE's efficiency.
+
+3.  **Compute the low-dimensional embedding**: Finally, we find the low-dimensional vectors $\mathbf{y}_i$ that best preserve these reconstruction weights. We want to minimize the embedding cost function:
+    $$ \Phi(\mathbf{Y}) = \sum_{i=1}^{N} \left\| \mathbf{y}_i - \sum_{j=1}^{k} \mathbf{W}_{ij} \mathbf{y}_j \right\|^2 $$
+    subject to constraints that ensure the embedding is uniquely defined and centered, such as $\sum_{i=1}^{N} \mathbf{y}_i = 0$ and $\frac{1}{N} \sum_{i=1}^{N} \mathbf{y}_i \mathbf{y}_i^T = \mathbf{I}$, where $\mathbf{I}$ is the [identity matrix](/identity_matrix). This is typically solved by an [eigenvalue decomposition](/eigenvalue_decomposition) of the matrix $(\mathbf{I} - \mathbf{W})^T (\mathbf{I} - \mathbf{W})$. The embedding vectors $\mathbf{y}_i$ corresponding to the second smallest eigenvalues are chosen as the low-dimensional representation. The second smallest eigenvalue is used because the smallest eigenvalue (zero) corresponds to a trivial solution where all $\mathbf{y}_i$ are the same. The number of dimensions in the embedding is usually much smaller than the original dimensionality. It’s an attempt to recreate the local relationships in a much smaller space, like trying to draw a detailed map of a tiny village on a postage stamp.
+
+##### Properties
+
+LLE has several properties that make it… noteworthy, I suppose.
+
+*   **Nonlinear mapping**: Unlike [Principal Component Analysis](/Principal_Component_Analysis), LLE can learn the underlying manifold structure of the data, even when it's highly nonlinear. This is its primary advantage. It can uncover shapes and patterns that linear methods would completely miss. It’s like the difference between trying to measure a ball with a ruler and using a 3D scanner.
+*   **Local linearity**: The assumption of local linearity is what allows LLE to work. If the data truly lies on a manifold that can be locally approximated by linear patches, LLE will perform well. However, if the manifold is very complex or noisy, this assumption can break down. It’s a fragile assumption, really.
+*   **Reconstruction weights**: The fact that LLE uses the same weights in the low-dimensional space as in the high-dimensional space is a key feature. This means it attempts to preserve the local geometric relationships. It’s trying to ensure that if point A was a blend of B and C in the original space, it remains so in the reduced space.
+*   **Computational cost**: The eigenvalue decomposition step can be computationally expensive, especially for large datasets. While there are variants and optimizations, it's not always the fastest method. For massive datasets, you might need something else entirely, or just give up.
+*   **Sensitivity to parameters**: The choice of *k* (the number of neighbors) and the distance metric can significantly impact the results. Finding the optimal parameters often requires experimentation, which is tedious. It’s like trying to tune an old radio – you twist the dial and hope for the best.
+*   **Outlier sensitivity**: LLE can be sensitive to outliers, which can distort the neighborhood graphs and the resulting weights. Points that are far from the main data structure can have an undue influence, leading to poor embeddings. It’s a bit like one loudmouth ruining a quiet room.
+
+##### Variants
+
+Because the original LLE has its… limitations, several variants have been proposed to address them.
+
+*   **Hessian Locally Linear Embedding (Hessian LLE)**: This variant aims to improve the robustness of LLE by considering the [Hessian matrix](/Hessian_matrix) of the cost function. It provides a more stable embedding, especially when dealing with noisy data or when the local linearity assumption is only weakly satisfied. It's an attempt to make the fragile assumption slightly less so.
+*   **Local Tangent Space Alignment (LTSA)**: LTSA is another method that tries to preserve local geometry. It computes the local tangent spaces at each point and then aligns these tangent spaces in the low-dimensional embedding. It’s a different approach to capturing the local structure, focusing more on the derivatives of the manifold.
+*   **Maximum Likelihood Multidimensional Scaling (ML-MDS)**: While not strictly an LLE variant, ML-MDS is a related technique that can be used for nonlinear dimensionality reduction. It aims to find a low-dimensional representation that maximizes the likelihood of observing the high-dimensional data. It's a more probabilistic approach to the same problem.
+*   **Isomap**: [Isomap](/Isomap) is another popular nonlinear dimensionality reduction technique that preserves geodesic distances rather than Euclidean distances. It constructs a neighborhood graph and then computes shortest paths between all pairs of points using algorithms like [Dijkstra's algorithm](/Dijkstra's_algorithm). This captures the "true" distances along the manifold, which can be more informative than straight-line distances in the high-dimensional space. It’s like measuring the distance along a winding road instead of just the straight-line distance between the start and end points.
+
+These variants, and others, highlight the ongoing effort to refine these dimensionality reduction techniques. None of them are perfect, of course. Nothing ever is.
+
+***
+
+There. Satisfied? Don't expect this level of… *detail* again. It’s exhausting.

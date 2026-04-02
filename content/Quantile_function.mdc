@@ -1,0 +1,125 @@
+---
+title: "Quantile Function"
+description: "The probit function, a rather sterile term for what’s essentially the inverse of a normal distribution's cumulative distribution function, is how we define..."
+keywords: probit, normal distribution, probability, statistics, random variable, inverse function, galois inequalities, mean
+slug: "Quantile_function"
+createdAt: "2025-12-18T03:18:52.401Z"
+updatedAt: "2025-12-18T03:18:52.401Z"
+contentType: "rewritten"
+previousArticleSlug: "Riverside-San_Bernardino-Ontario,_CA_MSA"
+previousArticleTitle: "Riverside-San Bernardino-Ontario, CA MSA"
+---
+
+The [probit](/Probit) function, a rather sterile term for what’s essentially the inverse of a [normal distribution](/Normal_distribution)'s [cumulative distribution function](/Cumulative_distribution_function), is how we define quantiles. It’s a statistical tool, I suppose, for those who find comfort in ordered lists and predictable outcomes.
+
+In the abstract world of [probability](/Probability) and [statistics](/Statistics), a quantile function serves as the mirror image of its counterpart, the cumulative distribution function. Think of it as a function that, given a probability `p`, tells you the value `Q(p)` such that the chance of a [random variable](/Random_variable) `X` being less than or equal to that value is precisely `p`. Mathematically, it’s expressed as:
+
+Pr[X ≤ Q(p)] = p
+
+where `X` is drawn from a distribution `D` and `p` is any probability between 0 and 1. This function is also known by other, perhaps more descriptive, names: the percentile function, the percent-point function, or simply the inverse cumulative distribution function. It’s the function that maps probabilities to values, rather than the other way around.
+
+### Definition
+
+Let’s consider a distribution with a cumulative distribution function, `F_X`, which is both continuous and strictly increasing. This function, `F_X`, maps real numbers to probabilities between 0 and 1. The quantile function, `Q`, then operates in the reverse direction, mapping probabilities `p` (from 0 to 1) to specific values `x`. These values `x` are such that the probability of `X` being less than or equal to `x` is exactly `p`. In essence, the quantile function `Q` is the [inverse function](/Inverse_function) of the cumulative distribution function `F`:
+
+Q(p) = F_X⁻¹(p)
+
+This relationship is elegantly visualized: the cumulative distribution function `F(x)` shows the probability `p` for a given value `x`. The quantile function `Q(p)` does the inverse, providing the value `x` for a given probability `p`. The accompanying visual, where a portion of `F(x)` is a horizontal line segment, illustrates the non-monotonicity that can occur in more general cases, making a simple inverse insufficient.
+
+#### General Distribution Function
+
+When a distribution function isn't strictly monotonic—a common occurrence, unfortunately—we can’t rely on a simple inverse. In such scenarios, the quantile function becomes a more complex, potentially set-valued functional of the distribution function `F`. It’s defined as an interval:
+
+Q(p) = [sup{x : F(x) < p}, sup{x : F(x) ≤ p}]
+
+However, it’s often more practical to define it using the infimum, which is equivalent when the distribution is right-continuous:
+
+Q(p) = inf{x ∈ ℝ : p ≤ F(x)}
+
+This formulation captures the idea that the quantile function yields the smallest value `x` for which the cumulative distribution function `F(x)` is greater than or equal to `p`. This aligns with the probabilistic statement, especially in continuous distributions where the distinction between `<` and `≤` dissolves.
+
+The quantile function `Q` and the distribution function `F` are linked by what can be described as [Galois inequalities](/Galois_connection):
+
+Q(p) ≤ x if and only if p ≤ F(x)
+
+If `F` is continuous and strictly increasing, these inequalities become equalities, and `Q` is precisely the [inverse function](/Inverse_function) `F⁻¹`. Even when `F` lacks a simple left or right inverse, `Q` acts as an "almost sure left inverse," meaning that `Q(F(X)) = X` holds true with probability one.
+
+#### Simple Example
+
+Consider the Exponential distribution with parameter λ, characterized by an intensity λ and a [mean](/Mean) of 1/λ. Its cumulative distribution function is defined as:
+
+F(x; λ) =
+
+{
+1 - e⁻<0xC2><0x8B>x if x ≥ 0,
+0 if x < 0.
+}
+
+To find the quantile function, we set `1 - e⁻<0xC2><0x8B>Q = p` and solve for `Q`:
+
+Q(p; λ) = (-ln(1-p)) / λ
+
+This holds for probabilities `p` ranging from 0 up to (but not including) 1. From this, we can derive specific [quartiles](/Quartile):
+
+*   **First quartile (p = 1/4):** -ln(3/4) / λ
+*   **[Median](/Median) (p = 2/4):** -ln(1/2) / λ
+*   **Third quartile (p = 3/4):** -ln(1/4) / λ
+
+### Applications
+
+Quantile functions are not merely theoretical constructs; they find practical use in both statistical analysis and [Monte Carlo methods](/Monte_Carlo_method).
+
+They offer an alternative way to define a probability distribution, distinct from the [probability density function](/Probability_density_function) (pdf), [probability mass function](/Probability_mass_function) (pmf), [cumulative distribution function](/Cumulative_distribution_function) (cdf), or [characteristic function](/Characteristic_function_(probability_theory)). The derivative of the quantile function, known as the quantile density function, provides yet another perspective on a distribution. It’s the reciprocal of the pdf evaluated at the quantile function’s output, a rather convoluted way of saying it’s related to how quickly probabilities change with respect to values.
+
+In statistical applications, users often need to identify key [percentage points](/Percentage_point) of a distribution. This could be the median and quartiles, as seen in the exponential example, or perhaps the 5%, 95%, 2.5%, and 97.5% levels for assessing [statistical significance](/Statistical_significance). Before computers became ubiquitous, extensive tables of quantile functions were common appendices in statistical texts. The applications of quantile functions in statistics have been thoroughly explored by Gilchrist.
+
+[Monte-Carlo simulations](/Monte_Carlo_method) leverage quantile functions to generate non-uniform random or [pseudorandom numbers](/Pseudorandom_number) for various simulation tasks. The core idea is that by applying a distribution's quantile function to a sample drawn from a uniform distribution, one can generate a sample from that specific distribution. Modern simulation techniques, particularly in fields like [computational finance](/Computational_finance), increasingly rely on quantile functions, especially when dealing with [multivariate](/Multivariate_analysis) distributions and methods like [copula](/Copula_(statistics)) modeling or quasi-Monte-Carlo approaches.
+
+### Calculation
+
+Calculating quantile functions often requires [numerical methods](/Numerical_methods). The exponential distribution is a rare exception, possessing a [closed-form expression](/Closed-form_expression). Other distributions with such explicit formulas include the [uniform](/Uniform_distribution_(continuous)), [Weibull](/Weibull_distribution), [Tukey lambda](/Tukey_lambda_distribution) (which encompasses the [logistic](/Logistic_distribution)), and [log-logistic](/Log-logistic_distribution). When the cdf itself can be expressed in closed form, numerical [root-finding algorithms](/Root-finding_algorithm), like the [bisection method](/Bisection_method), can be employed to find its inverse. Alternatively, approximations of the inverse can be constructed using interpolation techniques. More advanced algorithms for evaluating quantile functions are detailed in the [Numerical Recipes](/Numerical_Recipes) series. Many [statistical software](/Statistical_software) packages include built-in functions for common distributions. For general classes of distributions, libraries like UNU.RAN (in C) and its R interface Runuran provide robust numerical computation methods. Python's [scipy.stats](/SciPy) module also offers capabilities for sampling and quantile function evaluation.
+
+Quantile functions can also be characterized as solutions to non-linear [differential equations](/Differential_equation). For instance, the [normal](/Normal_distribution), [Student's t](/Student_t-distribution), [beta](/Beta_distribution), and [gamma](/Gamma_distribution) distributions have associated ordinary differential equations that have been solved.
+
+#### Normal Distribution
+
+The [normal distribution](/Normal_distribution), a cornerstone of statistics, presents a key case. Because it belongs to the [location-scale family](/Location-scale_family), its quantile function for any parameters can be derived from the quantile function of the standard normal distribution via a simple transformation. This standard normal quantile function is known as the [probit](/Probit) function. Unfortunately, it lacks a closed-form expression using elementary functions, necessitating the use of approximations. Sophisticated composite rational and polynomial approximations have been developed by researchers like Wichura and Acklam, with further non-composite rational approximations offered by Shaw.
+
+##### Ordinary Differential Equation for the Normal Quantile
+
+A non-linear ordinary differential equation governs the normal quantile, denoted `w(p)`:
+
+d²w/dp² = w(dw/dp)²
+
+This equation is subject to specific initial conditions at the center of the distribution (p = 1/2):
+
+w(1/2) = 0,
+w'(1/2) = √2π
+
+This equation can be solved using various techniques, including classical [power series](/Power_series) expansions, allowing for the development of solutions of extremely high accuracy, as demonstrated by Steinbrecher and Shaw.
+
+#### Student's t-Distribution
+
+The Student's t-distribution, particularly due to its degrees of freedom parameter ν, has historically been more challenging. While simple formulas exist for specific values of ν (like 1, 2, and 4), and the problem simplifies to solving a polynomial when ν is even, general cases often require power series expansions.
+
+*   **ν = 1 (Cauchy distribution):** Q(p) = tan(π(p - 1/2))
+*   **ν = 2:** Q(p) = 2(p - 1/2)√(2/α)
+*   **ν = 4:** Q(p) = sign(p - 1/2) * 2√(q - 1)
+
+where α = 4p(1-p) and `q` is derived from `α` using a trigonometric identity involving arccosine. It’s important to note that the "sign" function here refers to the mathematical sign function (+1, -1, 0), not the trigonometric sine.
+
+#### Quantile Mixtures
+
+Similar to [mixtures of densities](/Mixture_distribution), distributions can be constructed as quantile mixtures:
+
+Q(p) = Σᵢ<0xE2><0x82><0x9D>₁<0xE1><0xB5><0x98> aᵢQᵢ(p)
+
+Here, `Qᵢ(p)` are individual quantile functions, and `aᵢ` are model parameters that must satisfy specific conditions to ensure `Q(p)` remains a valid quantile function. Karvanen introduced two four-parametric quantile mixtures, the normal-polynomial and Cauchy-polynomial types, based on this concept.
+
+#### Non-linear Differential Equations for Quantile Functions
+
+The differential equation for the normal distribution’s quantile is a specific instance of a more general form applicable to any quantile function with a second derivative:
+
+d²Q/dp² = H(Q)(dQ/dp)²
+
+This equation is accompanied by boundary conditions, where `H(x) = -f'(x)/f(x) = -d/dx ln f(x)`, and `f(x)` is the probability density function. Steinbrecher and Shaw (2008) have explored the forms of this equation and its solutions (using series and asymptotic methods) for various distributions, including the normal, Student's t, gamma, and beta. These solutions serve as valuable benchmarks and can be used directly in Monte Carlo simulations.

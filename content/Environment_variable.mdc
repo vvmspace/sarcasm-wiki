@@ -1,0 +1,379 @@
+---
+title: "Environment Variable"
+description: "This article necessitates further citation for verification. Enhancing it requires adding citations to reliable sources. Unsubstantiated material is subject to..."
+keywords: verification, value, processes, environment, temporary files, directory structure, version 7 unix, unix
+slug: "Environment_variable"
+createdAt: "2025-12-01T08:54:20.376Z"
+updatedAt: "2025-12-01T08:54:20.376Z"
+contentType: "rewritten"
+previousArticleSlug: "Dennis_Gabor"
+previousArticleTitle: "Dennis Gabor"
+---
+
+This article necessitates further citation for [verification](/Wikipedia:Verifiability). Enhancing it requires [adding citations to reliable sources](/Help:Referencing_for_beginners). Unsubstantiated material is subject to challenge and removal.
+
+Seek sources for: "Environment variable" – news, newspapers, books, scholar, JSTOR (May 2023). ( [Learn how and when to remove this message](/Help:Maintenance_template_removal) )
+
+## Environment variable
+
+An environment variable is essentially a user-defined [value](/Value_(computer_science)) that serves as a directive, subtly or overtly shaping the behavior of [processes](/Process_(computing)) as they execute on a computer. These variables are integral components of the operational [environment](/Environment_(systems)) within which a process finds itself. For instance, a process might consult the TEMP environment variable to ascertain a suitable location for storing ephemeral [temporary files](/Temporary_file). Similarly, it could query HOME or USERPROFILE to pinpoint the user's designated [directory structure](/Directory_structure).
+
+The modern incarnation of environment variables emerged in 1979 with [Version 7 Unix](/Version_7_Unix), subsequently becoming a staple in all [Unix](/Unix) [operating system](/Operating_system) variants, including [Linux](/Linux) and [macOS](/MacOS). Preceding this, [PC DOS 2.0](/PC_DOS_2.0) introduced them in 1982, and all subsequent [Microsoft](/Microsoft) operating systems, such as [Microsoft Windows](/Microsoft_Windows) and [OS/2](/OS/2), have incorporated them, albeit with variations in syntax, application, and standard variable nomenclature.
+
+### Design
+
+Across both [Unix](/Unix) and [Unix-like](/Unix-like) systems, as well as on Windows platforms, each process operates with its own distinct set of environment [variables](/Variable_(computer_science)). By default, when a process is initiated, it inherits a near-identical [run-time environment](/Run-time_environment) from its parent process, barring any explicit modifications made by the parent during the child's creation. At the [Application Programming Interface (API)](/Application_programming_interface) level, these adjustments must occur in the interval between the `fork` and `exec` system calls. Alternatively, from within [command shells](/Command_shell) like [bash](/Bash_(Unix_shell)), a user can alter environment variables for a specific command invocation by either using the `env` command indirectly or by employing the `ENVIRONMENT_VARIABLE=VALUE <command>` syntax. A running program can then access these environment variables for configuration purposes.
+
+[Shell scripts](/Shell_script) and [batch files](/Batch_file) leverage environment variables as a mechanism for communicating data and user preferences to [child processes](/Child_process). They can also serve as temporary storage for values to be referenced later within the script's execution. However, in Unix-like systems, non-exported variables are generally preferred for internal script use, as they prevent "leaking" outside the process's scope.
+
+In Unix-like environments, any modification or deletion of an environment variable within a script or compiled program will only impact that specific process and any child processes it subsequently spawns. The parent process and any unrelated processes will remain unaffected. Similarly, changes to an environment variable within a [DOS](/DOS) or Windows batch file are confined to the lifespan of the executing `COMMAND.COM` or `CMD.EXE` instance, respectively.
+
+On Unix-like systems, environment variables are typically initialized during system startup through system [init](/Init) [startup scripts](/Startup_script), and subsequently inherited by all other processes. Users often customize and augment these variables within their command shell's profile script. In Microsoft Windows, the default values for environment variables are stored either in the [Windows Registry](/Windows_Registry) or defined within the `AUTOEXEC.BAT` file.
+
+On [Unix](/Unix) systems, a [setuid](/Setuid) program inherits an environment defined by its caller but executes with distinct privileges. The [dynamic linker](/Dynamic_linker), responsible for loading shared libraries, often relies on environment variables like `$LD_LIBRARY_PATH` and `$LD_PRELOAD`. If a setuid program were to honor these variables without scrutiny, it could create a security vulnerability, allowing an arbitrary caller to execute code with the program's elevated authority. To mitigate this, the C library (`[libc](/Libc)`) typically unsets these specific environment variables at startup for setuid processes. Setuid programs generally unset any unknown environment variables and meticulously validate or reset others to secure defaults.
+
+In essence, the collection of environment variables functions as an [associative array](/Associative_array), where both keys (variable names) and values are represented as strings. The interpretation of characters within these strings can vary across different operating systems. When representing structured data like lists, it is a common practice to employ a delimiter, such as a colon (`:`) on Unix-like systems or a semicolon (`;`) on Windows and DOS.
+
+#### Syntax
+
+Environment variables can be referenced both within scripts and directly on the [command line](/Command_line). The standard convention involves prefixing or enclosing the variable name with special characters.
+
+By convention, environment variable names are typically written in uppercase. This practice serves to distinguish them from other variables and identifiers used in programming languages. However, it's crucial to note that case sensitivity for environment variable names varies by operating system. Unix-like systems are generally case-sensitive, whereas DOS, OS/2, and Windows typically treat them in a case-insensitive manner.
+
+##### Unix
+
+In most Unix and Unix-like [command-line shells](/Command-line_shell), the value of an environment variable is accessed by prepending a `$` sign to its name. Braces `{}` can be used to delimit the variable name if ambiguity arises.
+
+To display the user's home directory, one might type:
+
+```bash
+echo $HOME
+```
+
+In Unix-like systems, environment variable names are indeed case-sensitive.
+
+The `env` command provides a comprehensive listing of all environment variables and their associated values. Alternatively, the `printenv` command can be used to display the value of a single variable by providing its name as an argument.
+
+##### DOS, OS/2 and Windows
+
+In DOS, OS/2, and Windows command-line interpreters like `COMMAND.COM` and `CMD.EXE`, an environment variable's value is retrieved by enclosing its name within percent signs `%`.
+
+For example, to display the home drive and path:
+
+```dos
+ECHO %HOMEDRIVE%%HOMEPATH%
+```
+
+The `SET` command, when invoked without arguments, lists all environment variables and their values. In `CMD.EXE` on Windows NT and later versions, `SET` can also be used to display variables that begin with a specified prefix by providing that prefix as an argument.
+
+Within [Windows PowerShell](/Windows_PowerShell), variable access employs a different syntax:
+
+```powershell
+echo $env:HOMEDRIVE$env:HOMEPATH
+Write-Output $env:HOMEDRIVE$env:HOMEPATH
+"$env:HOMEDRIVE$env:HOMEPATH"
+```
+
+PowerShell, like its DOS and Windows command-line counterparts, is case-insensitive regarding environment variable names.
+
+To view all environment variables and their values in PowerShell, the following command is used:
+
+```powershell
+Get-ChildItem env:
+```
+
+#### Assignment: Unix
+
+Environment variables can be set using commands like `env` and `set`, which are often integrated directly into the shell. Other methods are shell-dependent:
+
+```bash
+VARIABLE=value  # Note: no spaces around the equals sign
+export VARIABLE # For Bourne shell and its derivatives
+export VARIABLE=value # For ksh, bash, and their derivatives
+setenv VARIABLE value # For csh and its derivatives
+```
+
+Several core principles govern how environment variables exert their influence:
+
+Environment variables are inherently local to the process in which they are established. If two shell processes are initiated, and the value of an environment variable is altered in one, that change will not propagate to the other.
+
+Upon the creation of a child process, it inherits all environment variables and their values from its parent. Typically, when one program invokes another, it first creates a child process via `fork`, then the child modifies its environment as necessary, and finally, the child process uses `exec` to replace itself with the target program. This mechanism grants the calling program granular control over the environment of the program it invokes.
+
+In Unix shells, variables can be assigned without the `export` keyword. Variables defined this way are visible via the `set` command but are not true environment variables, existing only within the shell's scope and unknown to other processes. The `printenv` command will not list them, and child processes do not inherit them.
+
+```bash
+VARIABLE=value
+```
+
+The following syntax exports a "true" environment variable to a child process without altering the current process's environment:
+
+```bash
+VARIABLE=value program_name [arguments]
+```
+
+The persistence of an environment variable can be limited to the current session or extended to a system-wide scope.
+
+The `unset` command is a built-in utility in both the [Bourne shell](/Bourne_shell) family (sh, ksh, bash, etc.) and the [C shell](/C_shell) family (csh, tcsh, etc.). It is used to remove shell variables from memory and the shell's exported environment. Its implementation as a shell builtin is necessary because it directly manipulates the shell's internal state. Read-only shell variables cannot be unset; attempting to do so will result in an error message and a non-zero exit code.
+
+#### Assignment: DOS, OS/2 and Windows
+
+In DOS, OS/2, and Windows command-line interpreters like `COMMAND.COM` and `CMD.EXE`, the `SET` command is used to assign environment variables and their values:
+
+```dos
+SET VARIABLE=value
+```
+
+To remove an environment variable, the command is used as follows:
+
+```dos
+SET VARIABLE=
+```
+
+Invoking `SET` without any arguments displays all environment variables along with their values. In `CMD.EXE`, the `SETLOCAL` command can be used to create local variables that are not globally accessible, with `ENDLOCAL` restoring the previous environment state.
+
+To access internal documentation for commands like `SET` and `SETLOCAL`, the `/ ?` switch can be used:
+
+```dos
+SET /?
+HELP SET
+SETLOCAL /?
+HELP SETLOCAL
+```
+
+In [PowerShell](/PowerShell), variable assignment follows a syntax analogous to Unix:
+
+```powershell
+$env:VARIABLE = "VALUE"
+```
+
+#### Assignment: PHP
+
+In [PHP](/PHP), the `putenv()` function is employed for setting environment variables:
+
+```php
+<?php
+putenv("VARIABLE_NAME=VALUE");
+?>
+```
+
+### Examples
+
+Environment variables serve various critical functions. Some common examples include:
+
+*   **`PATH`**: A list of directory paths. When a command is entered without its full path, the shell consults this list to locate the executable. This is analogous to the `%PATH%` variable in DOS, OS/2, and Windows.
+*   **`HOME`** (Unix-like) and **`USERPROFILE`** (Microsoft Windows): These variables specify the location of a user's [home directory](/Home_directory).
+*   **`HOME/{.AppName}`** (Unix-like) and **`APPDATA\{DeveloperName\AppName}`** (Microsoft Windows): Used for storing application-specific settings. It's a common mistake for applications to use `USERPROFILE` for this purpose on Windows; `USERPROFILE` should ideally be reserved for user-selectable paths like Documents or Downloads. For programmatic settings, `APPDATA` (for roaming settings), `LOCALAPPDATA` (for local settings), or `PROGRAMDATA` (for system-wide settings) are more appropriate.
+*   **`TERM`** (Unix-like): Indicates the type of [computer terminal](/Computer_terminal) or [terminal emulator](/Terminal_emulator) in use (e.g., `vt100`).
+*   **`PS1`** (Unix-like): Defines the appearance of the command prompt in Bourne-compatible shells.
+*   **`MAIL`** (Unix-like): Specifies the location of a user's mail spool.
+*   **`TEMP`**: Designates a directory for temporary file storage by processes.
+
+#### True environment variables
+
+##### Unix
+
+*   **`$PATH`**: A colon-separated list of directories that the shell searches for commands not specified with a path. This is the equivalent of `%PATH%` in DOS, OS/2, and Windows.
+*   **`$HOME`**: Points to the user's home directory. While `getpwuid` and `getuid` can also provide this information, `$HOME` is frequently used for convenience in shell scripts. It also allows users to specify an alternative home directory.
+*   **`$PWD`**: Indicates the current working directory, equivalent to the output of the `pwd` command.
+*   **`$DISPLAY`**: Specifies the default display for [X11](/X11) applications.
+*   **`$LD_LIBRARY_PATH`**: On systems with a [dynamic linker](/Dynamic_linker), this colon-separated list tells the linker where to search for [shared objects](/Shared_object) when loading a process, prior to checking standard locations.
+*   **`$LIBPATH`** or **`$SHLIB_PATH`**: Older Unix versions might use these as alternatives to `$LD_LIBRARY_PATH`.
+*   **`$LANG`, `$LC_ALL`, `$LC_...`**: `$LANG` sets the default [locale](/Locale_(computer_software)), influencing language and regional conventions (e.g., `pt_BR` for Brazilian Portuguese). Individual `$LC_` variables (`$LC_CTYPE`, `$LC_[COLLATE](/Collation)`, `$LC_DATE`, etc.) control specific aspects of localization. `$LC_ALL` can enforce a single locale across all categories.
+*   **`$TZ`**: Specifies the [time zone](/Time_zone), either directly or by referencing a file in `/usr/share/zoneinfo`.
+*   **`$BROWSER`**: A colon-separated list of preferred [web browsers](/Web_browser). Programs can use this to launch a browser, attempting them in order and falling back if one fails. This allows graphical browsers in desktop environments and terminal-based ones in text-only environments. A `%s` placeholder can indicate where the URL should be inserted.
+
+##### DOS
+
+Under DOS, the primary command processor provides the master environment, inheriting settings from `CONFIG.SYS`. Its size can be configured via `COMMAND /E:n`, ranging from 160 bytes to 32,767 bytes. Child processes inherit smaller, trimmed-down environment segments. Some command processors, like [4DOS](/4DOS), allow specifying a minimum free environment space for secondary shells. Variable names are typically uppercased, though DR-DOS 6.0 and later, with `SWITCHES=/L` in `CONFIG.SYS`, can support lowercase names. MS-DOS 7.0 and later also support lowercase names but lack user-definable means. Environment variable names with lowercase letters are technically stored but often invisible to older DOS software expecting uppercase. Some processors limit variable name length to 80 characters, and variable content might be restricted to 128 characters by older 16-bit programs. DR-DOS `COMMAND.COM` supports up to 255 characters, and 4DOS up to 512. Newer `COMMAND.COM` versions, configurable for longer command lines, should ideally support correspondingly longer environment variables. DR-DOS allows shrinking or relocating the environment passed to drivers to minimize memory usage. Non-existent environment variables in batch mode are treated as zero-length strings.
+
+Standard environment variables include:
+
+*   **`%APPEND%`**: A semicolon-delimited list of directories for file searching, typically set via `APPEND /E`. Names are converted to uppercase. Some software expects uppercase and limits the list length.
+*   **`%CONFIG%`**: Holds the symbolic name of the currently selected boot configuration, set by `CONFIG.SYS`'s `MENUITEM` directive. Used for conditional execution in `AUTOEXEC.BAT`.
+*   **`%CMDLINE%`**: Contains the fully expanded command line of the currently executing command. Useful for capturing long command lines beyond the PSP's limit.
+*   **`%COMSPEC%`**: The full path to the command processor (e.g., `C:\COMMAND.COM`). Essential for reloading the transient command processor after larger programs run.
+*   **`%COPYCMD%`**: Sets the default for the `/Y` switch (suppress confirmation prompts) for `COPY`, `XCOPY`, and `MOVE` commands.
+*   **`%DIRCMD%`**: Specifies default parameters for the `DIR` command.
+*   **`%LANG%` / `%LANGSPEC%`**: Used by some tools to switch message locales in multilingual environments.
+*   **`%NO_SEP%`**: Controls the display of thousands separators in command messages.
+*   **`%PATH%`**: A semicolon-delimited list of directories for executable file searches, similar to Unix `$PATH`.
+*   **`%PROMPT%`**: Defines the format of the command prompt.
+*   **`%TEMP%`** (and `%TMP%`): Specifies the directory for temporary files.
+
+The DR-DOS family includes additional variables:
+
+*   **`%BETA%`**: An optional message displayed by some `COMMAND.COM` versions on secondary shell startup.
+*   **`%DRDOSCFG%` / `%NWDOSCFG%` / `%OPENDOSCFG%`**: Specifies the directory for `.INI` and `.CFG` configuration files.
+*   **`%DRCOMSPEC%`**: An alternative path for the command processor, potentially including password protection.
+*   **`%DRSYS%`**: Forces the `SYS` command to operate under foreign operating systems.
+*   **`%FBP_USER%`**: Specifies the username for the `FastBack` command `FBX`.
+*   **`%HOMEDIR%`**: May contain the home directory path.
+*   **`%INFO%`**: Defines the string for the `$I` token in the `PROMPT` command.
+*   **`%LOGINNAME%`**: Defines the username for the `$U` token in the `PROMPT` command.
+*   **`%MDOS_EXEC%`**: Controls whether applications can shell out with the DOS Program Area freed.
+*   **`%NOCHAR%`**: Defines the "No" character in `Y,N` queries.
+*   **`%NOSOUND%`**: Disables default beeps from some DR-DOS commands.
+*   **`%OS%`**: Contains the name of the operating system (e.g., "DRDOS", "Windows\_NT").
+*   **`%PEXEC%`**: Defines the command executed by the `$X` token in the `PROMPT` command after program execution.
+*   **`%SWITCHAR%`**: Defines the argument parsing character (`/`, `-`, or `[`).
+*   **`%TASKMGRWINDIR%`**: Specifies the directory for `TASKMGR`'s `SYSTEM.INI`.
+*   **`%VER%`**: Contains the operating system version.
+*   **`%YESCHAR%`**: Defines the "Yes" character in `Y,N` queries.
+*   **`%$CLS%`**: Defines the control sequence to clear the screen.
+*   **`%$DIR%`**: Controls the default layout for `DIR` listings (`L` for long, `W` for wide).
+*   **`%$PAGE%`**: Controls pagination for commands like `DIR` or `TYPE`.
+*   **`%$LENGTH%`**: Defines the screen height in lines for pagination.
+*   **`%$WIDTH%`**: Defines the screen width in columns for formatting.
+*   **`%$SLICE%`**: Controls time slicing for multitasking programs.
+*   **`%$ON%` / `%$OFF%`**: Control text highlighting, reversion, or colorization.
+*   **`%$HEADER%` / `%$FOOTER%`**: Control sequences issued before/after file content output.
+
+Datalight ROM-DOS adds:
+
+*   **`%DIRSIZE%`**: Defines non-standard screen sizes for `DIR` options.
+*   **`%NEWFILE%`**: Set by the `NEWFILE` directive in `CONFIG.SYS`.
+*   **`%TZ%`, `%COMM%`, `%SOCKETS%`, `%HTTP_DIR%`, `%HOSTNAME%`, `%FTPDIR%`**: Used by ROM-DOS for networking and internet-related functions.
+
+##### OS/2
+
+*   **`%BEGINLIBPATH%`**: A semicolon-separated list of directories searched for DLLs before those in `%LIBPATH%`.
+*   **`%ENDLIBPATH%`**: A list of directories searched for DLLs after those in `%LIBPATH%`.
+
+##### Windows
+
+Critical system variables, generally user-independent:
+
+*   **`%APPDATA%`**: Full path to the logged-in user's [Application Data](/Special_folder) directory.
+*   **`%LOCALAPPDATA%`**: Path for local application temporary files, caching, and profiles.
+*   **`%ComSpec%` / `%COMSPEC%`**: Full path to the command processor (`cmd.exe` or `COMMAND.COM`).
+*   **`%OS%`**: Symbolic name of the operating system family ("Windows\_NT" for NT family).
+*   **`%PATH%`**: Semicolon-delimited list of directories for executable searches.
+*   **`%PROCESSOR_ARCHITECTURE%`, `%PROCESSOR_ARCHITEW6432%`, `%PROCESSOR_IDENTIFIER%`, `%PROCESSOR_LEVEL%`, `%PROCESSOR_REVISION%`**: Details about the CPU.
+*   **`%PUBLIC%`**: Path to the "Public" user profile directory (`C:\Users\Public`).
+*   **`%ProgramFiles%`, `%ProgramFiles(x86)%`, `%ProgramW6432%`**: Paths to the Program Files directories, with variations for 32-bit and 64-bit processes and systems.
+*   **`%CommonProgramFiles%`, `%CommonProgramFiles(x86)%`, `%CommonProgramW6432%`**: Paths to the Common Files subdirectory within Program Files.
+*   **`%OneDrive%`**: Path to the OneDrive directory, if installed.
+*   **`%SystemDrive%`**: The drive containing the system root directory (usually `C:`).
+*   **`%SystemRoot%`**: The location of the system directory (e.g., `C:\Windows` or `C:\WINNT`).
+*   **`%windir%`**: The Windows directory (identical to `%SystemRoot%` on NT family).
+
+User management variables store profile-specific information:
+
+*   **`%ALLUSERSPROFILE%`** (`%PROGRAMDATA%` since Vista): Path to the All Users profile directory.
+*   **`%USERDOMAIN%`**: The workgroup or Windows domain the user belongs to.
+*   **`%USERPROFILE%`**: Location of the current user's profile directory.
+
+Optional system variables modify default behavior of console commands:
+
+*   **`%PATHEXT%`**: List of file extensions considered executable.
+
+Typical default values on English Windows:
+
+| Variable                 | Locale Specific | Windows XP (CMD)                                       | Windows Vista and later (CMD)                              |
+| :----------------------- | :-------------- | :----------------------------------------------------- | :--------------------------------------------------------- |
+| `%ALLUSERSPROFILE%`      | Yes             | `C:\Documents and Settings\All Users`                  | `C:\ProgramData`                                           |
+| `%APPDATA%`              | Yes             | `C:\Documents and Settings\%USERNAME%\Application Data` | `C:\Users\%USERNAME%\AppData\Roaming`                      |
+| `%CommonProgramFiles%`   | Yes             | `C:\Program Files\Common Files`                        | `C:\Program Files\Common Files`                            |
+| `%CommonProgramFiles(x86)%`| Yes             | `C:\Program Files (x86)\Common Files` (64-bit only)    | `C:\Program Files (x86)\Common Files` (64-bit only)        |
+| `%CommonProgramW6432%`   | Yes             | (Not supported)                                        | `C:\Program Files\Common Files` (64-bit only)              |
+| `%COMPUTERNAME%`         | No              | `{computername}`                                       | `{computername}`                                           |
+| `%ComSpec%`              | No              | `C:\Windows\System32\cmd.exe`                          | `C:\Windows\System32\cmd.exe`                              |
+| `%HOMEDRIVE%`            | No              | `C:`                                                   | `C:`                                                       |
+| `%HOMEPATH%`             | Yes             | `\Documents and Settings\%USERNAME%`                   | `\Users\%USERNAME%`                                        |
+| `%LOCALAPPDATA%`         | Yes             | (Not supported)                                        | `C:\Users\%USERNAME%\AppData\Local`                        |
+| `%LOGONSERVER%`          | No              | `\\{domain_logon_server}`                              | `\\{domain_logon_server}`                                  |
+| `%PATH%`                 | Yes             | `C:\Windows\system32;...`                              | `C:\Windows\system32;...`                                  |
+| `%PATHEXT%`              | No              | `.COM;.EXE;...`                                        | `.com;.exe;...`                                            |
+| `%ProgramData%`          | Yes             | (Not supported)                                        | `%SystemDrive%\ProgramData`                                |
+| `%ProgramFiles%`         | Yes             | `%SystemDrive%\Program Files`                          | `%SystemDrive%\Program Files`                              |
+| `%ProgramFiles(x86)%`    | Yes             | `%SystemDrive%\Program Files (x86)` (64-bit only)       | `%SystemDrive%\Program Files (x86)` (64-bit only)           |
+| `%ProgramW6432%`         | Yes             | (Not supported)                                        | `%SystemDrive%\Program Files` (64-bit only)                |
+| `%PROMPT%`               | No              | `$P$G`                                                 | `$P$G`                                                     |
+| `%PSModulePath%`         | Yes             | (Not supported)                                        | `%SystemRoot%\system32\WindowsPowerShell\v1.0\Modules\`    |
+| `%PUBLIC%`               | Yes             | (Not supported)                                        | `%SystemDrive%\Users\Public`                               |
+| `%SystemDrive%`          | No              | `C:`                                                   | `C:`                                                       |
+| `%SystemRoot%`           | No              | `C:\Windows` (or `C:\WINNT`)                           | `%SystemDrive%\Windows`                                    |
+| `%TEMP%` and `%TMP%`     | Yes             | `...\Temp`                                             | `...\Temp` (user) or `%SystemRoot%\TEMP` (system)         |
+| `%USERDOMAIN%`           | No              | `{userdomain}`                                         | `{userdomain}`                                             |
+| `%USERNAME%`             | No              | `{USERNAME}`                                           | `{USERNAME}`                                               |
+| `%USERPROFILE%`          | Yes             | `C:\Documents and Settings\%USERNAME%`                  | `C:\Users\%USERNAME%`                                      |
+| `%windir%`               | No              | `C:\WINDOWS`                                           | `C:\Windows`                                               |
+
+There is no standard environment variable for the "My Documents" directory, thus no standard way to set a program's home directory to it.
+
+#### Pseudo-environment variables
+
+Command processors in DOS and Windows support pseudo-environment variables, which are computed on demand rather than being stored statically.
+
+##### DOS
+
+Beyond true environment variables, DOS batch processing utilizes pseudo-environment variables:
+
+*   **Replacement Parameters (`%0` to `%9`)**: Used to access arguments passed to a batch job. They behave like environment variables but are not stored in the environment.
+*   **System Information Variables**: Supported by various command-line processors (`DR-DOS` `COMMAND.COM`, `Multiuser DOS` `MDOS.COM`, JP Software shells, `cmd.exe`). These provide read-only, dynamic system information. They are not listed by `SET` and are inaccessible to external programs. If a true environment variable of the same name exists, it takes precedence. They are typically prefixed with an underscore (`_`) in shells like 4DOS, but not in DR-DOS `COMMAND.COM`.
+
+    DR-DOS `COMMAND.COM` system information variables:
+    *   **`%AM_PM%`**: Returns "am" or "pm".
+    *   **`%DAY%`**: Current day (e.g., "01").
+    *   **`%DAY_OF_WEEK%`**: Day name abbreviation (e.g., "Sun").
+    *   **`%ERRORLEVEL%`**: Last program error level (0-255).
+    *   **`%ERRORLVL%`**: Last program error level (000-255).
+    *   **`%GREETING_TIME%`**: Time-of-day greeting ("morning", "afternoon", "evening").
+    *   **`%HOUR%`**: Current hour (1-12).
+    *   **`%HOUR24%`**: Current hour (00-23).
+    *   **`%MINUTE%`**: Current minute (00-59).
+    *   **`%MONTH%`**: Current month (01-12).
+    *   **`%MONTH_NAME%`**: Full month name.
+    *   **`%NDAY_OF_WEEK%`**: Day of the week number (1-7).
+    *   **`%OS_VERSION%`**: Operating system version based on `%VER%`.
+    *   **`%SECOND%`**: Current second (00-59).
+    *   **`%SHORT_YEAR%`**: Two-digit year.
+    *   **`%YEAR%` / `%_YEAR%`**: Four-digit year.
+    *   **`%/%`**: Current switch character (`/` or `-`).
+    *   **`%_CODEPAGE%`**: Current code page (e.g., "437").
+    *   **`%_COLUMNS%`**: Current screen width in columns.
+    *   **`%_COUNTRY%`**: Current country code.
+    *   **`%_DAY%`**: Current day without leading zero.
+    *   **`%_HOUR%`**: Current hour (0-23) without leading zero.
+    *   **`%_MINUTE%`**: Current minute without leading zero.
+    *   **`%_MONTH%`**: Current month without leading zero.
+    *   **`%_ROWS%`**: Current screen height in rows.
+    *   **`%_SECOND%`**: Current second without leading zero.
+
+    DR-DOS system information variables with networking loaded:
+    *   **`%LOGIN_NAME%`**: User's login name.
+    *   **`%P_STATION%`**: Physical station number.
+    *   **`%STATION%`**: Logical station number.
+    *   **`%FULL_NAME%`**: Full name of the logged-in user.
+
+##### Windows
+
+Dynamic environment variables (pseudo-environment variables) in `CMD.EXE` (with command-line extensions enabled):
+
+*   **`%CD%`**: Expands to the current directory. Returns long filenames under `CMD.EXE`, but short (8.3) filenames under `COMMAND.COM`.
+*   **`%CMDCMDLINE%`**: Expands to the original startup parameters of `CMD.EXE`.
+*   **`%CMDEXTVERSION%`**: Version of `CMD.EXE`'s command-line extensions.
+*   **`%DATE%`**: Current date, formatted according to user preferences.
+*   **`%ERRORLEVEL%`**: Last set error level (0-255).
+*   **`%HIGHESTNUMANODENUMBER%`**: Highest NUMA node number.
+*   **`%RANDOM%`**: Random number between 0 and 32767.
+*   **`%TIME%`**: Current time, formatted according to user preferences. Reading `%DATE%` and `%TIME%` consecutively requires care to avoid midnight rollover issues.
+
+Other shells, like bash, have similar dynamically generated variables (e.g., `$RANDOM`), often termed special local variables.
+
+### See also
+
+*   [Variable (computer science)](/Variable_(computer_science))
+*   [List of POSIX commands](/List_of_POSIX_commands)
+*   [List of DOS commands](/List_of_DOS_commands)
+*   [Special folder](/Special_folder)
+*   [Environment Modules](/Environment_Modules_(software))
+*   [PWB shell](/PWB_shell)
+*   [Windows Registry](/Windows_Registry)
+
+### Notes
+
+*   Applications that do not correctly handle environment variables exceeding 128 characters include [CadStar PCB](/CadStar_PCB), Checkit, Computer Select CD-ROM, RenderMan, [VINES Network](/VINES_Network), [Windows 3.0](/Windows_3.0), and [Word for Windows 6.0](/Word_for_Windows_6.0).
+*   [4DOS](/4DOS) and [MS-DOS 7.0](/MS-DOS_7.0) set the length to 127 and insert [ASCII-13](/ASCII_13) at that position. [Borland](/Borland) libraries may set the length to 128 without the ASCII-13. For shorter command lines, 4DOS/[NDOS](/NDOS) and [DR-DOS](/DR-DOS) also insert an [ASCII-0](/ASCII_0) after the ASCII-13, but not when invoked via the [INSTALL](/INSTALL_(CONFIG.SYS_directive)) directive; MS-DOS does not.
+
+#

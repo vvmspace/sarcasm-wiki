@@ -1,0 +1,344 @@
+---
+title: "Help:Markup Validation"
+description: "This is an information page, a curious little corner of Wikipedia that exists not to be an encyclopedia article itself, nor to lay down the iron law of..."
+keywords: information page, wikipedia, encyclopedia article, consensus, vetting, shortcut, h:markv, w3c markup validation service, html
+slug: "Help:Markup_validation"
+createdAt: "2025-11-19T00:25:25.303Z"
+updatedAt: "2025-11-19T00:25:25.303Z"
+contentType: "rewritten"
+---
+
+This is an [information page](/Wikipedia:Project_namespace), a curious little corner of [Wikipedia](/Wikipedia) that exists not to be an [encyclopedia article](/Wikipedia:What_is_an_article%3F) itself, nor to lay down the iron law of [Wikipedia's policies or guidelines](/Wikipedia:Policies_and_guidelines). Instead, its purpose is far more… explanatory. It’s here to shed light on the labyrinthine norms, the peculiar customs, the intricate technicalities, and the general practices that govern this sprawling digital entity. Think of it as a backstage pass to the machinery of Wikipedia, revealing how certain wheels turn, why certain gears grind, and what the unwritten rules might be. Consequently, such pages might not always reflect a unified [consensus](/Wikipedia:Consensus) or have undergone rigorous [vetting](/Wikipedia:Consensus). They are, in essence, a work in progress, much like the very encyclopedia they serve.
+
+### [Shortcut](/Wikipedia:Shortcut)
+
+*   H:MARKV[H:MARKV](/H:MARKV)
+
+### The W3C Markup Validation Service: A Digital Gatekeeper
+
+The [W3C Markup Validation Service](/W3C_Markup_Validation_Service) is, in essence, a digital bouncer for web pages. It allows editors, the architects of these digital realms, to meticulously check their creations for adherence to [HTML](/HTML) and [XHTML](/XHTML) standards. This isn't just about pedantic adherence to rules; it's about ensuring the structural integrity of the content. It’s particularly adept at catching those subtle, often overlooked glitches—like duplicate section names or citation identifiers that have wandered off on their own.
+
+While most major web browsers possess a remarkable tolerance for errors, often displaying documents successfully despite their imperfections, this tolerance can lead to unexpected misbehavior. Imagine clicking a [wikilink](/wiki/Wikilink) only to be whisked away to the wrong section or an entirely incorrect citation. These minor mishaps, though seemingly trivial, can disrupt the user's journey through the information. By ensuring a page conforms to valid HTML, these glitches are not only fixed but also enhance the portability of the content, making it more likely to behave predictably across a wider spectrum of browsers, even the more unusual ones.
+
+To employ this validator for a specific Wikipedia article, say, "XYZ," one would navigate to the service's homepage and input the article's URL: [https://en.wikipedia.org/wiki/XYZ](/XYZ). It’s a simple step, but one that can prevent a cascade of downstream irritations.
+
+### Current Issues: The Inevitable Glitches in the Machine
+
+Even in the meticulously constructed world of web standards, errors persist. These are not the kind of errors that an editor can simply patch up; they often require the intervention of developers. For editors, the best course of action when encountering these is often to acknowledge them and move on, focusing on the content rather than the underlying code. When performing checks for these endemic errors, it’s crucial to use a blank page, such as [Special:BlankPage](/Special:BlankPage), to isolate the issue and avoid extraneous data.
+
+*   [Shortcut](/Wikipedia:Shortcut)
+*   WP:HTMLBUGS[WP:HTMLBUGS](/Wikipedia:HTMLBUGS)
+
+These specific errors are tracked by Phabricator, under [Task T42385](https://phabricator.wikimedia.org/T42385).
+
+*   **Bad value `edit` for attribute `rel` on element `link`:** The keyword `edit` is not recognized. This particular issue, thankfully, does not manifest on a [Special:BlankPage](/Special:BlankPage), suggesting it’s tied to specific page functionalities.
+
+*   **Attribute `srcset` not allowed on element `img`:** This error arises with pages featuring images. The `srcset` attribute, which allows the MediaWiki software to serve different image resolutions based on device capabilities, is flagged by the validator. While the HTML Living Standard permits this attribute, the W3C HTML validator has not yet caught up, leading to a false alarm. It’s a testament to the evolving nature of web standards and the software that implements them.
+
+*   **Bad value `xxx` for attribute `lang` on element `a`:** This occurs when a nonstandard language code, such as `xxx`, is used in an `<a>` tag's `lang` attribute. Some Wikipedias, in their vast multilingual tapestry, might employ language codes not strictly conforming to RFC 5646. These are often documented as deprecated or nonstandard at the [List of Wikipedias](/List_of_Wikipedias). For further context on [interlanguage links](/Help:Interlanguage_links), one can consult the relevant help page.
+
+### Valid HTML: The Foundation of a Well-Behaved Web
+
+While modern browsers are remarkably forgiving, displaying content even when it's riddled with errors, the consequences of invalid HTML can be far-reaching. It can subtly sabotage [accessibility](/Wikipedia:Accessibility) for users with disabilities, confuse search engines, and undermine the portability of the content. Different browsers might interpret the same error in unique ways, leading to a fragmented viewing experience.
+
+For the average editor, the burden of crafting perfectly valid HTML is largely lifted by the [MediaWiki](/MediaWiki) software itself. It diligently translates the familiar [wikimarkup](/Help:Wikitext) into HTML. Historically, English Wikipedia employed [HTML Tidy](/HTML_Tidy), a now-somewhat-dated library, to smooth over common typos and mistakes, transforming them into compliant HTML4. However, Tidy wasn't omniscient; it couldn't fix every flaw, and its presence made it impossible to test validation without its intervention. Moreover, Tidy is slated for removal, meaning errors it previously masked will soon surface.
+
+The real sting of invalid HTML often comes with portability issues. When pages are exported to other wikis that don't utilize HTML Tidy, the underlying errors become glaringly apparent, disrupting the intended presentation.
+
+Editors who delve into more complex referencing methods, such as [Footnote3](/Wikipedia:Footnote3), must exercise particular vigilance. These templates, while immensely useful, can inadvertently create duplicate HTML `id` attributes. This duplication is a direct violation of HTML standards, leading to invalid HTML and, crucially, broken in-page linking. This is, regrettably, one of the most frequent validation offenders on Wikipedia. Manual templates, lacking the inherent error-checking of more robust systems, are also susceptible.
+
+For those who architect templates, rigorous testing across various use cases is not merely a suggestion; it's a necessity. Ensuring that templates render valid HTML is paramount to maintaining the integrity of the platform.
+
+### Validation Tools: The Editor's Arsenal
+
+The [W3C](/World_Wide_Web_Consortium), the premier international standards body for the internet, offers the indispensable [W3C Markup Validation Service](/W3C_Markup_Validation_Service). To use it, one simply copies the full URL of the page in question and pastes it into the validator. For those who prefer a more integrated approach, a [favelet](/Favelet)—a small piece of JavaScript that can be added to your browser bookmarks—can validate the current page with a single click.
+
+The WDG HTML Validator also provides a batch mode, a useful feature for those needing to validate a list of URLs simultaneously.
+
+### Common Diagnostics and Their Cures: Decoding the Validator's Warnings
+
+The markup validation service, in its wisdom, generates diagnostics that can seem cryptic at first glance. These messages, typically pinpointing the line and column of the generated HTML where the issue lies, are best understood by examining the HTML source itself. A quick way to do this in [Firefox](/Firefox), for instance, is to press `Control-U` to view the page's underlying code.
+
+*   **ID Already Defined:**
+    *   *Diagnostic Example:* Line 630, Column 88: `ID "CITEREFBarker2008" already defined`
+    *   *Explanation:* An `id` attribute is meant to be a unique identifier within a document. Each instance of an `id` must have a distinct value. If you're using `id` attributes as hooks for [style sheets](/CSS), it’s often more appropriate to employ classes, which group elements, rather than `id`s, which are meant to pinpoint a single element.
+    *   *Common Cause & Fix:* This error frequently arises when an article contains multiple uses of the {{[citation](/Template:Citation)}} template with the same author and year. For example, citing two different works by Barker in 2008. To resolve this, disambiguate the citations by appending letters to the years (e.g., `|year=2008a`, `|year=2008b`) or by utilizing the `ref=` parameter within the {{citation}} template.
+    *   *Context:* HTML `id`s are primarily necessary for [Shortened footnotes](/Help:Shortened_footnotes) or [Parenthetical referencing](/Wikipedia:Parenthetical_referencing). The {{citation}} template or [Citation Style 1](/Help:Citation_Style_1) templates automatically generate an HTML `id` by default.
+
+    *   *Diagnostic Example:* Line 93, Column 231: `ID "ref_1" already defined`
+    *   *Explanation:* Similar to the above, this indicates a repeated `id` attribute.
+    *   *Common Cause & Fix:* This often occurs with multiple invocations of the {{[ref](/Template:Ref)}} template using the same ID, such as `{{ref|1|1}}`. The solution is to assign unique IDs to each instance. Templates that commonly use the `ref_` ID prefix include {{ref}}, {{[ref label](/Template:Ref_label)}}, {{[cref](/Template:Cref)}}, and {{[cref2](/Template:Cref2)}}.
+
+*   **Missing `alt` Text:**
+    *   *Diagnostic Example:* Line 135, Column 108: `required attribute "alt" not specified`
+    *   *Explanation:* The `alt` attribute is a mandatory requirement for `<img>` elements. It provides [alternative text](/Wikipedia:Alternative_text_for_images) for visually impaired readers or when the image cannot be displayed.
+    *   *Common Cause & Fix:* This diagnostic can arise from the use of the EasyTimeline extension, which, unfortunately, does not generate alternative text. To rectify this, the timeline can be recreated as plain text, as a standard image, or as an image map. This ensures that the information conveyed by the visual element is accessible to all users.
+
+*   **Element `dl` is missing a required instance of child element `dd`:**
+    *   *Diagnostic Example:* Error Line 78, Column 5: `Element dl is missing a required instance of child element dd.`
+    *   *Content Model for element `dl`*: Zero or more groups, each consisting of one or more `dt` elements followed by one or more `dd` elements.
+    *   *Explanation:* Definition lists in wikimarkup are constructed using `;` to initiate the list and `:` to define each item. This diagnostic indicates that a colon (`:`) was omitted where it was expected.
+    *   *Common Causes & Fixes:*
+        *   Indentation, which is created using the `:` markup, might be missing, resulting in a definition list without any defined items. This is tracked as [T6521](https://phabricator.wikimedia.org/T6521).
+        *   The `;` markup might be misused to simply bold a line. For bolding text, the correct wikimarkup is `'''`.
+
+### CSS Validation: A Less Pressing Concern for Editors
+
+The W3C also offers a CSS validator. However, for individual Wikipedia editors, this is generally a lesser concern. CSS is typically handled at the level of [skins](/Wikipedia:Skin), the visual themes applied to Wikipedia. Validation errors in CSS are more likely to point to issues within these skins rather than problems introduced by an editor on a specific page.
+
+### See Also
+
+*   Template {{[W3C validation](/Template:W3C_validation)}}
+
+### External Links
+
+*   The [W3C Markup Validation Service](https://validator.w3.org/nu/)
+*   The [W3C Markup Validation Service— Favelets For The Validator](https://validator.w3.org/docs/favelets.html)
+*   The [W3C CSS Validation Service](https://jigsaw.w3.org/css-validator/)
+
+---
+
+### Wikipedia Technical Help: Navigating the Digital Currents
+
+Should you find yourself adrift in the technical currents of Wikipedia, seeking personal assistance is not an insurmountable task. The [Teahouse](/Wikipedia:Teahouse) and the [help desk](/Wikipedia:Help_desk) are welcoming harbors for those needing guidance. For more specialized technical discussions, the [village pump (technical)](/Wikipedia:Village_pump_(technical)) serves as a forum. If you prefer real-time interaction, [IRC](/Wikipedia:IRC) channels are available, and for asynchronous communication, [talk pages](/Help:Introduction_to_talk_pages/1) are the established venue.
+
+#### General Technical Help
+
+*   [Bypass cache](/Wikipedia:Bypass_your_cache)
+*   [Keyboard shortcuts](/Help:Keyboard_shortcuts)
+*   [Editing](/Help:Editing)
+*   [CharInsert](/Help:CharInsert)
+*   [Edit conflict](/Help:Edit_conflict)
+*   [Edit toolbar](/Help:Edit_toolbar)
+*   [Reverting](/Help:Reverting)
+*   [How to create a page](/Wikipedia:How_to_create_a_page)
+*   [IRC](/Wikipedia:IRC)
+    *   [Tutorial](/Wikipedia:IRC/Tutorial)
+*   [Mobile access](/Help:Mobile_access)
+*   [Multilingual support](/Help:Multilingual_support)
+*   [Page history](/Help:Page_history)
+*   [Page information](/Help:Page_information)
+*   [Page name](/Wikipedia:Page_name)
+*   [Help](/Help:Page_name)
+*   [Printing](/Help:Printing)
+*   [Software notices](/Wikipedia:Software_notices)
+*   [Editnotice](/Wikipedia:Editnotice)
+*   [Special Characters](/Help:Special_characters)
+    *   [Entering](/Help:Entering_special_characters)
+*   [User access levels](/Wikipedia:User_access_levels)
+*   [VisualEditor](/Wikipedia:VisualEditor)
+    *   [Help](/Help:VisualEditor)
+
+#### Special Page Related
+
+*   [Special page help](/Help:Special_page)
+*   [AllPages](/Help:AllPages)
+*   [Edit filter](/Wikipedia:Edit_filter)
+*   [Emailing users](/Wikipedia:Emailing_users)
+*   [Logging in](/Help:Logging_in)
+*   *   [Reset passwords](/Help:Reset_password)
+*   [Logs](/Help:Log)
+*   [Moving a page](/Wikipedia:Moving_a_page)
+    *   [History merging](/Wikipedia:History_merging)
+    *   [Non-admin and admin-only page moves](/Help:When_to_place_technical_requests_in_%22Administrator_needed%22)
+*   [Notifications/Echo](/Help:Notifications)
+    *   [FAQ](/Help:Notifications/FAQ)
+*   [Page Curation](/Wikipedia:Page_Curation/Help)
+*   [Page import](/Help:Import)
+*   [Pending changes](/Wikipedia:Pending_changes)
+*   [Random pages](/Wikipedia:Random)
+*   [Recent changes](/Help:Recent_changes)
+*   [Related changes](/Help:Related_changes)
+*   [Searching](/Help:Searching)
+    *   [Linksearch](/Help:Linksearch)
+*   [Tags](/Wikipedia:Tags)
+*   [User contributions](/Help:User_contributions)
+*   [Watchlist](/Help:Watchlist)
+*   [What links here](/Help:What_links_here)
+
+#### Wikitext
+
+*   [Wikitext](/Help:Wikitext)
+    *   [Cheatsheet](/Help:Cheatsheet)
+    *   [Columns](/Help:Columns)
+    *   [Line-break handling](/Help:Line-break_handling)
+    *   [Lists](/Help:List)
+    *   [Magic words](/Help:Magic_words)
+        *   [For beginners](/Help:Magic_words_for_beginners)
+        *   [Conditional expressions](/Help:Conditional_expressions)
+        *   [Switch parser function](/Help:Switch_parser_function)
+        *   [Time function](/Help:Time_function)
+    *   [Redirects](/Help:Redirect)
+    *   [Sections and TOCs](/Help:Section)
+    *   [Tables](/Help:Table)
+        *   [Introduction](/Help:Introduction_to_tables_with_Wiki_Markup/1)
+        *   [Basics](/Help:Basic_table_markup)
+        *   [Advanced table formatting](/Help:Advanced_table_formatting)
+        *   [Collapsing](/Help:Collapsing_tables_and_more)
+        *   [Conditional tables](/Help:Conditional_tables)
+        *   [Sortable tables](/Help:Sortable_tables)
+        *   [Using colours](/Help:Using_colours)
+
+#### Links and Diffs
+
+*   [Links](/Help:Link)
+    *   [Interlanguage](/Help:Interlanguage_links)
+    *   [Interwiki](/Help:Interwiki_linking)
+    *   [Permanent](/Help:Permanent_link)
+*   [Diffs](/Help:Diff)
+    *   [Simplest diff guide](/Wikipedia:Simplest_diff_guide)
+    *   [Simple diff and link guide](/Wikipedia:Simple_diff_and_link_guide)
+    *   [Complete diff and link guide](/Wikipedia:Complete_diff_and_link_guide)
+*   [Colon trick](/Help:Colon_trick)
+*   [Link color](/Help:Link_color)
+*   [Pipe trick](/Help:Pipe_trick)
+*   [URLs](/Help:URL)
+
+#### Media Files: Images, Videos, and Sounds
+
+*   [Media help](/Help:Media)
+*   [Files](/Help:Files)
+    *   [Creation and usage](/Help:Creation_and_usage_of_media_files)
+    *   [Moving files to Commons](/Wikipedia:Moving_files_to_Commons)
+*   [Images](/Wikipedia:Images)
+    *   [Introduction to images](/Help:Introduction_to_images_with_Wiki_Markup/1)
+    *   [Picture tutorial](/Help:Pictures)
+    *   [Preparing images for upload](/Wikipedia:Preparing_images_for_upload)
+    *   [Uploading images](/Wikipedia:Uploading_images)
+    *   [Options to hide an image](/Help:Options_to_hide_an_image)
+    *   [Extended image syntax](/Wikipedia:Extended_image_syntax)
+    *   [SVG help](/Wikipedia:SVG_help)
+    *   [Gallery tag](/Help:Gallery_tag)
+*   [Graphics tutorials](/Wikipedia:Graphics_tutorials)
+    *   [Basic bitmap image editing](/Wikipedia:Basic_bitmap_image_editing)
+    *   [How to improve image quality](/Wikipedia:How_to_improve_image_quality)
+    *   [Graphics Lab resources](/Wikipedia:Graphics_Lab/Resources)
+*   [Sound file markup](/Help:Sound_file_markup)
+*   [Visual file markup](/Help:Visual_file_markup)
+
+#### Other Graphics
+
+*   [Family trees](/Help:Family_trees)
+*   [Graphs and charts](/Wikipedia:Graphs_and_charts)
+    *   [How to create](/Wikipedia:How_to_create_charts_for_Wikipedia_articles)
+    *   [Barcharts](/Help:Barchart)
+    *   [To scale charts](/Wikipedia:To_scale_charts)
+*   [Math formulas](/Help:Displaying_a_formula)
+*   [Math symbols](/Help:Displaying_a_formula)
+*   [Musical scores](/Help:Score)
+*   [Musical symbols](/Help:Musical_symbols)
+*   [Timeline](/Wikipedia:Timeline)
+    *   [EasyTimeline syntax](/Help:EasyTimeline_syntax)
+    *   [WikiHiero syntax](/Help:WikiHiero_syntax)
+
+#### Templates and Lua Modules
+
+*   [Templates](/Help:A_quick_guide_to_templates)
+    *   [Advanced template coding](/Wikipedia:Advanced_template_coding)
+    *   [Template documentation](/Wikipedia:Template_documentation)
+    *   [Template index](/Wikipedia:Template_index)
+    *   [Template limits](/Help:Template_limits)
+    *   [Template sandbox and test cases](/Wikipedia:Template_sandbox_and_test_cases)
+    *   [Citation templates](/Wikipedia:Citation_templates)
+*   [Lua](/Lua_(programming_language)) help
+    *   [Lua project](/Wikipedia:Lua)
+    *   [Resources](/Wikipedia:Lua/Resources)
+    *   [To do](/Wikipedia:Lua/To_do)
+*   [Substitution](/Help:Substitution)
+*   [Purge](/Help:Purge)
+*   [Job queue](/Help:Job_queue)
+*   [Transclusion](/Help:Transclusion)
+    *   [Labeled section](/Help:Labeled_section_transclusion)
+    *   [Costs and benefits](/Wikipedia:Transclusion_costs_and_benefits)
+*   [Guide to Scribbling](/Wikipedia:Guide_to_Scribbling)
+
+#### Data Structure
+
+*   [Namespaces](/Wikipedia:Namespace)
+    *   [Main/Article](/Wikipedia:What_is_an_article%3F)
+    *   [Category](/Help:Category)
+    *   [Draft](/Wikipedia:Drafts)
+    *   [File](/Help:Files)
+    *   [File description page](/Help:File_description_page)
+    *   [Help](/Wikipedia:Help_namespace)
+    *   [Portal](/Wikipedia:Portal)
+    *   [Project/Wikipedia](/Wikipedia:Project_namespace)
+    *   [Talk](/Help:Talk_pages)
+        *   [Archiving](/Help:Archiving_a_talk_page)
+        *   [Simple](/Help:Archiving_(plain_and_simple))
+    *   [Template](/Wikipedia:Template_namespace)
+    *   [User](/Wikipedia:User_pages)
+        *   [User page design](/Wikipedia:User_page_design_guide)
+    *   [MediaWiki](/Help:MediaWiki_namespace)
+        *   [Bug reports and feature requests](/Wikipedia:Bug_reports_and_feature_requests)
+        *   TimedMediaHandler extension
+    *   [Module](/Wikipedia:Lua)
+    *   [Special](/Help:Special_page)
+
+#### HTML and CSS
+
+*   [Cascading Style Sheets](/Help:Cascading_Style_Sheets)
+*   [HTML in wikitext](/Help:HTML_in_wikitext)
+*   [Catalogue of CSS classes](/Wikipedia:Catalogue_of_CSS_classes)
+*   [Common.js and common.css](/Wikipedia:Common.js_and_common.css)
+*   [Classes in microformats](/Wikipedia:WikiProject_Microformats/classes)
+*   Markup validation
+    *   [Span tags](/Wikipedia:Span_tags)
+    *   [Useful styles](/Help:Useful_styles)
+
+#### Customisation and Tools
+
+*   [Preferences](/Help:Preferences)
+*   [Gadgets](/Wikipedia:Gadget)
+*   [Skins](/Wikipedia:Skin)
+*   [Citation tools](/Help:Citation_tools)
+*   [Cleaning up vandalism tools](/Wikipedia:Cleaning_up_vandalism/Tools)
+*   [Customizing watchlists](/Wikipedia:Customizing_watchlists)
+*   [Hide pages](/Help:Hide_Pages_in_Watchlist)
+*   [IRC Scripts](/Wikipedia:Scripts)
+*   [User scripts](/Wikipedia:User_scripts)
+    *   [Guide](/Wikipedia:User_scripts/Guide)
+    *   [List](/Wikipedia:User_scripts/List)
+    *   [Techniques](/Wikipedia:User_scripts/Techniques)
+*   [User style](/Help:User_style)
+*   [Tools](/Wikipedia:Tools)
+    *   [Alternative browsing](/Wikipedia:Tools/Alternative_browsing)
+    *   [Browser tools](/Wikipedia:Tools/Browser_tools)
+    *   [Editing tools](/Wikipedia:Tools/Editing_tools)
+    *   [Navigation shortcuts](/Wikipedia:Tools/Navigation_shortcuts)
+    *   [Optimum tool set](/Wikipedia:Tools/Optimum_tool_set)
+*   [Wikimedia Cloud Services](/Wikipedia:Wikimedia_Cloud_Services)
+*   Beta Features at MediaWiki
+
+#### Automated Editing
+
+*   [AfC helper script](/Wikipedia:WikiProject_Articles_for_creation/Helper_script)
+*   [AntiVandal](/Wikipedia:AntiVandal)
+*   [AutoWikiBrowser](/Wikipedia:AutoWikiBrowser)
+*   [Bots](/Wikipedia:Bots)
+    *   [Creating](/Help:Creating_a_bot)
+    *   [history](/Wikipedia:History_of_Wikipedia_bots)
+*   [HotCat](/Wikipedia:HotCat)
+*   [Huggle](/Wikipedia:Huggle)
+*   [Navigation popups](/Wikipedia:Tools/Navigation_popups)
+*   [RedWarn](/Wikipedia:RedWarn)
+*   [Twinkle](/Wikipedia:Twinkle)
+*   [Ultraviolet](/Wikipedia:Ultraviolet)
+*   [WPCleaner](/Wikipedia:WPCleaner)
+*   Inactive
+    *   [igloo](/Wikipedia:Igloo)
+    *   [STiki](/Wikipedia:STiki)
+
+*   See also: [Category:Wikipedia how-to](/Category:Wikipedia_how-to)
+*   [Category:Wikipedia information pages](/Category:Wikipedia_information_pages)
+
+Further navigation at: [Help pages](/Template:Wikipedia_help_pages)
+
+*   [Administrators](/Template:Administrators%27_guide)
+*   [Accessibility](/Wikipedia:WikiProject_Accessibility/Navigation_menu)
+*   [Accounts](/Template:Wikipedia_accounts)
+*   [Bots](/Template:Botnav)
+*   [Referencing](/Template:Wikipedia_referencing)
+    *   [Citation metadata](/Template:Citation_metadata_navbox)
+*   [Templates](/Template:Wikipedia_templates)
+*   [User scripts](/Wikipedia:User_scripts/Navbox)

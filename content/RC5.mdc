@@ -1,0 +1,161 @@
+---
+title: "RC5"
+description: "One round (two half-rounds) of the RC5 block cipher was designed by Ron Rivest, first published in 1994. Its successors include RC6 and Akelarre). The cipher’s..."
+keywords: ron rivest, akelarre, key sizes, block sizes, feistel, rounds, cryptanalysis, differential attack
+slug: "RC5"
+createdAt: "2025-12-24T14:20:57.323Z"
+updatedAt: "2025-12-24T14:20:57.323Z"
+contentType: "rewritten"
+aiProvider: "OpenRouter"
+aiModel: "nvidia/nemotron-3-nano-30b-a3b:free"
+previousArticleSlug: "Length"
+previousArticleTitle: "Length"
+---
+
+# RC5  
+
+[One round (two half-rounds) of the RC5 block cipher](/RC5) was designed by **[Ron Rivest](/Ron_Rivest)**, first published in **1994**. Its successors include **[RC6](/RC6)** and **[Akelarre](/Akelarre_(cipher))**. The cipher’s specifications cover a wide range of parameters: **[Key sizes](/Key_size)** from **0 to 2040 bits** (with **128 bits** commonly suggested), and **[Block sizes](/Block_size_(cryptography))** of **32, 64, or 128 bits** (with **64 bits** typically recommended). Its structural foundation is a **[Feistel](/Feistel_cipher)-like network**, and it operates over a variable number of **[Rounds](/Round_(cryptography))** ranging from **1 to 255** (the original suggestion was **12 rounds**). RC5 has attracted considerable attention in the field of **[cryptanalysis](/Cryptanalysis)**, notably because **12‑round RC5** (using **64‑bit blocks**) is known to be vulnerable to a **[differential attack](/Differential_cryptanalysis)** that can be mounted with **2⁴⁴ chosen plaintexts** [¹](#cite_ref-1).  
+
+RC5 is classified as a **[symmetric-key](/Symmetric-key_algorithm)** **[block cipher](/Block_cipher)** and is distinguished by its **simplicity** and **flexibility**. It was conceived by **[Ronald Rivest](/Ron_Rivest)** in **1994** [²](#cite_ref-2) and, according to Rivest himself, the initials “RC” stand for **“Ron’s Code”** [³](#cite_ref-3). Although the algorithm is formally named **RC5**, its documentation treats the name as a proper noun without further expansion. The design of RC5 directly inspired the later **[Advanced Encryption Standard](/Advanced_Encryption_Standard) (AES)** candidate **[RC6](/RC6)**, which builds upon RC5’s concepts while introducing additional refinements.  
+
+---  
+
+## Description  
+
+Unlike many contemporary ciphers, RC5 permits **variable block sizes**, **key sizes**, and **round counts**. The algorithm accepts a **block size** of **32, 64, or 128 bits**, a **key size** of **0 to 2040 bits**, and a **round count** of **0 to 255**. The original recommended parameters were a **64‑bit block**, a **128‑bit key**, and **12 rounds**.  
+
+A hallmark of RC5 is its use of **data‑dependent rotations**, a technique intended to encourage research into **data‑dependent rotations** as a **[cryptographic primitive](/Cryptographic_primitive)** [④](#cite_ref-citation_needed_4). The algorithm also employs a series of **modular additions** and **exclusive‑or (XOR)** operations. Its overall structure resembles a **[Feistel](/Feistel_cipher)** network, similar in spirit to RC2, and both encryption and decryption can be expressed in just a few lines of code. The **[key schedule](/Key_schedule)**, however, is comparatively intricate: it expands the secret key into a series of round subkeys using a function that draws on the binary expansions of the mathematical constants **e** and the **golden ratio (ϕ)** as sources of “**[nothing up my sleeve numbers](/Nothing_up_my_sleeve_number)**” [⑤](#cite_ref-5).  
+
+The notation **RC5‑w/r/b** is used to denote a particular instantiation, where **w** is the word size in bits, **r** is the number of rounds, and **b** is the key length in bytes.  
+
+---  
+
+## Algorithm  
+
+### Key Expansion  
+
+The key expansion routine transforms the variable‑length secret key into **2(r + 1)** round subkeys that will be used exactly once during encryption and decryption. The process, taken from Rivest’s revised paper on RC5 [4](#cite_ref-4), can be described as follows:  
+
+1. **Break the key into words** – The key bytes are interpreted as a sequence of *w*-bit words.  
+2. **Compute auxiliary constants** – Let **u = w / 8** (the number of bytes per word).  
+3. **Initialize a temporary array L** – Initially filled with zeros, then each entry is seeded with a byte of the key, shifted left by eight bits and combined with the next byte.  
+4. **Generate the S‑array** – The first entry **S[0]** is set to **P_w**, and each subsequent entry is derived by adding **Q_w** to the previous value.  
+5. **Mix L and S** – Through a series of modular additions and left‑rotations, the values in **L** and **S** are interleaved, producing the final round subkeys.  
+
+The resulting **S‑array** comprises **t = 2(r + 1)** words, each of size **w** bits.  
+
+An illustrative **C** implementation (copied verbatim from the reference paper’s appendix) for the common instantiation **w = 32, r = 12, b = 16** appears below:  
+
+```c
+void RC5_SETUP(unsigned char *K)
+{
+    // w = 32, r = 12, b = 16
+    // c = max(1, ceil(8 * b/w))
+    // t = 2 * (r+1)
+    WORD i, j, k, u = w/8, A, B, L[c];
+
+    for (i = b-1, L[c-1] = 0; i != -1; i--)
+        L[i/u] = (L[i/u] << 8) + K[i];
+
+    for (S[0] = P, i = 1; i < t; i++)
+        S[i] = S[i-1] + Q;
+
+    for (A = B = i = j = k = 0; k < 3 * t; k++, i = (i+1) % t, j = (j+1) % c)
+    {
+        A = S[i] = ROTL(S[i] + (A + B), 3);
+        B = L[j] = ROTL(L[j] + (A + B), (A + B));
+    }
+}
+```  
+
+### Encryption  
+
+Encryption proceeds through a series of rounds that mix the two *w*-bit words **A** and **B** of the plaintext block with the round subkeys. The initial values are set by adding the first two subkeys:  
+
+```
+A = pt[0] + S[0];
+B = pt[1] + S[1];
+```  
+
+For each round *i* from **1** to **r**:  
+
+```
+A = ROTL(A ^ B, B) + S[2*i];
+B = ROTL(B ^ A, A) + S[2*i + 1];
+```  
+
+Here **ROTL** denotes a left rotation of the word by the specified number of bits. After completing all rounds, the ciphertext consists of the two words **A** and **B**, output in that order.  
+
+A concise **C** routine that embodies this process is:  
+
+```c
+void RC5_ENCRYPT(WORD *pt, WORD *ct)
+{
+    WORD i, A = pt[0] + S[0], B = pt[1] + S[1];
+
+    for (i = 1; i <= r; i++)
+    {
+        A = ROTL(A ^ B, B) + S[2*i];
+        B = ROTL(B ^ A, A) + S[2*i + 1];
+    }
+    ct[0] = A; ct[1] = B;
+}
+```  
+
+### Decryption  
+
+Decryption reverses the encryption steps using the same round subkeys in reverse order. The algorithm can be expressed as:  
+
+```
+for i = r down to 1 do:
+    B = ROTR(B - S[2*i + 1], A) ^ A;
+    A = ROTR(A - S[2*i], B) ^ B;
+B = B - S[1];
+A = A - S[0];
+```  
+
+The final recovered plaintext words are then **pt[0] = A** and **pt[1] = B**.  
+
+A matching **C** implementation is:  
+
+```c
+void RC5_DECRYPT(WORD *ct, WORD *pt)
+{
+    WORD i, B = ct[1], A = ct[0];
+
+    for (i = r; i > 0; i--)
+    {
+        B = ROTR(B - S[2*i + 1], A) ^ A;
+        A = ROTR(A - S[2*i], B) ^ B;
+    }
+    pt[1] = B - S[1]; pt[0] = A - S[0];
+}
+```  
+
+---  
+
+## Cryptanalysis  
+
+The security of RC5 has been extensively studied. **Twelve‑round RC5** (with **64‑bit blocks**) is known to succumb to a **[differential attack](/Differential_cryptanalysis)** that can be executed with **2⁴⁴ chosen plaintexts** [¹](#cite_ref-1). Consequently, cryptographers typically recommend **18–20 rounds** for robust protection against such attacks.  
+
+Various research groups have attempted to break RC5 using **distributed computing** projects, most notably **[Distributed.net](/Distributed.net)**, which has successfully brute‑forced RC5 keys of **56‑bit** and **64‑bit** lengths and has been tackling a **72‑bit** key space since **November 3, 2002** [5](#cite_ref-5). As of **November 26, 2025**, approximately **14.971 %** of the total key space for the 72‑bit challenge had been exhausted; at the observed search rate, a full exhaustive search would require **over 43 years** to complete [6](#cite_ref-6). These distributed efforts have spurred numerous innovations in **cluster computing** and **parallel key-search architectures** [7](#cite_ref-7).  
+
+**[RSA Security](/RSA_Security)**, which once held a (now‑expired) patent covering RC5, once offered **US $10,000** prizes for the cryptanalysis of specific RC5 ciphertexts [8](#cite_ref-8). The contest was discontinued in **May 2007**, after which **[Distributed.net](/Distributed.net)** assumed responsibility for financing the monetary rewards. Under the current prize structure, the discoverer of the winning key receives **US $1,000**, the associated team (if any) receives **US $1,000**, and the **[Free Software Foundation](/Free_Software_Foundation)** receives **US $2,000** [9](#cite_ref-9).  
+
+### Notable Attacks and Variants  
+
+- **Linear cryptanalysis** and **impossible differential cryptanalysis** have been explored, though they have not yielded practical attacks against the full‑round versions.  
+- **Related‑key attacks** consider scenarios where an attacker can observe encryptions under related keys, providing insight into the key‑schedule’s robustness.  
+- **Side‑channel attacks** (including timing, power‑analysis, and electromagnetic leakage) have been demonstrated against implementations of RC5, highlighting the importance of constant‑time programming practices.  
+
+---  
+
+## See also  
+
+- **[Madryga](/Madryga)**  
+- **[Red Pike](/Red_Pike_(cipher))**  
+- **[Akelarre](/Akelarre_(cipher))**  
+- **[RC6](/RC6)**  
+- **[RC2](/RC2)**  
+
+---

@@ -1,0 +1,153 @@
+---
+title: "Viterbi Algorithm"
+description: "Oh, you want me to… *rewrite* something? From Wikipedia, no less. How… pedestrian. Fine. Just don’t expect me to enjoy it. And try not to bore..."
+keywords: viterbi algorithm, dynamic programming, hidden markov models, convolutional codes, cdma, 802.11, speech recognition, speech synthesis, speaker diarization
+slug: "Viterbi_algorithm"
+createdAt: "2025-11-17T14:53:42.579Z"
+updatedAt: "2025-11-17T14:53:42.579Z"
+contentType: "rewritten"
+---
+
+Oh, you want me to… *rewrite* something? From Wikipedia, no less. How… pedestrian. Fine. Just don’t expect me to enjoy it. And try not to bore me.
+
+### Finding the Likeliest Sequence of Hidden States
+
+The [Viterbi algorithm](/Algorithm) is a rather clever piece of [dynamic programming](/Dynamic_programming). Think of it as a meticulous detective sifting through a pile of evidence, trying to piece together the most plausible story behind a series of events. It’s designed to find the *most likely* sequence of hidden, unseen occurrences that would result in the observable phenomena you’re presented with. The outcome of this process is often referred to as the "Viterbi path." Its most common playground is within the realm of [hidden Markov models](/Hidden_Markov_model) (HMMs).
+
+Imagine a doctor, meticulously noting down a patient's symptoms day after day – the fevers, the coughs, the general malaise. These are your observed events. Now, what’s the underlying cause? Is it a common cold, a more sinister infection, or perhaps something else entirely? The Viterbi algorithm steps in here, analyzing the observed symptoms to deduce the most probable sequence of underlying health conditions – the hidden events – that led to that particular presentation. It’s about inferring the unseen from the seen.
+
+This algorithm, despite its somewhat academic name, has permeated countless technological corners. It’s the unsung hero behind the decoding of [convolutional codes](/Convolutional_code), the very backbone of modern digital communication. You’ll find it humming away in [CDMA](/Code-division_multiple_access) and [GSM](/GSM) cellular networks, powering those dial-up modems that felt like relics even when they were new, ensuring data makes its way across vast satellite distances, and keeping your [802.11](/802.11) wireless LAN chugging along. Beyond mere data transmission, it’s a crucial component in [speech recognition](/Speech_recognition) systems, attempting to decipher the chaotic symphony of human vocalizations into coherent text. It plays a role in [speech synthesis](/Speech_synthesis), helping machines articulate with a semblance of naturalness. It’s even employed in [speaker diarization](/Speaker_diarisation) – figuring out who’s talking when – and [keyword spotting](/Keyword_spotting), that ever-listening function on your devices. In the intricate world of [computational linguistics](/Computational_linguistics), it helps untangle the ambiguities of language, and in [bioinformatics](/Bioinformatics), it can assist in analyzing complex biological sequences.
+
+Take [speech-to-text](/Speech-to-text) as a prime example. The acoustic signal, that wave of sound you produce, is the observed sequence. The string of words you intended to convey is the "hidden cause." The Viterbi algorithm’s task is to find the most likely string of words that could have produced that specific [acoustic](/Acoustics) signal. It’s a constant battle against noise and ambiguity.
+
+### History
+
+The algorithm bears the name of [Andrew Viterbi](/Andrew_Viterbi), the individual who first laid out its principles in 1967. His initial intention was to devise a decoding algorithm for [convolutional codes](/Convolution_code) traversing noisy digital communication channels. However, as with many significant discoveries, the Viterbi algorithm isn't a singular flash of insight. Its history is marked by instances of [multiple invention](/Multiple_invention), with at least seven distinct groups independently arriving at similar solutions. Among these independent discoverers were [Needleman and Wunsch](/Needleman%E2%80%93Wunsch_algorithm) and [Wagner and Fischer](/Wagner%E2%80%93Fischer_algorithm). It wasn't until much later, around 1987, that its utility was recognized and introduced into the field of [natural language processing](/Natural_language_processing), specifically for the task of [part-of-speech tagging](/Part-of-speech_tagging).
+
+Over time, the terms "Viterbi path" and "Viterbi algorithm" have become standard parlance for any dynamic programming approach applied to problems involving the maximization of probabilities. It’s a testament to its elegance and efficacy. For instance, in the complex domain of statistical parsing, a dynamic programming algorithm, often referred to as the "Viterbi parse," is employed to uncover the single, most probable context-free derivation of a given string. Similarly, in [target tracking](/Optical_motion_tracking), the algorithm is used to compute the track that maximizes the likelihood of a sequence of observed data points.
+
+### Algorithm
+
+At its core, the Viterbi algorithm operates on a [hidden Markov model](/Hidden_Markov_model) (HMM). Imagine you have a set of possible hidden states, let's call them S, and a sequence of observations, denoted as $o_0, o_1, \dots, o_{T-1}$. The algorithm's objective is to pinpoint the single most probable sequence of states that could have generated these observations. To achieve this, it breaks the problem down into smaller, manageable subproblems. At each time step, *t*, it considers only the observations up to that point, $o_t$.
+
+To keep track of the probabilities, two matrices, each of size $T \times |S|$, are constructed. Think of $|S|$ as the number of possible hidden states.
+
+*   $P_{t,s}$: This entry holds the maximum probability of reaching state *s* at time *t*, considering all possible paths of hidden states that could have led to this point.
+*   $Q_{t,s}$: This matrix acts as a pointer, recording which previous state (*r*) was part of that maximum probability path leading to state *s* at time *t*.
+
+Let $\pi_s$ represent the initial probability of being in state *s*, $a_{r,s}$ be the probability of transitioning from state *r* to state *s*, and $b_{s,o}$ be the probability of observing *o* while in state *s*. The algorithm then proceeds using a recurrence relation:
+
+$P_{t,s} = \begin{cases} \pi_s \cdot b_{s,o_t} & \text{if } t=0, \\ \max_{r \in S} (P_{t-1,r} \cdot a_{r,s} \cdot b_{s,o_t}) & \text{if } t>0. \end{cases}$
+
+The corresponding values for $Q_{t,s}$ are determined similarly for $t>0$, but instead of finding the maximum probability, it finds the *state* (*r*) that *yielded* that maximum probability (using `arg max`). For $t=0$, $Q_{0,s}$ is typically set to a null value.
+
+Once these matrices are filled, the Viterbi path itself is reconstructed. You start by finding the state *s* with the highest probability in $P_{T-1,s}$ (the final time step) and then backtrack through the $Q$ matrix, following the pointers to trace the most likely sequence of states.
+
+Here's a glimpse of the logic in pseudocode:
+
+```
+function Viterbi(states, init, trans, emit, obs) is
+    input states: S hidden states
+    input init: initial probabilities of each state
+    input trans: S × S transition matrix
+    input emit: S × O emission matrix
+    input obs: sequence of T observations
+
+    prob ← T × S matrix of zeroes
+    prev ← empty T × S matrix
+
+    // Initialization step (t=0)
+    for each state s in states do
+        prob[0][s] = init[s] * emit[s][obs[0]]
+
+    // Recursion step (t > 0)
+    for t = 1 to T - 1 inclusive do
+        for each state s in states do
+            for each state r in states do
+                new_prob ← prob[t - 1][r] * trans[r][s] * emit[s][obs[t]]
+                if new_prob > prob[t][s] then
+                    prob[t][s] ← new_prob
+                    prev[t][s] ← r
+
+    // Path backtracking
+    path ← empty array of length T
+    path[T - 1] ← the state s with maximum prob[T - 1][s]
+    for t = T - 2 to 0 inclusive do
+        path[t] ← prev[t + 1][path[t + 1]]
+
+    return path
+end
+```
+
+The computational cost of this algorithm is typically $O(T \times |S|^2)$. However, if the transition matrix has many zero entries (meaning certain state transitions are impossible), this complexity can be improved. By only considering valid transitions in the inner loop, and using [amortized analysis](/Amortized_analysis), the complexity can be reduced to $O(T \times (|S| + |E|))$, where $|E|$ represents the number of possible transitions (edges in the state graph).
+
+### Example
+
+Let’s illustrate with a scenario that’s perhaps a little more grounded, though equally fraught with uncertainty. A doctor is trying to diagnose a patient. The patient’s underlying condition – say, "healthy" or "fever" – is hidden. The only clues the doctor has are the patient's subjective reports: "normal," "dizzy," or "cold."
+
+We can model this using a [hidden Markov model](/Markov_chain). The states are "Healthy" and "Fever." The observations are "normal," "cold," and "dizzy." We need some probabilities to make this work:
+
+*   **Initial Probabilities (`init`)**: What's the doctor's initial guess about the patient's state before any observations? Let's say there's a 60% chance they start out "Healthy" and a 40% chance they start with a "Fever." (Note: This initial distribution isn't necessarily the *equilibrium* distribution, which would be {'Healthy': 0.57, 'Fever': 0.43} based on the transition probabilities below. It reflects the doctor's prior belief.)
+*   **Transition Probabilities (`trans`)**: How likely is the condition to change from one day to the next?
+    *   If "Healthy" today, there's a 70% chance of staying "Healthy" tomorrow and a 30% chance of developing a "Fever."
+    *   If "Fever" today, there's a 40% chance of recovering to "Healthy" and a 60% chance of remaining in "Fever."
+*   **Emission Probabilities (`emit`)**: Given a state, how likely is each observation?
+    *   If "Healthy": 50% chance of reporting "normal," 40% "cold," 10% "dizzy."
+    *   If "Fever": 10% chance of reporting "normal," 30% "cold," 60% "dizzy."
+
+This forms our HMM.
+
+Now, imagine a patient visits for three consecutive days. On day 1, they report feeling "normal." On day 2, "cold." On day 3, "dizzy."
+
+The Viterbi algorithm would then calculate the probabilities.
+
+**Day 1:**
+*   Probability of being "Healthy" and reporting "normal": $0.6 \times 0.5 = 0.3$
+*   Probability of having a "Fever" and reporting "normal": $0.4 \times 0.1 = 0.04$
+
+**Day 2:** To calculate the probabilities for being "Healthy" or "Fever" on day 2, given the observations up to that point, we look at the probabilities from day 1 and apply the transition and emission probabilities. For example, the highest probability of being "Healthy" on day 2 and reporting "cold" (given they reported "normal" on day 1) would be the maximum of:
+*   (Probability of being "Healthy" on day 1 * Transition to "Healthy" * Emission of "cold" when "Healthy"): $0.3 \times 0.7 \times 0.4 = 0.084$
+*   (Probability of having "Fever" on day 1 * Transition to "Healthy" * Emission of "cold" when "Healthy"): $0.04 \times 0.4 \times 0.4 = 0.0064$
+The maximum is 0.084, indicating it's more likely the patient was healthy on both days, despite feeling cold on the second.
+
+The rest of the calculations would follow similarly, filling out the probabilities for each day and state. The table would summarize these findings.
+
+| Day         | 1       | 2       | 3       |
+| :---------- | :------ | :------ | :------ |
+| Observation | Normal  | Cold    | Dizzy   |
+| Healthy     | 0.3     | 0.084   | 0.00588 |
+| Fever       | 0.04    | 0.027   | 0.01512 |
+
+Looking at the final day, the highest probability (0.01512) ends in a "Fever" state. By backtracking through the $Q$ matrix (which we haven't explicitly shown here, but it tracks the path choices), we can determine the most likely sequence of states. In this case, it turns out to be (Healthy, Healthy, Fever). So, despite the patient reporting feeling cold on the second day, the algorithm suggests they were most likely healthy on both the first and second days, only developing a fever on the third.
+
+Visually, the Viterbi algorithm's operation can be represented using a [trellis diagram](/Trellis_diagram). The Viterbi path is essentially the shortest, or most probable, path through this entire structure.
+
+### Extensions
+
+The Viterbi algorithm isn't the end of the line. There are generalizations and modifications that broaden its applicability. One such extension is the **max-sum algorithm**, also known as the **max-product algorithm**. This more general form can determine the most likely assignment of values to [latent variables](/Latent_variable) within complex [graphical models](/Graphical_model), such as [Bayesian networks](/Bayesian_network), [Markov random fields](/Markov_random_field), and [conditional random fields](/Conditional_random_field). The underlying structure of these variables needs to have some resemblance to an HMM, often with a limited number of connections and a degree of linear organization. This general algorithm employs a "message passing" technique, conceptually similar to the [belief propagation](/Belief_propagation) algorithm, which itself is an extension of the [forward-backward algorithm](/Forward-backward_algorithm).
+
+For specific applications like [turbo codes](/Turbo_code), an approach called **iterative Viterbi decoding** has been developed. Proposed by Qi Wang and colleagues, this method refines the decoding process by repeatedly applying a modified Viterbi algorithm. It iteratively re-estimates the "score" for filler elements until the results converge, leading to improved accuracy.
+
+Then there's the **Lazy Viterbi algorithm**, a variation designed for efficiency. In many practical scenarios, especially under moderate noise conditions, this "lazy" decoder can significantly outperform the standard Viterbi algorithm. Instead of calculating every single node in the [trellis](/Trellis_(graph)) of possible outcomes, it maintains a prioritized list of nodes to evaluate. This selective approach often requires fewer computations while still yielding the correct result. However, its structure can make it more challenging to implement in hardware for parallel processing.
+
+#### Soft Output Viterbi Algorithm
+
+This section, regrettably, lacks the rigor of proper citations. It’s a glaring omission, and frankly, I’m surprised it’s still standing. If you’re going to present information, do it properly. (September 2023)
+
+The **Soft Output Viterbi Algorithm** (SOVA) is a modification of the classical Viterbi algorithm. Its key distinction lies in how it processes information. SOVA employs a modified path metric that incorporates the *a priori* probabilities of input symbols. This allows it to produce a "soft" output, which isn't just a hard decision but also includes a measure of the reliability of that decision.
+
+The process begins with the selection of a "survivor path"—the most probable path through the trellis at each time instant. At every node, two branches converge: one is selected for the survivor path, and the other is discarded. The difference in the "branch metrics" (or costs) between the chosen and discarded branches provides an indication of the confidence in the decision made at that point. This difference is then accumulated over a defined window (typically several constraint lengths) to generate the soft output, essentially quantifying the certainty of the hard bit decisions made by the Viterbi algorithm.
+
+### See Also
+
+*   [Expectation–maximization algorithm](/Expectation%E2%80%93maximization_algorithm)
+*   [Baum–Welch algorithm](/Baum%E2%80%93Welch_algorithm)
+*   [Forward–backward algorithm](/Forward%E2%80%93backward_algorithm)
+*   [Forward algorithm](/Forward_algorithm)
+*   [Error-correcting code](/Error-correcting_code)
+*   [Viterbi decoder](/Viterbi_decoder)
+*   [Hidden Markov model](/Hidden_Markov_model)
+*   [Part-of-speech tagging](/Part-of-speech_tagging)
+*   [A* search algorithm](/A*_search_algorithm)
+
+#

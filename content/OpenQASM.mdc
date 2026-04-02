@@ -1,0 +1,146 @@
+---
+title: "OpenQASM"
+description: "This article relies excessively on references to primary sources. Please improve this article by adding secondary or tertiary sources. Find sources: "OpenQASM"..."
+keywords: references, primary sources, secondary or tertiary sources, openqasm, programming language, quantum circuits, algorithms, quantum computers, qubit
+slug: "OpenQASM"
+createdAt: "2025-12-23T09:17:02.479Z"
+updatedAt: "2025-12-23T09:17:02.479Z"
+contentType: "rewritten"
+aiProvider: "Gemini"
+aiModel: "gemini-2.5-flash"
+previousArticleSlug: "Pure_state"
+previousArticleTitle: "Pure State"
+---
+
+This article relies excessively on [references](/Wikipedia:Verifiability) to [primary sources](/Wikipedia:No_original_research). Please improve this article by adding [secondary or tertiary sources](/Wikipedia:No_original_research).
+Find sources: &#160;"OpenQASM"&#160;–&#160;news&#160; · newspapers&#160; · books&#160; · scholar&#160; · JSTOR (September 2018) ( [Learn how and when to remove this message](/Help:Maintenance_template_removal) )
+
+Honestly, if you're trying to understand something this fundamental, relying on the original source isn't exactly a groundbreaking sin. But fine, go find someone else to rephrase it for you. It's not like the underlying physics is going to change.
+
+## OpenQASM
+
+**Open Quantum Assembly Language** ( [OpenQASM](/OpenQASM); pronounced *open kazm* ) is, for all intents and purposes, a [programming language](/Programming_language) specifically engineered for the rather niche task of articulating [quantum circuits](/Quantum_circuit) and the [algorithms](/Quantum_algorithm) they embody, destined for the esoteric hardware known as [quantum computers](/Quantum_computing). It’s the closest thing to telling a quantum machine what to do without resorting to shouting at individual [qubit](/Qubit) states.
+
+| Stable release         | 3.1.0 / May&#160;15, 2024;&#32;19 months ago&#160;(2024-05-15) |
+| :--------------------- | :----------------------------------------------------------- |
+| Implementation language | [Python](/Python_(programming_language))                     |
+| License                | [Apache License](/Apache_License) 2.0                        |
+| Filename extensions    | .qasm                                                        |
+| Website                | openqasm.com                                                 |
+
+## Language
+
+The design philosophy behind [OpenQASM](/OpenQASM) places it firmly as an [intermediate representation](/Intermediate_representation). This means it's not meant for humans to write complex [quantum algorithms](/Quantum_algorithm) directly – that's what higher-level [quantum programming](/Quantum_programming) languages are for, bless their optimistic hearts. Instead, [OpenQASM](/OpenQASM) acts as the crucial lingua franca, a translation layer that allows these loftier compilers to effectively communicate their intentions to the physical quantum hardware. It’s the necessary, gritty detail between theoretical elegance and operational reality.
+
+Its utility stems from its ability to describe a remarkably broad spectrum of quantum operations, from the fundamental [quantum logic gates](/Quantum_logic_gate) that manipulate [qubit](/Qubit) states to more complex unitary transformations. Crucially, it also incorporates mechanisms for classical feed-forward flow control. This isn't just a nicety; it's a necessity. Many contemporary [quantum algorithms](/Quantum_algorithm), particularly those in the [NISQ era](/Noisy_intermediate-scale_quantum_era), rely on the outcomes of intermediate quantum measurements to dynamically adjust subsequent operations. [OpenQASM](/OpenQASM) provides the structure to implement these adaptive strategies, enabling sophisticated algorithms that wouldn't be possible with purely sequential quantum operations.
+
+Beyond abstract operations, the language is equipped with explicit mechanisms for describing the precise timing of instructions. This might seem like an overly granular detail, but when you're dealing with delicate quantum states and their fleeting coherence times, timing is not just important – it's everything. Furthermore, it allows for the attachment of low-level definitions directly to gates, facilitating tasks such as calibration. This means that the physical nuances of a specific quantum processor, like the exact pulse sequences required to implement a given gate, can be specified and optimized within the [OpenQASM](/OpenQASM) framework, bridging the gap between abstract logical operations and the messy, analog world of quantum hardware.
+
+However, let's be clear: [OpenQASM](/OpenQASM) is decidedly *not* engineered for general-purpose classical computation. If you're looking to balance your budget or process your cat videos, you've come to the wrong place. While it provides classical control structures necessary for quantum operations, hardware implementations of the language may not support the full, unfettered range of data manipulation typically described in its specification. Compilers designed to target [OpenQASM](/OpenQASM) are generally expected to provide robust support for a wide array of classical operations when dealing with compile-time constants – values known before execution. Yet, the extent of support for these same operations when applied to runtime values, those generated during the actual execution of a quantum program, can vary significantly between different hardware implementations. It’s a pragmatic limitation, reflecting the current architectural focus on quantum processing, not classical overhead.
+
+The concept of [OpenQASM](/OpenQASM) was first formally introduced and detailed in a research paper published in July 2017. Following this publication, a reference source code implementation was made available as an integral component of [IBM](/IBM)'s renowned Quantum Information Software Kit, more commonly known as [Qiskit](/Qiskit). This integration provided a practical means for developers and researchers to engage with the language, particularly for deployment on [IBM](/IBM)'s [IBM Quantum Experience](/IBM_Quantum_Experience) [cloud quantum computing](/Cloud-based_quantum_computing) platform, effectively democratizing access to quantum hardware programming.
+
+In its fundamental characteristics and purpose, [OpenQASM](/OpenQASM) exhibits notable similarities to traditional [hardware description languages](/Hardware_description_language) (HDLs) such as [Verilog](/Verilog). Just as [Verilog](/Verilog) allows engineers to describe the behavior and structure of digital circuits at a low level, enabling synthesis onto physical hardware, [OpenQASM](/OpenQASM) provides a precise, textual means to specify quantum circuits and their control flow, ultimately allowing for their compilation and execution on actual quantum processors. Both serve as critical interfaces between higher-level design abstractions and the intricate, physical realities of specialized computing hardware.
+
+A crucial aspect of any evolving technical specification is versioning. [OpenQASM](/OpenQASM) explicitly defines its version at the very beginning of a source file, a declaration that serves as a clear indicator of the language features and syntax expected by the compiler. This is done through a simple numerical statement, as seen in the declaration:
+
+```qasm
+OPENQASM 3;
+```
+
+The initial published implementations and widespread adoption were based on OpenQASM 2.0. However, as the field matures and new capabilities are required, the specification has naturally evolved. Version 3.0 of the specification represents the current iteration, incorporating a host of enhancements and expanded features. The most up-to-date and authoritative documentation for this version can be accessed and reviewed at the official [OpenQASM](/OpenQASM) repository hosted on [GitHub](/GitHub). This open, collaborative approach to its development underscores its role as a community-driven standard, despite its origins.
+
+## Examples
+
+To illustrate the practical application of [OpenQASM](/OpenQASM), consider a fundamental arithmetic operation: addition. The following snippet of [OpenQASM](/OpenQASM) source code, drawn directly from the official library, demonstrates a quantum ripple-carry adder. This particular implementation is based on the work described by Cuccaro et al. in their 2004 paper, `quant-ph/0410184`, a classic in the field. It's a rather elegant way to add two four-bit numbers using quantum principles, proving that even the most advanced machines eventually come down to basic arithmetic.
+
+```qasm
+/*
+* quantum ripple-carry adder
+* Cuccaro et al, quant-ph/0410184
+*/
+OPENQASM 3;
+include "stdgates.inc";
+
+// Define a custom 'majority' gate, a core component of this adder.
+// It performs a specific sequence of CNOT (cx) and Toffoli (ccx) gates.
+// The majority gate essentially computes the carry bit for an adder.
+gate majority a, b, c {
+cx c, b; // CNOT controlled by 'c', targets 'b'
+cx c, a; // CNOT controlled by 'c', targets 'a'
+ccx a, b, c; // Toffoli gate controlled by 'a' and 'b', targets 'c'
+}
+
+// Define the inverse of the 'majority' gate, 'unmaj', for uncomputation.
+// Uncomputation is vital in quantum circuits to revert intermediate states
+// and preserve coherence, or to free up qubits.
+gate unmaj a, b, c {
+ccx a, b, c; // Toffoli gate controlled by 'a' and 'b', targets 'c'
+cx c, a; // CNOT controlled by 'c', targets 'a'
+cx a, b; // CNOT controlled by 'a', targets 'b'
+}
+
+// Declare quantum registers:
+// 'cin' is a single qubit for the initial carry-in.
+// 'a' and 'b' are 4-qubit registers for the two numbers being added.
+// 'cout' is a single qubit for the final carry-out.
+qubit[1] cin;
+qubit[4] a;
+qubit[4] b;
+qubit[1] cout;
+
+// Declare a classical bit register 'ans' to store the measurement results.
+// It's 5 bits long to accommodate the 4-bit sum and the 1-bit carry-out.
+bit[5] ans;
+
+// Define classical unsigned integer inputs for initialization.
+// Here, 'a' is initialized to 1 (binary 0001) and 'b' to 15 (binary 1111).
+// The expected sum is 16 (binary 10000), which will require 5 bits.
+uint[4] a_in = 1; // a = 0001
+uint[4] b_in = 15; // b = 1111
+
+// Initialize all qubits to the |0> state. This is a crucial step to ensure
+// a clean, known starting point for the quantum computation.
+reset cin;
+reset a;
+reset b;
+reset cout;
+
+// Set the input states of the 'a' and 'b' registers based on 'a_in' and 'b_in'.
+// For each bit of the classical input, if it's 1, apply an X-gate (NOT gate)
+// to the corresponding qubit to flip it from |0> to |1>.
+for i in [0: 3] {
+if(bool(a_in[i])) x a[i];
+if(bool(b_in[i])) x b[i];
+}
+
+// The core addition logic begins. The 'majority' gate is applied iteratively.
+// First, the least significant bits of 'cin', 'b', and 'a' are processed.
+majority cin[0], b[0], a[0];
+
+// Then, a loop applies the 'majority' gate to propagate carries through the registers.
+// The result of the addition for each bit is stored in 'b'.
+for i in [0: 2] { majority a[i], b[i + 1], a[i + 1]; }
+
+// The most significant carry is then moved to the 'cout' qubit.
+cx a[3], cout[0];
+
+// Now, the uncomputation phase begins using the 'unmaj' gate in reverse order
+// to clean up auxiliary qubits and minimize entanglement, which is crucial
+// for resource efficiency and avoiding errors.
+for i in [2: -1: 0] { unmaj a[i], b[i + 1], a[i + 1]; }
+unmaj cin[0], b[0], a[0];
+
+// Finally, the results are measured.
+// The sum bits (excluding the carry) are measured from 'b' into the first 4 bits of 'ans'.
+measure b[0:3] -> ans[0:3];
+// The final carry-out is measured from 'cout' into the 5th bit of 'ans'.
+measure cout[0] -> ans[4];
+```
+
+This example vividly illustrates how [OpenQASM](/OpenQASM) provides the granular control necessary to construct complex [quantum algorithms](/Quantum_algorithm). It defines custom gates, manipulates quantum and classical registers, includes classical control flow (`for`, `if`), and precisely dictates the sequence of operations down to the individual [qubit](/Qubit) level, culminating in the classical measurement of a quantum computation's outcome. It’s a complete, albeit low-level, description of a functional quantum program.
+
+## See also
+
+*   [Quantum programming](/Quantum_programming)
+*   [Q Sharp](/Q_Sharp)

@@ -1,0 +1,185 @@
+---
+title: "Topological Space"
+description: "A mathematical space where the concept of "closeness" is defined, but not necessarily quantifiable with a numerical distance). This is the essence of a..."
+keywords: mathematical space, distance, topological space, points, neighbourhoods, open sets, limits, continuity, connectedness
+slug: "Topological_space"
+createdAt: "2025-12-19T11:18:18.964Z"
+updatedAt: "2025-12-19T11:18:18.964Z"
+contentType: "rewritten"
+previousArticleSlug: "Mark_24_mine"
+previousArticleTitle: "Mark 24 Mine"
+---
+
+A [mathematical space](/Mathematics) where the concept of "closeness" is defined, but not necessarily quantifiable with a numerical [distance](/Distance_(mathematics)). This is the essence of a [topological space](/Topological_space). It's built upon a [set](/Set_(mathematics)) of elements, referred to as [points](/Point_(geometry)), and a special structure called a topology. This topology is essentially a collection of [neighbourhoods](/Neighbourhood_(mathematics)) for each point, meticulously crafted to formalize the idea of closeness. While there are multiple ways to define this structure, the most prevalent one relies on the notion of [open sets](/Open_set).
+
+These spaces, in their generality, are the bedrock for defining fundamental mathematical concepts like [limits](/Limit_(mathematics)), [continuity](/Continuous_function_(topology)), and [connectedness](/Connected_space). Think of them as the underlying framework for familiar spaces like [Euclidean spaces](/Euclidean_space), [metric spaces](/Metric_space), and [manifolds](/Manifold). Despite their abstract nature, topological spaces are indispensable, weaving their way through nearly every modern branch of mathematics. The dedicated study of these spaces in isolation is known as [general topology](/General_topology), or sometimes point-set topology.
+
+### History
+
+The seeds of topology were sown surprisingly early. Around 1735, the brilliant [Leonhard Euler](/Leonhard_Euler) stumbled upon a remarkable formula relating the number of vertices (V), edges (E), and faces (F) of a [convex polyhedron](/Convex_polytope), which also applies to [planar graphs](/Planar_graph):
+
+
+
+V
+&#x2212;
+E
++
+F
+=
+2
+
+
+{\displaystyle V-E+F=2}
+
+This discovery, along with its subsequent generalizations by mathematicians like [Augustin-Louis Cauchy](/Augustin-Louis_Cauchy) (1789–1857) and [Simon Antoine Jean L'Huilier](/Simon_Antoine_Jean_L%27Huilier) (1750–1840), provided a significant impetus for the burgeoning field of topology. Later, in 1827, [Carl Friedrich Gauss](/Carl_Friedrich_Gauss), in his seminal work "General Investigations of Curved Surfaces," offered a definition of curved surfaces that eerily presages our modern topological understanding. He described a surface as having continuous curvature at a point A if all lines drawn from A to infinitesimally nearby points on the surface deviate negligibly from a single plane passing through A. This was a crucial step, moving beyond purely local perspectives.
+
+However, it was [Bernhard Riemann](/Bernhard_Riemann), in the early 1850s, who truly began to explore surfaces from a more global, topological viewpoint, moving beyond the purely local, parametric descriptions prevalent before. It was recognized that the central challenge in understanding the topology of (compact) surfaces lay in discovering invariants – properties that remain unchanged under continuous transformations – that could be used to determine if two surfaces were fundamentally the same, or [homeomorphic](/Homeomorphism). [August Ferdinand Möbius](/August_Ferdinand_Möbius) and [Camille Jordan](/Camille_Jordan) were among the first to grapple with this problem, seeking these invariant properties.
+
+The concept of topology as a distinct field was formally articulated by [Felix Klein](/Felix_Klein) in his 1872 "Erlangen Program," where he defined it as the study of invariants under arbitrary continuous transformations. The term "topology" itself was coined by [Johann Benedict Listing](/Johann_Benedict_Listing) in 1847, though he had employed it in correspondence earlier, preferring it over the existing term "Analysis situs." The true foundation for topology, applicable to spaces of any dimension, was laid by [Henri Poincaré](/Henri_Poincaré), whose groundbreaking articles on the subject began appearing in 1894. Later, in the 1930s, [James Waddell Alexander II](/James_Waddell_Alexander_II) and [Hassler Whitney](/Hassler_Whitney) solidified the idea that a surface could be understood as a topological space that is locally identical to a [Euclidean plane](/Topological_manifold).
+
+The formal definition of topological spaces as we know them today is largely attributed to [Felix Hausdorff](/Felix_Hausdorff) in his 1914 work, "Principles of Set Theory." Prior to this, [Maurice Fréchet](/Maurice_Fréchet) had already introduced the concept of [metric spaces](/Metric_space) in 1906, but it was Hausdorff who popularized the term "metric space" (in German, *metrischer Raum*).
+
+### Definitions
+
+The beauty of the topological space concept lies in its flexibility; it can be defined in several equivalent ways, allowing mathematicians to choose the axiomatization that best suits their needs. While the definition via [open sets](/Open_set) is the most common, the definition via [neighbourhoods](/Neighbourhood_(mathematics)) is often considered more intuitive and is presented first.
+
+#### Definition via neighbourhoods
+
+This axiomatization, credited to [Felix Hausdorff](/Felix_Hausdorff), begins with a set, let's call it [latex]X[/latex], whose elements are typically referred to as [latex]points[/latex], though they can be any mathematical entity. We then introduce a [function](/Function_(mathematics)), denoted by [latex]{\mathcal {N}}[/latex], which assigns to each point [latex]x[/latex] in [latex]X[/latex] a collection of subsets of [latex]X[/latex]. These assigned subsets are called [latex]neighbourhoods[/latex] of [latex]x[/latex] with respect to [latex]{\mathcal {N}}[/latex], or more simply, neighbourhoods of [latex]x[/latex]. The function [latex]{\mathcal {N}}[/latex] is termed a [neighbourhood topology](/Neighbourhood_(topology)) if it satisfies the following [axioms](/Axiom):
+
+*   **Axiom 1:** If a set [latex]N[/latex] is a neighbourhood of [latex]x[/latex] (meaning [latex]N \in {\mathcal {N}}(x)[/latex]), then [latex]x[/latex] must be an element of [latex]N[/latex] ([latex]x \in N[/latex]). In essence, every point must belong to all of its own neighbourhoods.
+*   **Axiom 2:** If [latex]N[/latex] is a subset of [latex]X[/latex] and it *contains* a neighbourhood of [latex]x[/latex], then [latex]N[/latex] itself is considered a neighbourhood of [latex]x[/latex]. This means that any [superset](/Superset) of a neighbourhood of a point is also a neighbourhood of that point.
+*   **Axiom 3:** The [intersection](/Intersection_(set_theory)) of any two neighbourhoods of [latex]x[/latex] must also be a neighbourhood of [latex]x[/latex].
+*   **Axiom 4:** For any neighbourhood [latex]N[/latex] of [latex]x[/latex], there must exist another neighbourhood [latex]M[/latex] of [latex]x[/latex] such that [latex]N[/latex] is also a neighbourhood of every point within [latex]M[/latex]. This axiom is crucial for linking the neighbourhoods of different points within the space [latex]X[/latex].
+
+The first three axioms are quite straightforward. The fourth, however, plays a pivotal role in structuring the theory by establishing connections between the neighbourhoods of various points in [latex]X[/latex].
+
+A classic illustration of such a neighbourhood system is found in the set of real numbers, [latex]\mathbb{R}[/latex]. Here, a subset [latex]N[/latex] of [latex]\mathbb{R}[/latex] is defined as a neighbourhood of a real number [latex]x[/latex] if it contains an open interval that includes [latex]x[/latex].
+
+From this neighbourhood structure, we can define an [open set](/Open_set). A subset [latex]U[/latex] of [latex]X[/latex] is deemed open if it serves as a neighbourhood for *all* points contained within [latex]U[/latex]. These open sets then adhere to the axioms presented in the next definition. Conversely, if we start with the collection of open sets, we can reconstruct the neighbourhoods by defining [latex]N[/latex] as a neighbourhood of [latex]x[/latex] if it contains an open set [latex]U[/latex] such that [latex]x \in U[/latex].
+
+#### Definition via open sets
+
+This is the more commonly encountered definition of a topology on a [set](/Set_(mathematics)) [latex]X[/latex]. It involves a collection, denoted by [latex]\tau[/latex], of subsets of [latex]X[/latex], which are designated as [open sets](/Open_set). This collection [latex]\tau[/latex] must satisfy the following specific axioms:
+
+*   **Axiom 1:** Both the [empty set](/Empty_set) ([latex]\varnothing[/latex]) and the entire set [latex]X[/latex] must be members of [latex]\tau[/latex].
+*   **Axiom 2:** The [union](/Union_(set_theory)) of any arbitrary collection of sets belonging to [latex]\tau[/latex] (whether finite or infinite) must also be a member of [latex]\tau[/latex].
+*   **Axiom 3:** The [intersection](/Intersection_(set_theory)) of any *finite* number of sets belonging to [latex]\tau[/latex] must also be a member of [latex]\tau[/latex].
+
+Because this definition is so widely used, the collection [latex]\tau[/latex] of open sets is often simply referred to as "the topology on [latex]X[/latex]."
+
+Within this framework, a subset [latex]C[/latex] of [latex]X[/latex] is classified as [closed](/Closed_set) in the topological space ([latex]X[/latex], [latex]\tau[/latex]) if its [complement](/Complement_(set_theory)) in [latex]X[/latex] (i.e., [latex]X \setminus C[/latex]) is an open set. It's worth noting that, by this definition, the empty set and the entire set [latex]X[/latex] are simultaneously open and closed. They are complements of each other, and each is, in its own right, open. Any subset of [latex]X[/latex] possessing this dual nature is termed [clopen](/Clopen_set).
+
+#### Examples of topologies
+
+Imagine a set with three elements, say [latex]\{1, 2, 3\}[/latex]. The diagrams illustrate four valid topologies and two invalid ones. In the bottom-left example, the collection is not a topology because the union of [latex]\{2\}[/latex] and [latex]\{3\}[/latex], which is [latex]\{2, 3\}[/latex], is missing. The bottom-right example fails because the intersection of [latex]\{1, 2\}[/latex] and [latex]\{2, 3\}[/latex], which is [latex]\{2\}[/latex], is also absent.
+
+*   **The Trivial Topology:** Consider the set [latex]X = \{1, 2, 3, 4\}[/latex]. The trivial topology, also known as the indiscrete topology, is the simplest possible topology on [latex]X[/latex]. It consists solely of the [empty set](/Empty_set) and the set [latex]X[/latex] itself: [latex]\tau = \{\varnothing, X\}[/latex]. These are the only two subsets required by the axioms, and they indeed form a valid topology on [latex]X[/latex].
+
+*   **A More Complex Topology:** On the same set [latex]X = \{1, 2, 3, 4\}[/latex], we can define a different topology comprising six subsets: [latex]\tau = \{\varnothing, \{2\}, \{1, 2\}, \{2, 3\}, \{1, 2, 3\}, X\}[/latex]. This collection also satisfies the axioms and forms a distinct topology on [latex]X[/latex].
+
+*   **The Discrete Topology:** Again, let's take [latex]X = \{1, 2, 3, 4\}[/latex]. The discrete topology on [latex]X[/latex] is the [power set](/Power_set) of [latex]X[/latex], denoted as [latex]\wp(X)[/latex]. This means *every* subset of [latex]X[/latex] is considered an open set. The resulting topological space, ([latex]X[/latex], [latex]\tau[/latex]), is then called a [discrete space](/Discrete_space).
+
+*   **The Cofinite Topology on Integers:** Let [latex]X = \mathbb{Z}[/latex], the set of all integers. Consider the collection [latex]\tau[/latex] comprising all finite subsets of the integers, along with the set [latex]\mathbb{Z}[/latex] itself. This collection is *not* a topology. For instance, the union of all finite sets that *do not* contain zero is an infinite set, and thus not a member of the family of finite sets. Moreover, this union is not the entire set [latex]\mathbb{Z}[/latex], so it cannot be in [latex]\tau[/latex].
+
+#### Definition via closed sets
+
+By invoking [De Morgan's laws](/De_Morgan%27s_laws), the axioms for open sets can be elegantly rephrased as axioms for [closed sets](/Closed_set):
+
+*   The [empty set](/Empty_set) and the entire set [latex]X[/latex] are closed.
+*   The [intersection](/Intersection_(set_theory)) of any collection of closed sets must also be closed.
+*   The [union](/Union_(set_theory)) of any *finite* number of closed sets must also be closed.
+
+With these axioms, we can define a topological space as a set [latex]X[/latex] paired with a collection [latex]\tau[/latex] of subsets of [latex]X[/latex] that are designated as closed. In this context, the sets within [latex]\tau[/latex] are the closed sets, and their complements in [latex]X[/latex] are the open sets.
+
+#### Other definitions
+
+The concept of a topological space is so fundamental that it can be defined from various starting points, all leading to equivalent structures. The notions of neighbourhood, open sets, or closed sets can be derived from one another, provided the correct axioms are met.
+
+One such alternative is the use of the [Kuratowski closure axioms](/Kuratowski_closure_axioms). These axioms define closed sets as the [fixed points](/Fixed_point_(mathematics)) of a specific [operator](/Operator_(mathematics)) acting on the [power set](/Power_set) of [latex]X[/latex].
+
+Furthermore, a topology is entirely determined by specifying the set of [accumulation points](/Topology_glossary) for every [net](/Net_(mathematics)) within the space [latex]X[/latex]. A net is a generalization of the concept of a [sequence](/Sequence).
+
+### Comparison of topologies
+
+It's quite common for a single set to support multiple distinct topologies, each creating a unique topological space. When every open set in a topology [latex]\tau_1[/latex] is also an open set in another topology [latex]\tau_2[/latex], we say that [latex]\tau_2[/latex] is *finer* than [latex]\tau_1[/latex], or conversely, that [latex]\tau_1[/latex] is *coarser* than [latex]\tau_2[/latex]. This relationship is significant because any proof relying on the existence of certain open sets will hold true for any finer topology. Similarly, a proof that depends on certain sets *not* being open will apply to any coarser topology. The terms "larger" and "smaller" are sometimes used interchangeably with "finer" and "coarser," respectively. However, caution is advised with the terms "stronger" and "weaker," as their usage can vary significantly between authors.
+
+The collection of all possible topologies on a fixed set [latex]X[/latex] forms a [complete lattice](/Complete_lattice). For any collection of topologies on [latex]X[/latex], denoted as [latex]F = \{\tau_\alpha : \alpha \in A\}[/latex], their [meet](/Join_and_meet) is simply the intersection of all topologies in [latex]F[/latex]. Their [join](/Join_and_meet), on the other hand, is the smallest topology on [latex]X[/latex] that contains every topology in [latex]F[/latex].
+
+### Continuous functions
+
+A [function](/Function_(mathematics)), let's call it [latex]f[/latex], mapping from a topological space [latex]X[/latex] to another topological space [latex]Y[/latex] ([latex]f: X \to Y[/latex]), is considered [continuous](/Continuous_function_(topology)) if, for any point [latex]x \in X[/latex] and any neighbourhood [latex]N[/latex] of its image [latex]f(x) \in Y[/latex], there exists a neighbourhood [latex]M[/latex] of [latex]x[/latex] such that the image of [latex]M[/latex] under [latex]f[/latex] is entirely contained within [latex]N[/latex] ([latex]f(M) \subseteq N[/latex]). This definition aligns closely with the familiar concept of continuity encountered in analysis.
+
+An equivalent and often more practical definition states that a function [latex]f[/latex] is continuous if and only if the [inverse image](/Inverse_image) of every open set in [latex]Y[/latex] is an open set in [latex]X[/latex]. This formulation elegantly captures the intuition that a continuous function exhibits no "jumps" or "separations" within its domain.
+
+A special type of continuous function is a [homeomorphism](/Homeomorphism). A homeomorphism is a function that is not only continuous but also [bijective](/Bijection) (one-to-one and onto), and its [inverse](/Inverse_function) is also continuous. When two topological spaces are related by a homeomorphism, they are considered topologically identical – indistinguishable from the perspective of topology.
+
+In the realm of [category theory](/Category_theory), the category of topological spaces, denoted as **Top**, is a fundamental structure. Its [objects](/Object_(category_theory)) are topological spaces, and its [morphisms](/Morphism) are the continuous functions between them. The endeavor to classify these objects (up to [homeomorphism](/Homeomorphism)) by identifying their [invariants](/Invariant_(mathematics)) has been a driving force behind significant areas of research, including [homotopy theory](/Homotopy), [homology theory](/Homology_(mathematics)), and [K-theory](/K-theory).
+
+### Examples of topological spaces
+
+A given set can be endowed with numerous distinct topologies, each transforming it into a different topological space.
+
+*   **Discrete Topology:** Any set can be equipped with the [discrete topology](/Discrete_space), where every single subset is considered open. In such a space, the only sequences or nets that converge are those that are eventually constant.
+
+*   **Trivial Topology:** Conversely, any set can be given the [trivial topology](/Trivial_topology) (also known as the indiscrete topology). In this topology, only the [empty set](/Empty_set) and the entire space itself are open. Consequently, every sequence and every net within this space converges to *every* point. This highlights that, in general topological spaces, the limit of a sequence is not necessarily unique. However, many important topological spaces are required to be [Hausdorff spaces](/Hausdorff_space), where limits are indeed unique.
+
+*   **Finite Topological Spaces:** Any [finite set](/Finite_set) can support a multitude of different topologies. These spaces, known as [finite topological spaces](/Finite_topological_space), are often valuable tools for constructing examples or counterexamples to conjectures in general topology.
+
+*   **Cofinite Topology:** For any infinite set, the [cofinite topology](/Cofinite_topology) can be defined. In this topology, a set is considered open if it is either the empty set or its complement is finite. This construction yields the smallest T<sub>1</sub> topology on any infinite set.
+
+*   **Cocountable Topology:** Similarly, the [cocountable topology](/Cocountable_topology) can be defined on any set. A set is open in this topology if it is empty or its complement is countable. This topology is particularly useful when dealing with uncountable sets, often serving as a counterexample in various topological discussions.
+
+*   **Lower Limit Topology:** The set of [real numbers](/Real_number), [latex]\mathbb{R}[/latex], can be equipped with the [lower limit topology](/Lower_limit_topology). Here, the fundamental open sets are the half-open intervals of the form [latex][a, b)[/latex]. This topology on [latex]\mathbb{R}[/latex] is strictly finer than the standard Euclidean topology. A sequence converges in this topology if and only if it converges from above in the Euclidean topology. This example beautifully illustrates that a single set can possess multiple, distinct topologies.
+
+*   **Order Topology:** For any [ordinal number](/Ordinal_number) [latex]\gamma[/latex], the set [latex]\gamma = [0, \gamma)[/latex] can be endowed with the [order topology](/Order_topology). This topology is generated by intervals of the form [latex](\alpha, \beta)[/latex], [latex][0, \beta)[/latex], and [latex](\alpha, \gamma)[/latex], where [latex]\alpha[/latex] and [latex]\beta[/latex] are elements of [latex]\gamma[/latex].
+
+*   **Manifolds and Simplicial Complexes:** Every [manifold](/Manifold) inherently possesses a [natural topology](/Natural_topology) because it is locally Euclidean. Likewise, any [simplex](/Simplex) or [simplicial complex](/Simplicial_complex) inherits a natural topology from its embedding.
+
+*   **Sierpiński Space:** The [Sierpiński space](/Sierpi%C5%84ski_space) is the simplest example of a non-discrete topological space. It plays a significant role in areas like the [theory of computation](/Theory_of_computation) and semantics.
+
+### Topology from other topologies
+
+*   **Subspace Topology:** Any subset of a topological space can be given the [subspace topology](/Subspace_topology). The open sets in this topology are precisely the intersections of the open sets of the larger space with the subset itself.
+
+*   **Product Topology:** For any [indexed family](/Indexed_family) of topological spaces, their product can be equipped with the [product topology](/Product_topology). This topology is generated by the inverse images of open sets from the factor spaces under the [projection](/Projection_(mathematics)) mappings. In the case of finite products, a basis for the product topology consists of all possible products of open sets from the factors. For infinite products, there's an additional constraint: in a basic open set, all but finitely many of its projections must be the entire corresponding factor space. This construction is a specific instance of an [initial topology](/Initial_topology).
+
+*   **Quotient Space:** Consider a topological space [latex]X[/latex] and a set [latex]Y[/latex], along with a [surjective](/Surjection) [function](/Function_(mathematics)) [latex]f: X \to Y[/latex]. The [quotient topology](/Quotient_space_(topology)) on [latex]Y[/latex] is defined as the collection of all subsets of [latex]Y[/latex] whose [inverse images](/Inverse_image) under [latex]f[/latex] are open sets in [latex]X[/latex]. In essence, the quotient topology is the finest topology on [latex]Y[/latex] that renders [latex]f[/latex] continuous. A common application of this is when an [equivalence relation](/Equivalence_relation) is defined on a topological space [latex]X[/latex]. The map [latex]f[/latex] then becomes the natural projection onto the set of [equivalence classes](/Equivalence_class). This process is a particular case of constructing a [final topology](/Final_topology).
+
+### Metric spaces
+
+*   Main article: [Metric space](/Metric_space)
+
+[Metric spaces](/Metric_space) are equipped with a [metric](/Metric_(mathematics)), which provides a precise numerical measure of the distance between points.
+
+Every [metric space](/Metric_space) can naturally induce a metric topology. In this topology, the fundamental open sets are the open balls defined by the metric. This is the standard topology found on any [normed vector space](/Normed_vector_space). For finite-dimensional [vector spaces](/Vector_space), this topology is invariant regardless of the specific norm used.
+
+The set of [real numbers](/Real_number), [latex]\mathbb{R}[/latex], can be endowed with various topologies. The standard topology on [latex]\mathbb{R}[/latex] is generated by the [open intervals](/Interval_(mathematics)). These open intervals form a [base](/Base_(topology)) (or basis) for the topology, meaning that any open set can be expressed as a union of some collection of these intervals. Essentially, a set is open if, for every point within it, there exists an open interval of non-zero radius centered at that point. This concept generalizes to higher dimensions: the [Euclidean spaces](/Euclidean_space) [latex]\mathbb{R}^n[/latex] possess a standard topology where the basic open sets are open [balls](/Ball_(mathematics)). Similarly, the set of [complex numbers](/Complex_number), [latex]\mathbb{C}[/latex], and its higher-dimensional counterparts [latex]\mathbb{C}^n[/latex] have a standard topology defined by open balls.
+
+### Topology from algebraic structure
+
+When dealing with [algebraic objects](/Algebraic_structure), we can always introduce the [discrete topology](/Discrete_topology), ensuring that the algebraic operations remain continuous functions. For structures that are not finite, there often exists a natural topology that is compatible with the algebraic operations, meaning these operations continue to be continuous. This leads to important concepts like [topological groups](/Topological_group), [topological rings](/Topological_ring), [topological fields](/Topological_field), and [topological vector spaces](/Topological_vector_space). [Local fields](/Local_field), which are topological fields, hold particular significance in [number theory](/Number_theory).
+
+The [Zariski topology](/Zariski_topology) is an algebraically defined topology on the [spectrum of a ring](/Spectrum_of_a_ring) or an [algebraic variety](/Algebraic_variety). On spaces like [latex]\mathbb{R}^n[/latex] or [latex]\mathbb{C}^n[/latex], the closed sets in the Zariski topology correspond precisely to the [solution sets](/Solution_set) of systems of [polynomial](/Polynomial) equations.
+
+### Topological spaces with order structure
+
+*   **Spectral Spaces:** A space is classified as [spectral](/Spectral_space) if and only if it is the prime [spectrum of a ring](/Spectrum_of_a_ring), as established by the [Hochster theorem](/Melvin_Hochster).
+
+*   **Specialization Preorder:** Within a topological space, the specialization preorder (or canonical preorder) is defined by the relation [latex]x \leq y[/latex] if and only if the closure of the singleton set [latex]\{x\}[/latex] is a subset of the closure of the singleton set [latex]\{y\}[/latex] ([latex]\operatorname {cl} \{x\} \subseteq \operatorname {cl} \{y\}[/latex]), where [latex]\operatorname {cl}[/latex] represents an operator adhering to the [Kuratowski closure axioms](/Kuratowski_closure_axioms).
+
+### Topology from other structures
+
+If [latex]\Gamma[/latex] is a [filter](/Filter_on_a_set) defined on a set [latex]X[/latex], then the collection [latex]\{\varnothing\} \cup \Gamma[/latex] constitutes a topology on [latex]X[/latex].
+
+In [functional analysis](/Functional_analysis), many sets of [linear operators](/Linear_operator) are equipped with topologies defined by specifying the conditions under which a sequence of functions converges to the zero function.
+
+A [linear graph](/Linear_graph) possesses a natural topology that effectively generalizes many geometric aspects of [graphs](/Graph_theory) with [vertices](/Vertex_(graph_theory)) and [edges](/Graph_(discrete_mathematics)).
+
+The [outer space](/Outer_space_(mathematics)) associated with a [free group](/Free_group) [latex]F_n[/latex] comprises structures known as "marked metric graph structures" of volume 1 on [latex]F_n[/latex].
+
+### Classification of topological spaces
+
+*   Main article: [Topological property](/Topological_property)
+
+Topological spaces can be broadly categorized, up to homeomorphism, based on their [topological properties](/Topological_properties). A topological property is any characteristic of a space that remains invariant under homeomorphisms. To demonstrate that two spaces are not homeomorphic, it suffices to identify a topological property that they do not share. Examples of such properties include [connectedness](/Connectedness_(topology)), [compactness](/Compactness_(topology)), and various [separation axioms](/Separation_axiom). For invariants rooted in algebraic structures, one looks to the field of [algebraic topology](/Algebraic_topology).

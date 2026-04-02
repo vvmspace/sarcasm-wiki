@@ -1,0 +1,128 @@
+---
+title: "Multiversion Concurrency Control"
+description: "Multiversion concurrency control (MCC or MVCC) is a sophisticated non-locking concurrency control mechanism. It's the engine humming beneath the hood of many..."
+keywords: database management systems, transactional memory, inconsistent, isolation, lock, contention, snapshot isolation, point-in-time consistent, postgresql
+slug: "Multiversion_concurrency_control"
+createdAt: "2025-12-21T08:17:01.553Z"
+updatedAt: "2025-12-21T08:17:01.553Z"
+contentType: "rewritten"
+previousArticleSlug: "Bukhtishu"
+previousArticleTitle: "Bukhtishu"
+---
+
+Multiversion Concurrency Control
+
+Multiversion concurrency control (MCC or MVCC) is a sophisticated [non-locking concurrency control](/Non-lock_concurrency_control) mechanism. It's the engine humming beneath the hood of many modern [database management systems](/Database_management_system), ensuring that multiple users can access and modify data simultaneously without turning the database into a chaotic mess. It’s also found its way into programming languages, where it plays a crucial role in implementing [transactional memory](/Transactional_memory). Think of it as the silent guardian of data integrity in a world where everyone wants a piece of the action, all at once.&#91;1&#93;
+
+Description
+
+Imagine a bustling bank. If one teller is busy processing a wire transfer—deducting money from one account and preparing to deposit it into another—and a customer walks up to check their balance, what do they see? If the system isn't smart, they might see the money *before* it's deposited, or *after* it's withdrawn but *before* it arrives, leading to a phantom disappearance of funds. This is the classic problem of [inconsistent](/Consistency_(database_systems)) data. [Isolation](/ACID), one of the fundamental properties of database transactions, is designed to prevent exactly this kind of chaos. It guarantees that concurrent accesses to data don't interfere with each other in destructive ways.
+
+The most rudimentary approach to isolation is to make everyone wait. If someone is writing, all readers must pause until the write is complete. This is the essence of a read-write [lock](/Lock_(database)). While simple, locks can become bottlenecks, especially when long read operations clash with frequent updates, leading to [contention](/Resource_contention). MVCC sidesteps this by not having a single, definitive version of data. Instead, it maintains multiple copies, or versions, of each data item. This allows each user connected to the database to see a consistent "snapshot" of the database as it existed at a specific point in time. A writer might be making changes, but other users won't see those changes until the transaction is fully committed. It's like looking at a photograph of a moment, even as the scene continues to unfold around you.
+
+When an MVCC system needs to update a piece of data, it doesn't just overwrite the old value. Instead, it creates a new version of that data item, leaving the original intact. This proliferation of versions is managed based on the transaction's isolation level. The most common level implemented with MVCC is [snapshot isolation](/Snapshot_isolation), where each transaction sees the state of the data as it was when that transaction began.
+
+MVCC provides [point-in-time consistent](/Data_consistency) views of the database. Read transactions typically use a timestamp or a transaction ID to identify which version of the data they should access, effectively isolating themselves from ongoing writes. This means read and write transactions can often proceed concurrently without needing to block each other. However, it's worth noting that some MVCC implementations, like Oracle, still employ locks in certain scenarios, even though they aren't strictly necessary for the core MVCC functionality. Writes generate new versions, while concurrent reads consult older, pre-existing versions.
+
+The flip side of maintaining multiple versions is the challenge of managing them. Obsolete versions, which will never be accessed again, need to be removed to reclaim storage space. Some systems employ a periodic "sweep" process that traverses tables and discards old versions, sometimes requiring a temporary halt to operations (a "stop-the-world" event). [PostgreSQL](/PostgreSQL), for instance, uses a process called VACUUM FREEZE for this purpose. Other databases, like those using an undo log, store the latest committed version in the primary data area and use the undo log to reconstruct older versions when needed. The inherent limitation here is that in highly update-intensive workloads, the undo log can fill up, forcing transactions to abort because they can't be provided with their required snapshot. For a [document-oriented database](/Document-oriented_database), MVCC can offer an optimization advantage: entire documents can be written contiguously to disk. When a document is updated, the whole document can be rewritten, rather than dealing with fragmented pieces scattered across the storage.
+
+Implementation
+
+MVCC leverages [timestamps](/Timestamp) (TS) and monotonically increasing transaction IDs to maintain transactional consistency. The system ensures that a transaction (T) never has to wait to read a [database object](/Database_object) (P) by keeping multiple versions of that object available. Each version of object P is tagged with a Read Timestamp (RTS) and a Write Timestamp (WTS). A transaction Tᵢ can read the most recent version of an object whose Write Timestamp precedes its own Read Timestamp (RTS(Tᵢ)).
+
+When a transaction Tᵢ wants to write to an object P, and another transaction T<0xE2><0x82><0x96> is also operating on the same object, a specific condition must be met for Tᵢ's write to succeed. The Read Timestamp of Tᵢ must precede the Read Timestamp of T<0xE2><0x82><0x96>, meaning RTS(Tᵢ) < RTS(T<0xE2><0x82><0x96>).&#91;[clarification needed](/Wikipedia:Please_clarify)&#93; A write operation cannot be finalized if there are other outstanding transactions that have an earlier Read Timestamp pointing to the same object. It’s akin to a queue at a store; you can’t complete your purchase until everyone ahead of you has finished theirs.
+
+To put it another way, every object (P) has a Timestamp (TS). If transaction Tᵢ attempts to write to an object and its transaction Timestamp (TS(Tᵢ)) is earlier than the object's current Read Timestamp, TS(Tᵢ) < RTS(P), the transaction is aborted and must be restarted. This is because a later transaction has already established a dependency on the older version of the data. If this condition isn't met, Tᵢ proceeds to create a new version of object P, assigning it the timestamp of the transaction TS ← TS(Tᵢ).&#91;2&#93;
+
+The primary trade-off with MVCC is the overhead of storing multiple versions of data objects. However, the significant advantage is that read operations are never blocked, which is a substantial benefit for workloads that are primarily read-heavy. MVCC is particularly well-suited for implementing true [snapshot isolation](/Snapshot_isolation), a level of consistency that other concurrency control methods often struggle to achieve without incurring substantial performance penalties.
+
+Consider a simplified representation of a database record ([row](/Row_(database))) in a system using MVCC, perhaps as might be implemented in [Rust](/Rust_(programming_language)):
+
+```rust
+struct Record {
+    /// Insert transaction identifier stamp.
+    insert_transaction_id: u32,
+
+    /// Delete transaction identifier stamp.
+    delete_transaction_id: u32,
+
+    /// The length of the data.
+    data_length: u16,
+
+    /// The content of the record.
+    data: Vec<u8>,
+}
+```
+
+This structure might be laid out in memory as follows:
+
+| Offset | Octet | Bits 0-7                 | Bits 8-15     | Bits 16-23    | Bits 24-31               |
+| :----- | :---- | :----------------------- | :------------ | :------------ | :----------------------- |
+| 0      | 0-3   | Insert transaction ID    |               |               |                          |
+| 4      | 4-7   | Delete transaction ID    |               |               |                          |
+| 8      | 8-9   | Data length              |               |               |                          |
+| 10     | 10-13 | Data...                  |               |               |                          |
+| 14     | 14-...| Data... (continued)      |               |               |                          |
+
+*   **Insert transaction identifier:** A 32-bit value indicating the transaction that created this version of the record.
+*   **Delete transaction identifier:** A 32-bit value indicating the transaction that logically deleted this version of the record.
+*   **Data length:** A 16-bit field specifying the size of the actual data payload.
+*   **Data:** The variable-length content of the record itself.
+
+Examples
+
+**Concurrent Read–Write Scenario:**
+
+Let's track the state of two objects, Object 1 and Object 2, over time:
+
+| Time | Object 1       | Object 2       |
+| :--- | :------------- | :------------- |
+| 0    | "Foo" by T0    | "Bar" by T0    |
+| 1    | "Hello" by T1  |                |
+
+At Time 0, transaction T0 writes "Foo" to Object 1 and "Bar" to Object 2.
+At Time 1, transaction T1 writes "Hello" to Object 1. Object 2 remains unchanged from T0's write. The new value of Object 1 ("Hello") will be visible to any transactions starting after T1 commits. Once T1 is committed, the version of Object 1 written by T0 can potentially be garbage collected.
+
+Now, consider a scenario where a long-running transaction T2 begins reading Object 1 and Object 2 *after* T1 has committed. Simultaneously, another transaction T3 is executing. At Time 2, T3 deletes Object 2 and inserts a new object, Object 3, with the value "Foo-Bar".
+
+| Time | Object 1       | Object 2      | Object 3       |
+| :--- | :------------- | :------------ | :------------- |
+| 0    | "Foo" by T0    | "Bar" by T0   |                |
+| 1    | "Hello" by T1  |               |                |
+| 2    |                | (deleted) by T3 | "Foo-Bar" by T3 |
+
+Because T2 and T3 are running concurrently, T2 sees the state of the database *before* T3's writes become visible (i.e., before T3 commits). Therefore, T2 reads Object 2 as "Bar" (the version from T0) and Object 1 as "Hello" (the version from T1). This illustrates how MVCC enables snapshot isolation, allowing reads to proceed without locks, even amidst concurrent writes and deletions.
+
+History
+
+The foundational concepts of multiversion concurrency control were laid out in a seminal 1981 paper titled "Concurrency Control in [Distributed Database](/Distributed_database) Systems" &#91;3&#93; by [Phil Bernstein](/Phil_Bernstein) and Nathan Goodman, who were then affiliated with the [Computer Corporation of America](/Computer_Corporation_of_America). Their work, in turn, referenced a 1978 MIT dissertation &#91;4&#93; by [David P. Reed](/David_P._Reed), which is credited with clearly describing MVCC and presenting it as an original contribution.
+
+The first commercial database software to implement MVCC was [VAX Rdb/ELN](/Oracle_Rdb), released in 1984. &#91;5&#93; This system was developed at [Digital Equipment Corporation](/Digital_Equipment_Corporation) by [Jim Starkey](/Jim_Starkey). Starkey later went on &#91;6&#93; to develop another commercially successful MVCC database, [InterBase](/InterBase). &#91;7&#93;
+
+See also
+
+*   [List of databases using MVCC](/List_of_databases_using_MVCC)
+*   [Read-copy-update](/Read-copy-update)
+*   [Timestamp-based concurrency control](/Timestamp-based_concurrency_control)
+*   [Vector clock](/Vector_clock)
+*   [Version control](/Version_control)
+
+References
+
+*   ^ "Clojure - Refs and Transactions". clojure.org . Retrieved 2019-04-12.
+*   ^ Ramakrishnan, R., & Gehrke, J. (2000). Database management systems. Osborne/McGraw-Hill.
+*   ^
+    *   [Bernstein, Philip A.](/Phil_Bernstein); Goodman, Nathan (1981). "Concurrency Control in Distributed Database Systems". ACM Computing Surveys . 13 (2): 185–221. [doi](/Doi_(identifier)):10.1145/356842.356846.
+*   ^
+    *   Reed, D.P. (1978). Naming and Synchronization in a Decentralized Computer System . MIT dissertation (Thesis). [hdl](/Hdl_(identifier)):1721.1/16279. Retrieved November 12, 2022.
+*   ^
+    *   Gallant, John (9 April 1984). "RDB Gets Mixed Greeting". Computerworld . Retrieved 13 September 2021.
+*   ^
+    *   "Re: [Firebird-devel] isc\_dpb\_dbkey\_scope | Firebird".
+*   ^
+    *   "A not-so-very technical discussion of Multi Version Concurrency Control". firebirdsql.org . Retrieved 2020-11-12.
+
+Further reading
+
+*   Gerhard Weikum, Gottfried Vossen, Transactional information systems: theory, algorithms, and the practice of concurrency control and recovery , Morgan Kaufmann, 2002,
+*   [ISBN](/ISBN_(identifier)) 1-55860-508-8

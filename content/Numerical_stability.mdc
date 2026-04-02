@@ -1,0 +1,109 @@
+---
+title: "Numerical Stability"
+description: "This article includes a list of general references, but it lacks sufficient corresponding inline citations. Honestly, who has the time to meticulously track..."
+keywords: general references, inline citations, improve, introducing, mathematics, numerical analysis, numerical algorithms, numerical linear algebra, eigenvalues
+slug: "Numerical_stability"
+createdAt: "2025-11-17T18:22:22.043Z"
+updatedAt: "2025-11-17T18:22:22.043Z"
+contentType: "rewritten"
+---
+
+This article includes a list of [general references](/Wikipedia:Citing_sources), but it lacks sufficient corresponding [inline citations](/Wikipedia:Citing_sources). Honestly, who has the time to meticulously track every whisper of an idea? But fine, if you insist on proper provenance, then by all means, [improve](/Wikipedia:WikiProject_Reliability) this article by [introducing](/Wikipedia:When_to_cite) more precise citations. (February 2012) ( [Learn how and when to remove this message](/Help:Maintenance_template_removal) )
+
+In the intricate world of [mathematics](/Mathematics), specifically within the subfield of [numerical analysis](/Numerical_analysis), a property known as numerical stability is a generally desirable characteristic of [numerical algorithms](/Numerical_algorithm). However, the precise definition of what constitutes "stability" isn't a one-size-fits-all affair; it shifts depending on the context. Two particularly important arenas where this concept is scrutinized are [numerical linear algebra](/Numerical_linear_algebra), where the focus is on the delicate dance around singularities and near-singularities, and the algorithms employed to solve ordinary and partial differential equations through discrete approximation.
+
+Within the realm of numerical linear algebra, the primary source of instability often arises from the proximity to various types of singularities. Think of it like navigating a minefield where the mines are very small or nearly colliding [eigenvalues](/Eigenvalues). These near-misses can have disproportionately large effects on the outcome. Conversely, when dealing with numerical algorithms designed for differential equations, the concern shifts. Here, the primary worry is the insidious growth of [round-off error](/Round-off_error) and minor fluctuations in initial data. These seemingly insignificant deviations can, over the course of computation, balloon into substantial discrepancies, causing the final answer to veer wildly from the exact solution. &#91; [citation needed](/Wikipedia:Citation_needed) &#93;
+
+It’s a bit like throwing a pebble into a pond. Some numerical algorithms are like smooth stones, their ripples calming and diminishing. They can actually damp out these small fluctuations, or errors, in the input data. Others, however, are more like jagged rocks, capable of magnifying such errors to alarming proportions. Calculations that can be rigorously proven not to amplify approximation errors are, quite logically, termed numerically stable. A significant part of the endeavor in numerical analysis, therefore, is the persistent effort to select algorithms that are robust—a rather polite way of saying they don't produce wildly divergent results when faced with the slightest perturbation in the input data.
+
+The phenomenon that stands in stark [opposite](/Opposite_(semantics)) to stability is, predictably, instability. Typically, any given algorithm involves some form of approximative method. In certain ideal scenarios, one might be able to prove that the algorithm would converge towards the correct solution in some theoretical limit, assuming the use of perfect, infinite-precision real numbers rather than the finite, discrete world of floating-point numbers. Yet, even when such theoretical convergence is established, there's no ironclad guarantee that the practical implementation will reach the correct solution. This is because the inevitable floating-point round-off or truncation errors can, instead of being dampened, be exponentially magnified, causing the deviation from the exact solution to grow with alarming speed. &#91;1&#93;
+
+### Stability in Numerical Linear Algebra
+
+The concept of stability, much like beauty, can be perceived in the eye of the beholder, or in this case, the mathematician. There are several distinct ways to formalize this notion, each offering a slightly different lens through which to view the robustness of an algorithm. In [numerical linear algebra](/Numerical_linear_algebra), the definitions of forward, backward, and mixed stability are frequently employed.
+
+Consider the problem that a numerical algorithm is designed to solve as a [function](/Function_(mathematics)), let's call it *f*, which maps the input data *x* to the intended solution *y*. The output of the algorithm, denoted as *y*^*, will almost invariably differ from the "true" solution *y*. The primary culprits behind this discrepancy are [round-off error](/Round-off_error) and [truncation error](/Truncation_error). The forward error is simply the direct difference between the algorithm's result and the true solution: Δ *y* = *y*^* − *y*. The backward error, on the other hand, is a more subtle measure. It quantifies the smallest perturbation, Δ *x*, such that the algorithm's output *y*^* is precisely the solution to a *slightly different* problem: *f*(*x* + Δ *x*) = *y*^*. In essence, the backward error reveals the "actual" problem the algorithm ended up solving. The relationship between these two types of error is elegantly mediated by the [condition number](/Condition_number) of the problem: the forward error is bounded by the condition number multiplied by the magnitude of the backward error.
+
+In numerous scenarios, it proves more insightful to examine the [relative error](/Relative_error), which is calculated as the absolute error divided by the magnitude of the input or output, depending on the context:
+
+$$ \frac{|\Delta x|}{|x|} $$
+
+An algorithm is deemed to be **backward stable** if the backward error, Δ *x*, is small across all possible inputs *x*. Of course, "small" is a rather fluid concept and its precise meaning is dictated by the specific problem at hand. Often, the desired magnitude of the error is comparable to, or perhaps just a few [orders of magnitude](/Orders_of_magnitude) larger than, the [unit round-off](/Unit_round-off) of the machine's floating-point arithmetic.
+
+**Mixed stability** serves as a bridge, ingeniously combining the concepts of forward and backward error.
+
+The conventional definition of numerical stability leans on a more generalized framework, known as **mixed stability**. An algorithm is considered stable in this sense if it tackles a "nearby" problem with a reasonable degree of accuracy. More formally, there must exist a perturbation Δ *x* such that both Δ *x* itself is small, and the difference between the true solution to the perturbed problem, *f*(*x* + Δ *x*), and the algorithm's computed solution, *y*^*, is also small. Consequently, any backward stable algorithm is inherently stable in this mixed sense.
+
+An algorithm is described as **forward stable** if its forward error, when normalized by the condition number of the problem, is small. This essentially means that a forward stable algorithm achieves a forward error comparable in magnitude to that of some backward stable algorithm.
+
+### Stability in Numerical Differential Equations
+
+The definitions elaborated above are particularly pertinent in situations where truncation errors are not the dominant concern. However, in different contexts, such as the numerical solution of [differential equations](/Differential_equation), a distinct definition of numerical stability comes into play.
+
+Within the domain of [numerical ordinary differential equations](/Numerical_methods_for_ordinary_differential_equations), a variety of stability concepts exist, with [A-stability](/Stiff_equation) being a notable example. These concepts are intrinsically linked to notions of stability found in the study of [dynamical systems](/Dynamical_system), frequently drawing parallels with [Lyapunov stability](/Lyapunov_stability). The judicious selection of a stable numerical method becomes paramount when tackling [stiff equations](/Stiff_equation).
+
+Yet another definition of stability emerges in the field of [numerical partial differential equations](/Numerical_partial_differential_equations). Here, an algorithm designed to solve a linear evolutionary [partial differential equation](/Partial_differential_equation) is considered stable if the [total variation](/Total_variation) of the numerical solution, evaluated at a fixed point in time, remains bounded as the step size approaches zero. The celebrated [Lax equivalence theorem](/Lax_equivalence_theorem) posits that a numerical algorithm will [converge](/Numerical_methods_for_ordinary_differential_equations) if and only if it is both [consistent](/Numerical_methods_for_ordinary_differential_equations) with the differential equation and [stable](/Numerical_methods_for_ordinary_differential_equations) according to this definition. Stability in these cases is sometimes achieved through the deliberate introduction of [numerical diffusion](/Numerical_diffusion). This is not a physical phenomenon, but rather a mathematical construct designed to ensure that round-off and other computational errors are spread out, preventing them from accumulating and causing the calculation to "blow up." The [Von Neumann stability analysis](/Von_Neumann_stability_analysis) is a widely adopted technique for assessing the stability of [finite difference schemes](/Finite_difference_method) when applied to linear partial differential equations. It's crucial to note that these analytical results don't directly translate to nonlinear PDEs, where a universally applicable and consistent definition of stability becomes considerably more complex due to a host of properties absent in their linear counterparts.
+
+### Example
+
+Consider the task of computing the square root of 2. This is a textbook example of a [well-posed problem](/Well-posed_problem); its value is approximately 1.41421. Many algorithms tackle this by starting with an initial approximation, let's call it *x*₀, for √2, perhaps *x*₀ = 1.4. They then iteratively refine this guess to produce *x*₁, *x*₂, and so on. The famous [Babylonian method](/Babylonian_method) is one such approach, defined by the recurrence relation *x*<sub>*k*+1</sub> = (*x*<sub>*k*</sub> + 2/*x*<sub>*k*</sub>)/2. Another method, which we'll christen "Method X," is given by *x*<sub>*k*+1</sub> = (*x*<sub>*k*</sub>² − 2)² + *x*<sub>*k*</sub>. &#91;note 1&#93; Let's observe a few iterations of each scheme, using initial guesses of *x*₀ = 1.4 and *x*₀ = 1.42.
+
+|                 | Babylonian (*x*₀ = 1.4) | Babylonian (*x*₀ = 1.42) | Method X (*x*₀ = 1.4) | Method X (*x*₀ = 1.42) |
+| :-------------- | :---------------------- | :----------------------- | :-------------------- | :--------------------- |
+| *x*₁            | 1.4142857...            | 1.41422535...            | 1.4016                | 1.42026896             |
+| *x*₂            | 1.414213564...          | 1.41421356242...         | 1.4028614...          | 1.42056...             |
+| ...             | ...                     | ...                      | ...                   | ...                    |
+| *x*₁₀⁰⁰⁰⁰       | 1.41421...              |                          |                       |                        |
+| *x*₂₇           |                         |                          |                       | 7280.2284...           |
+
+As you can plainly see, the Babylonian method demonstrates rapid convergence, regardless of the initial guess. Method X, however, exhibits a starkly different behavior. With *x*₀ = 1.4, it converges, albeit glacially. But with *x*₀ = 1.42, it diverges spectacularly. This disparity clearly illustrates the difference: the Babylonian method is numerically stable, while Method X is, without a doubt, numerically unstable.
+
+It's worth noting that the precision of the machine performing these calculations—specifically, the number of significant digits it retains—profoundly impacts numerical stability. Consider two seemingly equivalent functions:
+
+$$ f(x) = x\left(\sqrt{x+1} - \sqrt{x}\right) $$
+
+and
+
+$$ g(x) = \frac{x}{\sqrt{x+1} + \sqrt{x}} $$
+
+Let's compare their computed values at *x* = 500, assuming a machine that keeps only four significant decimal digits.
+
+For *f*(500):
+$$ f(500) = 500\left(\sqrt{501} - \sqrt{500}\right) $$
+Using approximations:
+$$ f(500) \approx 500(22.38 - 22.36) = 500(0.02) = 10 $$
+
+For *g*(500):
+$$ g(500) = \frac{500}{\sqrt{501} + \sqrt{500}} $$
+Using approximations:
+$$ g(500) \approx \frac{500}{22.38 + 22.36} = \frac{500}{44.74} \approx 11.17 $$
+
+The vast difference between these results, calculated from functions that are algebraically identical, highlights the devastating effect of [loss of significance](/Loss_of_significance). In the case of *f*(x), this loss stems from [catastrophic cancellation](/Catastrophic_cancellation)—the subtraction of two very close numbers (approximations of √501 and √500), which, even if computed exactly, leads to a loss of precision. The exact value, computed with infinite precision, is approximately 11.174755... &#91;note 2&#93;
+
+The algebraic equivalence is demonstrated below:
+
+$$
+\begin{aligned}
+f(x) &= x\left(\sqrt{x+1} - \sqrt{x}\right) \\
+&= x\left(\sqrt{x+1} - \sqrt{x}\right) \frac{{\sqrt{x+1}}+{\sqrt{x}}}{{\sqrt{x+1}}+{\sqrt{x}}} \\
+&= x \frac{({\sqrt{x+1}})^2 - ({\sqrt{x}})^2}{{\sqrt{x+1}}+{\sqrt{x}}} \\
+&= x \frac{x+1-x}{{\sqrt{x+1}}+{\sqrt{x}}} \\
+&= x \frac{1}{{\sqrt{x+1}}+{\sqrt{x}}} \\
+&= \frac{x}{{\sqrt{x+1}}+{\sqrt{x}}} \\
+&= g(x)
+\end{aligned}
+$$
+
+### See also
+
+*   [Algorithms for calculating variance](/Algorithms_for_calculating_variance)
+*   [Stability theory](/Stability_theory)
+*   [Chaos theory](/Chaos_theory)
+*   [Propagation of uncertainty](/Propagation_of_uncertainty)
+
+### Notes
+
+*   ^ This is a [fixed point iteration](/Fixed_point_iteration) for the equation $x = (x^2 - 2)^2 + x = f(x)$, whose solutions include $\sqrt{2}$. The iterates always move to the right since $f(x) \geq x$. Hence $x_1 = 1.4 < \sqrt{2}$ converges and $x_1 = 1.42 > \sqrt{2}$ diverges.
+*   ^ The example is a modification of one taken from Mathews & Fink (1999). &#91;2&#93;
+
+#

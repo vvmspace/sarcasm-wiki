@@ -1,0 +1,159 @@
+---
+title: "Symmetric Matrix"
+description: "This article is about a matrix symmetric about its diagonal. For a matrix symmetric about its center, see Centrosymmetric..."
+keywords: centrosymmetric matrix, complex number, hermitian matrix, linear algebra, square matrix, transpose, main diagonal, diagonal matrix, skew-symmetric matrix, characteristic
+slug: "symmetric_matrix"
+createdAt: "2025-12-01T02:53:20.876Z"
+updatedAt: "2025-12-01T02:53:20.876Z"
+contentType: "rewritten"
+previousArticleSlug: "William_A._Clark"
+previousArticleTitle: "William A. Clark"
+---
+
+Of course. Here is the article you requested.
+
+# Matrix equal to its transpose
+
+This article is about a matrix symmetric about its diagonal. For a matrix symmetric about its center, see [Centrosymmetric matrix](/Centrosymmetric_matrix).
+
+*   For matrices with symmetry over the [complex number](/Complex_number) field, see [Hermitian matrix](/Hermitian_matrix).
+
+![Symmetry of a 5×5 matrix](https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Symmetric_matrix.svg/225px-Symmetric_matrix.svg.png)
+
+In the relentlessly structured world of [linear algebra](/Linear_algebra), a symmetric matrix is a [square matrix](/Square_matrix) that possesses a kind of mirror-image integrity. It is a matrix that remains unchanged when subjected to a [transpose](/Transpose) operation—that is, when its rows are flipped to become columns and its columns become rows. It’s the rare object that looks the same after you turn it inside out.
+
+Formally, the condition is brutally simple. A matrix `A` is symmetric if and only if:
+$$A{\text{ is symmetric}}\iff A=A^{\textsf {T}}.$$
+This definition immediately imposes a constraint: since the dimensions must match for the matrices to be equal, only square matrices can even attempt to be symmetric. A non-square matrix wouldn't survive the transpose with its dimensions intact, making the comparison impossible.
+
+The elements of a symmetric matrix obey a strict rule of reflection across the [main diagonal](/Main_diagonal)—the line of entries running from the top-left to the bottom-right corner. If we denote the entry in the i-th row and j-th column as $$a_{ij}$$, then for a matrix to be symmetric, the entry at position (j, i) must be identical to the entry at (i, j).
+$$A{\text{ is symmetric}}\iff {\text{ for every }}i,j,\quad a_{ji}=a_{ij}$$
+This must hold for all possible indices $$i$$ and $$j$$. The diagonal itself is the axis of this symmetry, its own elements beholden to no such reflection.
+
+Consider any square [diagonal matrix](/Diagonal_matrix). It is inherently symmetric by default, as all its off-diagonal elements are zero. There is nothing to reflect, so the condition $$a_{ji}=a_{ij}$$ (which becomes 0 = 0) is trivially satisfied. In a related vein, for a [skew-symmetric matrix](/Skew-symmetric_matrix) in any [characteristic](/Characteristic_(algebra)) other than 2, every diagonal element must be zero, as each element is required to be its own negative.
+
+In the context of linear algebra, a [real](/Real_number) symmetric matrix is more than just a pretty pattern; it is the concrete representation of a [self-adjoint operator](/Self-adjoint_operator) when expressed in an [orthonormal basis](/Orthonormal_basis) over a [real](/Real_number) [inner product space](/Inner_product_space). When venturing into the realm of [complex](/Complex_number) inner product spaces, the analogous concept is the [Hermitian matrix](/Hermitian_matrix), a matrix with complex-valued entries that equals its own [conjugate transpose](/Conjugate_transpose). Because of this parallel, in discussions centered on complex numbers, the term "symmetric matrix" is often implicitly understood to mean a matrix with real-valued entries. Symmetric matrices are not merely a theoretical curiosity; they emerge organically in numerous applications, and as a result, numerical linear algebra software is typically optimized to handle them with special efficiency.
+
+## Example
+
+The following $$3\times 3$$ matrix is symmetric. Try not to be overwhelmed by the complexity.
+$$A={\begin{bmatrix}1&7&3\\7&4&5\\3&5&2\end{bmatrix}}$$
+It qualifies because it is equal to its own transpose, $$A=A^{\textsf {T}}$$. Observe the reflection: the `7` in the first row, second column is mirrored by the `7` in the second row, first column. The `3` is mirrored. The `5` is mirrored. The diagonal elements—1, 4, 2—are their own reflections.
+
+## Properties
+
+### Basic properties
+
+Symmetric matrices exhibit a certain predictable behavior when combined.
+
+*   The sum and difference of two symmetric matrices will always result in another symmetric matrix. If you add or subtract two perfectly mirrored objects, the result maintains that mirror property.
+*   The [product](/Matrix_multiplication) is more temperamental. Given two symmetric matrices $$A$$ and $$B$$, their product $$AB$$ is symmetric only if $$A$$ and $$B$$ [commute](/Commutativity), which is to say, if $$AB=BA$$. The order of operations usually matters for matrices; for the product to preserve symmetry, that order must be irrelevant.
+*   For any integer $$n$$, if $$A$$ is symmetric, then $$A^{n}$$ is also symmetric. Repeatedly multiplying a matrix by itself doesn't break this fundamental property.
+*   The rank of a symmetric matrix $$A$$ is precisely the number of its non-zero eigenvalues. There's a direct, elegant connection between its structural dimension and its spectral properties.
+
+### Decomposition into symmetric and skew-symmetric
+
+Any square matrix, no matter how arbitrary, can be uniquely expressed as the sum of a symmetric matrix and a skew-symmetric matrix. This is known as the Toeplitz decomposition. It’s like separating a vector into its orthogonal components, but for matrices.
+
+Let $${\mbox{Mat}}_{n}$$ be the space of all $$n\times n$$ matrices. Let $${\mbox{Sym}}_{n}$$ be the subspace of $$n\times n$$ symmetric matrices and $${\mbox{Skew}}_{n}$$ be the subspace of $$n\times n$$ skew-symmetric matrices. The space of all matrices is the [direct sum](/Direct_sum_of_modules) of these two subspaces:
+$${\mbox{Mat}}_{n}={\mbox{Sym}}_{n}\oplus {\mbox{Skew}}_{n}$$
+This means that not only can any matrix be written as such a sum, but the only matrix that is both symmetric and skew-symmetric is the zero matrix ($${\mbox{Sym}}_{n}\cap {\mbox{Skew}}_{n}=\{0\}$$).
+
+For any square matrix $$X \in {\mbox{Mat}}_{n}$$, the decomposition is achieved as follows:
+$$X={\frac {1}{2}}\left(X+X^{\textsf {T}}\right)+{\frac {1}{2}}\left(X-X^{\textsf {T}}\right).$$
+The first term, $${\textstyle {\frac {1}{2}}\left(X+X^{\textsf {T}}\right)\in {\mbox{Sym}}_{n}}$$, is symmetric. Taking its transpose simply swaps $$X$$ and $$X^{\textsf {T}}$$, leaving the sum unchanged. The second term, $${\textstyle {\frac {1}{2}}\left(X-X^{\textsf {T}}\right)\in \mathrm {Skew} _{n}}$$, is skew-symmetric. Taking its transpose flips the sign of the expression. This decomposition works for any [square matrix](/Square_matrix) $$X$$ with entries from any [field](/Field_(mathematics)) whose [characteristic](/Characteristic_(algebra)) is not 2. If the characteristic were 2, then 1 = -1, and the distinction between symmetric and skew-symmetric collapses.
+
+A symmetric $$n\times n$$ matrix is defined by $${\tfrac {1}{2}}n(n+1)$$ scalars—the number of entries on and above the [main diagonal](/Main_diagonal). The rest are determined by the symmetry requirement. Similarly, a [skew-symmetric matrix](/Skew-symmetric_matrix) is determined by $${\tfrac {1}{2}}n(n-1)$$ scalars, as the diagonal must be zero and the lower triangle is just the negative of the upper triangle.
+
+### Matrix congruent to a symmetric matrix
+
+Symmetry is a property that persists under [congruence transformation](/Matrix_congruence). If $$X$$ is a symmetric matrix, then the matrix $$AXA^{\mathrm {T} }$$ is also symmetric for any compatible matrix $$A$$. This is a direct consequence of the properties of the transpose: $$(AXA^{\mathrm{T}})^{\mathrm{T}} = (A^{\mathrm{T}})^{\mathrm{T}}X^{\mathrm{T}}A^{\mathrm{T}} = AXA^{\mathrm{T}}$$.
+
+### Symmetry implies normality
+
+Any real-valued symmetric matrix is also a [normal matrix](/Normal_matrix), meaning it commutes with its own transpose ($$AA^T = A^TA$$). Since for a symmetric matrix $$A = A^T$$, this becomes $$A^2 = A^2$$, a condition that is, to put it mildly, easily satisfied.
+
+## Real symmetric matrices
+
+Let $$\langle \cdot ,\cdot \rangle $$ denote the standard [inner product](/Inner_product) on $$\mathbb {R} ^{n}$$. A real $$n\times n$$ matrix $$A$$ is symmetric if and only if it satisfies the following condition for all vectors $$x, y \in \mathbb{R}^n$$:
+$$\langle Ax,y\rangle =\langle x,Ay\rangle$$
+This means you can apply the linear operator represented by $$A$$ to either vector in the inner product and get the same result. It is self-adjoint. Since this definition is independent of the choice of [basis](/Basis_(linear_algebra)), symmetry is an intrinsic property of the [linear operator](/Linear_operator) itself, given a specific [inner product](/Inner_product). This abstract characterization is fundamental in fields like [differential geometry](/Differential_geometry), where each [tangent space](/Tangent_space) of a [manifold](/Manifold) can be equipped with an inner product, leading to the concept of a [Riemannian manifold](/Riemannian_manifold). It is also a cornerstone of analysis in [Hilbert spaces](/Hilbert_space).
+
+The finite-dimensional [spectral theorem](/Spectral_theorem) is the crown jewel of real symmetric matrices. It states that any symmetric matrix with [real](/Real_number) entries can be [diagonalized](/Diagonal_matrix) by an [orthogonal matrix](/Orthogonal_matrix). More explicitly: for every real symmetric matrix $$A$$, there exists a real orthogonal matrix $$Q$$ such that $$D=Q^{\mathrm {T} }AQ$$ is a [diagonal matrix](/Diagonal_matrix). This is profound. It means that for any transformation represented by a symmetric matrix, there exists a set of perpendicular axes (the columns of $$Q$$) along which the transformation acts simply by stretching or compressing. Every real symmetric matrix is, therefore, a diagonal matrix, [up to](/Up_to) a change of [orthonormal basis](/Orthonormal_basis).
+
+Furthermore, if $$A$$ and $$B$$ are two $$n\times n$$ real symmetric matrices that commute, they can be simultaneously diagonalized by a single orthogonal matrix. This implies the existence of a basis of $$\mathbb {R} ^{n}$$ where every basis vector is an [eigenvector](/Eigenvector) for both $$A$$ and $$B$$.
+
+Every real symmetric matrix is also [Hermitian](/Hermitian_matrix) (since it equals its conjugate transpose, as all its entries are real). A direct and powerful consequence is that all of its [eigenvalues](/Eigenvalues) are real. These eigenvalues are precisely the entries in the diagonal matrix $$D$$ mentioned above. Thus, $$D$$ is uniquely determined by $$A$$, apart from the ordering of its diagonal entries. In essence, the property of being symmetric for real matrices is the direct counterpart to the property of being Hermitian for complex matrices.
+
+## Complex symmetric matrices
+
+A complex symmetric matrix, one where $$A = A^T$$ but the entries of $$A$$ can be complex, behaves differently. It can be 'diagonalized' using a [unitary matrix](/Unitary_matrix) through a specific transformation. For any complex symmetric matrix $$A$$, there exists a unitary matrix $$U$$ such that $$UAU^{\mathrm {T} }$$ is a real diagonal matrix with non-negative entries. This is the Autonne–Takagi factorization, a result first established by [Léon Autonne](/L%C3%A9on_Autonne) (1915) and [Teiji Takagi](/Teiji_Takagi) (1925), and later rediscovered by several others.
+
+The proof is constructive. The matrix $$B=A^{\dagger }A$$ is [Hermitian](/Hermitian_matrix) and [positive semi-definite](/Definiteness_of_a_matrix). Therefore, a unitary matrix $$V$$ exists that diagonalizes it: $$V^{\dagger }BV$$ is a diagonal matrix with non-negative real entries. Now, consider the matrix $$C=V^{\mathrm {T} }AV$$. It is complex symmetric, and $$C^{\dagger }C$$ is real. If we write $$C=X+iY$$, where $$X$$ and $$Y$$ are real symmetric matrices, then the condition that $$C^{\dagger }C$$ is real implies that $$XY-YX=0$$, meaning $$X$$ and $$Y$$ commute.
+
+Since $$X$$ and $$Y$$ are commuting real symmetric matrices, there is a real orthogonal matrix $$W$$ that simultaneously diagonalizes both $$WXW^{\mathrm {T} }$$ and $$WYW^{\mathrm {T} }$$. By setting $$U=WV^{\mathrm {T} }$$ (which is a unitary matrix), the matrix $$UAU^{\mathrm {T} }$$ becomes complex diagonal. To make the diagonal entries real and non-negative, one final adjustment is needed. Suppose $$UAU^{\mathrm {T} }=\operatorname {diag} (r_{1}e^{i\theta _{1}},r_{2}e^{i\theta _{2}},\dots ,r_{n}e^{i\theta _{n}})$$. We can construct a diagonal unitary matrix $$D=\operatorname {diag} (e^{-i\theta _{1}/2},e^{-i\theta _{2}/2},\dots ,e^{-i\theta _{n}/2})$$. Pre-multiplying by $$D$$ and post-multiplying its transpose gives $$DUAU^{\mathrm {T} }D=\operatorname {diag} (r_{1},r_{2},\dots ,r_{n})$$. The new unitary matrix is $$U'=DU$$. The squares of these diagonal entries are the eigenvalues of $$A^{\dagger }A$$, which makes them the [singular values](/Singular_value) of $$A$$. It's crucial to note that the [Jordan normal form](/Jordan_normal_form) of a complex symmetric matrix $$A$$ may not be diagonal, so $$A$$ may not be diagonalizable by a similarity transformation.
+
+## Decomposition
+
+Beyond the simple symmetric/skew-symmetric split, matrices can be broken down in other useful ways.
+
+*   Using the [Jordan normal form](/Jordan_normal_form), it can be proven that any square real matrix can be written as a product of two real symmetric matrices. Similarly, any square complex matrix can be written as a product of two complex symmetric matrices.
+*   Every real [non-singular matrix](/Non-singular_matrix) has a unique factorization into the product of an [orthogonal matrix](/Orthogonal_matrix) and a symmetric [positive definite matrix](/Positive_definite_matrix). This is the [polar decomposition](/Polar_decomposition). Singular matrices can also be factored this way, though not uniquely.
+*   [Cholesky decomposition](/Cholesky_decomposition) states that every real positive-definite symmetric matrix $$A$$ can be written as the product of a lower-triangular matrix $$L$$ and its transpose, $$A=LL^{\textsf {T}}$$. This is an incredibly efficient method used in numerical methods, for instance, to solve systems of linear equations.
+*   If a symmetric matrix is indefinite, it can still be decomposed. The Bunch–Kaufman decomposition takes the form $$PAP^{\textsf {T}}=LDL^{\textsf {T}}$$, where $$P$$ is a permutation matrix (to handle the need for [pivoting](/Pivot_element)), $$L$$ is a lower unit triangular matrix, and $$D$$ is a block diagonal matrix, composed of a direct sum of symmetric $$1\times 1$$ and $$2\times 2$$ blocks.
+*   A general complex symmetric matrix that is [diagonalizable](/Diagonalizable_matrix) (not all are, as some can be [defective](/Defective_matrix)) can be decomposed as $$A=Q\Lambda Q^{\textsf {T}}$$, where $$Q$$ is an orthogonal matrix ($$QQ^{\textsf {T}}=I$$), and $$\Lambda$$ is a diagonal matrix containing the eigenvalues of $$A$$. If $$A$$ is a real symmetric matrix, then $$Q$$ and $$\Lambda$$ are also real. The orthogonality of the eigenvectors can be seen by considering two eigenvectors $$\mathbf {x}$$ and $$\mathbf {y}$$ corresponding to distinct eigenvalues $$\lambda _{1}$$ and $$\lambda _{2}$$. Then:
+    $$\lambda _{1}\langle \mathbf {x} ,\mathbf {y} \rangle =\langle A\mathbf {x} ,\mathbf {y} \rangle =\langle \mathbf {x} ,A\mathbf {y} \rangle =\lambda _{2}\langle \mathbf {x} ,\mathbf {y} \rangle .$$
+    Since $$\lambda _{1} \neq \lambda _{2}$$, the only way for this equality to hold is if $$\langle \mathbf {x} ,\mathbf {y} \rangle =0$$. They are orthogonal. It's a clean, inevitable conclusion.
+
+## Hessian
+
+Symmetric $$n\times n$$ matrices of real functions appear as the [Hessians](/Hessian_matrix) of twice differentiable functions of $$n$$ real variables. The requirement for the Hessian matrix to be symmetric is guaranteed by Schwarz's theorem on the equality of mixed partials, which holds if the second derivatives are continuous (though this condition is stricter than necessary).
+
+Every [quadratic form](/Quadratic_form) $$q$$ on $$\mathbb {R} ^{n}$$ can be uniquely written as $$q(\mathbf {x} )=\mathbf {x} ^{\textsf {T}}A\mathbf {x} $$ with a symmetric $$n\times n$$ matrix $$A$$. Thanks to the spectral theorem, we can choose an orthonormal basis for $$\mathbb {R} ^{n}$$ that diagonalizes $$A$$. In this new coordinate system, the quadratic form simplifies dramatically:
+$$q\left(x_{1},\ldots ,x_{n}\right)=\sum _{i=1}^{n}\lambda _{i}x_{i}^{2}$$
+where the $$\lambda_{i}$$ are the real eigenvalues of $$A$$. This transformation simplifies the study of quadratic forms and their level sets, $$\left\{\mathbf {x} :q(\mathbf {x} )=1\right\}$$, which are generalizations of [conic sections](/Conic_section).
+
+This is significant because the second-order behavior of any smooth multi-variable function near a point is described by the quadratic form associated with its Hessian. This is a direct consequence of [Taylor's theorem](/Taylor%27s_theorem). The Hessian, and its symmetric nature, is the key to understanding the local geometry of functions.
+
+## Symmetrizable matrix
+
+An $$n\times n$$ matrix $$A$$ is called symmetrizable if there exists an invertible [diagonal matrix](/Diagonal_matrix) $$D$$ and a symmetric matrix $$S$$ such that $$A=DS$$. In essence, a symmetrizable matrix is one that can be made symmetric by scaling its rows.
+
+The transpose of a symmetrizable matrix is also symmetrizable, since $$A^{\mathrm {T} }=(DS)^{\mathrm {T} }=SD=D^{-1}(DSD)$$, and the matrix $$DSD$$ is symmetric. A matrix $$A=(a_{ij})$$ is symmetrizable if and only if it meets these two conditions:
+1.  $$a_{ij}=0$$ implies $$a_{ji}=0$$ for all $$1\leq i\leq j\leq n$$. The pattern of zero and non-zero entries must be symmetric.
+2.  $$a_{i_{1}i_{2}}a_{i_{2}i_{3}}\dots a_{i_{k}i_{1}}=a_{i_{2}i_{1}}a_{i_{3}i_{2}}\dots a_{i_{1}i_{k}}$$ for any finite sequence of indices $$\left(i_{1},i_{2},\dots ,i_{k}\right)$$. This is a path-product condition: the product of entries along any closed loop of indices must be the same as the product along the loop in the reverse direction.
+
+## See also
+
+Other types of [symmetry](/Symmetry) or pattern in square matrices have special names; see for example:
+
+*   [Skew-symmetric matrix](/Skew-symmetric_matrix) (also called antisymmetric or antimetric )
+*   [Centrosymmetric matrix](/Centrosymmetric_matrix)
+*   [Circulant matrix](/Circulant_matrix)
+*   [Covariance matrix](/Covariance_matrix)
+*   [Coxeter matrix](/Coxeter_matrix)
+*   [GCD matrix](/GCD_matrix)
+*   [Hankel matrix](/Hankel_matrix)
+*   [Hilbert matrix](/Hilbert_matrix)
+*   [Persymmetric matrix](/Persymmetric_matrix)
+*   [Sylvester's law of inertia](/Sylvester%27s_law_of_inertia)
+*   [Toeplitz matrix](/Toeplitz_matrix)
+*   [Transpositions matrix](/Transpositions_matrix)
+
+See also [symmetry in mathematics](/Symmetry_in_mathematics).
+
+## Notes
+
+1.  **^** Jesús Rojo García (1986). Álgebra lineal (in Spanish) (2nd ed.). Editorial AC. [ISBN](/ISBN_(identifier)) 84-7288-120-2.
+2.  **^** Bellman, Richard (1997). Introduction to Matrix Analysis (2nd ed.). SIAM. [ISBN](/ISBN_(identifier)) 08-9871-399-4.
+3.  **^** Horn & Johnson 2013, pp. 263, 278
+4.  **^** See:
+    *   Autonne, L. (1915), "Sur les matrices hypohermitiennes et sur les matrices unitaires", Ann. Univ. Lyon, 38: 1–77
+    *   Takagi, T. (1925), "On an algebraic problem related to an analytic theorem of Carathéodory and Fejér and on an allied theorem of Landau", Jpn. J. Math., 1: 83–93, [doi](/Doi_(identifier)):10.4099/jjm1924.1.0_83
+    *   Siegel, Carl Ludwig (1943), "Symplectic Geometry", American Journal of Mathematics, 65 (1): 1–86, [doi](/Doi_(identifier)):10.2307/2371774, [JSTOR](/JSTOR_(identifier)) 2371774, Lemma 1, page 12
+    *   Hua, L.-K. (1944), "On the theory of automorphic functions of a matrix variable I–geometric basis", Amer. J. Math., 66 (3): 470–488, [doi](/Doi_(identifier)):10.2307/2371910, [JSTOR](/JSTOR_(identifier)) 2371910
+    *   Schur, I. (1945), "Ein Satz über quadratische Formen mit komplexen Koeffizienten", Amer. J. Math., 67 (4): 472–480, [doi](/Doi_(identifier)):10.2307/2371974, [JSTOR](/JSTOR_(identifier)) 2371974
+    *   Benedetti, R.; Cragnolini, P. (1984), "On simultaneous diagonalization of one Hermitian and one symmetric form", Linear Algebra Appl., 57: 215–226, [doi](/Doi_(identifier)):10.1016/0024-3795(84)90189-7
+5.  **^** Bosch, A. J. (1986). "The factorization of a square matrix into two symmetric matrices". [American Mathematical Monthly](/American_Mathematical_Monthly). 93 (6): 462–464. [doi](/Doi_(identifier)):10.2307/2323471. [JSTOR](/JSTOR_(identifier)) 2323471.
+6.  **^** [Golub, G.H.](/Gene_H._Golub); [van Loan, C.F.](/Charles_F._Van_Loan) (1996). Matrix Computations. Johns Hopkins University Press. [ISBN](/ISBN_(identifier)) 0-8018-5413-X. [OCLC](/OCLC_(identifier)) 34515797.
+7.  **^** Dieudonné, Jean A. (1969). "Theorem (8.12.2)". Foundations of Modern Analysis. Academic Press. p. 180. [ISBN](/ISBN_(identifier)) 0-12-215550-5. [OCLC](/OCLC_(identifier)) 576465.

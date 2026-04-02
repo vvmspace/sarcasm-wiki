@@ -1,0 +1,302 @@
+---
+title: "Quantum Coin Flipping"
+description: "Ah, quantum mechanics. The universe playing dice, or so they say. Fascinating, really, how the smallest, most elusive bits of reality can be twisted into tools..."
+keywords: quantum mechanics, coin flipping problem, cryptography, quantum coin flipping, cryptographic primitive, quantum byzantine agreement, quantum cryptography, quantum key distribution, commitment schemes
+slug: "Quantum_coin_flipping"
+createdAt: "2025-11-17T18:17:12.838Z"
+updatedAt: "2025-11-17T18:17:12.838Z"
+contentType: "rewritten"
+---
+
+Ah, [quantum mechanics](/Quantum_mechanics). The universe playing dice, or so they say. Fascinating, really, how the smallest, most elusive bits of reality can be twisted into tools for… well, for anything, I suppose. You want to talk about encryption? About two untrusting souls trying to agree on a random bit without a referee? That’s the [coin flipping problem](/Coin_flipping_problem) in [cryptography](/Cryptography). And when you inject [quantum mechanics](/Quantum_mechanics) into it, you get [quantum coin flipping](/Quantum_coin_flipping). It’s a [cryptographic primitive](/Cryptographic_primitive), a building block, they call it. Useful for more complex things, like [Quantum Byzantine agreement](/Quantum_Byzantine_Agreement).
+
+Now, this isn't your usual [quantum cryptography](/Quantum_cryptography), like [quantum key distribution](/Quantum_key_distribution). Those are about secure communication between parties who *might* actually trust each other, or at least the channel. Quantum coin flipping? That's for when the two players, Alice and Bob, are at each other's throats, metaphorically speaking. They don't trust each other one bit. They both want to win the toss, and they’ll try to cheat you blind to get it. It’s a dance of suspicion.
+
+In the classical world, without any quantum trickery, one player can *always* cheat, no matter the protocol. Oh, they have protocols, of course, built on [commitment schemes](/Commitment_scheme), but those rely on the assumption that the players aren’t powerful enough to break them. Quantum coin flipping, though? It can stand up to players with *unlimited* computing power. That’s the allure.
+
+The real measure of a coin-flipping protocol is its [bias](/Bias). It’s a number between 0 and 1/2. Think of it as the cheat’s advantage. A bias of 0 means no one can cheat. A bias of 1/2 means someone can *always* win, which is rather pointless. The lower the bias, the better the protocol.
+
+When you use a [quantum channel](/Quantum_channel) for this, even the absolute best protocol can’t get the bias lower than about 0.2071. That's `1/√2 - 1/2`. Not perfect, but a damn sight better than the classical free-for-all.
+
+There’s a weaker version, too: [weak coin flipping](/Weak_coin_flipping) (WCF). This is where each player actually knows what the other one wants. In the classical realm, this extra information doesn’t help much. But in the quantum world, it allows for protocols with *arbitrarily small biases*. Still, the best we’ve got explicitly is a bias of about 1/6. And even then, actually *doing* quantum coin flipping in practice? That’s a whole other headache.
+
+### History
+
+It all started, in a sense, with Manuel Blum back in 1983. He laid out the classical coin flipping problem, all about computational assumptions and algorithms. Imagine Alice and Bob, divorced, living worlds apart, needing to decide who gets the car. Alice wants to flip a coin over the phone, but Bob’s worried she’ll just tell him he lost, no matter the outcome. They don’t trust each other, no third party to mediate. They need a way to either agree on a bit or know for sure the other is trying to pull a fast one.
+
+Then, in 1984, Charles H. Bennett and Giles Brassard dropped their paper, and [quantum cryptography](/Quantum_cryptography) was born. They saw the potential for quantum mechanics to shore up these shaky classical protocols, coin flipping included. Since then, the theory has been tantalizingly secure, but the practice… well, that’s where the real challenge lies.
+
+### Experiment
+
+Fast forward to 2014. Scientists at the Laboratory for Communication and Processing of Information (LTCI) in Paris decided to actually *do* it. They implemented quantum coin flipping protocols. Their reports suggested their system could outperform classical ones, at least over a decent distance – think metropolitan optical networks.
+
+### Definition
+
+So, what exactly are we talking about here?
+
+**Coin Flipping**
+In the context of cryptography, coin flipping is the challenge of two players, who don’t trust each other and are physically separated, agreeing on a random bit without any external help. It’s a fundamental problem for establishing trust in a distrustful environment.
+
+**Strong Coin Flipping**
+This is the more stringent version. In [strong coin flipping](/Strong_coin_flipping) (SCF), neither player has any clue what the other player's preferred bit is. It’s pure, blind agreement.
+
+**Weak Coin Flipping**
+Here, things are a little less blind. In [weak coin flipping](/Weak_coin_flipping) (WCF), each player *does* know the other’s preference. This sounds like it should make things easier, and in some ways, it does, but it also introduces its own set of complexities. The key here is that if their preferences weren’t opposite, the problem would be trivial. If both wanted heads, they’d just agree on heads. So, we assume they have conflicting desires.
+
+### Bias
+
+Let’s talk about that bias again. Imagine any coin-flipping protocol. Let Alice be the cheater, trying to influence the outcome against a player, Bob, who’s playing by the rules. The probability that Bob gets the outcome Alice wants is `P*_A`. Now, flip it: Bob cheats, Alice plays fair. The probability Alice gets the outcome Bob wants is `P*_B`.
+
+The bias, denoted by epsilon (`ε`), is defined as the *maximum* of those two cheating probabilities, minus a half:
+
+`ε = max[P*_A, P*_B] - 1/2`
+
+That `1/2` is there because, purely by chance, a player has a 50% shot at getting their desired outcome. The bias tells you how much better a cheater can do than random chance.
+
+### Extensions
+
+Coin flipping isn’t limited to fair coins, either. You can have biased coins, where the bits aren’t equally likely. And there’s also the concept of correctness: when both players behave, they should always agree on the bit, and that bit should follow a specific probability distribution. It’s about ensuring predictability and fairness, even in the presence of potential deception.
+
+### Protocols
+
+**Using Conjugate Encoding**
+
+This is where the quantum magic happens. Information is sent via [qubits](/Qubit), carried by single [photons](/Photon). The receiver doesn’t know the information until they measure it. And here’s the kicker: once measured, the photon is changed. You can’t measure it again to get the same result. This makes eavesdropping incredibly difficult to hide.
+
+Quantum coin flipping, remember, is about two untrusting players sending sequences of instructions, hoping to end up with a shared random bit.
+
+A basic setup involves Alice and Bob.
+
+*   Alice prepares a sequence of photon pulses, each encoded with a specific quantum state. She randomly chooses the basis and the bit for each pulse.
+*   Bob then measures these pulses, randomly choosing his measurement basis for each one. He records his results and tells Alice which was the first photon he successfully measured, along with a random bit he picked.
+*   Alice reveals her original basis and bit for that specific photon. If they match, everything’s on the up and up. If Bob’s bit differs from Alice’s, someone’s being dishonest.
+
+A more detailed look:
+
+*   Alice picks a random basis (like rectilinear or diagonal) and a string of random qubits. She encodes these qubits into photons and sends them to Bob.
+*   Bob, for each incoming photon, randomly selects a measurement basis. He records his results, keeping separate tables for rectilinear and diagonal measurements. He then makes a guess about which basis Alice used. If he’s right, he wins.
+*   Alice tells him if he won or lost. She then sends Bob her entire original sequence of qubits.
+*   Bob compares Alice’s sequence with his recorded measurements. If everything aligns – his measurements match Alice’s basis and show no correlation with the other basis – then no cheating has occurred on Alice’s part.
+
+**Assumptions**
+
+For this to work, a few things need to be true:
+
+*   Alice must be able to create each quantum state independently and with equal probability.
+*   For the first photon Bob successfully measures, his choice of basis and his recorded bit must be truly random and independent of Alice.
+*   When Bob measures a state, he must have an equal chance of measuring any of the possible outcomes. If some states are harder for him to detect, Alice could exploit that.
+
+**Cheating**
+
+The whole point is that they don’t trust each other. They’re trying to agree on a bit, aiming for a 50/50 chance, but the temptation to cheat is immense. Cheating can involve claiming to have lost parts of the message or manipulating the number of photons.
+
+*   **Bob’s Cheat:** Bob needs to guess Alice’s basis with better than a 50% chance. This means he’d have to distinguish between photon trains polarized in different bases, which is inherently difficult in the quantum realm.
+*   **Alice’s Cheat:** Alice has more subtle options. She could claim her photons were polarized opposite to what Bob measured, or send a different original sequence than she actually used. But Bob can detect these discrepancies if he’s careful.
+
+**Detecting a Third Party**
+
+The use of single photons for communication is key. Information is encoded in their polarization states. If an eavesdropper tries to intercept and measure a photon, they inevitably alter its polarization. This change is detectable because it won’t match the expected pattern between Alice and Bob. It’s like trying to read a secret message written in invisible ink – the act of reading leaves a trace.
+
+**The Dip Dip Boom Protocol (Weak Coin Flipping with Bias `1/6`)**
+
+This is a quantum take on a game where players alternate saying "Dip" or "Boom," with the "Boom" player winning.
+
+*   The game involves three quantum states: `|A⟩`, `|B⟩`, and `|U⟩` (representing Alice, Bob, and Undecided). There’s also a message register with states `|DIP⟩` and `|BOOM⟩`.
+*   Initially, Alice holds the `A ⊗ M` registers (state `|U⟩ ⊗ |DIP⟩`), and Bob holds the `B` register (state `|U⟩`).
+*   **Iteration:** For a set number of rounds (`n`), players take turns. Let’s say for odd rounds, Alice (X) performs an operation `R_i` that rotates the state towards `|A⟩ ⊗ |BOOM⟩`. She then sends the message register to Bob (Y).
+*   Bob performs a complementary operation `R̃_i`, rotating towards `|A⟩ ⊗ |DIP⟩`. If his measurement yields `|BOOM⟩`, he wins immediately.
+*   **Measurement:** At the end, Alice and Bob measure their local registers. `|U⟩` means undecided (or a draw, perhaps), `|A⟩` means Alice wins, `|B⟩` means Bob wins.
+
+For the protocol to be balanced, the probabilities `p_i` must be chosen so that Alice and Bob have an equal chance of winning at the end. Crucially, if both play honestly, the outcome `|BOOM⟩` at step two and `|U⟩` at step three should never occur. The bias analysis here involves heavy math, including [SDP](/Semidefinite_programming) duality. For large `n`, this protocol can achieve a bias remarkably close to `1/6`.
+
+### Optimal Strong Coin Flipping
+
+It turns out that you can use a weak coin flipping protocol with a tiny bias to construct a strong coin flipping protocol with a bias close to `1/√2 - 1/2`. This is considered the optimal limit for strong coin flipping.
+
+### Experimental Implementation
+
+**Using Conjugate Encoding**
+
+Remember those scientists in Paris? They didn’t rely on fancy single-photon or entangled sources, which are notoriously tricky to implement. Instead, they leveraged [quantum superposition](/Quantum_superposition), making it more feasible with standard equipment.
+
+They used a platform called Clavis2, but had to tweak it. Their setup involved a two-way communication: Bob sends light pulses to Alice, who uses a phase modulator to encrypt them. Then, a Faraday mirror reflects and attenuates these pulses back to Bob. Bob, using sensitive single-photon detectors, chooses his measurement basis to receive Alice's pulses.
+
+They upgraded Bob’s detectors because the old ones weren’t efficient enough. With the new ones, they demonstrated a quantum advantage over a 15-kilometer channel. Reprogramming the system and pinpointing losses were significant hurdles. But they managed it, introducing a small “honest abort probability” – the chance that even honest players can’t get a result. Still, at short distances, they showed it worked.
+
+---
+**References**
+
+*   ^ a b Blum, Manuel (1983-01-01). "Coin flipping by telephone a protocol for solving impossible problems". *ACM SIGACT News*. 15 (1): 23–27. [doi](/Doi_(identifier)):10.1145/1008908.1008911. [ISSN](/ISSN_(identifier)) 0163-5700. [S2CID](/S2CID_(identifier)) 19928725.
+*   ^ Oded., Goldreich (2003). *Foundations of cryptography*. Cambridge, UK: Cambridge University Press. [ISBN](/ISBN_(identifier)) 9780521791724 . [OCLC](/OCLC_(identifier)) 45093786.
+*   ^ a b c d e f g h i j Stuart Mason Dambort, "Heads or tails: Experimental quantum coin flipping cryptography performs better than classical protocols", *Phys.org*, March 26, 2014
+*   ^ Cleve, R. (1986-11-01). "Limits on the security of coin flips when half the processors are faulty". *Proceedings of the eighteenth annual ACM symposium on Theory of computing* - STOC '86. ACM. pp. 364–369. [doi](/Doi_(identifier)):10.1145/12130.12168. [ISBN](/ISBN_(identifier)) 0897911938 . [S2CID](/S2CID_(identifier)) 17394663.
+*   ^ A. Kitaev, Quantum Coin Flipping, *Quantum Information Processing Workshop, Mathematical Sciences Research Institute, University of California, Berkeley, 2003*.
+*   ^ a b Ambainis, A.; Buhrman, H.; Dodis, Y.; Rohrig, H. (2004). "Multiparty quantum coin flipping". *Proceedings. 19th IEEE Annual Conference on Computational Complexity, 2004*. IEEE. pp. 250–259. [arXiv](/ArXiv_(identifier)):quant-ph/0304112. [doi](/Doi_(identifier)):10.1109/ccc.2004.1313848. [ISBN](/ISBN_(identifier)) 0769521207 . [S2CID](/S2CID_(identifier)) 3261413.
+*   ^ C. Mochon, Quantum Weak Coin Flipping with Arbitrarily Small Bias, preprint, arXiv:0711.4114, 2007.
+*   ^ a b Aharonov, Dorit; Chailloux, André; Ganz, Maor; Kerenidis, Iordanis; Magnin, Loïck (January 2016). "A Simpler Proof of the Existence of Quantum Weak Coin Flipping with Arbitrarily Small Bias". *SIAM Journal on Computing*. 45 (3): 633–679. [arXiv](/ArXiv_(identifier)):1402.7166. [doi](/Doi_(identifier)):10.1137/14096387x. [ISSN](/ISSN_(identifier)) 0097-5397. [S2CID](/S2CID_(identifier)) 7519640.
+*   ^ a b Mochon, Carlos (2005). "Large family of quantum weak coin-flipping protocols". *Physical Review A*. 72 (2) 022341. [arXiv](/ArXiv_(identifier)):quant-ph/0502068. [Bibcode](/Bibcode_(identifier)):2005PhRvA..72b2341M. [doi](/Doi_(identifier)):10.1103/PhysRevA.72.022341. [S2CID](/S2CID_(identifier)) 46533337.
+*   ^ a b c Vivek R and Dr. J. Roopchand, "Emerging Trends in Quantum Cryptography – A Survey", *International Journal of Computer Technology and Applications*, August 2012
+*   ^ a b c Anna Pappa et al., "Experimental Plug and Play Quantum Coin Flipping", *Nature Communications*, April 24, 2014
+*   ^ a b c C. Döscher and M. Keyl, "An Introduction to Quantum Coin-Tossing", *Cornell University Library*, February 1, 2008
+*   ^ D. Aharonov, A. Ta-Shma, U. V. Vazirani, and A. C. Yao, Quantum bit escrow, in *Proceedings of the 32nd Annual ACM Symposium on Theory of Computing, ACM, New York, 2000, pp. 705–714*.
+*   ^ Spekkens, R. W. (2002). "Quantum Protocol for Cheat-Sensitive Weak Coin Flipping". *Physical Review Letters*. 89 (22) 227901. [arXiv](/ArXiv_(identifier)):quant-ph/0202118. [Bibcode](/Bibcode_(identifier)):2002PhRvL..89v7901S. [doi](/Doi_(identifier)):10.1103/PhysRevLett.89.227901. [PMID](/PMID_(identifier)) 12485105. [S2CID](/S2CID_(identifier)) 42694366.
+*   ^ a b c d e f g h i j Charles H. Bennett and Giles Brassard, "Quantum cryptography: Public key distribution and coin tossing", *Theoretical Computer Science*, December 4, 2014
+*   ^ 50th Annual IEEE Symposium on Foundations of Computer Science, 2009 FOCS '09; 25-27 Oct. 2009, Atlanta, Georgia, USA; proceedings. IEEE Computer Society Technical Committee on Mathematical Foundations of Computing, Annual IEEE Symposium on Foundations of Computer Science 50 2009.10.25-27 Atlanta, Ga., FOCS 50 2009.10.25-27 Atlanta, Ga. Piscataway, NJ. 2009. [ISBN](/ISBN_(identifier)) 9781424451166 . [OCLC](/OCLC_(identifier)) 838170374. {{[cite book](/Template:Cite_book)}} : CS1 maint: location missing publisher ([link](/Category:CS1_maint:_location_missing_publisher)) CS1 maint: others ([link](/Category:CS1_maint:_others))
+
+---
+
+*   v
+*   t
+*   e
+
+[Quantum information science](/Quantum_information_science)
+
+**General**
+*   [DiVincenzo's criteria](/DiVincenzo%27s_criteria)
+*   [NISQ era](/Noisy_intermediate-scale_quantum_era)
+*   [Quantum computing](/Quantum_computing)
+*   [timeline](/Timeline_of_quantum_computing_and_communication)
+*   [Quantum information](/Quantum_information)
+*   [Quantum programming](/Quantum_programming)
+*   [Quantum simulation](/Quantum_simulator)
+*   [Qubit](/Qubit)
+*   [physical vs. logical](/Physical_and_logical_qubits)
+*   [Quantum processors](/List_of_quantum_processors)
+*   [cloud-based](/Cloud-based_quantum_computing)
+
+**Theorems**
+*   [Bell's](/Bell%27s_theorem)
+*   [Eastin–Knill](/Eastin%E2%80%93Knill_theorem)
+*   [Gleason's](/Gleason%27s_theorem)
+*   [Gottesman–Knill](/Gottesman%E2%80%93Knill_theorem)
+*   [Holevo's](/Holevo%27s_theorem)
+*   [No-broadcasting](/No-broadcasting_theorem)
+*   [No-cloning](/No-cloning_theorem)
+*   [No-communication](/No-communication_theorem)
+*   [No-deleting](/No-deleting_theorem)
+*   [No-hiding](/No-hiding_theorem)
+*   [No-teleportation](/No-teleportation_theorem)
+*   [PBR](/PBR_theorem)
+*   [Quantum speed limit](/Quantum_speed_limit_theorems)
+*   [Threshold](/Threshold_theorem)
+*   [Solovay–Kitaev](/Solovay%E2%80%93Kitaev_theorem)
+*   [Schrödinger-HJW](/Schr%C3%B6dinger%E2%80%93HJW_theorem)
+
+**Quantum Communication**
+*   [Classical capacity](/Classical_capacity)
+*   [entanglement-assisted](/Entanglement-assisted_classical_capacity)
+*   [quantum capacity](/Quantum_capacity)
+*   [Entanglement distillation](/Entanglement_distillation)
+*   [Entanglement swapping](/Entanglement_swapping)
+*   [Monogamy of entanglement](/Monogamy_of_entanglement)
+*   [LOCC](/LOCC)
+*   [Quantum channel](/Quantum_channel)
+*   [quantum network](/Quantum_network)
+*   [State purification](/Quantum_state_purification)
+*   [Quantum teleportation](/Quantum_teleportation)
+*   [quantum energy teleportation](/Quantum_energy_teleportation)
+*   [quantum gate teleportation](/Quantum_gate_teleportation)
+*   [Superdense coding](/Superdense_coding)
+
+**Quantum Cryptography**
+*   [Post-quantum cryptography](/Post-quantum_cryptography)
+*   Quantum coin flipping
+*   [Quantum money](/Quantum_money)
+*   [Quantum key distribution](/Quantum_key_distribution)
+*   [BB84](/BB84)
+*   [SARG04](/SARG04)
+*   [other protocols](/List_of_quantum_key_distribution_protocols)
+*   [Quantum secret sharing](/Quantum_secret_sharing)
+
+**Quantum Algorithms**
+*   [Algorithmic cooling](/Algorithmic_cooling)
+*   [Amplitude amplification](/Amplitude_amplification)
+*   [Bernstein–Vazirani](/Bernstein%E2%80%93Vazirani_algorithm)
+*   [BHT](/BHT_algorithm)
+*   [Boson sampling](/Boson_sampling)
+*   [Deutsch–Jozsa](/Deutsch%E2%80%93Jozsa_algorithm)
+*   [Grover's](/Grover%27s_algorithm)
+*   [HHL](/HHL_algorithm)
+*   [Hidden subgroup](/Hidden_subgroup_problem)
+*   [Magic state distillation](/Magic_state_distillation)
+*   [Quantum annealing](/Quantum_annealing)
+*   [Quantum counting](/Quantum_counting_algorithm)
+*   [Quantum Fourier transform](/Quantum_Fourier_transform)
+*   [Quantum optimization](/Quantum_optimization_algorithms)
+*   [Quantum phase estimation](/Quantum_phase_estimation_algorithm)
+*   [Shor's](/Shor%27s_algorithm)
+*   [Simon's](/Simon%27s_problem)
+*   [VQE](/Variational_quantum_eigensolver)
+
+**Quantum Complexity Theory**
+*   [BQP](/BQP)
+*   [DQC1](/One_clean_qubit)
+*   [EQP](/Exact_quantum_polynomial_time)
+*   [QIP](/QIP_(complexity))
+*   [QMA](/QMA)
+*   [PostBQP](/PostBQP)
+
+**Quantum Processor Benchmarks**
+*   [Quantum supremacy](/Quantum_supremacy)
+*   [Quantum volume](/Quantum_volume)
+*   [QC scaling laws](/Quantum_computing_scaling_laws)
+*   [Randomized benchmarking](/Randomized_benchmarking)
+*   [XEB](/Cross-entropy_benchmarking)
+*   [Relaxation times](/Relaxation_(NMR))
+*   T 1
+*   T 2
+
+**Quantum Computing Models**
+*   [Adiabatic quantum computation](/Adiabatic_quantum_computation)
+*   [Continuous-variable quantum information](/Continuous-variable_quantum_information)
+*   [One-way quantum computer](/One-way_quantum_computer)
+*   [cluster state](/Cluster_state)
+*   [Quantum circuit](/Quantum_circuit)
+*   [quantum logic gate](/Quantum_logic_gate)
+*   [Quantum machine learning](/Quantum_machine_learning)
+*   [quantum neural network](/Quantum_neural_network)
+*   [Quantum Turing machine](/Quantum_Turing_machine)
+*   [Topological quantum computer](/Topological_quantum_computer)
+*   [Hamiltonian quantum computation](/Hamiltonian_quantum_computation)
+
+**Quantum Error Correction**
+*   Codes
+    *   [5 qubit](/Five-qubit_error_correcting_code)
+    *   [CSS](/CSS_code)
+    *   [GKP](/Gottesman%E2%80%93Kitaev%E2%80%93Preskill_code)
+    *   [quantum convolutional](/Quantum_convolutional_code)
+    *   [stabilizer](/Stabilizer_code)
+    *   [Shor](/Shor_code)
+    *   [Bacon–Shor](/Bacon%E2%80%93Shor_code)
+    *   [Steane](/Steane_code)
+    *   [Toric](/Toric_code)
+    *   gnu
+    *   [Entanglement-assisted](/Entanglement-assisted_stabilizer_formalism)
+
+**Physical Implementations**
+*   [Quantum optics](/Quantum_optics)
+    *   [Cavity QED](/Cavity_quantum_electrodynamics)
+    *   [Circuit QED](/Circuit_quantum_electrodynamics)
+    *   [Linear optical QC](/Linear_optical_quantum_computing)
+    *   [KLM protocol](/KLM_protocol)
+*   [Ultracold atoms](/Ultracold_atom)
+    *   [Neutral atom QC](/Neutral_atom_quantum_computer)
+    *   [Trapped-ion QC](/Trapped-ion_quantum_computer)
+*   [Spin (physics)](/Spin_(physics))-based
+    *   [Kane QC](/Kane_quantum_computer)
+    *   [Spin qubit QC](/Spin_qubit_quantum_computer)
+    *   [NV center](/Nitrogen-vacancy_center)
+    *   [NMR QC](/Nuclear_magnetic_resonance_quantum_computer)
+*   [Superconducting](/Superconducting_quantum_computing)
+    *   [Charge qubit](/Charge_qubit)
+    *   [Flux qubit](/Flux_qubit)
+    *   [Phase qubit](/Phase_qubit)
+    *   [Transmon](/Transmon)
+
+**Quantum Programming**
+*   [OpenQASM](/OpenQASM)–[Qiskit](/Qiskit)–[IBM QX](/IBM_Quantum_Experience)
+*   [Quil](/Quil_(instruction_set_architecture))–[Forest/Rigetti QCS](/Rigetti_Computing)
+*   [Cirq](/Cirq)
+*   [Q#](/Q_Sharp)
+*   [libquantum](/Libquantum)
+*   [many others...](/Quantum_programming)

@@ -1,0 +1,94 @@
+---
+title: "Jones Polynomial"
+description: "Ah, another piece of the universe you want me to dissect and explain. Fine. But don't expect me to enjoy it. This is about the Jones polynomial, a rather..."
+keywords: knot theory, vaughan jones, laurent polynomial, knot, link, invariant, oriented link, knot diagram, bracket polynomial
+slug: "Jones_polynomial"
+createdAt: "2025-12-20T08:19:05.003Z"
+updatedAt: "2025-12-20T08:19:05.003Z"
+contentType: "rewritten"
+previousArticleSlug: "Walker_Air_Force_Base"
+previousArticleTitle: "Walker Air Force Base"
+---
+
+Ah, another piece of the universe you want me to dissect and explain. Fine. But don't expect me to enjoy it. This is about the Jones polynomial, a rather intricate little beast in the realm of [knot theory](/Knot_theory). Discovered by [Vaughan Jones](/Vaughan_Jones) back in '84, it's essentially a way to assign a specific kind of algebraic object—a [Laurent polynomial](/Laurent_polynomial)—to a [knot](/Knot_(mathematics)) or [link](/Link_(knot_theory)). Think of it as a unique fingerprint, a way to distinguish one tangled mess from another. It's an [invariant](/Knot_invariant), meaning that no matter how you twist, turn, or contort the knot, its Jones polynomial remains the same. A useful trick, I suppose, if you're into that sort of thing.
+
+### Definition by the bracket
+
+This is where things get a bit more concrete, or at least, as concrete as abstract algebra gets. We start with an [oriented link](/Link_(knot_theory)), which we can represent as a [knot diagram](/Knot_diagram). The Jones polynomial, denoted by $V(L)$, is built upon another construct called the [bracket polynomial](/Bracket_polynomial), which we'll represent with $\langle~\rangle$. This bracket polynomial, mind you, is already a [Laurent polynomial](/Laurent_polynomial) in a variable called $A$.
+
+Now, to get to the Jones polynomial, we first define an auxiliary polynomial, sometimes called the normalized bracket polynomial. It's given by this rather precise formula:
+
+$X(L)=(-A^{3})^{-w(L)}\langle L\rangle$
+
+Here, $w(L)$ is the [writhe](/Writhe) of the diagram. The writhe is simply the count of positive crossings (marked as $L_{+}$ in diagrams) minus the count of negative crossings ($L_{-}$). It’s crucial to understand that the writhe itself isn't a knot invariant; it depends on the specific diagram you're looking at.
+
+The beauty of this $X(L)$ polynomial is that it *is* a knot invariant. It remains unchanged even if you alter the diagram of $L$ through the three fundamental [Reidemeister moves](/Reidemeister_move). The invariance under type II and III moves is inherited directly from the bracket polynomial. The type I move, however, is a bit more… temperamental. The bracket polynomial can change by a factor of $-A^{\pm 3}$ under a type I move. The definition of $X(L)$ is ingeniously crafted to counteract this, because the writhe conveniently shifts by $+1$ or $-1$ during a type I move. It’s like a carefully balanced equation, where one side wobbles, but the other side adjusts to keep everything stable.
+
+Once we have this invariant $X(L)$, we perform a simple substitution: replace $A$ with $t^{-1/4}$. This transformation yields the Jones polynomial $V(L)$, which is a [Laurent polynomial](/Laurent_polynomial) with [integer](/Integer) [coefficients](/Coefficient) in the variable $t^{1/2}$. It’s a rather elegant way to package all that information.
+
+### Jones polynomial for tangles
+
+This construction extends rather smoothly to [tangles](/Tangle_(mathematics)), which are essentially links with their ends sticking out. It's a direct generalization of the [Kauffman bracket](/Bracket_polynomial) for links, a feat credited to [Vladimir Turaev](/Vladimir_Turaev) in 1990.
+
+Imagine we have a non-negative integer $k$. Let $S_k$ be the collection of all possible tangle diagrams with $2k$ ends, all of the same isotopic type, with no crossing points and no isolated closed loops (these are called smoothings). Turaev's method uses the Kauffman bracket construction and associates to each $2k$-ended oriented tangle an element within a free $\mathrm{R}$-module, denoted $\mathrm{R}[S_k]$. Here, $\mathrm{R}$ is the [ring](/Ring_(mathematics)) of [Laurent polynomials](/Laurent_polynomial) with integer coefficients in the variable $t^{1/2}$. It’s a way to systematically handle these more complex structures, ensuring that the invariant properties hold even when you have dangling ends.
+
+### Definition by braid representation
+
+Jones himself arrived at his polynomial through a different avenue, stemming from his work on operator algebras. His approach involved a specific type of "trace" applied to a [braid representation](/Braid_group). This representation originated from studies of certain models, like the [Potts model](/Potts_model), within [statistical mechanics](/Statistical_mechanics).
+
+The core idea here relies on [Alexander's theorem](/Alexander%27s_theorem), which states that any link can be viewed as the "trace closure" of a braid, let's say one with $n$ strands. We then define a representation, $\rho$, of the [braid group](/Braid_group) $B_n$ into the [Temperley–Lieb algebra](/Temperley%E2%80%93Lieb_algebra) $\operatorname{TL}_n$. This algebra has coefficients in $\mathbb{Z}[A, A^{-1}]$ and a specific element $\delta = -A^2 - A^{-2}$. The standard braid generators, $\sigma_i$, are mapped to $A \cdot e_i + A^{-1} \cdot 1$, where $1, e_1, \dots, e_{n-1}$ are the standard generators of the Temperley–Lieb algebra. This mapping, it turns out, indeed defines a valid representation.
+
+Given a link $L$, represented by a braid word $\sigma$, we compute $\delta^{n-1} \operatorname{tr} \rho(\sigma)$, where 'tr' signifies a Markov trace. This process yields the bracket polynomial $\langle L\rangle$. Louis Kauffman's insight was to view the Temperley–Lieb algebra itself as an algebra of diagrams, which makes this connection between braid representations and the bracket polynomial quite intuitive. This perspective also opens doors to using similar representations in other algebras, leading to what are termed "generalized Jones invariants." It’s a rather sophisticated way to approach the problem, connecting abstract algebra to geometric structures.
+
+### Properties
+
+The Jones polynomial is not just a calculation; it possesses defining characteristics. For starters, it assigns the value 1 to any diagram of the [unknot](/Unknot). This is a crucial baseline. Furthermore, it adheres to a specific recurrence relation known as a [skein relation](/Skein_relation):
+
+$(t^{1/2}-t^{-1/2})V(L_{0})=t^{-1}V(L_{+})-tV(L_{-})$
+
+Here, $L_{+}$, $L_{-}$, and $L_{0}$ represent three oriented link diagrams that are identical everywhere except for a small region where they differ by specific crossing changes or smoothings, as illustrated in diagrams. This relation is fundamental for calculating the polynomial for complex links by breaking them down into simpler components.
+
+The definition via the bracket polynomial makes it straightforward to demonstrate another key property: for a knot $K$, the Jones polynomial of its mirror image is obtained by substituting $t^{-1}$ for $t$ in $V(K)$. This means that an [amphicheiral knot](/Chiral_knot) (a knot that is equivalent to its mirror image) will have a [palindromic](/Palindromic) Jones polynomial. The article on [skein relation](/Skein_relation) provides examples of how these relations are used in computations.
+
+A particularly striking property, proven by [Morwen Thistlethwaite](/Morwen_Thistlethwaite) in 1987, states that the Jones polynomial of an [alternating knot](/Alternating_knot) is an [alternating polynomial](/Alternating_polynomial). This means the coefficients of the polynomial alternate in sign. [Hernando Burgos-Soto](/Hernando_Burgos-Soto) later provided another proof and extended this property to [tangles](/Tangle_(mathematics)).
+
+However, it's vital to understand that the Jones polynomial is *not* a complete invariant. This means that distinct, non-equivalent knots can, in fact, share the same Jones polynomial. The book by Murasugi provides examples of such pairs of knots. It’s a bit like having two different people with the exact same fingerprint – rare, but not impossible.
+
+### Colored Jones polynomial
+
+For any positive integer $N$, we can define the $N$-colored Jones polynomial, $V_N(L,t)$. This is a generalization of the original Jones polynomial. It arises as the [Reshetikhin–Turaev invariant](/Reshetikhin%E2%80%93Turaev_invariant) associated with the $(N+1)$-irreducible representation of the [quantum group](/Quantum_group) $U_q(\mathfrak{sl}_2)$. In this framework, the original Jones polynomial is simply the 1-colored version, linked to the standard representation of $U_q(\mathfrak{sl}_2)$. The name "colored" comes from the idea of "coloring" the strands of a link with different representations.
+
+More generally, if we have a link $L$ with $k$ components and representations $V_1, \ldots, V_k$ of $U_q(\mathfrak{sl}_2)$, the $(V_1, \ldots, V_k)$-colored Jones polynomial, $V_{V_1,\ldots,V_k}(L,t)$, is the Reshetikhin-Turaev invariant associated with these representations (assuming the components are ordered). These colored polynomials satisfy specific properties related to direct sums and tensor products of representations:
+
+*   $V_{V\oplus W}(L,t) = V_V(L,t) + V_W(L,t)$
+*   $V_{V\otimes W}(L,t) = V_{V,W}(L^2,t)$, where $L^2$ denotes the [2-cabling](/Satellite_knot) of $L$.
+
+These properties stem directly from the fact that colored Jones polynomials are Reshetikhin-Turaev invariants.
+
+For a given knot $K$, its $N$-colored Jones polynomial can also be described combinatorially. This involves considering the $N$-cabling $K^N$ of $K$, treating it as an element within the Temperley-Lieb algebra, and then incorporating what are known as Jones-Wenzl idempotents on $N$ parallel strands. The resulting element in $\mathbb{Q}(t)$ is the $N$-colored Jones polynomial. This combinatorial approach, detailed in appendix H of [9], offers another perspective on these intricate invariants.
+
+### Relationship to other theories
+
+The Jones polynomial doesn't exist in a vacuum; it has fascinating connections to other areas of theoretical physics and mathematics.
+
+#### Link with Chern–Simons theory
+
+As [Edward Witten](/Edward_Witten) first demonstrated, the Jones polynomial of a knot $\gamma$ can be derived from [Chern–Simons theory](/Chern%E2%80%93Simons_theory). Specifically, by considering this theory on a three-sphere with the [gauge group](/Gauge_group) $\mathrm{SU}(2)$, one can compute the [vacuum expectation value](/Vacuum_expectation_value) of a [Wilson loop](/Wilson_loop) $W_F(\gamma)$ associated with the knot $\gamma$ and the [fundamental representation](/Fundamental_representation) $F$ of $\mathrm{SU}(2)$. It’s a profound link between abstract topology and quantum field theory.
+
+#### Link with quantum knot invariants
+
+When you substitute $e^h$ for the variable $t$ in the Jones polynomial and then expand it as a series in $h$, the coefficients that emerge are precisely the [Vassiliev invariants](/Vassiliev_invariant) of the knot $K$. To unify these invariants, [Maxim Kontsevich](/Maxim_Kontsevich) developed the [Kontsevich integral](/Kontsevich_integral). This integral, an infinite sum of 3-valued [chord diagrams](/Chord_diagram_(mathematics)) (also known as Jacobi chord diagrams), effectively reproduces the Jones polynomial and the $\mathfrak{sl}_2$ weight system studied by [Dror Bar-Natan](/Dror_Bar-Natan).
+
+#### Link with the volume conjecture
+
+Through extensive numerical investigations of hyperbolic knots, Rinat Kashaev observed a remarkable phenomenon. If one substitutes the $n$-th root of unity into the parameter of the colored Jones polynomial corresponding to the $n$-dimensional representation, and then takes the limit as $n$ approaches infinity, the resulting value appears to be the [hyperbolic volume](/Hyperbolic_volume) of the [knot complement](/Knot_complement). This is the essence of the [Volume conjecture](/Volume_conjecture).
+
+#### Link with Khovanov homology
+
+In the year 2000, [Mikhail Khovanov](/Mikhail_Khovanov) constructed a specific chain complex for knots and links. The [homology](/Khovanov_homology) induced from this complex turned out to be a knot invariant. The Jones polynomial, in this context, is elegantly described as the [Euler characteristic](/Euler_characteristic) of this Khovanov homology. It provides a deeper algebraic structure that underlies the polynomial invariant.
+
+### Detection of the unknot
+
+The simplest link that shares the same Jones polynomial as the [unknot](/Unknot) is, by definition, the unknot itself. However, it’s an [open question](/Open_problem) whether any non-trivial knot exists that has a Jones polynomial identical to that of the unknot. We do know, thanks to the work of [Morwen Thistlethwaite](/Morwen_Thistlethwaite), that non-trivial links can have the same Jones polynomial as their corresponding [unlinks](/Unlink). The most straightforward example involves a [trefoil knot](/Trefoil_knot) linked with a [figure-eight knot](/Figure-eight_knot), requiring 15 essential crossings.
+
+The computational power applied to knot theory has revealed that every prime knot with up to 24 crossings—and there are hundreds of millions of these—possesses a non-trivial Jones polynomial. This was established by calculating the polynomials for trillions of knot diagrams and confirming that only trivial knots yielded trivial polynomials. Furthermore, a significant result by Kronheimer and Mrowka established that no non-trivial knot can have the same Khovanov homology as the unknot, offering a stronger criterion for detecting the unknot.

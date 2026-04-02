@@ -1,0 +1,454 @@
+---
+title: "Monadic Second-Order Logic"
+description: "In mathematical logic, monadic second‑order logic (often abbreviated MSO) is the fragment of second-order logic in which second‑order quantification is..."
+keywords: mathematical logic, second-order logic, logic of graphs, treewidth, automata theory, fragment_(logic), fagin's theorem, tree automaton
+slug: "Monadic_second-order_logic"
+createdAt: "2025-12-26T10:08:20.716Z"
+updatedAt: "2025-12-26T10:08:20.716Z"
+contentType: "rewritten"
+aiProvider: "OpenRouter"
+aiModel: "nvidia/nemotron-3-nano-30b-a3b:free"
+previousArticleSlug: "Perihelion_precession_of_Mercury"
+previousArticleTitle: "Perihelion Precession Of Mercury"
+---
+
+# Form of second-order logic
+
+In **[mathematical logic](/Mathematical_logic)**, **monadic second‑order logic** (often abbreviated **MSO**) is the fragment of **[second-order logic](/Second-order_logic)** in which second‑order quantification is restricted to variables that range over *sets* of elements rather than over arbitrary relations or functions.  This restriction makes MSO strictly weaker than full second‑order logic but still powerful enough to encode many combinatorial properties.  The formal definition can be expressed as a set of formulas built from first‑order atoms using only *monadic* set‑quantifiers ∃X, ∀X, where X denotes a subset of the domain.  The resulting theory is sometimes called **monadic predicate calculus**, and it enjoys a number of pleasant model‑theoretic properties that do not hold for the full second‑order formalism.  
+
+MSO is especially prominent in the study of **graph‑theoretic** problems.  In the **[logic of graphs](/Logic_of_graphs)**, for example, many natural graph properties—such as being a forest, being chordal, or having a Hamiltonian path—can be captured by an MSO formula that quantifies over vertex‑sets or edge‑sets and then checks adjacency using the primitive binary edge predicate  
+
+E  
+(x, y)  
+
+{\displaystyle E(x,y)}.  
+
+Because of this expressive adequacy, MSO sits at the heart of **Courcelle’s theorem** [/Courcelle%27s_theorem], which shows that any graph property expressible in MSO can be decided in linear time on any graph class of bounded **[treewidth](/Treewidth)**.  This theorem has become a cornerstone of algorithmic graph theory, providing a bridge between logical definability and efficient computation.  
+
+Beyond pure mathematics, MSO also plays a pivotal role in **[automata theory](/Automata_theory)**.  The **[Büchi–Elgot–Trakhtenbrot theorem](/B%C3%BCchi%E2%80%93Elgot%E2%80%93Trakhtenbrot_theorem)** establishes a precise correspondence between MSO‑definable languages over infinite trees and the class of **regular languages** over finite alphabets.  In this setting, the formulas are interpreted over structures such as infinite binary trees, and the theorem yields a decision procedure for the emptiness of MSO‑definable tree automata.  
+
+---
+
+# Variants
+
+Monadic second‑order logic comes in two distinct *variants*, each tailored to a different class of structures and with its own technical constraints.
+
+1. **Graph‑theoretic variant** – In this setting the formulas may contain arbitrary relational symbols, including the binary edge predicate  
+
+   E  
+   (x, y)  
+
+   {\displaystyle E(x,y)}  
+
+   that records adjacency between vertices.  What remains *monadic* is the *second‑order* quantification: only set variables may be quantified over, while first‑order variables range over individual nodes or edges.  This variant is the one most commonly used in the statement of **Courcelle’s theorem** and in the analysis of graph algorithms that operate on bounded‑treewidth graphs.
+
+2. **Automata‑theoretic variant** – Here the syntactic restriction is stricter: *all* predicates occurring in the formula—including the equality symbol “=” and any ordering relation “<”—must be monadic.  Consequently, the only allowed second‑order quantifiers range over finite or infinite sets of elements, and the underlying structures are typically trees, words, or other well‑founded orders.  This variant underlies the **[Büchi–Elgot–Trakhtenbrot theorem](/B%C3%BCchi%E2%80%93Elgot%E2%80%93Trakhtenbrot_theorem)** and is the logical framework employed by many **tree‑automata** and **word‑automata** constructions.
+
+Both variants share the property that the *set* of monadic predicates is expressively equivalent to the class of *subsets* of the domain, which is why MSO is sometimes described as “quantification over sets”.  This equivalence is formalised in the notion of a **[Fragment_(logic)](/Fragment_(logic))**, where MSO is identified as a specific fragment of the full second‑order language.
+
+---
+
+# Computational complexity of evaluation
+
+The **expressiveness** of MSO can be stratified in several ways, each leading to a different computational landscape.
+
+### Existential fragment
+
+**Existential monadic second‑order logic** (often written **EMSO**) is the subset of MSO in which *all* second‑order quantifiers are existential (∃X) and no universal second‑order quantifiers (∀X) appear.  First‑order quantifiers remain unrestricted.  The significance of this fragment stems from its close ties to **descriptive complexity**: by **[Fagin's theorem](/Fagin%27s_theorem)**, the class of properties definable by an existential *non‑monadic* second‑order formula coincides exactly with the complexity class **NP**.  When the monadic restriction is imposed, the resulting set of definable properties is called **monadic NP** (sometimes abbreviated **MNP**).  This restriction yields separations that are invisible in the broader non‑monadic setting.  For instance, the graph‑property “the input graph is **disconnected**” belongs to monadic NP because one can write an EMSO formula asserting the existence of a proper subset of vertices that has no incident edges to the remainder.  By contrast, the complementary property “the graph is **connected**” does **not** belong to monadic NP; proving this non‑membership is equivalent to establishing that **NP ≠ coNP**, a longstanding open problem in computational complexity theory.  
+
+### Enumeration and counting on bounded‑treewidth structures
+
+When the input structure is a **tree** or, more generally, a graph of **bounded treewidth**, MSO formulas admit efficient *enumeration* and *counting* algorithms.  Specifically, for any MSO formula φ with *free* (i.e., non‑quantified) first‑order variables, there exist enumeration algorithms that preprocess the input in linear time and then output each satisfying assignment with a delay that is linear in the size of that assignment—a so‑called **constant‑delay** enumeration in the typical case where all free variables are first‑order.  Moreover, the number of satisfying assignments can be counted in linear time on such bounded‑treewidth inputs, thanks to a translation of the MSO formula into an equivalent **[tree automaton](/Tree_automaton)**.  These algorithmic results are encapsulated by **[Courcelle's theorem](/Courcelle%27s_theorem)** and have been formalised in a series of seminal papers [/Courcelle%27s_theorem], [/Tree_(data_structure)], [/Tree_automaton].
+
+### Decidability and complexity of satisfiability
+
+The **satisfiability problem** for full MSO is **undecidable** in general because MSO subsumes first‑order logic, whose satisfiability problem is already undecidable.  Nevertheless, several *restricted* MSO theories are decidable, most notably the **MSO theory of the infinite complete binary tree** (often denoted **S2S**).  The decidability of S2S yields the decidability of:
+
+* the monadic second‑order theory of arbitrary **trees**,
+* the monadic second‑order theory of the natural numbers ℕ with the successor relation (S1S),
+* the **weak** monadic second‑order logics **WS2S** and **WS1S**, which restrict quantification to *finite* subsets only; in these weak logics addition of natural numbers is still definable.
+
+For each of these decidable fragments the decision problem is **nonelementary** in the size of the input formula [/Nonelementary_problem], meaning that no elementary bound (such as a tower of exponentials) exists for the length of the shortest proof of unsatisfiability.  Despite this theoretical limitation, practical decision procedures have been developed using automata‑theoretic techniques and are implemented in tools such as **Mona** [/Mona].
+
+The application of MSO satisfiability to **formal verification** is especially noteworthy.  In the verification of **linked data structures**, **shape analysis**, and **symbolic reasoning** for both software and **hardware** systems, one often translates program properties into MSO formulas over inductive data structures.  The resulting decidability results for MSO on trees and words underpin a wide variety of model‑checking pipelines [/Formal_verification], [/Data_structures], [/Shape_analysis_(program_analysis)], [/Symbolic_reasoning], [/Hardware_verification].
+
+---
+
+# See also
+
+* **[Descriptive complexity theory](/Descriptive_complexity_theory)**
+* **[Monadic predicate calculus](/Monadic_predicate_calculus)**
+* **[Second-order logic](/Second-order_logic)**
+
+---
+
+# References
+
+• ^ [Courcelle, Bruno](/Bruno_Courcelle); Engelfriet, Joost (2012-01-01). *Graph Structure and Monadic Second-Order Logic: A Language-Theoretic Approach* . Cambridge University Press. [ISBN](/ISBN_(identifier))  978-0521898331 . Retrieved 2016-09-15.
+
+• ^
+
+• [Fagin, Ronald](/Ronald_Fagin) (1975), "Monadic generalized spectra", *Zeitschrift für Mathematische Logik und Grundlagen der Mathematik* , 21 : 89–96, [doi](/Doi_(identifier)):10.1002/malq.19750210112, [MR](/MR_(identifier))  0371623 .
+
+• ^
+
+• [Fagin, R.](/Ronald_Fagin); [Stockmeyer, L.](/Larry_Stockmeyer); [Vardi, M. Y.](/Moshe_Vardi) (1993), "On monadic NP vs. monadic co-NP", *Proceedings of the Eighth Annual Structure in Complexity Theory Conference* , Institute of Electrical and Electronics Engineers, [doi](/Doi_(identifier)):10.1109/sct.1993.336544, [S2CID](/S2CID_(identifier))  32740047 .
+
+• ^
+
+• Thatcher, J. W.; Wright, J. B. (1968-03-01). "Generalized finite automata theory with an application to a decision problem of second-order logic". *Mathematical Systems Theory* . 2 (1): 57–81. [doi](/Doi_(identifier)):10.1007/BF01691346. [ISSN](/ISSN_(identifier))  1433-0490. [S2CID](/S2CID_(identifier))  31513761.
+
+• ^ a b
+
+• Meyer, Albert R. (1975). Parikh, Rohit (ed.). "Weak monadic second order theory of successor is not elementary‑recursive". *Logic Colloquium* . Lecture Notes in Mathematics. Springer Berlin Heidelberg: 132–154. [doi](/Doi_(identifier)):10.1007/bfb0064872. [ISBN](/ISBN_(identifier))  9783540374831 .
+
+• ^
+
+• Bagan, Guillaume (2006). Ésik, Zoltán (ed.). "MSO Queries on Tree Decomposable Structures Are Computable with Linear Delay". *Computer Science Logic* . Lecture Notes in Computer Science. 4207 . Springer Berlin Heidelberg: 167–181. [doi](/Doi_(identifier)):10.1007/11874683_11. [ISBN](/ISBN_(identifier))  9783540454595 .
+
+• ^
+
+• Arnborg, Stefan; Lagergren, Jens; Seese, Detlef (1991-06-01). "Easy problems for tree‑decomposable graphs". *Journal of Algorithms* . 12 (2): 308–340. [doi](/Doi_(identifier)):10.1016/0196-6774(91)90006-K. [ISSN](/ISSN_(identifier))  0196-6774.
+
+• ^
+
+• Rabin, Michael O. (1969). "Decidability of Second‑Order Theories and Automata on Infinite Trees". *Transactions of the American Mathematical Society* . 141 : 1–35. [doi](/Doi_(identifier)):10.2307/1995086. [ISSN](/ISSN_(identifier))  0002-9947. [JSTOR](/JSTOR_(identifier))  1995086.
+
+• ^
+
+• Stockmeyer, Larry; Meyer, Albert R. (2002-11-01). "Cosmological lower bound on the circuit complexity of a small problem in logic". *Journal of the ACM* . 49 (6): 753–784. [doi](/Doi_(identifier)):10.1145/602220.602223. [ISSN](/ISSN_(identifier))  0004-5411. [S2CID](/S2CID_(identifier))  15515064.
+
+• ^
+
+• Henriksen, Jesper G.; Jensen, Jakob; Jørgensen, Michael; Klarlund, Nils; Paige, Robert; Rauhe, Theis; Sandholm, Anders (1995). Brinksma, E.; Cleaveland, W. R.; Larsen, K. G.; [Margaria, T.](/Tiziana_Margaria); Steffen, B. (eds.). "Mona: Monadic second‑order logic in practice". *Tools and Algorithms for the Construction and Analysis of Systems* . Lecture Notes in Computer Science. 1019 . Berlin, Heidelberg: Springer: 89–110. [doi](/Doi_(identifier)):10.1007/3-540-60630-0_5. [ISBN](/ISBN_(identifier))  978-3-540-48509-4 .
+
+• ^
+
+• Fiedor, Tomáš; Holík, Lukáš; Lengál, Ondřej; Vojnar, Tomáš (2019-04-01). "Nested antichains for WS1S". *Acta Informatica* . 56 (3): 205–228. [doi](/Doi_(identifier)):10.1007/s00236-018-0331-z. [ISSN](/ISSN_(identifier))  1432-0525. [S2CID](/S2CID_(identifier))  57189727.
+
+• ^
+
+• Traytel, Dmitriy; Nipkow, Tobias (2013-09-25). "Verified decision procedures for MSO on words based on derivatives of regular expressions". *ACM SIGPLAN Notices* . 48 (9): 3–f12. [doi](/Doi_(identifier)):10.1145/2544174.2500612. [hdl](/Hdl_(identifier)):20.500.11850/106053. [ISSN](/ISSN_(identifier))  0362-1340.
+
+• ^
+
+• Møller, Anders; Schwartzbach, Michael I. (2001-05-01). "The pointer assertion logic engine". *Proceedings of the ACM SIGPLAN 2001 conference on Programming language design and implementation* . PLDI '01. Snowbird, Utah, USA: Association for Computing Machinery. pp. 221–231. [doi](/Doi_(identifier)):10.1145/378795.378851. [ISBN](/ISBN_(identifier))  978-1-58113-414-8 . [S2CID](/S2CID_(identifier))  11476928.
+
+• ^
+
+• Basin, David; Klarlund, Nils (1998-11-01). "Automata based symbolic reasoning in hardware verification". *Formal Methods in System Design* . 13 (3): 255–288. [doi](/Doi_(identifier)):10.1023/A:1008644009416. [ISSN](/ISSN_(identifier))  0925-9856.
+
+• ^
+
+•
+
+• v
+• t
+• e
+
+[Mathematical logic](/Mathematical_logic)
+General
+
+* [Axiom](/Axiom)
+* [list](/List_of_axioms)
+* [Cardinality](/Cardinality)
+* [First-order logic](/First-order_logic)
+* [Formal proof](/Formal_proof)
+* [Formal semantics](/Formal_semantics_(logic))
+* [Foundations of mathematics](/Foundations_of_mathematics)
+* [Information theory](/Information_theory)
+* [Lemma](/Lemma_(mathematics))
+* [Logical consequence](/Logical_consequence)
+* [Model](/Structure_(mathematical_logic))
+* [Theorem](/Theorem)
+* [Theory](/Theory_(mathematical_logic))
+* [Type theory](/Type_theory)
+* [list](/Category:Theorems_in_the_foundations_of_mathematics)
+and
+* [Paradoxes_of_set_theory](/Paradoxes_of_set_theory)
+
+* [Gödel's completeness theorem](/G%C3%B6del%27s_completeness_theorem) and
+  [Gödel's incompleteness theorems](/G%C3%B6del%27s_incompleteness_theorems)
+* [Tarski's undefinability theorem](/Tarski%27s_undefinability_theorem)
+* [Banach–Tarski paradox](/Banach%E2%80%93Tarski_paradox)
+* Cantor's
+  [theorem,](/Cantor%27s_theorem) [paradox](/Cantor%27s_paradox) and
+  [diagonal argument](/Cantor%27s_diagonal_argument)
+* [Compactness](/Compactness_theorem)
+* [Halting problem](/Halting_problem)
+* [Lindström's](/Lindstr%C3%B6m%27s_theorem)
+* [Löwenheim–Skolem](/L%C3%B6wenheim%E2%80%93Skolem_theorem)
+* [Russell's paradox](/Russell%27s_paradox)
+
+[Logics](/Logic)
+
+[Traditional](/Term_logic)
+
+* [Classical logic](/Classical_logic)
+* [Logical truth](/Logical_truth)
+* [Tautology](/Tautology_(logic))
+* [Proposition](/Proposition)
+* [Inference](/Inference)
+* [Logical equivalence](/Logical_equivalence)
+* [Consistency](/Consistency)
+* [Equiconsistency](/Equiconsistency)
+* [Argument](/Argument)
+* [Soundness](/Soundness)
+* [Validity_(logic)] (/Validity_(logic))
+* [Syllogism](/Syllogism)
+* [Square of opposition](/Square_of_opposition)
+* [Venn diagram](/Venn_diagram)
+
+[Propositional](/Propositional_calculus)
+
+* [Boolean algebra](/Boolean_algebra)
+* [Boolean functions](/Boolean_function)
+* [Logical connectives](/Logical_connective)
+* [Propositional calculus](/Propositional_calculus)
+* [Propositional formula](/Propositional_formula)
+* [Truth tables](/Truth_table)
+* [Many-valued logic](/Many-valued_logic)
+* [3](/Three-valued_logic)
+* [finite](/Finite-valued_logic)
+* [∞](/Infinite-valued_logic)
+
+[Predicate](/Predicate_logic)
+
+* [First-order](/First-order_logic)
+* [list](/List_of_first-order_theories)
+* [Second-order](/Second-order_logic)
+* Monadic
+* [Higher-order](/Higher-order_logic)
+* [Fixed-point](/Fixed-point_logic)
+* [Free](/Free_logic)
+* [Quantifiers](/Quantifier_(logic))
+* [Predicate](/Predicate_(mathematical_logic))
+* [Monadic predicate calculus](/Monadic_predicate_calculus)
+
+[Set theory](/Set_theory)
+
+* [Set](/Zermelo%E2%80%93Fraenkel_set_theory)
+* [hereditary](/Hereditary_set)
+* [Class](/Class_(set_theory))
+* ([Ur-](/Urelement))[Element](/Element_(mathematics))
+* [Ordinal number](/Ordinal_number)
+* [Extensionality](/Extensionality)
+* [Forcing](/Forcing_(mathematics))
+* [Relation](/Relation_(mathematics))
+* [equivalence](/Equivalence_relation)
+* [partition](/Partition_of_a_set)
+* Set operations:
+  * [intersection](/Intersection_(set_theory))
+  * [union](/Union_(set_theory))
+  * [complement](/Complement_(set_theory))
+  * [Cartesian product](/Cartesian_product)
+  * [power set](/Power_set)
+  * [identities](/List_of_set_identities_and_relations)
+* [Set_(mathematics)] (/Set_(mathematics))
+* [Countable](/Countable_set)
+* [Uncountable](/Uncountable_set)
+* [Empty](/Empty_set)
+* [Inhabited](/Inhabited_set)
+* [Singleton](/Singleton_(mathematics))
+* [Finite](/Finite_set)
+* [Infinite](/Infinite_set)
+* [Transitive](/Transitive_set)
+* [Ultrafilter](/Ultrafilter_(set_theory))
+* [Recursive](/Recursive_set)
+* [Fuzzy](/Fuzzy_set)
+* [Universal](/Universal_set)
+* [Universe](/Universe_(mathematics))
+* [constructible](/Constructible_universe)
+* [Grothendieck](/Grothendieck_universe)
+* [Von Neumann](/Von_Neumann_universe)
+
+[Maps](/Map_(mathematics)) and
+[cardinality](/Cardinality)
+
+* [Function](/Function_(mathematics))/[Map](/Map_(mathematics))
+* [domain](/Domain_of_a_function)
+* [codomain](/Codomain)
+* [image](/Image_(mathematics))
+* [In](/Injective_function)/[Sur](/Surjective_function)/[Bi](/Bijection)-jection
+* [Schröder–Bernstein theorem](/Schr%C3%B6der%E2%80%93Bernstein_theorem)
+* [Isomorphism](/Isomorphism)
+* [Gödel numbering](/G%C3%B6del_numbering)
+* [Enumeration](/Enumeration)
+* [Large cardinal](/Large_cardinal)
+* [inaccessible](/Inaccessible_cardinal)
+* [Aleph number](/Aleph_number)
+* [Operation](/Operation_(mathematics))
+* [binary](/Binary_operation)
+
+[Formal system](/Formal_system) ([list](/List_of_formal_systems)),
+[language](/Formal_language) and
+[syntax](/Syntax_(logic))
+
+* [Alphabet](/Alphabet_(formal_languages))
+* [Arity](/Arity)
+* [Automata](/Automata_theory)
+* [Axiom schema](/Axiom_schema)
+* [Expression](/Expression_(mathematics))
+* [ground](/Ground_expression)
+* [Extension](/Extension_by_new_constant_and_function_names)
+* [by definition](/Extension_by_definitions)
+* [conservative](/Conservative_extension)
+* [Relation](/Finitary_relation)
+* [Formation rule](/Formation_rule)
+* [Grammar](/Formal_grammar)
+* [Well‑formed_formula]
+* [atomic](/Atomic_formula)
+* [closed](/Sentence_(mathematical_logic))
+* [ground](/Ground_formula)
+* [open](/Open_formula)
+* [Free/bound variable](/Free_variables_and_bound_variables)
+* [Language](/Formal_language)
+* [Metalanguage](/Metalanguage)
+* [Logical connective](/Logical_connective)
+* [¬](/Negation)
+* [∨](/Logical_disjunction)
+* [∧](/Logical_conjunction)
+* [→](/Material_conditional)
+* [↔](/Logical_biconditional)
+* [Logical_equality] (maybe not a link)
+* [Predicate](/Predicate_(mathematical_logic))
+* [functional](/Functional_predicate)
+* [variable](/Predicate_variable)
+* [propositional variable](/Propositional_variable)
+* [Proof](/Formal_proof)
+* [Quantifier](/Quantifier_(logic))
+* [∃](/Existential_quantification)
+* [!](/Uniqueness_quantification)
+* [∀](/Universal_quantification)
+* [rank](/Quantifier_rank)
+* [Sentence](/Sentence_(mathematical_logic))
+* [atomic](/Atomic_sentence)
+* [spectrum](/Spectrum_of_a_sentence)
+* [Signature](/Signature_(logic))
+* [String](/String_(formal_languages))
+* [Substitution](/Substitution_(logic))
+* [Symbol](/Symbol_(formal))
+* [function](/Uninterpreted_function)
+* [logical/constant](/Logical_constant)
+* [non‑logical](/Non‑logical_symbol)
+* [variable](/Variable_(mathematics))
+* [Term_(logic)]
+* [Theory](/Theory_(mathematical_logic))
+* [list](/List_of_mathematical_theories)
+
+Example [axiomatic system](/Axiomatic_system) ([list](/List_of_first-order_theories))
+
+* of [true arithmetic](/True_arithmetic):
+  * [Peano](/Peano_axioms)
+  * [second‑order](/Second-order_arithmetic)
+  * [elementary function](/Elementary_function_arithmetic)
+  * [primitive recursive](/Primitive_recursive_arithmetic)
+  * [Robinson](/Robinson_arithmetic)
+  * [Skolem](/Skolem_arithmetic)
+* of the [real numbers](/Construction_of_the_real_numbers)
+* [Tarski's axiomatization](/Tarski%27s_axiomatization_of_the_reals)
+* of [Boolean algebras](/Axiomatization_of_Boolean_algebras)
+  * [canonical](/Boolean_algebras_canonically_defined)
+  * [minimal axioms](/Minimal_axioms_for_Boolean_algebra)
+* of [geometry](/Foundations_of_geometry):
+  * [Euclidean](/Euclidean_geometry):
+    * Elements
+    * [Hilbert's](/Hilbert%27s_axioms)
+    * [Tarski's](/Tarski%27s_axioms)
+  * [Non‑Euclidean](/Non‑Euclidean_geometry)
+  * [Principia Mathematica](/Principia_Mathematica)
+
+[Proof theory](/Proof_theory)
+
+* [Formal proof](/Formal_proof)
+* [Natural deduction](/Natural_deduction)
+* [Logical consequence](/Logical_consequence)
+* [Rule of inference](/Rule_of_inference)
+* [Sequent calculus](/Sequent_calculus)
+* [Theorem](/Theorem)
+* [Systems](/Formal_system)
+* [axiomatic](/Axiomatic_system)
+* [deductive](/Deductive_system)
+* [Hilbert](/Hilbert_system)
+* [list](/List_of_Hilbert_systems)
+* [Complete theory](/Complete_theory)
+* [Independence_(mathematical_logic)] (/Independence_(mathematical_logic))
+  ([from ZFC](/List_of_statements_independent_of_ZFC))
+* [Proof of impossibility](/Proof_of_impossibility)
+* [Ordinal analysis](/Ordinal_analysis)
+* [Reverse mathematics](/Reverse_mathematics)
+* [Self‑verifying theories](/Self‑verifying_theories)
+
+[Model theory](/Model_theory)
+
+* [Interpretation](/Interpretation_(logic))
+* [function](/Interpretation_function)
+* [of models](/Interpretation_(model_theory))
+* [Model](/Structure_(mathematical_logic))
+* [atomic](/Atomic_model_(mathematical_logic))
+* [equivalence](/Elementary_equivalence)
+* [finite](/Finite_model_theory)
+* [prime](/Prime_model)
+* [saturated](/Saturated_model)
+* [spectrum](/Spectrum_of_a_theory)
+* [submodel](/Substructure_(mathematics))
+* [Non‑standard model](/Non‑standard_model)
+* of [non‑standard arithmetic](/Non‑standard_model_of_arithmetic)
+* [Diagram](/Diagram_(mathematical_logic))
+* [elementary](/Elementary_diagram)
+* [Categorical theory](/Categorical_theory)
+* [Model complete theory](/Model_complete_theory)
+* [Satisfiability](/Satisfiability)
+* [Semantics of logic](/Semantics_of_logic)
+* [Strength](/Strength_(mathematical_logic))
+* [Theories of truth](/Theories_of_truth)
+* [semantic](/Semantic_theory_of_truth)
+* [Tarski's](/Tarski%27s_theory_of_truth)
+* [Kripke's](/Kripke%27s_theory_of_truth)
+* [T‑schema](/T‑schema)
+* [Transfer principle](/Transfer_principle)
+* [Truth predicate](/Truth_predicate)
+* [Truth value](/Truth_value)
+* [Type](/Type_(model_theory))
+* [Ultraproduct](/Ultraproduct)
+
+[Computability theory](/Computability_theory)
+
+* [Church encoding](/Church_encoding)
+* [Church–Turing thesis](/Church%E2%80%93Turing_thesis)
+* [Computably enumerable](/Computably_enumerable_set)
+* [Computable function](/Computable_function)
+* [Computable set](/Computable_set)
+* [Decision problem](/Decision_problem)
+* [decidable](/Decidability_(logic))
+* [undecidable](/Undecidable_problem)
+* [P](/P_(complexity))
+* [NP](/NP_(complexity))
+* [P versus NP problem](/P_versus_NP_problem)
+* [Kolmogorov complexity](/Kolmogorov_complexity)
+* [Lambda calculus](/Lambda_calculus)
+* [Primitive recursive function](/Primitive_recursive_function)
+* [Recursion](/Recursion)
+* [Recursive set](/Recursive_set)
+* [Turing machine](/Turing_machine)
+* [Type theory](/Type_theory)
+
+Related
+
+* [Abstract logic](/Abstract_logic)
+* [Algebraic logic](/Algebraic_logic)
+* [Automated theorem proving](/Automated_theorem_proving)
+* [Category theory](/Category_theory)
+* [Concrete](/Concrete_category)/[Abstract category](/Category_(mathematics))
+* [Category of sets](/Category_of_sets)
+* [History of logic](/History_of_logic)
+* [History of mathematical logic](/History_of_mathematical_logic)
+* [timeline](/Timeline_of_mathematical_logic)
+* [Logicism](/Logicism)
+* [Mathematical object](/Mathematical_object)
+* [Philosophy of mathematics](/Philosophy_of_mathematics)
+* [Supertask](/Supertask)
+
+[Mathematics portal](/Portal:Mathematics)
+
+Article:

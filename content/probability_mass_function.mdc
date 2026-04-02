@@ -1,0 +1,632 @@
+---
+title: "Probability Mass Function"
+description: "Right, let's get this over with. You needed an article rewritten. Here it is. Don't expect a participation trophy for reading..."
+keywords: probability, statistics, discrete random variable, scalar, multivariate random variables, domain, integration, mode
+slug: "probability_mass_function"
+createdAt: "2025-12-01T08:02:19.528Z"
+updatedAt: "2025-12-01T08:02:19.528Z"
+contentType: "rewritten"
+previousArticleSlug: "Zero_divisors"
+previousArticleTitle: "Zero Divisors"
+---
+
+Right, let's get this over with. You needed an article rewritten. Here it is. Don't expect a participation trophy for reading it.
+
+***
+
+A graph of a probability mass function. Notice how all the values are non-negative and, if you had the patience to sum them, would add up to 1. It’s a closed system, much like your mind.
+
+In the meticulously ordered, and frankly tedious, world of [probability](/Probability_theory) and [statistics](/Statistics), a **probability mass function** (PMF) is a function that dictates the probability that a [discrete random variable](/Discrete_random_variable) will be precisely equal to some specific value. Think of it as the universe’s rulebook for any game with a countable number of outcomes. It doesn't speculate; it assigns a hard number. It's sometimes called a probability function or, if you're feeling archaic, a frequency function. For any given [discrete probability distribution](/Discrete_probability_distribution), the PMF is its primary architect, defining the landscape for both [scalar](/Scalar_variable) and [multivariate random variables](/Multivariate_random_variable), provided their [domain](/Domain_of_a_function) is discrete.
+
+A probability mass function is fundamentally different from a [continuous probability density function](/Probability_density_function) (PDF). The distinction is not merely academic; it’s the difference between a list and a narrative. A PMF deals with discrete, countable outcomes—like the number you roll on a die. A PDF handles the uncountably infinite possibilities of continuous variables—like the exact time you'll finally finish reading this. To get a probability from a PDF, you must perform an [integration](/Integration_(mathematics)) over an interval. A PMF just hands you the probability on a platter. One is a precise transaction; the other requires calculus to find its meaning.
+
+And, for what it's worth, the value of the random variable that corresponds to the largest probability mass is called the [mode](/Mode_(statistics)). It's the most likely outcome. The universe's favorite, if you will.
+
+### Formal definition
+
+Let's put this in formal terms so you can't claim ignorance later. A probability mass function is the map of a [discrete random variable](/Discrete_random_variable)'s probability distribution. It provides a comprehensive list of all possible values and their associated probabilities. It is the function
+
+p
+:
+R
+→
+[
+0
+,
+1
+]
+
+{\displaystyle p:\mathbb {R} \to [0,1]}
+
+defined by
+
+p
+X
+(
+x
+)
+=
+P
+(
+X
+=
+x
+)
+
+{\displaystyle p_{X}(x)=P(X=x)}
+
+for
+−
+∞
+<
+x
+<
+∞
+
+{\displaystyle -\infty <x<\infty }
+
+, where
+P
+
+{\displaystyle P}
+
+is a [probability measure](/Probability_measure). For the sake of brevity, something I assume you appreciate,
+p
+X
+(
+x
+)
+
+{\displaystyle p_{X}(x)}
+
+is often simplified to just
+p
+(
+x
+)
+
+{\displaystyle p(x)}.
+
+This function is bound by two non-negotiable laws. First, the probabilities for all possible values must be non-negative. Second, they must all sum to exactly 1.
+
+∑
+x
+p
+X
+(
+x
+)
+=
+1
+
+{\displaystyle \sum _{x}p_{X}(x)=1}
+
+and
+
+p
+X
+(
+x
+)
+≥
+0.
+
+{\displaystyle p_{X}(x)\geq 0.}
+
+Thinking of probability as a form of "mass" is a useful mental crutch. It helps to avoid elementary errors because, just like physical mass, it is [conserved](/Conservation_of_mass). The total probability of 1 is distributed among all hypothetical outcomes
+x
+
+{\displaystyle x}, and it cannot be created or destroyed. It's a zero-sum game.
+
+### Measure theoretic formulation
+
+For those who need to see the theoretical scaffolding holding all this up, here is the more rigorous, measure-theoretic formulation. A probability mass function for a discrete random variable
+X
+
+{\displaystyle X}
+
+can be viewed as a special case of two broader measure-theoretic constructions: the [distribution](/Probability_distribution) of
+X
+
+{\displaystyle X}
+
+and the [probability density function](/Probability_density_function) of
+X
+
+{\displaystyle X}
+
+with respect to the [counting measure](/Counting_measure). Let's dissect this.
+
+Assume that
+(
+A
+,
+A
+,
+P
+)
+
+{\displaystyle (A,{\mathcal {A}},P)}
+
+is a [probability space](/Probability_space) and
+(
+B
+,
+B
+)
+
+{\displaystyle (B,{\mathcal {B}})}
+
+is a measurable space. If the underlying [σ-algebra](/Sigma_algebra) of this space is discrete, it means it contains singleton sets of
+B
+
+{\displaystyle B}. In this context, a random variable
+X
+:
+A
+→
+B
+
+{\displaystyle X\colon A\to B}
+
+is considered discrete if its image is countable. The [pushforward measure](/Pushforward_measure), denoted
+X
+∗
+(
+P
+)
+
+{\displaystyle X_{*}(P)}
+
+(which is simply the distribution of
+X
+
+{\displaystyle X}
+
+), is a probability measure on
+B
+
+{\displaystyle B}. Its restriction to these singleton sets gives rise to the probability mass function
+f
+X
+:
+B
+→
+R
+
+{\displaystyle f_{X}\colon B\to \mathbb {R} }, because for every
+b
+∈
+B
+
+{\displaystyle b\in B}, we have:
+
+f
+X
+(
+b
+)
+=
+P
+(
+X
+−
+1
+(
+b
+)
+)
+=
+P
+(
+X
+=
+b
+)
+
+{\displaystyle f_{X}(b)=P(X^{-1}(b))=P(X=b)}
+
+Now, let's introduce a [measure space](/Measure_space)
+(
+B
+,
+B
+,
+μ
+)
+
+{\displaystyle (B,{\mathcal {B}},\mu )}
+
+that is equipped with the [counting measure](/Counting_measure)
+μ
+
+{\displaystyle \mu }. The probability density function
+f
+
+{\displaystyle f}
+
+of
+X
+
+{\displaystyle X}
+
+relative to this counting measure, should it exist, is the [Radon–Nikodym derivative](/Radon%E2%80%93Nikodym_derivative) of the pushforward measure of
+X
+
+{\displaystyle X}. So,
+f
+=
+d
+X
+∗
+P
+/
+d
+μ
+
+{\displaystyle f=dX_{*}P/d\mu }, and
+f
+
+{\displaystyle f}
+
+is a function mapping from
+B
+
+{\displaystyle B}
+
+to the non-negative real numbers. Consequently, for any
+b
+∈
+B
+
+{\displaystyle b\in B}, the following holds:
+
+P
+(
+X
+=
+b
+)
+=
+P
+(
+X
+−
+1
+(
+b
+)
+)
+=
+X
+∗
+(
+P
+)
+(
+b
+)
+=
+∫
+b
+f
+d
+μ
+=
+f
+(
+b
+)
+,
+
+{\displaystyle P(X=b)=P(X^{-1}(b))=X_{*}(P)(b)=\int _{b}fd\mu =f(b),}
+
+This demonstrates, with tedious formality, that
+f
+
+{\displaystyle f}
+
+is indeed a probability mass function.
+
+When the potential outcomes
+x
+
+{\displaystyle x}
+
+possess a natural order, it can be convenient to assign them numerical values (or *n*-tuples for a discrete [multivariate random variable](/Multivariate_random_variable)). It's also conventional to consider values not in the [image](/Image_(mathematics)) of
+X
+
+{\displaystyle X}. In such cases,
+f
+X
+
+{\displaystyle f_{X}}
+
+can be defined for all [real numbers](/Real_number), where
+f
+X
+(
+x
+)
+=
+0
+
+{\displaystyle f_{X}(x)=0}
+
+for all
+x
+∉
+X
+(
+S
+)
+
+{\displaystyle x\notin X(S)}, as depicted in the graph at the top.
+
+The [image](/Image_(mathematics)) of
+X
+
+{\displaystyle X}
+
+contains a [countable](/Countable) subset where the PMF
+f
+X
+(
+x
+)
+
+{\displaystyle f_{X}(x)}
+
+is non-zero. As a result, the probability mass function is zero for all but a countable number of values of
+x
+
+{\displaystyle x}.
+
+The characteristic discontinuity of probability mass functions is directly related to the fact that the [cumulative distribution function](/Cumulative_distribution_function) of a discrete random variable is also discontinuous, progressing in steps. If
+X
+
+{\displaystyle X}
+
+is a discrete random variable,
+P
+(
+X
+=
+x
+)
+=
+1
+
+{\displaystyle P(X=x)=1}
+
+means the event
+(
+X
+=
+x
+)
+
+{\displaystyle (X=x)}
+
+is an absolute certainty. Conversely,
+P
+(
+X
+=
+x
+)
+=
+0
+
+{\displaystyle P(X=x)=0}
+
+means the event
+(
+X
+=
+x
+)
+
+{\displaystyle (X=x)}
+
+is impossible. This statement loses its teeth with a [continuous random variable](/Continuous_random_variable)
+X
+
+{\displaystyle X}, for which
+P
+(
+X
+=
+x
+)
+=
+0
+
+{\displaystyle P(X=x)=0}
+
+for any specific value of
+x
+
+{\displaystyle x}, a subtlety that seems to confuse people endlessly. [Discretization](/Discretization_of_continuous_features) is the process of forcing a continuous variable into a discrete box, presumably to make it more manageable.
+
+### Examples
+
+See also: [Bernoulli distribution](/Bernoulli_distribution), [Binomial distribution](/Binomial_distribution), and [Geometric distribution](/Geometric_distribution)
+
+Here are some common distributions, in case you need to actually use this for something.
+
+#### Finite
+
+There are three major distributions that dominate this space: the [Bernoulli distribution](/Bernoulli_distribution), the [binomial distribution](/Binomial_distribution), and the [geometric distribution](/Geometric_distribution).
+
+*   **Bernoulli distribution**: `ber(p)`. This is the simplest, most depressingly binary model. It is used for an experiment with only two possible outcomes, which are typically encoded as 1 (success) and 0 (failure). There is no middle ground.
+
+    p
+    X
+    (
+    x
+    )
+    =
+    {
+    p
+    ,
+    if 
+    x
+     is 1
+    1
+    −
+    p
+    ,
+    if 
+    x
+     is 0
+
+    {\displaystyle p_{X}(x)={\begin{cases}p,&{\text{if }}x{\text{ is 1}}\\1-p,&{\text{if }}x{\text{ is 0}}\end{cases}}}
+
+    A classic example is tossing a coin. Let
+    S
+
+    {\displaystyle S}
+
+    be the sample space of all outcomes from a single toss of a [fair coin](/Fair_coin), and let
+    X
+
+    {\displaystyle X}
+
+    be the random variable on
+    S
+
+    {\displaystyle S}
+
+    that assigns 0 to "tails" and 1 to "heads." Because the coin is fair, the probability mass function is:
+
+    p
+    X
+    (
+    x
+    )
+    =
+    {
+    1
+    2
+    ,
+    x
+    =
+    0
+    ,
+    1
+    2
+    ,
+    x
+    =
+    1
+    ,
+    0
+    ,
+    x
+    ∉
+    {
+    0
+    ,
+    1
+    }
+    .
+
+    {\displaystyle p_{X}(x)={\begin{cases}{\frac {1}{2}},&x=0,\\{\frac {1}{2}},&x=1,\\0,&x\notin \{0,1\}.\end{cases}}}
+
+*   **Binomial distribution**: This models the number of successes when you are forced to repeat an independent trial *n* times with replacement. Each trial is a fresh chance, unburdened by the memory of past outcomes. The associated probability mass function is:
+
+    (
+    n
+    k
+    )
+    p
+    k
+    (
+    1
+    −
+    p
+    )
+    n
+    −
+    k
+
+    {\textstyle {\binom {n}{k}}p^{k}(1-p)^{n-k}}.
+
+    The probability mass function of a [fair die](/Dice). All numbers have an equal, 1/6 chance of appearing.
+
+    An example of the binomial distribution is calculating the probability of getting exactly one 6 after rolling a fair die three times.
+
+*   **Geometric distribution**: This describes the number of trials required to achieve one single success. It is the distribution of persistence, or perhaps obsession. Its probability mass function is:
+
+    p
+    X
+    (
+    k
+    )
+    =
+    (
+    1
+    −
+    p
+    )
+    k
+    −
+    1
+    p
+
+    {\textstyle p_{X}(k)=(1-p)^{k-1}p}.
+
+    An example is tossing a coin repeatedly until the first "heads" appears. Here,
+    p
+
+    {\displaystyle p}
+
+    denotes the probability of "heads," and
+    k
+
+    {\displaystyle k}
+
+    is the number of tosses it took.
+
+Other distributions that can be modeled with a PMF include the [categorical distribution](/Categorical_distribution) (a generalization of the Bernoulli) and the [multinomial distribution](/Multinomial_distribution).
+
+*   If a discrete distribution has two or more categories, and a single trial determines which one occurs, this is a **categorical distribution**.
+*   The **multinomial distribution** provides an example of a [multivariate discrete distribution](/Joint_probability_distribution). Here, the random variables represent the number of successes in each category after a fixed number of trials. The PMF gives the probability for a specific combination of success counts across all categories.
+
+#### Infinite
+
+And then there are the distributions that stretch on forever, because sometimes the possibilities don't have the decency to stop. The following exponentially declining distribution is an example with an infinite number of outcomes—all positive integers:
+
+Pr
+(
+X
+=
+i
+)
+=
+1
+2
+i
+for 
+i
+=
+1
+,
+2
+,
+3
+,
+…
+
+{\displaystyle {\text{Pr}}(X=i)={\frac {1}{2^{i}}}\qquad {\text{for }}i=1,2,3,\dots }
+
+Despite the infinite set of outcomes, the total probability mass converges: 1/2 + 1/4 + 1/8 + ⋯ = 1. This satisfies the unit total probability requirement, because even in infinity, the fundamental rules of probability must hold.
+
+### Multivariate case
+
+Main article: [Joint probability distribution](/Joint_probability_distribution)
+
+Reality is rarely simple enough to be described by a single random variable. When two or more discrete random variables are involved, they have a **joint probability mass function**. This function gives the probability for each possible combination of outcomes for all the variables involved, mapping the chaotic interplay between them.
+
+#

@@ -1,0 +1,134 @@
+---
+title: "Population Model (Evolutionary Algorithm)"
+description: "Part of a series on the Evolutionary..."
+keywords: evolutionary algorithms, a series, evolutionary algorithm, chromosome, fitness function, genetic operator, crossover, mutation, selection, genetic algorithm
+slug: "Population_model_(evolutionary_algorithm)"
+createdAt: "2025-11-18T22:09:48.207Z"
+updatedAt: "2025-11-18T22:09:48.207Z"
+contentType: "rewritten"
+---
+
+### Population models of [Evolutionary algorithms](/Evolutionary_algorithm)
+
+Part of [a series](/Category:Evolutionary_algorithms) on the [Evolutionary algorithm](/Evolutionary_algorithm)
+
+*   [Chromosome](/Chromosome_(evolutionary_algorithm))
+*   [Fitness function](/Fitness_function)
+*   [Genetic operator](/Genetic_operator)
+*   [Crossover](/Crossover_(evolutionary_algorithm))
+*   [Mutation](/Mutation_(evolutionary_algorithm))
+*   [Selection](/Selection_(evolutionary_algorithm))
+*   Population model
+
+#### [Genetic algorithm](/Genetic_algorithm) (GA)
+
+*   [Chromosome](/Chromosome_(genetic_algorithm))
+*   [Clonal selection algorithm](/Clonal_selection_algorithm)
+*   [Fly algorithm](/Fly_algorithm)
+*   [Genetic fuzzy systems](/Genetic_fuzzy_systems)
+*   [Genetic memory](/Genetic_memory_(computer_science))
+*   [Schema](/Schema_(genetic_algorithms))
+*   [Promoter based GA](/Promoter_based_genetic_algorithm)
+
+#### [Genetic programming](/Genetic_programming) (GP)
+
+*   [Cartesian GP](/Cartesian_genetic_programming)
+*   [Linear GP](/Linear_genetic_programming)
+*   [Gene expression programming](/Gene_expression_programming)
+*   [Grammatical evolution](/Grammatical_evolution)
+*   [Multi expression programming](/Multi_expression_programming)
+
+#### [Differential evolution](/Differential_evolution)
+#### [Evolution strategy](/Evolution_strategy)
+#### [Evolutionary programming](/Evolution_programming)
+
+#### Related topics
+
+*   [Cellular EA](/Cellular_evolutionary_algorithm)
+*   [Cultural algorithm](/Cultural_algorithm)
+*   [Effective fitness](/Effective_fitness)
+*   [Evolutionary computation](/Evolutionary_computation)
+*   [Gaussian adaptation](/Gaussian_adaptation)
+*   [Grammar induction](/Grammar_induction)
+*   [Evolutionary multimodal optimization](/Evolutionary_multimodal_optimization)
+*   [Memetic algorithm](/Memetic_algorithm)
+*   [Neuroevolution](/Neuroevolution)
+
+*   v
+*   t
+*   e
+
+***
+
+The concept of a population model within an [evolutionary algorithm](/Evolutionary_algorithm) (EA) isn't exactly groundbreaking, but it's apparently necessary to articulate. It fundamentally describes the inherent structural characteristics and organizational principles that govern the collection of potential solutions, known as the population, within an EA. Each of these potential solutions, rather grandly termed "individuals"—presumably to lend a touch of biological gravitas to what is, at its core, a computational process—is considered during a single iterative step of the algorithm. These 'individuals' possess the remarkable, if entirely programmatic, ability to generate further 'individuals', their offspring, through the application of various [genetic operators](/Genetic_operator) that mimic natural selection, albeit with far less drama. One might almost say it's how they decide who gets to "mate" and how the resulting "children" are formed, if one were prone to such anthropomorphic whims.
+
+The most straightforward, and frankly, rather unimaginative, population model extensively employed in EAs is the global, or [panmictic](/Panmixia), model. It's essentially an unstructured free-for-all, where every single individual in the population is theoretically capable of selecting *any* other individual as a partner for the creation of offspring via [crossover](/Crossover_(genetic_algorithm)). The specific intricacies of the [selection](/Selection_(genetic_algorithm)) process itself are, in this context, largely secondary, provided that the inherent [fitness](/Fitness_function) of the individuals—their perceived quality as solutions—plays a discernible and significant role in this pairing. The primary consequence of such unrestricted global mate selection is that the genetic information derived from even marginally superior individuals can rapidly proliferate and dominate an entire population within a mere handful of generations (each representing an [iteration](/Iteration) of the EA). This occurs, of course, assuming no other, even better, offspring happen to materialize during this transient phase. While this might sound efficient, it frequently leads to a rather inconvenient phenomenon known as [premature convergence](/Premature_convergence). This is when the algorithm settles on a suboptimal solution, mistaking it for the true [optimum](/Mathematical_optimization) it's supposed to be finding, effectively giving up too early. It's a flaw often observed with greater frequency and stubbornness in these panmictic populations, a testament to the idea that sometimes, too much freedom is simply... too much.
+
+Interestingly, or perhaps predictably, such perfectly global mating pools are a rarity in the messy, nuanced reality of nature. The biological world, in its infinite wisdom, tends to favour a degree of isolation, often imposed by mere spatial distance. This naturally leads to the formation of localized neighbourhoods that, initially at least, tend to evolve with a certain degree of independence. Within these more confined groups, novel [mutants](/Mutant) – those unexpected deviations from the norm – have a considerably higher probability of persisting and propagating over multiple generations. The net effect is a prolonged preservation of [genotypic](/Genotype) diversity within the overall gene pool, a far more robust and adaptable state than the often-fragile homogeneity of a panmictic population. Nature, it seems, implicitly understood the benefits of distributed problem-solving long before we codified it.
+
+Given this natural precedent, it became rather obvious, even to the most globally-minded researchers, that segmenting the previously monolithic global population into more manageable substructures held considerable merit. For this very purpose, two foundational models were meticulously developed and subsequently introduced. First, the [island models](/Island_model_(evolutionary_algorithm)), which are predicated on a fixed, distinct partitioning of the population into discrete subpopulations. These subpopulations then engage in a periodic, controlled exchange of individuals, a process termed 'migration'. Second, the [neighbourhood models](/Cellular_evolutionary_algorithm), which eschew rigid boundaries in favour of assigning individuals to overlapping, spatially defined neighbourhoods. These are also frequently recognized and discussed as [cellular genetic algorithms](/Cellular_evolutionary_algorithm) (cGA) or [cellular evolutionary algorithms](/Cellular_evolutionary_algorithm) (cEA). This deliberate division of the population, beyond its theoretical advantages for search efficacy, inherently lends itself to a corresponding parallelization of the computational procedure. Consequently, the discourse surrounding population models is almost inextricably linked in the academic literature with the broader topic of parallelizing EAs, a practical necessity in the pursuit of faster and more efficient problem-solving.
+
+### Island models
+
+An island model, also known by the rather descriptive monikers of the migration model or the coarse-grained model, takes a decidedly more structured approach to population management. Within this framework, the evolutionary process unfolds not in one sprawling, undifferentiated mass, but within strictly segregated subpopulations. These individual 'islands' can, themselves, be organized in a panmictic fashion internally, but this is not a strict requirement; they retain a degree of autonomy. The critical feature that distinguishes this model is the intermittent, regulated exchange of individuals between these isolated islands, a process aptly termed [migration](/Migration_(evolutionary_algorithm)).
+
+The temporal interval between such exchanges is designated an 'epoch'. The conclusion of an epoch, triggering a migration event, can be determined by a variety of criteria, chosen with a keen eye towards optimizing the overall evolutionary process. For instance, an epoch might conclude simply after a predetermined duration has elapsed, or once a specified number of generations has been completed within each island. More adaptively, an epoch could be terminated upon the detection of 'stagnation' within an island. Stagnation, that dreary state of uninspired progress, can be identified by metrics such as the absence of any discernible fitness improvement within that island for a predefined number of generations, signaling a need for fresh genetic material.
+
+The introduction of island models, while offering significant advantages, also ushers in a new suite of strategic parameters, demanding careful calibration from the discerning practitioner:
+
+*   **Number of subpopulations:** A fundamental choice, determining the granularity of the distributed search. Too few, and you risk panmixia; too many, and communication overhead might become prohibitive.
+*   **Size of the subpopulations:** The number of individuals residing on each island. This influences the local search intensity and the diversity maintained within each isolated group.
+*   **Neighbourhood relations between islands:** This defines the connectivity, dictating which islands are considered 'neighbours' and are thus permitted to exchange individuals. This can range from a simple, unidirectional ring structure (as one might observe with black arrows in a diagram, indicating a one-way flow of genetic information) to far more intricate, multi-directional topologies (perhaps indicated by additional green arrows, signifying a more complex, interwoven communication network). The connectivity pattern is crucial for controlling the spread of genetic diversity across the entire system.
+*   **Criteria for the termination of an epoch:** As previously mentioned, this dictates *when* migration occurs. It can be synchronous, meaning all islands migrate simultaneously, or asynchronous, allowing islands to migrate independently based on their own local conditions, which can introduce a dynamic element often mirroring real-world biological processes.
+*   **Migration rate:** This quantifies the extent of the genetic exchange, specifying either the absolute number or the proportion of individuals that are involved in each migration event. Too high, and the islands lose their distinctiveness; too low, and the benefits of diversity exchange are diminished.
+*   **Migrant selection:** A pivotal parameter determining *which* individuals are chosen to migrate and *how* they are integrated into the destination island. Options are numerous: the fittest individuals might be selected to replace the weakest or randomly chosen individuals in the receiving population, or perhaps a random selection of individuals migrates to replace others. Depending on the migration rate, this process can involve a single individual or a larger cohort at each exchange.
+
+These parameters collectively wield substantial influence over the selective pressure exerted on the population. For instance, increasing the interconnectedness of the islands – allowing more frequent or widespread migration – typically intensifies the selective pressure across the global population. Conversely, a greater number of subpopulations or an extended epoch length tends to reduce this pressure, fostering more independent evolution and potentially preserving niche solutions for longer. It's a delicate balancing act, requiring an understanding of the problem space and a willingness to experiment.
+
+### Neighbourhood models or cellular evolutionary algorithms
+
+The neighbourhood model, also known as the diffusion model or the fine-grained model, takes a more nuanced, localized approach to population structure. Its core premise is to establish a topological neighbourhood relationship among the individuals within a population, a connection that exists independently of their [phenotypic](/Phenotype) characteristics – their observable traits. The foundational idea here is to imbue the EA population with a very specific, graph-defined structure. In this structure, each vertex represents an individual, and that individual is only permitted to interact, or "communicate," with its immediate neighbours. This often involves conceptually arranging individuals within a grid, frequently a toroidal mesh, where the edges wrap around, creating a continuous surface. Within this setup, individuals are strictly constrained to [recombine](/Crossover_(genetic_algorithm)) solely with those in their immediate vicinity. This creates a highly localized form of interaction, a phenomenon often referred to as [isolation by distance](/Isolation_by_distance).
+
+The collective set of potential mates for any given individual is termed its neighbourhood or, more formally, its deme. Consider a visual representation: an adjacent figure might show two slightly overlapping neighbourhoods, perhaps highlighted in a distinct color like yellow, belonging to two different individuals. This overlap is crucial, as it illustrates the pathways through which genetic information can gradually spread and diffuse between these two demes. It's a well-established observation in this class of algorithms that individuals sharing similar traits tend to naturally cluster together, forming distinct [niches](/Ecological_niche). These niches are often dynamic and can transcend the artificial boundaries of a single deme, frequently growing larger than the predefined neighbourhood itself. There isn't a stark, impermeable dividing line between adjacent groups; instead, close-proximity niches can be readily colonized by more competitive ones, potentially merging their solution contents during this evolutionary interplay. Conversely, more distant niches might remain unaffected for longer periods, experiencing a slower, more deliberate influence. EAs that employ this specific type of population structure are widely recognized as [cellular EAs](/Cellular_evolutionary_algorithm) (cEA) or [cellular genetic algorithms](/Cellular_evolutionary_algorithm) (cGA).
+
+A remarkably common and effective structural choice for organizing individuals in cellular EAs is a 2D toroidal grid. While this two-dimensional arrangement is prevalent, the dimensionality is not fixed; it can be readily expanded to 3D for more complex problems or, conversely, reduced to a simpler 1D structure, such as a linear ring. In these grid-based systems, the neighbourhood of a particular individual is precisely defined by its [Manhattan distance](/Taxicab_geometry) from other individuals within the population. It's a simple, geometric calculation, avoiding the complexities of Euclidean distance for connectivity. In the most basic instantiation of the algorithm, all neighbourhoods maintain a consistent size and an identical shape. For two-dimensional cEAs, the two most frequently encountered neighbourhood configurations are L5 and C9. Here, 'L' denotes a 'Linear' arrangement, typically resembling a cross or a plus sign, while 'C' signifies a 'Compact' or block-shaped configuration, more akin to a square. Each of these demes effectively functions as a self-contained, panmictic subpopulation. Within this local subpopulation, mate selection occurs, and the acceptance of new offspring is determined, often by replacing one of the existing parents. The rules governing the acceptance of offspring are inherently local, based solely on the dynamics within that specific neighbourhood. For instance, a stringent rule might dictate that only an offspring demonstrably superior to the parent it is replacing will be accepted. A less strict, non-elitist rule might only require the offspring to be superior to the *worst* individual currently residing in the deme. The former, being elitist, naturally imposes a higher [selective pressure](/Selective_pressure), ensuring that only the best survive. This, it must be noted, deviates somewhat from the untamed biological model, where even less-than-optimal individuals might persist.
+
+The inherent overlap between these neighbourhoods facilitates a gradual, often slow, propagation of genetic information across the boundaries of individual demes. This characteristic spread is precisely what gives rise to the alternative designation of 'diffusion model'. A superior offspring, therefore, requires a greater number of generations to permeate and establish itself throughout the wider population compared to its rapid spread in a panmictic system. This deliberate slowness is not a flaw; rather, it actively encourages the emergence and local evolution of distinct niches, thereby safeguarding genotypic diversity over extended periods. The outcome of this carefully managed diffusion is a superior, dynamic equilibrium between [breadth](/Breadth-first_search) and [depth search](/Depth-first_search), adeptly adapting to the specific contours of the search space throughout the algorithm's execution. The intensive [depth search](/Depth-first_search) unfolds within these concentrated niches, meticulously exploring local optima, while the [breadth search](/Breadth-first_search) occurs at the boundaries of these niches and through the broader, interconnected evolution of the diverse niches across the entire population. It's a sophisticated interplay. Furthermore, for a consistent neighbourhood size, the rate and extent of genetic information spread are notably greater for elongated figures, such as an L9 configuration, than for a more compact block-like shape, such as C9. This, in turn, is significantly greater than the spread observed in a simple ring topology. This implies that ring neighbourhoods, while often requiring comparatively longer run times, are particularly well-suited for achieving exceptionally high-quality results. Conversely, if the primary objective is to obtain fast, good, though potentially suboptimal, results, then 2D topologies generally offer a more expedient path.
+
+### Comparison
+
+When these two distinct population models are applied to the various permutations of [genetic algorithms](/Genetic_algorithm), [evolutionary strategy](/Evolution_strategy), and other classes of EAs, a consistent pattern emerges. The strategic partitioning of a total population into discrete subpopulations almost invariably reduces the inherent risk of [premature convergence](/Premature_convergence). More often than not, this structured approach leads to the discovery of better solutions, and crucially, achieves these results more reliably and with greater speed than one might expect from their panmictic counterparts. It's almost as if distributed thinking is, in fact, superior to a single, monolithic approach.
+
+However, the island model does present a notable drawback when juxtaposed with neighbourhood models: it introduces a rather substantial array of new strategy parameters that require careful tuning. Despite the considerable body of existing research dedicated to optimizing these parameters, there remains a non-trivial risk for the user of inadvertently selecting suboptimal settings, potentially hindering the algorithm's performance. The sheer number of choices can be daunting. Neighbourhood models, on the other hand, offer a comparatively streamlined experience. Typically, only the size of the neighbourhood needs to be specified, and in the case of a two-dimensional configuration, the choice of the specific neighbourhood figure (e.g., L5 or C9) is added. This reduced parameter space simplifies implementation and reduces the cognitive load on the user, making them arguably more accessible for many applications.
+
+### Parallelism
+
+It should be abundantly clear, even to the most casual observer, that since both population models inherently involve the partitioning of a population, they are exceptionally well-suited as foundational frameworks for parallelizing an EA. This is particularly true for [cellular EAs](/Cellular_evolutionary_algorithm), given their intrinsic reliance solely on locally available information concerning the members of their respective demes. In the most extreme, yet elegant, scenario, an independent execution thread can be allocated to each individual within the population, thereby enabling the entire cEA to operate seamlessly and efficiently on a parallel hardware platform. Imagine, if you will, every 'individual' doing its own thing, largely unconcerned with the global state, yet contributing to it.
+
+The island model, too, robustly supports parallelization, often by assigning a dedicated processor or computational node to each individual island. Furthermore, if the subpopulations within these islands are themselves organized panmictically, then all evaluations of the descendants generated in a given generation can be parallelized, providing an additional layer of concurrent processing. In practical, real-world applications, the evaluation of fitness functions is almost invariably the most computationally intensive and time-consuming component of an EA. Therefore, parallelizing this specific aspect can yield substantial performance gains. Of course, one isn't limited to a single layer of abstraction; it's entirely feasible, and often advantageous, to design the island subpopulations as cEAs themselves. In such a hierarchical structure, the principles of parallelization previously discussed for cEAs would then apply at the subpopulation level, allowing for intricate and highly efficient parallel architectures. These parallelization strategies are not confined to expensive, high-end computer clusters; they can also be effectively implemented on more accessible hardware, such as inexpensive [graphics processing units](/Graphics_processing_unit) (GPUs) or distributed computing grids.
+
+However, it is absolutely imperative to emphasize a crucial distinction: cEAs, or any EA employing a population distributed across islands, represent a distinct search model. This model differs in numerous fundamental ways from traditional, monolithic EAs. Moreover, these distributed models possess the inherent flexibility to operate effectively on both sequential and parallel computing platforms. This highlights a critical conceptual point: the population *model* itself and its *implementation* as a sequential or parallel process are two entirely separate, though often intertwined, concepts. Conflating the two would be a disservice to the nuances of computational evolution.
+
+### Bibliography
+
+*   Erick Cantú-Paz (2001): Efficient and Accurate Parallel Genetic Algorithms (PhD thesis, University of Illinois, Urbana-Champaign, USA). Springer, New York, NY. [ISBN](/ISBN_(identifier))&#160; 978-1-4613-6964-6
+*   [doi](/Doi_(identifier)):10.1007/978-1-4615-4369-5
+*   Martina Gorges-Schleuter (1990): Genetic Algorithms and Population Structures - A Massively Parallel Algorithm. PhD thesis, Universität Dortmund, Fakultät für Informatik, Germany.
+*   Enrique Alba, Bernabé Dorronsoro (2008): Cellular Genetic Algorithms. Springer, New York, NY.
+*   [ISBN](/ISBN_(identifier))&#160; 978-0-387-77609-5
+*   [doi](/Doi_(identifier)):10.1007/978-0-387-77610-1
+*   Dirk Sudholt (2015): Parallel Evolutionary Algorithms. In Janusz Kacprzyk, Witold Pedrycz (eds.): Parallel Evolutionary Algorithms. Springer, Berlin, Heidelberg, pp.&#160;929–959
+*   [ISBN](/ISBN_(identifier))&#160; 978-3-662-43504-5
+*   [doi](/Doi_(identifier)):10.1007/978-3-662-43505-2_46
+*   Gabriel Luque, Enrique Alba (2011): Parallel Genetic Algorithms. Springer, Berlin Heidelberg.
+*   [ISBN](/ISBN_(identifier))&#160; 978-3-642-22083-8
+*   [doi](/Doi_(identifier)):10.1007/978-3-642-22084-5
+
+### See also
+
+*   [Cellular automaton](/Cellular_automaton)
+*   [Dual-phase evolution](/Dual-phase_evolution)
+*   [Evolutionary algorithm](/Evolution_algorithm)
+*   [Metaheuristic](/Metaheuristic)
+
+#

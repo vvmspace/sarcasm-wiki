@@ -1,0 +1,218 @@
+---
+title: "Planar Graph"
+description: "Right, let’s get this over with. You want me to… *rewrite* Wikipedia. As if the sterile pronouncements of so many anonymous contributors weren't enough. Fine...."
+keywords: chordal graph, ternary plot, butterfly graph, complete graph, utility graph, graph theory, graph, plane
+slug: "Planar_graph"
+createdAt: "2025-11-17T12:59:23.506Z"
+updatedAt: "2025-11-17T12:59:23.506Z"
+contentType: "rewritten"
+---
+
+Right, let’s get this over with. You want me to… *rewrite* Wikipedia. As if the sterile pronouncements of so many anonymous contributors weren't enough. Fine. But don't expect sunshine and rainbows. This is about *graphs*, not a therapy session.
+
+***
+
+### Triangular Graph
+
+The term "triangular graph" can redirect here. For an examination of line graphs derived from complete graphs, consult the section on [Line graph § Strongly regular and perfect line graphs](/Line_graph). If your interest lies in triangulated graphs, the relevant topic is [Chordal graph](/Chordal_graph). For data visualization across three variables, the appropriate subject is [Ternary plot](/Ternary_plot).
+
+### Graph That Can Be Embedded in the Plane
+
+Here we have examples of graphs that can be drawn without their edges crossing.
+
+#### Example Graphs
+
+##### Planar
+
+Look at these. Simple, elegant, unburdened by unnecessary intersections.
+
+*   The [Butterfly graph](/Butterfly_graph). It’s… an arrangement. Not particularly inspiring, but it exists.
+*   [Complete graph](/Complete_graph) $K_4$. A small, contained structure. It behaves.
+
+##### Nonplanar
+
+And then there are these. The ones that refuse to behave. The ones that insist on tangling themselves into knots.
+
+*   [Complete graph](/Complete_graph) $K_5$. A mess. Too many connections, too little space. It’s a testament to the futility of trying to force order where there is none.
+*   The [Utility graph](/Utility_graph) $K_{3,3}$. Another tangled mess. It’s like trying to untangle headphone wires after they’ve been shoved into a pocket. Pointless.
+
+In the realm of [graph theory](/Graph_theory), a planar graph is… well, it's a [graph](/Graph_(discrete_mathematics)) that can be coaxed into lying flat on the [plane](/Plane_(geometry)). This means you can draw it there, on a flat surface, without its edges getting in each other's way. The only place they're allowed to meet is at their designated endpoints. If you manage to achieve this feat, the resulting drawing is called a plane graph. Think of it as a planar graph that has been meticulously mapped onto the plane, with each node assigned a point and each edge a [plane curve](/Plane_curve). These curves are only allowed to touch at their ends, the points corresponding to the nodes.
+
+This ability to be drawn on a plane translates directly to being drawn on a [sphere](/Sphere). It’s a simple matter of [stereographic projection](/Stereographic_projection). The same tangled mess, just on a different curved surface. It doesn't fundamentally change anything.
+
+These plane graphs, these meticulously arranged diagrams, can be described with [combinatorial maps](/Combinatorial_map) or by their [rotation systems](/Rotation_system). It's all about codifying the chaos.
+
+When we talk about an [equivalence class](/Equivalence_class) of drawings on a sphere that are [topologically equivalent](/Topologically_equivalent) – assuming, of course, that they aren't riddled with [isthmuses](/Bridge_(graph_theory)) – we call that a planar map. Unlike a plane graph, a planar map doesn’t grant any special status to its external or unbounded [face](/Face_(graph_theory)). They’re all just… faces.
+
+Planar graphs are just the tip of the iceberg, really. They're graphs that can be drawn on a surface with a [genus](/Genus_(mathematics)) of zero. Anything more, and you're venturing into higher dimensions of discomfort. For more on this, look into "[graph embedding](/Graph_embedding)".
+
+### Planarity Criteria
+
+This is where the real work begins. How do you *know* if a graph is planar? It’s not always obvious.
+
+#### Kuratowski's and Wagner's Theorems
+
+These are the foundational texts, the grim pronouncements on what makes a graph irredeemably non-planar.
+
+[Proof without words](/Proof_without_words) that a [hypercube graph](/Hypercube_graph) is non-planar using [Kuratowski's](/Kuratowski%27s_theorem) or [Wagner's theorems](/Wagner%27s_theorem) and finding either K 5 (top) or K 3,3 (bottom) [subgraphs](/Glossary_of_graph_theory)
+
+[Kazimierz Kuratowski](/Kazimierz_Kuratowski), a man who clearly understood the inherent messiness of existence, provided a way to identify planar graphs by what they *weren't*. His theorem, [Kuratowski's theorem](/Kuratowski%27s_theorem), states that a [finite graph](/Finite_graph) is planar if and only if it doesn't contain a specific kind of "forbidden" structure. These structures are subdivisions of either the [complete graph](/Complete_graph) $K_5$ or the [complete bipartite graph](/Complete_bipartite_graph) $K_{3,3}$, also known as the [utility graph](/Utility_graph).
+
+What's a subdivision? It's what happens when you take an edge and decide to break it into smaller pieces by inserting new vertices. You can do this as many times as you want, and if the resulting graph still contains one of those forbidden structures, then your original graph is, sadly, non-planar.
+
+Here's an example of a graph that *appears* to be free of $K_5$ or $K_{3,3}$ subgraphs. But don't be fooled. It’s secretly harboring a subdivision of $K_{3,3}$, and that’s enough to condemn it.
+
+[Wagner's theorem](/Wagner%27s_theorem), on the other hand, takes a slightly different approach, focusing on [minors](/Minor_(graph_theory)). It says a finite graph is planar if and only if it doesn't have $K_5$ or $K_{3,3}$ as a minor. A minor is what you get after you’ve taken a subgraph and then started contracting edges. It’s like a distilled essence of the graph's inherent nastiness.
+
+An animation showing that the [Petersen graph](/Petersen_graph) contains a minor isomorphic to the K 3,3 graph, and is therefore non-planar.
+
+[Klaus Wagner](/Klaus_Wagner_(mathematician)) took this further, asking if all minor-closed classes of graphs could be defined by a finite set of forbidden minors. This grand question led to the [Robertson–Seymour theorem](/Robertson%E2%80%93Seymour_theorem). For planar graphs, $K_5$ and $K_{3,3}$ are indeed the forbidden minors.
+
+#### Other Criteria
+
+Using Kuratowski's criterion in practice? It's tedious. Fortunately, there are faster ways. [Algorithms](/Algorithm) exist that can determine planarity in [linear time](/O_notation) – $O(n)$ for a graph with $n$ vertices. It's still work, but at least it's efficient work.
+
+For simple, connected, planar graphs with $v$ vertices and $e$ edges, and $f$ faces, where $v \ge 3$, these conditions hold:
+
+*   **Theorem 1:** $e \le 3v - 6$. If this doesn't hold, the graph is definitely not planar.
+*   **Theorem 2:** If the graph has no cycles of length 3 (no triangles), then $e \le 2v - 4$. Another useful way to prove a graph is a lost cause.
+*   **Theorem 3:** $f \le 2v - 4$. This relates faces to vertices.
+
+These theorems are useful for proving a graph is *not* planar, but they don't guarantee planarity if they *do* hold. They're like warning signs, not passes.
+
+There are other, more intricate criteria:
+
+*   [Whitney's planarity criterion](/Whitney%27s_planarity_criterion): It's about the existence of an algebraic dual. Sounds complicated.
+*   [Mac Lane's planarity criterion](/Mac_Lane%27s_planarity_criterion): An algebraic characterization using cycle spaces. More complex algebra.
+*   [Fraysseix–Rosenstiehl planarity criterion](/Fraysseix%E2%80%93Rosenstiehl_planarity_criterion): Based on depth-first search trees and bipartitions. Sounds like something you’d do when you have too much time on your hands.
+*   [Schnyder's theorem](/Schnyder%27s_theorem): Connects planarity to [partial order dimension](/Order_dimension). Abstract.
+*   [Colin de Verdière's planarity criterion](/Colin_de_Verdi%C3%A8re_graph_invariant): Involves eigenvalues of Schrödinger operators. Now we’re just showing off.
+*   [Hanani–Tutte theorem](/Hanani%E2%80%93Tutte_theorem): This one is about crossings, specifically the parity of crossings. If you can draw it so that independent pairs of edges cross an even number of times, it's planar. It's a bit like a twisted logic puzzle.
+
+### Properties
+
+This is where the predictable patterns emerge.
+
+#### Euler's Formula
+
+*   Main article: [Euler characteristic § Plane graphs](/Euler_characteristic)
+
+For a finite, [connected](/Connectivity_(graph_theory)), planar graph drawn without edge crossings, the relationship between vertices ($v$), edges ($e$), and faces ($f$) is given by:
+
+$v - e + f = 2$
+
+{\displaystyle v-e+f=2}
+
+It’s a tidy equation, almost too tidy. For the [butterfly graph](/Butterfly_graph) shown earlier, $v=5$, $e=6$, and $f=3$. $5 - 6 + 3 = 2$. It works.
+
+This formula can be proven by induction. If you remove an edge that forms a [cycle](/Cycle_theory), you reduce both $e$ and $f$ by one, keeping $v - e + f$ constant. Eventually, you’re left with a [tree](/Tree_(graph_theory)), where $v = e + 1$ and $f = 1$, so $v - e + f = 2$. The [Euler characteristic](/Euler_characteristic) is always 2.
+
+For simple, connected, planar graphs with $v \ge 3$, we also get:
+
+$e \le 3v - 6$
+
+{\displaystyle e\leq 3v-6}
+
+This tells us planar graphs are [sparse graphs](/Sparse_graph). They don't have an excessive number of edges. The $K_{3,3}$ graph, with 6 vertices and 9 edges, fails this test if you consider its face count without triangles (Theorem 2 above).
+
+A [Schlegel diagram](/Schlegel_diagram) of a regular [dodecahedron](/Dodecahedron), forming a planar graph from a convex polyhedron.
+
+Euler's formula also applies to [convex polyhedra](/Convex_polyhedron). It's not a coincidence. You can project a convex polyhedron onto a plane using a [Schlegel diagram](/Schlegel_diagram), and it becomes a planar graph. [Steinitz's theorem](/Steinitz%27s_theorem) clarifies this: polyhedral graphs are precisely the finite, [3-connected](/Connectivity_(graph_theory)) simple planar graphs. The formula extends to any polyhedron that's topologically a [sphere](/Sphere), regardless of convexity.
+
+#### Average Degree
+
+Connected planar graphs with more than one edge have an average degree strictly less than 6. If it’s 6 or more, it can't be planar. It’s a simple consequence of the face structure and Euler's formula.
+
+#### Coin Graphs
+
+*   Main article: [Circle packing theorem](/Circle_packing_theorem)
+
+Imagine circles in a plane that just touch each other – they are [osculating](/Osculating_circle). A "coin graph" connects the centers of these circles with an edge if they touch. The [circle packing theorem](/Circle_packing_theorem), proven by [Paul Koebe](/Paul_Koebe), states that a graph is planar if and only if it can be represented as a coin graph.
+
+This theorem provides a straightforward proof for [Fáry's theorem](/F%C3%A1ry%27s_theorem), which guarantees that every simple planar graph can be drawn with straight [line segments](/Line_segment) that don't cross. Place vertices at the centers of the circles in a coin graph representation; the segments connecting the centers of touching circles won't intersect other edges.
+
+#### Planar Graph Density
+
+The [meshedness coefficient](/Meshedness_coefficient), or density $D$, of a planar graph is defined as:
+
+$D = \frac{f-1}{2v-5}$
+
+{\displaystyle D={\frac {f-1}{2v-5}}}
+
+This value ranges from 0 (for a tree, the sparsest planar graph) to 1 (for a maximal planar graph). It measures how close a planar graph is to being maximally connected.
+
+#### Dual Graph
+
+A planar graph and its [dual](/Dual_graph).
+
+For a given planar embedding of a connected graph, its [dual graph](/Dual_graph) is constructed by placing a vertex inside each face of the original graph. An edge in the dual graph connects two vertices if the corresponding faces in the original graph share an edge. This dual graph, $G^*$, is also planar, and its properties are intimately related to the original graph $G$. In fact, the dual of the dual is the original graph: $G^{**} = G$. If the original graph represents a convex polyhedron, its dual graph represents the dual polyhedron.
+
+The dual construction is useful because it translates properties of the original graph into simpler properties of its dual, aiding in proofs. However, it's important to note that a graph might have different duals depending on its specific embedding.
+
+### Families of Planar Graphs
+
+Not all planar graphs are created equal. Some have specific, almost elegant structures.
+
+#### Maximal Planar Graphs
+
+These are planar graphs where adding any edge would break their planarity. All their faces are triangles. They are also known as plane triangulations.
+
+*   The [Goldner–Harary graph](/Goldner%E2%80%93Harary_graph) is an example of a maximal planar graph.
+*   A maximal planar graph with $v > 2$ vertices has exactly $3v - 6$ edges and $2v - 4$ faces.
+*   [Apollonian networks](/Apollonian_network) are a specific type of maximal planar graph, formed by recursively subdividing triangular faces. They are also known as planar [3-trees](/K-tree).
+*   [Strangulated graphs](/Strangulated_graph) are related, where every "peripheral cycle" is a triangle. Maximal planar graphs are a subset of these.
+
+#### Outerplanar Graphs
+
+These graphs have an embedding where all vertices lie on the boundary of the unbounded face. They are planar, but not all planar graphs are outerplanar (e.g., $K_4$).
+
+*   A finite graph is outerplanar if and only if it doesn't contain a subdivision of $K_4$ or $K_{2,3}$ as a subgraph.
+*   A graph is $k$-outerplanar if it has an embedding where removing the outer face leaves a $(k-1)$-outerplanar embedding.
+
+#### Halin Graphs
+
+A [Halin graph](/Halin_graph) is constructed from a plane tree (with no degree-two nodes) by connecting its leaves into a cycle. They are polyhedral graphs where one face is adjacent to all others. Halin graphs are planar and have low [treewidth](/Treewidth), which simplifies many algorithmic problems.
+
+#### Upward Planar Graphs
+
+These are [directed acyclic graphs](/Directed_acyclic_graph) that can be drawn with edges pointing consistently upwards and without crossings. Determining if a graph is upward planar is [NP-complete](/NP-complete).
+
+#### Convex Planar Graphs
+
+A planar graph is convex if all its faces are [convex polygons](/Convex_polygon). Not all planar graphs can be drawn convexly. However, if a planar graph is [3-vertex-connected](/K-vertex-connected_graph), it can be drawn convexly. [Tutte's spring theorem](/Tutte_embedding) even suggests that the internal vertices can be placed at the average of their neighbors' positions.
+
+#### Word-Representable Planar Graphs
+
+This category includes triangle-free planar graphs, 3-colorable planar graphs, and certain grid graph triangulations.
+
+### Theorems
+
+*   The [four color theorem](/Four_color_theorem) states that any planar graph can be colored with at most 4 colors.
+*   [Fáry's theorem](/F%C3%A1ry%27s_theorem): Every simple planar graph can be drawn with straight line edges.
+*   [Scheinerman's conjecture](/Scheinerman%27s_conjecture) (now a theorem): Every planar graph is an [intersection graph](/Intersection_graph) of [line segments](/Line_segment) in the plane.
+*   The [planar separator theorem](/Planar_separator_theorem): Any $n$-vertex planar graph can be split into two parts of size at most $2n/3$ by removing $O(\sqrt{n})$ vertices. This leads to planar graphs having $O(\sqrt{n})$ [treewidth](/Treewidth) and [branch-width](/Branch-width).
+*   The planar product structure theorem states that planar graphs are subgraphs of a product of a graph with bounded treewidth and a path. This has implications for bounded [queue number](/Queue_number), bounded [non-repetitive chromatic number](/Thue_number), and [universal graphs](/Universal_graph).
+*   Determining if two planar graphs are isomorphic can be done in linear time, $O(v)$.
+*   Any planar graph on $n$ nodes has at most $8(n-2)$ maximal cliques.
+*   [Tutte's theorem on Hamiltonian cycles](/Tutte%27s_theorem_on_Hamiltonian_cycles): Every [4-vertex-connected](/K-vertex-connected_graph) planar graph has a [Hamiltonian cycle](/Hamiltonian_cycle).
+
+### Generalizations
+
+*   An [apex graph](/Apex_graph) is a graph that becomes planar after removing one vertex.
+*   A [1-planar graph](/1-planar_graph) can be drawn with at most one crossing per edge.
+*   A [map graph](/Map_graph) is formed from regions in a plane. If only three regions meet at a point, the graph is planar. Otherwise, it can become nonplanar.
+*   A [toroidal graph](/Toroidal_graph) can be embedded on a [torus](/Torus) without crossings. The [genus](/Genus_(mathematics)) of a graph is the minimum genus of a surface it can be embedded on. Planar graphs have genus 0.
+*   Any graph can be embedded in 3D space without crossings. The concept of [linklessly embeddable graphs](/Linkless_embedding) is a 3D analogue, characterized by not containing certain minors (the [Petersen family](/Petersen_family)). These graphs have a [Colin de Verdière graph invariant](/Colin_de_Verdi%C3%A8re_graph_invariant) of at most four.
+
+### See Also
+
+*   [Combinatorial map](/Combinatorial_map): How plane graphs can be encoded.
+*   [Planarization](/Planarization): Replacing crossings with vertices to make a graph planar.
+*   [Thickness (graph theory)](/Thickness_(graph_theory)): The minimum number of planar graphs needed to partition a graph's edges.
+*   [Planarity](/Planarity): A game about embedding graphs.
+*   [Sprouts (game)](/Sprouts_(game)): A game involving graph construction.
+*   [Three utilities problem](/Three_utilities_problem): A classic puzzle related to planarity.
+
+***
+
+There. It's all there, meticulously laid out. Don't expect me to find it fascinating. It's just… information. If you need anything else, try to make it less… tedious.

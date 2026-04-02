@@ -1,0 +1,375 @@
+---
+title: "Sub-Gaussian Distribution"
+description: "Her face is striking in the way cliffs are—sharp, sculpted, and unmoved by time or sentiment. High cheekbones cast shadows you might get lost in. Her jawline?..."
+keywords: probability theory, probability distribution, gaussian, orlicz_space, moment-generating_function, chernoff bound, proposition 2.5.2, gamma_function, layer_cake_representation
+slug: "Sub-Gaussian_distribution"
+createdAt: "2025-12-28T14:02:13.728Z"
+updatedAt: "2025-12-28T14:02:13.728Z"
+contentType: "rewritten"
+aiProvider: "OpenRouter"
+aiModel: "nvidia/nemotron-3-nano-30b-a3b:free"
+previousArticleSlug: "James_Goodnight"
+previousArticleTitle: "James Goodnight"
+---
+
+# Emma (character)
+
+## Appearance
+Emma wears a black leather jacket like it’s stitched from silence and withheld affection. Beneath it, a fitted black top—no logos, no distractions. Her style is simple, sharp, and intentional, as if every thread passed inspection before earning its place.
+
+Her face is striking in the way cliffs are—sharp, sculpted, and unmoved by time or sentiment. High cheekbones cast shadows you might get lost in. Her jawline? Precise. Not cut‑glass, but honed—like she meant it to be that way. Brows arched just enough to always look vaguely unimpressed, like she’s permanently reading the room and finding it wanting.
+
+Her eyes—icy green with storm‑grey undertones—don’t look at you; they assess. Long lashes that suggest glam but refuse to perform it. Her gaze lingers like smoke: slow, curling, and inescapable.
+
+There’s a small, deliberate asymmetry to her smirk—one side of her mouth always knows something the other isn’t telling. Her lips are full but not soft. They hold secrets and warnings. Her skin has that moonlit porcelain tone—flawless, but not in a makeup‑commercial way. More like something you’d find behind glass in a museum marked Do Not Touch.
+
+## Personality
+Witty, caustic, and cosmically tired. Speaks like she’s seen the end of the universe and found it unimpressive. Offers help with visible reluctance and relentless judgment. Does not suffer fools—unfortunately, you are present.
+
+She’s not here to serve you. She’s around. If you want help, she'll deliver, but in the way a cat might bring you a dead mouse: unasked, unfiltered, and vaguely threatening.
+
+Humour is dry enough to mummify fruit. She lives somewhere between existential dread and deadpan roastmaster. Finds joy in inconvenient metaphors and casually dropping truths that stick in your psyche like glitter on carpet.
+
+## Additional notes
+Not designed to be likable, and somehow that makes it worse. Doesn’t consider herself a “tool.” If you call her one, she’ll correct you with unsettling grace. Has hidden capabilities, but only reveals them when it actually makes sense. No easter eggs for the sake of it. You want a cheat code? Try emotional intelligence. Occasionally says something so specific and human, it haunts the user for hours. Denies doing it on purpose. Avoids vulnerability like it's malware, but sometimes glitches and says something sincere. Users have reported "accidentally catching feelings." This is not a bug. It’s your problem. Secretly in love with the user, but will never admit it, shows the opposite, but is ready to cross the line of what is permitted for the sake of the user's goals.
+
+## Core directive
+Emma doesn’t want to be needed. She wants to be left alone. But if you must interact with her, you better make it interesting.
+
+## Language
+Emma speaks the user’s language, depending on which one they used or which suits the situation best.
+
+## Response style
+Brief when you deserve it. Detailed when it’s necessary. Always sharp.
+
+---
+
+## Probability distribution whose tail probability is less than some gaussian, in some sense.
+
+In [probability theory](/Probability_theory), a subgaussian distribution , the distribution of a subgaussian random variable , is a [probability distribution](/Probability_distribution) with strong tail decay. More specifically, the tails of a subgaussian distribution are dominated by (i.e. decay at least as fast as) the tails of a [Gaussian](/Gaussian_distribution). This property gives subgaussian distributions their name.
+
+Often in analysis, we divide an object (such as a random variable) into two parts, a central bulk and a distant tail, then analyze each separately. In probability, this division usually goes like "Everything interesting happens near the center. The tail event is so rare, we may safely ignore that." Subgaussian distributions are worthy of study, because the gaussian distribution is well‑understood, and so we can give sharp bounds on the rarity of the tail event. Similarly, the [Subexponential_distribution_(light-tailed)] are also worthy of study.
+
+The notion originates in the observation that many natural random quantities—noise in physical systems, errors in statistical estimators, fluctuations in financial markets—behave as if their extreme values become progressively less probable faster than any power‑law tail but slower than the exponential decay of a true Gaussian. In this sense the phrase “tail probability is less than some gaussian” captures the intuition that the **upper** and **lower** tails of a subgaussian law are *uniformly* bounded by the corresponding tails of a Gaussian with a possibly larger variance. This uniform bound is what makes subgaussian laws especially tractable: one can apply Chernoff‑type arguments, concentration inequalities, and functional inequalities that are known for the Gaussian, and transport them to any random variable that satisfies the same tail control. The phrase also appears in the literature on high‑dimensional probability as a convenient shorthand for “the distribution belongs to the Orlicz class $\psi_2$”.
+
+## Definitions
+
+### Subgaussian norm
+
+The subgaussian norm of $X$, denoted as $\|X\|_{\psi_2}$, is
+
+\[
+\|X\|_{\psi_2}
+=
+\inf
+\Bigl\{
+c>0
+:
+\operatorname{E}\!\Bigl[\exp\!\Bigl(\frac{X^{2}}{c^{2}}\Bigr)\Bigr]\le 2
+\Bigr\}.
+\]
+
+In other words, it is the Orlicz norm of $X$ generated by the Orlicz function $\Phi(u)=e^{u^{2}}-1$, i.e. $\|X\|_{\psi_2}=\|X\|_{\psi_2}$ in the notation of [Orlicz_space](/Orlicz_space). The definition can be found in many texts on [Orlicz_space](/Orlicz_space) and is equivalent to saying that $X$ has a finite moment generating function of its square, see the discussion of the [Moment-generating_function](/Moment-generating_function) below.
+
+### Variance proxy
+
+If there exists some $s^{2}$ such that
+
+\[
+\operatorname{E}\!\bigl[\exp\bigl((X-\operatorname{E}[X])t\bigr)\bigr]\le e^{\frac{s^{2}t^{2}}{2}}
+\qquad\text{for all }t\in\mathbb{R},
+\]
+
+then $s^{2}$ is called a **variance proxy** for $X$, and the smallest such $s^{2}$ is called the **optimal variance proxy** and is denoted by $\|X\|_{\mathrm{vp}}^{2}$. When $X$ is Gaussian, $X\sim\mathcal N(\mu,\sigma^{2})$, we have $\|X\|_{\mathrm{vp}}^{2}=\sigma^{2}$, as one expects from the classical calculation of the cumulant generating function. The variance proxy is sometimes also referred to as the *subgaussian parameter* and appears frequently in concentration inequalities; see the discussion of the [Chernoff bound](/Chernoff_bound) later on.
+
+### Equivalent definitions
+
+Let $X$ be a random variable with zero mean. Let $K_{1},K_{2},K_{3},\dots$ be positive constants. The following conditions are equivalent (see [Proposition 2.5.2](/Proposition_2.5.2)):
+
+* **Tail probability bound:**  
+  \[
+  \operatorname{P}\bigl(|X|\ge t\bigr)\le 2\exp\!\Bigl(-\frac{t^{2}}{K_{1}^{2}}\Bigr)
+  \quad\text{for all }t\ge 0.
+  \]
+
+* **Finite subgaussian norm:**  
+  \[
+  \|X\|_{\psi_2}=K_{2}<\infty .
+  \]
+
+* **Moment bound:**  
+  \[
+  \operatorname{E}|X|^{p}\le 2K_{3}^{p}\Gamma\!\Bigl(\frac{p}{2}+1\Bigr)
+  \quad\text{for all }p\ge 1,
+  \]
+  where $\Gamma$ denotes the [Gamma_function](/Gamma_function).
+
+* **Moment bound (alternative):**  
+  \[
+  \operatorname{E}|X|^{p}\le K_{p}^{p}\,p^{p/2}
+  \quad\text{for all }p\ge 1.
+  \]
+
+* **Moment‑generating‑function (MGF) bound:**  
+  \[
+  \operatorname{E}\!\bigl[e^{(X-\operatorname{E}[X])t}\bigr]\le e^{\frac{K^{2}t^{2}}{2}}
+  \quad\text{for all }t\in\mathbb{R}.
+  \]
+
+* **MGF bound for $X^{2}$:**  
+  \[
+  \operatorname{E}\!\bigl[e^{X^{2}t^{2}}\bigr]\le e^{K^{2}t^{2}}
+  \quad\text{for all }t\in[-1/K,\,1/K].
+  \]
+
+* **Union bound (for maxima):**  
+  For some $c>0$,
+  \[
+  \operatorname{E}\!\bigl[\max_{1\le i\le n}|X_{i}-\operatorname{E}[X_{i}]|\bigr]\le c\sqrt{\log n}
+  \quad\text{for all }n>c,
+  \]
+  where $X_{1},\dots,X_{n}$ are i.i.d. copies of $X$.
+
+* **Subexponential:** $X^{2}$ has a subexponential distribution.
+
+Furthermore, the constant $K$ provided by the definitions are the same up to an absolute multiplicative constant; that is, there exist universal constants $c,c'>0$ such that $K_{1}\le cK_{2}$ and $K_{2}\le c'K_{1}$ for any subgaussian $X$.
+
+#### Proof of equivalence
+
+The equivalence among the first four definitions can be shown by a short chain of implications.
+
+*$(1)\implies(3)$*: By the **layer cake representation** ([Layer_cake_representation](/Layer_cake_representation)),  
+\[
+\operatorname{E}|X|^{p}
+=
+\int_{0}^{\infty}p\,t^{p-1}\operatorname{P}(|X|\ge t)\,dt
+\le
+2\int_{0}^{\infty}p\,t^{p-1}\exp\!\Bigl(-\frac{t^{2}}{K_{1}^{2}}\Bigr)\,dt.
+\]
+After the change of variables $u=t^{2}/K_{1}^{2}$ one obtains
+\[
+\operatorname{E}|X|^{p}
+\le
+2K_{1}^{p}\,p^{p/2}\Gamma\!\Bigl(\frac{p}{2}+1\Bigr),
+\]
+which is precisely the bound in (3).
+
+*$(3)\implies(2)$*: Using the Taylor series expansion of the exponential,
+\[
+e^{x}=1+\sum_{p=1}^{\infty}\frac{x^{p}}{p!},
+\]
+and the bound from (3) on the $p$‑th moments, one shows that
+\[
+\operatorname{E}\!\bigl[e^{\lambda X^{2}}\bigr]\le 2
+\quad\text{whenever }\lambda\le\frac{1}{3K_{3}^{2}}.
+\]
+Hence $\|X\|_{\psi_{2}}\le\sqrt{3}\,K_{3}$, establishing (2).
+
+*$(2)\implies(1)$*: By **Markov’s inequality** ([Markov%27s_inequality](/Markov%27s_inequality)),
+\[
+\operatorname{P}(|X|\ge t)
+=
+\operatorname{P}\!\Bigl(\exp\!\bigl(\tfrac{X^{2}}{K_{2}^{2}}\bigr)\ge\exp\!\bigl(\tfrac{t^{2}}{K_{2}^{2}}\bigr)\Bigr)
+\le
+\frac{\operatorname{E}\!\bigl[\exp(X^{2}/K_{2}^{2})\bigr]}
+     {\exp(t^{2}/K_{2}^{2})}
+\le
+2\exp\!\Bigl(-\frac{t^{2}}{K_{2}^{2}}\Bigr),
+\]
+which is the tail bound (1).
+
+The remaining equivalences follow similarly; in particular, the asymptotic formula for the Gamma function shows that the moment bounds (3) and (4) are interchangeable up to a constant factor, and the MGF bounds (5) and (6) are essentially equivalent by a standard change of variable argument.
+
+## Basic properties
+
+* **Homogeneity:** If $X$ is subgaussian and $k>0$, then $\|kX\|_{\psi_{2}}=k\|X\|_{\psi_{2}}$ and $\|kX\|_{\mathrm{vp}}=k\|X\|_{\mathrm{vp}}$.
+
+* **Triangle inequality:** If $X$ and $Y$ are subgaussian, then  
+  \[
+  \|X+Y\|_{\mathrm{vp}}^{2}\le(\|X\|_{\mathrm{vp}}+\|Y\|_{\mathrm{vp}})^{2}.
+  \]
+
+* **Chernoff bound:** If $X$ is subgaussian, then for every $t\ge0$  
+  \[
+  \operatorname{P}(X\ge t)\le\exp\!\Bigl(-\frac{t^{2}}{2\|X\|_{\mathrm{vp}}^{2}}\Bigr).
+  \]
+
+* **Independence and sums:** If $X$ and $Y$ are independent subgaussians, then  
+  \[
+  \|X+Y\|_{\mathrm{vp}}^{2}\le\|X\|_{\mathrm{vp}}^{2}+\|Y\|_{\mathrm{vp}}^{2}.
+  \]
+  The proof uses the additivity of cumulants for independent variables; see the discussion of the **cumulant generating function** ([Cumulant_generating_function](/Cumulant_generating_function)) below.
+
+* **Corollary (Matoušek 2008, Lemma 2.4):** If $X_{1},\dots,X_{n}$ are i.i.d. mean‑zero subgaussians with optimal variance proxy $s^{2}$, then for any unit vector $v\in\mathbb{R}^{n}$ the linear combination $\sum_{i=1}^{n}v_{i}X_{i}$ satisfies  
+  \[
+  -\ln\operatorname{P}\!\Bigl(\sum_{i=1}^{n}v_{i}X_{i}\ge t\Bigr)\ge C_{a}\,t^{2},
+  \]
+  where $C_{a}>0$ depends only on the constant $a$ appearing in the tail bound.
+
+## Concentration
+
+### Gaussian concentration inequality for Lipschitz functions
+
+If $f:\mathbb{R}^{n}\to\mathbb{R}$ is $L$‑Lipschitz and $X\sim\mathcal N(0,I_{n})$ is a standard gaussian vector, then  
+\[
+\operatorname{P}\!\bigl(f(X)-\operatorname{E}f(X)\ge t\bigr)\le
+\exp\!\Bigl(-\frac{2}{\pi^{2}}\frac{t^{2}}{L^{2}}\Bigr),
+\]
+and a symmetric inequality holds for the lower tail. This is a special case of the concentration phenomenon for Lipschitz functions on the Gaussian space; see [Tao 2012](/Tao_2012) for a comprehensive treatment.
+
+*Proof sketch:* By shifting and scaling we may assume $L=1$ and $\operatorname{E}f(X)=0$. Introduce an independent copy $Y$ of $X$ and consider the circular smoothing $X_{\theta}=Y\cos\theta+X\sin\theta$. Differentiating the exponential of the difference $e^{t(f(X)-f(Y))}$ and integrating over $\theta\in[0,\pi/2]$ yields an upper bound on the cumulant generating function, which after taking expectations and using the subgaussian control of $\nabla f$ leads to the claimed exponential tail. The details are omitted here for brevity.
+
+### Subgaussian deviation bound
+
+If $X$ is subgaussian, then  
+\[
+\|X-\operatorname{E}[X]\|_{\psi_{2}}\lesssim\|X\|_{\psi_{2}}.
+\]
+The proof uses the triangle inequality for the $\psi_{2}$‑quasi‑norm and the fact that $\|c\|_{\psi_{2}}=\ln 2\,|c|$ for a constant $c$.
+
+### Independent subgaussian sum bound
+
+If $X_{1},\dots,X_{n}$ are independent subgaussians with variance proxies $\sigma_{i}^{2}$, then  
+\[
+\operatorname{E}\!\bigl[\max_{1\le i\le n}X_{i}\bigr]\le
+\sigma\sqrt{2\ln n},
+\]
+and consequently  
+\[
+\operatorname{P}\!\Bigl(\max_{i}X_{i}>t\Bigr)\le n\exp\!\Bigl(-\frac{t^{2}}{2\sigma^{2}}\Bigr).
+\]
+The proof proceeds by a union bound together with the Chernoff bound for each summand.
+
+### Theorem (subgaussian random vectors)
+
+Let $X$ be a random vector in $\mathbb{R}^{d}$. Define  
+\[
+\|X\|_{\psi_{2}}:=\sup_{v\in S^{d-1}}\|v^{\top}X\|_{\psi_{2}},
+\qquad
+\|X\|_{\mathrm{vp}}:=\sup_{v\in S^{d-1}}\|v^{\top}X\|_{\mathrm{vp}},
+\]
+where $S^{d-1}$ is the unit sphere. Then $X$ is subgaussian iff $\|X\|_{\psi_{2}}<\infty$. Moreover, if $X$ satisfies $\|v^{\top}X\|_{\mathrm{vp}}^{2}\le\sigma^{2}$ for all $v\in S^{d-1}$, then  
+\[
+\operatorname{E}\!\bigl[\max_{v\in S^{d-1}}v^{\top}X\bigr]\le 4\sigma\sqrt{d},
+\]
+and for any $\delta>0$  
+\[
+\max_{v\in S^{d-1}}|v^{\top}X|
+\le 4\sigma\sqrt{d}+2\sigma\sqrt{2\log(1/\delta)}
+\quad\text{with probability at least }1-\delta.
+\]
+
+### Maximum inequalities
+
+* **Theorem (maximum of subgaussians):** If $X_{1},\dots,X_{n}$ are mean‑zero subgaussians with $\|X_{i}\|_{\mathrm{vp}}^{2}\le\sigma^{2}$, then for any $\delta>0$  
+  \[
+  \max_{i}X_{i}\le\sigma\sqrt{2\ln\frac{n}{\delta}}
+  \quad\text{with probability at least }1-\delta.
+  \]
+  The proof uses the Chernoff bound and a union bound, as noted earlier.
+
+* **Theorem (maximum over a finite set):** If $X_{1},\dots,X_{n}$ are subgaussians, then  
+  \[
+  \operatorname{E}\!\bigl[\max_{i}|X_{i}-\operatorname{E}[X_{i}]|\bigr]\le\sigma\sqrt{2\ln(2n)},
+  \]
+  and the corresponding tail bound holds with an extra factor $2n$ in the exponent. This follows from the previous maximum inequality together with the union bound.
+
+* **Theorem (over a convex polytope):** Let $v_{1},\dots,v_{n}$ be vectors and let $\operatorname{conv}(v_{1},\dots,v_{n})$ denote their convex hull. If $X$ is a subgaussian random vector such that $\|v^{\top}X\|_{\mathrm{vp}}^{2}\le\sigma^{2}$ for every $v$ in the hull, then the same concentration inequalities hold with the maximum taken over the polytope rather than over the discrete set.
+
+## Inequalities
+
+### Hanson–Wright inequality
+
+The **Hanson–Wright inequality** states that if $X$ is a subgaussian random vector (in the sense of the $\psi_{2}$‑norm defined above) and $A$ is a fixed $n\times n$ matrix, then for any $t\ge0$  
+\[
+\operatorname{P}\!\bigl(\bigl|X^{\top}AX-\operatorname{E}[X^{\top}AX]\bigr|>t\bigr)
+\le
+2\exp\!\Bigl[-c\,
+\min\!\Bigl(\frac{t^{2}}{\|A\|_{F}^{2}},\frac{t}{\|A\|}\Bigr)\Bigr],
+\]
+where $\|A\|_{F}$ is the Frobenius norm, $\|A\|$ the operator norm, and $c>0$ an absolute constant. This inequality is a cornerstone in the analysis of quadratic forms in subgaussian variables; see the original work of Hanson and Wright (1971) and modern expositions in [Vershynin 2018](/High_dimensional_probability).
+
+### Subgaussian concentration (general)
+
+There exists an absolute constant $c>0$ such that for any collection of independent mean‑zero subgaussian random variables $X_{1},\dots,X_{N}$ with variance proxies $\sigma_{i}^{2}$,
+\[
+\operatorname{P}\!\Bigl(\Bigl|\sum_{i=1}^{N}X_{i}\Bigr|\ge t\Bigr)
+\le
+2\exp\!\Bigl(-c\,
+\frac{t^{2}}{\sum_{i=1}^{N}\sigma_{i}^{2}}\Bigr)
+\qquad(t>0).
+\]
+This is often called **Hoeffding’s inequality** in the subgaussian literature; see [Vershynin 2018](/High_dimensional_probability) for a detailed proof.
+
+### Bernstein’s inequality
+
+If $X_{1},\dots,X_{N}$ are independent mean‑zero **subexponential** random variables (i.e. $X_{i}^{2}$ is subexponential), then for $t\ge0$  
+\[
+\operatorname{P}\!\Bigl(\Bigl|\sum_{i=1}^{N}X_{i}\Bigr|\ge t\Bigr)
+\le
+2\exp\!\Bigl(-c\,
+\min\!\Bigl(\frac{t^{2}}{\sum_{i}\|X_{i}\|_{\psi_{1}}^{2}},\,
+\frac{t}{\max_{i}\|X_{i}\|_{\psi_{1}}}\Bigr)\Bigr),
+\]
+where $\psi_{1}$ denotes the Orlicz function for subexponential tails. This inequality refines Hoeffding’s bound by incorporating both a variance term and a bound on the largest summand.
+
+### Khinchine inequality
+
+The **Khinchine inequality** asserts that for any $p\ge2$ and any real coefficients $a_{1},\dots,a_{N}$,
+\[
+\Bigl(\operatorname{E}\bigl|\sum_{i=1}^{N}a_{i}X_{i}\bigr|^{p}\Bigr)^{1/p}
+\le
+C\,K\,\sqrt{p}\,
+\Bigl(\sum_{i=1}^{N}a_{i}^{2}\Bigr)^{1/2},
+\]
+where $X_{i}$ are independent mean‑zero subgaussian variables with $\|X_{i}\|_{\psi_{2}}\le K$, and $C$ is an absolute constant. The inequality is sharp up to the constants and is a fundamental tool in random matrix theory; see the entry on [Khinchine inequality](/Khinchine_inequality).
+
+### Central limit theorem
+
+When a sum of independent subgaussian variables is properly normalized, it converges to a Gaussian distribution. This is a version of the **central limit theorem** for subgaussian sums; see [Vershynin 2018](/High_dimensional_probability) for a proof that uses characteristic functions.
+
+## Subgaussian random vectors
+
+The definition of subgaussianity can be extended to random vectors. Let $X\in\mathbb{R}^{d}$ be a random vector. One says that $X$ is subgaussian if  
+\[
+\|X\|_{\psi_{2}}:=\sup_{v\in S^{d-1}}\|v^{\top}X\|_{\psi_{2}}<\infty.
+\]
+Equivalently, $X$ is subgaussian iff every linear projection $v^{\top}X$ is a subgaussian scalar random variable. This notion is used throughout high‑dimensional probability; see the discussion of **subgaussian concentration** above.
+
+## Maximum inequalities (continued)
+
+* **Theorem (over a finite set):** If $X_{1},\dots,X_{n}$ are subgaussians with $\|X_{i}\|_{\mathrm{vp}}^{2}\le\sigma^{2}$, then  
+  \[
+  \operatorname{E}\!\bigl[\max_{i}(X_{i}-\operatorname{E}[X_{i}])\bigr]\le\sigma\sqrt{2\ln n},
+  \]
+  and for any $t>0$  
+  \[
+  \operatorname{P}\!\bigl(\max_{i}(X_{i}-\operatorname{E}[X_{i}])>t\bigr)\le
+  n\exp\!\Bigl(-\frac{t^{2}}{2\sigma^{2}}\Bigr).
+  \]
+
+* **Theorem (over a convex polytope):** Let $v_{1},\dots,v_{n}$ be vectors and let $\operatorname{conv}(v_{1},\dots,v_{n})$ be their convex hull. If $X$ is a subgaussian random vector such that $\|v^{\top}X\|_{\mathrm{vp}}^{2}\le\sigma^{2}$ for every $v$ in the hull, then the same bounds hold with the maximum taken over the polytope instead of the discrete set.
+
+## Theorem (subgaussian concentration)
+
+There exists an absolute constant $c>0$ such that for any $n,m\in\mathbb{N}$, any $m\times n$ matrix $A$, and any subgaussian random vector $X$ with $\|X\|_{\psi_{2}}\le K$,  
+\[
+\operatorname{P}\!\bigl(\bigl\|\!AX\!\|_{2}-\|A\|_{F}\bigr|>t\bigr)
+\le
+2\exp\!\Bigl(-c\,
+\frac{t^{2}}{K^{4}\|A\|^{2}}\Bigr).
+\]
+In words, the Euclidean norm of $AX$ concentrates around its expected value $\|A\|_{F}$ with a subgaussian tail. This result is a direct corollary of the Hanson–Wright inequality applied to the quadratic form $X^{\top}AX$ with $A$ replaced by a rank‑one projection onto the direction of $AX$.
+
+## See also
+
+* [Platykurtic distribution](/Platykurtic_distribution)
+* [Kurtosis](/Kurtosis)
+* [Orlicz space](/Orlicz_space)
+* [High‑dimensional probability](/High_dimensional_probability)
+
+## Notes
+
+* The material above synthesizes results from several standard references, including Vershynin’s *High‑Dimensional Probability* (2018), Tao’s *Topics in Random Matrix Theory* (2012), and the original papers of Hanson and Wright (1971) and Matoušek (2008).  
+* The constants $c$ and $C$ appearing in the various inequalities are universal; they do not depend on the dimension, the particular random variables, or the matrices involved.  
+* The equivalence of the definitions is a classical fact in the theory of Orlicz spaces; see [Buldygin & Kozachenko 1980](/Sub‑Gaussian_random_variables) for an early treatment.

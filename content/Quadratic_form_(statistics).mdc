@@ -1,0 +1,97 @@
+---
+title: "Quadratic Form (Statistics)"
+description: "You want an article. Fine. Don't expect pleasantries. This is a dissection, not a..."
+keywords: multivariate statistics, quadratic form, random variables, symmetric matrix, scalar, expected value, variance-covariance matrix, trace
+slug: "Quadratic_form_(statistics)"
+createdAt: "2025-11-18T02:48:20.307Z"
+updatedAt: "2025-11-18T02:48:20.307Z"
+contentType: "rewritten"
+---
+
+You want an article. Fine. Don't expect pleasantries. This is a dissection, not a celebration.
+
+## Quadratic Form in Statistics
+
+In the rather sterile world of [multivariate statistics](/Multivariate_statistics), we encounter a concept known as the [quadratic form](/Quadratic_form). Imagine you have a collection of [random variables](/Random_variable), let's call this vector $\varepsilon$ of dimension $n$. Now, picture a meticulously constructed, [symmetric matrix](/Symmetric_matrix) $\Lambda$, also $n$-dimensional. When you multiply these together in a specific way – $\varepsilon^T \Lambda \varepsilon$ – what you get is a single [scalar](/Scalar_(mathematics)) value. That, my friend, is a quadratic form in $\varepsilon$. Simple enough, I suppose, for those who appreciate such things.
+
+### Expectation: What's the Average Outcome?
+
+Now, let's talk about what we can expect from this quadratic form. It's not rocket science, but it does require a bit of rigor. It can be proven, and I’m not going to hold your hand through it, that:
+
+$$ \operatorname{E} \left[\varepsilon ^{T}\Lambda \varepsilon \right]=\operatorname {tr} \left[\Lambda \Sigma \right]+\mu ^{T}\Lambda \mu $$
+
+This equation tells us the expected value of our quadratic form. Here, $\mu$ represents the [expected value](/Expected_value) of $\varepsilon$, and $\Sigma$ is its [variance-covariance matrix](/Covariance_matrix). The 'tr' bit? That's the [trace](/Trace_(linear_algebra)) of a matrix, which is just the sum of its diagonal elements. The crucial point here is that this result doesn't hinge on $\varepsilon$ behaving nicely, like following a [multivariate normal distribution](/Multivariate_normal_distribution). All it needs is for $\mu$ and $\Sigma$ to exist. Don't get caught up in the unnecessary details; the essentials are what matter.
+
+For those who find solace in bound pages, a rather exhaustive treatment of quadratic forms in random variables can be found in the work by Mathai and Provost. [^2] It’s dense, I’m sure, but it’s there if you’re truly committed to the minutiae.
+
+### Proof: How Do We Know?
+
+You want to know *how* we arrive at that expectation formula? Fine. Since the quadratic form $\varepsilon^T \Lambda \varepsilon$ is, as we established, a scalar, it’s equal to its own trace:
+
+$$ \varepsilon ^{T}\Lambda \varepsilon =\operatorname {tr} (\varepsilon ^{T}\Lambda \varepsilon ) $$
+
+Now, a fundamental property of the [trace](/Trace_(linear_algebra)) operator is its [cyclic property](/Trace_(linear_algebra)). This allows us to rearrange the expression inside the trace:
+
+$$ \operatorname {E} [\operatorname {tr} (\varepsilon ^{T}\Lambda \varepsilon )]=\operatorname {E} [\operatorname {tr} (\Lambda \varepsilon \varepsilon ^{T})] $$
+
+The trace, being a [linear combination](/Linear_combination) of matrix elements, commutes with the expectation operator due to the linearity of expectation. This leads us to:
+
+$$ \operatorname {E} [\operatorname {tr} (\Lambda \varepsilon \varepsilon ^{T})]=\operatorname {tr} (\Lambda \operatorname {E} (\varepsilon \varepsilon ^{T})) $$
+
+A standard result in the theory of variances tells us that $\operatorname {E} (\varepsilon \varepsilon ^{T})$ is precisely the [covariance matrix](/Covariance_matrix) $\Sigma$ plus the outer product of the mean vector $\mu \mu^T$. So, we have:
+
+$$ \operatorname {tr} (\Lambda \operatorname {E} (\varepsilon \varepsilon ^{T})) = \operatorname {tr} (\Lambda (\Sigma +\mu \mu ^{T})) $$
+
+Applying the cyclic property of the trace once more, we can split this into two terms:
+
+$$ \operatorname {tr} (\Lambda \Sigma +\Lambda \mu \mu ^{T}) = \operatorname {tr} (\Lambda \Sigma )+\operatorname {tr} (\Lambda \mu \mu ^{T}) $$
+
+And by the cyclic property again, $\operatorname {tr} (\Lambda \mu \mu ^{T}) = \operatorname {tr} (\mu ^{T}\Lambda \mu )$. Since $\mu ^{T}\Lambda \mu$ is a scalar, its trace is simply the scalar itself. This brings us back to the elegant conclusion:
+
+$$ \operatorname {tr} (\Lambda \Sigma )+\operatorname {tr} (\mu ^{T}\Lambda \mu ) = \operatorname {tr} (\Lambda \Sigma )+\mu ^{T}\Lambda \mu $$
+
+There. Satisfied?
+
+### Variance in the Gaussian Case: When Things Get Predictable
+
+The variance of a quadratic form can be a messy affair, highly dependent on the distribution of $\varepsilon$. However, if $\varepsilon$ happens to follow a multivariate normal distribution – a [multivariate normal distribution](/Multivariate_normal_distribution), no less – then things simplify considerably, assuming $\Lambda$ is symmetric. In this fortunate scenario, the variance is given by:
+
+$$ \operatorname {var} \left[\varepsilon ^{T}\Lambda \varepsilon \right]=2\operatorname {tr} \left[\Lambda \Sigma \Lambda \Sigma \right]+4\mu ^{T}\Lambda \Sigma \Lambda \mu $$
+
+This formula, referenced by [^3], is a cornerstone for analyzing quadratic forms under normality.
+
+Furthermore, this can be generalized to compute the [covariance](/Covariance) between *two* such quadratic forms, say $\varepsilon^T \Lambda_1 \varepsilon$ and $\varepsilon^T \Lambda_2 \varepsilon$, again assuming $\Lambda_1$ and $\Lambda_2$ are symmetric:
+
+$$ \operatorname {cov} \left[\varepsilon ^{T}\Lambda _{1}\varepsilon ,\varepsilon ^{T}\Lambda _{2}\varepsilon \right]=2\operatorname {tr} \left[\Lambda _{1}\Sigma \Lambda _{2}\Sigma \right]+4\mu ^{T}\Lambda _{1}\Sigma \Lambda _{2}\mu $$
+
+This further generalization, noted in [^4], provides a more complete picture of the relationships between these quantities.
+
+As a side note, a quadratic form like this, under certain conditions, will follow a [generalized chi-squared distribution](/Generalized_chi-squared_distribution). It’s a distribution that’s more complex than the standard [chi-squared distribution](/Chi-squared_distribution), but it captures the essence of these forms.
+
+### Computing the Variance in the Non-Symmetric Case: When Symmetry Isn't Guaranteed
+
+What if $\Lambda$ isn't symmetric? Does all our elegant math fall apart? Not entirely. We can exploit the fact that $\varepsilon^T \Lambda^T \varepsilon$ is identical to $\varepsilon^T \Lambda \varepsilon$ because they are both scalars. This allows us to define a new, symmetric matrix:
+
+$$ {\tilde {\Lambda }}=\frac{\Lambda +\Lambda ^{T}}{2} $$
+
+Then, the quadratic form $\varepsilon^T {\tilde {\Lambda }}\varepsilon$ is identical to the original quadratic form $\varepsilon^T \Lambda \varepsilon$. Therefore, the expressions for the mean and variance remain the same, provided we substitute our original $\Lambda$ with this new, symmetric ${\tilde {\Lambda }}$. It’s a neat trick, really, turning a potentially messy problem into a familiar one.
+
+### Examples of Quadratic Forms: Where Do We See This?
+
+Let's ground this in something tangible. Suppose you have a set of observations, denoted by the vector $y$, and an [operator matrix](/Operator_matrix) $H$. The [residual sum of squares](/Residual_sum_of_squares), a common metric in statistical modeling, can be expressed as a quadratic form in $y$:
+
+$$ \textrm{RSS} = y^T (I - H)^T (I - H) y $$
+
+Here, $I$ is the identity matrix. Now, if $H$ is not only [symmetric](/Symmetric_matrix) but also [idempotent](/Idempotent_matrix) (meaning $H^2 = H$), and if the [errors](/Errors_and_residuals_in_statistics) in your model are [Gaussian](/Multivariate_normal_distribution) with a covariance matrix of $\sigma^2 I$, then the quantity $\textrm{RSS} / \sigma^2$ follows a [chi-squared distribution](/Chi-squared_distribution). The number of degrees of freedom, $k$, and the noncentrality parameter, $\lambda$, are determined by the trace and a specific quadratic form involving $H$:
+
+$$ k = \operatorname {tr} \left[(I-H)^{T}(I-H)\right] $$
+
+$$ \lambda = \mu^T (I - H)^T (I - H) \mu / 2 $$
+
+These parameters are found by matching the first two [central moments](/Central_moment) of a [noncentral chi-squared](/Noncentral_chi-squared_distribution) random variable to the formulas we discussed earlier. A particularly interesting case arises when $Hy$ is an unbiased estimator of $\mu$. In this situation, the noncentrality parameter $\lambda$ becomes zero, and $\textrm{RSS} / \sigma^2$ simplifies to a central chi-squared distribution. It’s in these moments that the abstract concepts reveal their practical implications.
+
+### See also
+
+*   [Quadratic form](/Quadratic_form)
+*   [Covariance matrix](/Covariance_matrix)
+*   [Matrix representation of conic sections](/Matrix_representation_of_conic_sections)

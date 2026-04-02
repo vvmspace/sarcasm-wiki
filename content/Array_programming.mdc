@@ -1,0 +1,353 @@
+---
+title: "Array Programming"
+description: "Applying operations to whole sets of values simultaneously, often referred to as array programming, represents a paradigm shift in how we instruct computers...."
+keywords: array programming, scientific, vector, multidimensional, scalars, vectors, matrices, fortran
+slug: "Array_programming"
+createdAt: "2025-12-24T09:51:28.270Z"
+updatedAt: "2025-12-24T09:51:28.270Z"
+contentType: "rewritten"
+aiProvider: "Gemini"
+aiModel: "gemini-2.5-flash-lite"
+previousArticleSlug: "Right-wing"
+previousArticleTitle: "Right-Wing"
+---
+
+Applying operations to whole sets of values simultaneously, often referred to as [array programming](/Array_programming), represents a paradigm shift in how we instruct computers. Instead of meticulously detailing operations on individual data points, array programming allows for the application of commands to entire collections of values at once. This approach is particularly prevalent and highly effective in the demanding realms of [scientific](/Computational_science) computation and engineering, where vast datasets are the norm.
+
+Modern programming languages that embrace array programming—sometimes also called [vector](/Vector_(data_structure)) or [multidimensional](/Multidimensional_analysis) languages—have been meticulously crafted to seamlessly extend operations designed for single values, known as [scalars](/Scalar_(computing)), to encompass entire [vectors](/Vector_(geometric)), [matrices](/Matrix_(mathematics)), and arrays of even higher dimensions. This elegant generalization means programmers can think and operate on data structures as cohesive units, rather than getting bogged down in the minutiae of element-by-element processing. Languages that exemplify this capability include venerable stalwarts like [APL](/APL_(programming_language)) and [J](/J_(programming_language)), the workhorse of scientific computing, [Fortran](/Fortran), and the ubiquitous [MATLAB](/MATLAB), along with its open-source counterpart, [GNU Octave](/GNU_Octave). Other notable contenders in this space are [Analytica](/Analytica_(software)), [PL/I](/PL/I), the statistical powerhouse [R](/R_(programming_language)), the concurrent extension [Cilk Plus](/Cilk_Plus), the high-performance language [Julia](/Julia_(programming_language)), the specialized [Perl Data Language (PDL)](/Perl_Data_Language), and the versatile [Raku](/Raku_(programming_language)). Within these languages, an operation that manipulates entire arrays is termed a vectorized operation. &#91;1&#93; This designation is independent of whether the operation is actually executed on a dedicated [vector processor](/Vector_processor), which is hardware optimized for such parallel computations. The beauty of array programming lies in its primitives, which offer a remarkably concise way to express complex data manipulation ideas. The level of concision can be astonishing; it's not an exaggeration to say that a single line of array programming code can sometimes replace pages of code written in more verbose, object-oriented styles. &#91; [example needed](/Wikipedia:AUDIENCE) &#93;
+
+### Concepts of Array Programming
+
+The foundational principle of array programming is elegantly simple: operations are designed to act simultaneously on an entire collection of values. This elevates it to a [high-level programming](/High-level_programming_language) model, liberating programmers from the tedious necessity of writing explicit loops to iterate through individual scalar operations. Instead, they can focus on the data aggregates themselves.
+
+[Kenneth E. Iverson](/Kenneth_E._Iverson), the visionary behind [APL](/APL_(programming_language)), eloquently articulated the underlying philosophy:
+
+> most programming languages are decidedly inferior to mathematical notation and are little used as tools of thought in ways that would be considered significant by, say, an applied mathematician.
+
+He proposed that the pragmatic advantages of executability inherent in programming languages could be effectively merged with the expressive power and conceptual clarity of mathematical notation, creating a single, coherent language. Iverson stressed the importance of distinguishing between the ease of learning a notation and the depth of understanding its implications. For instance, grasping the mechanics of matrix multiplication is relatively straightforward, but truly mastering its properties—such as its associativity, its distributive nature over addition, and its capacity to represent linear functions and geometric transformations—is a far more profound endeavor. The very richness of a notation, he argued, can sometimes make it appear more challenging to learn precisely because it hints at a multitude of potential explorations and deeper mathematical connections.
+
+> Indeed, the very suggestiveness of a notation may make it seem harder to learn because of the many properties it suggests for explorations.
+
+He further cautioned against dismissing algorithms based solely on initial execution efficiency concerns:
+
+> Users of computers and programming languages are often concerned primarily with the efficiency of execution of algorithms, and might, therefore, summarily dismiss many of the algorithms presented here. Such dismissal would be short-sighted since a clear statement of an algorithm can usually be used as a basis from which one may easily derive a more efficient algorithm.
+
+The core of array programming and thinking lies in identifying and leveraging the inherent similarities and adjacencies within data. In stark contrast to [object-oriented](/Object-oriented_programming) approaches, which tend to deconstruct data into its constituent parts or [scalar](/Scalar_(computing)) components, array programming emphasizes grouping data and applying uniform processing strategies.
+
+A crucial concept in array programming languages is [function rank](/Rank_(data_structure)), a notion borrowed from [tensor](/Tensor) mathematics. Functions are categorized by the dimensionality of the data they operate on. For example, standard multiplication is a scalar-ranked function, acting on zero-dimensional data (individual numbers). The [cross product](/Cross_product), on the other hand, is a vector-ranked function, operating on vectors rather than scalars. [Matrix multiplication](/Matrix_multiplication) is a prime example of a 2-rank function, as it manipulates two-dimensional objects. [Collapse operators](/Reduce_(higher-order_function)), such as summation, effectively reduce the dimensionality of an input data array by one or more dimensions; summing the elements of an array, for instance, collapses its dimensionality by one.
+
+### Uses
+
+Array programming is inherently well-suited for [implicit parallelization](/Implicit_parallelization), a field that continues to attract significant research. Furthermore, the advent of [Intel](/Intel) and compatible CPUs after 1997 saw the introduction of instruction set extensions like [MMX](/MMX_(instruction_set)), [SSSE3](/SSSE3), and [3DNow!](/3DNow!), which incorporated rudimentary [SIMD](/Single_instruction,_multiple_data) capabilities for array processing. This trend has persisted into the 2020s with advanced instruction sets such as [AVX-512](/AVX-512), transforming modern CPUs into highly sophisticated vector processors. It is important to distinguish array processing from [parallel computing](/Parallel_computing). While array processing involves a single processor performing operations on groups of data items simultaneously, parallel computing aims to decompose larger problems into smaller sub-problems ([MIMD](/Multiple_instruction,_multiple_data)) to be tackled by multiple processors. As of 2023, processors featuring [multiple cores](/Multi-core_processor) and [GPUs](/Graphics_processing_unit) with thousands of [general computing cores](/General-purpose_computing_on_graphics_processing_units_(software)) are commonplace.
+
+### Languages
+
+The quintessential examples of array programming languages are [Fortran](/Fortran), [APL](/APL_(programming_language)), and [J](/J_(programming_language)). The ecosystem of languages supporting this paradigm also includes [A+](/A%2B_(programming_language)), [Analytica](/Analytica_(software)), [Chapel](/Chapel_(programming_language)), [IDL](/IDL_(programming_language)), [Julia](/Julia_(programming_language)), [K](/K_(programming_language)), Klong, [Q](/Q_(programming_language_from_Kx_Systems)), [MATLAB](/MATLAB), [GNU Octave](/GNU_Octave), [Scilab](/Scilab), [FreeMat](/FreeMat), [Perl Data Language](/Perl_Data_Language) (PDL), [R](/R_(programming_language)), [Raku](/Raku_(programming_language)), [S-Lang](/S-Lang), [SAC_programming_language](/SAC_programming_language), [Nial](/Nial), [ZPL](/ZPL_(programming_language)), [Futhark](/Futhark_(programming_language)), and [TI-BASIC](/TI-BASIC).
+
+#### Scalar Languages
+
+In languages that are primarily scalar, such as [C](/C_(programming_language)) and [Pascal](/Pascal_(programming_language)), operations are confined to single values. Consequently, an expression like `a + b` signifies the addition of two numbers. To perform the addition of two arrays in such languages, one must resort to explicit indexing and looping mechanisms, a process that is notoriously tedious and error-prone.
+
+```c
+for (int i = 0; i < m; i++) {
+    for (int j = 0; j < n; j++) {
+        a[i][j] += b[i][j];
+    }
+}
+```
+
+Conversely, in array-based languages, this same operation, which would require a nested for-loop in a scalar language, can be expressed with remarkable brevity. For instance, in [Fortran](/Fortran), the equivalent operation can be written in a single line:
+
+```fortran
+a = a + b
+```
+
+Or, to more explicitly highlight the array nature of the operands:
+
+```fortran
+a(:,:) = a(:,:) + b(:,:)
+```
+
+While scalar languages like C lack native array programming constructs, this doesn't preclude their programs from benefiting from underlying vectorization techniques. Compilers such as [GCC](/GNU_Compiler_Collection), when operating at certain optimization levels, can detect and vectorize code sections that their heuristics identify as suitable. An alternative approach involves using the [OpenMP](/OpenMP) API, which facilitates the parallelization of code segments by leveraging multiple CPU cores.
+
+#### Array Languages
+
+In array languages, operations are elegantly generalized to function seamlessly with both scalars and arrays. Thus, `a + b` can represent the sum of two scalars if `a` and `b` are scalars, or the element-wise sum of two arrays if they are arrays.
+
+While array languages simplify programming, this convenience may come at the cost of what is known as the abstraction penalty. &#91;3&#93; &#91;4&#93; &#91;5&#93; Because additions are often performed in isolation from the broader context of the code, the generated machine code might not always be optimally efficient. For example, if other additions involving the same array elements are encountered later in the execution, the compiler might have to re-fetch data unnecessarily. Even the most sophisticated [optimizing compiler](/Optimizing_compiler) would face significant challenges in merging disparate operations from different program sections or subroutines, a task that a human programmer could readily accomplish by aggregating sums during a single pass over the array to minimize [computational overhead](/Computational_overhead).
+
+##### Ada
+
+The C code snippet presented earlier would translate to the following in the [Ada](/Ada_(programming_language)) language, which natively supports array-programming syntax:
+
+```ada
+A := A + B;
+```
+
+##### APL
+
+[APL](/APL_(programming_language)) is characterized by its use of single-character Unicode symbols and a deliberate lack of syntactic sugar.
+
+```apl
+A ← A + B
+```
+
+This operation is designed to work with arrays of any rank (including rank 0, i.e., scalars) and also between a scalar and an array. [Dyalog APL](/Dyalog_APL) further enhances the original language with [augmented assignments](/Augmented_assignment):
+
+```apl
+A +← B
+```
+
+##### Analytica
+
+[Analytica](/Analytica_(software)) offers a comparable level of conciseness to Ada.
+
+```analytica
+A := A + B;
+```
+
+##### BASIC
+
+Early versions of [BASIC](/BASIC) incorporated `MAT` statements for matrix and array manipulation. For instance, the third edition (1966) included:
+
+```basic
+DIM A(4),B(4),C(4)
+MAT A = 1
+MAT B = 2 * A
+MAT C = A + B
+MAT PRINT A,B,C
+```
+
+##### Mata
+
+[Stata](/Stata)'s matrix programming language, Mata, provides robust support for array programming. The following demonstrates matrix addition, multiplication, the addition of a matrix and a scalar, element-wise multiplication, subscripting, and one of Mata's many functions for matrix inversion:
+
+```stata
+. mata:
+
+: A = (1,2,3) \ (4,5,6) // Creates a 2x3 matrix
+
+: A
+        1   2   3
+    +-------------+
+  1 |   1   2   3 |
+  2 |   4   5   6 |
+    +-------------+
+
+: B = (2..4) \ (1..3) // Creates another 2x3 matrix
+
+: B
+        1   2   3
+    +-------------+
+  1 |   2   3   4 |
+  2 |   1   2   3 |
+    +-------------+
+
+: C = J(3,2,1) // Creates a 3x2 matrix filled with ones
+
+: C
+        1   2
+    +---------+
+  1 |   1   1 |
+  2 |   1   1 |
+  3 |   1   1 |
+    +---------+
+
+: D = A + B // Element-wise addition of matrices A and B
+
+: D
+        1   2   3
+    +-------------+
+  1 |   3   5   7 |
+  2 |   5   7   9 |
+    +-------------+
+
+: E = A*C // Matrix multiplication of A (2x3) and C (3x2)
+
+: E
+        1   2
+    +-----------+
+  1 |   6   6 |
+  2 |  15  15 |
+    +-----------+
+
+: F = A:*B // Element-wise multiplication of matrices A and B
+
+: F
+        1    2    3
+    +----------------+
+  1 |    2    6   12 |
+  2 |    4   10   18 |
+    +----------------+
+
+: G = E  :+ 3 // Addition of scalar 3 to each element of matrix E
+
+: G
+        1   2
+    +-----------+
+  1 |   9   9 |
+  2 |  18  18 |
+    +-----------+
+
+: H = F[(2\1), (1, 2)] // Subscripting to extract a submatrix of F and rearrange rows
+
+: // switch row 1 and 2
+: H
+        1    2
+    +-----------+
+  1 |   4   10 |
+  2 |   2    6 |
+    +-----------+
+
+: I = invsym(F'*F) // Generalized inverse of a symmetric positive semi-definite matrix
+
+: // (F*F^(-1)F=F)
+: I
+[symmetric]
+        1         2         3
+    +-------------------------------------------+
+  1 |   0                                       |
+  2 |   0       3.25                            |
+  3 |   0      -1.75      0.9444444444           |
+    +-------------------------------------------+
+
+: end
+```
+
+##### MATLAB
+
+The implementation in [MATLAB](/MATLAB) provides the same concise syntax as Fortran for array operations.
+
+```matlab
+A = A + B;
+```
+
+A close relative of MATLAB is [GNU Octave](/GNU_Octave), which extends the original language with augmented assignments:
+
+```matlab
+A += B;
+```
+
+Both MATLAB and GNU Octave natively support a wide array of [linear algebra](/Linear_algebra) operations, including matrix multiplication, [matrix inversion](/Matrix_inversion), and the numerical solution of [systems of linear equations](/System_of_linear_equations). They even provide functionality for the [Moore–Penrose pseudoinverse](/Moore%E2%80%93Penrose_pseudoinverse). &#91;7&#93; &#91;8&#93;
+
+In the [Nial](/Nial) language, the inner product of two arrays can be computed using the native matrix multiplication operator. If `a` is a row vector of size `[1 n]` and `b` is a corresponding column vector of size `[n 1]`:
+
+```nial
+a * b;
+```
+
+In contrast, the [entrywise product](/Entrywise_product) is implemented as:
+
+```nial
+a .* b;
+```
+
+The inner product between two matrices with the same number of elements can be achieved using the auxiliary operator `(:)`, which reshapes a given matrix into a column vector, and the [transpose](/Transpose) operator `'`:
+
+```nial
+A(:)' * B(:);
+```
+
+##### rasql
+
+The [rasdaman query language](/Rasdaman) is a database-centric array programming language. Adding two arrays, for instance, can be accomplished with a query like this:
+
+```sql
+SELECT A + B
+FROM A, B
+```
+
+##### R
+
+The [R](/R_(programming_language)) language inherently supports the array paradigm. The following example illustrates matrix multiplication followed by the addition of a scalar (which is effectively a one-element vector) and another vector:
+
+```R
+> A <- matrix(1:6, nrow=2) # Creates a 2x3 matrix
+> A
+     [,1] [,2] [,3]
+[1,]    1    3    5
+[2,]    2    4    6
+> B <- t( matrix(6:1, nrow=2) ) # Creates a 3x2 matrix by transposing a 2x3 matrix
+> B
+     [,1] [,2]
+[1,]    6    4    2
+[2,]    5    3    1
+> C <- A %*% B # Matrix multiplication
+> C
+     [,1] [,2]
+[1,]   28   19
+[2,]   40   28
+> D <- C + 1 # Adds scalar 1 to each element of C
+> D
+     [,1] [,2]
+[1,]   29   20
+[2,]   41   29
+> D + c(1, 1) # Adds a vector c(1,1) to each row of D
+     [,1] [,2]
+[1,]   30   21
+[2,]   42   30
+```
+
+##### Raku
+
+[Raku](/Raku_(programming_language)) incorporates the array paradigm through its Metaoperators. The subsequent example showcases the addition of arrays `@a` and `@b` utilizing the Hyper-operator in conjunction with the plus operator.
+
+```raku
+[0] > my @a = [[1,1],[2,2],[3,3]]; # Define a 2D array @a
+[[1 1] [2 2] [3 3]]
+
+[1] > my @b = [[4,4],[5,5],[6,6]]; # Define a 2D array @b
+[[4 4] [5 5] [6 6]]
+
+[2] > @a »+« @b; # Perform element-wise addition using the Hyper-operator
+[[5 5] [7 7] [9 9]]
+```
+
+### Mathematical Reasoning and Language Notation
+
+The matrix left-division operator offers a concise way to express certain semantic properties of matrices. Similar to its scalar counterpart, if the [determinant](/Determinant) of the coefficient matrix `A` is non-zero, the vectorial equation `A * x = b` can be solved by left-multiplying both sides by the [inverse](/Inverse_matrix) of `A`, denoted as `A^-1` (in both MATLAB and GNU Octave, this is `A^-1`). The following mathematical statements hold true when `A` is a [full rank](/Matrix_rank) [square matrix](/Square_matrix):
+
+`A^-1 * (A * x) == A^-1 * (b)`
+`(A^-1 * A) * x == A^-1 * b`  (due to [matrix-multiplication associativity](/Associativity))
+`x = A^-1 * b`
+
+Here, `==` denotes the equivalence [relational operator](/Relational_operator). The preceding statements are also valid MATLAB expressions, provided the third one is executed before the others. (Note: Numerical comparisons may yield false results due to potential round-off errors.)
+
+In scenarios where the system is overdetermined (i.e., `A` has more rows than columns), the pseudoinverse, denoted as `A +` (in MATLAB and GNU Octave languages, `pinv(A)`), can substitute for the inverse `A^-1`, as illustrated below:
+
+`pinv(A) * (A * x) == pinv(A) * (b)`
+`(pinv(A) * A) * x == pinv(A) * b`  (associativity of matrix multiplication holds)
+`x = pinv(A) * b`
+
+However, these solutions are neither the most succinct nor the most computationally efficient. The latter point becomes apparent when considering the scalar equivalent `a * x = b`. The solution `x = a^-1 * b` requires two operations, whereas the more efficient solution `x = b / a` uses only one. The challenge in the matrix case is that matrix multiplication is generally not [commutative](/Commutativity), a property that would be required to directly extend the scalar solution:
+
+`(a * x) / a == b / a`
+`(x * a) / a == b / a`  (commutativity does not hold for matrices!)
+`x * (a / a) == b / a`  (associativity still holds for matrices)
+`x = b / a`
+
+The MATLAB language addresses this by introducing the left-division operator `\`, which preserves the essential analogy with the scalar case, thereby simplifying mathematical reasoning and maintaining conciseness:
+
+`A \ (A * x) == A \ b`
+`(A \ A) * x == A \ b`  (associativity also holds for matrices; commutativity is no longer required)
+`x = A \ b`
+
+This exemplifies not only terse array programming from a coding perspective but also from a computational efficiency standpoint. Many array programming languages benefit from highly efficient linear algebra libraries, such as [ATLAS](/Automatically_Tuned_Linear_Algebra_Software) or [LAPACK](/LAPACK). &#91;10&#93;
+
+Returning to Iverson's earlier quotation, the rationale behind his perspective should now be clear:
+
+*   It is crucial to differentiate between the effort required to describe and learn a notational system and the effort needed to fully grasp its implications. For instance, learning the mechanics of matrix multiplication is relatively simple, but mastering its properties—such as associativity, distributivity over addition, and its representational power for linear functions and geometric operations—is a significantly more complex undertaking. Indeed, the very richness of a notation can make it seem more challenging to learn because it suggests a multitude of avenues for exploration.
+
+### Third-Party Libraries
+
+The utilization of specialized and highly efficient libraries to provide more abstract and concise programming interfaces is a common practice across various programming languages. In [C++](/C%2B%2B), several linear algebra libraries leverage the language's capability for [operator overloading](/Operator_overloading). In some instances, the highly concise abstractions found in these languages are directly influenced by the array programming paradigm. This is evident in libraries like the [NumPy](/NumPy) extension for [Python](/Python_(programming_language)), as well as the [Armadillo](/Armadillo_(C%2B%2B_library)) and [Blitz++](/Blitz%2B%2B) libraries. &#91;11&#93; &#91;12&#93;
+
+---
+
+### See Also
+
+*   [Array slicing](/Array_slicing)
+*   [List of array programming languages](/List_of_programming_languages_by_type)
+*   [Automatic vectorization](/Automatic_vectorization)
+
+#

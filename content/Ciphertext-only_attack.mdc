@@ -1,0 +1,50 @@
+---
+title: "Ciphertext-Only Attack"
+description: "This article has multiple issues. Please help improve it or discuss these issues on the talk page. (Learn how and when to remove these..."
+keywords: improve it, talk page, list of references, related reading, external links, inline citations, improve, introducing
+slug: "Ciphertext-only_attack"
+createdAt: "2025-12-25T12:35:42.793Z"
+updatedAt: "2025-12-25T12:35:42.793Z"
+contentType: "rewritten"
+aiProvider: "OpenRouter"
+aiModel: "mistralai/devstral-2512:free"
+previousArticleSlug: "Anne,_Princess_of_Orange"
+previousArticleTitle: "Anne, Princess Of Orange"
+---
+
+```markdown
+# Ciphertext-only attack
+
+This article has multiple issues. Please help [improve it](/Special:EditPage/Ciphertext-only_attack) or discuss these issues on the [talk page](/Talk:Ciphertext-only_attack). ([Learn how and when to remove these messages](/Help:Maintenance_template_removal))
+
+* This article includes a [list of references](/Wikipedia:Citing_sources), [related reading](/Wikipedia:Further_reading), or [external links](/Wikipedia:External_links), but its sources remain unclear because it lacks [inline citations](/Wikipedia:Citing_sources). Please help [improve](/Wikipedia:WikiProject_Fact_and_Reference_Check) this article by [introducing](/Wikipedia:When_to_cite) more precise citations. (May 2016) ([Learn how and when to remove this message](/Help:Maintenance_template_removal))
+* This article needs additional citations for [verification](/Wikipedia:Verifiability). Please help [improve this article](/Special:EditPage/Ciphertext-only_attack) by [adding citations to reliable sources](/Help:Referencing_for_beginners). Unsourced material may be challenged and removed.
+  Find sources: "Ciphertext-only attack" – news · newspapers · books · scholar · JSTOR (May 2016) ([Learn how and when to remove this message](/Help:Maintenance_template_removal))
+
+In the realm of [cryptography](/Cryptography), a **ciphertext-only attack (COA)** or **known ciphertext attack** represents one of the most fundamental and challenging [attack models](/Attack_model) in [cryptanalysis](/Cryptanalysis). Within this framework, the attacker is presumed to have access solely to a collection of [ciphertexts](/Ciphertext), without any corresponding [plaintexts](/Plaintext) or knowledge of the encryption [key](/Key_(cryptography)). While the attacker lacks a direct channel to observe the plaintext prior to encryption, practical ciphertext-only attacks often rely on some degree of inferred or statistical knowledge about the plaintext. For instance, the attacker might possess insights into the language of the plaintext, the expected statistical distribution of characters, or even the structural format of the message. In many real-world systems, standard protocol data and messages are frequently embedded within the plaintext, making them susceptible to educated guesses or efficient deduction as part of a ciphertext-only attack.
+
+## Attack
+
+A ciphertext-only attack is deemed entirely successful if the attacker can deduce the corresponding plaintexts or, ideally, recover the encryption key. However, even the extraction of any additional information about the underlying plaintext—beyond what was previously known to the attacker—is still considered a partial success. For example, in scenarios where an adversary transmits ciphertext continuously to maintain [traffic-flow security](/Traffic-flow_security), the ability to distinguish between genuine messages and null transmissions would be highly advantageous. Even an informed guess regarding the presence of real messages could facilitate [traffic analysis](/Traffic_analysis), thereby compromising the security of the communication.
+
+Historically, early ciphers—often implemented using pen-and-paper methods—were frequently broken using ciphertext-only techniques. Cryptanalysts developed statistical methods, such as [frequency analysis](/Frequency_analysis_(cryptanalysis)), to exploit patterns in ciphertext. The advent of mechanical encryption devices, such as the [Enigma machine](/Enigma_(machine)), significantly complicated these attacks. However, historical records indicate that Polish cryptanalysts successfully conducted a ciphertext-only [cryptanalysis of the Enigma](/Cryptanalysis_of_the_Enigma) by exploiting vulnerabilities in the protocol used to indicate message settings. Furthermore, during [World War II](/World_War_II), cryptanalysts at [Bletchley Park](/Bletchley_Park) employed sophisticated ciphertext-only attacks by making educated guesses about plaintexts corresponding to intercepted ciphertexts.
+
+## Modern Context
+
+Every contemporary [cipher](/Cipher) is designed with the explicit goal of resisting ciphertext-only attacks. The vetting process for a new cipher design standard is typically rigorous, spanning several years and involving exhaustive testing of large volumes of ciphertext to detect any statistical deviations from random noise. A notable example of this process is the [Advanced Encryption Standard (AES) selection](/Advanced_Encryption_Standard_process), which subjected candidate algorithms to extensive cryptanalysis before standardization.
+
+Additionally, the field of [steganography](/Steganography) has evolved, in part, to develop techniques such as [mimic functions](/Mimic_function), which enable one piece of data to adopt the statistical profile of another, thereby complicating ciphertext-only attacks. Despite these advancements, poor implementation practices or reliance on unvetted, proprietary algorithms have led to numerous modern encryption systems remaining vulnerable to ciphertext-only attacks. Some prominent examples include:
+
+### Examples
+
+* **Early versions of Microsoft's PPTP**: The initial implementations of Microsoft's [Point-to-Point Tunneling Protocol (PPTP)](/Point-to-point_tunneling_protocol) for [virtual private networks (VPNs)](/Virtual_private_network) used the same [RC4](/RC4) key for both the sender and receiver. This practice rendered the system vulnerable to ciphertext-only attacks, as reusing a stream cipher key allows an attacker to recover plaintext by XORing ciphertexts. Later versions of PPTP addressed this issue but introduced other vulnerabilities. For more details, see [stream cipher attack](/Stream_cipher_attack).
+
+* **Wired Equivalent Privacy (WEP)**: The first security protocol for [Wi-Fi](/Wi-Fi), WEP, was found to be susceptible to multiple ciphertext-only attacks. These vulnerabilities stemmed from weaknesses in its key scheduling and initialization vector (IV) management, making it feasible for attackers to recover the encryption key with sufficient ciphertext.
+
+* **GSM's A5/1 and A5/2**: The encryption algorithms used in the [Global System for Mobile Communications (GSM)](/Global_System_for_Mobile_Communications), specifically [A5/1](/A5/1) and [A5/2](/A5/2), were designed to secure voice and data transmissions. However, both algorithms have been shown to be vulnerable to ciphertext-only attacks, particularly due to their relatively small key spaces and predictable key streams.
+
+* **Akelarre Cipher**: Some modern cipher designs, such as [Akelarre](/Akelarre_(cipher)), have been retrospectively proven vulnerable to ciphertext-only attacks. These vulnerabilities often arise from subtle flaws in the cipher's design, which may not be apparent during initial analysis but become exploitable with advanced cryptanalytic techniques.
+
+* **Brute Force Attacks on Small Key Spaces**: Ciphers with insufficient key spaces are inherently vulnerable to [brute force attacks](/Brute_force_attack), even when the attacker has access only to ciphertext. If the key space is small enough, an attacker can systematically test all possible keys until the correct one is found. The feasibility of this approach depends on the ability to distinguish valid plaintext from random noise, which is often straightforward for natural language texts when the ciphertext exceeds the [unicity distance](/Unicity_distance). A classic example is the [Data Encryption Standard (DES)](/Data_Encryption_Standard), which utilizes a 56-bit key, making it susceptible to brute force attacks with modern computing power.
+
+  Another common scenario involves commercial security products that derive encryption keys from user-selected [passwords](/Password). Since users typically choose passwords with low [entropy](/Information_entropy) compared to the cipher's key space, such systems are often vulnerable to ciphertext-only attacks. For instance, the 40-bit [Content Scramble System (CSS)](/Content_Scramble_System) cipher, used to encrypt [DVD](/DVD) video discs, can be broken using this method by searching for [MPEG-2](/MPEG-2) video data patterns within the decrypted output.

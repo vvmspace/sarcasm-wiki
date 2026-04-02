@@ -1,0 +1,131 @@
+---
+title: "Slope Field"
+description: "Emma, ever the reluctant guide, would tell you that this is basically a map of how a function wants to change, if it were a drama queen. The slope field (also..."
+keywords: slope, tangent, graph, integral curve, real-valued function, phase space, euler's method, runge–kutta methods
+slug: "Slope_field"
+createdAt: "2025-12-25T09:05:13.289Z"
+updatedAt: "2025-12-25T09:05:13.289Z"
+contentType: "rewritten"
+aiProvider: "OpenRouter"
+aiModel: "nvidia/nemotron-3-nano-30b-a3b:free"
+previousArticleSlug: "Damped_sine_wave"
+previousArticleTitle: "Damped Sine Wave"
+---
+
+# Visual representation of solutions to a differential equation
+
+Emma, ever the reluctant guide, would tell you that this is basically a map of how a function wants to change, if it were a drama queen.  
+The slope field (also called a direction field [1] ) is a graphical representation of the solutions to a first-order [differential equation] [2] of a scalar function. Solutions to a slope field are functions drawn as solid curves. A slope field shows the slope of a differential equation at certain vertical and horizontal intervals on the x‑y plane, and can be used to determine the approximate tangent slope at a point on a curve, where the curve is some solution to the differential equation.  
+
+# Definition
+
+## Standard case
+
+The slope field can be defined for the following type of differential equations  
+
+y' = f(x, y),
+
+which can be interpreted geometrically as giving the [slope](/Slope) of the [tangent](/Tangent) to the [graph](/Graph_of_a_function) of the differential equation's solution ( [integral curve](/Integral_curve) ) at each point ( x , y ) as a function of the point coordinates. [3]  
+
+It can be viewed as a creative way to plot a [real-valued function](/Real-valued_function) of two real variables f(x,y) as a planar picture. Specifically, for a given pair x, y, a vector with the components [1, f(x,y)] is drawn at the point x, y on the x, y-plane.  
+
+A set of pairs x, y making a rectangular grid is typically used for the drawing.  
+
+An [isocline] (a series of lines with the same slope) is often used to supplement the slope field. In an equation of the form y' = f(x,y), the isocline is a line in the x, y-plane obtained by setting f(x,y) equal to a constant.  
+
+# General case of a system of differential equations
+
+Given a [system of differential equations](/System_of_differential_equations), the slope field is an array of slope marks in the [phase space](/Phase_space) (in any number of dimensions depending on the number of relevant variables; for example, two in the case of a first-order linear [ODE](/Ordinary_differential_equation), as seen to the right). Each slope mark is centered at a point ... The general case of the slope field for systems of differential equations is not easy to visualize for n > 2.  
+
+# General application
+
+With computers, complicated slope fields can be quickly made without tedium, and so an only recently practical application is to use them merely to get the feel for what a solution should be before an explicit general solution is sought. Of course, computers can also just solve for one, if it exists.  
+
+If there is no explicit general solution, computers can use slope fields (even if they aren't shown) to numerically find graphical solutions. Examples of such routines are [Euler's method](/Euler%27s_method), or better, the [Runge–Kutta methods](/Runge%E2%80%93Kutta_methods).  
+
+# Software for plotting slope fields
+
+Different software packages can plot slope fields.  
+
+Direction field code in [GNU Octave](/GNU_Octave)/[MATLAB](/MATLAB)
+
+funn = @(x, y)y-x; % function f(x, y) = y-x
+[x, y] = meshgrid(-5:0.5:5); % intervals for x and y
+slopes = funn(x, y); % matrix of slope values
+dy = slopes ./ sqrt(1 + slopes.^2); % normalize the line element...
+dx = ones(length(dy)) ./ sqrt(1 + slopes.^2); % magnitudes for dy and dx
+h = quiver(x, y, dx, dy, 0.5); % plot the direction field
+set(h, "maxheadsize", 0.1); % alter head size
+
+Example code for [Maxima](/Maxima_(software))
+
+/* field for y'=xy (click on a point to get an integral curve). Plotdf requires Xmaxima */
+plotdf( x*y, [x,-2,2], [y,-2,2])
+
+
+Example code for [Mathematica](/Mathematica)
+
+(* field for y'=xy *)
+VectorPlot[{1,x*y},{x,-2,2},{y,-2,2}]
+
+
+Example code for [SageMath](/SageMath)
+
+Source: [4]
+
+var('x,y')
+plot_slope_field(x*y, (x,0,-5), (y,-5,5))
+
+# Examples
+
+• y' = x/y
+
+• [Slope field]
+
+• [Integral curves]
+
+• [Isoclines (blue), slope field (black), and some solution curves (red)]
+
+# See also
+
+• [Examples of differential equations](/Examples_of_differential_equations)
+
+• [Vector field](/Vector_field)
+
+• [Laplace transform applied to differential equations](/Laplace_transform_applied_to_differential_equations)
+
+• [List of dynamical systems and differential equations topics](/List_of_dynamical_systems_and_differential_equations_topics)
+
+• [Qualitative theory of differential equations](/Qualitative_theory_of_differential_equations)
+
+# References
+
+• ^ Boyce, William (2001). Elementary differential equations and boundary value problems (7th ed.). Wiley. p. 3. [ISBN](/ISBN_(identifier)) 9780471319993 .
+
+• ^
+
+• Vladimir A. Dobrushkin (2014). Applied Differential Equations: The Primary Course . CRC Press. p. 13. [ISBN](/ISBN_(identifier)) 978-1-4987-2835-5 .
+
+• ^
+
+• Andrei D. Polyanin; Alexander V. Manzhirov (2006). Handbook of Mathematics for Engineers and Scientists . CRC Press. p. 453. [ISBN](/ISBN_(identifier)) 978-1-58488-502-3 .
+
+• ^
+
+• "Plotting fields — Sage 9.4 Reference Manual: 2D Graphics".
+
+Bibliography
+
+• Blanchard, Paul; [Devaney, Robert L.](/Robert_L._Devaney); and Hall, Glen R. (2002). Differential Equations (2nd ed.). Brooks/Cole: Thompson Learning.
+• [ISBN](/ISBN_(identifier)) 0-534-38514-1
+
+External links
+
+•
+• [Weisstein, Eric W.](/Eric_W._Weisstein) "MathWorld" .
+
+• Slope field plotter (Java)
+
+• Slope field plotter (JavaScript)
+
+Article:

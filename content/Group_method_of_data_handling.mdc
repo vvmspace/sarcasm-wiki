@@ -1,0 +1,120 @@
+---
+title: "Group Method Of Data Handling"
+description: "Alright, let’s dissect this "mathematical modelling algorithm" with the appropriate level of disdain. You want a rewrite? Fine. But don’t expect sunshine and..."
+keywords: group method of data handling, empirical, machine learning, forecasting, optimization, pattern recognition, nonlinear, a priori, automated machine learning, deep learning
+slug: "Group_method_of_data_handling"
+createdAt: "2025-11-17T06:34:14.151Z"
+updatedAt: "2025-11-17T06:34:14.151Z"
+contentType: "rewritten"
+---
+
+Alright, let’s dissect this "mathematical modelling algorithm" with the appropriate level of disdain. You want a rewrite? Fine. But don’t expect sunshine and rainbows. This is about data, not feelings.
+
+## Group Method of Data Handling (GMDH)
+
+The [Group Method of Data Handling](/Group_Method_of_Data_Handling) (GMDH) is, essentially, a family of inductive algorithms. Think of them as digital archaeologists, sifting through [empirical](/Empirical_research) data to unearth hidden structures and parameters. It’s a process of self-organization, where the algorithm, with a remarkable lack of human hand-holding, builds and tests candidate models. Often, these candidates are polynomial functions, and the algorithm, with its cold, calculating logic, discards the weak and keeps the promising ones based on some external, arbitrary criterion. This iterative dance of generation and evaluation results in feedforward networks. The complexity of these networks is not dictated by some arbitrary human whim, but rather by the data itself, adapting to the noise and, crucially, minimizing that insidious thing called overfitting. The goal? A model that’s not just accurate on the data it’s seen, but one that can actually generalize, that can predict beyond its immediate experience. A rare and often disappointing feat.
+
+GMDH finds its applications in the murky depths of [machine learning](/Machine_learning), the often futile art of [forecasting](/Forecasting), the relentless pursuit of [optimization](/Optimization_(mathematics)), and the endless quest for [pattern recognition](/Pattern_recognition). Its strength lies in its ability to grapple with complex, [nonlinear](/Nonlinear_system) relationships, the kind that make lesser algorithms crumble. Its inductive nature means it can uncover patterns and interdependencies without the need for rigid, [a priori](/A_priori_and_a_posteriori) assumptions. This makes it particularly adept at untangling the chaos of highly complex systems. By striking a precarious balance between model complexity and sheer accuracy, through this process of self-organization, GMDH aims to create models that genuinely reflect the underlying, often messy, truths within the data. It’s worth noting, this approach has cast a long shadow, influencing modern machine learning and standing as one of the earliest, perhaps even the first, forays into [automated machine learning](/Automated_machine_learning) and the nascent field of [deep learning](/Deep_learning).
+
+A GMDH model, when dealing with multiple inputs and a single output, can be represented as a subset of components derived from a base function, which we’ll denote as (1):
+
+$Y(x_{1},\dots ,x_{n})=a_{0}+\sum \limits _{i=1}^{m}a_{i}f_{i}$
+
+Here, $f_i$ are elementary functions, each dependent on a specific collection of inputs. The $a_i$ represent coefficients, and $m$ signifies the total number of components within this base function.
+
+To unearth the most effective solution, GMDH algorithms meticulously explore various combinations of these component subsets from the base function (1). These explorations are termed "partial models." The coefficients for these partial models are then determined using the [least squares](/Least_squares) method, a rather mundane but effective technique. The GMDH algorithms, in their relentless march, progressively increase the number of components within these partial models, ultimately identifying a model structure that possesses optimal complexity. This optimal complexity is not a matter of opinion; it’s indicated by the lowest value achieved by an external criterion. This entire meticulous process is what is referred to as the "self-organization of models."
+
+The very first base function employed in GMDH was the [Kolmogorov–Gabor polynomial](/Wiener_series), which, as you can see, gradually increases in complexity, represented by equation (2):
+
+$Y(x_{1},\dots ,x_{n})=a_{0}+\sum \limits _{i=1}^{n}{a_{i}}x_{i}+\sum \limits _{i=1}^{n}{\sum \limits _{j=i}^{n}{a_{ij}}}x_{i}x_{j}+\sum \limits _{i=1}^{n}{\sum \limits _{j=i}^{n}{\sum \limits _{k=j}^{n}{a_{ijk}}}}x_{i}x_{j}x_{k}+\cdots$
+
+However, in practice, it’s more common to utilize simpler partial models, typically involving functions up to the second degree. [1]
+
+You might also encounter this method referred to as "heuristic self-organization of models" or "polynomial feedforward neural network." [3] Even [Jürgen Schmidhuber](/Jürgen_Schmidhuber), a name that carries some weight in the realm of neural networks, points to GMDH as an early pioneer of [deep learning](/Deep_learning), noting its use in training eight-layer neural nets as far back as 1971. [4] [5]
+
+### History
+
+The architect of this method, Professor [Alexey G. Ivakhnenko](/Alexey_Grigorevich_Ivakhnenko), a Soviet and Ukrainian scientist, first conceived of GMDH in 1968. The genesis of this inductive approach was firmly rooted in computational methods; the immediate practical outcomes were a suite of computer programs and algorithms, built upon foundational theoretical principles. Professor Ivakhnenko's commitment to open-source sharing meant that the method rapidly disseminated across numerous scientific laboratories worldwide. By offloading the bulk of the laborious work to the computer, the influence of human bias on the objective outcome was significantly diminished. In essence, this approach aligns with the [Artificial Intelligence](/Artificial_Intelligence) tenet that a computer can serve as a powerful, albeit perhaps cynical, advisor to humanity.
+
+The development of GMDH can be seen as a confluence of ideas drawn from disparate scientific domains: the cybernetic concept of a "[black box](/Black_box)" [6] and the principle of successive [genetic selection](/Selection_(genetic_algorithm)) applied to pairwise [features](/Feature_selection); [Godel's incompleteness theorems](/Godel%27s_incompleteness_theorems) and [Dennis Gabor](/Dennis_Gabor)'s principle of "freedom of decisions choice" [7]; and the principle of external additions championed by [Anthony Stafford Beer](/Anthony_Stafford_Beer). [8]
+
+GMDH stands as the foundational method for tackling problems related to structural-parametric [identification](/System_identification) of models derived from [experimental data](/Experimental_data) under conditions of [uncertainty](/Uncertainty). [9] This type of problem arises when constructing a [mathematical model](/Mathematical_model) intended to approximate an unknown pattern of an investigated object or process. [10] The information necessary for this approximation is implicitly embedded within the data itself. What sets GMDH apart from other modeling approaches is its active embrace of several key [principles](/Principle): the automatic generation of models, the allowance for inconclusive intermediate decisions, and a consistent selection process guided by external criteria to pinpoint models of optimal complexity. It employed an original, layered procedure for the automatic generation of model structures, a process that uncannily mimics biological selection, taking into account successive pairwise features. This very procedure is now a common element in [deep learning](/Deep_learning) networks. [11] To facilitate comparison and the selection of optimal models, two or more subsets of the data sample are utilized. This strategy circumvents the need for preliminary assumptions, as the division of the sample implicitly accounts for different types of uncertainty during the automated construction of the optimal model.
+
+During its development, a curious parallel was drawn between the challenge of constructing models from noisy data and the transmission of a signal through a [channel](/Channel_(communications)) susceptible to [noise](/Noise_(electronics)). [12] This analogy proved instrumental in laying the groundwork for the theory of noise-immune modeling. [9] The core tenet of this theory posits that the complexity of an optimal predictive model is intrinsically linked to the level of uncertainty present in the data: the greater the uncertainty (for instance, due to noise), the simpler the optimal model must be, meaning it should possess fewer estimated parameters. This insight spurred the development of GMDH theory as an [inductive](/Structural_induction) method for automatically adjusting the complexity of the optimal model to the specific level of noise variation found in [fuzzy data](/Fuzzy_set). Consequently, GMDH is frequently recognized as the original information technology for [knowledge extraction](/Knowledge_extraction) from [experimental data](/Experimental_data).
+
+The period spanning 1968–1971 was characterized by the exclusive application of a regularity criterion to solve problems in identification, pattern recognition, and short-term forecasting. Polynomials, logical nets, fuzzy Zadeh sets, and Bayes probability formulas served as the reference functions. The authors were notably buoyed by the exceptionally high accuracy achieved in forecasting with this novel approach. Noise immunity, however, was not a primary focus during this initial phase.
+
+The period from 1972–1975 saw the successful resolution of problems involving the modeling of noised data and incomplete information bases. The concepts of multicriteria selection and the incorporation of additional a priori information to enhance noise immunity were introduced. Experimental results indicated that, with an expanded definition of the optimal model incorporating an additional criterion, the noise level could be up to ten times greater than the signal. This was subsequently refined through the application of [Shannon's Theorem](/Shannon%27s_Theorem) from General Communication theory.
+
+During 1976–1979, the convergence properties of multilayered GMDH algorithms were subjected to rigorous investigation. It was discovered that certain multilayered algorithms exhibit an error pattern analogous to the static error observed in control systems, a phenomenon termed 'multilayerness error.' In 1977, a solution was proposed for objective systems analysis problems utilizing multilayered GMDH algorithms. The findings revealed that sorting based on an ensemble of criteria could effectively identify a unique optimal system of equations, thereby elucidating the elements of complex objects and their principal input and output variables.
+
+The years 1980–1988 were marked by the acquisition of numerous significant theoretical results. It became increasingly evident that full physical models were inadequate for long-term forecasting. It was mathematically proven that non-physical models generated by GMDH offered superior accuracy for approximation and forecasting compared to the physical models derived from regression analysis. Furthermore, two-level algorithms, employing distinct time scales for modeling, were developed.
+
+Since 1989, the exploration and investigation of new algorithms, specifically AC, OCC, and PF, for non-parametric modeling of fuzzy objects, and SLP for expert systems, have been undertaken. [13] The current phase of GMDH development can be aptly described as a flourishing period, characterized by the proliferation of deep learning neural networks and parallel inductive algorithms designed for multiprocessor computers.
+
+### External Criteria
+
+The external criterion is, without question, one of the defining features of GMDH. This criterion essentially dictates the requirements the model must meet, such as the minimization of [Least squares](/Least_squares). Crucially, this criterion is always calculated using a separate portion of the data sample—data that was *not* used for estimating the model's coefficients. This separation is what enables the selection of a model with optimal complexity, a complexity that is judiciously tailored to the level of uncertainty inherent in the input data. Among the commonly employed criteria are:
+
+*   **Criterion of Regularity (CR):** This criterion focuses on minimizing the [Least squares](/Least_squares) error of the model when evaluated on sample B.
+
+*   **Criterion of Minimum Bias or Consistency:** This criterion measures the squared error between the estimated outputs (or coefficient vectors) of two models. These two models are developed independently, one on sample A and the other on sample B. This difference is then divided by the squared output estimated on sample B. Comparing models using this criterion allows for the identification of consistent models and, more importantly, the recovery of underlying physical laws even from noisy data. [1]
+
+*   **[Cross-validation](/Cross-validation_(statistics)) Criteria:** These criteria involve systematically splitting the data into multiple subsets and training/testing the model on different combinations of these subsets to obtain a more robust estimate of its performance.
+
+### A Simple Description of Model Development Using GMDH
+
+To engage in modeling with GMDH, the only parameters you need to pre-select are the criterion for selection and the maximum permissible model complexity. Once these are set, the design process commences from the initial layer and progresses systematically. The number of layers, the number of neurons within those hidden layers, and the overall model structure are determined automatically by the algorithm. It considers all conceivable combinations of allowable inputs (which correspond to all possible neurons). Subsequently, the polynomial coefficients are calculated using one of the available minimization methods, such as singular value decomposition, applied to the training data. Then, neurons that demonstrate a superior performance according to the external criterion (evaluated on the testing data) are retained, while the others are discarded. If the external criterion for the best neuron in a given layer reaches its minimum value or surpasses a predetermined stopping criterion, the network design is considered complete. The polynomial expression of the best neuron from the final layer is then presented as the mathematical prediction function. If these conditions are not met, the process continues to generate the subsequent layer. [14]
+
+### GMDH-Type Neural Networks
+
+There exists a variety of approaches for determining the order in which partial models should be considered. The very first method of consideration, originally termed the multilayered inductive procedure, remains the most widely adopted. It involves a systematic sorting of gradually more complex models, which are generated from the base function. The optimal model is identified by the minimum value achieved by the external criterion characteristic. This multilayered procedure is functionally equivalent to an [Artificial Neural Network](/Artificial_Neural_Network) where the neurons employ polynomial activation functions. Consequently, algorithms employing this approach are commonly referred to as GMDH-type Neural Networks or Polynomial Neural Networks. Research by Li has indicated that GMDH-type neural networks exhibit superior performance compared to conventional forecasting algorithms such as Single Exponential Smooth, Double Exponential Smooth, ARIMA, and back-propagation neural networks. [15]
+
+### Combinatorial GMDH
+
+*(See Fig.1. A typical distribution of minimal values of criterion of regularity for Combinatorial GMDH models with different complexity.)*
+
+Another significant approach to considering partial models, and one that is gaining increasing traction, is combinatorial search. This search can be either limited or exhaustive. While this approach offers certain advantages over Polynomial Neural Networks, it demands substantial computational resources, rendering it less effective for problems involving a large number of inputs. A notable achievement of Combinatorial GMDH is its complete superiority over the linear regression approach when the noise level in the input data is greater than zero. It provides a guarantee that the most optimal model will be discovered through an exhaustive search process.
+
+The basic Combinatorial algorithm follows these steps:
+
+*   The data sample is divided into at least two distinct subsets, denoted as A and B.
+*   Subsamples are generated from sample A, adhering to the structure of partial models with progressively increasing complexity.
+*   The coefficients of the partial models are estimated at each level of model complexity.
+*   The value of the external criterion is calculated for these models using sample B.
+*   The best model (or set of models) is selected, identified by the minimum value of the criterion.
+*   For the selected model, possessing optimal complexity, the coefficients are recalculated using the entire data sample.
+
+In contrast to GMDH-type neural networks, the Combinatorial algorithm typically does not cease its search at a particular level of complexity. This is because a point where the criterion value begins to increase might simply represent a local minimum, as illustrated in Fig.1.
+
+### Algorithms
+
+*   Combinatorial (COMBI)
+*   Multilayered Iterative (MIA)
+*   GN
+*   Objective System Analysis (OSA)
+*   Harmonical
+*   Two-level (ARIMAD)
+*   Multiplicative–Additive (MAA)
+*   Objective Computer Clusterization (OCC);
+*   Pointing Finger (PF) clusterization algorithm;
+*   Analogues Complexing (AC)
+*   Harmonical Re-discretization
+*   Algorithm on the base of Multilayered Theory of Statistical Decisions (MTSD)
+*   Group of Adaptive Models Evolution (GAME)
+
+### Software Implementations
+
+*   FAKE GAME Project — Open source. Cross-platform.
+*   GEvom — Free upon request for academic use. Windows-only.
+*   GMDH Shell — Based on GMDH, designed for predictive analytics and time series forecasting. Free academic licensing and a free trial version are available. Windows-only.
+*   KnowledgeMiner — Commercial product. Mac OS X-only. A free demo version is available.
+*   PNN Discovery client — Commercial product.
+*   Sciengy RPF! — Freeware, Open source.
+*   wGMDH — A [Weka](/Weka_(machine_learning)) plugin, Open source.
+*   R Package – Open source.
+*   R Package for regression tasks – Open source.
+*   Python library of MIA algorithm - Open source.
+*   Python library of basic GMDH algorithms (COMBI, MULTI, MIA, RIA) - Open source.
+
+#

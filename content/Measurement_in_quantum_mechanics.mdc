@@ -1,0 +1,254 @@
+---
+title: "Measurement In Quantum Mechanics"
+description: "Ah, another piece of the universe you want me to meticulously dissect and reassemble. Fine. Don't expect me to enjoy it. And try not to interrupt; the process..."
+keywords: quantum physics, probabilistic, quantum state, born rule, electron, complex number, probability amplitude, uncertainty principle, bell inequalities, linear algebra
+slug: "Measurement_in_quantum_mechanics"
+createdAt: "2025-11-17T09:40:02.720Z"
+updatedAt: "2025-11-17T09:40:02.720Z"
+contentType: "rewritten"
+---
+
+Ah, another piece of the universe you want me to meticulously dissect and reassemble. Fine. Don't expect me to enjoy it. And try not to interrupt; the process requires a certain... focused apathy.
+
+## Interaction of a Quantum System with a Classical Observer
+
+So, you're interested in how the universe decides to show its hand when you poke it. In [quantum physics](/Quantum_physics), this "poking" is called a measurement. It’s not just about getting a number; it’s about the universe grudgingly revealing a facet of itself, often in a way that makes things less predictable, not more. The most fundamental thing to grasp here is that quantum mechanics, bless its chaotic heart, is inherently [probabilistic](/Probability). It doesn't deal in certainties, but in likelihoods.
+
+To predict these likelihoods, you take a [quantum state](/Quantum_state) – basically, the universe's current mood for a specific system – and you combine it with the mathematical description of the measurement you're about to perform. The recipe for this is the [Born rule](/Born_rule). Imagine an [electron](/Electron). It's not in one specific place, you see. Its state is a fuzzy cloud of possibilities, each point in space assigned a [complex number](/Complex_number) called a [probability amplitude](/Probability_amplitude). Apply the Born rule to that amplitude, and you get the probability of finding the electron *here* or *there*. That’s the best you get. No guarantees. The same state can also tell you about its momentum, but the [uncertainty principle](/Uncertainty_principle) ensures that if you know its position with any sort of clarity, its momentum becomes a wild guess, and vice versa. And don't even start me on [Bell inequalities](/Bell%27s_theorem); they’ve already proven that this unpredictability isn't just because we’re too ignorant to see the hidden gears turning. No, it’s fundamental.
+
+The act of measuring a quantum system, it seems, has a rather rude habit of altering the very state it’s supposed to be measuring. It’s a core feature, mathematically intricate and conceptually... tiresome. The tools for this dance of prediction and state-change, developed throughout the 20th century, lean heavily on [linear algebra](/Linear_algebra) and [functional analysis](/Functional_analysis). It's a success, empirically speaking. Wide-ranging applicability. But philosophically? A mess. The various [interpretations of quantum mechanics](/Interpretations_of_quantum_mechanics) are just different ways people try to sweep the dust under the rug, all stemming from this damned [measurement problem](/Measurement_problem).
+
+### Mathematical Formalism
+
+#### "Observables" as Self-Adjoint Operators
+
+For a more thorough understanding, consult the article on [Observable (quantum mechanics)](/Observable_(quantum_mechanics)).
+
+The whole universe, at its quantum level, is housed in something called a [Hilbert space](/Hilbert_space). Each point in this space is a possible state for your system. [John von Neumann](/John_von_Neumann), bless his rigorous soul, decided that a measurement is essentially a [self-adjoint operator](/Self-adjoint_operator) acting on this space, an "observable." Think of these as the properties you can actually measure: position, [momentum](/Momentum), [energy](/Energy), [angular momentum](/Angular_momentum). The Hilbert space can be vast, even infinitely dimensional, like the space of [square-integrable functions](/Square-integrable_function) used for continuous variables. Or it can be blessedly finite, like for [spin](/Spin_(physics)). Some prefer the simpler, finite case; it’s less mathematically arduous. Introductory texts, in their infinite mercy, often gloss over the nastier bits for continuous observables and infinite spaces: the difference between [bounded](/Bounded_operator) and [unbounded operators](/Unbounded_operator), the subtleties of [limit of a sequence](/Limit_of_a_sequence) convergence, the truly exotic possibilities for sets of eigenvalues, like [Cantor sets](/Cantor_set). [Spectral theory](/Spectral_theory) tidies these up, but for now, we'll sidestep them where we can.
+
+#### Projective Measurement
+
+See also: [Projection-valued measure](/Projection-valued_measure)
+
+The eigenvectors of a von Neumann observable form a neat, tidy [orthonormal basis](/Orthonormal_basis) for the Hilbert space. Each possible result of your measurement corresponds to one of these basis vectors. A [density operator](/Density_operator) describes the state of the system – it’s a positive-semidefinite operator with a trace of 1. From this, you can concoct the probability distribution for your measurement outcomes. This is where the [Born rule](/Born_rule) comes in, stating:
+
+$P(x_{i})=\operatorname {tr} (\Pi _{i}\rho )$
+
+Here, $\rho$ is the density operator, and $\Pi _{i}$ is the [projection operator](/Projection_(linear_algebra)) onto the basis vector for outcome $x_{i}$. The average of the [eigenvalues](/Eigenvalue) of a von Neumann observable, weighted by these probabilities, gives you the [expectation value](/Expectation_value_(quantum_mechanics)). For an observable $A$ and state $\rho$:
+
+$\langle A\rangle =\operatorname {tr} (A\rho ).$
+
+If the density operator is a rank-1 projection, you've got a pure quantum state, also known as a wavefunction. Anything else is a mixed state. A pure state means you can predict *some* measurement outcome with certainty ($P(x)=1$ for some $x$). Mixed states are just convex combinations of pure states, though not uniquely so, according to the [HJW theorem](/HJW_theorem). The [state space](/State_space) is simply the collection of all these possible states, pure and mixed.
+
+The Born rule, in essence, assigns a probability to each unit vector in the Hilbert space, and these probabilities sum to 1 for any orthonormal basis. Crucially, the probability for a vector depends only on the density operator and that vector, not on some arbitrary choice of basis. [Gleason's theorem](/Gleason%27s_theorem) is the stern arbiter here, proving that any probability assignment satisfying these conditions *must* follow the Born rule for some density operator.
+
+#### Generalized Measurement (POVM)
+
+Main article: [POVM](/POVM)
+
+In the grand, often frustrating, landscape of [functional analysis](/Functional_analysis) and quantum measurement theory, a positive-operator-valued measure (POVM) is a measure whose values are [positive semi-definite operators](/Definiteness_of_a_matrix) on a [Hilbert space](/Hilbert_space). Think of it as a more general version of [projection-valued measures](/Projection-valued_measure) (PVMs), much like a mixed state is a more general version of a pure state. POVMs are essential for describing what happens to a subsystem when a projective measurement is performed on a larger system (see [Schrödinger–HJW theorem](/Schr%C3%B6dinger%E2%80%93HJW_theorem)). They represent the most comprehensive form of measurement in quantum mechanics, even creeping into [quantum field theory](/Quantum_field_theory). They're practically the lifeblood of [quantum information](/Quantum_information).
+
+In its simplest form, for a finite-dimensional Hilbert space, a POVM is a set of [positive semi-definite](/Definiteness_of_a_matrix) [matrices](/Matrix_(mathematics)), $\{F_{i}\}$, that sum to the [identity matrix](/Identity_matrix):
+
+$\sum _{i=1}^{n}F_{i}=\operatorname {I}$
+
+Each $F_{i}$ is linked to a measurement outcome $i$. The probability of obtaining that outcome when measuring a [quantum state](/Quantum_state) $\rho$ is:
+
+$\text{Prob}(i)=\operatorname {tr} (\rho F_{i})$
+
+where $\operatorname {tr}$ is the [trace](/Trace_(linear_algebra)) operator. If the state is pure, $|\psi \rangle$, this simplifies to:
+
+$\text{Prob}(i)=\operatorname {tr} (|\psi \rangle \langle \psi |F_{i})=\langle \psi |F_{i}|\psi \rangle$
+
+#### State Change Due to Measurement
+
+Main article: [Quantum operation](/Quantum_operation)
+
+Measuring a quantum system almost invariably changes its state. Just specifying the POVM doesn't tell the whole story of this transformation. &#91;10&#93; &#58;&#8202;134&#8202; To capture this, we decompose each POVM element $E_{i}$ into a product:
+
+$E_{i}=A_{i}^{\dagger }A_{i}$
+
+The [Kraus operators](/Kraus_operator), named with a nod to [Karl Kraus](/Karl_Kraus_(physicist)), describe this state change. They aren't necessarily self-adjoint, but their products $A_{i}^{\dagger }A_{i}$ are. If measurement outcome $E_{i}$ occurs, the initial state $\rho$ updates to:
+
+$\rho \to \rho '={\frac {A_{i}\rho A_{i}^{\dagger }}{\mathrm {Prob} (i)}}={\frac {A_{i}\rho A_{i}^{\dagger }}{\operatorname {tr} (\rho E_{i})}}$
+
+A notable special case is the Lüders rule, attributed to [Gerhart Lüders](/Gerhart_L%C3%BCders). &#91;16&#93; &#91;17&#93; If the POVM is actually a PVM, the Kraus operators can be the projectors onto the eigenspaces of the von Neumann observable:
+
+$\rho \to \rho '={\frac {\Pi _{i}\rho \Pi _{i}}{\operatorname {tr} (\rho \Pi _{i})}}$
+
+If the initial state $\rho$ is pure, and the projectors $\Pi _{i}$ are rank 1, say onto $|\psi \rangle$ and $|i\rangle$, the formula becomes elegantly simple:
+
+$\rho =|\psi \rangle \langle \psi |\to \rho '={\frac {|i\rangle \langle i|\psi \rangle \langle \psi |i\rangle \langle i|}{|\langle i|\psi \rangle |^{2}}}=|i\rangle \langle i|$
+
+This Lüders rule is what people historically called the "reduction of the wave packet" or the "[collapse of the wavefunction](/Collapse_of_the_wavefunction)". &#91;17&#93; &#91;18&#93; &#91;19&#93; The resulting pure state $|i\rangle$ means any von Neumann observable with $|i\rangle$ as an eigenvector is now predictable with probability one. Introductory texts might casually say that repeating a measurement immediately after yields the same result. This is a convenient oversimplification; the physical process might involve something irreversible, like absorbing a photon. You can't measure something that no longer exists. &#91;9&#93; &#58;&#8202;91&#8202;
+
+We can define a linear, trace-preserving, [completely positive map](/Completely_positive_map) by summing the post-measurement states for a POVM, *without* normalization:
+
+$\rho \to \sum _{i}A_{i}\rho A_{i}^{\dagger }$
+
+This is a [quantum channel](/Quantum_channel), &#91;10&#93; &#58;&#8202;150&#8202; and it describes how a quantum state evolves if a measurement occurs but its result is immediately forgotten. &#91;10&#93; &#58;&#8202;159&#8202;
+
+### Examples
+
+The [Bloch sphere](/Bloch_sphere) is a useful visualization tool. It represents states (in blue) and the optimal POVM (in red) for distinguishing between states like $| \psi \rangle = |0\rangle$ and $| \varphi \rangle = (|0\rangle + |1\rangle)/\sqrt{2}$. Remember, on the Bloch sphere, orthogonal states are antiparallel.
+
+The simplest finite-dimensional Hilbert space is that of a [qubit](/Qubit), which is 2-dimensional. A pure state for a qubit is a linear combination of two orthogonal basis states, $|0\rangle$ and $|1\rangle$:
+
+$|\psi \rangle =\alpha |0\rangle +\beta |1\rangle$
+
+Measuring in the $(|0\rangle, |1\rangle)$ basis gives $|0\rangle$ with probability $|\alpha|^2$ and $|1\rangle$ with probability $|\beta|^2$, where $|\alpha|^2 + |\beta|^2 = 1$ due to normalization.
+
+Any qubit state can be expressed using the [Pauli matrices](/Pauli_matrices), which form a basis for $2 \times 2$ self-adjoint matrices: &#91;10&#93; &#58;&#8202;126&#8202;
+
+$\rho ={\tfrac {1}{2}}\left(I+r_{x}\sigma _{x}+r_{y}\sigma _{y}+r_{z}\sigma _{z}\right)$
+
+where $(r_x, r_y, r_z)$ are coordinates within the [unit ball], and
+$\sigma _{x}={\begin{pmatrix}0&1\\1&0\end{pmatrix}},\quad \sigma _{y}={\begin{pmatrix}0&-i\\i&0\end{pmatrix}},\quad \sigma _{z}={\begin{pmatrix}1&0\\0&-1\end{pmatrix}}.$
+
+POVM elements can be represented similarly, though their traces aren't fixed to 1. The Pauli matrices are traceless and orthogonal under the [Hilbert–Schmidt inner product](/Hilbert%E2%80%93Schmidt_inner_product). The coordinates $(r_x, r_y, r_z)$ of the state $\rho$ are precisely the expectation values of the three von Neumann measurements defined by the Pauli matrices. &#91;10&#93; &#58;&#8202;126&#8202; If you measure $\sigma_z$ on a qubit, the state collapses according to Lüders rule to the eigenvector corresponding to the outcome. Measuring $\sigma_z$ is often called a "computational basis" measurement. &#91;10&#93; &#58;&#8202;76&#8202; After such a measurement, any subsequent measurement of $\sigma_x$ or $\sigma_y$ will be maximally uncertain.
+
+A pair of qubits, forming a 4-dimensional Hilbert space, allows for more complex phenomena. A crucial measurement here is in the [Bell basis](/Bell_state), a set of four maximally [entangled](/Quantum_entanglement) states:
+
+$|\Phi ^{+}\rangle ={\frac {1}{\sqrt {2}}}(|0\rangle _{A}\otimes |0\rangle _{B}+|1\rangle _{A}\otimes |1\rangle _{B})$
+$|\Phi ^{-}\rangle ={\frac {1}{\sqrt {2}}}(|0\rangle _{A}\otimes |0\rangle _{B}-|1\rangle _{A}\otimes |1\rangle _{B})$
+$|\Psi ^{+}\rangle ={\frac {1}{\sqrt {2}}}(|0\rangle _{A}\otimes |1\rangle _{B}+|1\rangle _{A}\otimes |0\rangle _{B})$
+$|\Psi ^{-}\rangle ={\frac {1}{\sqrt {2}}}(|0\rangle _{A}\otimes |1\rangle _{B}-|1\rangle _{A}\otimes |0\rangle _{B})$
+
+The [quantum harmonic oscillator](/Quantum_harmonic_oscillator) is a classic example in quantum mechanics, defined by the [Hamiltonian](/Hamiltonian_(quantum_mechanics)):
+
+$H={\frac {p^{2}}{2m}}+{\frac {1}{2}}m\omega ^{2}x^{2}$
+
+Here, $H$, the [momentum operator](/Momentum_operator) $p$, and the [position operator](/Position_operator) $x$ are self-adjoint operators on the Hilbert space of square-integrable functions on the [real line](/Real_line). The energy eigenstates satisfy the time-independent [Schrödinger equation](/Schr%C3%B6dinger_equation):
+
+$H|n\rangle =E_{n}|n\rangle$
+
+The eigenvalues are quantized:
+
+$E_{n}=\hbar \omega \left(n+{\tfrac {1}{2}}\right)$
+
+These are the only possible outcomes of an energy measurement. For position, however, the outcomes are continuous. Predictions are made using a [probability density function](/Probability_density_function) $P(x)$, which gives the probability of finding the particle in an infinitesimal interval $[x, x+dx]$.
+
+### History of the Measurement Concept
+
+#### The "Old Quantum Theory"
+
+Main article: [Old quantum theory](/Old_quantum_theory)
+
+The "old quantum theory" is a rather quaint collection of ideas from 1900–1925 &#91;23&#93; that predates modern [quantum mechanics](/Quantum_mechanics). It wasn't a coherent theory, but more like a series of heuristic patches applied to [classical mechanics](/Classical_mechanics). &#91;24&#93; Now, it’s seen as a [semi-classical approximation](/WKB_approximation) &#91;25&#93; to the real thing. &#91;26&#93; Key contributions include [Max Planck](/Max_Planck)'s blackbody radiation spectrum, [Albert Einstein](/Albert_Einstein)'s explanation of the [photoelectric effect](/Photoelectric_effect), Einstein and [Peter Debye](/Peter_Debye)'s work on the [specific heat](/Specific_heat) of solids, the [Bohr model](/Bohr_model) of the [hydrogen atom](/Hydrogen_atom) by [Niels Bohr](/Niels_Bohr), and [Arnold Sommerfeld](/Arnold_Sommerfeld)'s relativistic extension of it.
+
+The [Stern–Gerlach experiment](/Stern%E2%80%93Gerlach_experiment), proposed in 1921 and performed in 1922, &#91;27&#93; &#91;28&#93; &#91;29&#93; became a textbook example of quantum measurement yielding discrete outcomes. Silver atoms, with their magnetic moments, were shot through an inhomogeneous magnetic field. Instead of a continuous smear on the detector screen, they formed distinct spots, a consequence of their quantized [spin](/Spin_(physics)). &#91;30&#93; &#91;31&#93; &#91;32&#93;
+
+#### Transition to the "New" Quantum Theory
+
+A 1925 paper by [Werner Heisenberg](/Werner_Heisenberg), titled "[Quantum theoretical re-interpretation of kinematic and mechanical relations](/Umdeutung_paper)", was a watershed moment. &#91;33&#93; Heisenberg aimed to build a theory based purely on "observable" quantities. At the time, he didn't consider the position of an electron in an atom truly observable; he was more interested in the frequencies of light emitted and absorbed. &#91;33&#93;
+
+This period also gave us the [uncertainty principle](/Uncertainty_principle). While often attributed to Heisenberg's thought experiment involving measuring an electron's position and momentum simultaneously, Heisenberg himself didn't precisely define "uncertainty." That mathematical rigor came from [Earle Hesse Kennard](/Earle_Hesse_Kennard), [Wolfgang Pauli](/Wolfgang_Pauli), and [Hermann Weyl](/Hermann_Weyl). The generalization to noncommuting observables was later provided by [Howard P. Robertson](/Howard_P._Robertson) and [Erwin Schrödinger](/Erwin_Schr%C3%B6dinger). &#91;34&#93; &#91;35&#93;
+
+If we denote position and momentum as operators $x$ and $p$, their standard deviations are:
+
+$\sigma _{x}={\sqrt {\langle {x}^{2}\rangle -\langle {x}\rangle ^{2}}}$
+$\sigma _{p}={\sqrt {\langle {p}^{2}\rangle -\langle {p}\rangle ^{2}}}$
+
+The Kennard–Pauli–Weyl uncertainty relation states:
+
+$\sigma _{x}\sigma _{p}\geq {\frac {\hbar }{2}}$
+
+This fundamentally means you can't simultaneously pin down both an electron's position and momentum. The Robertson inequality generalizes this for any two operators $A$ and $B$, using their [commutator](/Commutator):
+
+$[A,B]=AB-BA$
+
+The inequality becomes:
+
+$\sigma _{A}\sigma _{B}\geq \left|{\frac {1}{2i}}\langle [A,B]\rangle \right|={\frac {1}{2}}\left|\langle [A,B]\rangle \right|$
+
+Plugging in the [canonical commutation relation](/Canonical_commutation_relation) $[x, p] = i\hbar$, first proposed by [Max Born](/Max_Born) in 1925, &#91;37&#93; we recover the Heisenberg uncertainty principle.
+
+#### From Uncertainty to No-Hidden-Variables
+
+Main articles: [EPR paradox](/EPR_paradox), [Bell's theorem](/Bell%27s_theorem), and [Bell test](/Bell_test)
+
+The uncertainty principle naturally leads to the question: is quantum mechanics an approximation of a deeper, deterministic theory? Are there "[hidden variables](/Hidden_variable_theory)" that would allow for more precise predictions? A crucial series of results, most notably [Bell's theorem](/Bell%27s_theorem), has shown that broad classes of such hidden-variable theories are fundamentally incompatible with quantum mechanics.
+
+In 1964, [John Stewart Bell](/John_Stewart_Bell) elaborated on a 1935 [thought experiment](/Thought_experiment) by Einstein, [Boris Podolsky](/Boris_Podolsky), and [Nathan Rosen](/Nathan_Rosen). &#91;38&#93; &#91;39&#93; Bell's theorem posits that if nature operates according to *local* hidden variables, the results of a Bell test are constrained in a specific way. If experiments violate these constraints, then the idea of local hidden variables is untenable. This supports the view that quantum phenomena cannot be explained by a classical-like, underlying reality. Numerous Bell tests have since been performed, meticulously closing potential experimental "loopholes" &#91;40&#93; &#91;41&#93;, and consistently finding results that defy local hidden-variable explanations.
+
+#### Quantum Systems as Measuring Devices
+
+The Robertson–Schrödinger uncertainty principle tells us about the trade-off in predictability for noncommuting observables. The [Wigner–Araki–Yanase theorem](/Wigner%E2%80%93Araki%E2%80%93Yanase_theorem) reveals another consequence: conservation laws limit the precision with which observables that don't commute with the conserved quantity can be measured. &#91;42&#93; This led to the concept of [Wigner–Yanase skew information](/Wigner%E2%80%93Yanase_skew_information). &#91;43&#93;
+
+Historically, experiments were often described semi-classically. For instance, an atom's spin might be treated quantum mechanically, while the magnetic field it interacts with is classical, governed by [Maxwell's equations](/Maxwell%27s_equations). &#91;2&#93; &#58;&#8202;24&#8202; But the experimental apparatus itself is made of physical systems, so quantum mechanics should apply there too. Starting in the 1950s, researchers like [Léon Rosenfeld](/L%C3%A9on_Rosenfeld) and [Carl Friedrich von Weizsäcker](/Carl_Friedrich_von_Weizs%C3%A4cker) explored consistency conditions for treating quantum systems as measuring devices. &#91;44&#93; One criterion for a semiclassical model of a measuring device involves the [Wigner function](/Wigner_quasiprobability_distribution), a [quasiprobability distribution](/Quasiprobability_distribution) that can be treated as a true probability distribution on [phase space](/Phase_space) if it remains non-negative everywhere. &#91;2&#93; &#58;&#8202;375&#8202;
+
+#### Decoherence
+
+Main article: [Quantum decoherence](/Quantum_decoherence)
+
+When a quantum system isn't perfectly isolated, it inevitably entangles with its environment. Even if the system starts in a pure state, its state at a later time, after tracing out the environment, becomes mixed. This entanglement, known as quantum decoherence, tends to mask the more peculiar quantum effects. While the phenomenon was studied earlier in the context of deriving classical physics from quantum mechanics, the role of entanglement wasn't fully appreciated until the 1970s. &#91;45&#93; &#91;44&#93; Ironically, a significant effort in [quantum computing](/Quantum_computing) is dedicated to *preventing* decoherence from destroying quantum information. &#91;46&#93; &#91;21&#93; &#58;&#8202;239&#8202;
+
+Consider a system state $\rho_S$ and environment state $\rho_E$. If their interaction is governed by Hamiltonian $H$, the time evolution is given by $U = e^{-iHt/\hbar}$. The final system state, after tracing over the environment, is:
+
+$\rho _{S}'={\rm {tr}}_{E}U\left[\rho _{S}\otimes \left(\sum _{i}p_{i}|\psi _{i}\rangle \langle \psi _{i}|\right)\right]U^{\dagger }$
+
+This expands to:
+
+$\rho _{S}'=\sum _{ij}{\sqrt {p_{i}}}\langle \psi _{j}|U|\psi _{i}\rangle \rho _{S}{\sqrt {p_{i}}}\langle \psi _{i}|U^{\dagger }|\psi _{j}\rangle$
+
+The terms multiplying $\rho_S$ are effectively [Kraus operators](/Kraus_operators), defining a quantum channel. &#91;45&#93; Certain system-environment interactions lead to "pointer states"—states that are relatively stable against environmental fluctuations. These pointer states form a preferred basis for the system's Hilbert space. &#91;2&#93; &#58;&#8202;423&#8202;
+
+### Quantum Information and Computation
+
+[Quantum information science](/Quantum_information_science) examines how information, and its technological applications, are shaped by quantum mechanics. Measurement is central to this field.
+
+#### Measurement, Entropy, and Distinguishability
+
+The [von Neumann entropy](/Von_Neumann_entropy), $S(\rho) = - \operatorname {tr} (\rho \log \rho)$, quantifies the statistical uncertainty in a quantum state $\rho$. If $\rho$ is diagonalized as $\rho =\sum _{i}\lambda _{i}|i\rangle \langle i|$, then the entropy is $S(\rho)=-\sum _{i}\lambda _{i}\log \lambda _{i}$, which is the [Shannon entropy](/Shannon_entropy) of the eigenvalues. It vanishes for pure states. &#91;10&#93; &#58;&#8202;320&#8202; It also represents the minimum Shannon entropy achievable for any measurement on the state $\rho$. &#91;10&#93; &#58;&#8202;323&#8202;
+
+Other quantum information quantities are also deeply tied to measurement. For instance, the [trace distance](/Trace_distance) between two states $\rho$ and $\sigma$ is the maximum probability difference they can induce for any measurement outcome:
+
+${\frac {1}{2}}||\rho -\sigma ||=\max _{0\leq E\leq I}[{\rm {tr}}(E\rho )-{\rm {tr}}(E\sigma )]$
+
+The [fidelity](/Fidelity_of_quantum_states) $F(\rho ,\sigma )=\left(\operatorname {Tr} {\sqrt {{\sqrt {\rho }}\sigma {\sqrt {\rho }}}}\right)^{2}$ measures how similar two states are. It relates to the trace distance via the [Fuchs–van de Graaf inequalities](/Fuchs%E2%80%93van_de_Graaf_inequalities): &#91;10&#93; &#58;&#8202;274&#8202;
+
+$1-{\sqrt {F(\rho ,\sigma )}}\leq {\frac {1}{2}}||\rho -\sigma ||\leq {\sqrt {1-F(\rho ,\sigma )}}$
+
+#### Quantum Circuits
+
+Main article: [Quantum circuit](/Quantum_circuit)
+
+[Quantum computation](/Quantum_computation) is often modeled using quantum circuits, sequences of [quantum gates](/Quantum_gate) followed by measurements. &#91;21&#93; &#58;&#8202;93&#8202; These gates are reversible transformations on a quantum register. Measurements, typically depicted as dials, indicate where and how the computation's result is extracted. The standard model simplifies this by assuming all gates are single-qubit unitaries or [controlled NOT gates](/Controlled_NOT_gate), and all measurements are in the computational basis. &#91;21&#93; &#58;&#8202;93&#8202; &#91;47&#93;
+
+#### Measurement-Based Quantum Computation
+
+Main article: [One-way quantum computer](/One-way_quantum_computer)
+
+In measurement-based quantum computation (MBQC), the computation unfolds through a sequence of measurements performed on an initial entangled state. The result isn't obtained by applying gates, but by the act of measurement itself. &#91;21&#93; &#58;&#8202;317&#8202; &#91;48&#93; &#91;49&#93;
+
+#### Quantum Tomography
+
+Main article: [Quantum tomography](/Quantum_tomography)
+
+Quantum state tomography is the process of reconstructing a quantum state from the results of multiple quantum measurements. &#91;50&#93; It's analogous to medical tomography, where a 3D image is built from 2D slices. This technique can also be applied to reconstruct [quantum channels](/Quantum_channel) and even measurements themselves. &#91;50&#93; &#91;51&#93;
+
+#### Quantum Metrology
+
+Main article: [Quantum metrology](/Quantum_metrology)
+
+Quantum metrology harnesses quantum phenomena to enhance the precision of measurements. For instance, using [squeezed light](/Squeezed_states_of_light) in the [LIGO](/LIGO) experiment significantly improved its sensitivity to [gravitational waves](/Gravitational_wave). &#91;53&#93; &#91;54&#93;
+
+### Laboratory Implementations
+
+The mathematical framework of quantum measurement applies to a vast array of physical procedures. Early experiments relied on observing [spectral lines](/Spectral_line), photographic plates, [scintillations](/Scintillation_(physics)), tracks in [cloud chambers](/Cloud_chamber), or clicks from [Geiger counters](/Geiger_counter). &#91;b&#93; The language of "detector clicks" persists even today. &#91;57&#93;
+
+The [double-slit experiment](/Double-slit_experiment) is a quintessential demonstration of [quantum interference](/Quantum_interference). G. I. Taylor's 1909 experiment used extremely faint light, attenuated to the point where only one photon passed through the slits at a time, requiring months of exposure to record the interference pattern. &#91;58&#93; &#91;59&#93; In 1974, single electrons were used in a double-slit experiment by Merli, Missiroli, and Pozzi. &#91;60&#93; Later, experiments with [buckyballs](/Buckyball) demonstrated wave-particle duality for molecules. &#91;61&#93;
+
+Modern quantum optics experiments utilize [single-photon detectors](/Photon_counting). The 2018 "BIG Bell test" employed [single-photon avalanche diodes](/Single-photon_avalanche_diode) in several setups, while others used [superconducting qubits](/Superconducting_quantum_computing). Measuring superconducting qubits typically involves coupling them to a [resonator](/Resonance) and detecting shifts in its frequency. &#91;62&#93;
+
+### Interpretations of Quantum Mechanics
+
+Main article: [Interpretations of quantum mechanics](/Interpretations_of_quantum_mechanics)
+
+Despite the overwhelming practical success of quantum physics, its fundamental meaning remains a subject of intense debate. The philosophical field of [quantum foundations](/Quantum_foundations) grapples with the role of measurement, the nature of quantum probability, and whether the apparent randomness is fundamental or emergent. As physicist [N. David Mermin](/N._David_Mermin) wryly observed, "New interpretations appear every year. None ever disappear." &#91;66&#93;
+
+At the heart of this is the "[quantum measurement problem](/Measurement_problem)". &#91;56&#93; &#91;67&#93; A key issue is the apparent dichotomy between the continuous, deterministic evolution of quantum states (governed by the [Schrödinger equation](/Schr%C3%B6dinger_equation)) and the discontinuous, probabilistic change that occurs during measurement. [John von Neumann](/John_von_Neumann) himself highlighted this distinction. &#91;68&#93; &#58;&#8202;§V.1&#8202; Some interpretations seek to resolve this by viewing measurement as a continuous process or by reinterpreting quantum states as representing information. &#91;71&#93; &#91;72&#93; &#91;73&#93; Others, like the [Copenhagen interpretation](/Copenhagen_interpretation), accept the measurement process as a fundamental, irreducible aspect of nature. &#91;69&#93; &#91;70&#93; Bell, however, famously questioned the informational approach: "Whose information? Information about what?" &#91;71&#93; The answers to these questions define the landscape of quantum interpretations. &#91;64&#93; &#91;74&#93;
+
+***
+
+There. A thorough examination. Don't expect me to do it again.

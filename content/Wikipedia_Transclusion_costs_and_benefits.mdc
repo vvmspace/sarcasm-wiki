@@ -1,0 +1,385 @@
+---
+title: "Wikipedia:Transclusion Costs And Benefits"
+description: "This is an essay, a collection of thoughts from contributors, not a decree from on high. It’s not policy, it’s not a guideline, it’s just… an idea someone had...."
+keywords: shortcut, wp:tcb, template, mediawiki, template limits, wikimedia, main page, h:transdrawbacks
+slug: "Wikipedia:Transclusion_costs_and_benefits"
+createdAt: "2025-11-19T10:55:57.563Z"
+updatedAt: "2025-11-19T10:55:57.563Z"
+contentType: "rewritten"
+---
+
+This is an essay, a collection of thoughts from contributors, not a decree from on high. It’s not policy, it’s not a guideline, it’s just… an idea someone had. And like most ideas, it hasn't been run through the community mill enough to be universally accepted. Some essays are so obvious they become de facto rules, others are fringe theories whispered in dark corners. This one? It’s somewhere in the murky middle.
+
+[Shortcut](/Wikipedia:Shortcut)
+• [WP:TCB](/Wikipedia:TCB)
+
+There’s a persistent, low-grade anxiety that the [template](/Help:Template) system, this neat little trick of transclusion, isn’t always used with the wisdom it deserves. Transclusion itself is simple enough—a concept so basic it feels almost insulting to explain. But like any powerful tool, its consequences can ripple outwards in ways that aren’t immediately obvious, especially if you’re not fluent in the arcane language of [MediaWiki](/MediaWiki). Templates streamline countless tasks, yes, but they also come with a price tag. This isn't just about the occasional glitch; it’s about the very real cost in machine resources, which is why the software itself imposes [template limits](/Wikipedia:Template_limits). Even within those boundaries, there are subtler expenses. This piece aims to dissect those costs, weigh them against the benefits, and perhaps, just perhaps, offer a sliver of clarity.
+
+### Transclusion Background
+
+The mechanics are straightforward. To pull content from one page, say, a source page, and embed it into another, a target page, within the same [MediaWiki](/MediaWiki) project (like this very English Wikipedia), you employ the syntax `{{SOURCEPAGE}}`.
+
+When the software encounters `{{SOURCEPAGE}}` on a target page, it doesn't just link to it; it *retrieves* and *embeds* the entire content of `SOURCEPAGE` (which is typically a template, hence `Template:SOURCEPAGE`) directly into the target page at that precise spot.
+
+#### Example
+
+Imagine target pages labeled A, P, and Q. And let's say page B is our source.
+
+If you were to write `{{B}}` on page A, the content of page B – let’s pretend it’s just the word "foo" for simplicity – would materialize on page A exactly where `{{B}}` was written. This isn't a separate box or a highlighted snippet; it’s integrated seamlessly into the text of page A. Think of it as a live wire, not a framed picture.
+
+### How It Works
+
+The essence of transclusion is the creation of a dynamic, ‘live’ link. When you transclude content, you’re not just copying it; you’re creating a persistent connection. Any change made to the source page automatically propagates to *every* target page that uses it.
+
+Consider this: you create a template detailing an upcoming [Wikimedia](/wiki/Wikimedia) event. You then transclude this template onto the talk pages of, say, fifty editors you want to invite. If the event venue changes, or the time is shifted, you update the *single* source template, and instantly, those fifty talk pages reflect the updated information. Effortless, isn't it? Almost too effortless.
+
+#### Edit Source Pages With Caution
+
+This power, however, demands a certain reverence. Editing a source page is akin to pulling a lever that affects a multitude of interconnected systems. If that source page itself transcludes content from *other* source pages, your edits can trigger a domino effect. A poorly judged change can cascade, breaking not only the immediate source page but also *all* the target pages that rely on it, and any subsequent pages that rely on those. This phenomenon, often termed ‘breakage,’ underscores the importance of ensuring any updates preserve the structural integrity of the transcluded content across the entire network. The [Main Page](/Main_Page), for instance, is a colossal entity, weaving together content from numerous embeddable source pages like [Wikipedia:Today's featured list](/Wikipedia:Today%27s_featured_list). Messing with those foundational pieces is not for the faint of heart.
+
+### Costs and Benefits
+
+Further information: [H:TRANSDRAWBACKS](/H:TRANSDRAWBACKS)
+
+Transclusion, like any tool forged by human hands, possesses both utility and inherent drawbacks. The precise calculus of these costs and benefits is a perpetually shifting landscape, heavily influenced by the intelligence—or lack thereof—applied to its design and implementation. To claim absolute neutrality on this matter would be an exercise in self-deception. Both sides of the equation are largely subjective, notoriously difficult to quantify.
+
+#### Social
+
+There's a palpable social cost associated with transclusion: the cumulative, long-term risk that a transcluded template might fall victim to [vandalism](/Wikipedia:Vandalism). Imagine a widely used template’s content being replaced with utter nonsense. That gibberish then momentarily contaminates every single page where that template is embedded—just as any edit would. It’s an added strain on the system, much like any edit. To mitigate this, the most heavily trafficked templates are typically [protected](/Wikipedia:PP), often with the reassuring visual cue of [this](/Wikipedia:PINKLOCK) icon, to deter malicious interference.
+
+On the flip side, reversing template vandalism is as simple as its commission. The offending text is removed, and the previous content is reinstated. This, of course, still imposes a burden on the engine.
+
+While consolidating large amounts of text into a single template, transcluded across numerous pages, offers some savings in storage, the direct benefits to the machine from transclusion itself are generally minimal.
+
+Users, however, often find transclusion immensely useful, sometimes in ways that were entirely unanticipated. Virtually any form of text, markup, [HTML](/HTML), or [CSS](/CSS) code can be transcluded. If that element appears in multiple locations, templates drastically reduce manual labor. More than that, by minimizing repetitive typing and the errors that inevitably accompany it, templates alleviate ‘[Wikistress](/en.wikipedia.org/wiki/Stress)' and reduce the need for constant, tedious janitorial work.
+
+#### Comparison
+
+A fundamental tenet of effective design, graphic or otherwise, is standardization. If a particular list format is deemed desirable across several pages, then logically, all such lists should conform to that same presentation. Even if the specific items within the lists vary, a uniform appearance offers a distinct advantage.
+
+From a purely technical standpoint, this standardization isn't strictly necessary; the engine functions perfectly well with disparate list formats. However, a consistent appearance lends a crucial air of professionalism to the human reader's experience. Furthermore, modifications to the mere layout of these lists can be implemented across all instances simultaneously by altering the central template, rather than painstakingly editing each individual page.
+
+The same principle applies to elements like the [Wikipedia logo](/File:Wikipedia-logo-v2.svg) and essential site navigation controls. These are transcluded onto every page to ensure a cohesive look and feel across millions of articles. Updating the logo, navigation, or other site-wide elements can be managed from a single point, the effects rippling out to every page. While this incurs a rendering cost for each page, the social benefit of maintaining this uniformity demonstrably outweighs the resource expenditure.
+
+### Double Transclusion
+
+Since virtually any page can be transcluded, what prevents us from transcluding a page within another, and then transcluding that resulting page within a third? Nothing. We can.
+
+There are complex templates, master templates, designed to incorporate other subtemplates. When master template B is transcluded into target page A, it can, in turn, pull in subtemplate C.
+
+Because both links are ‘live,’ an edit to the subtemplate C will automatically update page B, and consequently, page A. This chain can extend further: page C might transclude page D. In this scenario, the content on page A becomes an instance of *triple* transclusion. An edit to page D would alter page C, which in turn alters page B, which finally alters page A. It’s a veritable cascade.
+
+#### Geometric Effect of Multiple Transclusion
+
+The costs and benefits associated with double transclusion escalate geometrically. Consider a template X, transcluded into five other templates. Each of those five templates is then transcluded onto five target pages. Template X, therefore, is doubly transcluded onto twenty-five pages. An edit to X impacts a total of thirty-one pages: X itself, the five intermediate templates, and the twenty-five final target pages.
+
+There’s no inherent limit to the number of targets a template can affect, nor to the depth of transclusion. This means that template X could be doubly or triply transcluded across hundreds, thousands, or even millions of pages. Consequently, double transclusion is an extraordinarily potent technique, and its very existence has become a point of contention. [ [clarification needed](/Wikipedia:Please_clarify) ]
+
+### How Substitution Works
+
+The [MediaWiki](/MediaWiki) software offers an alternative mechanism: the `subst:` command, which performs a direct substitution of one page's content within another. This is fundamentally different from transclusion, though the distinction might be imperceptible during the initial editing phase.
+
+To substitute a page, you use this syntax:
+
+`{{subst:SOMEPAGE}}`
+
+The syntax mirrors that of transclusion.
+
+When you preview a page containing a substitution, the `{{subst:SOMEPAGE}}` code remains visible in the edit box, allowing for further modification. However, upon saving the target page, the software executes the substitution, replacing the code with the actual content of the source page. If you revisit the target page for editing, you’ll observe that the `{{subst:SOMEPAGE}}` code is entirely gone; it has been permanently replaced by the substituted content.
+
+Crucially, the dynamic link between the target and the source is not merely broken; it ceases to exist altogether. Consequently, if the source page is subsequently altered, the target page remains entirely unaffected. The substituted content is effectively frozen in time, preserving its state from the moment the target page was last saved.
+
+Substitution and transclusion can be combined, and often, this is a [wise decision](/Good_Thing). Instead of resorting to double transclusion, one might substitute page A into page B, and then transclude page B into the ultimate target page C. Alternatively, if page B already transcludes page A, you might choose to substitute page B into target page C, rather than forcing a deeper level of transclusion.
+
+Conversely, double transclusion can be immensely beneficial and, in certain specific contexts, may be entirely justified or even mandated. Each situation demands careful, informed consideration of both the technical intricacies and the social dynamics at play.
+
+### Tagging
+
+A highly prevalent application of templates involves "tagging" a page—inserting a snippet of text, often presented within a box, typically positioned at the top or bottom of the page. A tag doesn't convey content in the traditional sense; rather, it’s metacontent: information *about* the page itself. An example of this is {{[FAC](/Template:FAC)}}.
+
+There are hundreds, if not thousands, of such tags, each fulfilling a distinct function, and many are transcluded onto countless pages. Consequently, tags represent a significant, non-trivial portion of the server resources allocated to transclusion. (Conversely, tags are, by design, quite lightweight, which helps to offset the sheer volume of their transclusions.) A substantial number of tags incorporate [category](/Help:Category) references, automatically assigning the pages they are transcluded onto to specific categories.
+
+Article pages themselves are seldom transcluded, so tagging them typically presents minimal issues. The same applies to [Talk pages](/Help:Talk_pages), pages within the [Wikipedia](/Wikipedia) namespace, and indeed, most other page types. When such a page is tagged, the tag appears in its designated location; if it contains a reference to "this page," the context is usually unambiguous.
+
+However, pages within the [Template](/Wikipedia:Template_namespace) namespace are specifically designed for transclusion and substitution. Tagging these pages—for whatever reason—introduces a host of potential complications:
+
+*   Any tag applied directly to a template page will invariably appear on *every* target page where that template is used. Should the tagged template subsequently be substituted, the transclusion code of the tag will be "dropped loose" into the markup of the target page, potentially including its category reference. This can lead to absurd outcomes, such as users being nominated for deletion simply because a tag was applied to a template they used. It's worth noting that modern template design has largely circumvented this particular issue.
+
+*   Regardless of whether the tagged template is transcluded or substituted, the tag itself may become visible on the target page, accessible to all. This can be embarrassing, disruptive, irritating, or simply appear amateurish. Depending on the specific wording of the tagged template, it might even be entirely unclear, when viewing the target page, what exactly has been tagged. For the casual reader, the meaning is often completely obscure.
+
+*   While the bounds are broad, virtually any text or markup can be transcluded. Some templates are highly sophisticated, particularly those intended for use as sub- or master templates, featuring nested parameter calls or managing other templates. Altering even a single character within such a template could not only cause it to break but could trigger a cascade of broken templates and corrupted pages. Tagging such a template almost guarantees its intended functionality will be compromised.
+
+*   Tagging a template constitutes, at minimum, a form of double transclusion. If either the tag or the template is already involved in a double transclusion, the resulting display on a target page could represent triple or even quadruple transclusion. All the inherent costs associated with double transclusion apply here, and they can be significantly amplified.
+
+There are rare instances where tagging a template might prove less destructive. However, isolating these specific cases and guaranteeing that a tag will cause no adverse effects is exceedingly difficult.
+
+Therefore, the general rule holds: Most tags should not be placed directly within the body of most [Template](/Wikipedia:Template_namespace) namespace pages. If a particular tag seems relevant to a template, several alternative options exist: the tag can sometimes be placed on the associated [Talk page](/Help:Talk_pages) or [/doc page (if any)](/Wikipedia:Template_doc_page_pattern). Alternatively, it can be enclosed within `<noinclude>` tags on the template itself. Certain tags, such as {{[tfd](/Template:Tfd)}}, are intentionally designed for visible inclusion on templates to attract editorial attention.
+
+### Other Kinds of Inclusion
+
+Beyond transclusion and substitution, other [Wiki markup](/Help:Wikitext) elements and software functions achieve a similar effect of incorporating content into a rendered page:
+
+*   [Images](/File:Wiki.png) are inherently transcluded into the pages where they are displayed.
+
+*   Signatures and datestamps, generated using multiple [tildes](/Template:Tilde), are substituted into pages at the moment of saving. If the signature markup includes a template call, that template is substituted, and its contents transcluded for each instance of the signature. Similarly, if the signature markup contains an image call, the image is transcluded with each appearance. Currently (as of 2011), software configuration prevents template calls from being included directly within signatures.
+
+*   The primary [site logo](/File:Wiki.png) is rendered on every page, irrespective of the [skin](/Wikipedia:Skin) used. Furthermore, all pages transclude a standard set of navigational links and accompanying text.
+
+See also
+*   [Help:Transclusion](/Help:Transclusion)
+*   {{[User transclusion](/Template:User_transclusion)}} and {{[User copy and paste](/Template:User_copy_and_paste)}} – userboxes for declaring one's stance on transclusion
+*   [Wikipedia:Avoid using meta-templates](/Wikipedia:Avoid_using_meta-templates)
+*   Previous discussions on this topic
+    *   [Wikipedia_talk:Template namespace/Archive 1#transcluding prose](/Wikipedia_talk:Template_namespace/Archive_1)
+*   [Help:Substitution](/Help:Substitution)
+*   [Wikipedia:Template limits](/Wikipedia:Template_limits)
+*   [Wikipedia:Don't worry about performance](/Wikipedia:Don%27t_worry_about_performance)
+
+* v
+* t
+* e
+
+[Wikipedia technical help](/Help:Directory)
+
+Get personal technical help at [the Teahouse](/Wikipedia:Teahouse), [help desk](/Wikipedia:Help_desk), [village pump (technical)](/Wikipedia:Village_pump_(technical)), [talk pages](/Help:Introduction_to_talk_pages/1), or [IRC](/Wikipedia:IRC).
+[General
+technical help](/Wikipedia:FAQ/Technical)
+
+*   [Bypass cache](/Wikipedia:Bypass_your_cache)
+*   [Keyboard shortcuts](/Help:Keyboard_shortcuts)
+*   [Editing](/Help:Editing)
+*   [CharInsert](/Help:CharInsert)
+*   [Edit conflict](/Help:Edit_conflict)
+*   [Edit toolbar](/Help:Edit_toolbar)
+*   [Reverting](/Help:Reverting)
+*   [How to create a page](/Wikipedia:How_to_create_a_page)
+*   [IRC](/Wikipedia:IRC)
+*   [Tutorial](/Wikipedia:IRC/Tutorial)
+*   [Mobile access](/Help:Mobile_access)
+*   [Multilingual support](/Help:Multilingual_support)
+*   [Page history](/Help:Page_history)
+*   [Page information](/Help:Page_information)
+*   [Page name](/Wikipedia:Page_name)
+*   [Help](/Help:Page_name)
+*   [Printing](/Help:Printing)
+*   [Software notices](/Wikipedia:Software_notices)
+*   [Editnotice](/Wikipedia:Editnotice)
+*   [Special Characters](/Help:Special_characters)
+*   [Entering](/Help:Entering_special_characters)
+*   [User access levels](/Wikipedia:User_access_levels)
+*   [VisualEditor](/Wikipedia:VisualEditor)
+*   [Help](/Help:VisualEditor)
+
+[Special
+page](/Special:SpecialPages)-related
+
+*   [Special page help](/Help:Special_page)
+*   [AllPages](/Help:AllPages)
+*   [Edit filter](/Wikipedia:Edit_filter)
+*   [Emailing users](/Wikipedia:Emailing_users)
+*   [Logging in](/Help:Logging_in)
+*   [Reset passwords](/Help:Reset_password)
+*   [Logs](/Help:Log)
+*   [Moving a page](/Wikipedia:Moving_a_page)
+*   [History merging](/Wikipedia:History_merging)
+*   [Non-admin and admin-only page moves](/Help:When_to_place_technical_requests_in_%22Administrator_needed%22)
+*   [Notifications/Echo](/Help:Notifications)
+*   [FAQ](/Help:Notifications/FAQ)
+*   [Page Curation](/Wikipedia:Page_Curation/Help)
+*   [Page import](/Help:Import)
+*   [Pending changes](/Wikipedia:Pending_changes)
+*   [Random pages](/Wikipedia:Random)
+*   [Recent changes](/Help:Recent_changes)
+*   [Related changes](/Help:Related_changes)
+*   [Searching](/Help:Searching)
+*   [Linksearch](/Help:Linksearch)
+*   [Tags](/Wikipedia:Tags)
+*   [User contributions](/Help:User_contributions)
+*   [Watchlist](/Help:Watchlist)
+*   [What links here](/Help:What_links_here)
+
+[Wikitext](/Help:Wikitext)
+
+*   [Wikitext](/Help:Wikitext)
+*   [Cheatsheet](/Help:Cheatsheet)
+*   [Columns](/Help:Columns)
+*   [Line-break handling](/Help:Line-break_handling)
+*   [Lists](/Help:List)
+*   [Magic words](/Help:Magic_words)
+*   [For beginners](/Help:Magic_words_for_beginners)
+*   [Conditional expressions](/Help:Conditional_expressions)
+*   [Switch parser function](/Help:Switch_parser_function)
+*   [Time function](/Help:Time_function)
+*   [Redirects](/Help:Redirect)
+*   [Sections and TOCs](/Help:Section)
+*   [Tables](/Help:Table)
+*   [Introduction](/Help:Introduction_to_tables_with_Wiki_Markup/1)
+*   [Basics](/Help:Basic_table_markup)
+*   [Advanced table formatting](/Help:Advanced_table_formatting)
+*   [Collapsing](/Help:Collapsing_tables_and_more)
+*   [Conditional tables](/Help:Conditional_tables)
+*   [Sortable tables](/Help:Sortable_tables)
+*   [Using colours](/Help:Using_colours)
+
+[Links](/Help:Link) and [diffs](/Help:Diff)
+
+*   [Links](/Help:Link)
+*   [Interlanguage](/Help:Interlanguage_links)
+*   [Interwiki](/Help:Interwiki_linking)
+*   [Permanent](/Help:Permanent_link)
+*   [Diffs](/Help:Diff)
+*   [Simplest diff guide](/Wikipedia:Simplest_diff_guide)
+*   [Simple diff and link guide](/Wikipedia:Simple_diff_and_link_guide)
+*   [Complete diff and link guide](/Wikipedia:Complete_diff_and_link_guide)
+*   [Colon trick](/Help:Colon_trick)
+*   [Link color](/Help:Link_color)
+*   *   [Pipe trick](/Help:Pipe_trick)
+*   [URLs](/Help:URL)
+
+[Media](/Help:Media) files: images, videos and sounds
+
+*   [Media help](/Help:Media)
+*   [Files](/Help:Files)
+*   [Creation and usage](/Help:Creation_and_usage_of_media_files)
+*   [Moving files to Commons](/Wikipedia:Moving_files_to_Commons)
+*   [Images](/Wikipedia:Images)
+*   [Introduction to images](/Help:Introduction_to_images_with_Wiki_Markup/1)
+*   [Picture tutorial](/Help:Pictures)
+*   [Preparing images for upload](/Wikipedia:Preparing_images_for_upload)
+*   [Uploading images](/Wikipedia:Uploading_images)
+*   [Options to hide an image](/Help:Options_to_hide_an_image)
+*   [Extended image syntax](/Wikipedia:Extended_image_syntax)
+*   [SVG help](/Wikipedia:SVG_help)
+*   [Gallery tag](/Help:Gallery_tag)
+*   [Graphics tutorials](/Wikipedia:Graphics_tutorials)
+*   [Basic bitmap image editing](/Wikipedia:Basic_bitmap_image_editing)
+*   [How to improve image quality](/Wikipedia:How_to_improve_image_quality)
+*   [Graphics Lab resources](/Wikipedia:Graphics_Lab/Resources)
+*   [Sound file markup](/Help:Sound_file_markup)
+*   [Visual file markup](/Help:Visual_file_markup)
+
+Other graphics
+
+*   [Family trees](/Help:Family_trees)
+*   [Graphs and charts](/Wikipedia:Graphs_and_charts)
+*   [How to create](/Wikipedia:How_to_create_charts_for_Wikipedia_articles)
+*   [Barcharts](/Help:Barchart)
+*   [To scale charts](/Wikipedia:To_scale_charts)
+*   [Math formulas](/Help:Displaying_a_formula)
+*   [Math symbols](/Help:Displaying_a_formula)
+*   [Musical scores](/Help:Score)
+*   [Musical symbols](/Help:Musical_symbols)
+*   [Timeline](/Wikipedia:Timeline)
+*   [EasyTimeline syntax](/Help:EasyTimeline_syntax)
+*   [WikiHiero syntax](/Help:WikiHiero_syntax)
+
+[Templates](/Help:A_quick_guide_to_templates) and [Lua](/Lua_(programming_language)) modules
+
+*   [Templates](/Help:Template)
+*   [Advanced template coding](/Wikipedia:Advanced_template_coding)
+*   [Template documentation](/Wikipedia:Template_documentation)
+*   [Template index](/Wikipedia:Template_index)
+*   [Template limits](/Help:Template_limits)
+*   [Template sandbox and test cases](/Wikipedia:Template_sandbox_and_test_cases)
+*   [Citation templates](/Wikipedia:Citation_templates)
+*   [Lua help](/Help:Lua)
+*   [Lua project](/Wikipedia:Lua)
+*   [Resources](/Wikipedia:Lua/Resources)
+*   [To do](/Wikipedia:Lua/To_do)
+*   [Substitution](/Help:Substitution)
+*   [Purge](/Help:Purge)
+*   [Job queue](/Help:Job_queue)
+*   [Transclusion](/Help:Transclusion)
+*   [Labeled section](/Help:Labeled_section_transclusion)
+*   Costs and benefits
+*   [Guide to Scribbling](/Wikipedia:Guide_to_Scribbling)
+
+[Data structure](/Wikipedia:Administration)
+
+*   [Namespaces](/Wikipedia:Namespace)
+*   [Main/Article](/Wikipedia:What_is_an_article%3F)
+*   [Category](/Help:Category)
+*   [Draft](/Wikipedia:Drafts)
+*   [File](/Help:Files)
+*   [File description page](/Help:File_description_page)
+*   [Help](/Wikipedia:Help_namespace)
+*   [Portal](/Wikipedia:Portal)
+*   [Project/Wikipedia](/Wikipedia:Project_namespace)
+*   [Talk](/Help:Talk_pages)
+*   [Archiving](/Help:Archiving_a_talk_page)
+*   [Simple](/Help:Archiving_(plain_and_simple))
+*   [Template](/Wikipedia:Template_namespace)
+*   [User](/Wikipedia:User_pages)
+*   [User page design](/Wikipedia:User_page_design_guide)
+*   [MediaWiki](/Help:MediaWiki_namespace)
+*   [Bug reports and feature requests](/Wikipedia:Bug_reports_and_feature_requests)
+*   TimedMediaHandler extension
+*   [Module](/Wikipedia:Lua)
+*   [Special](/Help:Special_page)
+
+[HTML](/HTML) and [CSS](/CSS)
+
+*   [Cascading Style Sheets](/Help:Cascading_Style_Sheets)
+*   [HTML in wikitext](/Help:HTML_in_wikitext)
+*   [Catalogue of CSS classes](/Wikipedia:Catalogue_of_CSS_classes)
+*   [Common.js and common.css](/Wikipedia:Common.js_and_common.css)
+*   [Classes in microformats](/Wikipedia:WikiProject_Microformats/classes)
+*   [Markup validation](/Help:Markup_validation)
+*   [Span tags](/Wikipedia:Span_tags)
+*   [Useful styles](/Help:Useful_styles)
+
+[Customisation](/Wikipedia:Customisation) and tools
+
+*   [Preferences](/Help:Preferences)
+*   [Gadgets](/Wikipedia:Gadget)
+*   [Skins](/Wikipedia:Skin)
+*   [Citation tools](/Help:Citation_tools)
+*   [Cleaning up vandalism tools](/Wikipedia:Cleaning_up_vandalism/Tools)
+*   [Customizing watchlists](/Wikipedia:Customizing_watchlists)
+*   [Hide pages](/Help:Hide_Pages_in_Watchlist)
+*   [IRC Scripts](/Wikipedia:Scripts)
+*   [User scripts](/Wikipedia:User_scripts)
+*   [Guide](/Wikipedia:User_scripts/Guide)
+*   [List](/Wikipedia:User_scripts/List)
+*   [Techniques](/Wikipedia:User_scripts/Techniques)
+*   [User style](/Help:User_style)
+*   [Tools](/Wikipedia:Tools)
+*   [Alternative browsing](/Wikipedia:Tools/Alternative_browsing)
+*   [Browser tools](/Wikipedia:Tools/Browser_tools)
+*   [Editing tools](/Wikipedia:Tools/Editing_tools)
+*   [Navigation shortcuts](/Wikipedia:Tools/Navigation_shortcuts)
+*   [Optimum tool set](/Wikipedia:Tools/Optimum_tool_set)
+*   [Wikimedia Cloud Services](/Wikipedia:Wikimedia_Cloud_Services)
+*   Beta Features at MediaWiki
+
+Automated editing
+
+*   [AfC helper script](/Wikipedia:WikiProject_Articles_for_creation/Helper_script)
+*   [AntiVandal](/Wikipedia:AntiVandal)
+*   [AutoWikiBrowser](/Wikipedia:AutoWikiBrowser)
+*   [Bots](/Wikipedia:Bots)
+*   [Creating](/Help:Creating_a_bot)
+*   [history](/Wikipedia:History_of_Wikipedia_bots)
+*   [HotCat](/Wikipedia:HotCat)
+*   [Huggle](/Wikipedia:Huggle)
+*   [Navigation popups](/Wikipedia:Tools/Navigation_popups)
+*   [RedWarn](/Wikipedia:RedWarn)
+*   [Twinkle](/Wikipedia:Twinkle)
+*   [Ultraviolet](/Wikipedia:Ultraviolet)
+*   [WPCleaner](/Wikipedia:WPCleaner)
+*   Inactive
+    *   [igloo](/Wikipedia:Igloo)
+    *   [STiki](/Wikipedia:STiki)
+
+*   See also: [Category:Wikipedia how-to](/Category:Wikipedia_how-to)
+*   [Category:Wikipedia information pages](/Category:Wikipedia_information_pages)
+Further navigation at: [Help pages](/Template:Wikipedia_help_pages)
+
+*   [Administrators](/Template:Administrators%27_guide)
+*   [Accessibility](/Wikipedia:WikiProject_Accessibility/Navigation_menu)
+*   [Accounts](/Template:Wikipedia_accounts)
+*   [Bots](/Template:Botnav)
+*   [Referencing](/Template:Wikipedia_referencing)
+*   [Citation metadata](/Template:Citation_metadata_navbox)
+*   [Templates](/Template:Wikipedia_templates)
+*   [User scripts](/Wikipedia:User_scripts/Navbox)

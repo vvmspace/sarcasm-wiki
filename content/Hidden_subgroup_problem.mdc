@@ -1,0 +1,129 @@
+---
+title: "Hidden Subgroup Problem"
+description: "Right. You want me to… rewrite this. Wikipedia. In my style. As if I’m not already burdened with enough trivialities. Fine. Just don’t expect me to hold your..."
+keywords: hidden, subgroup, problem
+slug: "Hidden_subgroup_problem"
+createdAt: "2025-11-17T08:57:34.918Z"
+updatedAt: "2025-11-17T08:57:34.918Z"
+contentType: "rewritten"
+---
+
+Right. You want me to… rewrite this. Wikipedia. In my style. As if I’m not already burdened with enough trivialities. Fine. Just don’t expect me to hold your hand through the abstract algebra. It’s hardly a recreational read.
+
+### The Hidden Subgroup Problem: A Cryptic Enigma in Mathematics and Theoretical Computer Science
+
+The [hidden subgroup problem](Hidden_subgroup_problem) (HSP), a concept that lurks in the shadowed corners of [mathematics](Mathematics) and [theoretical computer science](Theoretical_computer_science), is more than just an academic exercise. It’s a framework, a rather elegant one, that manages to encapsulate a range of notoriously difficult problems. Think [factoring](Integer_factorization), the bane of many an encryption scheme. Or the [discrete logarithm](Discrete_logarithm) problem, another cornerstone of modern cryptography. Even the elusive [graph isomorphism problem](Graph_isomorphism_problem) and the labyrinthine [shortest vector problem](Shortest_vector_problem) fall under its rather broad, and frankly, intimidating umbrella.
+
+Its significance is particularly amplified in the nascent field of [quantum computing](Quantum_computing). This is largely due to [Shor's algorithms](Shor's_algorithm). These algorithms, which have sent shivers down the spines of cryptographers worldwide, are essentially instances of the hidden subgroup problem applied to [finite abelian groups](Finite_abelian_group). The other problems, the ones that aren't so neatly confined to abelian structures, correspond to groups that are decidedly *not* abelian. This distinction is crucial, and frankly, it’s where the real computational challenges lie.
+
+### The Problem Statement: Unveiling the Subgroup
+
+Let’s break down what we’re actually talking about. Imagine you have a [group](Group_(mathematics)), let's call it *G*. Within this group, there’s a secret, a [subgroup](Subgroup) denoted by *H*. And then there’s a function, *f*, which maps elements from *G* to some set *X*. This function *f* is designed to be rather coy. It hides *H* by behaving in a very specific way: for any two elements, *g₁* and *g₂*, in *G*, their outputs under *f* are the same if and only if they belong to the same [coset](Cosets) of *H*. In simpler terms, *f* is constant across each coset of *H*, but it distinguishes between different cosets. It’s like a poorly drawn map where all the cities on the same road look identical, but different roads are clearly marked.
+
+The Hidden Subgroup Problem itself is this: Given *G*, a finite set *X*, and a function *f: G → X* that hides a subgroup *H ⊆ G*, your task is to find *H*. The catch? You don't get to see *f* directly. You're given access to it via an [oracle](Oracle_machine), a black box that, for a reasonable cost in terms of bits—specifically, [O(log |G| + log |X|) bits](https://en.wikipedia.org/wiki/Hidden_subgroup_problem#Problem_statement)—will tell you *f(g)* for any *g* you query. Your goal, using the information painstakingly extracted from this oracle, is to determine a [generating set](Generator_(mathematics)) for *H*.
+
+There’s a special case, of course. If *X* itself is a group, and *f* happens to be a [group homomorphism](Group_homomorphism), then the hidden subgroup *H* is precisely the [kernel](Kernel_(algebra)) of *f*. This is a slightly more structured scenario, but the core problem of uncovering the hidden structure remains.
+
+### Motivation: Why Bother with Hidden Subgroups?
+
+The hidden subgroup problem isn't just a theoretical curiosity; it’s a driving force behind much of the excitement in [quantum computing](Quantum_computing). Here’s why it’s so damned important:
+
+*   **Shor’s Legacy:** As mentioned, [Shor's algorithm](Shor's_algorithm) for factoring large numbers and computing [discrete logarithms](Discrete_logarithm) (and its various offshoots) is fundamentally an application of solving the HSP for [finite abelian groups](Finite_abelian_group). The quantum computer’s ability to efficiently tackle these problems is directly tied to its prowess in solving this specific type of HSP.
+
+*   **The Non-Abelian Frontier:** The real tantalizing prospect lies in the potential for efficient [quantum algorithms](Quantum_algorithm) for HSPs over [non-abelian groups](Non-abelian_group). If we could crack this nut, it would mean quantum algorithms for two of the most significant computational challenges: the [graph isomorphism problem](Graph_isomorphism_problem) and certain variants of the [shortest vector problems](Shortest_vector_problem) (SVPs) in lattices. Specifically, an efficient quantum solution to the HSP for the [symmetric group](Symmetric_group) would translate directly into a quantum algorithm for graph isomorphism. [^1] And for the [dihedral group](Dihedral_group), a quantum algorithm for its HSP would yield an efficient quantum algorithm for finding the unique SVP in lattices, solvable in [polynomial time](Polynomial_time) relative to the input size *n*. [^2] This is where the real game-changing potential lies.
+
+### Quantum Algorithms: A Glimmer of Efficiency
+
+The good news, or perhaps the slightly less bad news, is that we *do* have an efficient [quantum algorithm](Quantum_algorithm) for solving the HSP when the group *G* is [abelian](Abelian_group). This algorithm operates in time that is polynomial in the logarithm of the size of *G*, i.e., [log |G|](https://en.wikipedia.org/wiki/Hidden_subgroup_problem#Quantum_algorithms).
+
+For arbitrary groups, the situation is more… nuanced. It’s known that the HSP *can* be solved using a polynomial number of oracle evaluations. [^3] However, the quantum circuits required to implement this might demand resources that grow exponentially with [log |G|](https://en.wikipedia.org/wiki/Hidden_subgroup_problem#Quantum_algorithms). An *efficient* algorithm, in the context of quantum computing, means polynomial time in *both* the number of oracle evaluations *and* the overall running time. Whether such an algorithm exists for all groups remains an open, and frankly, rather vexing question. We do have efficient quantum polynomial-time algorithms for certain subclasses of groups, such as semi-direct products of some [abelian groups](Abelian_group), but the general case is still a work in progress.
+
+#### The Algorithm for Abelian Groups: A Symphony of Representations
+
+The quantum algorithm for abelian groups relies heavily on the concept of [representations](Representation_theory). A representation is essentially a way to map elements of a group *G* to matrices in the [general linear group](General_linear_group) GLk(C) over the [complex numbers](Complex_number). If a representation cannot be broken down into smaller, independent representations—if it’s irreducible—then for an abelian group, these irreducible representations are what we call [characters](Character_theory). These are one-dimensional representations, and for abelian groups, there aren’t any of higher dimension.
+
+##### Defining the Quantum Fourier Transform: The Core Operation
+
+The [quantum Fourier transform](Quantum_Fourier_transform) (QFT) is the linchpin of this algorithm. Let’s consider it in the context of ZN, the additive [cyclic group](Cyclic_group) of order N. We define a character, χⱼ(k) = ωNʲᵏ = e²πi jk/N, where ωN = e²πi/N is a primitive Nth root of unity. The QFT, in this setting, transforms a basis state |j⟩ into a superposition of basis states |k⟩:
+
+FN|j⟩ = (1/√N) Σ[k=0 to N-1] χⱼ(k) |k⟩.
+
+We can then define a state |χⱼ⟩ = FN|j⟩. Any finite abelian group can be expressed as a direct product of cyclic groups: ZN₁ × ZN₂ × … × ZNm. On a quantum computer, this translates to a tensor product of registers, each of a dimension corresponding to the order of the cyclic group (N₁, N₂, etc.). The overall quantum Fourier transform is then the tensor product of the individual QFTs: FN₁ ⊗ FN₂ ⊗ … ⊗ FNm.
+
+#### The Procedure: A Step-by-Step Descent into the Hidden
+
+The core idea revolves around the [dual group](Pontryagin_duality), denoted Ĝ, which is the group of all characters of *G*. For our hidden subgroup *H*, we define a related subgroup in the dual group, H⊥, consisting of all characters χg such that χg(h) = 1 for all h ∈ H. This H⊥ has a size of |G|/|H|. Each iteration of the quantum algorithm aims to output an element *g* ∈ G that corresponds to a character χg ∈ H⊥. By repeatedly sampling these characters, we gather clues about the structure of *H*.
+
+Here’s how the quantum circuit generally unfolds:
+
+1.  **Initialization:** We start with a system in the state |0⟩|0⟩. The first register represents elements of *G*, and the second, elements of *X*.
+
+2.  **Superposition:** We create a uniform superposition over all possible elements of *G* in the first register: (1/√|G|) Σ[g∈G] |g⟩|0⟩. This is like opening up all possible paths simultaneously.
+
+3.  **Oracle Query:** We then query the function *f*. The state of the system becomes: (1/√|G|) Σ[g∈G] |g⟩|f(g)⟩. This entangles the group elements with their corresponding function values.
+
+4.  **Measurement and Collapse:** We measure the second register. This yields a specific value, say *f(s)*, for some *s* ∈ G. Crucially, this measurement collapses the state of the first register into a superposition over the elements of the coset *s + H*: (1/√|H|) Σ[h∈H] |s+h⟩|f(s)⟩. The right register is then discarded, leaving us with: (1/√|H|) Σ[h∈H] |s+h⟩. We’ve effectively narrowed down the possibilities to a single coset.
+
+5.  **Quantum Fourier Transform:** We apply the quantum Fourier transform to the remaining state in the first register. This transforms the state into a superposition of characters: (1/√|H|) Σ[h∈H] |χs+h⟩.
+
+6.  **The Crucial Transformation:** This state, as it turns out, is equivalent to: √(|H|/|G|) Σ[χg∈H⊥] χg(s) |g⟩. This is the magic. The state now encodes information about the characters that belong to H⊥.
+
+7.  **Measurement and Deduction:** Measuring this final state gives us an element *g* ∈ G. Because we know that χg(h) = 1 for all *h* ∈ H, the measured *g* provides information about which characters are in H⊥. By repeating this process, we gradually narrow down the possibilities until we can determine *H* itself, or at least a generating set for it.
+
+The mathematical justification for the equivalence between step 5 and step 6 is a rather neat piece of work, relying on the properties of characters:
+
+(1/√|H|) Σ[h∈H] |χs+h⟩ = √(|H|/|G|) Σ[χg∈H⊥] χg(s) |g⟩
+
+This identity hinges on a fundamental property of characters:
+
+Σ[h∈H] χg(h) = { |H| if χg ∈ H⊥; 0 if χg ∉ H⊥ }
+
+This identity itself is derived from the orthogonality of characters. The characters of *G* form an orthonormal basis, meaning:
+
+(1/|H|) Σ[h∈H] χg(h) χg'(h) = { 1 if g = g'; 0 if g ≠ g' }
+
+By setting χg' to be the trivial representation (which maps everything to 1), we arrive at the identity needed to connect the two states.
+
+The power here is that each measurement provides a piece of the puzzle. *H*, or a generating set for it, can be determined in a polynomial number of measurements. The size of this generating set is remarkably small—logarithmically smaller than the size of *G*. If *T* is a generating set for *H* (meaning <T> = H), then the size of *T* will be at most log |H|, which is less than or equal to log |G|. This means we can find a generating set for *H* in polynomial time, even if *G* itself is astronomically large.
+
+#### Instances: Where HSP Appears in the Wild
+
+The hidden subgroup problem is not some abstract construct; it’s the engine behind many of the quantum speedups we’ve observed. Here’s a rundown of some key instances and their solvability:
+
+| Problem                 | Quantum Algorithm                | Abelian? | Polynomial time solution? |
+| :---------------------- | :------------------------------- | :------- | :------------------------ |
+| [Deutsch's problem](Deutsch%E2%80%93Jozsa_algorithm) | Deutsch's algorithm; Deutsch-Jozsa algorithm | Yes      | Yes                       |
+| [Simon's problem](Simon%27s_problem) | Simon's algorithm                | Yes      | Yes                       |
+| Order finding           | Shor's order finding algorithm   | Yes      | Yes                       |
+| Discrete logarithm      | [Shor's algorithm § Shor's algorithm for discrete logarithms](Shor%27s_algorithm) | Yes      | Yes                       |
+| Period finding          | Shor's algorithm                 | Yes      | Yes                       |
+| Abelian stabilizer      | Kitaev's algorithm [^4]          | Yes      | Yes                       |
+| Graph Isomorphism       | None                             | No       | No                        |
+| Shortest vector problem | None                             | No       | No                        |
+
+It’s clear that while the abelian cases are well-understood and efficiently solvable with quantum computers, the non-abelian cases remain significant challenges, hinting at the profound complexity that lies beyond simple structures.
+
+---
+
+*   [^1]: Ettinger, Mark; Peter Høyer (1999). "A quantum observable for the graph isomorphism problem". [arXiv:quant-ph/9901029](https://arxiv.org/abs/quant-ph/9901029).
+*   [^2]: Regev, Oded (2003). "Quantum computation and lattice problems". [arXiv:cs/0304005](https://arxiv.org/abs/cs/0304005).
+*   [^3]: Ettinger, Mark; Peter Hoyer; Emanuel Knill (2004). "The quantum query complexity of the hidden subgroup problem is polynomial". *Information Processing Letters*. **91**: 43–48. [arXiv:quant-ph/0401083](https://arxiv.org/abs/quant-ph/0401083). [Bibcode](https://en.wikipedia.org/wiki/Bibcode_(identifier)):2004quant.ph..1083E. [doi](https://en.wikipedia.org/wiki/Doi_(identifier)):10.1016/j.ipl.2004.01.024. [S2CID](https://en.wikipedia.org/wiki/S2CID_(identifier)) 5520617.
+*   [^4]: Kitaev, Alexei (November 20, 1995). "Quantum measurements and the Abelian Stabilizer Problem". [arXiv:quant-ph/9511026](https://arxiv.org/abs/quant-ph/9511026).
+
+---
+
+### See Also
+
+*   [Hidden shift problem](Hidden_shift_problem)
+*   [Pontryagin duality](Pontryagin_duality)
+
+### External links
+
+*   Richard Jozsa: Quantum factoring, discrete logarithms and the hidden subgroup problem
+*   Chris Lomont: The Hidden Subgroup Problem - Review and Open Problems
+*   Hidden subgroup problem on arxiv.org
+*   Complete implementation of Shor's algorithm for finding discrete logarithms with Classiq
+
+---
+
+v • t • e [Quantum information science](Category:Quantum_information_science)

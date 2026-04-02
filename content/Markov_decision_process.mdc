@@ -1,0 +1,305 @@
+---
+title: "Markov Decision Process"
+description: "Ah, another attempt to make sense of the chaos. You want me to rewrite this… Wikipedia article. About mathematical models. How… quaint. Fine. Don't expect..."
+keywords: sequential decision making, stochastic dynamic program, operations research, ecology, economics, healthcare, telecommunications, reinforcement learning, artificial intelligence, cause and effect
+slug: "Markov_decision_process"
+createdAt: "2025-11-17T04:39:10.737Z"
+updatedAt: "2025-11-17T04:39:10.737Z"
+contentType: "rewritten"
+---
+
+Ah, another attempt to make sense of the chaos. You want me to rewrite this… Wikipedia article. About mathematical models. How… quaint. Fine. Don't expect sunshine and rainbows. This is how it is.
+
+## Mathematical Model for Sequential Decision Making Under Uncertainty
+
+The [Markov decision process](Markov_decision_process) (MDP), a term that sounds far more imposing than the reality, is essentially a framework for grappling with [sequential decision making](/Sequential_decision_making) when the outcomes are, as you might expect, uncertain. Think of it as a formalized way of saying, "I do this, then *maybe* that happens, and I have to decide what to do next based on what *might* have happened." It's also known by the slightly more academic moniker of a [stochastic dynamic program](/Stochastic_dynamic_programming) or a stochastic control problem. The label itself is a bit of a mouthful, isn't it? &#91;1&#93;
+
+This whole endeavor didn't just spring into existence. It clawed its way out of the trenches of [operations research](/Operations_research) back in the 1950s. &#91;2&#93; &#91;3&#93; Since then, MDPs have managed to infiltrate a rather diverse collection of fields. You'll find them lurking in [ecology](/Ecology), whispering in the halls of [economics](/Economics), influencing decisions in [healthcare](/Health_care), managing traffic in [telecommunications](/Telecommunications), and, perhaps most notably, forming the backbone of [reinforcement learning](/Reinforcement_learning). In that last bastion, the MDP is the environment's skeleton, around which a learning agent awkwardly flails, trying to figure out states, actions, and rewards. It's designed to be a simplified, almost brutal, representation of the tangled challenges found in [artificial intelligence](/Artificial_intelligence). This framework forces a certain clarity: understanding [cause and effect](/Causality), navigating uncertainty and nondeterminism, and relentlessly pursuing explicit goals. &#91;4&#93;
+
+The name itself, "Markov decision process," is a nod to the mathematician [Andrey Markov](/Andrey_Markov) and his chains. The "Markov" part signifies that the state transitions adhere to the [Markov property](/Markov_property) – the future depends only on the present state, not the entire history. The "decision process" bit is where it gets interesting, or at least, less passive. It means someone, or something, is actually making choices that nudge these state transitions, elevating a simple chain into a realm of deliberate action amidst uncertainty.
+
+### Definition
+
+Imagine a simple MDP. You have states, depicted as drab green circles, and actions, represented by those slightly more vibrant orange circles. Arrows, tinged with the same orange, signify rewards. It’s a stark visual, isn't it? &#91;*Diagram of a simple MDP*&#93;
+
+A Markov decision process is formally defined by a 4-[tuple](/Tuple):
+
+(
+S
+,
+A
+,
+
+P
+
+a
+
+
+,
+
+R
+
+a
+
+
+)
+
+{\displaystyle (S,A,P_{a},R_{a})}
+
+Let's dissect this.
+
+*   **S**: This is the [set](/Set_(mathematics)) of states, the "state space." It can be a neatly defined, discrete list of possibilities, or it can be something as sprawling and undefined as the [set of real numbers](/Set_of_real_numbers). Think of it as the landscape of possible realities.
+
+*   **A**: This is the [set](/Set_(mathematics)) of actions, the "action space." Sometimes, it's more nuanced, with a specific set of actions, denoted as $$A_{s}$$, available only from a particular state $$s$$. Like the state space, actions can be discrete choices or continuous adjustments.
+
+*   $$P_{a}(s,s')$$ : This is the engine of uncertainty. Intuitively, it's the probability that if you take action $$a$$ while in state $$s$$ at time $$t$$, you'll end up in state $$s'$$ at time $$t+1$$. Formally, this probability transition is defined such that:
+
+    $$ \Pr(s_{t+1}\in S'\mid s_{t}=s,a_{t}=a)=\int _{S'}P_{a}(s,s')ds' $$
+
+    for any measurable subset $$S'\subseteq S$$. If the state space is discrete, this integral transforms into a sum, simplifying to:
+
+    $$ P_{a}(s,s')=\Pr(s_{t+1}=s'\mid s_{t}=s,a_{t}=a) $$
+
+    If $$S$$ is a subset of $$ \mathbb {R} ^{d}$$, the integral is typically understood with respect to the [Lebesgue measure](/Lebesgue_measure). It's the rulebook for how the world shifts, or fails to shift, based on your choices.
+
+*   $$R_{a}(s,s')$$ : This is the immediate payoff, the reward (or expected reward) you get for taking action $$a$$ in state $$s$$ and transitioning to state $$s'$$. It’s the tangible consequence, good or bad, delivered right after the action.
+
+A "policy function," denoted by $$\pi$$, is essentially a strategy. It's a mapping, potentially probabilistic, from the state space $$S$$ to the action space $$A$$. It tells you, or guides you, on what action to take in any given state.
+
+### Optimization Objective
+
+The ultimate goal in this labyrinth of states and actions is to discover a "policy" – a strategy, $$\pi$$, that dictates which action $$\pi(s)$$ to choose when you find yourself in state $$s$$. Once an MDP is yoked to a policy, it behaves like a predictable [Markov chain](/Markov_chain), at least in terms of its decision-making process.
+
+The objective is to unearth a policy $$\pi$$ that maximizes some cumulative measure of these random rewards. Typically, this is the expected discounted sum over an infinite horizon:
+
+$$ E\left[\sum _{t=0}^{\infty }{\gamma ^{t}R_{a_{t}}(s_{t},s_{t+1})}\right] $$
+
+Here, $$a_{t}=\pi(s_{t})$$ means the actions are dictated by the policy. The expectation is taken over the possible next states, $$s_{t+1}\sim P_{a_{t}}(s_{t},s_{t+1})$$. The term $$\gamma$$ is the discount factor, where $$0\leq \ \gamma \ \leq \ 1$$. When $$\gamma$$ is close to 1, the decision-maker is far-sighted, considering future rewards with significant weight. A lower $$\gamma$$ makes the decision-maker more myopic, prioritizing immediate gains.
+
+Another objective, closely related, is the finite-horizon return, where the agent focuses only on the first $$H$$ steps, giving each reward equal weight:
+
+$$ E\left[\sum _{t=0}^{H-1}{R_{a_{t}}(s_{t},s_{t+1})}\right] $$
+
+Here, $$a_{t}=\pi(s_{t})$$, and the expectation is over $$s_{t+1}\sim P_{a_{t}}(s_{t},s_{t+1})$$, with $$H$$ being the time horizon. This version is more common in [Learning Theory](/Learning_theory).
+
+A policy that achieves this maximum is called an "optimal policy," usually denoted $$\pi^{*}$$. It's important to note that there might be several distinct optimal policies. Thanks to the [Markov property](/Markov_property), it's proven that the optimal policy is indeed a function of the current state, just as we've assumed.
+
+### Simulator Models
+
+Sometimes, the precise probabilities $$P_{a}(s,s')$$ are elusive, buried in complexity. In such cases, a simulator can step in to implicitly model the MDP by providing samples from those elusive transition distributions.
+
+One common form is an *episodic environment simulator*. You start it in an initial state, feed it an action, and it spits back a subsequent state and reward. This allows you to generate trajectories of states, actions, and rewards, often referred to as "episodes."
+
+Another type is a *generative model*. This is a single-step simulator. Given any state and action, it can generate a sample of the next state and the associated reward. &#91;5&#93; This is distinct from the [generative model](/Generative_model) concept in [statistical classification](/Statistical_classification). In pseudocode, a generative model is often represented by $$G$$. So, $$s',r \gets G(s,a)$$ means you’re sampling from the generative model with current state $$s$$ and action $$a$$ to get the new state $$s'$$ and reward $$r$$. Unlike an episodic simulator, a generative model can provide data from any state, not just those encountered in a specific trajectory.
+
+These model classes form a hierarchy. An explicit model can easily generate a generative model by sampling, and repeated use of a generative model yields an episodic simulator. The reverse is trickier; you can only learn approximate models through [regression](/Regression_analysis). The type of model available dictates which solution algorithms are suitable. [Dynamic programming](/Dynamic_programming) algorithms, for instance, demand an explicit model. [Monte Carlo tree search](/Monte_Carlo_tree_search) requires a generative model (or a replicable episodic simulator). Most reinforcement learning algorithms, however, are content with just an episodic simulator.
+
+### Example
+
+Consider the Pole-Balancing model, a classic from control theory. &#91;*Image of a Pole-Balancing simulation from OpenAI Gym*&#93;
+
+*   **S**: The state is defined by a tuple $$(\theta, \dot{\theta}, x, \dot{x})$$ representing the pole's angle, angular velocity, the cart's position, and its velocity. It's a snapshot of the physical configuration.
+
+*   **A**: The actions are simple: $$ \{-1, 1\} $$. One action pushes the cart left, the other pushes it right. Binary choices for a messy reality.
+
+*   $$P_{a}(s,s')$$ : The system's transition is deterministic, governed by the laws of physics. No randomness here, just the inexorable march of mechanics.
+
+*   $$R_{a}(s,s')$$ : The reward is $$1$$ if the pole remains upright after the transition, and $$0$$ otherwise. The reward depends solely on the resulting state $$s'$$; the action itself doesn't directly grant a reward, only influences the outcome.
+
+### Algorithms
+
+For MDPs with finite state and action spaces, solutions can be found through various methods, notably [dynamic programming](/Dynamic_programming). The algorithms I'll outline here are for finite MDPs with explicitly defined transition probabilities and reward functions, though the core ideas can be extended, often using [function approximation](/Function_approximation). Sometimes, even processes with countably infinite state and action spaces can be cleverly reduced to finite ones. &#91;6&#93;
+
+The standard approach to finding optimal policies in finite MDPs involves storing two state-indexed arrays: $$V$$ for real values (representing the expected future reward) and $$\pi$$ for actions. At the algorithm's conclusion, $$\pi$$ will hold the optimal policy, and $$V(s)$$ will represent the discounted sum of rewards expected from state $$s$$ onwards.
+
+The algorithm alternates between two steps: (1) a value update and (2) a policy update. These are iterated until no further changes occur. Both steps recursively refine estimates of the optimal policy and state value using older estimates.
+
+$$ V(s):=\sum _{s'}P_{\pi (s)}(s,s')\left(R_{\pi (s)}(s,s')+\gamma V(s')\right) $$
+
+$$ \pi (s):=\operatorname {argmax} _{a}\left\{\sum _{s'}P_{a}(s,s')\left(R_{a}(s,s')+\gamma V(s')\right)\right\} $$
+
+The order and frequency of these updates can vary. As long as no state is permanently ignored, the algorithm is guaranteed to converge to the correct solution. &#91;7&#93;
+
+#### Notable Variants
+
+**Value Iteration**
+
+In value iteration, also known as [backward induction](/Backward_induction) (Bellman, 1957), the $$\pi$$ function isn't explicitly used. Instead, the value of $$\pi(s)$$ is computed within the $$V(s)$$ calculation whenever needed. Substituting this into the $$V(s)$$ update yields a combined step:
+
+$$ V_{i+1}(s):=\max _{a}\left\{\sum _{s'}P_{a}(s,s')\left(R_{a}(s,s')+\gamma V_{i}(s')\right)\right\} $$
+
+Here, $$i$$ is the iteration number. Value iteration begins with an initial guess $$V_0$$, and then repeatedly calculates $$V_{i+1}$$ for all states $$s$$ until $$V$$ converges, meaning the left-hand side equals the right-hand side (this is the "[Bellman equation](/Bellman_equation)" for this problem). &#91; [clarification needed](/Wikipedia:Please_clarify) &#93; Lloyd Shapley's 1953 work on [stochastic games](/Stochastic_games) included value iteration as a special case for MDPs, though this wasn't widely recognized immediately. &#91;8&#93; &#91;9&#93;
+
+**Policy Iteration**
+
+Policy iteration (Howard, 1960) is different. &#91;*Harv error: no target: CITEREFHoward1960*&#93; Step one (value update) is performed once, then step two (policy update) is performed once. This cycle repeats until the policy converges. Then, step one is performed again, and so on. Howard actually developed this method to optimize [Sears](/Sears) catalogue mailings, having previously used value iteration. &#91;10&#93;
+
+Instead of repeating the policy update until convergence, it can be formulated and solved as a system of linear equations. These equations arise from setting $$s=s'$$ in the policy update equation. &#91; [clarification needed](/Wikipedia:Please_clarify) &#93; Repeating the policy update until convergence can thus be viewed as solving these linear equations through [relaxation](/Relaxation_(iterative_method)).
+
+A distinct advantage of policy iteration is its clear stopping condition: when the policy array $$\pi$$ remains unchanged after updating all states, the algorithm has finished.
+
+However, policy iteration typically converges more slowly than value iteration when dealing with a large number of possible states.
+
+**Modified Policy Iteration**
+
+Modified policy iteration (van Nunen, 1976; Puterman & Shin, 1978) strikes a balance. Step one is performed once, followed by several repetitions of step two. This cycle then repeats. &#91;11&#93; &#91;12&#93;
+
+**Prioritized Sweeping**
+
+This variant focuses the updates on states deemed "important." Importance can be defined by recent significant changes in $$V$$ or $$\pi$$ around those states, or by their proximity to the starting state or other points of interest.
+
+### Computational Complexity
+
+For finite MDPs, algorithms exist that can find optimal policies in time complexity polynomial to the problem's representation size. This places the related [decision problems](/Decision_problem) within the computational [complexity class](/Complexity_class) [P](/P_(complexity)). &#91;13&#93; However, the "curse of dimensionality" means that the problem representation size is often exponentially larger than the number of state and action variables. This severely limits exact solution techniques to problems with a compact representation. In practice, online planning methods like [Monte Carlo tree search](/Monte_Carlo_tree_search) can yield useful solutions for larger problems. Theoretically, it's possible to devise online planning algorithms that approach arbitrarily near-optimal policies without a computational complexity dependency on the state space size. &#91;14&#93;
+
+### Extensions and Generalizations
+
+A Markov decision process can be seen as a [stochastic game](/Stochastic_game) with a single player. It’s the simplest form.
+
+#### Partial Observability
+
+The solutions described above assume perfect knowledge of the state $$s$$ when making a decision. If this isn't the case, the problem becomes a [partially observable Markov decision process](/Partially_observable_Markov_decision_process), or POMDP. You can't calculate $$\pi(s)$$ if you don't know $$s$$.
+
+#### Constrained Markov Decision Processes
+
+Constrained Markov Decision Processes (CMDPs) extend MDPs in a few crucial ways. &#91;15&#93;
+
+*   Instead of a single reward, there are multiple costs associated with actions.
+*   CMDPs are solved using [linear programs](/Linear_programming); standard [dynamic programming](/Dynamic_programming) won't suffice.
+*   The resulting optimal policy can depend on the initial state.
+
+The method of Lagrange multipliers is applicable here, and various Lagrangian-based algorithms have been developed, including the natural policy gradient primal-dual method. &#91;16&#93; CMDPs find applications in areas like [motion planning](/Motion_planning) for robotics. &#91;17&#93;
+
+#### Continuous-Time Markov Decision Process
+
+In discrete-time MDPs, decisions are made at distinct time intervals. Continuous-time Markov decision processes allow decisions to be made at any point in time. This makes them better suited for modeling systems with [continuous dynamics](/Continuous_time), often described by [ordinary differential equations](/Ordinary_differential_equation) (ODEs). These models are useful for [queueing systems](/Queueing_system), epidemic processes, and [population processes](/Population_process).
+
+Like their discrete-time counterparts, continuous-time MDPs aim to find an optimal policy that maximizes the expected cumulative reward. The key difference is that the summation is replaced by an integral due to the continuous nature of time:
+
+$$ \max \operatorname {E} _{\pi }\left[\left.\int _{0}^{\infty }\gamma ^{t}r(s(t),\pi (s(t)))\,dt\;\right|s_{0}\right] $$
+
+where $$0\leq \gamma <1$$.
+
+##### Discrete Space: Linear Programming Formulation
+
+When both state and action spaces are finite, linear programming offers an early approach to finding the optimal policy. This formulation typically assumes an ergodic model, meaning the continuous-time MDP behaves like an [ergodic](/Ergodicity) continuous-time Markov chain under a stationary [policy](/Policy). Under this assumption, decisions are made only when the system is about to transition between states. If the optimal value function $$V^{*}$$ is state-independent, we have:
+
+$$ g\geq R(i,a)+\sum _{j\in S}q(j\mid i,a)h(j)\quad \forall i\in S{\text{ and }}a\in A(i) $$
+
+If a function $$h$$ exists, $${\bar {V}}^{*}$$ will be the smallest $$g$$ that satisfies this. The linear programming formulation to find $${\bar {V}}^{*}$$ is as follows:
+
+*   **Primal Linear Program (P-LP)**
+
+    $$
+    \begin{aligned}
+    \text{Minimize} \quad &g \\
+    \text{s.t.} \quad &g-\sum _{j\in S}q(j\mid i,a)h(j)\geq R(i,a)\quad \forall i\in S,\,a\in A(i)
+    \end{aligned}
+    $$
+
+*   **Dual Linear Program (D-LP)**
+
+    $$
+    \begin{aligned}
+    \text{Maximize} \quad &\sum _{i\in S}\sum _{a\in A(i)}R(i,a)y(i,a) \\
+    \text{s.t.} \quad &\sum _{i\in S}\sum _{a\in A(i)}q(j\mid i,a)y(i,a)=0\quad \forall j\in S, \\
+    &\sum _{i\in S}\sum _{a\in A(i)}y(i,a)=1, \\
+    &y(i,a)\geq 0\qquad \forall a\in A(i){\text{ and }}\forall i\in S
+    \end{aligned}
+    $$
+
+A feasible solution $$y(i,a)$$ to the D-LP is optimal if it maximizes the objective function. Once the optimal solution $$y^{*}(i,a)$$ is found, it can be used to establish the optimal policies.
+
+##### Continuous Space: Hamilton–Jacobi–Bellman Equation
+
+For continuous-time MDPs with continuous state and action spaces, the optimal criterion is found by solving the [Hamilton–Jacobi–Bellman (HJB) partial differential equation](/Hamilton%E2%80%93Jacobi%E2%80%93Bellman_equation). The problem is reformulated as:
+
+$$
+\begin{aligned}
+V(s(0),0)={}&\max _{a(t)=\pi (s(t))}\int _{0}^{T}r(s(t),a(t))\,dt+D[s(T)]\\
+{\text{s.t.}}\quad &{\frac {ds(t)}{dt}}=f[t,s(t),a(t)]
+\end{aligned}
+$$
+
+Here, $$D(\cdot)$$ is the terminal reward function, $$s(t)$$ is the system state vector, $$a(t)$$ is the control vector we seek, and $$f(\cdot)$$ describes how the state vector evolves. The HJB equation is:
+
+$$ 0=\max _{a}(r(t,s,a)+{\frac {\partial V(t,s)}{\partial s}}f(t,s,a)) $$
+
+Solving this equation yields the optimal value function $$V^{*}$$, which in turn determines the optimal control at any time $$t$$:
+
+$$ a(t)= \underset {a}{\text{argmax}}(r(t,s,a)+{\frac {\partial V^{*}(t,s)}{\partial s}}f(t,s,a)) $$
+
+### Reinforcement Learning
+
+[Reinforcement learning](/Reinforcement_learning) is a branch of [machine learning](/Machine_learning) and [optimal control](/Optimal_control) focused on finding *approximately* optimal policies for MDPs when transition probabilities and rewards are unknown. &#91;19&#93;
+
+Reinforcement learning allows us to tackle MDPs without explicitly defining the transition probabilities needed for policy iteration. Instead, these probabilities and rewards are learned through interaction with the MDP. The agent gathers experience by acting within the environment, aiming to maximize *sample efficiency* – minimizing the amount of experience needed to find a policy that performs close to optimally. Perfect optimality is generally unattainable with finite samples due to the inherent stochasticity.
+
+#### Reinforcement Learning for Discrete MDPs
+
+For discrete MDPs, a useful auxiliary function is defined as taking action $$a$$ and then proceeding optimally (or according to the current policy):
+
+$$ Q(s,a)=\sum _{s'}P_{a}(s,s')(R_{a}(s,s')+\gamma V(s')). $$
+
+While this $$Q$$ function is also unknown, learning experience is based on $$ (s,a) $$ pairs and their outcomes ($$s'$$). Therefore, one can maintain a table of $$Q$$ values and update it directly from experience. This is the essence of [Q-learning](/Q-learning).
+
+### Other Scopes
+
+#### Learning Automata
+
+The theory of [learning automata](/Learning_automata) offers another perspective on MDPs within [machine learning](/Machine_learning). If the environment is stochastic, it can be viewed as a type of reinforcement learning. Early work by [Narendra](/Kumpati_S._Narendra) and Thathachar (1974) described learning automata as [finite-state automata](/Finite-state_automata). &#91;20&#93; Similar to reinforcement learning, learning automata can solve problems without known probabilities or rewards. The key difference from Q-learning is that learning automata update action probabilities directly, eschewing the memory of Q-values. This scheme comes with rigorous convergence proofs. &#91;21&#93;
+
+A stochastic automaton in this context consists of:
+
+*   A set $$x$$ of possible inputs.
+*   A set $$\Phi = \{ \Phi_1, ..., \Phi_s \}$$ of internal states.
+*   A set $$\alpha = \{ \alpha_1, ..., \alpha_r \}$$ of possible outputs or actions, where $$r \leq s$$.
+*   An initial state probability vector $$p(0) = \langle p_1(0), ..., p_s(0) \rangle$$.
+*   A [computable function](/Computable_function) $$A$$ that updates $$p(t)$$ to $$p(t+1)$$ based on the current input and state at time $$t$$.
+*   A function $$G: \Phi \to \alpha$$ that generates the output (action) at each time step.
+
+The states of such an automaton align with the states of a "discrete-state discrete-parameter [Markov process](/Markov_process)". &#91;22&#93; At each time step $$t$$, the automaton receives an input, updates its state probabilities using $$A$$, randomly selects a successor state based on these probabilities, and outputs the corresponding action. The environment then processes this action and provides the next input. &#91;21&#93;
+
+#### Category Theoretic Interpretation
+
+Beyond rewards, a Markov decision process $$ (S, A, P) $$ can be framed within [Category theory](/Category_theory). Let $$\mathcal{A}$$ be the [free monoid](/Free_monoid) generated by $$A$$. Let **Dist** be the [Kleisli category](/Kleisli_category) of the Giry monad. Then, a functor $$ \mathcal{A} \to \mathbf{Dist} $$ can encode both the state space $$S$$ and the probability function $$P$$.
+
+This allows for a generalization of MDPs from monoids (categories with a single object) to arbitrary categories. Such a structure, $$(\mathcal{C}, F: \mathcal{C} \to \mathbf{Dist})$$, could be termed a context-dependent Markov decision process, as transitions between objects in $$\mathcal{C}$$ can alter the available actions and the set of possible states. &#91; [citation needed](/Wikipedia:Citation_needed) &#93;
+
+### Alternative Notations
+
+The terminology and notation for MDPs are, shall we say, fluid. Two main schools of thought exist:
+
+*   One, prevalent in fields like economics, focuses on maximization problems, using terms like "action," "reward," and "value," and often employing $$\beta$$ or $$\gamma$$ for the discount factor.
+*   The other, common in engineering and navigation, deals with minimization problems, using terms like "control," "cost," and "cost-to-go," and frequently using $$\alpha$$ for the discount factor.
+
+The notation for transition probabilities also varies:
+
+| In this article                                  | Alternative                                   | Comment                                         |
+| :----------------------------------------------- | :-------------------------------------------- | :---------------------------------------------- |
+| action $$a$$                                     | control $$u$$                                 |                                                 |
+| reward $$R$$                                     | cost $$g$$                                    | $$g$$ is typically the negative of $$R$$        |
+| value $$V$$                                      | cost-to-go $$J$$                              | $$J$$ is typically the negative of $$V$$        |
+| policy $$\pi$$                                   | policy $$\mu$$                                |                                                 |
+| discounting factor $$\gamma$$                    | discounting factor $$\alpha$$                 |                                                 |
+| transition probability $$P_{a}(s,s')$$           | transition probability $$p_{ss'}(a)$$         |                                                 |
+
+Additionally, transition probability might appear as $$\Pr(s,a,s')$$ , $$\Pr(s'\mid s,a)$$, or less commonly, $$p_{s's}(a)$$.
+
+### See Also
+
+*   [Probabilistic automata](/Probabilistic_automata)
+*   [Odds algorithm](/Odds_algorithm)
+*   [Quantum finite automata](/Quantum_finite_automata)
+*   [Partially observable Markov decision process](/Partially_observable_Markov_decision_process)
+*   [Dynamic programming](/Dynamic_programming)
+*   [Bellman equation](/Bellman_equation) (for applications in economics)
+*   [Hamilton–Jacobi–Bellman equation](/Hamilton%E2%80%93Jacobi%E2%80%93Bellman_equation)
+*   [Optimal control](/Optimal_control)
+*   [Recursive economics](/Recursive_economics)
+*   [Mabinogion sheep problem](/Mabinogion_sheep_problem)
+*   [Stochastic games](/Stochastic_games)
+*   [Q-learning](/Q-learning)
+*   [Markov chain](/Markov_chain)
+
+#

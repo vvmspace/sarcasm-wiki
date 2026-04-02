@@ -1,0 +1,157 @@
+---
+title: "Expectation Value (Quantum Mechanics)"
+description: "Oh, *this* again. You want me to take something dry and academic, something that smells of chalk dust and forgotten equations, and… imbue it with some..."
+keywords: quantum mechanics, operator, dirac notation, normalized, observable, state, self-adjoint, separable, complex, hilbert space
+slug: "Expectation_value_(quantum_mechanics)"
+createdAt: "2025-11-17T06:48:38.609Z"
+updatedAt: "2025-11-17T06:48:38.609Z"
+contentType: "rewritten"
+---
+
+Oh, *this* again. You want me to take something dry and academic, something that smells of chalk dust and forgotten equations, and… imbue it with some semblance of life? Fine. But don't expect me to suddenly start chirping about the inherent beauty of quantum mechanics. It's just… physics. And you're asking me to explain it. It's a predictable kind of suffering.
+
+Let's get this over with.
+
+## Expected Value of a Quantum Measurement
+
+In the grim, beautiful realm of [quantum mechanics](/Quantum_mechanics), the "expectation value" is what you get when you average the results of a measurement. Not the *most likely* result, mind you. The average. Think of it like this: you're at a party, and everyone's got a story. The expectation value is the average length of those stories, even if half of them are just a mumbled "I was there" and the other half are epic sagas. It's the weighted average, where "weighted" means how likely each story is to be told. It's a fundamental concept, alright. As fundamental as realizing the universe doesn't particularly care about your feelings.
+
+### Operational Definition
+
+So, you have an [operator](/Operator_(physics)), let's call it `A`. It's not a person, obviously. It's a mathematical representation of a physical quantity you want to measure – position, momentum, spin, whatever. The expectation value, which we’ll denote with those pretentious angled brackets `⟨A⟩`, is calculated like this:
+
+`⟨A⟩ = ⟨ψ|A|ψ⟩`
+
+This is [Dirac notation](/Bra_ket_notation). `|ψ⟩` is your state vector. It’s a description of the system, like a faded photograph of its current mood. It needs to be [normalized](/Normalization_(statistics)), meaning its total probability is one. You can’t have a probability greater than certainty, can you? That would be… inefficient.
+
+### Formalism in Quantum Mechanics
+
+In the cold, hard universe of quantum theory, you’ve got your [observable](/Observable), `A` – the thing you want to measure. And you’ve got your [state](/Quantum_state), `σ` – the system’s condition. The expectation value of `A` in state `σ` is written as `⟨A⟩_σ`. It’s a label, really. A way to keep track of things.
+
+Mathematically speaking, `A` is a [self-adjoint](/Self-adjoint) operator, which is a fancy way of saying it’s its own conjugate transpose. It lives in a [separable](/Separable_space), [complex](/Complex_number) [Hilbert space](/Hilbert_space). A complex Hilbert space. Because of course it is.
+
+When `σ` is a [pure state](/Pure_state), which is the most common scenario in quantum mechanics, it’s described by a normalized vector, `ψ`. The expectation value of `A` in this state `ψ` is precisely what I wrote before:
+
+`⟨A⟩_ψ = ⟨ψ|A|ψ⟩`
+
+Now, if you’re dealing with [dynamics](/Dynamics_(physics)), things get a bit murky. Either `ψ` changes over time, or `A` does. It depends on whether you're in the [Schrödinger picture](/Schr%C3%B6dinger_picture) or the [Heisenberg picture](/Heisenberg_picture). Frankly, it’s a matter of perspective. The evolution of the expectation value, however, remains stubbornly consistent. It doesn't care about your chosen framework.
+
+If `A` has a complete set of [eigenvectors](/Eigenvector), let’s call them `φ_j`, with corresponding [eigenvalues](/Eigenvalue) `a_j`, such that:
+
+`A = Σ_j a_j |φ_j⟩⟨φ_j|`
+
+Then the expectation value `⟨A⟩_ψ` can be expressed as:
+
+`⟨A⟩_ψ = Σ_j a_j |⟨ψ|φ_j⟩|^2`
+
+This looks a lot like an [arithmetic mean](/Arithmetic_mean), doesn't it? The `a_j` are the possible results you might get from your measurement. The `|⟨ψ|φ_j⟩|^2` part? That’s the probability of getting that specific result. It's the transition probability. The universe handing you odds.
+
+Consider a simpler case: when `A` is a [projection](/Projection_(linear_algebra)). It only has eigenvalues 0 and 1. It’s like a "yes" or "no" question. Does the particle have spin up? Yes or no. In this situation, the expectation value is simply the probability that the answer is "1". It can be calculated as:
+
+`⟨A⟩_ψ = ||A|ψ⟩||^2`
+
+It’s elegant, in a cold, calculating way.
+
+Now, quantum theory loves to throw curveballs. Some operators, like the [position operator](/Position_operator) `X`, have a [continuous spectrum](/Continuous_spectrum). The eigenvalues and eigenvectors aren't discrete points; they depend on a continuous parameter, `x`. The operator `X` acts on a spatial vector `|x⟩` like this:
+
+`X|x⟩ = x|x⟩`
+
+In this scenario, the state vector `ψ` becomes a [complex-valued](/Complex_numbers) function, `ψ(x)`, on the spectrum of `X`. This is achieved by projecting `|ψ⟩` onto the eigenvalues, just like in the discrete case:
+
+`ψ(x) ≡ ⟨x|ψ⟩`
+
+The eigenvectors of the position operator form a complete basis for the [vector space](/Vector_space) of states. This means they obey a completeness relation:
+
+`∫ |x⟩⟨x| dx ≡ I`
+
+Using this, we can derive the common integral expression for the expected value. It’s a bit of algebraic heavy lifting, inserting identities and expanding in the position basis. It looks like this:
+
+`⟨X⟩_ψ = ⟨ψ|X|ψ⟩`
+`= ⟨ψ| I X I |ψ⟩`
+`= ∫∫ ⟨ψ|x⟩⟨x|X|x'⟩⟨x'|ψ⟩ dx dx'`
+`= ∫∫ ⟨x|ψ⟩* x'⟨x|x'⟩⟨x'|ψ⟩ dx dx'`
+`= ∫∫ ⟨x|ψ⟩* x'δ(x-x')⟨x'|ψ⟩ dx dx'`
+`= ∫ ψ(x)* x ψ(x) dx`
+`= ∫ x ψ(x)* ψ(x) dx`
+`= ∫ x |ψ(x)|² dx`
+
+The [orthonormality relation](/Orthonormality) of the position basis vectors, `⟨x|x'⟩ = δ(x-x')`, simplifies the double integral to a single one. And `ψ*ψ`? That’s `|ψ|²`, a common substitution in these calculations. It represents the probability density.
+
+So, when `x` isn't bounded, the expectation value takes this form:
+
+`⟨X⟩_ψ = ∫_{-∞}^{∞} x |ψ(x)|² dx`
+
+A similar formula applies to the [momentum operator](/Momentum_operator), provided it also has a continuous spectrum.
+
+These formulas, mind you, are for pure states. When you venture into [thermodynamics](/Thermodynamics) or [quantum optics](/Quantum_optics), you encounter [mixed states](/Mixed_state). These are described by a statistical operator, or [density matrix](/Density_matrix), `ρ`. It's a sum of pure states, each weighted by a probability `p_i`:
+
+`ρ = Σ_i p_i |ψ_i⟩⟨ψ_i|`
+
+The expectation value in this mixed state is then:
+
+`⟨A⟩_ρ = Trace(ρA) = Σ_i p_i ⟨ψ_i|A|ψ_i⟩ = Σ_i p_i ⟨A⟩_{ψ_i}`
+
+It’s just another layer of averaging. More numbers to keep track of.
+
+### General Formulation
+
+In its most general form, quantum states `σ` are described by positive normalized [linear functionals](/Linear_functional) on the set of observables. If we’re talking about a [C*-algebra](/C*-algebra), the expectation value of an observable `A` is simply:
+
+`⟨A⟩_σ = σ(A)`
+
+If the algebra of observables acts irreducibly on a [Hilbert space](/Hilbert_space), and `σ` is a normal functional (meaning it’s continuous in the [ultraweak topology](/Ultraweak_topology)), then it can be written as `σ(⋅) = Tr(ρ ⋅)` for some positive [trace-class](/Trace-class) operator `ρ` with a trace of 1. This brings us back to formula (5).
+
+For a [pure state](/Pure_state), `ρ` is just the projection onto a unit vector `|ψ⟩⟨ψ|`. Then `σ = ⟨ψ|⋅ψ⟩`, leading back to formula (1).
+
+The operator `A` is always assumed to be [self-adjoint](/Self-adjoint_operator). In the general case, its spectrum is neither purely discrete nor purely continuous. It can be written using a [spectral decomposition](/Spectral_theorem):
+
+`A = ∫ a dP(a)`
+
+where `P` is a [projection-valued measure](/Projection-valued_measure). For the expectation value of `A` in a pure state `σ = ⟨ψ|⋅ψ⟩`, this means:
+
+`⟨A⟩_σ = ∫ a d⟨ψ|P(a)ψ⟩`
+
+This is a more general form, encompassing formulas (2) and (4).
+
+In standard, non-relativistic quantum mechanics with a finite number of particles, states are usually normal. But if you stray into areas like [quantum statistical mechanics](/Quantum_statistical_mechanics) of infinitely extended systems, or [quantum field theory](/Quantum_field_theory), you encounter non-normal states. In those cases, the expectation value is dictated by the more general formula (6).
+
+### Example in Configuration Space
+
+Let’s take a concrete example: a single particle in one spatial dimension. Its [Hilbert space](/Hilbert_space) is `L²(ℝ)`, the space of square-integrable functions on the real line. Vectors `ψ ∈ H` are represented by [wave functions](/Wave_functions), `ψ(x)`. The scalar product is:
+
+`⟨ψ₁|ψ₂⟩ = ∫ ψ₁*(x) ψ₂(x) dx`
+
+The wave function `ψ(x)` has a direct interpretation: `ρ(x)dx = ψ*(x)ψ(x)dx` is the probability of finding the particle in an infinitesimal interval `dx` around point `x`.
+
+Consider the position operator `Q`. It acts on a wave function `ψ` as:
+
+`(Qψ)(x) = xψ(x)`
+
+The expectation value, or average value, of `Q` from many identical systems is:
+
+`⟨Q⟩_ψ = ⟨ψ|Q|ψ⟩ = ∫_{-∞}^{∞} ψ*(x) x ψ(x) dx = ∫_{-∞}^{∞} x ρ(x) dx`
+
+This integral only converges if `ψ` is chosen from the [domain of definition](/Domain_of_definition) of the [unbounded](/Unbounded_operator) position operator. Not all wave functions are well-behaved enough to give a definite expectation value for position.
+
+For any observable, you just substitute its corresponding operator. For average momentum, in [configuration space](/Configuration_space_(physics)), you use the momentum operator:
+
+`p = -iħ d/dx`
+
+Its expectation value is:
+
+`⟨p⟩_ψ = -iħ ∫_{-∞}^{∞} ψ*(x) (dψ(x)/dx) dx`
+
+Not every operator yields a measurable value. Only those with purely real expectation values are considered [observables](/Observable). They can actually be measured.
+
+### See also
+
+*   [Rayleigh quotient](/Rayleigh_quotient)
+*   [Uncertainty principle](/Uncertainty_principle)
+*   [Virial theorem](/Virial_theorem)
+
+### Notes
+
+*   ^ This article always assumes `ψ` is normalized to 1. If it’s not, you just divide by its norm, `||ψ||`, in all formulas. It’s basic hygiene.
+*   ^ This assumes the eigenvalues are not degenerate. If they are, things get a bit more complicated, but the core idea remains.
+
+#

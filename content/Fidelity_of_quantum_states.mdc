@@ -1,0 +1,318 @@
+---
+title: "Fidelity Of Quantum States"
+description: "In the vast, often bewildering landscape of quantum mechanics, particularly within the labyrinthine corridors of quantum information theory, the concept of..."
+keywords: quantum mechanics, quantum information theory, density matrices, metric, bures metric
+slug: "Fidelity_of_quantum_states"
+createdAt: "2025-12-21T10:03:12.431Z"
+updatedAt: "2025-12-21T10:03:12.431Z"
+contentType: "rewritten"
+previousArticleSlug: "Electromagnetic_four-potential"
+previousArticleTitle: "Electromagnetic Four-Potential"
+---
+
+### Term in quantum mechanics
+
+In the vast, often bewildering landscape of [quantum mechanics](/Quantum_mechanics), particularly within the labyrinthine corridors of [quantum information theory](/Quantum_information_theory), the concept of fidelity emerges. It’s a term, apparently, that quantifies the "closeness" between two distinct [density matrices](/Mixed_state_(physics)). One might, if one were so inclined, consider it a measure of how indistinguishable two quantum states are. More precisely, it articulates the probability that one quantum state, when subjected to a specific test, would be accurately identified as the other. It’s like trying to tell two identical shadows apart – you might succeed, but the fidelity tells you how good your chances are.
+
+However, despite its intuitive appeal as a measure of proximity, it's critical to note that fidelity, in its standard definition, is not a true [metric](/Metric_(mathematics)) on the intricate space of density matrices. It fails to satisfy all the axiomatic requirements of a metric, such as the triangle inequality (though its square root does, as we shall, regrettably, explore later). Nevertheless, this seemingly imperfect measure holds considerable power. It serves as the foundational element from which a genuine metric, known as the [Bures metric](/Bures_metric), can be rigorously constructed on this very space, offering a more geometrically sound way to describe distances between quantum states.
+
+### Definition
+
+The fidelity between two given quantum states, denoted by the enigmatic symbols $\rho$ and $\sigma$, which are meticulously represented as [density matrices](/Density_matrix), is conventionally defined by a rather elegant, if somewhat intimidating, mathematical expression: [1](/Journal_of_Modern_Optics) [2](/Doi_(identifier))
+
+$F(\rho ,\sigma )=\left(\operatorname {tr} {\sqrt {{\sqrt {\rho }}\sigma {\sqrt {\rho }}}}\right)^{2}.$
+
+Let's unpack this for those who insist on precision. The square roots appearing within this expression are, thankfully, well-defined mathematical entities. This is because both $\rho$ itself, and the composite operator ${\sqrt {\rho }}\sigma {\sqrt {\rho }}$, are inherently [positive semidefinite matrices](/Positive-definite_matrix). The operation of taking the [square root of a positive semidefinite matrix](/Square_root_of_a_matrix) is a standard procedure, robustly defined through the venerable [spectral theorem](/Spectral_theorem). This theorem assures us that such matrices can be diagonalized, and their square roots found by simply taking the square roots of their non-negative eigenvalues.
+
+In essence, this quantum definition replaces the familiar [Euclidean inner product](/Inner_product) found in classical probability theory with its quantum counterpart: the [Hilbert–Schmidt](/Hilbert%E2%80%93Schmidt_operator) [inner product](/Inner_product). This shift from classical vectors to quantum operators is where much of the complexity, and indeed the beauty, of quantum fidelity lies.
+
+As one might expect from any concept deemed "fundamental," this expression can be considerably simplified in various specific, yet frequently encountered, scenarios. Most notably, when dealing with [pure states](/Pure_state) – those pristine, unadulterated quantum entities – the formula becomes far less cumbersome. If we have a pure state $\rho =|\psi _{\rho }\rangle \!\langle \psi _{\rho }|$ and another pure state $\sigma =|\psi _{\sigma }\rangle \!\langle \psi _{\sigma }|$, the fidelity between them collapses into a remarkably simple form:
+
+$F(\rho ,\sigma )=|\langle \psi _{\rho }|\psi _{\sigma }\rangle |^{2}.$
+
+This simplification offers a rather direct, almost poetic, interpretation. The fidelity between two pure states is simply the squared modulus of their [inner product](/Inner_product) (or "overlap" as the quantum cognoscenti prefer). This quantity directly corresponds to the probability of successfully observing the state $|\psi _{\rho }\rangle$ if one were to measure the state $|\psi _{\sigma }\rangle$ in a basis that includes $|\psi _{\rho }\rangle$. It’s a straightforward measure of how much one state "looks like" the other in a probabilistic sense.
+
+It's worth noting, with a slight sigh of exasperation, that some academics occasionally employ an alternative definition, whimsically labeled $F':={\sqrt {F}}$, referring to this quantity as fidelity. [2](/Doi_(identifier)) One can only assume this is to keep everyone on their toes. However, the initial, squared definition of $F$ remains overwhelmingly more prevalent and accepted in the literature. [3](/ISBN_(identifier)) [4](/ISBN_(identifier)) [5](/ISBN_(identifier)) To sidestep any unnecessary confusion, it is, of course, advisable to explicitly state which definition is being used whenever "fidelity" is invoked. Perhaps "square root fidelity" could be used for the alternative, if one truly insists on being different.
+
+### Motivation from classical counterpart
+
+To truly appreciate the quantum fidelity, one must first glance back at its more pedestrian, classical ancestor. Consider two [random variables](/Random_variable), $X$ and $Y$, both capable of taking on values from a discrete set $(1,...,n)$ – essentially, [categorical random variables](/Categorical_variable). Let their respective [probability distributions](/Probability_distribution) be $p=(p_{1},p_{2},\ldots ,p_{n})$ and $q=(q_{1},q_{2},\ldots ,q_{n})$. In this classical realm, the fidelity between $X$ and $Y$ is elegantly defined as:
+
+$F(X,Y)=\left(\sum _{i}{\sqrt {p_{i}q_{i}}}\right)^{2}.$
+
+This classical fidelity, it should be made clear, concerns itself solely with the [marginal distribution](/Marginal_distribution) of these random variables. It offers absolutely no insight into their [joint distribution](/Joint_distribution) – a crucial distinction. In simpler terms, the fidelity $F(X,Y)$ is nothing more than the square of the [inner product](/Inner_product) between two vectors in [Euclidean space](/Euclidean_space): $({\sqrt {p_{1}}},\ldots ,{\sqrt {p_{n}}})$ and $({\sqrt {q_{1}}},\ldots ,{\sqrt {q_{n}}})$. It's a measure of how much their "square-rooted" probability amplitudes overlap. A value of $F(X,Y)=1$ signifies perfect agreement, meaning $p=q$. Conversely, a value of $0$ indicates maximal distinguishability. Generally, this fidelity is bounded, residing comfortably within the interval $0\leq F(X,Y)\leq 1$. The sum within the parenthesis, $\sum _{i}{\sqrt {p_{i}q_{i}}}$, is a well-known quantity in statistics, christened the [Bhattacharyya coefficient](/Bhattacharyya_coefficient).
+
+Now, for the quantum leap. Given this established [classical](/Classical_physics) measure for distinguishing two [probability distributions](/Probability_distribution), a natural, if somewhat forced, extension arises for quantifying the distinguishability of two quantum states. Imagine an experimenter, bless their heart, attempting to ascertain whether a given [quantum state](/Quantum_state) is either $\rho$ or $\sigma$. The most comprehensive measurement they can perform on such a state is a [POVM](/POVM) (Positive Operator-Valued Measure). This POVM is characterized by a collection of [Hermitian](/Hermitian_operator) [positive semidefinite](/Positive-definite_matrix) [operators](/Operator_(mathematics)), $\{F_{i}\}$. When this POVM is applied to a state $\rho$, the $i$-th outcome is detected with a probability $p_{i}=\operatorname {tr} (\rho F_{i})$. Similarly, for state $\sigma$, the probability of the $i$-th outcome is $q_{i}=\operatorname {tr} (\sigma F_{i})$.
+
+The ability to differentiate between the quantum states $\rho$ and $\sigma$ then becomes directly analogous to the ability to distinguish between the resulting classical probability distributions, $p$ and $q$. The obvious, and frankly, inevitable, question then becomes: which POVM maximizes this distinguishability? Or, in this particular context, which POVM minimizes the Bhattacharyya coefficient derived from these classical probability distributions? Formally, this line of reasoning leads us to define the fidelity between quantum states as:
+
+$F(\rho ,\sigma )=\min _{\{F_{i}\}}F(X,Y)=\min _{\{F_{i}\}}\left(\sum _{i}{\sqrt {\operatorname {tr} (\rho F_{i})\operatorname {tr} (\sigma F_{i})}}\right)^{2}.$
+
+This definition, while conceptually sound, looks rather unwieldy. Fortunately, the pioneering work of [Fuchs](/Christopher_A._Fuchs) and Caves [6](/Physical_Review_Letters) provided the explicit solution to this minimization problem. They demonstrated that the minimum is achieved by a specific projective POVM, one that corresponds to measuring in the eigenbasis of the operator $\sigma ^{-1/2}|{\sqrt {\sigma }}{\sqrt {\rho }}|\sigma ^{-1/2}$. This elegant mathematical maneuver then leads directly back to the common, explicit expression for quantum fidelity we first encountered:
+
+$F(\rho ,\sigma )=\left(\operatorname {tr} {\sqrt {{\sqrt {\rho }}\sigma {\sqrt {\rho }}}}\right)^{2}.$
+
+So, in essence, quantum fidelity is the *optimal* classical fidelity one could hope to achieve when trying to distinguish quantum states through measurement. It's the best you can do, and the universe, as usual, makes you work for it.
+
+### Equivalent expressions
+
+For those who enjoy seeing the same truth presented in various guises, quantum fidelity offers a few alternative, equally valid, expressions. It's as if the universe couldn't decide on a single favored idiom.
+
+#### Equivalent expression via trace norm
+
+An alternative, and often quite useful, expression for the fidelity between arbitrary quantum states can be formulated using the [trace norm](/Matrix_norm). This norm, often denoted by $\lVert \cdot \rVert _{\operatorname {tr} }$, is defined as the sum of the singular values of an operator. The fidelity can be written as:
+
+$F(\rho ,\sigma )=\lVert {\sqrt {\rho }}{\sqrt {\sigma }}\rVert _{\operatorname {tr} }^{2}=\left(\operatorname {tr} |{\sqrt {\rho }}{\sqrt {\sigma }}|\right)^{2},$
+
+Here, the [absolute value](/Absolute_value) of an operator, $|A|$, is precisely defined as $|A|\equiv {\sqrt {A^{\dagger }A}}$. This formulation reveals fidelity as the squared trace norm of the product of the square roots of the density matrices. It underscores the connection between fidelity and the geometric properties of operators in Hilbert space, emphasizing how the "size" of the overlap between these "square-root states" determines their closeness. It’s a different angle, but the view remains consistent.
+
+#### Equivalent expression via characteristic polynomials
+
+Another avenue to express fidelity involves the eigenvalues of matrix products. Given that the [trace](/Trace_(linear_algebra)) of a matrix is fundamentally equal to the sum of its [eigenvalues](/Eigenvalue), we can write fidelity as:
+
+$F(\rho ,\sigma )=\sum _{j}{\sqrt {\lambda _{j}}},$
+
+where the $\lambda _{j}$ are the eigenvalues of the operator ${\sqrt {\rho }}\sigma {\sqrt {\rho }}$. Since this operator is positive semidefinite by its very construction, its eigenvalues $\lambda_j$ are guaranteed to be non-negative, ensuring that their square roots are well-defined real numbers. This sum of square roots of eigenvalues provides a direct, albeit abstract, path to calculating fidelity.
+
+Furthermore, a well-established property of linear algebra states that the [characteristic polynomial of a product of two matrices](/Characteristic_polynomial) is independent of the order of multiplication, meaning the [spectrum](/Spectrum_of_a_matrix) (the set of eigenvalues) of a [matrix product](/Matrix_multiplication) remains invariant under [cyclic permutation](/Cyclic_permutation). This implies that the eigenvalues of ${\sqrt {\rho }}\sigma {\sqrt {\rho }}$ are precisely the same as the eigenvalues of $\rho \sigma$. [7](/Journal_of_Mathematical_Physics) [8](/Physical_Review_A) Leveraging this, we can reverse the trace property and arrive at yet another equivalent, and often more computationally convenient, expression:
+
+$F(\rho ,\sigma )=\left(\operatorname {tr} {\sqrt {\rho \sigma }}\right)^{2}.$
+
+This form is particularly elegant as it simplifies the nested square roots, presenting fidelity as the squared trace of the square root of the product $\rho \sigma$. It's a testament to the interconnectedness of linear algebra and quantum mechanics, where seemingly different paths lead to the same destination.
+
+### Expressions for pure states
+
+The mathematical machinery of fidelity can seem quite cumbersome for general mixed states. However, the universe, in its occasional mercy, simplifies things considerably when dealing with [pure states](/Pure_state). These are the quantum states that are not statistical mixtures of other states, representing a maximal amount of information about the system.
+
+If at least one of the two states in question is a pure state—for instance, if $\rho =|\psi _{\rho }\rangle \!\langle \psi _{\rho }|$—the fidelity calculation undergoes a significant reduction in complexity. The expression simplifies dramatically to:
+
+$F(\rho ,\sigma )=\operatorname {tr} (\sigma \rho )=\langle \psi _{\rho }|\sigma |\psi _{\rho }\rangle .$
+
+To see why this holds, one simply observes that if $\rho$ is a pure state, then its square root is itself, i.e., ${\sqrt {\rho }}=\rho$. Substituting this into the general definition yields:
+
+$F(\rho ,\sigma )=\left(\operatorname {tr} {\sqrt {|\psi _{\rho }\rangle \langle \psi _{\rho }|\sigma |\psi _{\rho }\rangle \langle \psi _{\rho }|}}\right)^{2}.$
+
+Now, recognizing that $\langle \psi _{\rho }|\sigma |\psi _{\rho }\rangle$ is simply a scalar (a single number, representing the expectation value of $\sigma$ in state $|\psi_\rho\rangle$), we can pull it out of the square root and the trace, leaving:
+
+$F(\rho ,\sigma )=\langle \psi _{\rho }|\sigma |\psi _{\rho }\rangle \left(\operatorname {tr} {\sqrt {|\psi _{\rho }\rangle \langle \psi _{\rho }|}}\right)^{2}.$
+
+Since ${\sqrt {|\psi _{\rho }\rangle \langle \psi _{\rho }|}} = |\psi _{\rho }\rangle \langle \psi _{\rho }| = \rho$, and $\operatorname {tr} (\rho) = 1$ (as $\rho$ is a normalized density matrix), the expression further simplifies to:
+
+$F(\rho ,\sigma )=\langle \psi _{\rho }|\sigma |\psi _{\rho }\rangle .$
+
+This result is profoundly insightful: the fidelity between a pure state $|\psi _{\rho }\rangle$ and an arbitrary (pure or mixed) state $\sigma$ is simply the expectation value of the density matrix $\sigma$ in the state $|\psi _{\rho }\rangle$. It quantifies how much of the state $\sigma$ "projects onto" or "is contained within" the pure state $|\psi _{\rho }\rangle$.
+
+The simplification becomes even more profound when *both* states are pure. If $\rho =|\psi _{\rho }\rangle \!\langle \psi _{\rho }|$ and $\sigma =|\psi _{\sigma }\rangle \!\langle \psi _{\sigma }|$, then the fidelity is given by the remarkably concise expression:
+
+$F(\rho ,\sigma )=|\langle \psi _{\rho }|\psi _{\sigma }\rangle |^{2}.$
+
+This is the squared modulus of the inner product between the two pure state vectors. It's a direct measure of their quantum overlap or similarity. If the states are identical, the inner product is 1, and fidelity is 1. If they are perfectly orthogonal, the inner product is 0, and fidelity is 0. It’s a beautifully simple outcome for such fundamental quantum entities.
+
+### Properties
+
+The quantum state fidelity, despite its initial complexity, exhibits several elegant and entirely predictable properties that make it a robust and useful tool in [quantum information theory](/Quantum_information_theory). These properties are not merely mathematical curiosities but reflect the fundamental nature of quantum states and their relationships.
+
+*   **Symmetry**: The fidelity between two states is indifferent to the order in which they are presented. That is, swapping the roles of $\rho$ and $\sigma$ yields the exact same result:
+    $F(\rho ,\sigma )=F(\sigma ,\rho )$.
+    This property, while perhaps intuitively obvious for a measure of "closeness," is not immediately apparent from the original, asymmetric-looking definition involving nested square roots. It’s a welcome assurance of the measure's impartiality.
+
+*   **Bounded values**: Like many good measures of similarity, fidelity operates within a well-defined range. For any pair of density matrices $\rho$ and $\sigma$, the fidelity $F(\rho ,\sigma )$ is always non-negative and never exceeds one:
+    $0\leq F(\rho ,\sigma )\leq 1$.
+    Furthermore, perfect fidelity, $F(\rho ,\rho )=1$, is achieved if and only if the two states are identical. This makes sense: a state is perfectly "close" to itself. A value of 0 implies maximal distinguishability, meaning the states are entirely orthogonal and can be perfectly differentiated.
+
+*   **Consistency with fidelity between probability distributions**: Quantum theory, at its heart, must reduce to classical physics under appropriate conditions. Fidelity adheres to this principle. If the two quantum states, $\rho$ and $\sigma$, [commute](/Commutator) (i.e., $[\rho ,\sigma ]=0$), then they can be simultaneously diagonalized in the same orthonormal basis. This means they share a common set of eigenvectors, differing only in their eigenvalues. In this special case, the definition of quantum fidelity simplifies directly to its classical counterpart:
+    $F(\rho ,\sigma )=\left[\operatorname {tr} {\sqrt {\rho \sigma }}\right]^{2}=\left(\sum _{k}{\sqrt {p_{k}q_{k}}}\right)^{2}=F({\boldsymbol {p}},{\boldsymbol {q}})$,
+    where $p_{k}$ and $q_{k}$ are the eigenvalues of $\rho$ and $\sigma$, respectively. This consistency is not a mere coincidence but a fundamental requirement. To illustrate, if $[\rho ,\sigma ]=0$, then they can be [diagonalized in the same basis](/Simultaneously_diagonalizable):
+    $\rho =\sum _{i}p_{i}|i\rangle \langle i|{\text{ and }}\sigma =\sum _{i}q_{i}|i\rangle \langle i|.$
+    Their product then becomes $\rho \sigma = \sum_{i} p_i q_i |i\rangle \langle i|$. Taking the square root of this product simply means taking the square root of each eigenvalue: ${\sqrt {\rho \sigma }} = \sum_{i} {\sqrt {p_i q_i}} |i\rangle \langle i|$. The trace of this operator is the sum of its diagonal elements (its eigenvalues):
+    $\operatorname {tr} {\sqrt {\rho \sigma }}=\operatorname {tr} \left(\sum _{k}{\sqrt {p_{k}q_{k}}}|k\rangle \!\langle k|\right)=\sum _{k}{\sqrt {p_{k}q_{k}}}.$
+    Squaring this sum gives precisely the classical Bhattacharyya coefficient squared, which is the classical fidelity. It's a satisfying confirmation that the quantum generalization smoothly incorporates the classical case.
+
+*   **Explicit expression for qubits**: For the simplest non-trivial quantum systems—[qubit](/Qubit) states—the fidelity can be computed with an explicit, and rather concise, formula. A qubit state is described by a $2 \times 2$ density matrix. If $\rho$ and $\sigma$ both represent qubit states, their fidelity can be calculated as: [1](/Journal_of_Modern_Optics) [9](/Physics_Letters)
+    $F(\rho ,\sigma )=\operatorname {tr} (\rho \sigma )+2{\sqrt {\det(\rho )\det(\sigma )}}.$
+    This result arises from the fact that for $2 \times 2$ matrices, the eigenvalues of $M={\sqrt {\rho }}\sigma {\sqrt {\rho }}$ (which are $\lambda_1, \lambda_2$) can be directly related to the trace and determinant of $M$. Specifically, $\operatorname {tr} {\sqrt {M}}={\sqrt {\lambda _{1}}}+{\sqrt {\lambda _{2}}}$. For $2 \times 2$ positive semidefinite matrices, the square root of the determinant is often particularly useful. The formula elegantly combines the direct overlap ($\operatorname {tr} (\rho \sigma )$) with a term reflecting the "mixedness" of the states (via their determinants). If either $\rho$ or $\sigma$ is a pure state, its determinant is zero ($\mathrm {Det} (\rho )=0$ for pure states), and the expression simplifies further to $F(\rho ,\sigma )=\operatorname {tr} (\rho \sigma )$, as seen previously for pure states. This special case demonstrates the internal consistency of the fidelity definition across different state types.
+
+*   **Unitary invariance**: A fundamental principle in quantum mechanics is that physical properties should remain unchanged under [unitary evolution](/Unitary_transformation_(quantum_mechanics)). Fidelity respects this. If both states $\rho$ and $\sigma$ undergo the same [unitary operator](/Unitary_operator) $U$, their fidelity remains invariant:
+    $F(\rho ,\sigma )=F(U\rho \;U^{*},U\sigma U^{*})$.
+    This property is crucial because unitary operations correspond to reversible, ideal transformations in quantum systems, such as rotations in spin space or time evolution under a Hamiltonian. It confirms that fidelity is a measure of intrinsic similarity, independent of the particular basis or representation chosen, and robust against coherent changes. The "closeness" of two states is an inherent characteristic, not something that can be altered by simply rotating them in Hilbert space.
+
+### Relationship with the fidelity between the corresponding probability distributions
+
+The quantum fidelity, as we’ve established, is intrinsically linked to classical probability distributions through the process of measurement. This relationship is formalized by an important inequality that connects the square root of quantum fidelity to the [Bhattacharyya coefficient](/Bhattacharyya_coefficient) of classical distributions.
+
+Let $\{E_{k}\}_{k}$ denote an arbitrary [positive operator-valued measure](/POVM) (POVM). This is a set of [Hermitian](/Hermitian_operator), positive semidefinite operators $E_{k}$ that collectively satisfy the completeness relation $\sum _{k}E_{k}=I$, where $I$ is the identity operator. When such a POVM is applied to quantum states $\rho$ and $\sigma$, it generates classical probability distributions. Specifically, the probability of obtaining outcome $k$ from state $\rho$ is $p_{k}\equiv \operatorname {tr} (E_{k}\rho )$, and from state $\sigma$ is $q_{k}\equiv \operatorname {tr} (E_{k}\sigma )$.
+
+For any pair of quantum states $\rho$ and $\sigma$, and for *any* chosen POVM $\{E_{k}\}_{k}$, the following inequality holds:
+
+${\sqrt {F(\rho ,\sigma )}}\leq \sum _{k}{\sqrt {\operatorname {tr} (E_{k}\rho )}}{\sqrt {\operatorname {tr} (E_{k}\sigma )}}\equiv \sum _{k}{\sqrt {p_{k}q_{k}}}.$
+
+This inequality reveals a profound truth: the square root of the fidelity between two quantum states is always upper bounded by the [Bhattacharyya coefficient](/Bhattacharyya_coefficient) calculated from the classical probability distributions generated by *any* arbitrary measurement (POVM). This implies that no matter how cleverly one designs a measurement strategy, the resulting classical distinguishability (as quantified by the Bhattacharyya coefficient) can never be "better" than the fundamental quantum distinguishability captured by fidelity.
+
+Indeed, a stronger statement can be made, as hinted at in the motivation section:
+
+$F(\rho ,\sigma )=\min _{\{E_{k}\}}F({\boldsymbol {p}},{\boldsymbol {q}}),$
+
+where $F({\boldsymbol {p}},{\boldsymbol {q}})\equiv \left(\sum _{k}{\sqrt {p_{k}q_{k}}}\right)^{2}$ is the classical fidelity between the distributions $p$ and $q$, and the minimum is taken over all possible POVMs. [10](/Doi_(identifier)) This confirms that the quantum fidelity is not just *related* to classical fidelities, but it *defines* the absolute minimum classical fidelity achievable, representing the optimal measurement strategy for distinguishing the states. More specifically, this minimum is achieved by the projective POVM that corresponds to measuring in the eigenbasis of the rather complex operator $\sigma ^{-1/2}|{\sqrt {\sigma }}{\sqrt {\rho }}|\sigma ^{-1/2}$. This operator essentially highlights the "difference" between the states in a way that is most conducive to distinguishing them.
+
+#### Proof of inequality
+
+To demonstrate this crucial inequality, let's revisit an equivalent expression for the square root of fidelity, which we established earlier:
+
+${\sqrt {F(\rho ,\sigma )}}=\operatorname {tr} |{\sqrt {\rho }}{\sqrt {\sigma }}|.$
+
+This expression is directly equivalent to the existence of a [unitary operator](/Unitary_operator) $U$ such that:
+
+${\sqrt {F(\rho ,\sigma )}}=\operatorname {tr} ({\sqrt {\rho }}{\sqrt {\sigma }}U).$
+
+Now, recall that for any POVM, the identity $\sum _{k}E_{k}=I$ holds true. We can leverage this completeness relation to dissect the trace operation:
+
+${\sqrt {F(\rho ,\sigma )}}=\operatorname {tr} ({\sqrt {\rho }}{\sqrt {\sigma }}U)=\sum _{k}\operatorname {tr} ({\sqrt {\rho }}E_{k}{\sqrt {\sigma }}U).$
+
+To proceed, we can introduce square roots of the POVM elements, since $E_k$ are positive semidefinite, we can write $E_k = {\sqrt{E_k}}{\sqrt{E_k}}$:
+
+$=\sum _{k}\operatorname {tr} ({\sqrt {\rho }}{\sqrt {E_{k}}}{\sqrt {E_{k}}}{\sqrt {\sigma }}U).$
+
+At this point, we apply the generalized [Cauchy–Schwarz inequality](/Cauchy%E2%80%93Schwarz_inequality) for operators, which states that for any operators $A$ and $B$, $|\operatorname {tr} (A^{\dagger }B)|^{2}\leq \operatorname {tr} (A^{\dagger }A)\operatorname {tr} (B^{\dagger }B)$. Let $A^{\dagger} = {\sqrt {\rho }}{\sqrt {E_{k}}}$ and $B = {\sqrt {E_{k}}}{\sqrt {\sigma }}U$. Then $A = {\sqrt {E_{k}}}{\sqrt {\rho }}$ and $A^{\dagger}A = {\sqrt {\rho }}{\sqrt {E_{k}}}{\sqrt {E_{k}}}{\sqrt {\rho }} = {\sqrt {\rho }}E_{k}{\sqrt {\rho }}$. Similarly, $B^{\dagger} = U^{\dagger}{\sqrt {\sigma }}{\sqrt {E_{k}}}$ and $B^{\dagger}B = U^{\dagger}{\sqrt {\sigma }}{\sqrt {E_{k}}}{\sqrt {E_{k}}}{\sqrt {\sigma }}U = U^{\dagger}{\sqrt {\sigma }}E_{k}{\sqrt {\sigma }}U$.
+
+Applying this inequality to each term in the sum, we get:
+
+$\leq \sum _{k}{\sqrt {\operatorname {tr} ({\sqrt {\rho }}E_{k}{\sqrt {\rho }})\operatorname {tr} (U^{\dagger}{\sqrt {\sigma }}E_{k}{\sqrt {\sigma }}U)}}.$
+
+Since the trace is invariant under cyclic permutations, $\operatorname {tr} (U^{\dagger}{\sqrt {\sigma }}E_{k}{\sqrt {\sigma }}U) = \operatorname {tr} ({\sqrt {\sigma }}U U^{\dagger}{\sqrt {\sigma }}E_{k}) = \operatorname {tr} ({\sqrt {\sigma }}{\sqrt {\sigma }}E_{k}) = \operatorname {tr} (\sigma E_{k})$. Similarly, $\operatorname {tr} ({\sqrt {\rho }}E_{k}{\sqrt {\rho }}) = \operatorname {tr} (\rho E_{k})$.
+
+Substituting these back into the inequality, we finally arrive at:
+
+$\leq \sum _{k}{\sqrt {\operatorname {tr} (\rho E_{k})\operatorname {tr} (\sigma E_{k})}}.$
+
+This completes the proof, showing that the square root of the quantum fidelity is indeed bounded from above by the sum of the square roots of the classical probabilities, which is precisely the Bhattacharyya coefficient for that particular measurement. It's a rather elegant demonstration of how quantum information, when projected onto classical outcomes, can only ever appear "less distinct" than its true quantum nature.
+
+### Behavior under quantum operations
+
+The dynamics of quantum systems are governed by [quantum operations](/Quantum_operation), which describe how states evolve under interactions with an environment or intentional manipulation. A crucial property of fidelity is its behavior under these transformations. It can be rigorously demonstrated that the fidelity between two states will *never decrease* when a non-selective [quantum operation](/Quantum_operation) (often called a quantum channel) is applied to them. [11](/ArXiv_(identifier))
+
+Expressed mathematically:
+
+$F({\mathcal {E}}(\rho ),{\mathcal {E}}(\sigma ))\geq F(\rho ,\sigma ),$
+
+This inequality holds for any trace-preserving [completely positive map](/Completely_positive_map) ${\mathcal {E}}$. Let's dissect what these terms mean for a moment. A "non-selective quantum operation" refers to a process where the outcome of the operation is not conditioned on any measurement result; essentially, the environment interacts with the system, but we don't pick a specific measurement outcome. A "trace-preserving" map ensures that the total probability is conserved, meaning the state remains normalized after the operation. "Completely positive" is a stronger condition than mere positivity, ensuring that the map remains valid even when the system is entangled with an auxiliary system. It's the mathematical bedrock for describing any physical quantum evolution.
+
+The implication of this property is profound: quantum operations, which often represent unavoidable interactions with a noisy environment (i.e., [decoherence](/Quantum_decoherence)) or deliberate processing, can only make quantum states *more similar* or, at best, keep their similarity constant. They can never make two states *more distinguishable* in terms of fidelity. This is a powerful statement about the irreversibility of information loss in quantum systems and the tendency of quantum states to become mixed and less distinct under general physical processes. It's a stark reminder that the universe, in its relentless pursuit of entropy, prefers things to blur together rather than stand out.
+
+### Relationship to trace distance
+
+While fidelity quantifies "closeness," it's not a metric. However, another crucial measure of distinguishability in quantum mechanics, the [trace distance](/Trace_distance), *is* a metric. The trace distance between two matrices, $A$ and $B$, is defined in terms of the [trace norm](/Matrix_norm) as:
+
+$D(A,B)={\frac {1}{2}}\|A-B\|_{\rm {tr}}\,.$
+
+When $A$ and $B$ are both density operators, this trace distance serves as a quantum generalization of the [statistical distance](/Statistical_distance) (or total variation distance) between classical probability distributions. It quantifies the maximal probability of distinguishing two quantum states through a single measurement. If $D(\rho, \sigma) = 0$, the states are identical. If $D(\rho, \sigma) = 1$, they are perfectly distinguishable.
+
+The importance of the trace distance in the context of fidelity lies in the set of inequalities that connect the two measures, known as the Fuchs–van de Graaf inequalities. [12](/ArXiv_(identifier)) These provide both upper and lower bounds on fidelity using the trace distance, making them incredibly useful:
+
+$1-{\sqrt {F(\rho ,\sigma )}}\leq D(\rho ,\sigma )\leq {\sqrt {1-F(\rho ,\sigma )}}\,.$
+
+These inequalities are invaluable because, often, the trace distance is considerably easier to calculate or bound than the fidelity itself. If you can constrain one, you automatically gain information about the other. They establish a fundamental link: high fidelity implies low trace distance, and vice-versa. Essentially, if two states are very similar (high fidelity), they are hard to distinguish (low trace distance), and if they are very different (low fidelity), they are easy to distinguish (high trace distance). It's a logical connection, but one that requires robust mathematical proof.
+
+In the specific case where at least one of the states is a [pure state](/Pure_state), say $\psi$, the lower bound in the Fuchs–van de Graaf inequalities can be tightened, providing an even more precise relationship:
+
+$1-F(\psi ,\rho )\leq D(\psi ,\rho )\,.$
+
+This refined bound for pure states offers a more stringent constraint, reflecting the unique properties and simplified structure of pure states compared to their mixed counterparts. It's a useful shortcut for those specific scenarios where purity simplifies the complex web of quantum information.
+
+### Uhlmann's theorem
+
+We've observed that for the pristine simplicity of two pure states, their fidelity reduces to the squared overlap of their state vectors. This elegant connection, however, becomes less obvious when dealing with the murky waters of mixed states. Enter [Uhlmann's theorem](/Uhlmann), a profound generalization that extends this notion of overlap to mixed states by invoking the concept of [purification](/Purification_of_quantum_state). [13](/Uhlmann)
+
+**Theorem:** Let $\rho$ and $\sigma$ be [density matrices](/Density_matrix) acting on a Hilbert space $\mathbb{C}^n$. Let $\rho^{{1}/{2}}$ be the unique positive square root of $\rho$. Consider a [purification](/Purification_of_quantum_state) of $\rho$, denoted as $|\psi _{\rho }\rangle$, which can be constructed as:
+
+$|\psi _{\rho }\rangle =\sum _{i=1}^{n}(\rho ^{{1}/{2}}|e_{i}\rangle )\otimes |e_{i}\rangle \in \mathbb{C} ^{n}\otimes \mathbb{C} ^{n}$
+
+where $\{|e_{i}\rangle \}$ is an orthonormal basis for $\mathbb{C}^n$. Then, the following equality holds:
+
+$F(\rho ,\sigma )=\max _{|\psi _{\sigma }\rangle }|\langle \psi _{\rho }|\psi _{\sigma }\rangle |^{2}$
+
+where $|\psi _{\sigma }\rangle$ is *any* purification of $\sigma$.
+
+This theorem is a cornerstone of [quantum information theory](/Quantum_information_theory). It states that the fidelity between two mixed states is equal to the maximum possible squared overlap between *their purifications*. A purification essentially takes a mixed state, which lives in a smaller Hilbert space, and embeds it into a larger, pure state living in an extended Hilbert space. Uhlmann's theorem tells us that to find the "closeness" of two mixed states, we should look for the purifications that are maximally "aligned" or "overlapping" in the larger space. It’s a beautifully intuitive result, connecting the abstract notion of mixed state fidelity back to the more concrete geometric overlap of pure states.
+
+#### Sketch of proof
+
+A concise sketch of the proof for Uhlmann's theorem can begin by introducing the maximally entangled state, often denoted as the "unnormalized Bell state" or simply the "identity vector" in an extended space:
+
+$|\Omega \rangle =\sum _{i=1}^{n}|e_{i}\rangle \otimes |e_{i}\rangle .$
+
+Any arbitrary purification of $\sigma$ can be expressed in a particular form. Due to the inherent unitary freedom in [square root factorizations](/Matrix_factorization) (i.e., $\sigma = (V\sqrt{\sigma})(V\sqrt{\sigma})^\dagger$ for any unitary $V$) and the choice of [orthonormal bases](/Orthonormal_basis) for the auxiliary system, an arbitrary purification of $\sigma$ can be written as:
+
+$|\psi _{\sigma }\rangle =(\sigma ^{{1}/{2}}V_{1}\otimes V_{2})|\Omega \rangle ,$
+
+where $V_1$ and $V_2$ are [unitary operators](/Unitary_operator) acting on the respective subsystems of the extended Hilbert space.
+Now, we directly calculate the squared overlap between the purification of $\rho$ (which can be written as $(\rho^{1/2} \otimes I) |\Omega\rangle$) and this general purification of $\sigma$:
+
+$|\langle \psi _{\rho }|\psi _{\sigma }\rangle |^{2}=|\langle \Omega |(\rho ^{{1}/{2}}\otimes I)(\sigma ^{{1}/{2}}V_{1}\otimes V_{2})|\Omega \rangle |^{2}.$
+
+Using the property that $\langle \Omega | (A \otimes B) |\Omega \rangle = \operatorname{tr}(A B^T)$ for operators $A$ and $B$, this simplifies to:
+
+$=|\operatorname {tr} (\rho ^{{1}/{2}}\sigma ^{{1}/{2}}V_{1}V_{2}^{T})|^{2}.$
+
+Now, a critical inequality from matrix analysis comes into play: for any square matrix $A$ and any unitary matrix $U$, it is generally true that $|\operatorname {tr} (AU)| \leq \operatorname {tr}((A^{\dagger}A)^{{1}/{2}})$. Furthermore, equality in this inequality is achieved if $U^{\dagger}$ is the unitary operator found in the [polar decomposition](/Polar_decomposition) of $A$.
+
+Applying this specific inequality to our expression, with $A = \rho ^{{1}/{2}}\sigma ^{{1}/{2}}$ and $U = V_{1}V_{2}^{T}$ (which is also a unitary operator), we find that the maximum value of $|\operatorname {tr} (\rho ^{{1}/{2}}\sigma ^{{1}/{2}}V_{1}V_{2}^{T})|$ is $\operatorname {tr} (| \rho ^{{1}/{2}}\sigma ^{{1}/{2}} |)$.
+
+Recall that $\operatorname {tr} (| \rho ^{{1}/{2}}\sigma ^{{1}/{2}} |) = \operatorname {tr} (\sqrt{{\sqrt{\rho}\sigma\sqrt{\rho}}})$. Therefore, the maximum value of $|\langle \psi _{\rho }|\psi _{\sigma }\rangle |^{2}$ is precisely $(\operatorname {tr} {\sqrt {{\sqrt {\rho }}\sigma {\sqrt {\rho }}}})^{2}$, which is the definition of $F(\rho, \sigma)$. This directly leads to Uhlmann's theorem.
+
+#### Proof with explicit decompositions
+
+For a more explicit, step-by-step demonstration of Uhlmann's theorem, we begin by setting up the general forms of purifications. Let $|\psi _{\rho }\rangle$ and $|\psi _{\sigma }\rangle$ be arbitrary purifications of $\rho$ and $\sigma$, respectively. These purifications can be expressed using the spectral decomposition of the density matrices:
+
+${\begin{aligned}|\psi _{\rho }\rangle &=\sum _{k}{\sqrt {\lambda _{k}}}|\lambda _{k}\rangle \otimes |u_{k}\rangle ,\\|\psi _{\sigma }\rangle &=\sum _{k}{\sqrt {\mu _{k}}}|\mu _{k}\rangle \otimes |v_{k}\rangle ,\end{aligned}}$
+
+where $|\lambda _{k}\rangle$ and $|\mu _{k}\rangle$ are the [eigenvectors](/Eigenvector) of $\rho$ and $\sigma$, corresponding to their respective eigenvalues $\lambda _{k}$ and $\mu _{k}$. Crucially, $\{u_{k}\}_{k}$ and $\{v_{k}\}_{k}$ represent arbitrary [orthonormal bases](/Orthonormal_basis) in the auxiliary Hilbert space used for purification. The freedom to choose these auxiliary bases is what allows for the maximization in Uhlmann's theorem.
+
+Now, let's compute the overlap between these purifications:
+
+$\langle \psi _{\rho }|\psi _{\sigma }\rangle =\sum _{jk}{\sqrt {\lambda _{j}\mu _{k}}}\langle \lambda _{j}|\mu _{k}\rangle \,\langle u_{j}|v_{k}\rangle .$
+
+This expression can be rewritten in terms of a trace involving the square roots of the density matrices and a unitary operator. Specifically, it can be shown that:
+
+$\langle \psi _{\rho }|\psi _{\sigma }\rangle =\operatorname {tr} \left({\sqrt {\rho }}{\sqrt {\sigma }}U\right),$
+
+where the unitary matrix $U$ is defined by the choices of the auxiliary bases:
+
+$U=\left(\sum _{k}|\mu _{k}\rangle \!\langle u_{k}|\right)\,\left(\sum _{j}|v_{j}\rangle \!\langle \lambda _{j}|\right).$
+
+The crucial step now is to apply the inequality known as the generalized triangle inequality for operators, which states that for any operator $A$ and any unitary $U$, $|\operatorname {tr} (AU)| \leq \operatorname {tr} ({\sqrt {A^{\dagger}A}})$, which is equivalent to $|\operatorname {tr} (AU)| \leq \operatorname {tr} |A|$. Applying this to our expression:
+
+$|\langle \psi _{\rho }|\psi _{\sigma }\rangle |=|\operatorname {tr} ({\sqrt {\rho }}{\sqrt {\sigma }}U)|\leq \operatorname {tr} |{\sqrt {\rho }}{\sqrt {\sigma }}|.$
+
+To further clarify this inequality, consider a generic matrix $A$ with its [singular value decomposition](/Singular_value_decomposition) $A\equiv \sum _{j}s_{j}(A)|a_{j}\rangle \!\langle b_{j}|$, where $s_{j}(A)\geq 0$ are the (always real and non-negative) [singular values](/Singular_values) of $A$. Let $U$ be a unitary matrix $U=\sum _{j}|b_{j}\rangle \!\langle w_{j}|$. Then:
+
+${\begin{aligned}|\operatorname {tr} (AU)|&=\left|\operatorname {tr} \left(\sum _{j}s_{j}(A)|a_{j}\rangle \!\langle b_{j}|\,\,\sum _{k}|b_{k}\rangle \!\langle w_{k}|\right)\right|\\&=\left|\sum _{j}s_{j}(A)\langle w_{j}|a_{j}\rangle \right|\\&\leq \sum _{j}s_{j}(A)\,|\langle w_{j}|a_{j}\rangle |&&\text{(Triangle inequality for complex numbers)}\\&\leq \sum _{j}s_{j}(A)&&\text{(Since } |\langle w_{j}|a_{j}\rangle | \leq 1 \text{ for orthonormal vectors)}\\&= \operatorname {tr} |A|.\end{aligned}}$
+
+This inequality is saturated, meaning it becomes an equality, when $\langle w_{j}|a_{j}\rangle =1$ for all $j$. This condition implies that $|w_j\rangle = |a_j\rangle$, which means the unitary $U$ must be $U=\sum _{k}|b_{k}\rangle \!\langle a_{k}|$. For this specific choice of $U$, the product $AU$ becomes $A U = (\sum_j s_j(A) |a_j\rangle \langle b_j|) (\sum_k |b_k\rangle \langle a_k|) = \sum_j s_j(A) |a_j\rangle \langle a_j|$. This operator is indeed equal to $|A| \equiv \sqrt{A^\dagger A}$.
+
+Therefore, we can conclude that the maximum value of $|\langle \psi _{\rho }|\psi _{\sigma }\rangle |$ is indeed $\operatorname {tr} |{\sqrt {\rho }}{\sqrt {\sigma }}|$. Since this maximum can always be achieved by appropriately choosing the unitary operators (and thus the auxiliary bases for the purifications), we formally write:
+
+$\operatorname {tr} |{\sqrt {\rho }}{\sqrt {\sigma }}|=\max |\langle \psi _{\rho }|\psi _{\sigma }\rangle |.$
+
+Squaring both sides and recalling the equivalent expression for fidelity, $F(\rho ,\sigma )=\left(\operatorname {tr} |{\sqrt {\rho }}{\sqrt {\sigma }}|\right)^{2}$, completes the proof of Uhlmann's theorem: the fidelity between two mixed states is the maximum squared overlap between their purifications. It’s a powerful result that links the abstract world of mixed states to the more intuitive geometric notions of pure state overlaps.
+
+### Consequences
+
+Uhlmann's theorem, beyond its elegant mathematical statement, yields several immediate and profound consequences for understanding quantum state fidelity. These consequences highlight why fidelity is such a robust and physically meaningful quantity.
+
+*   **Fidelity is symmetric in its arguments**: One of the most striking consequences is the inherent symmetry of fidelity: $F(\rho,\sigma) = F(\sigma,\rho)$. As previously noted, this property is not immediately obvious from the original definition, which involves a seemingly asymmetric arrangement of $\rho$ and $\sigma$ under square roots and traces. However, Uhlmann's theorem makes it transparent. The maximum overlap between purifications $|\psi_\rho\rangle$ and $|\psi_\sigma\rangle$ is inherently symmetric, as $|\langle \psi _{\rho }|\psi _{\sigma }\rangle |^{2} = |\langle \psi _{\sigma }|\psi _{\rho }\rangle |^{2}$. This confirms that fidelity measures a mutual relationship, not a directional one.
+
+*   **Fidelity lies in [0,1]**: The theorem also directly implies that $F(\rho,\sigma)$ is always bounded between 0 and 1. This arises from the [Cauchy–Schwarz inequality](/Cauchy%E2%80%93Schwarz_inequality), which dictates that for any two vectors, their inner product squared cannot exceed the product of their squared norms. Since purifications are normalized pure states, their overlap squared will naturally fall within this range.
+
+*   **Fidelity is 1 if and only if states are identical**: A fidelity value of $F(\rho,\sigma) = 1$ implies that $\rho = \sigma$. If the maximum overlap between purifications is 1, it means there exists a choice of purifications such that $|\langle \psi _{\rho }|\psi _{\sigma }\rangle |^{2} = 1$. This, in turn, implies that $|\psi _{\rho }\rangle$ and $|\psi _{\sigma }\rangle$ are the same state vector (up to a global phase). Since a mixed state is uniquely defined by its purification (up to local unitaries on the auxiliary system), having identical purifications means the original mixed states $\rho$ and $\sigma$ must also be identical. Conversely, if $\rho = \sigma$, then their purifications can be chosen to be identical, leading to an overlap of 1.
+
+These consequences collectively demonstrate that fidelity behaves in a manner strongly analogous to a metric, even though the fidelity itself is not strictly a metric. This "almost-metric" behavior can be formalized and made exquisitely useful by defining an "angle" between quantum states.
+
+Consider the following definition for an angle $\theta_{\rho\sigma}$ between states $\rho$ and $\sigma$:
+
+$\cos ^{2}\theta _{\rho \sigma }=F(\rho ,\sigma )\,.$
+
+This definition allows us to map the fidelity value (which ranges from 0 to 1) to an angle (ranging from $\pi/2$ to 0). It follows from the properties discussed above that this angle $\theta_{\rho\sigma}$ is non-negative, symmetric in its inputs (i.e., $\theta_{\rho\sigma} = \theta_{\sigma\rho}$), and is equal to zero if and only if $\rho = \sigma$. These are precisely the properties expected of a distance measure.
+
+Furthermore, it can be rigorously proven that this angle actually obeys the triangle inequality. [2](/Doi_(identifier)) This crucial additional property elevates this "angle" to the status of a true metric on the space of quantum states. This metric is famously known as the [Fubini–Study metric](/Fubini%E2%80%93Study_metric), [14](/Uhlmann) a fundamental geometric structure that describes the distance between quantum states in a purely geometric sense. Thus, fidelity, through its connection to this quantum angle, provides a profound insight into the geometry of quantum state space, allowing us to quantify how "far apart" two quantum realities truly are.
+
+#

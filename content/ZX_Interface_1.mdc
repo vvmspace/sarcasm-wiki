@@ -1,0 +1,67 @@
+---
+title: "ZX Interface 1"
+description: "This article needs additional citations for verification. Please help improve this article by adding citations to reliable sources. Unsourced material may be..."
+keywords: verification, improve this article, peripheral, sinclair research, zx spectrum, home computer, local area network, zx microdrive
+slug: "ZX_Interface_1"
+createdAt: "2025-12-22T04:29:26.859Z"
+updatedAt: "2025-12-22T04:29:26.859Z"
+contentType: "rewritten"
+aiProvider: "OpenRouter"
+aiModel: "mistralai/devstral-2512:free"
+previousArticleSlug: "Nazi"
+previousArticleTitle: "Nazi"
+---
+
+```markdown
+# ZX Interface 1
+
+This article needs additional citations for [verification](/Wikipedia:Verifiability). Please help [improve this article](/Special:EditPage/ZX_Interface_1) by [adding citations to reliable sources](/Help:Referencing_for_beginners). Unsourced material may be challenged and removed.
+Find sources: "ZX Interface 1" – news · newspapers · books · scholar · JSTOR (February 2019) ([Learn how and when to remove this message](/Help:Maintenance_template_removal))
+
+The ZX Interface 1 with the ZX Microdrive connected
+
+The **ZX Interface 1**, launched in 1983, was a [peripheral](/Peripheral) from [Sinclair Research](/Sinclair_Research_Ltd) for its [ZX Spectrum](/ZX_Spectrum) [home computer](/Home_computer). Originally intended as a [local area network](/Local_area_network) interface for use in school classrooms, it was revised before launch to also act as the controller for up to eight [ZX Microdrive](/ZX_Microdrive) high-speed tape-loop cartridge drives. It also included a [DE-9](/DE-9) [RS-232](/RS-232) interface capable of operating at up to 19.2 kbit/s. At hardware level it was fundamentally a voltage adaptor, the serial protocol being implemented in software by [bit-banging](/Bit-banging). This led to problems when receiving data, but not when transmitting.
+
+## Overview
+
+A wedge-shaped device fitting underneath the ZX Spectrum, the Interface 1 required two screws to be removed from the underside of the Spectrum, the existing screwholes being used by longer screws running through the ZX Interface 1 to stop it from inadvertently becoming detached. The Interface 1 contained 8 kB of [ROM](/Read-only_memory) comprising the control software for the Microdrives, an RS-232 port and network interface. This extended the error handler in the [Sinclair BASIC](/Sinclair_BASIC) to allow extra keywords to be used. As this became an official standard, other developers quickly used this mechanism to create language extensions to Sinclair BASIC.
+
+Two further revisions of the device's firmware were made following launch.[1] These aimed to improve [ZX Microdrive](/ZX_Microdrive) cartridge formatting and access time, printing functions via the [RS-232](/RS-232) interface, and other bugs in the firmware held in the device's internal 8K [ROM](/Read-only_memory). [Machine code](/Machine_code) software which used the officially documented entry points ('hook codes') would experience few incompatibility issues; however, programs using non-standard entry points risked incompatibility due to the presence of revised entry points.
+
+The same protocol, renamed QLAN, was later used on the [Sinclair QL](/Sinclair_QL). This was intended to be interoperable with ZX Net, but due to timing differences interoperability was found to be problematic.
+
+The ZX Interface 1 was incompatible with some later ZX Spectrum models such as the +2A and +3, due to differences in ROM and in the expansion connector. It was therefore impossible to connect and use the Microdrive units with these later models. It did, however, work with the original +2, although the much larger case made the interface an awkward fit.
+
+## Network
+
+The device offered two network ports, allowing up to 64 ZX Spectrums to be [daisy-chained](/Network_topology) using network leads up to 3 metres (10 ft) long. The network, called ZX Net, used a bidirectional wire with a proprietary [CSMA](/Carrier_Sense_Multiple_Access)-like protocol. Data could be sent or received at 100 kbit/s either to or from a numbered workstation, or broadcast to all nodes, allowing one machine to act as a server.
+
+Station number 0 is used to indicate broadcast. Data is transmitted in packets, each a maximum of 255 bytes long; the packet and the header are protected by a checksum. Character transmission uses 1 start bit, 8 data bits and 1 stop bit (the common 8-N-1 configuration).
+
+### Main commands:[2]
+
+- **FORMAT "n";<station number>**
+- **SAVE * "n";<station number>**
+- **LOAD * "n";<station number>**
+
+### Select for example 1 as the address of the first computer (station number):[2]
+
+- **FORMAT "n";1**
+- **SAVE * "n";2**
+
+### Select 2 for the second computer address:[2]
+
+- **FORMAT "n";2**
+- **LOAD * "n";1**
+
+Which will then transfer the program from "1" to "2".
+
+### Other commands:[2]
+
+- **CAT #** Lists the file and directory contents of unit #
+- **LOAD * "m";1;"name"** # Loads the program "name" from "microdrive" unit 1
+
+## See also
+
+- [ZX Interface 2](/ZX_Interface_2) – an interface providing joystick and ROM cartridge ports
+- [ZX8302](/ZX8302) – ULA integrated circuit designed for the Sinclair QL

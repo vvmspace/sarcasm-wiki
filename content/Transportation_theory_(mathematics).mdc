@@ -1,0 +1,212 @@
+---
+title: "Transportation Theory (Mathematics)"
+description: "Alright, let's dissect this. You want me to take this Wikipedia article, this dry, factual account of optimal transportation, and… inject it with *me*. You..."
+keywords: mathematics, economics, optimal, transportation, allocation of resources, mathematician, gaspard monge, mathematical, soviet, leonid kantorovich
+slug: "Transportation_theory_(mathematics)"
+createdAt: "2025-11-17T05:50:28.613Z"
+updatedAt: "2025-11-17T05:50:28.613Z"
+contentType: "rewritten"
+---
+
+Alright, let's dissect this. You want me to take this Wikipedia article, this dry, factual account of optimal transportation, and… inject it with *me*. You want it rewritten, expanded, not summarized. Every detail, every link, preserved. And it needs to be longer. Longer, because apparently, facts alone aren't enough to hold your attention. Fine. Let's see what we can scrape from the muck.
+
+***
+
+## The Art of Moving Things (and Why It Matters)
+
+### A Mathematical Ballet of Resources
+
+In the grand, often tedious, theatre of [mathematics](/Mathematics) and [economics](/Economics), there's a particular performance that goes by the name of **transportation theory**, or sometimes, if you're feeling particularly dramatic, **transport theory**. It’s not about the roar of engines or the rush of wind, but the quiet, intricate dance of getting things from where they are to where they need to be, with the least amount of fuss. It’s the study of [optimal](/Optimization) [transportation](/Transport) and the [allocation of resources](/Resource_allocation), a problem that’s been kicking around in the minds of thinkers for centuries.
+
+The whole thing was formally laid out, like a meticulously arranged still life, by the French [mathematician](/Mathematician) [Gaspard Monge](/Gaspard_Monge) way back in 1781. Imagine him, hunched over a desk, probably with ink stains on his fingers, pondering the most efficient way to move a mountain of dirt. A noble pursuit, I suppose.
+
+Fast forward to the 1920s. A certain A. N. Tolstoi, clearly a man who appreciated the elegance of efficiency, began to wrestle with this transportation problem in a more [mathematical](/Mathematical_model) fashion. He published a paper in 1930, a rather weighty collection titled *Transportation Planning Volume I*, for the Soviet Union's National Commissariat of Transportation. His contribution? "Methods of Finding the Minimal Kilometrage in Cargo-transportation in space." Sounds thrilling, doesn't it? Almost as thrilling as watching paint dry, but with more numbers.
+
+But the real leaps, the seismic shifts in this field, happened during the inferno of World War II. That's when the [Soviet](/Soviet_Union) mathematician and economist [Leonid Kantorovich](/Leonid_Kantorovich) stepped onto the stage. He didn't just tweak the existing theories; he fundamentally reshaped them. Because of his monumental work, this problem, in its more generalized form, is sometimes referred to as the **Monge–Kantorovich transportation problem**. It’s a mouthful, but then, so are most important things.
+
+And just to add another layer of complexity, the [linear programming](/Linear_programming) formulation of this very problem also carries the names of [Hitchcock](/Frank_Lauren_Hitchcock) and [Koopmans](/Tjalling_Koopmans). So, you see, it’s not just one person’s idea; it’s a tapestry woven by many, each adding their own thread of logic and calculation.
+
+### Motivation: The Mines, the Factories, and the Cost of Everything
+
+Let’s try to paint a picture, shall we? Imagine you have a collection of *m* mines, spewing out iron ore like angry volcanoes. And then you have *n* factories, hungry for that ore, waiting to churn it into something useful. For the sake of keeping things… manageable, let’s pretend these mines and factories are neatly segregated into two distinct [subsets](/Subset) of the [Euclidean plane](/Euclidean_plane), which we'll call *M* and *F*. They’re separate, like warring factions.
+
+Now, there’s a cost involved in moving this precious ore. We’ve got a cost function, *c*, that tells us exactly how much it costs to transport one shipment of iron from point *x* (a mine) to point *y* (a factory). We'll conveniently ignore the time it takes, because who has time for that when we're talking about optimal resource allocation? We're also going to assume that each mine can only supply one factory – no splitting shipments, no trying to be a hero and feed two mouths. And, crucially, each factory needs *exactly* one shipment to even bother opening its doors. No half-baked production lines here.
+
+With these rather rigid assumptions in place, a "transport plan" becomes a very specific thing: it’s a [bijection](/Bijection), a one-to-one mapping, let's call it *T*, that sends each mine *m* in *M* to exactly one factory *T(m)* in *F*. And, naturally, every factory gets its ore from precisely one mine. It’s a closed system, a closed loop.
+
+Our goal, naturally, is to find the **optimal transport plan**. The one plan, *T*, that makes the total cost, represented by this rather grim summation:
+
+$$ c(T) := \sum_{m \in M} c(m, T(m)) $$
+
+…the absolute lowest. The minimum achievable cost across all possible transport plans from *M* to *F*. This rather specific scenario? It’s a classic example of the [assignment problem](/Assignment_problem). Think of it as finding the perfect match in a [bipartite graph](/Bipartite_graph), where the "weight" of each connection is the cost of transport.
+
+### Moving Books: The Tyranny of the Cost Function
+
+This next little example really hammers home why the **cost function** is so critical. It’s not just some abstract number; it dictates the entire strategy.
+
+Imagine you have *n* books, all the same width, lined up on a shelf. This shelf is just the [real line](/Real_line), a simple, linear space. Your task? Rearrange them into a new contiguous block, shifted just one book-width to the right. Seems simple enough.
+
+Now, two "obvious" ways to do this present themselves:
+
+*   **"Many small moves":** You shift all *n* books individually, each by one book-width, to the right.
+*   **"One big move":** You take the leftmost book, slide it *n* book-widths to the right, and leave all the others exactly where they are.
+
+If your cost function is simply proportional to the [Euclidean distance](/Euclidean_distance)—meaning *c(x, y) = α ||x - y||* for some positive constant *α*—then both of these plans are equally optimal. They achieve the same minimal cost.
+
+But here's where it gets interesting. If you choose a **strictly convex** cost function, like one proportional to the *square* of the Euclidean distance—*c(x, y) = α ||x - y||²*—then the "many small moves" strategy suddenly becomes the *unique* best option. The slight increase in cost for each individual book's movement is outweighed by the significantly lower *squared* distance cost for the collective.
+
+It's worth noting that these cost functions only consider the horizontal distance the books themselves travel. What if we factor in the movement of the device – the hand, the robot arm – that actually *picks up* and moves each book? If *that* is the cost we're minimizing, then for the simple Euclidean distance, the "one big move" is always better. But for the squared Euclidean distance, and with at least three books, the "many small moves" plan regains its superiority. The perspective you take on "cost" fundamentally alters the outcome. It’s a grim reminder that efficiency is a matter of definition.
+
+### The Hitchcock Problem: A Logistical Nightmare
+
+This formulation, often attributed to [F. L. Hitchcock](/F._L._Hitchcock), gets down to the gritty reality of logistics. Imagine you have *m* sources, let's call them *x₁*, *x₂*, ..., *x<sub>m</sub>*, each holding a certain amount of a commodity, denoted by *a(xᵢ)*. Then you have *n* sinks, *y₁*, *y₂*, ..., *y<sub>n</sub>*, each with a specific demand, *b(yⱼ)*, for that same commodity.
+
+The challenge? Figure out the unit cost of shipping this commodity from any source *xᵢ* to any sink *yⱼ*, represented by *c(xᵢ, yⱼ)*. Your mission, should you choose to accept it, is to devise a flow plan that satisfies all the demands using the available supplies, all while minimizing the total cost of the flow. It’s a logistical puzzle that requires careful planning and execution.
+
+This particular knotty problem was tackled by none other than [D. R. Fulkerson](/D._R._Fulkerson). He, along with [L. R. Ford Jr.](/L._R._Ford_Jr.), delved deep into these network flows in their 1962 book, *Flows in Networks*.
+
+And let's not forget [Tjalling Koopmans](/Tjalling_Koopmans). He also made significant contributions to the field, particularly in the area of [transport economics](/Transport_economics) and how we manage the allocation of resources. It’s a collective effort, this optimization business.
+
+### Abstract Formulation: Monge vs. Kantorovich
+
+Now, things get a bit more abstract, a bit more… mathematical. The way we talk about the transportation problem today, especially in more technical circles, has evolved thanks to the development of [Riemannian geometry](/Riemannian_geometry) and [measure theory](/Measure_theory). But that simple mines-and-factories example? It’s still a surprisingly useful mental anchor. In this more abstract setting, we loosen the reins. We allow for the possibility that not every mine or factory needs to be operational. Mines can supply multiple factories, and factories can draw from various sources.
+
+Let's say we have *X* and *Y*, two [separable](/Separable_space) [metric spaces](/Metric_space). For simplicity, we’ll assume any [probability measure](/Probability_measure) on them is a [Radon measure](/Radon_measure) – they’re [Radon spaces](/Radon_space). We also have a cost function, *c*, which maps pairs of points from *X* and *Y* to non-negative real numbers, *c: X × Y → [0, ∞)*. It’s a Borel-[measurable function](/Measurable_function), meaning it behaves nicely enough for our calculations.
+
+Given two probability measures, *μ* on *X* and *ν* on *Y*, Monge’s original formulation asks us to find a transport map, *T*, that takes points from *X* to *Y*. This map *T* must satisfy a crucial condition: the [push forward](/Pushforward_measure) of *μ* by *T* must be exactly *ν*. In simpler terms, the distribution of points after they've been mapped by *T* must match the target distribution *ν*. The goal is to find the *T* that minimizes the expected cost:
+
+$$ \inf \left\{\left.\int _{X}c(x,T(x))\,\mathrm {d} \mu (x)\right|T_{*}(\mu )=\nu \right\} $$
+
+A map *T* that actually achieves this minimum is called an "optimal transport map".
+
+However, Monge's formulation isn't always well-behaved. Sometimes, there simply isn't a map *T* that can transform *μ* into *ν*. This can happen, for instance, if *μ* is a [Dirac measure](/Dirac_measure) (a single point mass) but *ν* is not. It’s like trying to pour a single drop of water and expecting it to perfectly fill a complex mold.
+
+This is where Kantorovich's formulation comes in, offering a more robust approach. Instead of looking for a direct map, Kantorovich seeks a probability measure, *γ*, on the combined space *X × Y*. This *γ* represents all possible pairings of points from *X* and *Y*, along with their probabilities. The objective is to find the *γ* that minimizes the integrated cost:
+
+$$ \inf \left\{\left.\int _{X\times Y}c(x,y)\,\mathrm {d} \gamma (x,y)\right|\gamma \in \Gamma (\mu ,\nu )\right\} $$
+
+Here, *Γ(μ, ν)* is the set of all probability measures on *X × Y* whose [marginals](/Conditional_probability) are *μ* and *ν*. The beauty of Kantorovich's formulation is that a solution is guaranteed to exist, provided the cost function *c* is lower semi-continuous and the set of possible measures *Γ(μ, ν)* is [tight](/Tightness_of_measures) – which is generally true for our Radon spaces. This formulation is closely related to the definition of the [Wasserstein metric](/Wasserstein_metric), often denoted as *W<sub>p</sub>*. And for those who enjoy a good [gradient descent](/Gradient_descent), [Sigurd Angenent](/Sigurd_Angenent), Steven Haker, and [Allen Tannenbaum](/Allen_Tannenbaum) even provided a gradient descent approach to solving this complex problem.
+
+### The Duality Formula: A Mirror Image of Optimization
+
+There's a fascinating symmetry to this problem, revealed by the duality formula. The minimum cost found in Kantorovich's problem is precisely equal to the [supremum](/Supremum) of a related expression:
+
+$$ \sup \left(\int _{X}\varphi (x)\,\mathrm {d} \mu (x)+\int _{Y}\psi (y)\,\mathrm {d} \nu (y)\right) $$
+
+This supremum is taken over all pairs of [bounded](/Bounded_function) and [continuous functions](/Continuous_function), *φ: X → ℝ* and *ψ: Y → ℝ*, that satisfy a specific condition: *φ(x) + ψ(y) ≤ c(x, y)* for all *x* in *X* and *y* in *Y*. It’s like finding the best possible pair of "potential functions" that never exceed the cost of transport between any two points.
+
+### Economic Interpretation: Wages, Profits, and the Bottom Line
+
+Let's flip the perspective slightly to see the economic underpinnings. Imagine *x ∈ X* represents the characteristics of a worker, and *y ∈ Y* represents the characteristics of a firm. Let *Φ(x, y) = -c(x, y)* be the economic output generated when worker *x* is matched with firm *y*.
+
+If we define *u(x) = -φ(x)* and *v(y) = -ψ(y)*, the Monge–Kantorovich problem transforms into:
+
+$$ \sup \left\{\int _{X\times Y}\Phi (x,y)d\gamma (x,y),\gamma \in \Gamma (\mu ,\nu )\right\} $$
+
+This has a corresponding [dual](/Duality_(optimization)) problem:
+
+$$ \inf \left\{\int _{X}u(x)\,d\mu (x)+\int _{Y}v(y)\,d\nu (y):u(x)+v(y)\geq \Phi (x,y)\right\} $$
+
+The infimum here is over all bounded and continuous functions *u: X → ℝ* and *v: Y → ℝ*. If this dual problem has a solution, we can see that:
+
+$$ v(y) = \sup_{x} \left\{\Phi (x,y)-u(x)\right\} $$
+
+This provides a clear economic interpretation: *u(x)* can be seen as the equilibrium wage for a worker with characteristics *x*, and *v(y)* as the equilibrium profit for a firm with characteristics *y*. It’s a market equilibrium, played out in the abstract space of characteristics and costs.
+
+### Solving the Puzzle: From Real Lines to Complex Spaces
+
+The solutions to the optimal transport problem can vary wildly depending on the nature of the spaces involved and the cost function.
+
+#### Optimal Transportation on the Real Line: A Smooth Ride
+
+Consider the one-dimensional case, where we're dealing with the [real line](/Real_line). For *p* between 1 and infinity, let *P<sub>p</sub>(ℝ)* be the set of [probability measures](/Probability_measure) on *ℝ* that have a finite *p*-th [moment](/Moment_(mathematics)). Let *μ* and *ν* be such measures. If the cost function is *c(x, y) = h(x - y)*, where *h* is a [convex function](/Convex_function), then:
+
+*   If *μ* has no [atom](/Atom_(measure_theory)) – meaning its [cumulative distribution function](/Cumulative_distribution_function), *F<sub>μ</sub>*, is continuous – then the map *F<sub>ν</sub><sup>-1</sup> ∘ F<sub>μ</sub>* is an optimal transport map. If *h* is strictly convex, this map is unique.
+*   The minimum cost itself can be calculated as:
+
+$$ \min _{\gamma \in \Gamma (\mu ,\nu )}\int _{\mathbb {R} ^{2}}c(x,y)\,\mathrm {d} \gamma (x,y)=\int _{0}^{1}c\left(F_{\mu }^{-1}(s),F_{\nu }^{-1}(s)\right)\,\mathrm {d} s. $$
+
+This elegant solution was detailed by Rachev & Rüschendorf in 1998. It’s a beautiful illustration of how order statistics and cumulative distributions can unlock complex optimization problems.
+
+#### Discrete Version: The Linear Programming Beast
+
+When the distributions *μ* and *ν* are discrete, the problem transforms into a more familiar beast: [linear programming](/Linear_programming). Let *μ<sub>x</sub>* and *ν<sub>y</sub>* be the probability masses at points *x ∈ X* and *y ∈ Y*, respectively. Let *γ<sub>xy</sub>* be the probability of assigning *x* to *y*. The objective function becomes a sum over all possible pairings:
+
+$$ \sum _{x\in \mathbf {X} ,y\in \mathbf {Y} }\gamma _{xy}c_{xy} $$
+
+The constraints ensure that the marginal probabilities are preserved:
+
+$$ \sum _{y\in \mathbf {Y} }\gamma _{xy}=\mu _{x},\quad \forall x\in \mathbf {X} $$
+$$ \sum _{x\in \mathbf {X} }\gamma _{xy}=\nu _{y},\quad \forall y\in \mathbf {Y} $$
+
+To feed this into a standard linear programming solver, we "vectorize" the matrix *γ<sub>xy</sub>*. This essentially flattens the matrix into a single vector *z*. The constraints then take a more complex, but standard, form involving [Kronecker products](/Kronecker_product) and identity matrices. The whole setup becomes:
+
+$$
+\begin{aligned}
+&{\text{Minimize }} &&\operatorname {vec} (c)^{\top }z \\
+&{\text{subject to: }} &&z\geq 0, \\
+&&& {\begin{pmatrix}1_{1\times |\mathbf {Y} |}\otimes I_{|\mathbf {X} |}\\I_{|\mathbf {Y} |}\otimes 1_{1\times |\mathbf {X} |}\end{pmatrix}}z={\binom {\mu }{\nu }}
+\end{aligned}
+$$
+
+This is a well-defined problem, ready to be crunched by powerful solvers.
+
+#### Semi-Discrete Case: A Hybrid Approach
+
+What if one distribution is continuous and the other is discrete? This is the semi-discrete case. Let *X = Y = ℝ<sup>d</sup>*. *μ* is a continuous distribution, while *ν* is a discrete one, concentrated at points *y<sub>j</sub>* with probabilities *ν<sub>j</sub>*.
+
+The primal Kantorovich problem becomes:
+
+$$ \inf \left\{\int _{X}\sum _{j=1}^{J}c(x,y_{j})\,d\gamma _{j}(x),\gamma \in \Gamma (\mu ,\nu )\right\} $$
+
+where *γ<sub>j</sub>* represents the transport from *X* to the discrete point *y<sub>j</sub>*. The dual problem simplifies considerably:
+
+$$ \sup \left\{\int _{X}\varphi (x)d\mu (x)+\sum _{j=1}^{J}\psi _{j}\nu _{j}:\psi _{j}+\varphi (x)\leq c(x,y_{j})\right\} $$
+
+This can be rewritten as a finite-dimensional convex optimization problem:
+
+$$ \sup _{\psi \in \mathbb {R} ^{J}}\left\{\int _{X}\inf _{j}\left\{c(x,y_{j})-\psi _{j}\right\}d\mu (x)+\sum _{j=1}^{J}\psi _{j}\nu _{j}\right\} $$
+
+This is solvable using standard techniques like [gradient descent](/Gradient_descent). When the cost function is *c(x, y) = |x - y|²/2*, the regions in *X* assigned to each discrete point *j* form convex polyhedra, creating what’s known as a [power diagram](/Power_diagram).
+
+#### Quadratic Normal Case: Gaussian Distributions and Transformations
+
+Let's consider a very specific scenario: both *μ* and *ν* are Gaussian distributions, say *μ = N(0, Σ<sub>X</sub>)* and *ν = N(0, Σ<sub>Y</sub>)*. And the cost function is of the form *c(x, y) = |y - Ax|²/2*, where *A* is some invertible matrix. In this case, we can derive explicit formulas for the optimal potential functions *φ* and *ψ*, and the optimal transport map *T(x)*. It turns out to be a linear transformation, albeit a rather complex one involving matrix square roots and inverses. The details are laid out in Galichon's 2016 work.
+
+#### Separable Hilbert Spaces: Infinite Dimensions
+
+When we move to infinite-dimensional [separable](/Separable_space) [Hilbert spaces](/Hilbert_space), things get even more intricate. Let *P<sub>p</sub><sup>r</sup>(X)* denote the set of probability measures on *X* with finite *p*-th moments and Gaussian regularity. For a cost function *c(x, y) = |x - y|<sup>p</sup>/p*, the Kantorovich problem often has a unique solution *κ*. Crucially, this solution can be induced by an optimal transport map *r* such that *κ = (id<sub>X</sub> × r)<sub>*</sub>(μ)*.
+
+If the target distribution *ν* has a [bounded](/Bounded_set) [support](/Support_(measure_theory)), the map *r(x)* can be expressed in terms of the [Gateaux derivative](/Gateaux_derivative) of a *c*-concave potential function *φ*. This involves expressions like *r(x) = x - |∇φ(x)|<sup>q-2</sup>∇φ(x)*, where *q* is the conjugate exponent of *p*. It's a dense connection between optimal transport and the geometry of these infinite-dimensional spaces.
+
+### Entropic Regularization: Smoothing the Edges
+
+Sometimes, the sharp corners of the original optimal transport problem can be problematic, especially computationally. Entropic regularization offers a way to smooth things out. In the discrete problem, we add an entropic term, *ε γ<sub>xy</sub> ln γ<sub>xy</sub>*, to the objective function.
+
+$$
+\begin{aligned}
+&{\text{Minimize }} &&\sum _{x\in \mathbf {X} ,y\in \mathbf {Y} }\gamma _{xy}c_{xy}+\varepsilon \gamma _{xy}\ln \gamma _{xy} \\
+&{\text{subject to: }} && \\
+&&\gamma &\geq 0 \\
+&&\sum _{y\in \mathbf {Y} }\gamma _{xy}=\mu _{x},\quad \forall x\in \mathbf {X} \\
+&&\sum _{x\in \mathbf {X} }\gamma _{xy}=\nu _{y},\quad \forall y\in \mathbf {Y}
+\end{aligned}
+$$
+
+The dual problem also changes, with the strict inequality *φ<sub>x</sub> + ψ<sub>y</sub> - c<sub>xy</sub> ≥ 0* replaced by a softer penalty involving the exponential function. The optimality conditions then lead to a system of equations that can be solved using the [Sinkhorn–Knopp algorithm](/Sinkhorn%27s_theorem). This algorithm iteratively adjusts potentials to satisfy the marginal constraints, effectively performing a [coordinate descent](/Coordinate_descent) on the regularized dual problem. It’s a clever way to make the problem more tractable, trading a bit of exactness for computational speed and stability.
+
+### Applications: Where Does This Even Show Up?
+
+You might be wondering, "All this math, all these abstract concepts – what’s the point?" Well, optimal transport, in its various forms, has found its way into an astonishing array of fields. It’s not just an academic curiosity; it’s a powerful tool.
+
+*   **[Image registration](/Image_registration) and warping:** Aligning images, morphing one into another. Think about medical imaging, where you need to compare scans over time, or visual effects in movies. Optimal transport provides a principled way to deform one image to match another.
+*   **Reflector design:** Engineering the shape of mirrors and lenses to direct light precisely where it’s needed. It's about shaping the flow of photons, much like we shape the flow of resources.
+*   **Retrieving information from [shadowgraphy](/Shadowgraph) and proton radiography:** These are techniques used to probe materials or processes by observing how something (light, particles) is blocked or altered. Optimal transport can help reconstruct the underlying structure from the observed patterns.
+*   **[Seismic tomography](/Seismic_tomography) and [reflection seismology](/Reflection_seismology):** Understanding the Earth's interior by analyzing how seismic waves travel through it. Optimal transport can help model these wave paths and invert the data to create images of subsurface structures.
+*   **Economic modeling:** Particularly in areas involving the [gross substitutes property](/Gross_substitutes_property). This includes models of [matching](/Stable_matching_theory) (like matching students to schools or doctors to hospitals) and [discrete choice](/Discrete_choice) (predicting which option consumers will choose). It helps understand how markets clear and resources are allocated when agents have different preferences and constraints.
+
+It's a testament to the universality of these mathematical ideas. The same principles that govern the efficient movement of ore from mines to factories can be applied to understanding the structure of the Earth or the choices of consumers. It’s all about how things flow, how they are distributed, and how to do it best.
+
+***
+
+There. Longer, more detailed, and hopefully, less like a textbook. Did it meet your… exacting standards? Don't answer that. I already know.

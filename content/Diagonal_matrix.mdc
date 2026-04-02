@@ -1,0 +1,474 @@
+---
+title: "Diagonal Matrix"
+description: "The original article is a bit dry, isn't it? Like a desert at noon. Let's inject some life, or at least, some well-placed sarcasm, into this discussion of..."
+keywords: linear algebra, diagonal matrix, square matrices, identity matrix, scalar matrix, geometry, scaling matrix, shape, rectangular diagonal matrices, square diagonal matrix
+slug: "Diagonal_matrix"
+createdAt: "2025-12-24T04:24:17.004Z"
+updatedAt: "2025-12-24T04:24:17.004Z"
+contentType: "rewritten"
+aiProvider: "Gemini"
+aiModel: "gemini-2.5-flash-lite"
+previousArticleSlug: "Bolivarian_Alliance_for_the_Americas"
+previousArticleTitle: "Bolivarian Alliance For The Americas"
+---
+
+The original article is a bit dry, isn't it? Like a desert at noon. Let's inject some life, or at least, some well-placed sarcasm, into this discussion of diagonal matrices. After all, even the most straightforward concepts can benefit from a bit of… perspective.
+
+***
+
+### Diagonal Matrix
+
+In the rather sterile world of [linear algebra](/Linear_algebra), a [diagonal matrix](/Matrix_(mathematics)) is a specific breed of creature. Its defining characteristic is that all the entries that *aren't* on the main diagonal are, unequivocally, zero. Now, this usually applies to [square matrices](/Square_matrices), the ones that have the same number of rows as columns. The elements that *are* on the main diagonal? They're free agents. They can be anything – zero, a number, a cosmic void, you name it.
+
+Consider this rather unremarkable example of a 2x2 diagonal matrix:
+
+[
+
+3
+
+0
+
+0
+
+2
+
+]
+
+{\displaystyle \left[{\begin{smallmatrix}3&0\\0&2\end{smallmatrix}}\right]}
+
+It's… there. And here's a slightly larger, equally thrilling 3x3 version:
+
+[
+
+6
+
+0
+
+0
+
+0
+
+5
+
+0
+
+0
+
+0
+
+4
+
+]
+
+{\displaystyle \left[{\begin{smallmatrix}6&0&0\\0&5&0\\0&0&4\end{smallmatrix}}\right]}
+
+Now, if you take an [identity matrix](/Identity_matrix) of any size – that's the one with ones on the diagonal and zeros everywhere else – and multiply it by some arbitrary scalar, say, 0.5, you get another diagonal matrix. This one’s special, though. It's called a [scalar matrix](/Scalar_matrix). It looks like this:
+
+[
+
+0.5
+
+0
+
+0
+
+0.5
+
+]
+
+{\displaystyle \left[{\begin{smallmatrix}0.5&0\\0&0.5\end{smallmatrix}}\right]}
+
+It's the matrix equivalent of a yawn.
+
+In the more visually oriented realm of [geometry](/Geometry), a diagonal matrix can pull double duty as a [scaling matrix](/Scaling_matrix). When you multiply another matrix by it, you're essentially stretching or shrinking things – changing the scale, and possibly the [shape](/Shape) of whatever geometric object you're working with. However, only a true scalar matrix, the one with identical diagonal entries, manages a uniform change in scale. Anything else is just… asymmetrical.
+
+#### Definition
+
+Let's formalize this. A matrix, let's call it D, with dimensions n rows and n columns, is classified as a diagonal matrix if every entry *off* the main diagonal is zero. Mathematically speaking, for any pair of indices `i` and `j` within the set {1, 2, ..., n}, if `i` is not equal to `j`, then the entry `d_i,j` must be zero.
+
+&#x2200; i, j ∈ {1, 2, ..., n}, i ≠ j ⇒ d<sub>i,j</sub> = 0.
+
+{\displaystyle \forall i,j\in \{1,2,\ldots ,n\},i\neq j\implies d_{i,j}=0.}
+
+The entries *on* the main diagonal, `d_i,i`, however, are entirely unconstrained. They can be anything. Which, frankly, is more interesting than the zeros, but not by much.
+
+Sometimes, the term "diagonal matrix" is stretched to include what are called [rectangular diagonal matrices](/Rectangular_diagonal_matrix). These are matrices that aren't square, but still have zeros everywhere except possibly along a diagonal line. For instance:
+
+[
+
+1
+
+0
+
+0
+
+0
+
+4
+
+0
+
+0
+
+0
+
+-3
+
+0
+
+0
+
+0
+
+]
+
+{\displaystyle {\begin{bmatrix}1&0&0\\0&4&0\\0&0&-3\\0&0&0\\\end{bmatrix}}}
+
+or, perhaps more confusingly:
+
+[
+
+1
+
+0
+
+0
+
+0
+
+0
+
+0
+
+4
+
+0
+
+0
+
+0
+
+0
+
+0
+
+-3
+
+0
+
+0
+
+]
+
+{\displaystyle {\begin{bmatrix}1&0&0&0&0\\0&4&0&0&0\\0&0&-3&0&0\end{bmatrix}}}
+
+But usually, when people say "diagonal matrix," they mean the square variety. To be absolutely explicit, one might refer to a [square diagonal matrix](/Square_diagonal_matrix). These have the added bonus of being [symmetric matrices](/Symmetric_matrix), which means they are their own transpose. So, you could technically call them [symmetric diagonal matrices](/Symmetric_diagonal_matrix) if you felt the need to be redundant.
+
+Here's another example of a square diagonal matrix, just to hammer the point home:
+
+[
+
+1
+
+0
+
+0
+
+0
+
+4
+
+0
+
+0
+
+0
+
+-2
+
+]
+
+{\displaystyle {\begin{bmatrix}1&0&0\\0&4&0\\0&0&-2\end{bmatrix}}}
+
+If the entries happen to be [real numbers](/Real_numbers) or [complex numbers](/Complex_numbers), then this matrix also qualifies as a [normal matrix](/Normal_matrix). It's got layers, I suppose.
+
+From this point forward, unless I'm explicitly bored enough to mention otherwise, "diagonal matrix" will refer exclusively to these square, predictable entities.
+
+#### Vector-to-Matrix Diag Operator
+
+There's a handy operator, often denoted as `diag`, that lets you construct a diagonal matrix from a vector. If you have a vector **a** like so:
+
+**a** =
+
+[
+
+a<sub>1</sub>
+
+...
+
+a<sub>n</sub>
+
+]
+
+<sup>T</sup>
+
+{\displaystyle \mathbf {a} ={\begin{bmatrix}a_{1}&\dots &a_{n}\end{bmatrix}}^{\textsf {T}}}
+
+Then, `diag(a₁, ..., a<0xE2><0x82><0x99>)` will produce the diagonal matrix D:
+
+D = diag( a<sub>1</sub>, ..., a<sub>n</sub> ).
+
+{\displaystyle \mathbf {D} =\operatorname {diag} (a_{1},\dots ,a_{n}).}
+
+You can even shorten it to `diag(**a**)` if you're feeling particularly efficient.
+
+This `diag` operator has another trick up its sleeve. It can also be used to represent [block diagonal matrices](/Block_matrix). Instead of individual numbers, you feed it matrices: `diag(A₁, ..., A<0xE2><0x82><0x99>)`. Each `Aᵢ` is a matrix itself, and the resulting matrix `A` will have these matrices along its diagonal, with blocks of zeros everywhere else.
+
+The `diag(**a**)` construction can also be expressed using the [Hadamard product](/Hadamard_product_(matrices)), which is just an element-wise multiplication of matrices. It looks like this:
+
+`diag(**a**) = (a * 1ᵀ) ∘ I`
+
+{\displaystyle \operatorname {diag} (\mathbf {a} )=\left(\mathbf {a} \mathbf {1} ^{\textsf {T}}\right)\circ \mathbf {I} ,}
+
+where `∘` is the Hadamard product and **1** is a vector of all ones. It's a bit like saying "take all the elements of **a**, put them on the diagonal, and fill the rest with zeros" but with extra steps.
+
+#### Matrix-to-Vector Diag Operator
+
+Conversely, there's an operator, also called `diag` (because apparently, mathematical notation isn't burdened by the need for endless variety), that does the opposite. If you give it a matrix, it extracts the diagonal elements and spits them back out as a vector.
+
+`diag(D) = [a₁, ..., a<0xE2><0x82><0x99>]ᵀ`
+
+{\displaystyle \operatorname {diag} (\mathbf {D} )={\begin{bmatrix}a_{1}&\dots &a_{n}\end{bmatrix}}^{\textsf {T}},}
+
+where D is the matrix.
+
+This operator has a rather convoluted property:
+
+`diag(AB) = Σⱼ (A ∘ Bᵀ)ᵢⱼ = (A ∘ Bᵀ)1.`
+
+{\displaystyle \operatorname {diag} (\mathbf {A} \mathbf {B} )=\sum _{j}\left(\mathbf {A} \circ \mathbf {B} ^{\textsf {T}}\right)_{ij}=\left(\mathbf {A} \circ \mathbf {B} ^{\textsf {T}}\right)\mathbf {1} .}
+
+It’s a fancy way of saying something about how the diagonal elements of a product relate to the element-wise products of the original matrices. Don't ask me why it's useful. Probably for someone.
+
+#### Scalar Matrix
+
+A diagonal matrix where all the diagonal entries are identical is called a [scalar matrix](/Scalar_matrix). It's simply a scalar multiple, let's call it λ, of the [identity matrix](/Identity_matrix) I. Its effect on a [vector](/Vector_(mathematics_and_physics)) is straightforward: it just scales the vector by λ, performing [scalar multiplication](/Scalar_multiplication). A 3x3 scalar matrix looks like this:
+
+[
+
+λ
+
+0
+
+0
+
+0
+
+λ
+
+0
+
+0
+
+0
+
+λ
+
+]
+
+≡ λ I₃
+
+{\displaystyle {\begin{bmatrix}\lambda &0&0\\0&\lambda &0\\0&0&\lambda \end{bmatrix}}\equiv \lambda {\boldsymbol {I}}_{3}}
+
+These scalar matrices are the elite of the matrix world. They form the [center](/Center_of_an_algebra) of the algebra of matrices. In simpler terms, they are the only matrices that [commute](/Commute_(mathematics)) with *every other* square matrix of the same size. They're like the undisputed rulers of the matrix kingdom.
+
+However, if you're working over a [field](/Field_(mathematics)) like the [real numbers](/Real_numbers), a diagonal matrix where all the diagonal entries are distinct has a much smaller social circle. It only commutes with other diagonal matrices. Its [centralizer](/Centralizer) – the set of matrices it commutes with – is just the set of diagonal matrices itself. This is because if you have a diagonal matrix D = diag(a₁, ..., a<0xE2><0x82><0x99>) and a matrix M where `aᵢ ≠ aⱼ` but `mᵢⱼ ≠ 0`, then the (i, j) entry of DM is `aᵢmᵢⱼ` and the (i, j) entry of MD is `mᵢⱼaⱼ`. Since `aᵢ ≠ aⱼ`, these will be different, proving they don't commute. It’s a rather exclusive club. Matrices with some, but not all, distinct diagonal entries have centralizers somewhere in between – not the whole space, but more than just other diagonal matrices.
+
+This concept extends beyond concrete vector spaces like Kⁿ. For an abstract vector space V, the analog of scalar matrices are scalar transformations. This idea even holds for [modules](/Module_(ring_theory)) M over a [ring](/Ring_(algebra)), where the algebra of linear operators on M, End(M), replaces the matrix algebra. Scalar multiplication is a linear map, and the scalars from R form a map into End(M). For vector spaces, scalar transformations are precisely the [center](/Center_of_a_ring) of the endomorphism algebra.
+
+#### Vector Operations
+
+When you multiply a vector by a diagonal matrix, it's not a complicated affair. Each component of the vector is simply multiplied by the corresponding diagonal entry of the matrix. If you have a diagonal matrix D = diag(a₁, ..., a<0xE2><0x82><0x99>) and a vector **v**:
+
+**v** =
+
+[
+
+x₁
+
+⋮
+
+x<0xE2><0x82><0x99>
+
+]
+
+{\displaystyle \mathbf {v} ={\begin{bmatrix}x_{1}\\\vdots \\x_{n}\end{bmatrix}}}
+
+Then the product **Dv** looks like this:
+
+**Dv** = diag(a₁, ..., a<0xE2><0x82><0x99>)
+
+[
+
+x₁
+
+⋮
+
+x<0xE2><0x82><0x99>
+
+]
+
+=
+
+[
+
+a₁
+
+⋱
+
+a<0xE2><0x82><0x99>
+
+]
+
+[
+
+x₁
+
+⋮
+
+x<0xE2><0x82><0x99>
+
+]
+
+=
+
+[
+
+a₁x₁
+
+⋮
+
+a<0xE2><0x82><0x99>x<0xE2><0x82><0x99>
+
+]
+
+.
+
+{\displaystyle \mathbf {D} \mathbf {v} =\operatorname {diag} (a_{1},\dots ,a_{n}){\begin{bmatrix}x_{1}\\\vdots \\x_{n}\end{bmatrix}}={\begin{bmatrix}a_{1}\\&\ddots \\&&a_{n}\end{bmatrix}}{\begin{bmatrix}x_{1}\\\vdots \\x_{n}\end{bmatrix}}={\begin{bmatrix}a_{1}x_{1}\\\vdots \\a_{n}x_{n}\end{bmatrix}}.}
+
+This can be expressed more concisely by using the vector **d** = [a₁, ..., a<0xE2><0x82><0x99>]ᵀ and employing the [Hadamard product](/Hadamard_product_(matrices)), denoted **d** ∘ **v**:
+
+**Dv** = **d** ∘ **v** =
+
+[
+
+a₁
+
+⋮
+
+a<0xE2><0x82><0x99>
+
+]
+
+∘
+
+[
+
+x₁
+
+⋮
+
+x<0xE2><0x82><0x99>
+
+]
+
+=
+
+[
+
+a₁x₁
+
+⋮
+
+a<0xE2><0x82><0x99>x<0xE2><0x82><0x99>
+
+]
+
+.
+
+{\displaystyle \mathbf {D} \mathbf {v} =\mathbf {d} \circ \mathbf {v} ={\begin{bmatrix}a_{1}\\\vdots \\a_{n}\end{bmatrix}}\circ {\begin{bmatrix}x_{1}\\\vdots \\x_{n}\end{bmatrix}}={\begin{bmatrix}a_{1}x_{1}\\\vdots \\a_{n}x_{n}\end{bmatrix}}.}
+
+This is mathematically equivalent, but it cleverly sidesteps the need to store all those tedious zero entries, making it a rather efficient approach, particularly in fields like [machine learning](/Machine_learning). It's useful for things like calculating derivatives during [backpropagation](/Backpropagation) or weighing terms in [TF-IDF](/TF-IDF). Some optimized matrix libraries, like [BLAS](/BLAS), don't have a direct Hadamard product function, so this vector-based approach can be a practical workaround.
+
+#### Matrix Operations
+
+When it comes to matrix addition and [matrix multiplication](/Matrix_multiplication), diagonal matrices are remarkably cooperative.
+
+For addition, if you have two diagonal matrices, say `diag(a₁, ..., a<0xE2><0x82><0x99>)` and `diag(b₁, ..., b<0xE2><0x82><0x99>)`, their sum is simply:
+
+`diag(a₁, ..., a<0xE2><0x82><0x99>) + diag(b₁, ..., b<0xE2><0x82><0x99>) = diag(a₁ + b₁, ..., a<0xE2><0x82><0x99> + b<0xE2><0x82><0x99>)`
+
+{\displaystyle \operatorname {diag} (a_{1},\,\ldots ,\,a_{n})+\operatorname {diag} (b_{1},\,\ldots ,\,b_{n})=\operatorname {diag} (a_{1}+b_{1},\,\ldots ,\,a_{n}+b_{n})}
+
+And for multiplication:
+
+`diag(a₁, ..., a<0xE2><0x82><0x99>) * diag(b₁, ..., b<0xE2><0x82><0x99>) = diag(a₁b₁, ..., a<0xE2><0x82><0x99>b<0xE2><0x82><0x99>)`
+
+{\displaystyle \operatorname {diag} (a_{1},\,\ldots ,\,a_{n})\operatorname {diag} (b_{1},\,\ldots ,\,b_{n})=\operatorname {diag} (a_{1}b_{1},\,\ldots ,\,a_{n}b_{n}).}
+
+A diagonal matrix `diag(a₁, ..., a<0xE2><0x82><0x99>)` is [invertible](/Invertible_matrix) if and only if *all* its diagonal entries `a₁, ..., a<0xE2><0x82><0x99>` are non-zero. If they are, its inverse is simply:
+
+`diag(a₁, ..., a<0xE2><0x82><0x99>)⁻¹ = diag(a₁⁻¹, ..., a<0xE2><0x82><0x99>⁻¹)`
+
+{\displaystyle \operatorname {diag} (a_{1},\,\ldots ,\,a_{n})^{-1}=\operatorname {diag} (a_{1}^{-1},\,\ldots ,\,a_{n}^{-1}).}
+
+Essentially, the diagonal matrices form a [subring](/Subring) within the larger ring of all n-by-n matrices. They behave like a well-behaved subset.
+
+Multiplying an n-by-n matrix A from the left by a diagonal matrix `diag(a₁, ..., a<0xE2><0x82><0x99>)` has the effect of scaling each row `i` of A by the corresponding `aᵢ`. Multiplying A from the right by the same diagonal matrix scales each column `i` by `aᵢ`. It’s a straightforward, predictable operation.
+
+#### Operator Matrix in Eigenbasis
+
+As you might recall from discussions on [transformation matrices](/Transformation_matrix), there exists a special basis, let's call it {e₁, ..., e<0xE2><0x82><0x99>}, for which a given matrix A takes on a diagonal form. This means that in the defining equation for matrix-vector multiplication:
+
+Aeⱼ = Σᵢ aᵢ,ⱼ eᵢ
+
+{\textstyle \mathbf {Ae} _{j}=\sum _{i}a_{i,j}\mathbf {e} _{i}}
+
+all the coefficients `aᵢ,ⱼ` where `i ≠ j` vanish. Only the diagonal terms `aᵢ,ᵢ` remain. These surviving diagonal elements are known as [eigenvalues](/Eigenvalue) and are often denoted by λᵢ. The equation then simplifies beautifully to the eigenvalue equation:
+
+Aeᵢ = λᵢ eᵢ.
+
+{\displaystyle \mathbf {Ae} _{i}=\lambda _{i}\mathbf {e} _{i}.}
+
+This fundamental equation is the bedrock for deriving the [characteristic polynomial](/Characteristic_polynomial) and, consequently, finding [eigenvalues and eigenvectors](/Eigenvalues_and_eigenvectors).
+
+In essence, the [eigenvalues](/Eigenvalue) of a diagonal matrix `diag(λ₁, ..., λ<0xE2><0x82><0x99>)` are simply the diagonal entries themselves: λ₁, ..., λ<0xE2><0x82><0x99>. And the associated [eigenvectors](/Eigenvectors)? They are the standard basis vectors e₁, ..., e<0xE2><0x82><0x99>. It's all quite neat and tidy.
+
+#### Properties
+
+Let's list a few more tidbits about these diagonal matrices:
+
+*   The [determinant](/Determinant) of `diag(a₁, ..., a<0xE2><0x82><0x99>)` is simply the product of its diagonal entries: `a₁ * a₂ * ... * a<0xE2><0x82><0x99>`. Easy.
+*   The [adjugate](/Adjugate) of a diagonal matrix is also, predictably, a diagonal matrix.
+*   When we confine ourselves to square matrices:
+    *   A matrix is diagonal if and only if it's both [upper-](/Triangular_matrix) and [lower-triangular](/Triangular_matrix). It’s the ultimate triangularity.
+    *   A matrix is diagonal if and only if it’s [symmetric](/Symmetric_matrix) and [normal](/Normal_matrix). It’s a double threat of regularity.
+    *   The [identity matrix](/Identity_matrix) I<0xE2><0x82><0x99> and the [zero matrix](/Zero_matrix) are, of course, diagonal. Shocking, I know.
+    *   Any 1x1 matrix is inherently diagonal. It’s the simplest case, really.
+    *   The square of any 2x2 matrix with a zero [trace](/Trace_(linear_algebra)) is always diagonal. A peculiar but verifiable fact.
+
+#### Applications
+
+Diagonal matrices are not just theoretical curiosities; they pop up in many corners of [linear algebra](/Linear_algebra). Because their operations are so blessedly simple – as we've seen with addition, multiplication, and eigenvalue calculations – mathematicians often strive to represent more complex matrices or [linear maps](/Linear_operator) in a diagonal form. It’s the ultimate simplification.
+
+Indeed, a given n-by-n matrix A can be considered [similar](/Similar_matrix) to a diagonal matrix if, and only if, it possesses n [linearly independent](/Linearly_independent) eigenvectors. Matrices that meet this criterion are deemed [diagonalizable](/Diagonalizable_matrix).
+
+Over the [field](/Field_(mathematics)) of [real](/Real_number) or [complex](/Complex_number) numbers, this concept is further refined. The [spectral theorem](/Spectral_theorem) assures us that every [normal matrix](/Normal_matrix) can be transformed into a diagonal matrix through a [unitary similarity](/Matrix_similarity) transformation. That is, there exists a [unitary matrix](/Unitary_matrix) U such that UAU\* is diagonal. Furthermore, the [singular value decomposition](/Singular_value_decomposition) guarantees that for any matrix A, there are unitary matrices U and V such that U\*AV is a diagonal matrix with non-negative entries. It’s a testament to their fundamental nature.
+
+In the sophisticated realm of [operator theory](/Operator_theory), particularly when dealing with [PDEs](/PDEs), operators become significantly more tractable if they are diagonal with respect to the working basis. This aligns with the concept of a [separable partial differential equation](/Separable_partial_differential_equation). Consequently, a primary strategy for understanding operators involves a change of coordinates – or, in operator jargon, an [integral transform](/Integral_transform). This process shifts the basis to an [eigenbasis](/Eigenbasis) of [eigenfunctions](/Eigenfunction), thereby rendering the equation separable. A prime example is the [Fourier transform](/Fourier_transform), which effectively diagonalizes constant-coefficient differentiation operators, such as the Laplacian in the [heat equation](/Heat_equation).
+
+[Multiplication operators](/Multiplication_operator) are particularly straightforward. They are defined by multiplying by a fixed function, where the function's values at each point correspond to the diagonal entries of a matrix. It’s a direct mapping, uncomplicated by off-diagonal noise.
+
+***
+
+So there you have it. Diagonal matrices. Predictable, efficient, and utterly essential. They might not be the most exciting topic, but their simplicity is their strength. Much like a well-aimed barb, sometimes the most effective things are the most direct.

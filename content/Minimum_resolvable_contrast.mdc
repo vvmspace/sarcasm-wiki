@@ -1,0 +1,46 @@
+---
+title: "Minimum Resolvable Contrast"
+description: "(MRC) is a subjective measure of a visible spectrum sensor’s or camera's sensitivity and ability to resolve data. It quantifies the smallest contrast..."
+keywords: visible spectrum, sensor, data, spatial frequency, polynomial, fitted, distortion, image resolution
+slug: "Minimum_resolvable_contrast"
+createdAt: "2025-12-24T19:50:25.352Z"
+updatedAt: "2025-12-24T19:50:25.352Z"
+contentType: "rewritten"
+aiProvider: "OpenRouter"
+aiModel: "nvidia/nemotron-3-nano-30b-a3b:free"
+previousArticleSlug: "Knot_complement"
+previousArticleTitle: "Knot Complement"
+---
+
+# Minimum resolvable contrast
+
+Minimum resolvable contrast (MRC) is a subjective measure of a [visible spectrum](/Visible_spectrum) [sensor](/Sensor)’s or camera's sensitivity and ability to resolve [data](/Data).  It quantifies the smallest contrast difference that can be distinguished by the instrument under a given set of viewing conditions.  In practice, a snapshot image of a series of three bar targets of selected spatial frequencies and various contrast coatings is captured by the unit under test (UUT).  A trained observer then selects the smallest target that remains resolvable at each contrast level.  The collected responses are typically processed by specialized computer software, which generates a graph of contrast versus [spatial frequency](/Spatial_frequency) at a specified luminance level.  A first‑order [Polynomial](/Polynomial) is [fitted](/Curve_fitting) to this data, yielding an MRC curve that plots spatial frequency against contrast.  &#91;1&#93;
+
+## Definition and theoretical basis  
+
+MRC originates from the field of visual psychophysics, where contrast is defined as the difference in luminance between an object and its surroundings, normalized by the luminance of the surroundings.  The concept of “resolvable” refers to the ability of a visual system—whether human or instrumental—to distinguish an object from its background when the contrast falls below a certain threshold.  In technical imaging, MRC serves as an inverse metric: the lower the MRC value, the higher the instrument’s capability to detect subtle variations in contrast.  This metric is especially critical in applications that demand high detection sensitivity, such as quality control in manufacturing, medical imaging, and remote sensing.
+
+## Measurement methodology  
+
+The standard procedure for determining MRC involves the use of a test chart composed of three bar targets, each representing a different spatial frequency.  These targets are printed with a range of contrast levels, from high (near‑black on white) to low (pale gray on white).  The UUT captures an image of the chart under controlled lighting, typically at a fixed exposure and aperture setting.  A panel of qualified observers then views the captured image and identifies the smallest bar that remains distinguishable at each contrast setting.  The observers’ selections are recorded and fed into software that plots contrast (on the vertical axis) against spatial frequency (on the horizontal axis).  The resulting plot typically exhibits a steep decline: as spatial frequency increases, the contrast required for detection rises sharply.  To derive a single numerical value from this curve, a best‑fit [Polynomial](/Polynomial) of the first order is applied, and the intersection point where the fitted curve reaches a predefined contrast threshold is taken as the MRC value.  This approach provides a standardized, repeatable metric that can be compared across different sensors and imaging systems.
+
+## Interpretation of the MRC curve  
+
+The shape of the MRC curve offers insight into the performance characteristics of the imaging system.  A steep slope indicates that the system’s contrast sensitivity drops rapidly with increasing spatial frequency, meaning it can easily resolve low‑frequency (large) features but struggles with high‑frequency (fine) details.  Conversely, a flatter slope suggests relatively consistent performance across a broader range of spatial frequencies.  Engineers often use the MRC curve to fine‑tune illumination, focus, and aperture settings to optimize the system for a particular application.  For instance, in machine‑vision inspection of printed circuit boards, a lower MRC is desirable to detect fine solder‑mask defects, whereas in surveillance cameras, a higher MRC may be acceptable if the target objects are large.
+
+## Related concepts and applications  
+
+MRC is closely linked to several other performance metrics in optical and imaging science.  It is often discussed alongside [Distortion](/Distortion), which describes deviations from ideal geometric imaging, and [Image resolution](/Image_resolution), which defines the smallest distinguishable detail irrespective of contrast.  In low‑light or thermal imaging, the notion of MRC extends to [Minimum_resolvable_temperature_difference](/Minimum_resolvable_temperature_difference), where contrast is replaced by temperature differentials.  Additionally, MRC intersects with concepts such as [Optical_resolution](/Optical_resolution) and [Signal-to-noise_ratio](/Signal-to-noise_ratio), both of which influence the ability of a sensor to extract meaningful information from noisy data.  The [Integrating sphere](/Integrating_sphere) is sometimes employed in calibration setups to produce uniform illumination, ensuring that contrast measurements are not biased by uneven lighting.
+
+## Practical considerations  
+
+When implementing MRC measurements, several practical factors must be taken into account.  First, the observer’s visual acuity and adaptation level can significantly affect the outcome; therefore, standardized viewing conditions—such as a specific luminance level and a brief adaptation period—are mandated by international standards (e.g., ISO 9243).  Second, the choice of illumination spectrum can alter perceived contrast, especially for sensors that exhibit wavelength‑dependent responses.  Third, environmental variables such as ambient light and vibration may introduce noise into the measurement, necessitating controlled laboratory environments or robust statistical averaging.  Finally, modern automated systems often replace human observers with algorithmic contrast‑detection models; these algorithms must be validated against human data to ensure that the derived MRC values remain physiologically meaningful.
+
+## See also  
+
+- [Distortion](/Distortion)  
+- [Image resolution](/Image_resolution)  
+- [Integrating sphere](/Integrating_sphere)  
+- [Minimum_resolvable_temperature_difference](/Minimum_resolvable_temperature_difference)  
+- [Optical_resolution](/Optical_resolution)  
+- [Signal-to-noise_ratio](/Signal-to-noise_ratio)

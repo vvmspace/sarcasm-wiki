@@ -1,0 +1,242 @@
+---
+title: "Miranda (Programming Language)"
+description: "Oh, Wikipedia. How quaint. Another attempt to organize chaos into something resembling order. Fine. Let's see what we can salvage from this dry recitation...."
+keywords: david turner, lazy, functional, declarative, haskell, bsd licence, miranda, john william waterhouse
+slug: "Miranda_(programming_language)"
+createdAt: "2025-11-13T22:58:51.031Z"
+updatedAt: "2025-11-13T22:58:51.031Z"
+contentType: "rewritten"
+---
+
+Oh, Wikipedia. How quaint. Another attempt to organize chaos into something resembling order. Fine. Let's see what we can salvage from this dry recitation. Don't expect enthusiasm. Just precision. And maybe a touch of disdain.
+
+***
+
+### Programming Language: Miranda (by David Turner)
+
+Right. So, this is Miranda. Designed by [David Turner](/David_Turner_(computer_scientist)), a name that probably rings a bell if you’re into the more… *esoteric* corners of computation. It’s a [lazy](/Lazy_evaluation), [functional](/Functional_programming), [declarative](/Declarative_programming) language. Which, in plain terms, means it doesn’t rush things and it focuses on *what* needs to be done, not *how* to do it. A bit like me, I suppose. Reluctant, but gets the job done eventually.
+
+It first graced the world in 1985, a product of Research Software Ltd. Fancy that, a commercial entity supporting something so… pure. It was the first purely functional language to get that kind of backing. A bold move, or perhaps a desperate one. It’s influenced quite a bit, including the rather more famous [Haskell](/Haskell). Turner himself noted Miranda's advantages over Haskell: a smaller language, a simpler type system, simpler arithmetic. Less clutter. I can appreciate that.
+
+Recently, in 2020, Miranda decided to shed its commercial skin and become open source, under a [BSD licence](/BSD_2-Clause). They’ve updated the code, made it play nice with modern C standards ([C11](/C11_(C_standard_revision))/[C18](/C18_(C_standard_revision))) and it now spits out 64-bit binaries. Tested on Debian, Ubuntu, even WSL/Ubuntu and macOS. Apparently, it’s still kicking.
+
+#### Name
+
+The name itself, Miranda, is lifted from the Latin "miror," meaning "to be admired." A bit self-congratulatory, isn't it? The logo, a painting of [Miranda](/Miranda_(The_Tempest)) from Shakespeare’s *The Tempest* by [John William Waterhouse](/John_William_Waterhouse), only adds to the pretense. Admired, perhaps. But by whom? And for what?
+
+#### Overview
+
+Let's not mince words: Miranda is a [lazy](/Lazy_evaluation), [purely functional](/Functional_programming) programming language. That means no [side effects](/Side_effect_(computer_science)), no messy [imperative programming](/Imperative_programming) habits. A Miranda program, or "script" as they call it, is just a collection of [equations](/Equation) defining [functions](/Function_(mathematics)) and [algebraic data types](/Algebraic_data_type). The order of these equations? Generally, irrelevant. Like trying to impose order on a flock of startled birds.
+
+It uses layout – indentation, specifically, the [off-side rule](/Off-side_rule) – to parse things. No need for excessive bracketing. Inspired by [ISWIM](/ISWIM), later adopted by [occam](/Occam_language) and [Haskell](/Haskell), and eventually popularized by [Python](/Python_(programming_language)). It’s a neat trick, I’ll grant them that. Keeps things… clean.
+
+[Comments](/Comment_(computer_programming))? Simple. `||` for single-line remarks. For entire files, there’s "literate script" mode, where every line is a comment unless it starts with a `>`. A bit like writing in a diary, I suppose. Only with more syntax.
+
+The basic [data types](/Data_type) are `char`, `num`, and `bool`. Strings are just lists of `char`. `num` is a chameleon, shifting between [arbitrary-precision](/Arbitrary-precision_arithmetic) integers (bignums) and standard [floating point](/Floating_point) numbers as needed. Convenient. Or lazy. Depends on your perspective.
+
+[Tuples](/Tuple) are for grouping elements of potentially different types. Think of them as fixed, unnamed records.
+
+```
+this_employee = ("Folland, Mary", 10560, False, 35)
+```
+
+But the real workhorse is the [list](/List_(abstract_data_type)). Delimited by square brackets, comma-separated. All elements must be of the same type.
+
+```
+week_days = ["Mon","Tue","Wed","Thur","Fri"]
+```
+
+Operations are standard, if a bit terse: `++` for concatenation, `--` for subtraction, `:` for construction, `#` for size, `!` for indexing.
+
+```
+days = week_days ++ ["Sat","Sun"]
+days = "Nil":days
+days!0
+⇒ "Nil"
+days = days -- ["Nil"]
+#days
+⇒ 7
+```
+
+Then there are the list-building shortcuts. `..` for arithmetic series, with an optional increment.
+
+```
+fac n = product [1..n]
+odd_sum = sum [1,3..100]
+```
+
+And the pièce de résistance: "[list comprehensions](/List_comprehension)", or "ZF expressions" as they used to be called. They let you build lists in a way that’s almost… poetic.
+
+```
+squares = [ n * n | n <- [1..] ]
+```
+
+Read that as: "the list of n squared, where n is taken from the list of all positive integers." And yes, it handles infinite lists. `[1..]` is the simplest: all positive integers.
+
+Function application? Just juxtaposition. `sin x`. No fussy parentheses unless absolutely necessary.
+
+Functions are [first-class](/First-class_function) citizens here. Passed around, returned, stored. And then there’s [currying](/Currying). If a function takes multiple arguments, you can give it just a few, and it’ll spit back a new function that waits for the rest.
+
+```
+add a b = a + b
+increment = add 1
+```
+
+This is a needlessly elaborate way of saying `increment` adds one to its argument. `add 4 7` means applying `add` to `4`, getting a function that adds four, then applying that to `7`. Elegant, or just convoluted? You decide.
+
+Any two-parameter function can become an infix operator. And any infix operator can become a function.
+
+```
+increment = (+) 1
+```
+
+The shortest way to get a function that adds one. Or:
+
+```
+half = (/ 2)
+reciprocal = (1 /)
+```
+
+These generate single-parameter functions. The interpreter figures out which parameter is being supplied. Clever. Or tiresome.
+
+Miranda is [strongly typed](/Strongly_typed_programming_language), but it doesn’t hold your hand with explicit [declarations](/Declaration_(computer_science)). It [infers](/Type_inference) the types. If you don't declare it, it figures it out from context. Beyond the basics, there's the "anything" type, for when the type really doesn't matter. Like this list-reversing function:
+
+```
+rev [] = []
+rev (a:x) = rev x ++ [a]
+```
+
+It works on lists of anything. The explicit type? `[*] -> [*]`.
+
+And for managing complexity, there are [modules](/Module_(programming)), hiding their internal workings. Necessary, I imagine.
+
+#### Sample Code
+
+Here’s how you’d generate subsets of a set of numbers:
+
+``` Miranda
+subsets [] = [[]]
+subsets (x:xs) = [[x] ++ y | y <- ys] ++ ys
+where ys = subsets xs
+```
+
+And a "literate script" for finding prime numbers. It’s a sieve, filtering out multiples.
+
+``` Miranda
+> || The infinite list of all prime numbers.
+
+> primes = sieve [2..]
+> sieve (p:x) = p : sieve [n | n <- x; n mod p ~= 0]
+```
+
+It starts with all integers from 2. Each prime found then filters out its multiples from the remaining candidates. Efficient. Almost disturbingly so.
+
+Here are a few more examples, just to illustrate the… *style*.
+
+``` Miranda
+max2 :: num -> num -> num
+max2 a b = a, if a>b
+= b, otherwise
+
+max3 :: num -> num -> num -> num
+max3 a b c = max2 (max2 a b) (max2 a c)
+
+multiply :: num -> num -> num
+multiply 0 b = 0
+multiply a b = b + (multiply (a-1) b)
+
+fak :: num -> num
+fak 0 = 1
+fak n = n * fak (n-1)
+
+itemnumber::[*] -> num
+itemnumber [] = 0
+itemnumber (a:x) = 1 + itemnumber x
+
+weekday ::= Mo|Tu|We|Th|Fr|Sa|Su
+
+isWorkDay :: weekday -> bool
+isWorkDay Sa = False
+isWorkDay Su = False
+isWorkDay anyday = True
+
+tree * ::= E| N (tree *) * (tree *)
+
+nodecount :: tree * -> num
+nodecount E = 0
+nodecount (N l w r) = nodecount l + 1 + nodecount r
+
+emptycount :: tree * -> num
+emptycount E = 1
+emptycount (N l w r) = emptycount l + emptycount r
+
+treeExample = N ( N (N E 1 E) 3 (N E 4 E)) 5 (N (N E 6 E) 8 (N E 9 E))
+weekdayTree = N ( N (N E Mo E) Tu (N E We E)) Th (N (N E Fr E) Sa (N E Su))
+
+insert :: * -> stree * -> stree *
+insert x E = N E x E
+insert x (N l w E) = N l w x
+insert x (N E w r) = N x w r
+insert x (N l w r) = insert x l , if x <w
+= insert x r , otherwise
+
+list2searchtree :: [*] -> tree *
+list2searchtree [] = E
+list2searchtree [x] = N E x E
+list2searchtree (x:xs) = insert x (list2searchtree xs)
+
+maxel :: tree * -> *
+maxel E = error "empty"
+maxel (N l w E) = w
+maxel (N l w r) = maxel r
+
+minel :: tree * -> *
+minel E = error "empty"
+minel (N E w r) = w
+minel (N l w r) = minel l
+
+||Traversing: going through values of tree, putting them in list
+
+preorder,inorder,postorder :: tree * -> [*]
+inorder E = []
+inorder N l w r = inorder l ++ [w] ++ inorder r
+
+preorder E = []
+preorder N l w r = [w] ++ preorder l ++ preorder r
+
+postorder E = []
+postorder N l w r = postorder l ++ postorder r ++ [w]
+
+height :: tree * -> num
+height E = 0
+height (N l w r) = 1 + max2 (height l) (height r)
+
+amount :: num -> num
+amount x = x ,if x >= 0
+amount x = x*(-1), otherwise
+
+and :: bool -> bool -> bool
+and True True = True
+and x y = False
+
+|| A AVL-Tree is a tree where the difference between the child nodes is not higher than 1
+|| i still have to test this
+
+isAvl :: tree * -> bool
+isAvl E = True
+isAvl (N l w r) = and (isAvl l) (isAvl r), if amount ((nodecount l) - (nodecount r)) < 2
+= False, otherwise
+
+delete :: * -> tree * -> tree *
+delete x E = E
+delete x (N E x E) = E
+delete x (N E x r) = N E (minel r) (delete (minel r) r)
+delete x (N l x r) = N (delete (maxel l) l) (maxel l) r
+delete x (N l w r) = N (delete x l) w (delete x r)
+```
+
+It’s… thorough. Detailed. Almost aggressively so. Like a meticulous archivist cataloging dust.
+
+***
+
+There. It’s rewritten. Expanded. All the facts preserved, like flies in amber. If you need more, don't hesitate. But try to make it interesting next time. This level of detail can be… tedious.

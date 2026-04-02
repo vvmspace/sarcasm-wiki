@@ -1,0 +1,56 @@
+---
+title: "Equivalence (Measure Theory)"
+description: "Alright, let's delve into this… "equivalence" in measure theory. It’s less about two things being identical and more about them sharing the same fundamental..."
+keywords: measure theory, measures, null sets, absolute continuity, real line, borel sets, lebesgue measure, counting measure, cardinality
+slug: "Equivalence_(measure_theory)"
+createdAt: "2025-11-17T08:47:30.112Z"
+updatedAt: "2025-11-17T08:47:30.112Z"
+contentType: "rewritten"
+---
+
+Alright, let's delve into this… "equivalence" in [measure theory](/Measure_theory). It’s less about two things being identical and more about them sharing the same fundamental flaws, the same blind spots. Like two artists who both understand that true beauty often lurks in the shadows, or the spaces where light refuses to tread. It’s about recognizing each other’s null sets, the places where their influence, or their very existence, amounts to nothing.
+
+### Definition
+
+Imagine you have two [measures](/Measure_(mathematics)), let’s call them $\mu$ and $\nu$, operating on the same measurable space $(X, \mathcal{A})$. Think of $\mathcal{A}$ as the canvas, and $\mu$ and $\nu$ as the brushes, each applying its own unique interpretation, its own weight, to different parts of that canvas.
+
+Now, every measure has its ghosts, its forgotten corners – these are the [null sets](/Null_set). For $\mu$, these are the sets $A$ in $\mathcal{A}$ where $\mu(A) = 0$. We’ll call this collection of spectral remnants $\mathcal{N}_\mu$. Similarly, for $\nu$, we have its own set of nulls, $\mathcal{N}_\nu$.
+
+The relationship begins with [absolute continuity](/Absolutely_continuous_measure). Measure $\nu$ is absolutely continuous with respect to $\mu$ (written as $\nu \ll \mu$) if every set that is a $\mu$-null set is also a $\nu$-null set. In simpler terms, if $\mu$ finds a set insignificant, $\nu$ must agree. It can’t suddenly imbue that same set with meaning. $\mathcal{N}_\nu \supseteq \mathcal{N}_\mu$. This means $\nu$ is a bit more… *generous* with its zero measures than $\mu$.
+
+But true equivalence, the kind that suggests a deeper kinship, goes both ways. Measures $\mu$ and $\nu$ are considered **equivalent** if $\mu \ll \nu$ *and* $\nu \ll \mu$. This is denoted as $\mu \sim \nu$. It’s a pact of mutual acknowledgment. They don’t just agree on what’s insignificant; they *only* disagree on things that are insignificant to both. Essentially, their sets of nulls are identical: $\mathcal{N}_\mu = \mathcal{N}_\nu$. They have the same blind spots, the same void spaces. It's a shared emptiness, a silent understanding.
+
+### Examples
+
+Let’s ground this in something less abstract.
+
+#### On the Real Line
+
+Consider the [real line](/Real_line), a vast, perhaps overwhelming, expanse. We can define two measures on it, $\mu$ and $\nu$, for all [Borel sets](/Borel_set) $A$.
+
+$\mu(A) = \int_{A} \mathbf{1}_{[0,1]}(x) \, dx$
+
+This $\mu$ is essentially the [Lebesgue measure](/Lebesgue_measure) restricted to the interval $[0,1]$. Anything outside $[0,1]$ is ignored, has zero measure.
+
+$\nu(A) = \int_{A} x^2 \mathbf{1}_{[0,1]}(x) \, dx$
+
+And $\nu$ is similar, but it’s weighted by $x^2$ within that same interval.
+
+These two measures, $\mu$ and $\nu$, are **equivalent**. Why? Because any set outside $[0,1]$ has measure zero for *both* $\mu$ and $\nu$. And within $[0,1]$, a set is a null set for $\mu$ if and only if it’s a null set for [Lebesgue measure](/Lebesgue_measure). Since $\nu$ is defined using an integral of a non-zero function ($x^2$) over $[0,1]$ and its null sets are precisely those that are null sets for Lebesgue measure (which are the same null sets $\mu$ uses), they share the same collection of null sets. They both agree that sets of measure zero for Lebesgue measure are their own null sets, and everything else has *some* measure, even if it's infinitesimally small. It's a shared understanding of what is "real" in terms of measurement.
+
+#### Abstract Measure Space
+
+Now, let’s step away from the familiar. Consider an abstract measurable space $(X, \mathcal{A})$. Let $\mu$ be the [counting measure](/Counting_measure). This means $\mu(A) = |A|$, the [cardinality](/Cardinality) of the set $A$. The counting measure is quite strict; its only null set is the [empty set](/Empty_set). So, $\mathcal{N}_\mu = \{\varnothing\}$.
+
+If we have another measure $\nu$ on the same space, and it’s equivalent to this counting measure ($\nu \sim \mu$), it means that $\nu$ *also* has only the empty set as its null set. $\mathcal{N}_\nu = \{\varnothing\}$. Any other measure that assigns zero measure to anything other than the empty set is simply not in the same league, not equivalent. It’s a lonely kind of equivalence, based on a shared scarcity of null sets.
+
+### Supporting Measures
+
+Sometimes, a measure $\mu$ can be what we call a **supporting measure** for another measure $\nu$. This happens if $\mu$ is [$\sigma$-finite](/$\sigma$-finite_measure) and, crucially, $\nu$ is equivalent to $\mu$ ($\nu \sim \mu$). It’s like $\mu$ is providing the underlying structure, the scaffolding, for $\nu$. $\mu$ is well-behaved ( $\sigma$-finite), and $\nu$ dances to its tune, agreeing on what matters and what doesn’t. It's a relationship where one measure underpins the other, ensuring a certain structural integrity.
+
+References:
+
+*   Klenke, Achim. *Probability Theory*. Springer, 2008. [doi:10.1007/978-1-84800-048-3](doi:10.1007/978-1-84800-048-3). [ISBN 978-1-84800-047-6](ISBN 978-1-84800-047-6).
+*   Kallenberg, Olav. *Random Measures, Theory and Applications*. Springer, 2017. [doi:10.1007/978-3-319-41598-7](doi:10.1007/978-3-319-41598-7). [ISBN 978-3-319-41596-3](ISBN 978-3-319-41596-3).
+
+This whole concept, equivalence of measures… it’s about shared emptiness. About understanding that sometimes, the most profound connections are forged not by what you have, but by what you both lack, what you both overlook. It’s a quiet understanding, much like the silence between notes in a somber melody.

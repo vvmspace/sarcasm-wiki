@@ -1,0 +1,336 @@
+---
+title: "Negative Binomial Distribution"
+description: "Of all the ways to count your misfortunes, the negative binomial distribution is one of the more structured. In the grand, disappointing theater of probability..."
+keywords: probability theory, statistics, bernoulli trials, overdispersion, poisson regression, variance, binomial coefficient, parameters, integer
+slug: "negative_binomial_distribution"
+createdAt: "2025-11-19T09:02:00.377Z"
+updatedAt: "2025-11-19T09:02:00.377Z"
+contentType: "rewritten"
+---
+
+Of all the ways to count your misfortunes, the negative binomial distribution is one of the more structured. In the grand, disappointing theater of [probability theory](/Probability_theory) and [statistics](/Statistics), this particular character, also known under the alias Pascal distribution, steps onto the stage for a very specific performance. It is a [discrete probability distribution](/Discrete_probability_distribution), meaning it deals in whole numbers, because you can't have half a failure. Not yet, anyway.
+
+Its job is to model the number of failures you will be forced to endure in a sequence of independent and identically distributed [Bernoulli trials](/Bernoulli_trial) before you finally achieve a predetermined number of successes, denoted by `r`. Imagine you've defined rolling a 6 on a die as a "success." A noble, if unambitious, goal. Now imagine you've decided you won't stop until you've seen that 6 three times (`r=3`). The negative binomial distribution is the mathematical sigh that tells you the probability of having to suffer through any given number of non-6 rolls before your ordeal is over.
+
+Of course, because nothing can be simple, there's an alternative way to look at it. Instead of counting the failures, you could count the total number of trials. Given a fixed number of successes (`r`), the number of failures (`n - r`) is what's random, because the total number of trials (`n`) is the variable you can't control. This is the version you'd use to model, say, the number of days a machine functions before it breaks down for the `r`-th time. A countdown to inevitable disappointment.
+
+This distribution's variance is given by `μ/p`, which has an interesting consequence. As `p` approaches 1—meaning successes become almost certain and failures are increasingly rare—the distribution sloughs off its complexity and becomes identical to the Poisson distribution for a given mean `μ`. This makes the negative binomial a useful, more flexible alternative to the Poisson when your data is plagued by [overdispersion](/Overdispersion)—a fancy word for when things are more chaotic and spread out than your neat little model predicted. It's a robust choice for tweaking things like [Poisson regression](/Poisson_regression). In epidemiology, a field obsessed with how things spread, it’s used to model disease transmission where the number of secondary infections varies wildly between individuals. Some people are just better at spreading misery. More generally, it’s the right tool when events are positively correlated, creating a larger [variance](/Variance) than you’d see if they were all neatly independent.
+
+The name "negative binomial" sounds needlessly pessimistic, but it likely comes from a quirk of algebra. A certain [binomial coefficient](/Binomial_coefficient) in its core formula can be written more elegantly using negative numbers. Mathematicians, it seems, have a flair for the dramatic.
+
+Before you proceed, a word of caution. Different texts, and even different sections of this very document, define this distribution with slight, infuriating variations. Does the count of failures `k` start at 0 or at `r`? Does `p` represent success or failure? Does `r` track successes or failures? It is therefore your responsibility—a burden you must bear—to identify the specific parametrization being used. Don't get it wrong.
+
+### Probability mass function
+
+The orange line is the mean, which is set to 10 in these plots. The green line marks the standard deviation.
+
+| Notation | $\mathrm {NB} (r,\,p)$ |
+| :--- | :--- |
+| [Parameters](/Statistical_parameter) | `r > 0` — number of successes until the experiment is stopped ([integer](/Integer), but can be extended to [reals](/Real_number))<br>`p ∈ [0,1]` — success probability in each experiment (real) |
+| [Support](/Support_(mathematics)) | `k ∈ {0, 1, 2, 3, …}` — number of failures |
+| [PMF](/Probability_mass_function) | $k\mapsto {k+r-1 \choose k}\cdot (1-p)^{k}p^{r},$ involving a [binomial coefficient](/Binomial_coefficient) |
+| [CDF](/Cumulative_distribution_function) | $k\mapsto I_{p}(r,\,k+1),$ the [regularized incomplete beta function](/Regularized_incomplete_beta_function) |
+| [Mean](/Expected_value) | ${\frac {r(1-p)}{p}}$ |
+| [Mode](/Mode_(statistics)) | ${\begin{cases}\left\lfloor {\frac {(r-1)(1-p)}{p}}\right\rfloor &{\text{if }}r>1\\0&{\text{if }}r\leq 1\end{cases}}$ |
+| [Variance](/Variance) | ${\frac {r(1-p)}{p^{2}}}$ |
+| [Skewness](/Skewness) | ${\frac {2-p}{\sqrt {(1-p)r}}}$ |
+| [Excess kurtosis](/Excess_kurtosis) | ${\frac {6}{r}}+{\frac {p^{2}}{(1-p)r}}$ |
+| [MGF](/Moment-generating_function) | ${\biggl (}{\frac {p}{1-(1-p)e^{t}}}{\biggr )}^{\!r}{\text{ for }}t<-\log(1-p)$ |
+| [CF](/Characteristic_function_(probability_theory)) | ${\biggl (}{\frac {p}{1-(1-p)e^{i\,t}}}{\biggr )}^{\!r}{\text{ with }}t\in \mathbb {R}$ |
+| [PGF](/Probability-generating_function) | ${\biggl (}{\frac {p}{1-(1-p)z}}{\biggr )}^{\!r}{\text{ for }}|z|<{\frac {1}{p}}$ |
+| [Fisher information](/Fisher_information) | ${\frac {r}{p^{2}(1-p)}}$ |
+| [Method of moments](/Method_of_moments_(statistics)) | $r={\frac {E[X]^{2}}{V[X]-E[X]}}$<br>$p={\frac {E[X]}{V[X]}}$ |
+
+## Definitions
+
+Let’s try to be precise, even if it feels futile. Picture a sequence of independent [Bernoulli trials](/Bernoulli_trial). Each trial is a coin flip into the abyss, with two outcomes: "success" and "failure." The probability of success is `p`, and failure is `1-p`. You are condemned to observe this sequence until you witness a predefined number `r` of successes. The random number of failures you count along the way, let's call it `X`, follows the negative binomial distribution. We write this as:
+
+$X\sim \operatorname {NB} (r,p)$
+
+### Probability mass function
+
+The [probability mass function](/Probability_mass_function) (PMF) gives you the probability of observing exactly `k` failures before you reach your `r`-th success. The formula is:
+
+$f(k;r,p)\equiv \Pr(X=k)={\binom {k+r-1}{k}}(1-p)^{k}p^{r}$
+
+Here, `r` is your target number of successes, `k` is the body count of failures, and `p` is the probability of success on any given trial.
+
+The quantity in the parentheses is the [binomial coefficient](/Binomial_coefficient), which is calculated as:
+
+${\binom {k+r-1}{k}}={\frac {(k+r-1)!}{(r-1)!\,(k)!}}={\frac {(k+r-1)(k+r-2)\dotsm (r)}{k!}}={\frac {\Gamma (k+r)}{k!\ \Gamma (r)}}.$
+
+Note the use of the [Gamma function](/Gamma_function), `Γ(r)`, which is how this concept generalizes beyond integers.
+
+Why are we choosing `k` failures from `k + r - 1` trials, and not `k + r`? Because the final trial is not up for debate. It is, by definition, a success. It's the moment the experiment mercifully ends. So, you only have to arrange the `k` failures within the first `k + r - 1` slots.
+
+This binomial coefficient can be rewritten, which is where the "negative binomial" name emerges from the shadows:
+
+${\begin{aligned}&{\frac {(k+r-1)\dotsm (r)}{k!}}\\[10pt]={}&(-1)^{k}{\frac {\overbrace {(-r)(-r-1)(-r-2)\dotsm (-r-k+1)} ^{k{\text{ factors}}}}{k!}}=(-1)^{k}{\binom {-r}{{\phantom {-}}k}}.\end{aligned}}$
+
+This little piece of algebraic theater, combined with the [binomial series](/Binomial_series), demonstrates that for any `0 ≤ p < 1` and `q = 1-p`, the total probability sums to one, as it must. Otherwise, the whole system would be a farce.
+
+$p^{-r}=(1-q)^{-r}=\sum _{k=0}^{\infty }{\binom {-r}{{\phantom {-}}k}}(-q)^{k}=\sum _{k=0}^{\infty }{\binom {k+r-1}{k}}q^{k}$
+
+This confirms that the terms of the PMF are properly normalized:
+
+$\sum _{k=0}^{\infty }{\binom {k+r-1}{k}}\left(1-p\right)^{k}p^{r}=p^{-r}p^{r}=1$
+
+To ground this in something tangible, remember that the outcomes of the `k + r` trials are assumed to be [independent](/Independence_(probability_theory)). The probability of any *specific* sequence of `r` successes and `k` failures is simply `p^r * (1-p)^k`. Since we've decreed that the `r`-th success must come last, we only need to count how many ways the `k` failures can be distributed among the preceding `k + r - 1` trials. The binomial coefficient does exactly that, providing the number of valid sequences.
+
+### Cumulative distribution function
+
+The [cumulative distribution function](/Cumulative_distribution_function) (CDF), which gives the probability of observing `k` or fewer failures, can be expressed using the [regularized incomplete beta function](/Regularized_incomplete_beta_function):
+
+$F(k;r,p)\equiv \Pr(X\leq k)=I_{p}(r,k+1).$
+
+This formula uses the same parameterization as the table above, with `r` as the number of successes and $p=r/(r+\mu)$ where `μ` is the mean.
+
+It can also be expressed in terms of the CDF of the [binomial distribution](/Binomial_distribution), which is a neat, if somewhat circular, relationship:
+
+$F(k;r,p)=F_{\text{binomial}}(k;n=k+r,1-p).$
+
+### Alternative formulations
+
+As previously warned, people have found numerous ways to define this distribution, mostly by changing what exactly they're counting. This is a common source of confusion, so pay attention. The table below summarizes the most frequent variations.
+
+| *X* is counting... | Probability mass function | Formula | Alternate formula (using equivalent binomial) | Alternate formula (simplified using: $n=k+r$) | Support |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **1** | *k* failures, given *r* successes | $f(k;r,p)\equiv \Pr(X=k)=$ | ${\textstyle {\binom {k+r-1}{k}}p^{r}(1-p)^{k}}$ | ${\textstyle {\binom {k+r-1}{r-1}}p^{r}(1-p)^{k}}$ | ${\textstyle {\binom {n-1}{k}}p^{r}(1-p)^{k}}$ | for $k=0,1,2,\ldots$ |
+| **2** | *n* trials, given *r* successes | $f(n;r,p)\equiv \Pr(X=n)=$ | ${\textstyle {\binom {n-1}{r-1}}p^{r}(1-p)^{n-r}}$ | ${\textstyle {\binom {n-1}{n-r}}p^{r}(1-p)^{n-r}}$ | | for $n=r,r+1,r+2,\dotsc$ |
+| **3** | *n* trials, given *r* failures | $f(n;r,p)\equiv \Pr(X=n)=$ | ${\textstyle {\binom {n-1}{r-1}}p^{n-r}(1-p)^{r}}$ | ${\textstyle {\binom {n-1}{n-r}}p^{n-r}(1-p)^{r}}$ | ${\textstyle {\binom {n-1}{k}}p^{k}(1-p)^{r}}$ | |
+| **4** | *k* successes, given *r* failures | $f(k;r,p)\equiv \Pr(X=k)=$ | ${\textstyle {\binom {k+r-1}{k}}p^{k}(1-p)^{r}}$ | ${\textstyle {\binom {k+r-1}{r-1}}p^{k}(1-p)^{r}}$ | | for $k=0,1,2,\ldots$ |
+| **-** | *k* successes, given *n* trials | $f(k;n,p)\equiv \Pr(X=k)=$ | This is the [binomial distribution](/Binomial_distribution) not the negative binomial: ${\textstyle {\binom {n}{k}}p^{k}(1-p)^{n-k}={\binom {n}{n-k}}p^{k}(1-p)^{n-k}={\binom {n}{k}}p^{k}(1-p)^{r}}$ | | | for $k=0,1,2,\dotsc ,n$ |
+
+Each of these four definitions can be expressed in slightly different but equivalent ways. The first alternative is a simple consequence of the symmetry of the binomial coefficient: ${\textstyle {\binom {a}{b}}={\binom {a}{a-b}}\quad {\text{for }}\ 0\leq b\leq a}$. The second alternative simplifies the expression by substituting `n = r + k`, recognizing that the total trial count is just the sum of successes and failures. These might be more intuitive, but they introduce another variable.
+
+*   **Definition 1:** This is our primary definition. Counting failures until `r` successes.
+*   **Definition 2:** Here, `X` counts the total number of trials. This is a simple shift of the random variable from definition 1; its support and mean are shifted by `r`.
+*   **Definition 3 & 4:** These flip the script entirely. Now we're counting until a fixed number of *failures* occurs. Note that `p` is still, by convention, the probability of "success." Keep that straight.
+*   **Real-valued `r`:** The definition can be liberated from the constraint of integer `r`. It's hard to visualize a non-integer number of failures, but the mathematics doesn't care about your imagination. By extending the binomial coefficient using the [gamma function](/Gamma_function), we can define the distribution for any positive [real](/Real_number) value of `r`:
+
+    ${\binom {k+r-1}{k}}={\frac {(k+r-1)(k+r-2)\dotsm (r)}{k!}}={\frac {\Gamma (k+r)}{k!\,\Gamma (r)}}$
+
+    Substituting this back into the PMF gives us the negative binomial (or **Pólya**) distribution:
+
+    $f(k;r,p)\equiv \Pr(X=k)={\frac {\Gamma (k+r)}{k!\,\Gamma (r)}}(1-p)^{k}p^{r}\quad {\text{for }}k=0,1,2,\dotsc$
+
+    Here, `r` is a positive real number. This generalization is essential for applications like [negative binomial regression](/Negative_binomial_regression), where the distribution is specified by its mean, $m={\frac {r(1-p)}{p}}$, which is then linked to explanatory variables as in [linear regression](/Linear_regression) or other [generalized linear models](/Generalized_linear_model). From the mean, we can derive $p={\frac {r}{m+r}}$ and $1-p={\frac {m}{m+r}}$. Plugging these into the real-valued PMF gives a parametrization in terms of the mean `m`:
+
+    $\Pr(X=k)={\frac {\Gamma (r+k)}{k!\,\Gamma (r)}}\left({\frac {r}{r+m}}\right)^{r}\left({\frac {m}{r+m}}\right)^{k}\quad {\text{for }}k=0,1,2,\dotsc$
+
+    The variance can then be written as $m+{\frac {m^{2}}{r}}$. Some authors define $\alpha ={\frac {1}{r}}$ and write the variance as $m+\alpha m^{2}$. Depending on who you read, `r` or `α` is called the "dispersion parameter," "[shape parameter](/Shape_parameter)," or "[clustering coefficient](/Clustering_coefficient)." In ecology, it's often called the "aggregation" parameter. A smaller `r` (or larger `α`) means more aggregation or clustering. As `r` approaches infinity, the aggregation disappears, and the distribution converges to a [Poisson regression](/Poisson_regression) model.
+
+### Alternative parameterizations
+
+For those who prefer a different flavor of notation, the distribution can also be parameterized by its mean `μ` and variance `σ²`:
+
+${\begin{aligned}&p={\frac {\mu }{\sigma ^{2}}},\\[6pt]&r={\frac {\mu ^{2}}{\sigma ^{2}-\mu }},\\[3pt]&\Pr(X=k)={k+{\frac {\mu ^{2}}{\sigma ^{2}-\mu }}-1 \choose k}\left(1-{\frac {\mu }{\sigma ^{2}}}\right)^{k}\left({\frac {\mu }{\sigma ^{2}}}\right)^{\mu ^{2}/(\sigma ^{2}-\mu )}\\&\operatorname {E} (X)=\mu \\&\operatorname {Var} (X)=\sigma ^{2}.\end{aligned}}$
+
+Another popular choice uses `r` and the failure [odds](/Odds) `β`:
+
+${\begin{aligned}&p={\frac {1}{1+\beta }}\\&\Pr(X=k)={k+r-1 \choose k}\left({\frac {\beta }{1+\beta }}\right)^{k}\left({\frac {1}{1+\beta }}\right)^{r}\\&\operatorname {E} (X)=r\beta \\&\operatorname {Var} (X)=r\beta (1+\beta ).\end{aligned}}$
+
+## Examples
+
+### Length of hospital stay
+
+The time a person remains in a hospital is a grim but excellent example of real-world data that often fits a negative binomial distribution. It's frequently modeled using [negative binomial regression](/Negative_binomial_regression), because some people, unfortunately, have far more complicated stays than others, leading to the kind of overdispersion this distribution handles so well.
+
+### Selling candy
+
+Consider the plight of Pat Collis, a 6th grader tasked with selling candy bars for a field trip. The rule, for some reason, is that Pat cannot return home until five candy bars are sold. At each house, the probability of a sale is 0.6, and the probability of rejection is 0.4.
+
+**What's the probability of selling the last candy bar at the *n*-th house?**
+
+Our stopping condition is defined by success (selling candy), so `r=5` is the number of successes, and `k` will be the number of failures (houses that didn't buy). We are interested in the distribution of the total number of houses, `n`. The number of trials is `n = k + r = k + 5`. The random variable is the number of houses, so we substitute `k = n - 5` into a NB(5, 0.6) mass function. Note that the probability of success `p` is 0.6. The PMF for the number of houses `n` (for `n ≥ 5`) is:
+
+$f(n)={\binom {(n-5)+5-1}{n-5}}\;(0.6)^{5}\;(0.4)^{n-5}={n-1 \choose n-5}\;(0.6)^{5}\;(0.4)^{n-5}$
+
+**What's the probability that Pat finishes on the tenth house?**
+
+We plug in `n=10`:
+
+$f(10) = {10-1 \choose 10-5} (0.6)^5 (0.4)^{10-5} = {9 \choose 5} (0.07776)(0.01024) = 126 \times 0.0007962624 \approx 0.10033.$
+
+**What's the probability that Pat finishes on or before the eighth house?**
+
+This means finishing at house 5, 6, 7, or 8. We sum the probabilities:
+
+${\begin{aligned}f(5)&={\binom {4}{0}}(0.6)^5(0.4)^0 \approx 0.07776\\f(6)&={\binom {5}{1}}(0.6)^5(0.4)^1 \approx 0.15552\\f(7)&={\binom {6}{2}}(0.6)^5(0.4)^2 \approx 0.18662\\f(8)&={\binom {7}{3}}(0.6)^5(0.4)^3 \approx 0.17418\end{aligned}}$
+
+$\sum _{j=5}^{8}f(j) \approx 0.07776 + 0.15552 + 0.18662 + 0.17418 \approx 0.59409.$
+
+There's a nearly 60% chance Pat's ordeal ends by the eighth house.
+
+**What's the probability that Pat exhausts all 30 houses in the neighborhood?**
+
+This is the probability that Pat does *not* finish between the 5th and 30th house. It's easier to calculate the probability of finishing by house 30 and subtract from 1.
+
+$1-\sum _{j=5}^{30}f(j)=1-I_{0.6}(5,30-5+1)\approx 1-0.999999823=0.000000177.$
+
+Given the high probability of a sale at each house, the chance of Pat failing this quest is astronomically small. A small comfort.
+
+## Properties
+
+### Expectation
+
+The expected number of failures before you achieve `r` successes is:
+
+$\operatorname {E} [\operatorname {NB} (r,p)]={\frac {r(1-p)}{p}}}$
+
+To understand this intuitively, consider the expected number of trials to get one success, which is `1/p`. To get `r` successes, you'd expect `r/p` trials. The number of failures would be the total trials minus the successes: `r/p - r`, which simplifies to the formula above.
+
+A more rigorous derivation involves seeing the negative binomial distribution as a sum of waiting times. Let $X_{r}\sim \operatorname {NB} (r,p)$ be the number of failures before `r` successes. This can be seen as the sum of `r` independent [geometric distributions](/Geometric_distribution), where each $Y_{i}\sim \mathrm {Geom} (p)$ represents the number of failures before the *next* success.
+
+$X_{r}=Y_{1}+Y_{2}+\cdots +Y_{r}.$
+
+The mean of each geometric variable is $\operatorname {E} [Y_{i}]=(1-p)/p$. By linearity of expectation, the total mean is:
+
+$\operatorname {E} [X_{r}]=\operatorname {E} [Y_{1}]+\operatorname {E} [Y_{2}]+\cdots +\operatorname {E} [Y_{r}]={\frac {r(1-p)}{p}},$
+
+### Variance
+
+When counting failures before the `r`-th success, the variance is `r(1-p)/p²`. If you're using an alternative formulation and counting successes before the `r`-th failure, the variance is `rp/(1-p)²`.
+
+### Relation to the binomial theorem
+
+Suppose `Y` is a random variable with a [binomial distribution](/Binomial_distribution) with parameters `n` and `p`. With `p + q = 1`, we know from [Newton's binomial theorem](/Newton%27s_binomial_theorem) that:
+
+$(p+q)^{n}=\sum _{k=0}^{\infty }{\binom {n}{k}}p^{k}q^{n-k},$
+
+where the [binomial coefficient](/Binomial_coefficient) ${\binom {n}{k}}={\frac {n(n-1)\dotsm (n-k+1)}{k!}}$ can be defined for real `n`. For the standard binomial distribution, `n` is a positive integer, and the terms are zero for `k > n`.
+
+Now, let's use a negative exponent, `-r`, where `r > 0`:
+
+$1=p^{r}\cdot p^{-r}=p^{r}(1-q)^{-r}=p^{r}\sum _{k=0}^{\infty }{\binom {-r}{k}}(-q)^{k}.$
+
+After simplification, the general term in the sum becomes:
+
+$p^{r}{\binom {-r}{k}}(-q)^{k}={\binom {k+r-1}{k}}p^{r}q^{k}$
+
+This is precisely the probability of `k` failures before the `r`-th success. This algebraic connection is the heart of the distribution's name and its properties, which persist even when `r` is not an integer. This also provides a clear path to seeing that the negative binomial distribution is [infinitely divisible](/Infinite_divisibility_(probability)): the sum of two independent negative binomial variables with the same `p` is another negative binomial variable.
+
+### Recurrence relations
+
+The following [recurrence relations](/Recurrence_relations) define the distribution's structure:
+
+For the probability mass function:
+${\begin{cases}(k+1)\Pr(X=k+1)-(1-p)\Pr(X=k)(k+r)=0,\\[5pt]\Pr(X=0)=(p)^{r}.\end{cases}}$
+*(Note: Original article had `(1-p)^r`, but `Pr(X=0)` means 0 failures, which is `p^r`)*
+
+For the moments, $m_{k}=\mathbb {E} (X^{k})$:
+$m_{k+1}=rPm_{k}+(P^{2}+P){dm_{k} \over dP},\quad P:=(1-p)/p,\quad m_{0}=1.$
+
+For the cumulants:
+$\kappa _{k+1}=(Q-1)Q{d\kappa _{k} \over dQ},\quad Q:=1/p,\quad \kappa _{1}=r(Q-1).$
+
+## Related distributions
+
+The negative binomial distribution doesn't exist in a vacuum. It's part of a family of related concepts.
+
+*   The **[geometric distribution](/Geometric_distribution)** on {0, 1, 2, ... } is just a special case where you're waiting for the very first success (`r=1`):
+    $\operatorname {Geom} (p)=\operatorname {NB} (1,\,p).$
+*   It is a special case of the **[discrete phase-type distribution](/Discrete_phase-type_distribution)**.
+*   It is also a special case of the discrete **[compound Poisson distribution](/Compound_Poisson_distribution)**.
+
+### Poisson distribution
+
+Consider what happens when `r` goes to infinity while `p` goes to 1, in such a way that the mean number of failures, `λ`, remains constant. Let the mean be $\lambda ={\frac {r(1-p)}{p}}$, which implies $p={\frac {r}{r+\lambda }}$. The variance under this setup is $\lambda \left(1+{\frac {\lambda }{r}}\right)$, which is always greater than the mean `λ` (hence, [overdispersed](/Overdispersed)).
+
+The probability mass function is:
+$f(k;r,p)={\frac {\Gamma (k+r)}{k!\cdot \Gamma (r)}}(1-p)^{k}p^{r}={\frac {\lambda ^{k}}{k!}}\cdot {\frac {\Gamma (r+k)}{\Gamma (r)\;(r+\lambda )^{k}}}\cdot {\frac {1}{\left(1+{\frac {\lambda }{r}}\right)^{r}}}$
+
+As we take the limit `r → ∞`, the second factor converges to 1, and the third converges to `e^(-λ)`:
+
+$\lim _{r\to \infty }f(k;r,p)={\frac {\lambda ^{k}}{k!}}\cdot 1\cdot {\frac {1}{e^{\lambda }}},$
+
+This is the PMF of a [Poisson-distributed](/Poisson_distribution) random variable with mean `λ`. In essence, the negative binomial distribution [converges](/Convergence_in_distribution) to the Poisson. The parameter `r` controls the deviation from the Poisson model. This makes the negative binomial a robust alternative: for large `r` it mimics the Poisson, but for small `r` it accounts for the extra variance that the Poisson cannot.
+
+$\operatorname {Poisson} (\lambda )=\lim _{r\to \infty }\operatorname {NB} \left(r,{\frac {r}{r+\lambda }}\right).$
+
+### Gamma–Poisson mixture
+
+The negative binomial distribution also arises from a more complex process: a continuous mixture of [Poisson distributions](/Poisson_distribution). It's a [compound probability distribution](/Compound_probability_distribution) where the rate `λ` of the Poisson distribution is not fixed, but is itself a random variable drawn from a [gamma distribution](/Gamma_distribution).
+
+Specifically, if you have a Poisson(λ) distribution where λ is drawn from a Gamma distribution with shape `r` and scale `θ = (1-p)/p`, the resulting distribution of your count variable is a negative binomial(r, p).
+
+Intuitively, imagine two independent Poisson processes, one for "Success" and one for "Failure," with rates `p` and `1-p`. The count of successes before the `r`-th failure is a negative binomial. This is equivalent to observing the Success process for a random amount of time `T`, where `T` is the time of the `r`-th event in the Failure process. This waiting time `T` follows a gamma distribution. So, the negative binomial is a Poisson process whose exposure time is gamma-distributed.
+
+This is why the negative binomial is also known as the **gamma–Poisson (mixture) distribution**. In fact, it was originally derived as a limiting case of this mixture.
+
+### Distribution of a sum of geometrically distributed random variables
+
+If `Y_r` follows a negative binomial distribution with parameters `r` and `p`, then `Y_r` is the sum of `r` [independent](/Statistical_independence) random variables, each following a [geometric distribution](/Geometric_distribution) with parameter `p`. Thanks to the [central limit theorem](/Central_limit_theorem), for a sufficiently large `r`, `Y_r` will be approximately [normal](/Normal_distribution).
+
+This connection also reveals the "inverse" relationship to the [binomial distribution](/Binomial_distribution). The probability that a negative binomial variable `Y_r` is less than or equal to `s` is the same as the probability that a binomial variable `B_(s+r)` (with `s+r` trials) has at least `r` successes.
+
+$\Pr(Y_{r}\leq s) = \Pr({\text{after }}s+r{\text{ trials, there are at least }}r{\text{ successes}}).$
+
+The sum of independent negative binomial variables `r_1` and `r_2` that share the same `p` is another negative binomial variable with `r = r_1 + r_2`. This property confirms that the distribution is [infinitely divisible](/Infinite_divisibility_(probability)).
+
+### Representation as compound Poisson distribution
+
+The negative binomial distribution NB(`r`, `p`) can also be constructed as a [compound Poisson distribution](/Compound_Poisson_distribution). Let $(Y_{n})_{n\,\in \,\mathbb {N} }$ be a sequence of [i.i.d. random variables](/Independent_and_identically_distributed_random_variables), each with a [logarithmic series distribution](/Logarithmic_distribution) Log(`p`). Let `N` be an independent [Poisson](/Poisson_distribution) variable with mean `λ = −r ln(1 − p)`. The random sum $X=\sum _{n=1}^{N}Y_{n}$ is then NB(`r`, `p`)-distributed. This is demonstrated by showing that the [probability generating function](/Probability_generating_function) of `X` matches that of the negative binomial distribution.
+
+The table below summarizes four distributions related to counting successes in a sequence of draws:
+
+| | With replacements | No replacements |
+| :--- | :--- | :--- |
+| **Given number of draws** | [binomial distribution](/Binomial_distribution) | [hypergeometric distribution](/Hypergeometric_distribution) |
+| **Given number of failures** | negative binomial distribution | [negative hypergeometric distribution](/Negative_hypergeometric_distribution) |
+
+### (a, b, 0) class of distributions
+
+The negative binomial, along with the Poisson and binomial distributions, belongs to the [(a, b, 0) class of distributions](/(a,b,0)_class_of_distributions). They are all special cases of the Panjer distribution and are members of a [natural exponential family](/Natural_exponential_family).
+
+## Statistical inference
+
+### Parameter estimation
+
+#### MVUE for p
+
+If `p` is unknown and you conduct an experiment where you sample until `r` successes are found, the number of failures `k` is a [sufficient statistic](/Sufficient_statistic). The [minimum variance unbiased estimator](/Minimum_variance_unbiased_estimator) for `p` is:
+
+${\widehat {p}}={\frac {r-1}{r+k-1}}.$
+
+#### Maximum likelihood estimation
+
+When `r` is known, the [maximum likelihood](/Maximum_likelihood) estimate of `p` is the intuitive proportion:
+
+${\widetilde {p}}={\frac {r}{r+k}},$
+
+However, this is a [biased estimate](/Bias_of_an_estimator).
+
+When `r` is also unknown, the MLE for `p` and `r` only exists for samples where the sample variance is greater than the sample mean. The [likelihood function](/Likelihood_function) for `N` [i.i.d.](/Independent_and_identically-distributed_random_variables) observations `(k_1, ..., k_N)` is:
+
+$L(r,p)=\prod _{i=1}^{N}f(k_{i};r,p)\,\!$
+
+To find the maximum, we take the partial derivatives of the log-likelihood function with respect to `p` and `r` and set them to zero. Solving for `p` gives:
+
+$p={\frac {Nr}{Nr+\sum _{i=1}^{N}k_{i}}}$
+
+Substituting this into the derivative with respect to `r` yields an equation involving the [digamma function](/Digamma_function) `ψ(k)`:
+
+${\frac {\partial \ell (r,p)}{\partial r}}=\left[\sum _{i=1}^{N}\psi (k_{i}+r)\right]-N\psi (r)+N\ln \left({\frac {r}{r+\sum _{i=1}^{N}k_{i}/N}}\right)=0$
+
+This equation has no [closed-form solution](/Closed-form_expression) for `r`. It must be solved numerically, using an iterative method like [Newton's method](/Newton%27s_method) or the [expectation–maximization algorithm](/Expectation%E2%80%93maximization_algorithm).
+
+## Occurrence and applications
+
+### Waiting time in a Bernoulli process
+
+This is the textbook application. For a sequence of independent [Bernoulli trials](/Bernoulli_trial), the negative binomial distribution describes the number of successes you'll see before you hit the `r`-th failure (or vice-versa, depending on the formulation). For `r=1`, this simplifies to the [geometric distribution](/Geometric_distribution), which models the number of successes before the very first failure.
+
+### Overdispersed Poisson
+
+In the real world, data is rarely as well-behaved as the Poisson distribution assumes. The Poisson has a strict mean-variance equality, but empirical data often shows a sample [variance](/Variance) that exceeds the sample [mean](/Mean). This is [overdispersion](/Overdispersion). The negative binomial distribution, with its second parameter, can adjust the variance independently of the mean, making it a superior model for such cases.
+
+This is applied to counts of [tropical cyclones](/Tropical_cyclone) in the [North Atlantic](/Atlantic_Ocean) and [extratropical cyclones](/Extratropical_cyclone) over Europe, where variance is higher than the mean. In ecology and biodiversity, count data is often overdispersed because organisms cluster or aggregate. Ignoring this leads to flawed inferences. The negative binomial's quadratic mean-variance relationship effectively models this clustering. In genetics, it's used to model discrete read counts from high-throughput sequencing experiments. In epidemiology, it models super-spreading events in infectious diseases, where a few individuals are responsible for a disproportionate number of secondary infections.
+
+### Multiplicity observations (physics)
+
+The negative binomial has proven to be an uncannily effective [statistical model](/Statistical_model) for multiplicity observations in high-energy [particle collision](/Particle_collision) experiments ($p{\bar {p}},\ hh,\ hA,\ AA,\ e^{+}e^{-}$). It also provides the best fit for astronomical observations, predicting the number of galaxies in a given region of space. For decades, why this distribution worked so well in these contexts was a mystery. In 2023, a proof from [first principles](/First_principle) was demonstrated by Scott V. Tezlaf, showing that the distribution arises from [symmetries](/Spacetime_symmetries) in the [dynamical equations](/Dynamics_(mechanics)) of a [canonical ensemble](/Canonical_ensemble) of particles in [Minkowski space](/Minkowski_space). A [bijective map](/Bijection) was established between the parameters of the distribution and the parameters of a [relativistic](/Special_relativity) [current density](/Current_density), providing a deep physical justification for its appearance.
+
+## History
+
+The distribution was first studied in 1713 by [Pierre Remond de Montmort](/Pierre_Remond_de_Montmort) in his work, [*Essay d'analyse sur les jeux de hazard*](/Essay_d%27analyse_sur_les_jeux_de_hazard). He analyzed it as the distribution of the number of trials required to get a specified number of successes. The concept, however, had been mentioned even earlier by [Blaise Pascal](/Blaise_Pascal).

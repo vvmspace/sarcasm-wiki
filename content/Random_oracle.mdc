@@ -1,0 +1,117 @@
+---
+title: "Random Oracle"
+description: "In the realm of cryptography a random oracle is conceived as an oracle—a theoretical black box) that answers every distinct query with a genuinely random value..."
+keywords: black box, random, deterministic_algorithm, p vs np problem, mihir bellare, phillip rogaway, cryptographic hash functions, hard, collision resistance
+slug: "Random_oracle"
+createdAt: "2025-12-26T11:09:34.383Z"
+updatedAt: "2025-12-26T11:09:34.383Z"
+contentType: "rewritten"
+aiProvider: "OpenRouter"
+aiModel: "nvidia/nemotron-3-nano-30b-a3b:free"
+previousArticleSlug: "Science_Translational_Medicine"
+previousArticleTitle: "Science Translational Medicine"
+---
+
+# Cryptographic model of a random function  
+
+In the realm of **cryptography** a *random oracle* is conceived as an **oracle**—a theoretical **[black box](/Black_box_(systems))** that answers every distinct query with a genuinely **[random](/Random)** value drawn uniformly from its output domain. If the same query is posed again, the oracle returns the identical response each time, i.e., it behaves **deterministically** with respect to repeated inputs **[Deterministic_algorithm](/Deterministic_algorithm)**.  
+
+Stated differently, a random oracle is a mathematically defined function that, for every possible query, is assigned a fixed random output chosen from its codomain with equal probability.  
+
+The notion of a random oracle was first introduced in the context of **computational complexity theory**, where it served to illustrate that certain complexity‑class separations may succumb to *relativization* barriers. The most celebrated example is the **[P vs NP problem](/P_vs_NP_problem)**, wherein 1981 it was shown that **P** and **NP** remain distinct relative to a random oracle **almost surely** **[1]**.  
+
+A few years later, the concept migrated into **cryptography** through the seminal 1993 paper by **[Mihir Bellare](/Mihir_Bellare)** and **[Phillip Rogaway](/Phillip_Rogaway)**, who formalised the random oracle as a modelling tool for reduction proofs **[2]**.  
+
+---
+
+## Article  
+
+The term *random oracle* appears in the broader Wikipedia ecosystem under the heading **[Article:]**. It serves as a placeholder for the detailed exposition that follows, preserving the original structural markers while inviting an expanded, reader‑friendly narrative.  
+
+---
+
+## Random oracles first appeared  
+
+Random oracles entered the literature when scholars sought an *idealised* abstraction for hash‑function‑like objects. In cryptographic theory they function as an **infinite** source of randomness: each unique query elicits a fresh, uniformly distributed output, while repeated queries receive the same pre‑assigned output **[1]**.  
+
+Bellare and Rogaway popularised the construct as a *formal cryptographic model* for proving security properties. They framed a random oracle as a function selected uniformly at random from the set of all functions mapping queries to outputs—a crucial simplification that enables rigorous reduction arguments **[2]**.  
+
+---
+
+## Applications  
+
+Random oracles are typically employed as **idealised replacements** for **[cryptographic hash functions](/Cryptographic_hash_function)** in protocols where the security proof demands *strong* randomness assumptions about the underlying primitive.  
+
+* A proof that a scheme remains secure when every hash function is swapped for a random oracle is said to be secure **in the random oracle model**, a designation that distinguishes it from proofs that hold in the **[standard model of cryptography](/Standard_model_(cryptography))**.  
+
+* Such proofs often demonstrate that an adversary would have to exhibit *impossible* behaviour—or solve a mathematically **[hard](/NP-hardness)** problem—to break the construction.  
+
+* Importantly, a security proof in the random oracle model does **not** automatically guarantee safety in the standard model; nevertheless, it provides far stronger evidence of practical safety than an unformalised argument.  
+
+Not every cryptographic construction relies on random oracles. Schemes that require only limited hash‑function properties—such as **[collision resistance](/Collision_resistance)**, **[preimage resistance](/Preimage_resistance)**, or **[second preimage resistance](/Second_preimage_resistance)**—can frequently be analysed directly in the standard model. Notable examples include the **[Cramer–Shoup cryptosystem](/Cramer%E2%80%93Shoup_cryptosystem)**.  
+
+---
+
+## Domain separation  
+
+* **Main article:** **[Domain separation](/Domain_separation)**  
+
+A single random oracle can be conceptually split into multiple independent oracles by prefixing each query with a fixed bit‑string. For instance, queries of the form `1||x` or `0||x` may be interpreted as calls to two distinct random oracles; similarly, prefixes `00||x`, `01||x`, `10||x`, and `11||x` can denote four separate oracles. This technique, known as **[domain separation](/Domain_separation)**, allows designers to treat one oracle as several logical instances.  
+
+* **Oracle cloning**—the reuse of an already constructed random oracle within the same proof—is a common practice that corresponds to calling the same **[cryptographic hash](/Cryptographic_hash)** multiple times for different purposes within an algorithm. Improper cloning combined with insufficient domain separation can invalidate security proofs and open the door to attacks **[7]**, **[8]**.  
+
+---
+
+## Limitations  
+
+According to the **[Church–Turing thesis](/Church%E2%80%93Turing_thesis)**, no algorithmically **[computable](/Computable_function)** function can embody a true random oracle, because a genuine random oracle possesses an infinite description: it must assign an independent random output to each possible input.  
+
+Consequently, certain contrived **[signature](/Signature_function)** and **[encryption](/Encryption)** schemes are provably secure when analysed with a random oracle, yet become trivially insecure when instantiated with any concrete hash function **[9]**, **[10]**.  
+
+Nonetheless, for most *natural* protocols, a security proof in the random oracle model supplies compelling—if not definitive—evidence of practical robustness **[11]**.  
+
+In practice, breaking the random oracle assumption requires discovering some hidden, undesirable property of the actual hash function, whereas refuting the underlying mathematical hardness assumptions (e.g., integer factorisation) demands a faster algorithm for that problem.  
+
+---
+
+## Random oracle hypothesis  
+
+The section on the *Random oracle hypothesis* currently violates Wikipedia’s **[Manual of Style](/Wikipedia:Manual_of_Style)** and may be improved through collaborative editing. Discussions can be found on its **[talk page](/Talk:Random_oracle)** (February 2024).  
+
+The hypothesis posits that two “acceptable” complexity classes **C₁** and **C₂** are equal if and only if they are equal with probability 1 under a random oracle—a notion of *acceptability* first formalised by Baker, Gill, and Solovay (BG81) **[13]**.  
+
+Early results, such as the **[Baker–Gill–Solovay theorem](/Baker%E2%80%93Gill%E2%80%93Solovay_theorem)**, demonstrated an oracle **A** for which **P** and **NP** diverge relative to **A**. Later work by Bennett and Gill showed that for a random oracle **B**, **P** is strictly contained in **NP** with probability 1.  
+
+However, the hypothesis was later disproved when it was shown that the classes **[IP](/IP_(complexity))** and **[PSPACE](/PSPACE)** are equal despite differing relative to a random oracle with probability 1 **[14]**, **[15]**.  
+
+---
+
+## Ideal cipher  
+
+An **ideal cipher** is an **[idealised](/Platonic_ideal)** permutation oracle used to model a perfect block cipher. In this model, each ciphertext block maps to a unique plaintext block and vice‑versa, establishing a **[one-to-one correspondence](/One-to-one_correspondence)**. Some proofs grant access not only to the forward permutation but also to its inverse.  
+
+Recent research has shown that an ideal cipher can be *constructed* from a random oracle using relatively shallow **[Feistel networks](/Feistel_network)**—specifically, 10‑round constructions **[16]**, and even 8‑round variants **[17]**.  
+
+---
+
+## Ideal permutation  
+
+An **ideal permutation** is an abstraction sometimes employed to model the behaviour of a permutation whose outputs are indistinguishable from those of a truly random permutation. Within the **ideal permutation model**, an additional oracle provides access both to the permutation and its inverse, effectively constituting a specialised case of the ideal cipher where only a single permutation is considered rather than a family thereof.  
+
+---
+
+## Quantum‑accessible random oracles  
+
+Within **[post‑quantum cryptography](/Post-quantum_cryptography)**, researchers examine how quantum adversaries interact with cryptographic primitives. Since a random oracle is an abstraction of a **[hash function](/Hash_function)**, it is natural to assume that a quantum attacker may query the oracle in **quantum superposition** **[18]**.  
+
+Many classical security proofs collapse in this **quantum random oracle model**, necessitating substantial revisions to establish post‑quantum guarantees.  
+
+---
+
+## See also  
+
+* **[Sponge function](/Sponge_function)**  
+* **[Oracle machine](/Oracle_machine)**  
+* **[Topics in cryptography](/Topics_in_cryptography)**  
+
+---

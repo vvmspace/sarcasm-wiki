@@ -1,0 +1,90 @@
+---
+title: "Correlation Functions"
+description: "The cross-correlation matrix is a fundamental concept in statistics and signal processing that quantifies the similarity between two random vectors or time..."
+keywords: statistics, signal processing, random vectors, time series, cross-correlation, jointly stationary, expected value, hermitian transpose, transpose
+slug: "Correlation_functions"
+createdAt: "2025-12-24T08:35:07.667Z"
+updatedAt: "2025-12-24T08:35:07.667Z"
+contentType: "rewritten"
+aiProvider: "OpenRouter"
+aiModel: "tngtech/deepseek-r1t2-chimera:free"
+previousArticleSlug: "Plastid"
+previousArticleTitle: "Plastid"
+---
+
+# Cross-correlation matrix
+
+The **cross-correlation matrix** is a fundamental concept in [statistics](/Statistics) and [signal processing](/Signal_processing) that quantifies the similarity between two [random vectors](/Random_vector) or [time series](/Time_series) as a function of the displacement of one relative to the other. This matrix representation extends the simpler [cross-correlation](/Cross-correlation) function used for scalar-valued processes to the multivariate case, providing crucial insights into the interdependencies between multiple variables across different domains.
+
+## Definition and Mathematical Formulation
+For two [jointly stationary](/Stationary_process) random vectors **X** = (X₁, X₂, ..., Xₘ) and **Y** = (Y₁, Y₂, ..., Yₙ), the cross-correlation matrix **R**<sub>XY</sub>(τ) at [lag](/Lag_(statistics)) τ is defined as:
+
+**R**<sub>XY</sub>(τ) = E[**X**(t + τ)**Y**<sup>H</sup>(t)]
+
+where:
+- E denotes the [expected value](/Expected_value)
+- **Y**<sup>H</sup> represents the [Hermitian transpose](/Conjugate_transpose) of **Y**
+- τ is the time displacement (lag) between the signals
+
+In practical applications involving finite-length discrete signals, this is often estimated using:
+
+**R̂**<sub>XY</sub>[k] = (1/N) ∑<sub>n=0</sub><sup>N-1</sup> **x**[n + k]**y**<sup>H</sup>[n]
+
+where N is the number of observations and k is the discrete lag index.
+
+## Key Properties
+1. **Hermitian Symmetry**: For real-valued signals, **R**<sub>XY</sub>(τ) = **R**<sub>YX</sub><sup>T</sup>(-τ), where <sup>T</sup> denotes matrix [transpose](/Transpose)
+2. **Lag Relationship**: The zero-lag cross-correlation **R**<sub>XY</sub>(0) corresponds to the instantaneous [covariance matrix](/Covariance_matrix) when **X** and **Y** are zero-mean processes
+3. **Fourier Transform**: The [cross-spectral density](/Cross-spectrum) matrix is the [Fourier transform](/Fourier_transform) of the cross-correlation matrix (per the [Wiener-Khinchin theorem](/Wiener–Khinchin_theorem))
+4. **Positive Semi-definiteness**: When **X** = **Y**, the autocorrelation matrix **R**<sub>XX</sub>(0) is always [positive semi-definite](/Definite_matrix)
+
+## Applications Across Disciplines
+
+### Signal Processing
+In [array processing](/Array_processing), cross-correlation matrices form the basis of:
+- [Beamforming](/Beamforming) algorithms
+- [Direction of arrival](/Direction_of_arrival) estimation
+- [Adaptive filtering](/Adaptive_filter)
+
+The [MUSIC algorithm](/MUSIC_(algorithm)) and [Capon's method](/Minimum_variance_unbiased_estimator) directly employ eigendecompositions of cross-correlation matrices to estimate signal parameters.
+
+### Financial Analysis
+In [quantitative finance](/Quantitative_analysis_(finance)), cross-correlation matrices of asset returns are crucial for:
+- [Portfolio optimization](/Modern_portfolio_theory)
+- [Risk management](/Financial_risk_management)
+- [Principal component analysis](/Principal_component_analysis) of market movements
+
+Researchers often analyze the eigenvalue distribution of these matrices to distinguish genuine correlations from random noise in financial markets.
+
+### Meteorology and Climate Science
+Cross-correlation matrices between atmospheric variables enable:
+- [Teleconnection](/Teleconnection) pattern identification (e.g., [El Niño-Southern Oscillation](/El_Niño–Southern_Oscillation) studies)
+- [Data assimilation](/Data_assimilation) techniques for weather forecasting
+- Climate model validation through [spatiotemporal](/Spatiotemporal_pattern) correlation analysis
+
+## Computational Considerations
+Modern implementations leverage:
+- [Fast Fourier transform](/Fast_Fourier_transform) (FFT) acceleration for efficient computation
+- [Parallel computing](/Parallel_computing) architectures for large-dimensional matrices
+- [Regularization](/Regularization_(mathematics)) techniques (e.g., [shrinkage estimation](/Shrinkage_estimator)) for high-dimensional problems
+
+The [singular value decomposition](/Singular_value_decomposition) (SVD) of cross-correlation matrices provides numerical stability in ill-conditioned scenarios common with highly correlated variables.
+
+## Special Cases and Related Concepts
+- **Autocorrelation Matrix**: When **X** = **Y**, denoted **R**<sub>XX</sub>(τ)
+- **Cross-covariance Matrix**: For non-zero-mean processes, differs by the product of means
+- **Partial Cross-correlation**: Measures direct associations after removing effects of other variables
+- **Complex-valued Extensions**: Essential in [communications engineering](/Telecommunications_engineering) for [quadrature amplitude modulation](/Quadrature_amplitude_modulation) (QAM) systems
+
+## Redirect Notes
+This page originally redirected from the plural form "[Cross-correlation matrices](/Cross-correlation_matrices)".
+
+### Redirect Information
+- **Redirect Type**: [From the plural form](/Category:Redirects_from_plurals)
+- **Namespaces**: Applies only to [mainspace](/Wikipedia:Mainspace) redirects
+- **Tracking**: Categorized under [Wikipedia:Redirect](/Wikipedia:Redirect) tracking system
+- **Modification Note**: For plural forms in other namespaces, use {{[R from modification](/Template:R_from_modification)}}
+- **Link Policy**: Follow [WP:NOTBROKEN](/Wikipedia:NOTBROKEN) guidelines for link maintenance
+
+### Protection Status
+This redirect's [protection level](/Wikipedia:Protection_policy) is automatically monitored and categorized by Wikipedia's protection sensing framework.

@@ -1,0 +1,192 @@
+---
+title: "Management Information Base"
+description: "This article requires more substantiation. It's a veritable desert of verifiable facts, and frankly, I'm not here to hold your hand and fetch citations. If you..."
+keywords: management information base, communication network, network management model, asn.1, object identifier, internet
+slug: "Management_information_base"
+createdAt: "2025-11-18T11:23:48.170Z"
+updatedAt: "2025-11-18T11:23:48.170Z"
+contentType: "rewritten"
+---
+
+This article requires more substantiation. It's a veritable desert of verifiable facts, and frankly, I'm not here to hold your hand and fetch citations. If you want this to be more than just a collection of vaguely connected ideas, you'll need to find reliable sources. Until then, much of this might as well be whispered into the void. Unsourced material? It's a liability. It gets challenged, it gets removed. Don't say I didn't warn you.
+
+## Management Information Base (MIB)
+
+A [management information base](/Communication_network) (MIB) is, at its core, a database. It’s the central repository for managing the entities that make up a [communication network](/Communication_network). You’ll most often encounter it in the context of the [Simple Network Management Protocol](/Simple_Network_Management_Protocol) (SNMP), but its utility isn't strictly confined to that. The term is also applied more broadly, particularly within the [OSI](/Open_Systems_Interconnection)/[ISO](/ISO) [Network management model](/Network_management_model). Now, technically, a MIB is meant to encompass the *entire* collection of management information available for a specific entity. However, in practice, people often refer to a particular subset of this information as a MIB, when a more precise term would be a "MIB-module." It's a semantic nuance, but precision matters, especially when you're trying to wrangle complex systems.
+
+The objects within this database are defined using a specialized dialect of Abstract Syntax Notation One ([ASN.1](/ASN.1)), known as "Structure of Management Information Version 2 (SMIv2)," as detailed in [RFC](/RFC_(identifier)) 2578. The software responsible for interpreting these definitions is, predictably, a MIB compiler.
+
+This database isn't some chaotic jumble; it's structured hierarchically, like a tree. Each entry, each piece of management data, is located by its unique [object identifier](/Object_identifier) (OID). The documentation for the [Internet](/Internet), particularly the [RFC](/Request_for_Comments) series, is where you'll find extensive discussions on MIBs. Key among these are:
+
+*   [RFC](/RFC_(identifier)) 1155, titled "Structure and Identification of Management Information for [TCP/IP](/TCP/IP) based internets," which laid the groundwork.
+*   Its companion documents, [RFC](/RFC_(identifier)) 1213, "Management Information Base for Network Management of TCP/IP-based internets," and [RFC](/RFC_(identifier)) 1157, "A Simple Network Management Protocol." These are foundational texts for understanding how network management information is organized and accessed.
+
+### ASN.1
+
+[Abstract Syntax Notation One](/Abstract_Syntax_Notation_One) (ASN.1) is the language used to describe the structure of data. It's a standard, remarkably flexible notation that dictates how data structures should be represented, encoded, transmitted, and subsequently decoded. The beauty of ASN.1 lies in its ability to define these structures independently of any machine-specific encoding methods, thereby eliminating ambiguity. It's a formal, precise way of saying what something looks like, without getting bogged down in the how.
+
+Originally defined in 1984 as part of CCITT X.409:1984, ASN.1 is a joint effort by ISO and [ITU-T](/ITU-T). Its widespread applicability led to it becoming its own standard, X.208, in 1988. The significantly revised 1995 version is now covered by the X.680 standards series.
+
+For the purposes of SNMP, a subset of ASN.1, known as the [Structure of Management Information](/Structure_of_Management_Information) (SMI), is employed. This subset defines the sets of related MIB objects, which we refer to as MIB modules.
+
+### MIB Hierarchy
+
+The MIB hierarchy is best visualized as a tree, with a root that, interestingly, has no name. The different levels of this tree are assigned by various organizations. The uppermost branches, the top-level MIB OIDs, are reserved for different standards bodies. As you descend the tree, lower-level object identifiers are allocated by subordinate organizations. This hierarchical structure is crucial because it allows for management across all the [layers](/Abstraction_layer) of the [OSI reference model](/OSI_reference_model). It even extends into application-level concerns, encompassing areas like [databases](/Database), [email](/Email), and proprietary models, as MIBs can be defined for virtually any domain-specific information and operational parameters.
+
+A "managed object"—sometimes called a MIB object or simply an object—represents a specific characteristic of a managed device. These managed objects are composed of one or more "object instances," which are essentially the variables holding the actual data. The OID is the unique address for each managed object within this tree structure.
+
+There are two primary types of managed objects:
+
+*   **Scalar objects:** These define a single, distinct object instance. Think of it as a single data point.
+*   **Tabular objects:** These group multiple related object instances together into MIB tables. This is where you'd find collections of data, like rows and columns.
+
+As a concrete example, consider `atInput`. This is a scalar object that encapsulates a single instance: an [integer](/Integer) value. This integer represents the total count of [AppleTalk](/AppleTalk) packets received on a particular router [interface](/Network_interface_controller). It’s a simple, clear representation of a specific network metric.
+
+### SNMPv1 and SMI-specific Data Types
+
+The initial version of the [Structure of Management Information](/Structure_of_Management_Information), known as SMIv1, established a set of specific data types. These are broadly categorized into two groups: simple data types and application-wide data types.
+
+#### Simple Data Types
+
+SMIv1 defines three fundamental simple data types:
+
+*   **Integer:** This is a signed integer, capable of representing values between -2<sup>31</sup> and 2<sup>31</sup> - 1.
+*   **Octet strings:** These are ordered sequences of octets (bytes), ranging from zero up to 65,535 octets in length. They are used for representing textual or binary data.
+*   **Object IDs:** These represent object identifiers themselves, structured according to the rules laid out in ASN.1.
+
+#### Application-Wide Data Types
+
+Beyond the simple types, SMIv1 includes several application-wide data types:
+
+*   **Network addresses:** These represent addresses specific to a particular network protocol family. SMIv1 was limited to supporting only 32-bit (IPv4) addresses. Later versions, SMIv2, would use Octet Strings generically for addresses, making them more adaptable. SMIv1 had a dedicated data type for IPv4 addresses.
+*   **Counters:** These are non-negative integers designed to increment. When they reach their maximum value, they "roll over" back to zero. SMIv1 specifies these counters to be 32 bits in size.
+*   **Gauges:** Similar to counters, gauges are non-negative integers, but they can both increase and decrease within a defined minimum and maximum range. If the system property being monitored exceeds these bounds, the gauge's value will simply clamp to the respective maximum or minimum, as stipulated in [RFC](/RFC_(identifier)) 2578.
+*   **Time ticks:** These represent elapsed time, measured in hundredths of a second, from a specific reference event.
+*   **Opaques:** This type is a catch-all for arbitrary encodings. It's used to pass information strings that don't conform to the strict data typing rules of SMI.
+*   **Integers:** This type redefines the general integer concept. While ASN.1 integers can have arbitrary precision, SMI integers have a bounded precision. This specific type represents signed integer-valued information.
+*   **Unsigned integers:** This type is similar to the "Integers" type but specifically for non-negative values, which is useful when you know a value will never be less than zero. It also redefines the ASN.1 integer to have bounded precision.
+
+### SNMPv1 MIB Tables
+
+SMIv1 also provides a mechanism for creating highly structured tables. These tables are used to group together multiple instances of a tabular object – essentially, objects that contain more than one variable. A table is composed of zero or more rows, and these rows are indexed in such a way that an SNMP manager can retrieve or modify an entire row using a single command, such as `Get`, `GetNext`, or `Set`. This structured approach simplifies the management of complex datasets.
+
+### SMIv2
+
+The second iteration of the SMI, known as SMIv2, is detailed in [RFC](/RFC_(identifier)) 2578 and [RFC](/RFC_(identifier)) 2579. It builds upon SMIv1, introducing enhancements and additional data types. Among these are bit strings, more generic network addresses, and crucially, 64-bit counters. Bit strings, exclusive to SMIv2, consist of zero or more named bits that define a value. Network addresses are now represented more universally, and while SMIv1 specified a 32-bit counter size, SMIv2 explicitly defines both 32-bit and 64-bit counters, accommodating larger values and longer operational periods.
+
+SMIv2 also introduces the concept of "information modules." These are distinct units that group together related definitions. There are three principal types of SMI information modules:
+
+*   **MIB modules:** These contain the definitions of interconnected managed objects. They are the building blocks of MIBs.
+*   **Compliance statements:** These offer a standardized method for outlining a set of managed objects that must be implemented for a device or system to conform to a specific standard. This ensures interoperability.
+*   **Capability statements:** These are used to precisely declare the level of support an agent offers for a particular MIB group. A Network Management System (NMS) can then tailor its interactions with agents based on these declared capabilities, optimizing its operations.
+
+### Updating MIB Modules
+
+MIB modules are not static entities; they evolve. Updates are occasionally necessary to introduce new functionalities, clarify ambiguities, or rectify defects. These revisions must adhere to the guidelines set forth in section 10 of [RFC](/RFC_(identifier)) 2578 and section 5 of [RFC](/RFC_(identifier)) 2579. A prime example of a MIB module that has undergone numerous updates is the critical set of objects originally defined in [RFC](/RFC_(identifier)) 1213, commonly known as "MIB-II." Over time, this monolithic MIB has been broken down and distributed across various MIB modules, including:
+
+*   [RFC](/RFC_(identifier)) 4293, "Management Information Base for the Internet Protocol (IP)"
+*   [RFC](/RFC_(identifier)) 4022, "Management Information Base for the [Transmission Control Protocol](/Transmission_Control_Protocol) (TCP)"
+*   [RFC](/RFC_(identifier)) 4113, "Management Information Base for the User Datagram Protocol (UDP)"
+*   [RFC](/RFC_(identifier)) 2863, "The Interfaces Group MIB"
+*   [RFC](/RFC_(identifier)) 3418, "Management Information Base (MIB) for the Simple Network Management Protocol (SNMP)"
+
+This modular approach allows for more targeted updates and better management of complexity.
+
+### Example
+
+Consider the structure of the SNMPv2-MIB, as defined in [RFC](/RFC_(identifier)) 3418. It's a hierarchical representation:
+
+```
+└── SNMPv2-MIB(.1.3.6.1.2.1)
+└── system(.1)
+├── sysDescr (.1)
+├── sysObjectID (.2)
+├── sysUpTime (.3)
+├── sysName (.5)
+├── sysContact (.4)
+├── sysLocation (.6)
+├── sysServices (.7)
+├── sysORLastChange (.8)
+└── sysORTable (.9)
+└── sysOREntry (.1)
+├── sysORIndex (.1)
+├── sysORID (.2)
+├── sysORDescr (.3)
+└── sysORUpTime (.4)
+```
+
+To retrieve the value of `sysName` for a device, you might use a command like `snmpwalk` with the appropriate OID. For instance, targeting the IP address `10.32.13.36` with version 2c of SNMP and the community string "public":
+
+```bash
+# snmpwalk 10.32.13.36 -v2c -c public sysName
+```
+
+This would yield a result like:
+
+```
+SNMPv2-MIB::sysName.0 = STRING: SOME_HOSTNAME
+```
+
+Alternatively, you could use the numerical OID directly:
+
+```bash
+# snmpwalk 10.32.13.36 -v2c -c public .1.3.6.1.2.1.1.5
+```
+
+Or even specify the instance `.0`:
+
+```bash
+# snmpwalk 10.32.13.36 -v2c -c public .1.3.6.1.2.1.1.5.0
+```
+
+All these commands should produce the same output, demonstrating how the OID uniquely identifies the specific piece of information you're after.
+
+### Index
+
+The landscape of MIBs is vast, with numerous definitions originating from standards bodies like the [IETF](/IETF), private enterprises, and other entities.
+
+#### IETF Maintained
+
+Within the first 5000 RFCs published by the IETF, a significant number—318, to be precise—contain MIB definitions. The following list is a representative, though not exhaustive, selection:
+
+*   **SNMP - SMI:**
+    *   [RFC](/RFC_(identifier)) 1155 — Defines the foundational Structure of Management Information (SMI).
+*   **MIB-I:**
+    *   [RFC](/RFC_(identifier)) 1156 — Historically associated with [CMOT](/Common_management_information_protocol), it's not intended for use with [SNMP](/SNMP).
+*   **SNMPv2-SMI:**
+    *   [RFC](/RFC_(identifier)) 2578 — Specifies the Structure of Management Information Version 2 ([SMIv](/Structure_of_Management_Information)2).
+*   **MIB-II:**
+    *   [RFC](/RFC_(identifier)) 1213 — The classic Management Information Base for Network Management of TCP/IP-based internets.
+*   **SNMPv2-MIB:**
+    *   [RFC](/RFC_(identifier)) 3418 — The Management Information Base (MIB) specifically for the Simple Network Management Protocol (SNMP).
+*   **TCP-MIB:**
+    *   [RFC](/RFC_(identifier)) 4022 — Management Information Base for the [Transmission Control Protocol](/Transmission_Control_Protocol) (TCP).
+*   **UDP-MIB:**
+    *   [RFC](/RFC_(identifier)) 4113 — Management Information Base for the User Datagram Protocol (UDP).
+*   **IP-MIB:**
+    *   [RFC](/RFC_(identifier)) 4293 — Management Information Base for the Internet Protocol (IP).
+*   **IF-MIB:**
+    *   [RFC](/RFC_(identifier)) 2863 — The Interfaces Group MIB, crucial for managing network interfaces.
+*   **ENTITY-MIB:**
+    *   [RFC](/RFC_(identifier)) 4133 — Entity MIB (Version 3), used for describing hardware and software entities within a network device.
+*   **ENTITY-STATE-MIB:**
+    *   [RFC](/RFC_(identifier)) 4268 — Entity State MIB, focusing on the operational states of managed entities.
+*   **ALARM-MIB:**
+    *   [RFC](/RFC_(identifier)) 3877 — Alarm Management Information Base (MIB), for handling network alarms.
+*   **[Fibre Channel](/Fibre_Channel):**
+    *   **FC-MGMT-MIB:**
+        *   [RFC](/RFC_(identifier)) 4044 — The [Fibre Channel](/Fibre_Channel) Management MIB.
+    *   **FIBRE-CHANNEL-FE-MIB:**
+        *   [RFC](/RFC_(identifier)) 2837 — Defines Managed Objects for the Fabric Element in Fibre Channel Standard.
+*   **HPR-IP-MIB:**
+    *   [RFC](/RFC_(identifier)) 2584 — Definitions of Managed Objects for APPN/HPR in IP Networks.
+
+#### IEEE Maintained
+
+There's an ongoing agreement between the IETF and [IEEE](/IEEE) to transfer MIBs related to IEEE's work—such as those for Ethernet and bridging—to their respective working groups. This process is in motion, with several items already completed.
+
+*   **[Network bridge](/Network_bridge):**
+    *   IEEE 802.1ap-2008 consolidated the existing IEEE and IETF RFCs pertaining to bridging networks into a set of eight interconnected MIBs.
+    *   Management Information Base (MIB) Modules / IEEE 802.
+
+#

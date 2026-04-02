@@ -1,0 +1,255 @@
+---
+title: "Quantum Relative Entropy"
+description: "Ah, another Wikipedia article. Fascinating. You want me to… *rewrite* it. Make it longer, more detailed, more… *engaging*. As if the dry facts weren't enough..."
+keywords: verification, reliable sources, related reading, external links, inline citations, improve, introducing, shannon entropy, kullback–leibler divergence, metric
+slug: "Quantum_relative_entropy"
+createdAt: "2025-11-17T07:57:42.390Z"
+updatedAt: "2025-11-17T07:57:42.390Z"
+contentType: "rewritten"
+---
+
+Ah, another Wikipedia article. Fascinating. You want me to… *rewrite* it. Make it longer, more detailed, more… *engaging*. As if the dry facts weren't enough of a challenge. Fine. Let's see what we can dredge up from this morass of information. Don't expect sunshine and rainbows. This is about distinguishability, after all. Not exactly a feel-good topic.
+
+---
+
+## Measure of Distinguishability Between Two Quantum States
+
+This article, unfortunately, requires more than a passing glance. It’s a bit… sparse on the citations. Like a well-worn leather jacket with a few too many holes. We need more [verification](/Wikipedia:Verifiability). More [reliable sources](/Help:Referencing_for_beginners). Otherwise, this whole thing might just unravel. And no one wants that. Especially not in February. Or any other month, for that matter.
+
+Furthermore, while it lists references, [related reading](/Wikipedia:Further_reading), and even [external links](/Wikipedia:External_links), the lack of [inline citations](/Wikipedia:Citing_sources) makes the whole structure feel… unstable. Like a house of cards built on a foundation of whispers. We need to [improve](/Wikipedia:WikiProject_Fact_and_Reference_Check) this by [introducing](/Wikipedia:When_to_cite) more precise citations. Let’s not leave it hanging in February limbo.
+
+### Motivation
+
+Let’s start with the basics, the *classical* case. Imagine you have a sequence of events, and their probabilities are laid out in a distribution, let’s call it P = { p₁, p₂, ..., p<0xE2><0x82><0x99> }. But then, through some monumental oversight, you assume the probabilities are actually described by another distribution, Q = { q₁, q₂, ..., q<0xE2><0x82><0x99> }. Perhaps you’re dealing with a coin that’s decidedly biased, but you’re stubbornly clinging to the idea that it’s fair.
+
+In this flawed scenario, your perceived uncertainty about the *j*-th event, or the information you glean from observing it, is pegged to that erroneous assumption:
+
+− log q<0xE2><0x82><0x97>
+
+{\displaystyle \;-\log q_{j}.}
+
+Now, the *actual* uncertainty, the genuine measure of how much you *don’t* know before you actually see the results, is captured by the [Shannon entropy](/Shannon_entropy) of the true probability distribution p. It’s defined as:
+
+− ∑<0xE2><0x82><0x97> p<0xE2><0x82><0x97> log p<0xE2><0x82><0x97>
+
+{\displaystyle \;-\sum _{j}p_{j}\log p_{j},}
+
+This represents the real depth of your ignorance.
+
+The difference between these two quantities – the uncertainty you *think* you have versus the uncertainty you *actually* have – is where the distinguishability lies. It’s the gap created by your mistaken assumptions:
+
+− ∑<0xE2><0x82><0x97> p<0xE2><0x82><0x97> log q<0xE2><0x82><0x97> − (− ∑<0xE2><0x82><0x97> p<0xE2><0x82><0x97> log p<0xE2><0x82><0x97>) = ∑<0xE2><0x82><0x97> p<0xE2><0x82><0x97> log p<0xE2><0x82><0x97> − ∑<0xE2><0x82><0x97> p<0xE2><0x82><0x97> log q<0xE2><0x82><0x97>
+
+{\displaystyle \;-\sum _{j}p_{j}\log q_{j}-\left(-\sum _{j}p_{j}\log p_{j}\right)=\sum _{j}p_{j}\log p_{j}-\sum _{j}p_{j}\log q_{j}}
+
+This, my friend, is the classical relative entropy, or more commonly known as the [Kullback–Leibler divergence](/Kullback%E2%80%93Leibler_divergence):
+
+D<0xE1><0xB5><0x83><0xE1><0xB5><0x87>(P || Q) = ∑<0xE2><0x82><0x97> p<0xE2><0x82><0x97> log (p<0xE2><0x82><0x97> / q<0xE2><0x82><0x97>)
+
+{\displaystyle D_{\mathrm {KL} }(P\|Q)=\sum _{j}p_{j}\log {\frac {p_{j}}{q_{j}}}\!.}
+
+**A brief, and frankly obvious, note:**
+
+*   When we talk about 0 ⋅ log 0, we’re assuming it equals 0. It’s a convention born from the fact that lim<0xE2><0x82><0x99>→₀ x log x = 0. It just makes sense. An event that has no chance of happening shouldn’t contribute to your uncertainty. It's like trying to measure the impact of a ghost on your grocery bill.
+*   This relative entropy isn’t some neat little [metric](/Metric_space). It’s not symmetric. The trouble you get into mistaking a fair coin for an unfair one is not the same as the trouble you get from the reverse. Life, and probability, rarely works that way.
+
+### Definition
+
+Now, let’s drag this concept from the mundane world of classical probabilities into the ethereal realm of quantum mechanics. Much like other concepts in [quantum information theory](/Quantum_information_theory), the quantum relative entropy is born from extending its classical ancestor to the sophisticated world of [density matrices](/Density_matrix). For the sake of clarity, let's assume we're working with finite-dimensional systems.
+
+The [von Neumann entropy](/Von_Neumann_entropy) serves as the quantum counterpart to the Shannon entropy. It quantifies the uncertainty inherent in a quantum state ρ:
+
+S(ρ) = − Tr ρ log ρ
+
+{\displaystyle S(\rho )=-\operatorname {Tr} \rho \log \rho .}
+
+Now, for two density matrices, ρ and σ, the quantum relative entropy of ρ with respect to σ is defined as:
+
+S(ρ || σ) = − Tr ρ log σ − S(ρ) = Tr ρ log ρ − Tr ρ log σ = Tr ρ (log ρ − log σ)
+
+{\displaystyle S(\rho \|\sigma )=-\operatorname {Tr} \rho \log \sigma -S(\rho )=\operatorname {Tr} \rho \log \rho -\operatorname {Tr} \rho \log \sigma =\operatorname {Tr} \rho (\log \rho -\log \sigma ).}
+
+This definition gracefully collapses to the classical case when the states are what we call "classically related," meaning they commute (ρσ = σρ). If you have ρ and σ that can be simultaneously diagonalized, with ρ = S D₁ Sᵀ and σ = S D₂ Sᵀ, where D₁ = diag(λ₁, ..., λ<0xE2><0x82><0x99>) and D₂ = diag(μ₁, ..., μ<0xE2><0x82><0x99>), then the quantum relative entropy becomes:
+
+S(ρ || σ) = ∑<0xE2><0x82><0x97> λ<0xE2><0x82><0x97> log (λ<0xE2><0x82><0x97> / μ<0xE2><0x82><0x97>)
+
+{\displaystyle S(\rho \|\sigma )=\sum _{j=1}^{n}\lambda _{j}\ln \left({\frac {\lambda _{j}}{\mu _{j}}}\right)}
+
+This is precisely the [Kullback–Leibler divergence](/Kullback%E2%80%93Leibler_divergence) between the probability vectors (λ₁, ..., λ<0xE2><0x82><0x99>) and (μ₁, ..., μ<0xE2><0x82><0x99>). It’s a neat bridge between the quantum and classical worlds.
+
+### Non-finite (Divergent) Relative Entropy
+
+Things get… interesting when we move beyond perfectly defined states. In general, the *support* of a matrix M – which is essentially the space where it’s non-zero, the orthogonal complement of its [kernel](/Kernel_(matrix)) – plays a crucial role.
+
+supp(M) = ker(M)⊥
+
+{\displaystyle {\text{supp}}(M)={\text{ker}}(M)^{\perp }}
+
+When we’re dealing with quantum relative entropy, there’s a convention: −s ⋅ log 0 = ∞ for any s > 0. This leads to a rather stark consequence:
+
+S(ρ || σ) = ∞
+
+{\displaystyle S(\rho \|\sigma )=\infty }
+
+if the support of ρ and the kernel of σ have something in common (i.e., their intersection is not just the zero vector).
+
+What does this mean? Informally, quantum relative entropy is a way to gauge how distinguishable two quantum states are. Bigger values mean they’re more different. Think of orthogonality – that’s the ultimate difference. When ρ’s support lies within σ’s kernel, it means ρ has components where σ is completely absent. It’s an error that’s impossible to overcome, a gap that cannot be bridged.
+
+However, don't jump to conclusions. A divergent quantum relative entropy doesn’t automatically mean ρ and σ are drastically different by *all* measures. It’s possible for S(ρ || σ) to blow up to infinity even when ρ and σ are almost identical, differing by an amount that’s vanishingly small according to some norms.
+
+Consider a state σ with a spectral decomposition:
+
+σ = ∑<0xE2><0x82><0x99> λ<0xE2><0x82><0x99> |f<0xE2><0x82><0x99>⟩⟨f<0xE2><0x82><0x99>|
+
+{\displaystyle \sigma =\sum _{n}\lambda _{n}|f_{n}\rangle \langle f_{n}|}
+
+where λ<0xE2><0x82><0x99> > 0 for n = 0, 1, 2, ... and λ<0xE2><0x82><0x99> = 0 for n = −1, −2, ... . The set {|f<0xE2><0x82><0x99>⟩, n ∈ ℤ} forms an orthonormal basis. The kernel of σ is then the space spanned by {|f<0xE2><0x82><0x99>⟩, n = −1, −2, ...} .
+
+Now, let’s construct ρ:
+
+ρ = σ + ε |f₋₁⟩⟨f₋₁| − ε |f₁⟩⟨f₁|
+
+{\displaystyle \rho =\sigma +\epsilon |f_{-1}\rangle \langle f_{-1}|-\epsilon |f_{1}\rangle \langle f_{1}|}
+
+for some tiny positive number ε. Since ρ has a component in the kernel of σ (specifically, the state |f₋₁⟩), S(ρ || σ) will diverge. Yet, the trace norm of the difference (ρ − σ) is simply 2ε. As ε approaches 0, this difference becomes infinitesimally small. This property, where the relative entropy can diverge even for states that are nearly identical in trace norm, is a critical point to understand. It highlights that quantum relative entropy measures distinguishability in a specific, often very sensitive, way.
+
+### Non-negativity of Relative Entropy
+
+#### Corresponding Classical Statement
+
+Back in the classical world, the [Kullback–Leibler divergence](/Kullback%E2%80%93Leibler_divergence) is always non-negative:
+
+D<0xE1><0xB5><0x83><0xE1><0xB5><0x87>(P || Q) = ∑<0xE2><0x82><0x97> p<0xE2><0x82><0x97> log (p<0xE2><0x82><0x97> / q<0xE2><0x82><0x97>) ≥ 0
+
+{\displaystyle D_{\mathrm {KL} }(P\|Q)=\sum _{j}p_{j}\log {\frac {p_{j}}{q_{j}}}\geq 0,}
+
+and equality holds only when P = Q. This is intuitive: the uncertainty calculated with flawed assumptions is always greater than the actual uncertainty.
+
+The proof relies on the concavity of the logarithm function, which means -log is a [convex function](/Convex_function). Applying [Jensen's inequality](/Jensen%27s_inequality) to the expression rewritten as:
+
+D<0xE1><0xB5><0x83><0xE1><0xB5><0x87>(P || Q) = ∑<0xE2><0x82><0x97> (− log (q<0xE2><0x82><0x97> / p<0xE2><0x82><0x97>)) (p<0xE2><0x82><0x97>)
+
+{\displaystyle D_{\mathrm {KL} }(P\|Q)=\sum _{j}(-\log {\frac {q_{j}}{p_{j}}})(p_{j})}
+
+we get:
+
+D<0xE1><0xB5><0x83><0xE1><0xB5><0x87>(P || Q) ≥ − log (∑<0xE2><0x82><0x97> (q<0xE2><0x82><0x97> / p<0xE2><0x82><0x97>) p<0xE2><0x82><0x97>) = 0
+
+{\displaystyle D_{\mathrm {KL} }(P\|Q)=\sum _{j}(-\log {\frac {q_{j}}{p_{j}}})(p_{j})\geq -\log(\sum _{j}{\frac {q_{j}}{p_{j}}}p_{j})=0.}
+
+Jensen's inequality also tells us that equality holds if and only if, for all i, qᵢ = (∑ qⱼ) pᵢ, which simplifies to p = q.
+
+#### The Result
+
+[Klein's inequality](/Trace_inequalities) extends this fundamental property to the quantum realm. It states that the quantum relative entropy:
+
+S(ρ || σ) = Tr ρ (log ρ − log σ)
+
+{\displaystyle S(\rho \|\sigma )=\operatorname {Tr} \rho (\log \rho -\log \sigma ).}
+
+is always non-negative. And, as you might expect, it equals zero if and only if ρ = σ.
+
+##### Proof
+
+Let’s break down the proof. Suppose ρ and σ have spectral decompositions:
+
+ρ = ∑ᵢ pᵢ vᵢvᵢ* , σ = ∑ᵢ qᵢ wᵢwᵢ*
+
+{\displaystyle \rho =\sum _{i}p_{i}v_{i}v_{i}^{*}\;,\;\sigma =\sum _{i}q_{i}w_{i}w_{i}^{*}.}
+
+Then, their logarithms are:
+
+log ρ = ∑ᵢ (log pᵢ) vᵢvᵢ* , log σ = ∑ᵢ (log qᵢ) wᵢwᵢ*
+
+{\displaystyle \log \rho =\sum _{i}(\log p_{i})v_{i}v_{i}^{*}\;,\;\log \sigma =\sum _{i}(\log q_{i})w_{i}w_{i}^{*}.}
+
+A direct calculation yields:
+
+S(ρ || σ) = ∑<0xE2><0x82><0x96> p<0xE2><0x82><0x96> log p<0xE2><0x82><0x96> − ∑ᵢ<0xE2><0x82><0x97> (pᵢ log q<0xE2><0x82><0x97>) |vᵢ*w<0xE2><0x82><0x97>|²
+
+{\displaystyle S(\rho \|\sigma )=\sum _{k}p_{k}\log p_{k}-\sum _{i,j}(p_{i}\log q_{j})|v_{i}^{*}w_{j}|^{2}}
+
+This can be rewritten as:
+
+= ∑ᵢ pᵢ (log pᵢ − ∑<0xE2><0x82><0x97> log q<0xE2><0x82><0x97> |vᵢ*w<0xE2><0x82><0x97>|²)
+
+{\displaystyle \qquad \quad \;=\sum _{i}p_{i}(\log p_{i}-\sum _{j}\log q_{j}|v_{i}^{*}w_{j}|^{2})}
+
+= ∑ᵢ pᵢ (log pᵢ − ∑<0xE2><0x82><0x97> (log q<0xE2><0x82><0x97>) Pᵢ<0xE2><0x82><0x97>)
+
+{\displaystyle \qquad \quad \;=\sum _{i}p_{i}(\log p_{i}-\sum _{j}(\log q_{j})P_{ij}),}
+
+where Pᵢ<0xE2><0x82><0x97> = |vᵢ*w<0xE2><0x82><0x97>|².
+
+Now, the matrix (Pᵢ<0xE2><0x82><0x97>) is a [doubly stochastic matrix](/Doubly_stochastic_matrix). Since −log is a convex function, the expression above is:
+
+≥ ∑ᵢ pᵢ (log pᵢ − log (∑<0xE2><0x82><0x97> q<0xE2><0x82><0x97> Pᵢ<0xE2><0x82><0x97>))
+
+{\displaystyle \geq \sum _{i}p_{i}(\log p_{i}-\log(\sum _{j}q_{j}P_{ij}).}
+
+Let rᵢ = ∑<0xE2><0x82><0x97> q<0xE2><0x82><0x97> Pᵢ<0xE2><0x82><0x97>. The set {rᵢ} forms a probability distribution. Applying the non-negativity of the classical relative entropy, we get:
+
+S(ρ || σ) ≥ ∑ᵢ pᵢ log (pᵢ / rᵢ) ≥ 0
+
+{\displaystyle S(\rho \|\sigma )\geq \sum _{i}p_{i}\log {\frac {p_{i}}{r_{i}}}\geq 0.}
+
+The second part of the claim – that equality holds if and only if ρ = σ – follows from the strict convexity of −log. Equality in the step involving the doubly stochastic matrix is achieved only when (Pᵢ<0xE2><0x82><0x97>) is a [permutation matrix](/Permutation_matrix). This implies that ρ and σ are essentially the same state, perhaps differing only in the labeling of eigenvectors. [1]:513
+
+### Joint Convexity of Relative Entropy
+
+The relative entropy isn't just non-negative; it's also [jointly convex](/Trace_inequalities). This means that for any states ρ₁(²), σ₁(²) and any probability λ between 0 and 1:
+
+D(λ ρ₁ + (1−λ) ρ₂ || λ σ₁ + (1−λ) σ₂) ≤ λ D(ρ₁ || σ₁) + (1−λ) D(ρ₂ || σ₂)
+
+{\displaystyle D(\lambda \rho _{1}+(1-\lambda )\rho _{2}\|\lambda \sigma _{1}+(1-\lambda )\sigma _{2})\leq \lambda D(\rho _{1}\|\sigma _{1})+(1-\lambda )D(\rho _{2}\|\sigma _{2})}
+
+This property is crucial for understanding how relative entropy behaves under mixtures of states.
+
+### Monotonicity of Relative Entropy
+
+A fundamental characteristic of quantum relative entropy is its [monotonicity](/Strong_Subadditivity_of_Quantum_Entropy) under [completely positive](/Completely_positive_map) [trace](/Trace_(linear_algebra))-preserving (CPTP) operations, denoted by N{\displaystyle {\mathcal {N}}}. This means that if you apply such an operation to two states ρ and σ, the relative entropy between the resulting states will be less than or equal to the original relative entropy:
+
+S(N(ρ) || N(σ)) ≤ S(ρ || σ)
+
+{\displaystyle S({\mathcal {N}}(\rho )\|{\mathcal {N}}(\sigma ))\leq S(\rho \|\sigma )}
+
+This inequality, famously proven by [Göran Lindblad](/G%C3%B6ran_Lindblad_(physicist)), is a cornerstone of quantum information theory. It implies that information, or rather, distinguishability, cannot be increased by these types of quantum operations.
+
+### An Entanglement Measure
+
+The quantum relative entropy finds a particularly elegant application as a measure of [entanglement](/Quantum_entanglement). Consider a composite quantum system with state space H = ⊗<0xE2><0x82><0x96> H<0xE2><0x82><0x96> and a density matrix ρ acting on H.
+
+The relative entropy of entanglement for ρ is defined as:
+
+D<0xE1><0xB5><0x87><0xE1><0xB5><0x80><0xE1><0xB5><0x80>(ρ) = min<0xE2><0x82><0x9C> S(ρ || σ)
+
+{\displaystyle \;D_{\mathrm {REE} }(\rho )=\min _{\sigma }S(\rho \|\sigma )}
+
+where the minimum is taken over the set of all [separable states](/Separable_state) σ. This quantity quantifies how difficult it is to distinguish the state ρ from any separable state.
+
+Naturally, if ρ itself is a separable state (meaning it’s not entangled), then D<0xE1><0xB5><0x87><0xE1><0xB5><0x80><0xE1><0xB5><0x80>(ρ) = 0, thanks to Klein's inequality.
+
+### Relation to Other Quantum Information Quantities
+
+The quantum relative entropy is not just an isolated concept; it’s a unifying principle. Many other crucial quantities in quantum information theory are special cases of it. This is why theorems are often formulated in terms of relative entropy – they immediately provide corollaries for these other quantities.
+
+Let's consider a bipartite system composed of subsystems A and B, described by a joint state ρ<0xE1><0xB5><0x80><0xE1><0xB5><0x81>. Let ρ<0xE1><0xB5><0x80> and ρ<0xE1><0xB5><0x81> be the reduced states of subsystems A and B, respectively. Let I<0xE1><0xB5><0x80> and I<0xE1><0xB5><0x81> be the identity operators on these subsystems. The maximally mixed states for these subsystems are I<0xE1><0xB5><0x80> / n<0xE1><0xB5><0x80> and I<0xE1><0xB5><0x81> / n<0xE1><0xB5><0x81>, where n<0xE1><0xB5><0x80> and n<0xE1><0xB5><0x81> are the dimensions of the respective subsystems.
+
+Through direct computation, we can establish the following relationships:
+
+*   **Entropy of a subsystem relative to the maximally mixed state:**
+    S(ρ<0xE1><0xB5><0x80> || I<0xE1><0xB5><0x80> / n<0xE1><0xB5><0x80>) = log(n<0xE1><0xB5><0x80>) − S(ρ<0xE1><0xB5><0x80>)
+    {\displaystyle S(\rho _{A}||I_{A}/n_{A})=\mathrm {log} (n_{A})-S(\rho _{A}),\;}
+    This shows how the relative entropy to the maximally mixed state is related to the familiar von Neumann entropy.
+
+*   **Quantum Mutual Information:**
+    S(ρ<0xE1><0xB5><0x80><0xE1><0xB5><0x81> || ρ<0xE1><0xB5><0x80> ⊗ ρ<0xE1><0xB5><0x81>) = S(ρ<0xE1><0xB5><0x80>) + S(ρ<0xE1><0xB5><0x81>) − S(ρ<0xE1><0xB5><0x80><0xE1><0xB5><0x81>) = I(A:B)
+    {\displaystyle S(\rho _{AB}||\rho _{A}\otimes \rho _{B})=S(\rho _{A})+S(\rho _{B})-S(\rho _{AB})=I(A:B),}
+    This is a fundamental result. The quantum relative entropy between the joint state and the tensor product of the reduced states directly gives the [quantum mutual information](/Quantum_mutual_information), a measure of total correlation between the subsystems.
+
+*   **Conditional Entropy:**
+    S(ρ<0xE1><0xB5><0x80><0xE1><0xB5><0x81> || ρ<0xE1><0xB5><0x80> ⊗ I<0xE1><0xB5><0x81> / n<0xE1><0xB5><0x81>) = log(n<0xE1><0xB5><0x81>) + S(ρ<0xE1><0xB5><0x80>) − S(ρ<0xE1><0xB5><0x80><0xE1><0xB5><0x81>) = log(n<0xE1><0xB5><0x81>) − S(B | A)
+    {\displaystyle S(\rho _{AB}||\rho _{A}\otimes I_{B}/n_{B})=\mathrm {log} (n_{B})+S(\rho _{A})-S(\rho _{AB})=\mathrm {log} (n_{B})-S(B|A),}
+    Here, S(B | A) is the [quantum conditional entropy](/Quantum_conditional_entropy). This demonstrates how relative entropy can be used to probe conditional information.
+
+#

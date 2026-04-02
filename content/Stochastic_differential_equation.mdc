@@ -1,0 +1,296 @@
+---
+title: "Stochastic Differential Equation"
+description: "A stochastic differential equation (SDE) is a particular kind of differential equation where at least one of the terms involved is a stochastic process. This..."
+keywords: differential equation, stochastic process, stock prices, thermal fluctuations, white noise, brownian motion, semimartingale, jump processes, lévy processes, differential manifolds
+slug: "Stochastic_differential_equation"
+createdAt: "2025-12-29T16:33:54.107Z"
+updatedAt: "2025-12-29T16:33:54.107Z"
+contentType: "rewritten"
+aiProvider: "Gemini"
+aiModel: "gemini-2.5-flash-lite"
+previousArticleSlug: "Feeling"
+previousArticleTitle: "Feeling"
+---
+
+A stochastic differential equation (SDE) is a particular kind of [differential equation](/Differential_equation) where at least one of the terms involved is a [stochastic process](/Stochastic_process). This fundamentally means that the solution to such an equation is not a deterministic function, but rather a stochastic process itself. The applications of SDEs are vast, spanning across pure mathematics and finding practical use in modeling complex phenomena. These include the unpredictable fluctuations of [stock prices](/Stock_price), the intricate dynamics of random growth models, and the behavior of physical systems buffeted by [thermal fluctuations](/Thermal_fluctuations).
+
+At its most basic, an SDE features a random differential term. Often, this is represented by random [white noise](/White_noise), which can be thought of as the distributional derivative of a [Brownian motion](/Brownian_motion) path. More generally, this term can arise from a [semimartingale](/Semimartingale). However, SDEs are not limited to this type of randomness; they can also incorporate other forms of random behavior, such as [jump processes](/Jump_process) exemplified by [Lévy processes](/L%C3%A9vy_process), or semimartingales that include discrete jumps.
+
+It's crucial to understand that stochastic differential equations are not simply differential equations with a random element tacked on, nor are they equivalent to random differential equations. The latter are often called conjugate to SDEs. The theory of SDEs can also be extended to the more abstract setting of [differential manifolds](/Differential_manifold), allowing for the study of stochastic phenomena on curved spaces.
+
+## Background
+
+The genesis of stochastic differential equations can be traced back to the early 20th century, deeply intertwined with the study of [Brownian motion](/Brownian_motion). Pioneering work by [Albert Einstein](/Annus_Mirabilis_Papers) and [Marian Smoluchowski] in 1905 laid significant groundwork. However, it was [Louis Bachelier](/Louis_Bachelier) who, in 1900, first ventured into modeling Brownian motion, presenting what is now recognized as an early instance of an SDE, known as the [Bachelier model](/Bachelier_model). Some of these initial explorations focused on linear SDEs, which came to be known as [Langevin equations](/Langevin_equation) in honor of the French physicist [Paul Langevin]. These equations were instrumental in describing the erratic motion of particles, like a harmonic oscillator, subjected to random forces.
+
+The formal mathematical framework for stochastic differential equations truly began to take shape in the 1940s, largely due to the seminal contributions of the Japanese mathematician [Kiyosi Itô](/Kiyosi_It%C3%B4). His introduction of the [stochastic integral](/Stochastic_integral) and his subsequent investigations into nonlinear SDEs were revolutionary. A parallel, yet distinct, approach was later developed by the Russian physicist [Ruslan L. Stratonovich](/Ruslan_L._Stratonovich), which yielded a calculus that bore a closer resemblance to the familiar rules of ordinary calculus.
+
+## Terminology
+
+The most prevalent form of SDE encountered in scholarly literature often presents itself as an [ordinary differential equation](/Ordinary_differential_equation) where the deterministic driving force is augmented by a term influenced by random [white noise](/White_noise). In many practical scenarios, SDEs are conceptualized as the continuous-time limit of their discrete-time counterparts, known as [stochastic difference equations](/Stochastic_difference_equation). This conceptualization, however, is inherently ambiguous and necessitates a precise mathematical definition for the associated integral.
+
+The first rigorous mathematical framework for this was established by [Kiyosi Itô](/Kiyosi_It%C3%B4) in the 1940s, giving rise to what is now universally recognized as [Itô calculus](/It%C3%B4_calculus). Subsequently, [Ruslan L. Stratonovich](/Ruslan_L._Stratonovich) proposed an alternative construction, which led to the development of the [Stratonovich integral](/Stratonovich_integral) and its associated calculus.
+
+The [Itô integral](/It%C3%B4_integral) and the [Stratonovich integral](/Stratonovich_integral), while related, are fundamentally different mathematical objects. The choice between them hinges on the specific application. [Itô calculus](/It%C3%B4_calculus) is built upon the principle of non-anticipativeness, or causality, a concept that aligns naturally with applications where time is a primary, unidirectional variable. Conversely, the rules of Stratonovich calculus are more akin to those of ordinary calculus. This makes it particularly advantageous for problems with inherent geometric structures, such as modeling random motion on [manifolds](/Manifolds). Nevertheless, it is also possible, and often preferable, to model random motion on manifolds using Itô SDEs, especially when aiming for optimal approximations of SDEs on submanifolds.
+
+An alternative perspective on SDEs views them as stochastic flows of diffeomorphisms. This interpretation is unambiguous and aligns with the Stratonovich version of the continuous-time limit of stochastic difference equations. Closely associated with SDEs are the [Smoluchowski equation](/Smoluchowski_equation) and the [Fokker–Planck equation](/Fokker%E2%80%93Planck_equation), which describe the temporal evolution of [probability distribution functions](/Probability_density_function). A sophisticated generalization of the Fokker-Planck evolution, applied to the temporal evolution of differential forms, is captured by the concept of the [stochastic evolution operator](/Supersymmetric_theory_of_stochastic_dynamics).
+
+Within the realm of physics, a certain ambiguity arises in the usage of the term "Langevin SDEs." While Langevin SDEs can encompass a broader class of equations, the term often refers to a more specific set of SDEs characterized by gradient flow vector fields. This narrower class holds particular significance as it forms the basis for the Parisi–Sourlas stochastic quantization procedure, leading to an N=2 supersymmetric model closely linked to [supersymmetric quantum mechanics](/Supersymmetric_quantum_mechanics). From a purely physical standpoint, however, this specific class of SDEs is considered less compelling as it does not exhibit spontaneous breakdown of topological supersymmetry, meaning that [(overdamped) Langevin SDEs are generally not chaotic](/Supersymmetric_theory_of_stochastic_dynamics).
+
+## Stochastic Calculus
+
+The mathematical intricacies of [Brownian motion](/Brownian_motion), also known as the [Wiener process](/Wiener_process), are profound. With a probability of one, the paths of a Wiener process are nowhere differentiable. This fundamental property necessitates the development of a specialized calculus to handle its behavior. Currently, two dominant systems of stochastic calculus exist: the [Itô stochastic calculus](/It%C3%B4_calculus) and the [Stratonovich stochastic calculus](/Stratonovich_stochastic_calculus). Each system possesses distinct advantages and disadvantages, often leaving newcomers perplexed about which is more appropriate for a given problem. While guidelines exist, such as those provided by Øksendal (2003), a significant advantage is the ease with which one can convert an Itô SDE to an equivalent Stratonovich SDE, and vice versa. Nevertheless, careful consideration must be given to the selection of the appropriate calculus when initially formulating an SDE.
+
+### Numerical Solutions
+
+For practical applications, numerical methods are indispensable for approximating the solutions of stochastic differential equations. Prominent techniques include the [Euler–Maruyama method](/Euler%E2%80%93Maruyama_method), the [Milstein method](/Milstein_method), and various [Runge–Kutta methods adapted for SDEs](/Runge%E2%80%93Kutta_method_(SDE)). Other approaches, such as the Rosenbrock method, and those based on different representations of iterated stochastic integrals, are also employed.
+
+## Use in Physics
+
+In physics, stochastic differential equations find extensive application across a wide spectrum of phenomena. Their utility ranges from modeling molecular dynamics and neurodynamics to understanding the behavior of astrophysical objects. More broadly, SDEs serve as the mathematical language for describing all dynamical systems where quantum effects are either negligible or can be treated as perturbations. Essentially, SDEs can be viewed as an extension of [dynamical systems theory](/Dynamical_systems_theory) to incorporate the pervasive influence of noise. This extension is critical because real-world systems are rarely perfectly isolated and are invariably subject to external stochastic influences.
+
+A standard technique for simplifying complex dynamical systems involves transforming higher-order equations into a system of coupled first-order equations by introducing new variables. The most general form of SDEs can be represented as:
+
+$$
+\frac{\mathrm {d} x(t)}{\mathrm {d} t}=F(x(t))+\sum _{\alpha =1}^{n}g_{\alpha }(x(t))\xi ^{\alpha }(t)
+$$
+
+Here, $x(t)$ represents the state of the system within its [phase (or state) space](/Phase_space), denoted by $X$, which is often assumed to be a differentiable manifold. $F(x(t))$ is a flow vector field that dictates the deterministic evolution of the system. The terms $g_{\alpha }(x(t))$ are vector fields that govern how the system interacts with the Gaussian white noise $\xi^{\alpha}(t)$. If the space $X$ is linear and the vector fields $g$ are constant, the noise is termed "additive." In this additive noise scenario, the Itô and Stratonovich interpretations of the SDE yield identical solutions, rendering the choice of calculus less critical. However, when the noise is multiplicative (i.e., the $g_{\alpha}$ depend on $x(t)$), the Itô and Stratonovich forms diverge, and careful attention must be paid to the distinctions and conversions between them.
+
+For any fixed realization of the noise, an SDE possesses a unique solution that is differentiable with respect to its initial condition. The truly stochastic nature of these equations manifests when one attempts to average quantities of interest over all possible noise configurations. It is in this context that the definition of an SDE becomes ambiguous for multiplicative noise when considered as a continuous-time limit of stochastic difference equations. This ambiguity is resolved by adopting specific "interpretations," such as the Itô or Stratonovich interpretations. However, when an SDE is understood as a continuous-time stochastic flow of diffeomorphisms, it becomes a uniquely defined mathematical entity that corresponds to the Stratonovich approach to the continuous-time limit of stochastic difference equations.
+
+In physics, a primary method for solving SDEs involves determining the [probability distribution](/Probability_distribution) function over time by utilizing the equivalent [Fokker–Planck equation](/Fokker%E2%80%93Planck_equation) (FPE). The FPE is a deterministic [partial differential equation](/Partial_differential_equation) that governs the evolution of probability distributions, analogous to how the [Schrödinger equation](/Schr%C3%B6dinger_equation) describes the evolution of quantum wave functions or the [diffusion equation](/Diffusion_equation) models the spread of chemical concentrations. Alternatively, [Monte Carlo](/Monte_Carlo_Method) simulations can be employed to obtain numerical solutions. Other advanced techniques include [path integration](/Path_integral_formulation), which leverages the deep analogy between statistical physics and [quantum mechanics](/Quantum_mechanics) (for instance, the FPE can be transformed into a Schrödinger equation through variable rescaling), or the derivation of [ordinary differential equations](/Ordinary_differential_equations) for the statistical [moments](/Moment_(mathematics)) of the probability distribution.
+
+## Use in Probability and Mathematical Finance
+
+The notational conventions employed in [probability theory](/Probability_theory) and its applications, such as signal processing ([filtering problem](/Filtering_problem_(stochastic_processes))) and [mathematical finance](/Mathematical_finance), often differ slightly from those used in physics. This notation is also commonly found in publications focusing on [numerical methods](/Numerical_methods) for solving SDEs. This particular notation serves to highlight the unusual nature of the random time function $\xi^{\alpha}(t)$ as presented in the physics formulation. Formally, $\xi^{\alpha}(t)$ cannot be treated as a standard function but must be considered a [generalized function](/Generalized_function). The mathematical formulation addresses this complexity with greater precision and fewer ambiguities than its physics counterpart.
+
+A representative SDE encountered in these fields takes the form:
+
+$$
+\mathrm {d} X_{t}=\mu (X_{t},t)\,\mathrm {d} t+\sigma (X_{t},t)\,\mathrm {d} B_{t}
+$$
+
+Here, $B_t$ denotes a [Wiener process](/Wiener_process) (a standard Brownian motion). This equation is typically understood as a shorthand for the corresponding [integral equation](/Integral_equation):
+
+$$
+X_{t+s}-X_{t}=\int _{t}^{t+s}\mu (X_{u},u)\mathrm {d} u+\int _{t}^{t+s}\sigma (X_{u},u)\,\mathrm {d} B_{u}
+$$
+
+This integral equation characterizes the behavior of the [continuous time](/Continuous_time) [stochastic process](/Stochastic_process) $X_t$ as the sum of a standard [Lebesgue integral](/Lebesgue_integral) and an [Itô integral](/It%C3%B4_calculus). A useful, albeit [heuristic](/Heuristic), interpretation is that over a small time interval $\delta$, the process $X_t$ changes by an amount that is [normally distributed](/Normal_distribution) with an [expected value](/Expected_value) of $\mu(X_t, t)\delta$ and a [variance](/Variance) of $\sigma(X_t, t)^2\delta$. This change is independent of the process's past behavior. This interpretation holds because the increments of a Wiener process are themselves independent and normally distributed. The function $\mu$ is referred to as the drift coefficient, and $\sigma$ is known as the diffusion coefficient. The stochastic process $X_t$ is classified as a [diffusion process](/Diffusion_process) and adheres to the [Markov property](/Markov_property).
+
+The formal definition of an SDE's solution involves two primary categories: strong solutions and weak solutions. Both necessitate the existence of a process $X_t$ that satisfies the integral form of the SDE. The distinction lies in the underlying [probability space](/Probability_space) $(\Omega, \mathcal{F}, P)$. A weak solution guarantees a probability space and a process meeting the integral equation, whereas a strong solution requires the process to satisfy the equation within a pre-defined probability space. The [Yamada–Watanabe theorem](/Yamada%E2%80%93Watanabe_theorem) establishes a connection between these two concepts.
+
+A seminal example is the equation governing [geometric Brownian motion](/Geometric_Brownian_motion):
+
+$$
+\mathrm {d} X_{t}=\mu X_{t}\,\mathrm {d} t+\sigma X_{t}\,\mathrm {d} B_{t}
+$$
+
+This equation is fundamental to the [Black–Scholes](/Black%E2%80%93Scholes_model) options pricing model in financial mathematics, describing the dynamics of [stock](/Stock) prices. Beyond this basic form, it's possible to construct SDEs that admit strong solutions and whose distributions are convex combinations of densities derived from various geometric Brownian motions or Black-Scholes models. This approach allows for a single SDE to represent mixture dynamics of lognormal distributions from different Black-Scholes models, thereby enabling the modeling of the [volatility smile](/Volatility_smile) observed in financial markets.
+
+The simpler stochastic process, [arithmetic Brownian motion](/Geometric_Brownian_motion), represented by:
+
+$$
+\mathrm {d} X_{t}=\mu \,\mathrm {d} t+\sigma \,\mathrm {d} B_{t}
+$$
+
+was initially employed by Louis Bachelier in 1900 as the first mathematical model for stock prices, and is now known as the [Bachelier model](/Bachelier_model).
+
+More complex SDEs exist where the coefficients $\mu$ and $\sigma$ are not only functions of the current state $X_t$ but also depend on past values of the process, or even on other processes. In such cases, the solution process $X_t$ is not a Markov process and is instead referred to as an Itô process, rather than a diffusion process. When the coefficients depend solely on the present and past values of $X$, the governing equation is termed a stochastic delay differential equation.
+
+Generalizations of SDEs, incorporating the Fisk-Stratonovich integral and applicable to semimartingales with jumps, are known as SDEs of Marcus type. The Marcus integral itself is an extension of McShane's stochastic calculus.
+
+An interesting application within [stochastic finance](/Stochastic_finance) arises from the use of the [Ornstein–Uhlenbeck process](/Ornstein%E2%80%93Uhlenbeck_process) equation:
+
+$$
+\mathrm {d} R_{t}=\mu R_{t}\,\mathrm {d} t+\sigma _{t}\,\mathrm {d} B_{t}
+$$
+
+This equation models the dynamics of stock price returns under the assumption that these returns follow a [Log-normal distribution](/Log-normal_distribution). Methodologies developed by Marcello Minenna, utilizing this framework, enable the determination of prediction intervals that can identify abnormal returns, potentially indicative of [market abuse](/Market_abuse) activities.
+
+## SDEs on Manifolds
+
+The theory of stochastic calculus can be elegantly extended to the geometric setting of [differential manifolds](/Differential_manifold) by employing the Fisk-Stratonovich integral. Consider a manifold $M$, a finite-dimensional vector space $E$, a filtered probability space $(\Omega, \mathcal{F}, (\mathcal{F}_t)_{t\in \mathbb{R}_+}, P)$ satisfying the [usual conditions](/Usual_conditions), and its [one-point compactification](/One-point_compactification) $\widehat{M} = M \cup \{\infty\}$. Let $x_0$ be an $\mathcal{F}_0$-measurable initial condition. A stochastic differential equation on $M$ is formally written as:
+
+$$
+\mathrm {d} X=A(X)\circ dZ
+$$
+
+This equation defines a pair $(A, Z)$, where:
+* $Z$ is a continuous $E$-valued semimartingale.
+* $A: M \times E \to TM$ is a homomorphism of [vector bundles](/Vector_bundle) over $M$. Specifically, for each $x \in M$, the map $A(x): E \to T_xM$ is linear, and for each $e \in E$, the section $A(\cdot)e$ belongs to $\Gamma(TM)$.
+
+A solution to the SDE on $M$ with initial condition $X_0 = x_0$ is a continuous, $\{\mathcal{F}_t\}$-adapted process $(X_t)_{t<\zeta}$ defined up to a lifetime $\zeta$. This solution must satisfy the property that for any test function $f \in C_c^\infty(M)$, the process $f(X)$ is a real-valued semimartingale. Furthermore, for any stopping time $\tau$ such that $0 \leq \tau < \zeta$, the following equation holds $P$-almost surely:
+
+$$
+f(X_{\tau}) = f(x_0) + \int_{0}^{\tau} (\mathrm{d}f)_X A(X) \circ \mathrm{d}Z
+$$
+
+where $(\mathrm{d}f)_X: T_xM \to T_{f(x)}M$ represents the [differential](/Differential_form) of $f$ at $X$. A solution is considered maximal if its lifetime $\zeta$ is maximal, meaning that on the set $\{\zeta < \infty\}$, the limit of $X_t$ as $t$ approaches $\zeta$ is $\infty$ in $\widehat{M}$, $P$-almost surely. It can be shown that for any test function $f \in C_c^\infty(M)$, $f(X)$ is a semimartingale, implying that $X$ itself is a semimartingale on $M$. Given a maximal solution, its time domain can be extended to the entire $\mathbb{R}_+$. By continuing $f$ on $\widehat{M}$, we obtain:
+
+$$
+f(X_{t}) = f(X_{0}) + \int _{0}^{t}(\mathrm {d} f)_{X}A(X)\circ \mathrm {d} Z, \quad t\geq 0
+$$
+
+up to indistinguishable processes.
+
+While Stratonovich SDEs are the natural choice for SDEs on manifolds due to their adherence to the chain rule and the behavior of their coefficients under coordinate changes, there are scenarios where Itô calculus on manifolds proves more advantageous. A theory for Itô calculus on manifolds was initially developed by [Laurent Schwartz](/Laurent_Schwartz) through the concept of Schwartz morphisms. A related interpretation of Itô SDEs on manifolds, based on jet bundles, also exists. This perspective is particularly useful when seeking to optimally approximate the solution of an SDE defined on a large space with solutions of an SDE on a submanifold. A projection based on the Stratonovich calculus may not yield optimal results in such cases. This has found application in the [filtering problem](/Filtering_problem), leading to the development of optimal projection filters.
+
+## As Rough Paths
+
+Typically, the resolution of an SDE necessitates a probabilistic framework, as the integrals involved are stochastic integrals. However, if one could analyze the differential equation on a path-by-path basis, the need for defining stochastic integrals and developing theories independent of probability theory could be circumvented.
+
+This leads to the consideration of an SDE like:
+
+$$
+\mathrm {d} X_{t}(\omega )=\mu (X_{t}(\omega ),t)\,\mathrm {d} t+\sigma (X_{t}(\omega ),t)\,\mathrm {d} B_{t}(\omega )
+$$
+
+as a collection of deterministic differential equations, one for each $\omega \in \Omega$, where $\Omega$ is the sample space. The challenge here is that Brownian motion paths exhibit unbounded variation and are nowhere differentiable with probability one. This renders naive interpretations of terms like $\mathrm{d}B_t(\omega)$ problematic, precluding a straightforward path-wise definition of the stochastic integral. Nevertheless, inspired by the Wong-Zakai result concerning the limits of SDE solutions with regular noise, and employing [rough paths](/Rough_paths) theory along with a carefully chosen definition of iterated Brownian integrals, it is possible to define a deterministic rough integral for each individual path $\omega \in \Omega$. This definition can coincide with the Itô integral with probability one for a specific choice of iterated Brownian integral. Other definitions of the iterated integral lead to deterministic pathwise equivalents of different stochastic integrals, such as the Stratonovich integral. This approach has been utilized, for instance, in financial mathematics to price options without recourse to probability.
+
+## Existence and Uniqueness of Solutions
+
+As with deterministic ordinary and partial differential equations, establishing the existence and uniqueness of solutions for SDEs is a critical aspect. The following theorem provides a typical result for Itô SDEs operating in $n$-[dimensional](/Dimension) [Euclidean space](/Euclidean_space) $\mathbb{R}^n$ and driven by an $m$-dimensional Brownian motion $B$; the proof can be found in Øksendal (2003, §5.2).
+
+Let $T > 0$. Suppose $\mu: \mathbb{R}^n \times [0, T] \to \mathbb{R}^n$ and $\sigma: \mathbb{R}^n \times [0, T] \to \mathbb{R}^{n \times m}$ are [measurable functions](/Measurable_function) satisfying the following conditions for some constants $C$ and $D$:
+
+$$
+|\mu(x, t)| + |\sigma(x, t)| \leq C(1 + |x|)
+$$
+$$
+|\mu(x, t) - \mu(y, t)| + |\sigma(x, t) - \sigma(y, t)| \leq D|x - y|
+$$
+
+for all $t \in [0, T]$ and all $x, y \in \mathbb{R}^n$, where $|\sigma|^2 = \sum_{i,j=1}^n |\sigma_{ij}|^2$.
+
+Let $Z$ be a random variable independent of the $\sigma$-algebra generated by $\{B_s\}_{s \geq 0}$ and possessing a finite [second moment](/Moment_(mathematics)), i.e., $\mathbb{E}[|Z|^2] < +\infty$. Then, the stochastic differential equation/initial value problem:
+
+$$
+\mathrm {d} X_{t}=\mu (X_{t},t)\,\mathrm {d} t+\sigma (X_{t},t)\,\mathrm {d} B_{t} \quad \text{for } t\in [0,T]; \quad X_{0}=Z;
+$$
+
+admits a $P$-[almost surely](/Almost_surely) unique $t$-continuous solution $(t, \omega) \mapsto X_t(\omega)$. This solution is adapted to the [filtration](/Filtration_(abstract_algebra)) $\mathcal{F}_t^Z$ generated by $Z$ and $B_s$ for $s \leq t$, and satisfies:
+
+$$
+\mathbb{E}\left[\int _{0}^{T}|X_{t}|^{2}\,\mathrm {d} t\right]<+\infty
+$$
+
+### General Case: Local Lipschitz Condition and Maximal Solutions
+
+The SDE presented above is a specific instance of a more general form:
+
+$$
+\mathrm {d} Y_{t}=\alpha (t,Y_{t})\mathrm {d} X_{t}
+$$
+
+where:
+* $X_t$ is a continuous semimartingale in $\mathbb{R}^n$, and $Y_t$ is a continuous semimartingale in $\mathbb{R}^d$.
+* $\alpha: \mathbb{R}^+ \times U \to \text{Lin}(\mathbb{R}^n; \mathbb{R}^d)$ is a map defined on a non-empty open set $U \subset \mathbb{R}^d$, and $\text{Lin}(\mathbb{R}^n; \mathbb{R}^d)$ denotes the space of all linear maps from $\mathbb{R}^n$ to $\mathbb{R}^d$.
+
+More generally, stochastic differential equations can also be formulated on [manifolds](/Manifold).
+
+The behavior of the solution—whether it explodes or remains bounded—depends crucially on the properties of $\alpha$. If $\alpha$ satisfies a local Lipschitz condition, meaning that for $t \geq 0$ and any compact set $K \subset U$, there exists a constant $L(t, K)$ such that:
+
+$$
+|\alpha(s, y) - \alpha(s, x)| \leq L(t, K)|y - x|, \quad \text{for } x, y \in K, \; 0 \leq s \leq t
+$$
+
+(where $|\cdot|$ denotes the Euclidean norm), then the existence and uniqueness of a so-called maximal solution are guaranteed.
+
+Let $\alpha$ be continuous and satisfy the local Lipschitz condition described above. Let $F: \Omega \to U$ be an initial condition (a measurable function with respect to the initial $\sigma$-algebra). Let $\zeta: \Omega \to \overline{\mathbb{R}}_+$ be a [predictable stopping time](/Predictable_stopping_time) with $\zeta > 0$ almost surely. A $U$-valued semimartingale $(Y_t)_{t<\zeta}$ is termed a maximal solution of $\mathrm {d} Y_{t}=\alpha (t,Y_{t})\mathrm {d} X_{t}$, $Y_{0}=F$ with life time $\zeta$ if:
+* For any sequence of stopping times $\zeta_n \nearrow \zeta$, the stopped process $Y^{\zeta_n}$ is a solution to the stopped stochastic differential equation $\mathrm {d} Y=\alpha (t,Y)\mathrm {d} X^{\zeta_n}$.
+* On the set $\{\zeta < \infty\}$, it holds almost surely that $Y_t \to \partial U$ as $t \to \zeta$.
+
+The time $\zeta$ is also referred to as an explosion time.
+
+## Some Explicitly Solvable Examples
+
+Certain stochastic differential equations admit explicit analytical solutions, simplifying their analysis. These include:
+
+### Linear SDE: General Case
+
+For the linear SDE:
+
+$$
+\mathrm {d} X_{t}=(a(t)X_{t}+c(t))\mathrm {d} t+(b(t)X_{t}+d(t))\mathrm {d} W_{t}
+$$
+
+the solution can be expressed as:
+
+$$
+X_{t}=\Phi _{t,t_{0}}\left(X_{t_{0}}+\int _{t_{0}}^{t}\Phi _{s,t_{0}}^{-1}(c(s)-b(s)d(s))\mathrm {d} s+\int _{t_{0}}^{t}\Phi _{s,t_{0}}^{-1}d(s)\mathrm {d} W_{s}\right)
+$$
+
+where $\Phi_{t,t_0}$ is a deterministic process defined by:
+
+$$
+\Phi _{t,t_{0}}=\exp \left(\int _{t_{0}}^{t}\left(a(s)-{\frac {b^{2}(s)}{2}}\right)\mathrm {d} s+\int _{t_{0}}^{t}b(s)\mathrm {d} W_{s}\right)
+$$
+
+### Reducible SDEs: Case 1
+
+Consider the SDE:
+
+$$
+\mathrm {d} X_{t}={\frac {1}{2}}f(X_{t})f'(X_{t})\mathrm {d} t+f(X_{t})\mathrm {d} W_{t}
+$$
+
+for a given differentiable function $f$. This equation is equivalent to the Stratonovich SDE:
+
+$$
+\mathrm {d} X_{t}=f(X_{t})\circ W_{t}
+$$
+
+Its general solution is given by:
+
+$$
+X_{t}=h^{-1}(W_{t}+h(X_{0}))
+$$
+
+where $h(x)$ is defined as:
+
+$$
+h(x)=\int ^{x}{\frac {\mathrm {d} s}{f(s)}}
+$$
+
+### Reducible SDEs: Case 2
+
+For the SDE:
+
+$$
+\mathrm {d} X_{t}=\left(\alpha f(X_{t})+{\frac {1}{2}}f(X_{t})f'(X_{t})\right)\mathrm {d} t+f(X_{t})\mathrm {d} W_{t}
+$$
+
+where $f$ is a differentiable function, this is equivalent to the Stratonovich SDE:
+
+$$
+\mathrm {d} X_{t}=\alpha f(X_{t})\mathrm {d} t+f(X_{t})\circ W_{t}
+$$
+
+This equation can be reduced to:
+
+$$
+\mathrm {d} Y_{t}=\alpha \mathrm {d} t+\mathrm {d} W_{t}
+$$
+
+where $Y_{t}=h(X_{t})$ and $h$ is defined as in Case 1. The general solution for this case is:
+
+$$
+X_{t}=h^{-1}(\alpha t+W_{t}+h(X_{0}))
+$$
+
+## SDEs and Supersymmetry
+
+In the context of supersymmetric theory of SDEs, stochastic dynamics are described through a stochastic evolution operator acting on differential forms defined on the [phase](/Phase_space)/[state](/State_space) space of the model. This formulation reveals that all SDEs inherently possess a topological [supersymmetry](/Supersymmetry). This supersymmetry signifies the preservation of the continuity of the phase space under continuous time flow. The spontaneous breakdown of this supersymmetry is identified as the fundamental mathematical mechanism behind the widespread dynamical phenomenon known as [chaos](/Chaos_theory) across various scientific disciplines.
+
+## See Also
+
+* [Backward stochastic differential equation](/Backward_stochastic_differential_equation)
+* [Langevin dynamics](/Langevin_dynamics)
+* [Local volatility](/Local_volatility)
+* [Stochastic process](/Stochastic_process)
+* [Stochastic volatility](/Stochastic_volatility)
+* [Stochastic partial differential equations](/Stochastic_partial_differential_equation)
+* [Diffusion process](/Diffusion_process)
+* [Stochastic difference equation](/Stochastic_difference_equation)
+* [Supersymmetric theory of stochastic dynamics](/Supersymmetric_theory_of_stochastic_dynamics)

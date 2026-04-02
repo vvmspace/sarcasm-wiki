@@ -1,0 +1,129 @@
+---
+title: "Shift Space"
+description: "In the rather specific, often pedantic, realms of symbolic dynamics and its various mathematical offshoots, a shift space—or, if you prefer the slightly more..."
+keywords: symbolic dynamics, infinite, words, discrete system, symbolic dynamical systems, synonyms, subshifts of finite type, finite set, monoid
+slug: "Shift_space"
+createdAt: "2025-12-19T13:05:27.015Z"
+updatedAt: "2025-12-19T13:05:27.015Z"
+contentType: "rewritten"
+previousArticleSlug: "Cayley_projective_plane"
+previousArticleTitle: "Cayley Projective Plane"
+---
+
+## Set of Infinite Words
+
+In the rather specific, often pedantic, realms of [symbolic dynamics](/Symbolic_dynamics) and its various mathematical offshoots, a shift space—or, if you prefer the slightly more evocative term, a subshift—represents a collection of [infinite](/Infinity) [words](/String_(computer_science)). These aren't your typical prose, mind you, but sequences of symbols stretching into eternity, designed to model the relentless, often predictable, evolution of a [discrete system](/Discrete_system). Indeed, one might even consider "shift spaces" and "[symbolic dynamical systems](/Symbolic_dynamics)" as functional [synonyms](/Synonym) in many contexts, a testament to the elegant, if somewhat abstract, simplicity they embody. Among this particular species of mathematical construct, the most thoroughly dissected and widely discussed are the [subshifts of finite type](/Subshifts_of_finite_type) and their slightly more complex cousins, the sofic shifts. Because, of course, everything must be categorized, even the infinite.
+
+The classical framework, as established and widely understood, posits a shift space as any subset, denoted as $\Lambda$, residing within $A^{\mathbb{Z}} := \{(x_{i})_{i\in \mathbb{Z}}:\ x_{i}\in A\ \forall i\in \mathbb{Z}\}$. Here, $A$ is not merely any collection of symbols, but specifically a [finite set](/Finite_set)—a crucial constraint that simplifies much of the subsequent analysis. This subset $\Lambda$ is further defined by two non-negotiable properties: it must be closed under the Tychonov topology, and it must remain invariant when subjected to translations. One can, of course, generalize this concept, extending the definition of a shift space to encompass closed and translation-invariant subsets of $A^{\mathbb{G}}$, where $A$ can now be any non-empty set (not necessarily finite, because why make things simple?) and $\mathbb{G}$ is any [monoid](/Monoid). Such generalizations, while mathematically robust, tend to complicate matters, as generalizations often do.
+
+### Definition
+
+Let's lay down the formal groundwork, shall we? Consider $\mathbb{G}$ to be a [monoid](/Monoid). For any elements $g,h\in \mathbb{G}$, their operation is denoted by the product $gh$. The identity element of $\mathbb{G}$ is, predictably, $\mathbf{1}_{\mathbb{G}}$. Now, take a non-empty set $A$, which we'll refer to as our alphabet. We equip this alphabet with the [discrete topology](/Discrete_space)—a rather straightforward choice, as it simply means every single element in $A$ is an open set unto itself. With this, we define $A^{\mathbb{G}}$ as the complete set of all possible patterns that can be formed using symbols from $A$, indexed by the elements of $\mathbb{G}$.
+
+For any specific pattern $\mathbf{x}=(x_{i})_{i\in \mathbb{G}}\in A^{\mathbb{G}}$ and a chosen subset $N\subset \mathbb{G}$, we denote the restriction of $\mathbf{x}$ to the indices within $N$ as $\mathbf{x}_{N}:=(x_{i})_{i\in N}$. This is essentially a way of extracting a finite "snippet" or "block" from an infinite word.
+
+On the grand canvas of $A^{\mathbb{G}}$, we impose the prodiscrete topology. This particular topological structure ensures that $A^{\mathbb{G}}$ is a Hausdorff space—meaning distinct points have distinct neighborhoods—and is also totally disconnected, implying it can be broken down into arbitrarily small, disconnected pieces. If our alphabet $A$ happens to be finite, a rather convenient consequence emerges: $A^{\mathbb{G}}$ becomes compact. However, as is often the case with infinity, if $A$ is *not* finite, then $A^{\mathbb{G}}$ loses its local compactness, a property that tends to make things considerably less tidy.
+
+This topology, if you're curious about its practical utility, will be metrizable *only* if the indexing monoid $\mathbb{G}$ is countable. Regardless of metrizability, the fundamental building blocks of this topology are a collection of sets known as cylinders. These are simultaneously open and closed (a common quirk in totally disconnected spaces) and are defined as follows: select a finite set of indices $D\subset \mathbb{G}$, and for each index $i\in D$, assign a specific symbol $a_{i}\in A$. The cylinder specified by $D$ and the sequence $(a_{i})_{i\in D}\in A^{|D|}$ is the set:
+
+${\big [}(a_{i})_{i\in D}{\big ]}_{D}:=\{\mathbf{x} \in A^{\mathbb{G}}:\ x_{i}=a_{i},\ \forall i\in D\}.$
+
+In simpler terms, a cylinder represents the collection of all infinite patterns in $A^{\mathbb{G}}$ that contain a specific finite pattern $(a_{i})_{i\in D}$ at the exact positions indicated by $D$. When $D=\{g\}$, a singleton set, we simplify the notation for a cylinder fixing a symbol $b$ at the entry indexed by $g$ to $[b]_{g}$. It's all about pinning down small, finite segments within the vastness of the infinite.
+
+Given an element $g\in \mathbb{G}$, the $g$-shift map on $A^{\mathbb{G}}$ is denoted by $\sigma^{g}:A^{\mathbb{G}}\to A^{\mathbb{G}}$ and operates by taking a pattern $(x_{i})_{i\in \mathbb{G}}$ and transforming it into $(x_{gi})_{i\in \mathbb{G}}$. This map effectively "shifts" the entire infinite sequence according to the monoid's operation.
+
+A shift space over the alphabet $A$ is then formally defined as a subset $\Lambda \subset A^{\mathbb{G}}$ that satisfies two conditions: it must be closed under the aforementioned topology of $A^{\mathbb{G}}$, and it must be invariant under translations. That is, $\sigma^{g}(\Lambda)\subset \Lambda$ for all $g\in \mathbb{G}$. (A small footnote here: some authors use "shift" or "subshift" for sets that are merely invariant, reserving "shift space" for those that are also closed. Such distinctions, while technically precise, often feel like splitting hairs.) We consider $\Lambda$ equipped with the induced topology from $A^{\mathbb{G}}$, where its basic open sets are cylinders of the form ${\big [}(a_{i})_{i\in D}{\big ]}_{\Lambda}:={\big [}(a_{i})_{i\in D}{\big ]}\cap \Lambda$.
+
+An alternative, and often more intuitive, way to define a shift space involves the concept of "forbidden patterns." For each $k\in \mathbb{N}^{*}$, we define $\mathcal{N}_{k}:=\bigcup _{N\subset \mathbb{G} \atop \#N=k}A^{N}$, which is the set of all possible finite patterns of length $k$. Extending this, we define $\mathcal{N}_{A^{\mathbb{G}}}^{f}:=\bigcup _{k\in \mathbb{N} }\mathcal{N}_{k}=\bigcup _{N\subset \mathbb{G} \atop \#N<\infty }A^{N}$, encompassing all finite patterns of any length. A shift space can then be constructed by taking a set of forbidden patterns $F\subset {\mathcal {N}}_{A^{\mathbb{G}}}^{f}$ and defining the shift space $X_{F}$ as:
+
+$X_{F}:=\{\mathbf{x} \in A^{\mathbb{G}}:\ \forall N\subset \mathbb{G},\forall g\in \mathbb{G},\ \left(\sigma ^{g}(\mathbf{x} )\right)_{N}=\mathbf{x}_{gN}\notin F\}.$
+
+Intuitively, and perhaps more accessibly, $X_{F}$ is the set of all infinite patterns that, no matter how you shift them or what finite segment you examine, simply do not contain any of the patterns deemed "forbidden" by the set $F$. It's a method of defining what *is* allowed by explicitly stating what *isn't*.
+
+### Language of Shift Space
+
+When dealing with a shift space $\Lambda \subset A^{\mathbb{G}}$, we can also speak of its "language." For an empty set of indices $N=\emptyset \subset \mathbb{G}$, we define $W_{\emptyset }(\Lambda ):=\{\epsilon \}$, where $\epsilon$ is the empty word—a concept as fundamental as it is, well, empty. For any non-empty finite set of indices $N\subset \mathbb{G}$, $W_{N}(\Lambda )\subset A^{N}$ is defined as the set of all finite configurations from $A^{N}$ that actually appear within *some* sequence in $\Lambda$. Formally:
+
+$W_{N}(\Lambda ):=\{(w_{i})_{i\in N}\in A^{N}:\ \exists \ \mathbf{x} \in \Lambda {\text{ s.t. }}x_{i}=w_{i}\ \forall i\in N\}.$
+
+A key property, stemming directly from $\Lambda$ being a shift space, is that if $M\subset \mathbb{G}$ is simply a translation of $N\subset \mathbb{G}$ (i.e., $M=gN$ for some $g\in \mathbb{G}$), then a pattern $(w_{j})_{j\in M}\in W_{M}(\Lambda )$ if and only if there's an equivalent pattern $(v_{i})_{i\in N}\in W_{N}(\Lambda )$ such that $w_{j}=v_{i}$ when $j=gi$. This simply means that $W_{M}(\Lambda )$ and $W_{N}(\Lambda )$ contain the same fundamental configurations, just indexed differently due to the translation.
+
+We then define the full "language" of $\Lambda$, denoted $W(\Lambda)$, as the union of all such $W_{N}(\Lambda)$ for all finite $N\subset \mathbb{G}$:
+
+$W(\Lambda ):=\bigcup _{N\subset \mathbb{G} \atop \#N<\infty }W_{N}(\Lambda )$
+
+It's worth noting, with a slight air of disappointment, that in this general context, the "language" of a shift space doesn't quite align with the established meaning of language in [Formal Language Theory](/Formal_language_theory). However, when we retreat to the comforting confines of the classical framework—where $A$ is finite and $\mathbb{G}$ is either $\mathbb{N}$ (non-negative integers) or $\mathbb{Z}$ (all integers) with standard addition—then, and only then, does the language of a shift space conveniently become a formal language. It's almost as if the universe occasionally aligns for our convenience, before reverting to its usual, less accommodating state.
+
+### Classical Framework
+
+The "classical framework"—a term often employed to signify where things were simpler, or at least, less abstract—for shift spaces involves two key assumptions. First, the alphabet $A$ is definitively finite. Second, the indexing monoid $\mathbb{G}$ is restricted to either the set of non-negative integers ($\mathbb{N}$) or the set of all integers ($\mathbb{Z}$), both operating under the usual addition. In both these "classical" cases, the identity element $\mathbf{1}_{\mathbb{G}}$ conveniently corresponds to the number 0.
+
+Furthermore, when $\mathbb{G}=\mathbb{N}$, all elements in $\mathbb{N} \setminus \{0\}$ can be generated from the number 1. This simplifies the shift map; we only need to consider a single, forward shift map defined as $\sigma (\mathbf{x} )_{n}=x_{n+1}$ for all $n$. It's a one-way street, much like time for most of us. Conversely, for the case of $\mathbb{G}=\mathbb{Z}$, since all integers can be generated from {-1, 1}, we need to consider two shift maps: $\sigma (\mathbf{x} )_{n}=x_{n+1}$ (the forward shift) and $\sigma^{-1}(\mathbf{x})_{n}=x_{n-1}$ (the backward shift). A bidirectional flow, offering more complexity, naturally.
+
+Moreover, irrespective of the cardinality of $A$, whenever $\mathbb{G}$ is $\mathbb{N}$ or $\mathbb{Z}$ with standard addition, the algebraic structure allows us to restrict our focus to cylinders of a particular, simplified form:
+
+$[a_{0}a_{1}...a_{n}]:=\{(x_{i})_{i\in \mathbb{G}}:\ x_{i}=a_{i}\ \forall i=0,..,n\}.$
+
+This means we're primarily concerned with finite blocks starting at index 0. This simplification is quite a relief, reducing the combinatorial explosion of arbitrary index sets. Similarly, the language of a shift space $\Lambda \subset A^{\mathbb{G}}$ in this classical context is given by:
+
+$W(\Lambda ):=\bigcup _{n\geq 0}W_{n}(\Lambda ),$
+
+where $W_{0}:=\{\epsilon \}$ (the empty word, again) and $W_{n}(\Lambda ):=\{((a_{i})_{i=0,..n}\in A^{n}:\ \exists \mathbf{x} \in \Lambda \ s.t.\ x_{i}=a_{i}\ \forall i=0,...,n\}$. These are precisely the finite words of length $n+1$ that can be found starting at index 0 in some sequence within $\Lambda$.
+
+In the specific case where $\mathbb{G}=\mathbb{Z}$, defining a shift space $\Lambda =X_{F}$ becomes even more streamlined. We don't need to specify the exact index in $\mathbb{G}$ where forbidden words from $F$ are located. We can simply consider $F\subset \bigcup _{n\geq 1}A^{n}$, a set of finite forbidden words, and then define:
+
+$X_{F}=\{\mathbb{x} \in A^{\mathbb{Z}}:\ \forall i\in \mathbb{Z},\ \forall k\geq 0,\ (x_{i}...x_{i+k})\notin F\}.$
+
+This means an infinite word is allowed if *none* of its finite subsegments, anywhere in the bi-infinite sequence, match a forbidden word. It's a powerful and elegant constraint.
+
+However, if $\mathbb{G}=\mathbb{N}$, this simplification has a catch. If we define a shift space $\Lambda =X_{F}$ in the same way (without specifying indices for forbidden words), we will only capture shift spaces that are invariant under the shift map, meaning $\sigma (X_{F})=X_{F}$. To define a shift space $X_{F}\subset A^{\mathbb{N}}$ where $\sigma (X_{F})\subsetneq X_{F}$ (i.e., the shift operation can *remove* elements from the space, making it a proper subset), it becomes necessary to explicitly state *from which index* the words in $F$ are forbidden. It's a subtle distinction, but one that can significantly alter the dynamical properties of the system.
+
+Crucially, within this classical framework where $A$ is finite and $\mathbb{G}$ is either $\mathbb{N}$ or $\mathbb{Z}$ with addition, the set $M_{F}$ (defined later in the "Some types of shift spaces" section) is finite if and only if the set of forbidden patterns $F$ is finite. This leads directly to the classical definition of a shift of finite type: those shift spaces $\Lambda \subset A^{\mathbb{G}}$ for which $\Lambda =X_{F}$ for some finite set $F$. It's a neat, self-contained little package, perfectly illustrating the finite origins of supposedly infinite complexity.
+
+### Some Types of Shift Spaces
+
+Among the myriad ways to categorize shift spaces, two stand out as particularly well-trodden paths: the shifts of finite type and the sofic shifts. It seems even in the realm of infinite sequences, we crave classification.
+
+When our alphabet $A$ is finite—a common and convenient assumption—a shift space $\Lambda$ is designated a [shift of finite type](/Subshifts_of_finite_type) if it can be precisely defined by a *finite* set of forbidden patterns $F$, such that $\Lambda =X_{F}$. It's a rather elegant concept: the entire infinite structure is governed by a limited number of local prohibitions. Building on this, $\Lambda$ is considered a sofic shift if it can be represented as the image of a shift of finite type under a "sliding block code." This "sliding block code" is essentially a map $\Phi$ that is both continuous (meaning small changes in the input result in small changes in the output) and invariant under all $g$-shift maps. In the classical framework, where $A$ is finite and $\mathbb{G}$ is $\mathbb{N}$ or $\mathbb{Z}$ with addition, a shift $\Lambda$ is a sofic shift if and only if its language $W(\Lambda)$ is a [regular language](/Regular_language). This connection to formal language theory provides a powerful tool for analyzing sofic shifts.
+
+The term "sofic" itself was coined by [Benjamin Weiss](/Benjamin_Weiss) in 1973. He based it on the [Hebrew](/Hebrew_language) word סופי, which means "finite." This nomenclature was chosen to highlight that sofic shifts represent a generalization of a finiteness property, extending the concept beyond the strict confines of shifts of finite type. It's a nice linguistic touch, adding a layer of ancient meaning to modern mathematics.
+
+When $A$ is infinite (because, as noted, we can't always have nice, finite things), the definition of a shift of finite type requires a slightly more nuanced approach. In this context, $\Lambda$ is a shift of finite type if we can find a set $F$ of forbidden words such that the following set, $M_{F}$, is finite and $\Lambda =X_{F}$:
+
+$M_{F}:=\{g\in \mathbb{G}:\ \exists N\subset \mathbb{G} {\text{ s.t. }}g\in N{\text{ and }}(w_{i})_{i\in N}\in F\},$
+
+This $M_{F}$ essentially captures all the indices where some forbidden pattern can *start* or *span*. The finiteness of $M_{F}$ becomes the crucial constraint when the alphabet itself is infinite. Similarly, a sofic shift in this infinite alphabet context is defined as the image of a shift of finite type under a specific class of sliding block codes. Both the finiteness of $M_{F}$ and the additional conditions placed on the sliding block codes are, thankfully, trivially satisfied when $A$ is finite, bringing us back to the simpler classical definitions. It's almost as if the universe occasionally throws us a bone.
+
+### Topological Dynamical Systems on Shift Spaces
+
+Shift spaces, it turns out, are the quintessential [topological spaces](/Topological_space) upon which [symbolic dynamical systems](/Symbolic_dynamics) are typically constructed. They provide the perfect abstract arena for observing the dance of infinite sequences under transformation.
+
+Given a shift space $\Lambda \subset A^{\mathbb{G}}$ and a $g$-shift map $\sigma^{g}:\Lambda \to \Lambda$, the pairing $(\Lambda ,\sigma^{g})$ forms what is known as a [topological dynamical system](/Topological_dynamical_system). This simply means we have a space and a continuous transformation acting upon it, allowing us to study its long-term behavior.
+
+Two shift spaces, say $\Lambda \subset A^{\mathbb{G}}$ and $\Gamma \subset B^{\mathbb{G}}$, are considered topologically conjugate (or, more casually, just "conjugate") if, for every $g$-shift map, their respective topological dynamical systems, $(\Lambda ,\sigma^{g})$ and $(\Gamma ,\sigma^{g})$, are [topologically conjugate](/Topological_conjugacy). This implies the existence of a continuous map $\Phi :\Lambda \to \Gamma$ that acts as a kind of translator, commuting with the shift maps: $\Phi \circ \sigma^{g}=\sigma^{g}\circ \Phi$. Such maps are broadly known as generalized sliding block codes, or simply sliding block codes if $\Phi$ also happens to be uniformly continuous. These codes are the bridges connecting different symbolic worlds, allowing us to see one system as merely a re-encoding of another.
+
+While any continuous map $\Phi$ from a shift space $\Lambda \subset A^{\mathbb{G}}$ to itself could technically define a topological dynamical system $(\Lambda ,\Phi)$, in the field of symbolic dynamics, it is customary to restrict our attention to continuous maps $\Phi :\Lambda \to \Lambda$ that specifically commute with *all* $g$-shift maps. In other words, we focus on maps that are generalized sliding block codes. When such a map $\Phi$ is uniformly continuous, the resulting dynamical system $(\Lambda ,\Phi)$ is famously known as a '[cellular automaton](/Cellular_automaton)'. These systems, where local rules dictate global evolution, are a cornerstone of theoretical computer science and complex systems, demonstrating how simple, repetitive transformations can lead to astonishing complexity.
+
+### Examples
+
+To ground these abstract concepts in something tangible, consider a few examples.
+
+The most straightforward, almost trivially obvious, example of a shift space (and, indeed, a shift of finite type) is the full shift $A^{\mathbb{N}}$. This is simply the set of *all* possible infinite sequences over a given alphabet $A$, with no restrictions whatsoever. It's the wild, untamed wilderness of sequences.
+
+Let's take a slightly more constrained example. Consider an alphabet $A=\{a,b\}$. The set of all infinite words over $A$ that contain at most one $b$ is a sofic subshift. However, it is *not* a shift of finite type. The distinction is subtle but important; its forbidden patterns cannot be summarized by a finite set of local rules. On the other hand, if you consider the set of all infinite words over $A$ whose $b$'s form blocks of prime length, this particular set is *not* sofic. This can be rigorously demonstrated using the [pumping lemma](/Pumping_lemma), a rather clever tool for proving that certain languages are not regular.
+
+The space of infinite strings composed of just two letters, $\{0,1\}^{\mathbb{N}}$, is widely referred to as the [Bernoulli process](/Bernoulli_process). It's a foundational model in probability and information theory, representing a sequence of independent coin flips. Interestingly, this space is also [isomorphic](/Isomorphism) to the [Cantor set](/Cantor_set), a fractal renowned for its paradoxical properties—it has zero length but an uncountably infinite number of points.
+
+Finally, extending to bi-infinite sequences, the space of strings in two letters, $\{0,1\}^{\mathbb{Z}}$, is commonly recognized as being homomorphic to the [Baker's map](/Baker%27s_map). This map is a classic example of a chaotic dynamical system, often visualized as a process that stretches and folds a square, intimately linking the abstract world of infinite sequences to the tangible, if complex, dynamics of physical systems.
+
+### See also
+
+*   [Tent map](/Tent_map)
+*   [Bit shift map](/Bit_shift_map)
+*   [Gray code](/Gray_code)
+
+### Footnotes
+
+*   $^1$ It is common to refer to a shift space using just the expression "shift" or "subshift". However, some authors, in their pursuit of absolute precision, use the terms "shift" and "subshift" for sets of infinite patterns that are merely invariant under the $g$-shift maps, reserving the more formal term "shift space" for those that are also closed for the prodiscrete topology. The nuances are, as always, endless.
+
+#

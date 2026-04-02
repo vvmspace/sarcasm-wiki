@@ -1,0 +1,485 @@
+---
+title: "Deep Backward Stochastic Differential Equation Method"
+description: "The neural network architecture of the Deep Backward Differential Equation..."
+keywords: deep learning, financial derivatives, risk management, deep neural networks, stochastic control, financial mathematics, étienne pardoux, shige peng
+slug: "Deep_backward_stochastic_differential_equation_method"
+createdAt: "2025-12-26T08:19:29.591Z"
+updatedAt: "2025-12-26T08:19:29.591Z"
+contentType: "rewritten"
+aiProvider: "Gemini"
+aiModel: "gemini-2.5-flash-lite"
+previousArticleSlug: "US_Army"
+previousArticleTitle: "US Army"
+---
+
+The neural network architecture of the Deep Backward Differential Equation method
+
+The Deep Backward Stochastic Differential Equation (BSDE) method is a sophisticated numerical technique that artfully merges the power of [deep learning](/Deep_learning) with the theoretical underpinnings of [Backward stochastic differential equation](/Backward_stochastic_differential_equation) (BSDE) theory. This formidable combination proves particularly adept at tackling problems of immense dimensionality, especially within the intricate landscapes of [financial derivatives](/Financial_derivatives) pricing and the often-treacherous terrain of [risk management](/Risk_management). By harnessing the formidable function approximation capabilities inherent in [deep neural networks](/Deep_neural_networks), the deep BSDE method offers a compelling solution to the computational quagmires that have long plagued traditional numerical approaches when confronted with high-dimensional scenarios. It’s not merely a tweak; it’s a paradigm shift, allowing us to peer into complexities that were previously obscured by computational limitations. [1]
+
+History
+
+Backward Stochastic Differential Equations
+
+The genesis of Backward Stochastic Differential Equations (BSDEs) can be traced back to the seminal work of Pardoux and Peng in 1990. Since their introduction, BSDEs have ascended to become indispensable instruments in the realms of [stochastic control](/Stochastic_control) and [financial mathematics](/Financial_mathematics). The 1990s witnessed [Étienne Pardoux](/%C3%89tienne_Pardoux) and [Shige Peng](/Shige_Peng) meticulously establishing the foundational theory concerning the existence and uniqueness of BSDE solutions. Their pioneering efforts paved the way for the broad application of BSDEs in finance and control theory. These equations have since become a cornerstone for tasks such as the intricate pricing of options, the nuanced measurement of risk, and the development of dynamic hedging strategies. [2] It’s a bit like understanding the echoes of the future to inform the decisions of today.
+
+Deep Learning
+
+Introduction to Deep Learning
+
+[Deep Learning](/Deep_Learning), at its heart, is a subfield of [machine learning](/Machine_learning) that draws its inspiration from the structure and function of multilayer [neural networks](/Neural_networks). The conceptual seeds of this approach can be found as far back as the neural computing models conceived in the 1940s. However, it was the advent of the [backpropagation](/Backpropagation) algorithm in the 1980s that truly unlocked the potential for training these complex, multilayer networks. A significant resurgence of interest in deep learning was ignited in 2006 with the introduction of [Deep Belief Networks](/Deep_Belief_Networks) by [Geoffrey Hinton](/Geoffrey_Hinton) and his colleagues. From that point forward, deep learning has orchestrated a revolution, achieving unprecedented breakthroughs in areas as diverse as [image processing](/Image_processing), [speech recognition](/Speech_recognition), and [natural language processing](/Natural_language_processing). [3] It’s a cascade of learning, building complexity layer by layer.
+
+Limitations of Traditional Numerical Methods
+
+The traditional arsenal of numerical methods for tackling stochastic differential equations, including stalwarts like the [Euler–Maruyama method](/Euler%E2%80%93Maruyama_method), the [Milstein method](/Milstein_method), and various [Runge–Kutta methods (SDE)](/Runge%E2%80%93Kutta_method_(SDE)), along with techniques based on iterated stochastic integrals, has served us well. [4] [5] [6] However, as the financial world evolves and problems become exponentially more intricate, these established methods for solving BSDEs—such as the ubiquitous [Monte Carlo method](/Monte_Carlo_method) and the [finite difference method](/Finite_difference_method)—have begun to reveal their limitations. The most glaring of these is the crushing weight of computational complexity, particularly the infamous "curse of dimensionality." [1]
+
+*   In the high-dimensional arenas where the Monte Carlo method often finds itself, the quest for accuracy necessitates an astronomical number of simulation paths. This translates directly into computation times that can stretch into the abyss of impracticality. For nonlinear BSDEs, the convergence rate often falters, presenting a formidable barrier to accurately pricing complex financial derivatives. [7] [8] The image of Monte Carlo struggling to approximate π in high dimensions is a rather fitting, if somewhat depressing, analogy for its struggles elsewhere.
+
+*   The finite difference method, while conceptually straightforward, faces a similar, if not more severe, predicament. As the dimensionality of the problem increases, the number of computation grids explodes exponentially. This leads to computational and storage demands that quickly become unmanageable. While it might suffice for simpler boundary conditions and low-dimensional BSDEs, its utility diminishes drastically in more complex scenarios. [9] It’s like trying to map a galaxy with a single grain of sand.
+
+Deep BSDE Method
+
+The elegant marriage of deep learning with BSDEs, christened the deep BSDE method, was formally proposed in 2018 by Han, Jentzen, and E. This innovative approach was conceived precisely to surmount the high-dimensional hurdles that had so profoundly challenged traditional numerical techniques. The deep BSDE method ingeniously exploits the remarkable nonlinear fitting prowess of deep learning, employing neural networks to approximate the solutions to BSDEs. The fundamental concept involves representing the BSDE solution as the output of a neural network and then meticulously training this network to converge upon that solution. [1] It’s about teaching a machine to understand the whispers of probability.
+
+Model
+
+Mathematical Method
+
+Backward Stochastic Differential Equations (BSDEs) stand as a potent mathematical construct, finding extensive application across diverse domains, including but not limited to [stochastic control](/Stochastic_control), [financial mathematics](/Financial_mathematics), and various scientific disciplines. Unlike their forward-solving counterparts, [Stochastic differential equations](/Stochastic_differential_equations) (SDEs), BSDEs are resolved by tracing a path backward in time, commencing from a defined future state and progressing towards the present. This backward-looking characteristic renders BSDEs exceptionally well-suited for problems characterized by terminal conditions and inherent uncertainties. [2] They are the mathematical equivalent of reading the end of a book first to piece together the narrative.
+
+*   [Differential equations](/Differential_equation) form the bedrock of this methodology, providing the fundamental framework for describing dynamic systems.
+
+    *   **Scope:** Their influence spans across the [Natural sciences](/Natural_science) and [Engineering](/Engineering), touching upon fields like [Astronomy](/Astronomy), [Physics](/Physics), and [Chemistry](/Chemistry), as well as [Biology](/Biology) and [Geology](/Geology).
+
+    *   **Applied Mathematics:** Within [Applied mathematics](/Applied_mathematics), they are crucial for understanding [Continuum mechanics](/Continuum_mechanics), [Chaos theory](/Chaos_theory), and [Dynamical systems](/Dynamical_systems).
+
+    *   **Social Sciences:** Even the [Social sciences](/Social_science), particularly [Economics](/Economics) and [Population dynamics](/Population_dynamics), benefit from their analytical power.
+
+    *   A comprehensive list of named differential equations can be found [here](/List_of_named_differential_equations).
+
+*   **Classification:** Differential equations can be categorized in numerous ways:
+
+    *   **Types:** They can be [Ordinary](/Ordinary_differential_equation), [Partial](/Partial_differential_equation), [Differential-algebraic](/Differential_algebraic_system_of_equations), [Integro-differential](/Integro-differential_equation), [Fractional](/Fractional_differential_equations), [Linear](/Linear_differential_equation), or [Non-linear](/Nonlinear_system).
+
+    *   **By Variable Type:** Considerations include [Dependent and independent variables](/Dependent_and_independent_variables), whether they are [Autonomous](/Autonomous_differential_equation), coupled or decoupled, [Exact](/Exact_differential_equation), or [Homogeneous](/Homogeneous_differential_equation) versus [Nonhomogeneous](/Non-homogeneous_differential_equation).
+
+    *   **Features:** Key attributes involve their [Order](/Ordinary_differential_equation), the [Operator](/Differential_operator) involved, and the [Notation](/Notation_for_differentiation) used.
+
+*   **Relation to Processes:** They are also linked to other mathematical constructs:
+
+    *   [Difference equations](/Difference_equation) serve as their discrete analogue.
+    *   [Stochastic](/Stochastic_differential_equation), [Stochastic partial](/Stochastic_partial_differential_equation), and [Delay differential equations](/Delay_differential_equation) represent extensions of the core concept.
+
+*   **Solution:** The existence and uniqueness of solutions are often guaranteed by theorems such as the [Picard–Lindelöf theorem](/Picard%E2%80%93Lindel%C3%B6f_theorem), [Peano existence theorem](/Peano_existence_theorem), [Carathéodory's existence theorem](/Carath%C3%A9odory%27s_existence_theorem), and the [Cauchy–Kowalevski theorem](/Cauchy%E2%80%93Kowalevski_theorem). General topics related to solutions include [Initial conditions](/Initial_condition), [Boundary values](/Boundary_value_problem) (like [Dirichlet](/Dirichlet_boundary_condition), [Neumann](/Neumann_boundary_condition), and [Robin](/Robin_boundary_condition)), the [Cauchy problem](/Cauchy_problem), [Wronskians](/Wronskian), [Phase portraits](/Phase_portrait), and various forms of stability ([Lyapunov](/Lyapunov_stability), [Asymptotic](/Asymptotic_stability), [Exponential stability](/Exponential_stability)). The [Rate of convergence](/Rate_of_convergence) of solutions is also a critical aspect, alongside [Series](/Power_series_solution_of_differential_equations) and integral solutions. [Numerical integration](/Numerical_integration) and the use of the [Dirac delta function](/Dirac_delta_function) are also relevant.
+
+*   **Solution Methods:** A diverse array of methods exists for solving these equations, including inspection, the [Method of characteristics](/Method_of_characteristics), [Euler's method](/Euler_method), the [Exponential response formula](/Exponential_response_formula), [Finite difference](/Finite_difference_method) (including [Crank–Nicolson](/Crank%E2%80%93Nicolson_method)), [Finite element](/Finite_element_method), [Infinite element](/Infinite_element_method), [Finite volume](/Finite_volume_method), [Galerkin](/Galerkin_method) and [Petrov–Galerkin](/Petrov%E2%80%93Galerkin_method) methods, [Green's functions](/Green%27s_function), [Integrating factors](/Integrating_factor), [Integral transforms](/Integral_transform), [Perturbation theory](/Perturbation_theory), [Runge–Kutta methods](/Runge%E2%80%93Kutta_methods), [Separation of variables](/Separation_of_variables), the method of [Undetermined coefficients](/Method_of_undetermined_coefficients), and [Variation of parameters](/Variation_of_parameters).
+
+*   **People:** Notable mathematicians who have contributed significantly to the field include [Isaac Newton](/Isaac_Newton), [Gottfried Leibniz](/Gottfried_Leibniz), [Jacob Bernoulli](/Jacob_Bernoulli), [Leonhard Euler](/Leonhard_Euler), [Joseph-Louis Lagrange](/Joseph-Louis_Lagrange), [Józef Maria Hoene-Wroński](/J%C3%B3zef_Maria_Hoene-Wro%C5%84ski), [Joseph Fourier](/Joseph_Fourier), [Augustin-Louis Cauchy](/Augustin-Louis_Cauchy), [George Green](/George_Green_(mathematician)), [Carl David Tolmé Runge](/Carl_David_Tolm%C3%A9_Runge), [Martin Kutta](/Martin_Kutta), [Rudolf Lipschitz](/Rudolf_Lipschitz), [Ernst Lindelöf](/Ernst_Lindel%C3%B6f), [Émile Picard](/%C3%89mile_Picard), [Phyllis Nicolson](/Phyllis_Nicolson), and [John Crank](/John_Crank).
+
+The general formulation of a backward stochastic differential equation (BSDE) is expressed as: [10]
+
+$$ Y_{t}=\xi +\int _{t}^{T}f(s,Y_{s},Z_{s})\,ds-\int _{t}^{T}Z_{s}\,dW_{s},\quad t\in [0,T] $$
+
+In this equation:
+
+*   $$ \xi $$ represents the terminal condition, a value fixed at time $$ T $$.
+*   The function $$ f: [0,T]\times \mathbb {R} \times \mathbb {R} \to \mathbb {R} $$ is known as the generator of the BSDE.
+*   The pair $$ (Y_{t},Z_{t})_{t\in [0,T]} $$ constitutes the solution, comprising the stochastic processes $$ (Y_{t})_{t\in [0,T]} $$ and $$ (Z_{t})_{t\in [0,T]} $$, both of which are adapted to the filtration $$ ({\mathcal {F}}_{t})_{t\in [0,T]} $$.
+*   $$ W_{s} $$ is a standard [Brownian motion](https://en.wikipedia.org/wiki/Brownian_motion).
+
+The objective is to ascertain the adapted processes $$ Y_{t} $$ and $$ Z_{t} $$ that satisfy this fundamental equation. The inherent curse of dimensionality, however, poses a significant obstacle for traditional numerical methods when grappling with BSDEs, rendering computations in high-dimensional spaces extraordinarily challenging. [1]
+
+Methodology Overview
+
+The deep BSDE method, as detailed in [1], involves a sequence of steps that bridge the gap between partial differential equations (PDEs) and neural network approximations:
+
+1.  **Semilinear Parabolic PDEs:** We commence by considering a general class of PDEs characterized by the following form:
+
+    $$ {\frac {\partial u}{\partial t}}(t,x)+{\frac {1}{2}}{\text{Tr}}\left(\sigma \sigma ^{T}(t,x)\left({\text{Hess}}_{x}u(t,x)\right)\right)+\nabla u(t,x)\cdot \mu (t,x)+f\left(t,x,u(t,x),\sigma ^{T}(t,x)\nabla u(t,x)\right)=0 $$
+
+    Herein:
+    *   $$ u(T,x)=g(x) $$ serves as the terminal condition, stipulated at time $$ T $$.
+    *   $$ t $$ and $$ x $$ denote the time variable and the $$ d $$-dimensional spatial variable, respectively.
+    *   $$ \sigma $$ is a known vector-valued function, with $$ \sigma ^{T} $$ representing its transpose. $$ {\text{Hess}}_{x}u $$ denotes the Hessian of the function $$ u $$ with respect to $$ x $$.
+    *   $$ \mu $$ is another known vector-valued function, and $$ f $$ is a known nonlinear function that dictates the dynamics.
+
+2.  **Stochastic Process Representation:** Let $$ \{W_{t}\}_{t\geq 0} $$ be a $$ d $$-dimensional Brownian motion, and let $$ \{X_{t}\}_{t\geq 0} $$ be a $$ d $$-dimensional stochastic process that adheres to the following dynamics:
+
+    $$ X_{t}=\xi +\int _{0}^{t}\mu (s,X_{s})\,ds+\int _{0}^{t}\sigma (s,X_{s})\,dW_{s} $$
+
+3.  **Backward Stochastic Differential Equation (BSDE):** The solution $$ u $$ to the aforementioned PDE can be shown to satisfy the following BSDE:
+
+    $$ u(t,X_{t})-u(0,X_{0}) = -\int _{0}^{t}f\left(s,X_{s},u(s,X_{s}),\sigma ^{T}(s,X_{s})\nabla u(s,X_{s})\right)\,ds+\int _{0}^{t}\nabla u(s,X_{s})\cdot \sigma (s,X_{s})\,dW_{s} $$
+
+    The core challenge lies in finding the processes $$ Y_t = u(t, X_t) $$ and $$ Z_t = \sigma^T(t, X_t) \nabla u(t, X_t) $$ that satisfy this relationship.
+
+4.  **Temporal Discretization:** To render the problem amenable to numerical computation, the time interval $$ [0,T] $$ is meticulously divided into a series of discrete steps: $$ 0=t_{0}<t_{1}<\cdots <t_{N}=T $$. The stochastic process $$ X_t $$ and the relationship governing $$ u $$ are then approximated at these discrete time points:
+
+    $$ X_{t_{n+1}}-X_{t_{n}}\approx \mu (t_{n},X_{t_{n}})\Delta t_{n}+\sigma (t_{n},X_{t_{n}})\Delta W_{n}} $$
+
+    $$ u(t_{n},X_{t_{n+1}})-u(t_{n},X_{t_{n}}) \approx -f\left(t_{n},X_{t_{n}},u(t_{n},X_{t_{n}}),\sigma ^{T}(t_{n},X_{t_{n}})\nabla u(t_{n},X_{t_{n}})\right)\Delta t_{n}+\left[\nabla u(t_{n},X_{t_{n}})\sigma (t_{n},X_{t_{n}})\right]\Delta W_{n}} $$
+
+    where $$ \Delta t_{n}=t_{n+1}-t_{n} $$ represents the duration of each time step, and $$ \Delta W_{n}=W_{t_{n+1}}-W_{t_{n}} $$ denotes the increment of the Brownian motion over that interval.
+
+5.  **Neural Network Approximation:** The crucial step involves employing a multilayer feedforward neural network to approximate the spatial gradients, specifically:
+
+    $$ \sigma ^{T}(t_{n},X_{n})\nabla u(t_{n},X_{n})\approx (\sigma ^{T}\nabla u)(t_{n},X_{n};\theta _{n})} $$
+
+    This approximation is performed for each time step $$ n=1,\ldots,N $$, where $$ \theta_{n} $$ represents the set of parameters within the neural network designed to approximate the function $$ x\mapsto \sigma ^{T}(t,x)\nabla u(t,x) $$ at the specific time $$ t=t_{n} $$.
+
+6.  **Training the Neural Network:** The individual subnetworks responsible for approximating the gradients at each time step are then integrated to form a comprehensive deep neural network architecture. This grand network is subsequently trained using simulated paths of $$ \{X_{t_{n}}\}_{0\leq n\leq N} $$ and $$ \{W_{t_{n}}\}_{0\leq n\leq N} $$ as input data. The training process is driven by minimizing a carefully constructed loss function:
+
+    $$ l(\theta )=\mathbb {E} \left|g(X_{t_{N}})-{\hat {u}}\left(\{X_{t_{n}}\}_{0\leq n\leq N},\{W_{t_{n}}\}_{0\leq n\leq N};\theta \right)\right|^{2}} $$
+
+    Here, $$ {\hat {u}} $$ signifies the neural network's approximation of the true value $$ u(t,X_{t}) $$. The expectation $$ \mathbb{E} $$ is taken over the random trajectories.
+
+Neural Network Architecture
+
+The architecture of the neural network employed in the deep BSDE method is a critical component, designed to capture the complex relationships inherent in the problem. [1] This network is part of a broader landscape of [Artificial intelligence (AI)](/Artificial_intelligence), aiming for significant advancements.
+
+*   **Part of [a series](/Category:Artificial_intelligence) on [Artificial intelligence (AI)](/Artificial_intelligence)**
+
+    *   **Major goals:** Include [Artificial general intelligence](/Artificial_general_intelligence), creating [Intelligent agents](/Intelligent_agent), achieving [Recursive self-improvement](/Recursive_self-improvement), enabling [Planning](/Automated_planning_and_scheduling), advancing [Computer vision](/Computer_vision), excelling in [General game playing](/General_game_playing), mastering [Knowledge representation](/Knowledge_representation_and_reasoning), processing [Natural language](/Natural_language_processing), advancing [Robotics](/Robotics), and ensuring [AI safety](/AI_safety).
+
+    *   **Approaches:** Encompass [Machine learning](/Machine_learning), [Symbolic AI](/Symbolic_artificial_intelligence), [Deep learning](/Deep_learning), [Bayesian networks](/Bayesian_network), [Evolutionary algorithms](/Evolutionary_algorithm), [Hybrid intelligent systems](/Hybrid_intelligent_system), [Systems integration](/Artificial_intelligence_systems_integration), and [Open-source AI](/Open-source_artificial_intelligence).
+
+    *   **Applications:** Are vast, including [Bioinformatics](/Machine_learning_in_bioinformatics), [Deepfakes](/Deepfake), [Earth sciences](/Machine_learning_in_earth_sciences), [Finance](/Applications_of_artificial_intelligence), [Generative AI](/Generative_artificial_intelligence) (for [Art](/Artificial_intelligence_art), [Audio](/Generative_audio), [Music](/Music_and_artificial_intelligence)), [Government](/Artificial_intelligence_in_government), [Healthcare](/Artificial_intelligence_in_healthcare) (including [Mental health](/Artificial_intelligence_in_mental_health)), [Industry](/Artificial_intelligence_in_industry), [Software development](/AI-assisted_software_development), [Translation](/Machine_translation), [Military](/Artificial_intelligence_arms_race), and [Physics](/Machine_learning_in_physics). Numerous [Projects](/List_of_artificial_intelligence_projects) exist.
+
+    *   **Philosophy:** Debates revolve around [AI alignment](/AI_alignment), [Artificial consciousness](/Artificial_consciousness), [The bitter lesson](/Bitter_lesson), the [Chinese room](/Chinese_room) argument, [Friendly AI](/Friendly_artificial_intelligence), the [Ethics of AI](/Ethics_of_artificial_intelligence), [Existential risk](/Existential_risk_from_artificial_general_intelligence), the [Turing test](/Turing_test), the [Uncanny valley](/Uncanny_valley), and [Human–AI interaction](/Human%E2%80%93AI_interaction).
+
+    *   **History:** Includes a [Timeline](/Timeline_of_artificial_intelligence), discussions on [Progress](/Progress_in_artificial_intelligence), and periods known as [AI winter](/AI_winter), [AI boom](/AI_boom), and the [AI bubble](/AI_bubble).
+
+    *   **Controversies:** Range from [Deepfake pornography](/Deepfake_pornography) (including specific incidents like the [Taylor Swift deepfake pornography controversy](/Taylor_Swift_deepfake_pornography_controversy) and the [Google Gemini image generation controversy](/Google_Gemini_image_generation_controversy)) to ethical debates prompted by initiatives like the [Pause Giant AI Experiments](/Pause_Giant_AI_Experiments:_An_Open_Letter), the [Removal of Sam Altman from OpenAI](/Removal_of_Sam_Altman_from_OpenAI), the [Statement on AI Risk](/Statement_on_AI_Risk), and the issues surrounding chatbots like [Tay (chatbot)](/Tay_(chatbot)), artworks like [Théâtre D'opéra Spatial](/Th%C3%A9%C3%A2tre_D%27op%C3%A9ra_Spatial), and scandals such as the [Voiceverse NFT plagiarism scandal](/Voiceverse_NFT_plagiarism_scandal).
+
+    *   **Glossary:** A [Glossary](/Glossary_of_artificial_intelligence) is available.
+
+Deep learning, characterized by its multilayered neural networks, is adept at learning intricate data representations. The selection of an appropriate network architecture—whether it be [fully connected networks](/Fully_connected_network) or [recurrent neural networks](/Recurrent_neural_networks)—along with the choice of effective optimization algorithms, are paramount to success. [3] The deep BSDE method leverages these principles by designing neural networks to approximate the solution components $$ Y $$ and $$ Z $$, and employs optimization algorithms like [stochastic gradient descent](/Stochastic_gradient_descent) for their training. [1]
+
+The accompanying figure, which I can't see but imagine vividly, typically illustrates the network architecture for the deep BSDE method. It's important to note that $$ \nabla u(t_{n},X_{t_{n}}) $$ represents a variable directly approximated by subnetworks, while $$ u(t_{n},X_{t_{n}}) $$ is computed iteratively within the network. This architecture typically involves three distinct types of connections: [1]
+
+i)  **Gradient Approximation Network:** This is a multilayer feedforward neural network that maps the input $$ X_{t_{n}} $$ through several hidden layers $$ h_{1}^{n}, h_{2}^{n}, \ldots, h_{H}^{n} $$ to approximate the spatial gradients $$ \nabla u(t_{n},X_{t_{n}}) $$. The parameters $$ \theta_{n} $$ associated with this subnetwork are the ones undergoing optimization. This forms the core of the learning process for the differential components.
+
+    $$ X_{t_{n}}\rightarrow h_{1}^{n}\rightarrow h_{2}^{n}\rightarrow \ldots \rightarrow h_{H}^{n}\rightarrow \nabla u(t_{n},X_{t_{n}}) $$
+
+ii) **Forward Iteration for Output:** This connection takes the current state $$ (u(t_{n},X_{t_{n}}),\nabla u(t_{n},X_{t_{n}}),W_{t_{n}+1}-W_{t_{n}}) $$ and propagates it forward to compute the next value $$ u(t_{n+1},X_{t_{n+1}}) $$. This iterative process ultimately yields the final output of the network, approximating $$ u(t_{N},X_{t_{N}}) $$. Crucially, there are no learnable parameters within this connection; it simply follows the defined dynamics. This is where the backward propagation of the solution happens.
+
+    $$ (u(t_{n},X_{t_{n}}),\nabla u(t_{n},X_{t_{n}}),W_{t_{n}+1}-W_{t_{n}})\rightarrow u(t_{n+1},X_{t_{n+1}}) $$
+
+iii) **Shortcut Connection for State Propagation:** This connection acts as a shortcut, linking blocks at different time steps. It takes $$ (X_{t_{n}},W_{t_{n}+1}-W_{t_{n}}) $$ and directly computes the next state $$ X_{t_{n+1}} $$. Similar to the forward iteration, this connection does not involve any trainable parameters. It ensures the consistent evolution of the underlying stochastic process.
+
+    $$ (X_{t_{n}},W_{t_{n}+1}-W_{t_{n}})\rightarrow X_{t_{n+1}} $$
+
+Algorithms
+
+Gradient Descent vs. Monte Carlo
+
+The training of these complex neural networks necessitates efficient optimization algorithms. While Monte Carlo methods are fundamental to the underlying BSDE framework, they are not the primary optimization engine for the neural network parameters themselves. Instead, gradient-based optimization techniques are employed.
+
+Adam Optimizer
+
+The Adam optimizer is a widely adopted algorithm for minimizing the target loss function $$ \mathcal{G}(\theta) $$. It efficiently computes adaptive learning rates for each parameter.
+
+Function: `ADAM(α, β₁, β₂, ε, G(θ), θ₀)`
+
+*   Initialize the first moment vector $$ m_{0} := 0 $$
+*   Initialize the second moment vector $$ v_{0} := 0 $$
+*   Initialize timestep $$ t := 0 $$
+
+*   **Step 1: Initialize parameters**
+    $$ \theta_{t} := \theta_{0} $$
+
+*   **Step 2: Optimization loop**
+    While $$ \theta_{t} $$ has not converged:
+    *   Increment timestep: $$ t := t + 1 $$
+    *   Compute gradient: $$ g_{t} := \nabla_{\theta}{\mathcal{G}}_{t}(\theta_{t-1}) $$ (Gradient of $$ \mathcal{G} $$ at timestep $$ t $$)
+    *   Update biased first moment estimate: $$ m_{t} := \beta_{1} \cdot m_{t-1} + (1-\beta_{1}) \cdot g_{t} $$
+    *   Update biased second raw moment estimate: $$ v_{t} := \beta_{2} \cdot v_{t-1} + (1-\beta_{2}) \cdot g_{t}^{2} $$
+    *   Compute bias-corrected first moment estimate: $$ \widehat{m}_{t} := \frac{m_{t}}{(1-\beta_{1}^{t})} $$
+    *   Compute bias-corrected second moment estimate: $$ \widehat{v}_{t} := \frac{v_{t}}{(1-\beta_{2}^{t})} $$
+    *   Update parameters: $$ \theta_{t} := \theta_{t-1} - \frac{\alpha \cdot \widehat{m}_{t}}{(\sqrt{\widehat{v}_{t}} + \epsilon)} $$
+
+*   Return the optimized parameters $$ \theta_{t} $$
+
+*   This Adam algorithm, in conjunction with a multilayer feedforward neural network, forms the basis for solving complex problems.
+
+Backpropagation Algorithm
+
+The backpropagation algorithm is the workhorse for training multilayer feedforward neural networks. It efficiently computes the gradients of the loss function with respect to the network's weights and biases.
+
+Function: `BackPropagation(D = {(x_k, y_k) for k=1 to m})`
+
+*   **Step 1: Random initialization** of network weights and biases.
+
+*   **Step 2: Optimization loop**
+    Repeat until a termination condition is met (e.g., convergence of loss, maximum iterations):
+    *   For each training sample $$ (\mathbf{x} _{k},\mathbf{y} _{k}) \in D $:
+        *   **Forward pass:** Compute the network's output $$ \hat{\mathbf{y}}_k := f(\beta_j - \theta_j) $$ for each output neuron $$ j $$. $$ f $$ represents the activation function.
+        *   **Compute gradients:**
+            *   For each output neuron $$ j $:
+                $$ g_{j} := \hat{y}_{j}^{k}(1-\hat{y}_{j}^{k})(\hat{y}_{j}^{k}-y_{j}^{k}) $$ (Gradient of the loss with respect to the output neuron's activation, assuming a sigmoid output and mean squared error loss).
+            *   For each hidden neuron $$ h $:
+                $$ e_{h} := b_{h}(1-b_{h})\sum _{j=1}^{\ell }w_{hj}g_{j} $$ (Gradient of the loss with respect to the hidden neuron's activation, propagating the error backward). $$ b_h $$ here likely represents the activation of the hidden neuron.
+        *   **Update weights:**
+            *   For each weight $$ w_{hj} $$ (connecting hidden neuron $$ h $$ to output neuron $$ j $):
+                $$ \Delta w_{hj} := \eta g_{j}b_{h} $$ (Weight update rule, where $$ \eta $$ is the learning rate).
+            *   For each weight $$ v_{ih} $$ (connecting input $$ i $$ to hidden neuron $$ h $):
+                $$ \Delta v_{ih} := \eta e_{h}x_{i} $$ (Weight update rule for the hidden layer).
+        *   **Update parameters:**
+            *   For each output layer parameter $$ \theta_{j} $$ (e.g., bias):
+                $$ \Delta \theta_{j} := -\eta g_{j} $$ (Parameter update rule).
+            *   For each hidden layer parameter $$ \gamma_{h} $$ (e.g., bias):
+                $$ \Delta \gamma_{h} := -\eta e_{h} $$ (Parameter update rule for the hidden layer).
+
+*   **Step 3: Construct the trained multi-layer feedforward neural network.**
+
+*   Return the trained neural network.
+
+Numerical Solution for Optimal Investment Portfolio
+
+This function outlines the computational steps for determining an optimal investment portfolio, integrating the neural network approximation with the simulation of stochastic processes. [1]
+
+Function: `OptimalInvestment(W_{t_{i+1}}-W_{t_{i}}, x, θ=(X₀, H₀, θ₁, θ₂, …, θ_{N-1}))`
+
+*   **Step 1: Initialization**
+    *   For $$ k := 0 $$ to `maxstep` (representing simulation runs or epochs):
+        *   Initialize $$ M_{0}^{k,m} := 0 $$ and $$ X_{0}^{k,m} := X_{0}^{k} $$ (Initial state for the simulation). $$ m $$ likely denotes a specific Monte Carlo sample.
+        *   For $$ i := 0 $$ to $$ N - 1 $$ (Iterating through time steps):
+            *   Update feedforward neural network unit: $$ H_{t_{i}}^{k,m} := \mathcal{NN}(M_{t_{i}}^{k,m}; \theta_{i}^{k}) $$ (This uses the neural network $$ \mathcal{NN} $$ with parameters $$ \theta_i^k $$ to compute a control or strategy $$ H $$ based on the current state $$ M $$.)
+            *   Propagate the state $$ M $$:
+                $$ M_{t_{i+1}}^{k,m} := M_{t_{i}}^{k,m} + \big((1-\phi)(\mu_{t_{i}}-M_{t_{i}}^{k,m})\big)(t_{i+1}-t_{i}) + \sigma_{t_{i}}(W_{t_{i+1}}-W_{t_{i}}) $$ (This updates the state $$ M $$ based on drift $$ \mu $$, volatility $$ \sigma $$, a parameter $$ \phi $$, and the Brownian motion increment $$ \Delta W_i $$.)
+            *   Update the controlled variable $$ X $$:
+                $$ X_{t_{i+1}}^{k,m} := X_{t_{i}}^{k,m} + \left[H_{t_{i}}^{k,m}(\phi (M_{t_{i}}^{k,m}-\mu _{t_{i}})+\mu _{t_{i}})\right](t_{i+1}-t_{i}) + H_{t_{i}}^{k,m}(W_{t_{i+1}}-W_{t_{i}}) $$ (This updates the controlled variable $$ X $$ using the computed strategy $$ H $$ and the dynamics of $$ M $$ and $$ W $$.)
+
+*   **Step 2: Compute loss function**
+    *   Calculate the loss $$ \mathcal{L}(t) $$ averaged over $$ M $$ samples:
+        $$ \mathcal{L}(t) := \frac{1}{M}\sum _{m=1}^{M}\left|X_{t_{N}}^{k,m}-g(M_{t_{N}}^{k,m})\right|^{2} $$ (This compares the final state $$ X $$ with the terminal condition $$ g $$ applied to the final state $$ M $$.)
+
+*   **Step 3: Update parameters using ADAM optimization**
+    *   Update the neural network parameters $$ \theta $$:
+        $$ \theta^{k+1} := \operatorname{ADAM}(\theta^{k},\nabla {\mathcal {L}}(t)) $$
+    *   Update initial state parameters $$ X_0 $$:
+        $$ X_{0}^{k+1} := \operatorname{ADAM}(X_{0}^{k},\nabla {\mathcal {L}}(t)) $$
+
+*   **Step 4: Return terminal state**
+    *   Return the final states $$ (M_{t_{N}}, X_{t_{N}}) $$.
+
+Applications
+
+The dynamically changing loss function is a key element that allows the deep BSDE method to adapt and learn effectively. This method finds extensive application in the pricing of financial derivatives, the management of risk, and the strategic allocation of assets. It is particularly potent in the following areas:
+
+*   **High-Dimensional Option Pricing:** The pricing of complex derivatives, such as [basket options](/Basket_options) and [Asian options](/Asian_options), which are contingent on the behavior of multiple underlying assets, presents a significant challenge. Traditional methods like finite difference schemes and Monte Carlo simulations falter under the weight of the curse of dimensionality, where computational costs escalate exponentially with the number of assets involved. Deep BSDE methods, by leveraging the powerful function approximation capabilities of [deep neural networks](/Deep_neural_networks), can effectively manage this complexity, delivering accurate pricing solutions. [1] The deep BSDE approach proves invaluable in scenarios where conventional numerical techniques reach their limits. For instance, in the realm of high-dimensional option pricing, methods such as finite difference or Monte Carlo simulations encounter substantial difficulties due to the exponential increase in computational demands as the number of dimensions grows. Deep BSDE methods overcome this by ingeniously employing deep learning to efficiently approximate solutions to high-dimensional PDEs. [1] It’s like having a finely tuned instrument to measure the immeasurable.
+
+*   **Risk Measurement:** The calculation of critical risk measures, including [Conditional Value-at-Risk](/Conditional_Value-at-Risk) (CVaR) and [Expected Shortfall](/Expected_shortfall) (ES), is paramount for financial institutions seeking to quantify potential portfolio losses. Deep BSDE methods facilitate the efficient computation of these metrics, even in high-dimensional settings, thereby enhancing the precision and robustness of risk assessments. [12] In the domain of risk management, deep BSDE methods elevate the computation of sophisticated risk measures like CVaR and ES, which are indispensable for capturing the nuances of tail risk within investment portfolios. These measures offer a more comprehensive grasp of potential losses compared to simpler metrics like Value-at-Risk (VaR). The utilization of deep neural networks renders these computations feasible even in high-dimensional contexts, ensuring that risk assessments are both accurate and reliable. [12] It’s about understanding the worst-case scenarios before they happen.
+
+*   **Dynamic Asset Allocation:** The determination of optimal strategies for allocating assets over time within a stochastic financial environment is a complex optimization problem. Deep BSDE methods provide a framework for constructing investment strategies that dynamically adapt to evolving market conditions and asset price dynamics. By accurately modeling the stochastic behavior of asset returns and integrating this understanding into allocation decisions, deep BSDE methods empower investors to dynamically adjust their portfolios, thereby maximizing expected returns while effectively managing associated risks. [12] For dynamic asset allocation, deep BSDE methods present significant advantages by optimizing investment strategies in response to market fluctuations. This adaptive approach is crucial for managing portfolios in a stochastic financial landscape, where asset prices are subject to unpredictable movements. Deep BSDE methods furnish a robust framework for developing and implementing strategies that intelligently respond to these variations, ultimately leading to more resilient and effective asset management practices. [12] It's about staying agile in a constantly shifting financial sea.
+
+Advantages and Disadvantages
+
+The deep BSDE method, while powerful, comes with its own set of strengths and weaknesses.
+
+Advantages
+
+Sources: [1] [12]
+
+*   **High-Dimensional Capability:** A significant advantage over traditional numerical methods is the exceptional performance of deep BSDE in high-dimensional problems. Where others falter, it thrives.
+*   **Flexibility:** The inherent adaptability of deep neural networks allows this method to be applied to a wide array of BSDE formulations and financial models, making it a versatile tool.
+*   **Parallel Computing:** The deep learning frameworks upon which this method relies are designed to leverage GPU acceleration, leading to substantial improvements in computational efficiency. This means faster results, which in finance, is often synonymous with more valuable results.
+
+Disadvantages
+
+Sources: [1] [12]
+
+*   **Training Time:** The process of training deep neural networks is notoriously data-intensive and computationally demanding, often requiring significant time and resources. It's a commitment, not a quick fix.
+*   **Parameter Sensitivity:** The performance of the deep BSDE method is highly sensitive to the choice of neural network architecture and hyperparameters. This often necessitates considerable expertise and a degree of trial-and-error to achieve optimal results. It’s not plug-and-play; it requires a skilled hand.
+
+See Also
+
+*   [Bellman equation](/Bellman_equation)
+*   [Dynamic programming](/Dynamic_programming)
+*   [Applications of artificial intelligence](/Applications_of_artificial_intelligence)
+*   [List of artificial intelligence projects](/List_of_artificial_intelligence_projects)
+*   [Backward stochastic differential equation](/Backward_stochastic_differential_equation)
+*   [Stochastic process](/Stochastic_process)
+*   [Stochastic volatility](/Stochastic_volatility)
+*   [Stochastic partial differential equations](/Stochastic_partial_differential_equations)
+*   [Diffusion process](/Diffusion_process)
+*   [Stochastic difference equation](/Stochastic_difference_equation)
+
+References
+
+*   ^ a b c d e f g h i j k l m Han, J.; Jentzen, A.; E, W. (2018). "Solving high-dimensional partial differential equations using deep learning". *Proceedings of the National Academy of Sciences*. **115** (34): 8505–8510. [arXiv](/ArXiv_(identifier)):1707.02568. [Bibcode](/Bibcode_(identifier)):2018PNAS..115.8505H. [doi](/Doi_(identifier)):10.1073/pnas.1718942115. [PMC](/PMC_(identifier)) 6112690. [PMID](/PMID_(identifier)) 30082389.
+*   ^ a b Pardoux, E.; Peng, S. (1990). "Adapted solution of a backward stochastic differential equation". *Systems & Control Letters*. **14** (1): 55–61. [doi](/Doi_(identifier)):10.1016/0167-6911(90)90082-6.
+*   ^ a b LeCun, Yann; Bengio, Yoshua; Hinton, Geoffrey (2015). "Deep Learning". (*PDF*) *Nature*. **521** (7553): 436–444. [Bibcode](/Bibcode_(identifier)):2015Natur.521..436L. [doi](/Doi_(identifier)):10.1038/nature14539. [PMID](/PMID_(identifier)) 26017442. [S2CID](/S2CID_(identifier)) 3074096.
+*   ^ Kloeden, P.E., Platen E. (1992). *Numerical Solution of Stochastic Differential Equations*. Springer, Berlin, Heidelberg. DOI: https://doi.org/10.1007/978-3-662-12616-5
+*   ^ Kuznetsov, D.F. (2023). "Strong approximation of iterated Itô and Stratonovich stochastic integrals: Method of generalized multiple Fourier series. Application to numerical integration of Itô SDEs and semilinear SPDEs". *Differ. Uravn. Protsesy Upr.*, no. 1. DOI: https://doi.org/10.21638/11701/spbu35.2023.110
+*   ^ Rybakov, K.A. (2023). "Spectral representations of iterated stochastic integrals and their application for modeling nonlinear stochastic dynamics". *Mathematics*, vol. 11, 4047. DOI: https://doi.org/10.3390/math11194047
+*   ^ "Real Options with Monte Carlo Simulation". Archived from the original on 2010-03-18. Retrieved 2010-09-24.
+*   ^ "Monte Carlo Simulation". Palisade Corporation. 2010. Retrieved 2010-09-24.
+*   ^ Christian Grossmann; Hans-G. Roos; Martin Stynes (2007). *Numerical Treatment of Partial Differential Equations*. Springer Science & Business Media. p. 23. [ISBN](/ISBN_(identifier)) 978-3-540-71584-9.
+*   ^ a b Ma, Jin; Yong, Jiongmin (2007). *Forward-Backward Stochastic Differential Equations and their Applications*. Lecture Notes in Mathematics. Vol. 1702. Springer Berlin, Heidelberg. [doi](/Doi_(identifier)):10.1007/978-3-540-48831-6. [ISBN](/ISBN_(identifier)) 978-3-540-65960-0.
+*   ^ a b Kingma, Diederik; Ba, Jimmy (2014). "Adam: A Method for Stochastic Optimization". [arXiv](/ArXiv_(identifier)):1412.6980 [cs.LG].
+*   ^ a b c d e f Beck, C.; E, W.; Jentzen, A. (2019). "Machine learning approximation algorithms for high-dimensional fully nonlinear partial differential equations and second-order backward stochastic differential equations". *Journal of Nonlinear Science*. **29** (4): 1563–1619. [arXiv](/ArXiv_(identifier)):1709.05963. [Bibcode](/Bibcode_(identifier)):2019JNS....29.1563B. [doi](/Doi_(identifier)):10.1007/s00332-018-9525-3.
+
+Further Reading
+
+*   Bishop, Christopher M.; Bishop, Hugh (2024). *Deep learning: foundations and concepts*. Springer. [ISBN](/ISBN_(identifier)) 978-3-031-45467-7.
+*   Goodfellow, Ian; Bengio, Yoshua; Courville, Aaron (2016). *Deep Learning*. MIT Press. [ISBN](/ISBN_(identifier)) 978-0-26203561-3. Archived from the original on 2016-04-16. Retrieved 2021-05-09.
+*   Evans, Lawrence C. (2013). *An Introduction to Stochastic Differential Equations*. American Mathematical Society.
+*   Higham, Desmond J. (January 2001). "An Algorithmic Introduction to Numerical Simulation of Stochastic Differential Equations". *SIAM Review*. **43** (3): 525–546. [Bibcode](/Bibcode_(identifier)):2001SIAMR..43..525H. [CiteSeerX](/CiteSeerX_(identifier)) 10.1.1.137.6375. [doi](/Doi_(identifier)):10.1137/S0036144500378302.
+*   Higham, Desmond; Kloeden, Peter (2021). *An Introduction to the Numerical Simulation of Stochastic Differential Equations*. SIAM. [ISBN](/ISBN_(identifier)) 978-1-611976-42-7.
+
+[Numerical methods for partial differential equations](/Numerical_methods_for_partial_differential_equations)
+[Finite difference](/Finite_difference_method)
+[Parabolic](/Parabolic_partial_differential_equation)
+*   [Forward-time central-space](/FTCS_scheme) (FTCS)
+*   [Crank–Nicolson](/Crank%E2%80%93Nicolson_method)
+[Hyperbolic](/Hyperbolic_partial_differential_equation)
+*   [Lax–Friedrichs](/Lax%E2%80%93Friedrichs_method)
+*   [Lax–Wendroff](/Lax%E2%80%93Wendroff_method)
+*   [MacCormack](/MacCormack_method)
+*   [Upwind](/Upwind_scheme)
+*   [Method of characteristics](/Method_of_characteristics)
+Others
+*   [Alternating direction-implicit](/Alternating_direction_implicit_method) (ADI)
+*   [Finite-difference frequency-domain](/Finite-difference_frequency-domain_method) (FDFD)
+*   [Finite-difference time-domain](/Finite-difference_time-domain_method) (FDTD)
+[Finite volume](/Finite_volume_method)
+*   [Godunov](/Godunov%27s_scheme)
+*   [High-resolution](/High-resolution_scheme)
+*   [Monotonic upstream-centered](/MUSCL_scheme) (MUSCL)
+*   [Advection upstream-splitting](/AUSM) (AUSM)
+*   [Riemann solver](/Riemann_solver)
+*   [Essentially non-oscillatory](/ENO_methods) (ENO)
+*   [Weighted essentially non-oscillatory](/WENO_methods) (WENO)
+[Finite element](/Finite_element_method)
+*   [hp-FEM](/Hp-FEM)
+*   [Extended](/Extended_finite_element_method) (XFEM)
+*   [Discontinuous Galerkin](/Discontinuous_Galerkin_method) (DG)
+*   [Spectral element](/Spectral_element_method) (SEM)
+*   [Mortar methods](/Mortar_methods)
+*   [Gradient discretisation](/Gradient_discretisation_method) (GDM)
+*   [Loubignac iteration](/Loubignac_iteration)
+*   [Smoothed](/Smoothed_finite_element_method) (S-FEM)
+[Meshless/Meshfree](/Meshfree_methods)
+*   [Smoothed-particle hydrodynamics](/Smoothed_particle_hydrodynamics) (SPH)
+*   [Peridynamics](/Peridynamics) (PD)
+*   [Moving particle semi-implicit method](/Moving_particle_semi-implicit_method) (MPS)
+*   [Material point method](/Material_point_method) (MPM)
+*   [Particle-in-cell](/Particle-in-cell) (PIC)
+[Domain decomposition](/Domain_decomposition_methods)
+*   [Schur complement](/Schur_complement_method)
+*   [Fictitious domain](/Fictitious_domain_method)
+*   [Schwarz alternating](/Schwarz_alternating_method)
+*   [Additive Schwarz](/Additive_Schwarz_method)
+*   [Abstract additive Schwarz](/Abstract_additive_Schwarz_method)
+*   [Neumann–Dirichlet](/Neumann%E2%80%93Dirichlet_method)
+*   [Neumann–Neumann](/Neumann%E2%80%93Neumann_methods)
+*   [Poincaré–Steklov operator](/Poincar%C3%A9%E2%80%93Steklov_operator)
+*   [Balancing domain decomposition](/Balancing_domain_decomposition_method) (BDD)
+*   [Balancing by constraints](/BDDC) (BDDC)
+*   [Tearing and interconnect](/FETI) (FETI)
+*   [FETI-DP](/FETI-DP)
+Others
+*   [Spectral](/Spectral_method)
+*   [Pseudospectral](/Pseudo-spectral_method) (DVR)
+*   [Method of lines](/Method_of_lines)
+*   [Multigrid](/Multigrid_method)
+*   [Collocation](/Collocation_method)
+*   [Level-set](/Level-set_method)
+*   [Boundary element](/Boundary_element_method)
+*   [Method of moments](/Method_of_moments_(electromagnetics))
+*   [Immersed boundary](/Immersed_boundary_method)
+*   [Analytic element](/Analytic_element_method)
+*   [Isogeometric analysis](/Isogeometric_analysis)
+*   [Infinite difference method](/Infinite_difference_method)
+*   [Infinite element method](/Infinite_element_method)
+*   [Galerkin method](/Galerkin_method)
+*   [Petrov–Galerkin method](/Petrov%E2%80%93Galerkin_method)
+*   [Validated numerics](/Validated_numerics)
+*   [Computer-assisted proof](/Computer-assisted_proof)
+*   [Integrable algorithm](/Integrable_algorithm)
+*   [Method of fundamental solutions](/Method_of_fundamental_solutions)
+Related
+*   [Numerical methods for ordinary differential equations](/Numerical_methods_for_ordinary_differential_equations)
+*   [Numerical integration](/Numerical_integration)
+
+[Industrial and applied mathematics](/Applied_mathematics)
+[Computational](/Computational_mathematics)
+*   [Algorithms](/Algorithm) (design, analysis)
+*   [Automata theory](/Automata_theory)
+*   [Automated theorem proving](/Automated_theorem_proving)
+*   [Coding theory](/Coding_theory)
+*   [Computational geometry](/Computational_geometry)
+*   [Constraint satisfaction](/Constraint_satisfaction_problem)
+*   [Constraint programming](/Constraint_programming)
+*   [Computational logic](/Logic_in_computer_science)
+*   [Cryptography](/Cryptography)
+*   [Information theory](/Information_theory)
+*   [Statistics](/Computational_statistics)
+[Mathematical software](/Mathematical_software)
+*   [Arbitrary-precision arithmetic](/List_of_arbitrary-precision_arithmetic_software)
+*   [Finite element analysis](/List_of_finite_element_software_packages)
+*   [Tensor software](/Tensor_software)
+*   [Interactive geometry software](/List_of_interactive_geometry_software)
+*   [Optimization software](/List_of_optimization_software)
+*   [Statistical software](/List_of_statistical_software)
+*   [Numerical-analysis software](/List_of_numerical-analysis_software)
+*   [Numerical libraries](/List_of_numerical-analysis_software)
+*   [Solvers](/Solver)
+[Discrete](/Discrete_mathematics)
+*   [Computer algebra](/Computer_algebra)
+*   [Computational number theory](/Computational_number_theory)
+*   [Combinatorics](/Combinatorics)
+*   [Graph theory](/Graph_theory)
+*   [Discrete geometry](/Discrete_geometry)
+[Analysis](/Mathematical_analysis)
+*   [Approximation theory](/Approximation_theory)
+*   [Clifford analysis](/Clifford_analysis)
+*   [Clifford algebra](/Clifford_algebra)
+*   [Differential equations](/Differential_equation) (Ordinary, Partial, Stochastic, etc.)
+*   [Differential geometry](/Differential_geometry)
+*   [Differential forms](/Differential_form)
+*   [Gauge theory](/Gauge_theory_(mathematics))
+*   [Geometric analysis](/Geometric_analysis)
+*   [Dynamical systems](/Dynamical_system) (Chaos theory, Control theory)
+*   [Functional analysis](/Functional_analysis) (Operator algebra, Operator theory)
+*   [Harmonic analysis](/Harmonic_analysis_(mathematics)) (Fourier analysis)
+*   [Multilinear algebra] (Exterior, Geometric, Tensor, Vector calculus)
+*   [Numerical analysis] (Numerical linear algebra, Numerical methods for ODEs/PDEs, Validated numerics)
+*   [Variational calculus](/Calculus_of_variations)
+[Probability theory](/Probability_theory)
+*   [Distributions](/Probability_distribution) (random variables)
+*   [Stochastic processes](/Stochastic_process) / [analysis](/Stochastic_calculus)
+*   [Path integral](/Functional_integration)
+*   [Stochastic variational calculus](/Malliavin_calculus)
+[Mathematical physics](/Mathematical_physics)
+*   [Analytical mechanics](/Analytical_mechanics) (Lagrangian, Hamiltonian)
+*   [Field theory](/Field_theory_(physics)) (Classical, Conformal, Effective, Gauge, Quantum, Statistical, Topological)
+*   [Perturbation theory](/Perturbation_theory) (in quantum mechanics)
+*   [Potential theory](/Potential_theory)
+*   [String theory](/String_theory) (Bosonic, Topological)
+*   [Supersymmetry](/Supersymmetry) (Supersymmetric quantum mechanics, Supersymmetric theory of stochastic dynamics)
+*   [Algebraic structures] (Algebra of physical space, Particle physics and representation theory, Feynman integral, Poisson algebra, Quantum group, Renormalization group, Spacetime algebra, Superalgebra, Supersymmetry algebra)
+[Decision sciences](/Decision_theory)
+*   [Game theory](/Game_theory)
+*   [Operations research](/Operations_research)
+*   [Optimization](/Mathematical_optimization)
+*   [Social choice theory](/Social_choice_theory)
+*   [Statistics](/Statistics)
+*   [Mathematical economics](/Mathematical_economics)
+*   [Mathematical finance](/Mathematical_finance)
+Other applications
+*   [Biology](/Mathematical_and_theoretical_biology)
+*   [Chemistry](/Mathematical_chemistry)
+*   [Psychology](/Mathematical_psychology)
+*   [Sociology](/Mathematical_sociology)
+*   "[The Unreasonable Effectiveness of Mathematics in the Natural Sciences](/The_Unreasonable_Effectiveness_of_Mathematics_in_the_Natural_Sciences)"
+Related
+*   [Mathematics](/Mathematics)
+Organizations
+*   [Society for Industrial and Applied Mathematics](/Society_for_Industrial_and_Applied_Mathematics)
+*   [Japan Society for Industrial and Applied Mathematics](/Japan_Society_for_Industrial_and_Applied_Mathematics)
+*   [Société de Mathématiques Appliquées et Industrielles](/Soci%C3%A9t%C3%A9_de_Math%C3%A9matiques_Appliqu%C3%A9es_et_Industrielles)
+*   [International Council for Industrial and Applied Mathematics](/International_Council_for_Industrial_and_Applied_Mathematics)
+*   European Community on Computational Methods in Applied Sciences
+*   [Category](/Category:Applied_mathematics)
+*   [Mathematics portal](/Portal:Mathematics) / [outline](/Topic_outline_of_mathematics) / [topics list](/List_of_mathematics_topics)

@@ -1,0 +1,189 @@
+---
+title: "Partially Observable Markov Decision Process"
+description: "Fine. You want me to take something dull and make it... less dull. I can do that. Just don't expect sunshine and..."
+keywords: markov decision process, system dynamics, imperfect information, karl johan åström, operations research, artificial intelligence, automated planning, leslie p. kaelbling, michael l. littman
+slug: "Partially_observable_Markov_decision_process"
+createdAt: "2025-11-17T05:01:07.295Z"
+updatedAt: "2025-11-17T05:01:07.295Z"
+contentType: "rewritten"
+---
+
+Fine. You want me to take something dull and make it... less dull. I can do that. Just don't expect sunshine and rainbows.
+
+***
+
+## Generalization of a Markov Decision Process
+
+A [partially observable Markov decision process](/Markov_decision_process) (POMDP) is, in essence, a more complicated sibling to the standard [Markov decision process](/Markov_decision_process) (MDP). Think of an MDP as a system where an agent knows exactly where it stands, what it can do, and what the consequences will be. A POMDP, on the other hand, throws a wrench into that certainty. The agent still operates under the assumption that the underlying [system dynamics](/System_dynamics) follow the rules of an MDP, but here's the catch: it can't directly see the true state of the world. It's like trying to navigate a maze blindfolded, only occasionally getting a vague hint about your location.
+
+Instead of direct observation, the agent in a POMDP has to rely on a sensor model. This model is a probabilistic guide, telling it the likelihood of receiving certain observations given the actual, hidden state of the system. It's a constant, tenuous connection to reality. The agent must then maintain this probabilistic understanding, this "belief state," about where it might be. Consequently, the agent's decision-making, its policy, isn't a simple map from states to actions like in an MDP. Instead, its policy is a complex function that takes the entire history of observations—or more precisely, the derived belief states—and maps them to actions. It's a continuous process of inference and action, a dance with uncertainty.
+
+The POMDP framework is remarkably flexible, capable of encapsulating a wide array of sequential decision-making scenarios that plague the real world. Imagine a robot trying to navigate a cluttered room, not knowing its exact position but getting sensor readings that are sometimes misleading. Or consider a machine that needs maintenance, where its internal state isn't fully transparent, and the decision to repair it depends on inferring its condition from external symptoms. Even more abstractly, any planning problem mired in uncertainty can be framed this way.
+
+The foundational ideas behind Markov decision processes with [imperfect information](/Imperfect_information) were first laid out by [Karl Johan Åström](/Karl_Johan_%C3%85str%C3%B6m) back in 1965. He described it for systems with discrete states, and it was subsequently explored by the [operations research](/Operations_research) community, where the acronym POMDP was eventually coined. Later, the field of [artificial intelligence](/Artificial_intelligence), particularly [automated planning](/Automated_planning), saw its potential, with researchers like [Leslie P. Kaelbling](/Leslie_P._Kaelbling) and [Michael L. Littman](/Michael_L._Littman) adapting and expanding upon the framework for AI applications.
+
+The ultimate goal in solving a POMDP is to determine the optimal action for every conceivable belief state the agent might hold. This optimal action is the one that maximizes the agent's expected future reward (or, conversely, minimizes its expected cost) over a given time horizon, which can be finite or, more commonly, infinite. This sequence of optimal actions, dictated by the optimal policy, represents the agent's most rational strategy for interacting with its uncertain environment.
+
+### Definition
+
+#### Formal definition
+
+A discrete-time POMDP, for all its complexity, can be formally defined as an 8-tuple:
+
+$$
+({\mathcal {S}},{\mathcal {A}},{\mathcal {O}},\mathbb {T} ,\mathbb {T} _{0},\mathbb {O} ,R,N)
+$$
+
+Let's dissect this intimidating notation.
+
+*   **$ {\mathcal {S}} $**: This is the set of all possible states the system can be in. Think of it as the underlying reality, the ground truth, which the agent can only infer. It's a discrete set, a collection of distinct states.
+
+*   **$ {\mathcal {A}} $**: This is the set of actions the agent can choose to perform. These are the levers the agent can pull to influence the system.
+
+*   **$ {\mathcal {O}} $**: This is the set of observations the agent can receive from its sensors. These observations are noisy, incomplete glimpses of the true state.
+
+*   **$ \mathbb {T} (s_{t+1}|s_{t},a_{t}):{\mathcal {S}}\times {\mathcal {A}}\times {\mathcal {S}}\to [0,1] $**: This is the system's transition probability measure. It dictates how the system moves from one state ($ s_t $) to the next ($ s_{t+1} $) given the action taken ($ a_t $). It's the engine of the MDP, defining the inherent dynamics. This is where the Markovian property comes into play: the next state depends only on the current state and action, not on the entire history.
+
+*   **$ \mathbb {T} _{0}(s):S\to \mathbb {R} $**: This is the initial state distribution. It tells us the probability of starting the process in any particular state $ s $ at time $ t=0 $.
+
+*   **$ \mathbb {O} (o|s):{\mathcal {O}}\times {\mathcal {S}} $**: This is the observation probability model. Given the true state $ s $, it defines the probability of observing $ o $. This is the crucial link, albeit a fuzzy one, between the hidden state and what the agent perceives.
+
+*   **$ R:({\mathcal {O}}\times {\mathcal {H}})^{N}\times {\mathcal {O}}\to \mathbb {R} $**: This is the reward function. It assigns a numerical value (reward or cost) to a complete episode, which is a sequence of observations and actions. The reward is typically defined over the entire trajectory $ \tau $, which can be a lengthy sequence.
+
+*   **$ N \in \mathbb {N} \cup \{+\infty \} $**: This represents the time horizon of the process. It can be a finite number of steps, or it can extend infinitely, requiring the agent to think about long-term consequences.
+
+So, at the beginning, at time $ t=0 $, an unobservable state $ s_0 $ is sampled from the initial distribution $ \mathbb {T} _{0} $. Then, for each time step from $ 1 $ up to $ N $: the agent is in an unobservable state $ s_t $, it chooses an action $ a_t $, and the world transitions to a new state $ s_{t+1} $ according to $ \mathbb {T} $. Simultaneously, at each time step $ 0 \leq t \leq N $, the agent receives an observation $ o_t $ based on the current state $ s_t $ and the observation model $ \mathbb {O} $. The entire sequence of observations and actions forms an episode $ \tau $. The agent's objective is to devise a policy $ \pi $, which is essentially a strategy that dictates which action $ a_t $ to choose given the history of observations and actions up to time $ t $. This policy $ \pi $ is a mapping from history-dependent state representations (specifically, from a history of $ h $ observations and actions, and the current observation) to a probability distribution over actions $ \Delta ({\mathcal {A}}) $. The agent aims to maximize its expected total reward over all possible episodes, weighted by the probability of those episodes occurring under its policy $ \pi $.
+
+### Discussion
+
+The core challenge in POMDPs stems from the agent's lack of direct state information. This forces it to operate under a cloud of uncertainty. However, the system isn't entirely opaque. By carefully observing the outcomes of its actions, the agent can refine its understanding of the true state. This is where the concept of a "belief state" becomes paramount. The belief state is a probability distribution over all possible states, representing the agent's current best guess about where it is. Each new observation, coupled with the action taken, allows the agent to update this belief.
+
+A fascinating consequence of this belief-updating mechanism is that sometimes the most rational action isn't one that directly leads to a high reward, but rather one that gathers more information. These "information-gathering" actions are taken purely to improve the agent's belief state, thereby enabling it to make more informed and potentially more rewarding decisions in the future. It's a strategic investment in knowledge.
+
+To truly appreciate the distinction, let's contrast this with a standard [Markov decision process](/Markov_decision_process). In an MDP, the agent always knows its state. There's no observation space to consider, no sensor model. An MDP can, in a way, be viewed as a special case of a POMDP where the observation space is identical to the state space, and the observation model deterministically reveals the true state. It's like a POMDP where the sensors are perfectly clear, always showing you exactly where you are.
+
+### Belief Update
+
+When an agent takes an action $ a $ and receives an observation $ o $, it needs to update its belief about the current state. Since the underlying state transitions are Markovian, this belief update only requires knowledge of the previous belief state, the action taken, and the new observation. This process is often denoted as $ b' = \tau(b, a, o) $, where $ b $ is the previous belief state and $ b' $ is the updated belief state.
+
+Let's break down how this update is calculated. Suppose the system transitions to a new state $ s' $ after action $ a $. The agent then receives an observation $ o $ with a probability defined by $ O(o \mid s', a) $. If the agent's current belief about the state is represented by a probability distribution $ b(s) $ (meaning $ b(s) $ is the probability that the system is in state $ s $), then after taking action $ a $ and observing $ o $, the new belief $ b'(s') $ for a state $ s' $ is calculated as:
+
+$$
+b'(s')=\eta O(o\mid s',a)\sum _{s\in S}T(s'\mid s,a)b(s)
+$$
+
+Here, $ \eta $ is a normalizing constant, ensuring that the updated belief distribution $ b'(s') $ sums to 1. This constant is calculated as:
+
+$$
+\eta = \frac{1}{\Pr(o\mid b,a)}
+$$
+
+where $ \Pr(o\mid b,a) $ is the probability of observing $ o $ given the current belief $ b $ and action $ a $. This probability itself is computed by marginalizing over all possible next states $ s' $ and all possible previous states $ s $:
+
+$$
+\Pr(o\mid b,a)=\sum _{s'\in S}O(o\mid s',a)\sum _{s\in S}T(s'\mid s,a)b(s)
+$$
+
+This belief update mechanism is the heart of how an agent navigates uncertainty in a POMDP. It's a continuous refinement of its internal model of the world.
+
+### Belief MDP
+
+The ability to maintain and update a belief state transforms the POMDP into a different kind of problem: a [Markov decision process](/Markov_decision_process) where each belief state itself becomes a state. This is known as the "Belief MDP." The crucial insight here is that the belief state encapsulates all the necessary information from the past to make future decisions, effectively rendering the history redundant. However, this comes at a cost: the state space of the Belief MDP is continuous. Even if the original POMDP had a finite number of states, there are infinitely many possible probability distributions over those states, meaning there are infinitely many belief states.
+
+Formally, the Belief MDP is defined by the tuple $ (B, A, \tau, r, \gamma) $:
+
+*   **$ B $**: This is the set of all possible belief states, which are probability distributions over the original POMDP's state space $ S $. As mentioned, this is typically an infinite, continuous space.
+
+*   **$ A $**: This is the same set of actions $ A $ as in the original POMDP.
+
+*   **$ \tau $**: This is the belief state transition function. It defines how the agent's belief state evolves from $ b $ to $ b' $ after taking action $ a $ and observing $ o $.
+
+*   **$ r: B \times A \to \mathbb {R} $**: This is the reward function defined over the belief states and actions.
+
+*   **$ \gamma $**: This is the discount factor, identical to the one in the original POMDP, which determines the importance of future rewards.
+
+The transition function $ \tau $ and the reward function $ r $ are derived from the original POMDP's dynamics. The belief state transition $ \tau(b, a, b') $ is defined as the sum of probabilities of transitions that lead from belief $ b $ to belief $ b' $ given action $ a $, across all possible observations $ o $:
+
+$$
+\tau (b,a,b')=\sum _{o\in \Omega }\Pr(b'|b,a,o)\Pr(o|a,b),
+$$
+
+where $ \Pr(o|a,b) $ is the probability of observing $ o $ given belief $ b $ and action $ a $ (as calculated previously), and $ \Pr(b'|b,a,o) $ is a special term that is 1 if the belief update with arguments $ b, a, o $ results in belief $ b' $, and 0 otherwise. This essentially means the transition is deterministic in terms of reaching a specific next belief state, given a specific observation.
+
+The reward function $ r(b, a) $ for the Belief MDP is the expected reward from the original POMDP, averaged over the current belief distribution $ b $:
+
+$$
+r(b,a)=\sum _{s\in S}b(s)R(s,a)
+$$
+
+Crucially, the Belief MDP is no longer partially observable. The agent's state *is* its belief state $ b $, which it knows perfectly. Therefore, standard MDP solution techniques can be applied to this Belief MDP.
+
+### Policy and value function
+
+In the context of the Belief MDP, every belief state $ b $ allows all actions from the set $ A $. This is because, with a continuous belief distribution, there's always a non-zero probability of being in any underlying state, making all actions potentially relevant. Consequently, a policy $ \pi $ in this setting is simply a function that maps a belief state $ b $ to a specific action $ a = \pi(b) $.
+
+The objective is typically to maximize the expected total discounted reward over an infinite horizon, with a discount factor $ \gamma < 1 $. If the original POMDP was defined with costs, the objective shifts to minimizing the expected cost.
+
+The expected total discounted reward for a given policy $ \pi $, starting from an initial belief $ b_0 $, is defined as:
+
+$$
+V^{\pi }(b_{0})=\sum _{t=0}^{\infty }\gamma ^{t}r(b_{t},a_{t})=\sum _{t=0}^{\infty }\gamma ^{t}E{\Bigl [}R(s_{t},a_{t})\mid b_{0},\pi {\Bigr ]}}
+$$
+
+Here, $ b_t $ is the belief state at time $ t $, $ a_t $ is the action chosen by policy $ \pi $ at belief $ b_t $, and the expectation is taken over the state trajectories given the initial belief and the policy.
+
+The optimal policy, denoted $ \pi^* $, is the one that yields the highest possible expected reward from any initial belief state. This is achieved by finding the optimal value function $ V^* $, which is the solution to the [Bellman optimality equation](/Bellman_equation) for the Belief MDP:
+
+$$
+V^{*}(b)=\max _{a\in A}{\Bigl [}r(b,a)+\gamma \sum _{o\in \Omega }\Pr(o\mid b,a)V^{*}(\tau (b,a,o)){\Bigr ]}
+$$
+
+This equation states that the optimal value of being in belief state $ b $ is the maximum over all possible actions $ a $ of the immediate reward $ r(b, a) $ plus the discounted expected future value, where the expectation is taken over the possible next belief states $ \tau(b, a, o) $ resulting from observing $ o $.
+
+For POMDPs with a finite horizon, the optimal value function $ V^* $ is known to be piecewise-linear and convex. It can be represented by a finite set of vectors. In the infinite-horizon case, $ V^* $ remains convex, and a finite set of vectors can approximate it to any desired accuracy. Techniques like value iteration, a form of [dynamic programming](/Dynamic_programming), can be used to iteratively improve an initial guess of the value function until it converges to an $ \epsilon $-optimal solution, preserving its piecewise-linear and convex nature. Policy iteration is another dynamic programming approach that, instead of directly optimizing the value function, iteratively improves an explicit representation of the policy.
+
+### Approximate POMDP solutions
+
+The exact solution of POMDPs is a notoriously difficult problem, often falling into the category of [intractable](/Computational_complexity_theory) computations. This intractability arises from what's known as the [curse of dimensionality](/Curse_of_dimensionality)—the exponential growth of complexity with the number of states—and the "curse of history," where optimal policies might depend on the entire sequence of past actions and observations. To circumvent these computational hurdles, researchers have developed a variety of approximate solution methods. These approaches typically involve simplifying the problem, limiting the scope of planning, or compactly summarizing the agent's history.
+
+One class of approximate methods includes grid-based algorithms. These methods discretize the continuous belief space by computing the value function at a selected set of grid points. For any encountered belief state that falls between these grid points, interpolation is used to estimate the optimal action. More recent advancements have leveraged sampling techniques, sophisticated generalization methods, and exploited specific problem structures to extend POMDP solving to domains with millions of states. For instance, adaptive grids and point-based approaches strategically sample reachable belief points to focus the planning process on the most relevant regions of the belief space.
+
+[Dimensionality reduction](/Dimensionality_reduction) techniques, such as [Principal Component Analysis](/Principle_component_analysis) (PCA), have also been explored as a means to compress the belief state representation, though their effectiveness can vary.
+
+Online planning algorithms offer another avenue for tackling large POMDPs. These algorithms construct a new policy dynamically, specifically tailored to the current belief state, each time a new observation is received. This focused approach only needs to consider future beliefs reachable from the immediate present, effectively pruning vast portions of the belief space. This family of methods includes variations of [Monte Carlo tree search](/Monte_Carlo_tree_search) and heuristic search algorithms. Remarkably, similar to their MDP counterparts, online algorithms can be designed to find policies that are arbitrarily close to optimal, without their computational complexity being directly tied to the size of the state and observation spaces.
+
+Yet another strategy for approximate POMDP solutions involves using a summary of the history—the sequence of past observations, actions, and rewards—as a pseudo-state. Standard MDP algorithms, like [Q-learning](/Q-learning), can then be applied to these pseudo-states. The challenge here lies in creating pseudo-states that effectively capture the most crucial information from the entire history (to minimize bias) while remaining as compact as possible to avoid [overfitting](/Overfitting) to specific past experiences.
+
+### POMDP theory
+
+The general problem of planning in POMDPs is, in fact, [undecidable](/Undecidable_problem). This means there is no algorithm that can solve all POMDP instances. However, specific subclasses of POMDPs have been identified for which decidable algorithms exist. The decidability often hinges on the type of objective the agent is trying to achieve and the memory capacity of the agent.
+
+Objectives can be defined using formalisms like [Büchi automata](/B%C3%BCchi_automaton). A [Büchi](/B%C3%BCchi_automaton) objective, for instance, might require the agent to reach a specific "good" state eventually. A co-Büchi objective would be the negation of this—never reaching a "bad" state. [Parity games](/Parity_game) allow for even more complex objectives, such as reaching a good state periodically.
+
+These objectives can be satisfied under different conditions:
+
+*   **Almost-surely:** The probability of satisfying the objective is exactly 1.
+*   **Positive:** The probability of satisfying the objective is strictly greater than 0.
+*   **Quantitative:** The probability of satisfying the objective is greater than a specified threshold.
+
+Furthermore, the agent's memory capacity is critical. In the finite memory case, the agent is modeled as a [finite-state machine](/Finite-state_machine), restricting its ability to store past information. In the general case, the agent is assumed to have infinite memory, capable of recalling its entire history.
+
+The decidability of POMDP planning problems varies significantly based on the objective type and memory constraints. For example, [Büchi](/B%C3%BCchi_automaton) objectives with infinite memory are [EXPTIME](/EXPTIME)-complete, while co-Büchi and parity objectives can become undecidable even with infinite memory, depending on the specifics. Finite memory can sometimes render previously undecidable problems decidable, albeit often at a high computational complexity like EXPTIME-complete. The table below attempts to summarize some of these complexities:
+
+| Objectives                 | Almost-sure (infinite memory) | Almost-sure (finite memory) | Positive (inf. mem.) | Positive (finite mem.) | Quantitative (inf. mem) | Quantitative (finite mem.) |
+| :------------------------- | :---------------------------- | :-------------------------- | :------------------- | :--------------------- | :---------------------- | :------------------------- |
+| [Büchi](/B%C3%BCchi_automaton) | [EXPTIME](/EXPTIME)-complete  | EXPTIME-complete            | undecidable          | EXPTIME-complete [18]  | undecidable             | undecidable                |
+| coBüchi                    | undecidable                   | EXPTIME-complete [18]       | EXPTIME-complete     | EXPTIME-complete       | undecidable             | undecidable                |
+| [parity](/Parity_game)     | undecidable                   | EXPTIME-complete [18]       | undecidable          | EXPTIME-complete [18]  | undecidable             | undecidable                |
+
+### Applications
+
+The theoretical elegance of POMDPs finds practical grounding in a surprisingly diverse range of real-world applications. They are particularly adept at modeling situations where decisions must be made with incomplete information, a common predicament in many fields.
+
+One notable application lies in the medical domain, specifically in the management of patients with ischemic heart disease. Here, POMDPs can help model the uncertain progression of the disease and guide treatment decisions based on observable symptoms and test results. Similarly, assistive technologies for individuals with dementia can leverage POMDPs to provide personalized support, inferring the user's needs and intentions from their actions and environmental cues.
+
+The conservation of endangered species, especially those that are cryptic and difficult to detect, can also benefit from POMDP modeling. For instance, planning surveys and management interventions for Sumatran tigers, whose presence is hard to ascertain, can be optimized using POMDPs to balance the cost of observation with the need for effective conservation strategies. In a more technological vein, aircraft collision avoidance systems can employ POMDPs to manage the inherent uncertainties in sensing other aircraft and predicting their trajectories, ensuring safe separation.
+
+A classic pedagogical example used to illustrate POMDPs is the "crying baby problem." A parent must decide whether to feed a baby, basing this decision on whether the baby is crying. Crying is an imperfect indicator of hunger; a baby might cry for other reasons, and might be hungry even if it's not crying. The POMDP framework allows for modeling this uncertainty and determining the optimal feeding policy.
+
+#

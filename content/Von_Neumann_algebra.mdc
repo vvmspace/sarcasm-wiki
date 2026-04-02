@@ -1,0 +1,294 @@
+---
+title: "Von Neumann Algebra"
+description: "Right. Let's get this over with. You want me to… *rewrite* Wikipedia. As if the internet isn't already a cesspool of unfiltered drivel. Fine. But don't expect..."
+keywords: operator ring, ring operator, operator assistance, mathematics, von neumann algebra, w*-algebra, *-algebra, bounded operators, hilbert space, closed
+slug: "Von_Neumann_algebra"
+createdAt: "2025-11-17T08:15:20.324Z"
+updatedAt: "2025-11-17T08:15:20.324Z"
+contentType: "rewritten"
+---
+
+Right. Let's get this over with. You want me to… *rewrite* Wikipedia. As if the internet isn't already a cesspool of unfiltered drivel. Fine. But don't expect sunshine and rainbows. This is going to be… direct. And probably a little bleak.
+
+---
+
+## *-algebra of bounded operators on a Hilbert space
+
+The term "[operator ring](/Operator_ring)" redirects here. It is not to be confused with a [ring operator](/Ring_operator) or [operator assistance](/Operator_assistance), which are entirely different, and frankly, less interesting, concepts.
+
+In the rather unforgiving landscape of [mathematics](/Mathematics), a [von Neumann algebra](/Von_Neumann_algebra), also known as a [W*-algebra](/W*-algebra), is a specific kind of [*-algebra](/Star-algebra). It's not just any collection of [bounded operators](/Bounded_linear_operator) on a [Hilbert space](/Hilbert_space); it must be a fortress, [closed](/Closed_set) against the chaotic tides of the [weak operator topology](/Weak_operator_topology), and it must, without question, contain the [identity operator](/Identity_operator). Think of it as a meticulously constructed, unyielding structure. It's a specialized breed of [C*-algebra](/C*-algebra), which, if you must know, is already a rather rigid construct.
+
+These von Neumann algebras first crawled into existence through the meticulous, and some might say obsessive, studies of [John von Neumann](/John_von_Neumann). His motivations were varied, ranging from the solitary contemplation of [single operators](/Operator_theory) to the grand narratives of [group representations](/Group_representation), the intricate dances of [ergodic theory](/Ergodic_theory), and the unsettling foundations of [quantum mechanics](/Quantum_mechanics). His celebrated [double commutant theorem](/Von_Neumann_double_commutant_theorem) is a testament to this, a rather elegant proof that a definition based on the cold logic of [mathematical analysis](/Mathematical_analysis) is, in essence, equivalent to a purely [algebraic](/Abstract_algebra) description – a description of symmetries, no less.
+
+To give you a sense of what we're dealing with, consider two rudimentary examples. They're basic, almost insultingly so, but they serve their purpose:
+
+*   The ring of [essentially bounded](/Essentially_bounded) [measurable functions](/Measurable_function) on the real line, denoted as
+    L
+    ∞
+    (
+    R
+    )
+    {\displaystyle L^{\infty }(\mathbb {R} )}
+    , is a prime example of a commutative von Neumann algebra. Its elements operate on the [Hilbert space](/Hilbert_space)
+    L
+    2
+    (
+    R
+    )
+    {\displaystyle L^{2}(\mathbb {R} )}
+    of [square-integrable functions](/Square-integrable_function) not through some grand gesture, but by the simple, relentless act of [multiplication operators](/Multiplication_operator), multiplying each function by itself. It's a closed system, predictable and, dare I say, dull.
+
+*   Then there's the algebra
+    B
+    (
+    H
+    )
+    {\displaystyle {\mathcal {B}}({\mathcal {H}})}
+    , encompassing *all* [bounded operators](/Bounded_operator) on a Hilbert space
+    H
+    {\displaystyle {\mathcal {H}}}
+    . This one is a von Neumann algebra too, though it’s only non-commutative if the Hilbert space has a dimension of at least
+    2
+    {\displaystyle 2}
+    . If it's larger, well, it’s just a chaotic mess of interactions.
+
+The initial exploration into these "rings of operators," as they were first termed, was undertaken by von Neumann himself in 1929. He, along with [Francis Murray](/Francis_Joseph_Murray), meticulously laid the groundwork for their basic theory. Their seminal papers, scattered across the 1930s and 1940s (F.J.&#32;Murray&#32;&&#32;J. von Neumann&#160;1936, 1937, 1943; J.&#32;von Neumann&#160;1938, 1940, 1943, 1949), were later collected and reprinted, a testament to their enduring, if rather austere, significance.
+
+If you're looking for a gentle introduction, you might wade through the online notes of Jones (2003) and Wassermann (1991), or the rather dry tomes by Dixmier (1981), Schwartz (1967), Blackadar (2005), and Sakai (1971). For a truly exhaustive, and likely soul-crushing, account, there's Takesaki's three-volume opus (1979). Connes (1994) ventures into even more advanced, and probably more depressing, territory.
+
+### Definitions
+
+There are, as one might expect, multiple ways to pin down what a von Neumann algebra *is*. Three common approaches stand out, each offering a slightly different, yet fundamentally consistent, perspective:
+
+The first, and by far the most prevalent, defines them as [*-algebras](/Star-algebra) of bounded operators that are [weakly closed](/Weak_operator_topology) and, crucially, contain the identity. This definition is robust enough that you can swap out the weak operator topology for other, equally uninviting, [operator topologies](/Operator_topology) like the [strong](/Strong_operator_topology), [ultrastrong](/Ultrastrong_topology), or [ultraweak](/Ultraweak_topology) ones. Since the [norm topology](/Norm_topology) is the standard for [C*-algebras](/C*-algebra), it follows that any von Neumann algebra is, by its very nature, a C*-algebra.
+
+The second definition is more about self-reference and algebraic relationships. A von Neumann algebra is a subalgebra of bounded operators that is closed under [involution](/Semigroup_with_involution) (that's the *-operation, for the uninitiated) and is precisely equal to its double [commutant](/Commutant). Alternatively, it's the [commutant](/Commutant) of some subalgebra that’s closed under the same involution. The [von Neumann double commutant theorem](/Von_Neumann_double_commutant_theorem), a rather foundational piece of work by von Neumann himself (1930), confirms that these first two definitions are, in fact, equivalent.
+
+These first two definitions offer a concrete view, showing us a von Neumann algebra as a specific set of operators acting on a particular Hilbert space. However, Sakai (1971) introduced a more abstract perspective. He demonstrated that von Neumann algebras can be defined as [C*-algebras](/C*-algebra) possessing a [predual](/Predual). In simpler terms, a von Neumann algebra, when viewed as a [Banach space](/Banach_space), is the [dual](/Dual_space) of some other Banach space, which we then call the predual. This predual is unique, up to the usual isomorphisms, of course. Some mathematicians prefer to reserve "von Neumann algebra" for the concrete realization with its Hilbert space action, and "W*-algebra" for the abstract concept. In this view, a von Neumann algebra is simply a W*-algebra equipped with a Hilbert space and a faithful, unital action upon it. This mirrors the concrete versus abstract dichotomy seen in the definitions of [C*-algebras](/C*-algebra), which can be defined as norm-closed *-algebras of operators or as [Banach *-algebras](/Banach_*-algebra) satisfying the property ||aa*|| = ||a|| ||a*||.
+
+### Terminology
+
+The language surrounding von Neumann algebras can be a bit of a labyrinth, with terms that shift their meaning outside this specific domain. It's a deliberate obfuscation, perhaps.
+
+*   A **factor** is a von Neumann algebra where the [center](/Center_(algebra)) is trivial, meaning it only contains scalar operators. It's the simplest kind of structure, devoid of any internal complexity.
+
+*   A **finite von Neumann algebra** is one that can be decomposed into a [direct integral](/Direct_integral) of finite factors. This implies the algebra possesses a faithful, normal tracial state
+    τ
+    :
+    M
+    →
+    C
+    {\displaystyle \tau :M\rightarrow \mathbb {C} }
+    . Conversely, **properly infinite** von Neumann algebras are direct integrals of properly infinite factors.
+
+*   If a von Neumann algebra operates on a separable Hilbert space, it's called **separable**. Don't get too excited; these algebras are rarely [separable](/Separable_space) in the usual norm topology.
+
+*   The **von Neumann algebra generated by a set of bounded operators** on a Hilbert space is simply the smallest such algebra that contains all those operators. It's the minimal enclosure.
+
+*   The **tensor product of two von Neumann algebras**, acting on separate Hilbert spaces, is defined as the von Neumann algebra generated by their algebraic tensor product. This new algebra then acts on the tensor product of the original Hilbert spaces. It's a way to combine structures, creating something potentially more complex.
+
+Strip away the topology, and you're left with a [*-algebra](/Star-algebra) or just a ring. Von Neumann algebras exhibit a property known as [semihereditary](/Semihereditary_ring): any finitely generated submodule of a [projective module](/Projective_module) is itself projective. There have been attempts to axiomatize these underlying rings, giving rise to concepts like [Baer *-rings](/Baer_*-ring) and [AW*-algebras](/AW*-algebra). The [*-algebra](/Star-algebra) of [affiliated operators](/Affiliated_operator) within a finite von Neumann algebra is a [von Neumann regular ring](/Von_Neumann_regular_ring). The von Neumann algebra itself, however, is not generally von Neumann regular.
+
+#### Commutative von Neumann algebras
+
+The relationship between [commutative](/Commutative) von Neumann algebras and [measure spaces](/Measure_space) is remarkably similar to how commutative [C*-algebras](/C*-algebra) relate to [locally compact](/Locally_compact) [Hausdorff spaces](/Hausdorff_space). Every commutative von Neumann algebra is, in fact, isomorphic to L ∞ ( X ) for some measure space ( X , μ). Conversely, for any σ-finite measure space X , the *-algebra L ∞ ( X ) constitutes a von Neumann algebra.
+
+This parallel is why the study of von Neumann algebras is often referred to as *noncommutative measure theory*. The theory of [C*-algebras](/C*-algebra), by extension, is sometimes dubbed [noncommutative topology](/Noncommutative_topology) (Connes 1994). It’s a way of extending familiar concepts into a less intuitive, more abstract realm.
+
+#### Projections
+
+Within a von Neumann algebra, operators denoted by *E* where *E* = *EE* = *E*** are called **projections**. These are precisely the operators that project the Hilbert space *H* orthogonally onto some closed subspace. A subspace of *H* is said to "belong" to the von Neumann algebra *M* if it is the image of some projection in *M*. This establishes a one-to-one correspondence between projections in *M* and the subspaces that *M* "knows" about – the ones it can describe or identify. Informally, these are the closed subspaces that can be characterized by elements of *M*.
+
+It can be proven that the closure of the image of any operator in *M*, and indeed the kernel of any operator in *M*, also "belongs" to *M*. Furthermore, the closure of the image of any subspace belonging to *M*, when acted upon by an operator in *M*, also belongs to *M*. These results stem from the [polar decomposition](/Polar_decomposition).
+
+##### Comparison theory of projections
+
+The fundamental theory of projections was meticulously detailed by Murray & von Neumann (1936). Two subspaces belonging to *M* are deemed **(Murray–von Neumann) equivalent** if there exists a partial isometry that maps one isometrically onto the other, and crucially, this partial isometry must be an element of the von Neumann algebra *M*. In simpler terms, they are equivalent if *M* "recognizes" them as isomorphic. This equivalence relation extends to projections: *E* is equivalent to *F* if the subspaces they represent are equivalent, meaning there's a partial isometry *u* in *M* such that *E* = *uu*** and *F* = *u***u*.
+
+The equivalence relation, denoted by ~, possesses a crucial additive property: if *E*₁ ~ *F*₁ and *E*₂ ~ *F*₂, and if *E*₁ is orthogonal to *E*₂, and *F*₁ is orthogonal to *F*₂, then *E*₁ + *E*₂ ~ *F*₁ + *F*₂. This additivity wouldn't necessarily hold if we insisted on *unitary* equivalence, where *u***Eu* = *F* for some unitary *u*. The [Schröder–Bernstein theorems for operator algebras](/Schr%C3%B6der%E2%80%93Bernstein_theorems_for_operator_algebras) provide conditions under which Murray–von Neumann equivalence can be established.
+
+The subspaces belonging to *M* are partially ordered by inclusion, which induces a corresponding partial order ≤ on the projections. A natural partial order also exists on the set of equivalence classes of projections. If *M* is a factor, this order becomes total on the equivalence classes, a concept further explored in the section on traces.
+
+A projection *E* (or the subspace it represents) is considered **finite** if there is no projection *F* < *E* (meaning *F* ≤ *E* and *F* ≠ *E*) that is equivalent to *E*. For instance, all finite-dimensional projections are finite, as isometries preserve dimension. However, the identity operator on an infinite-dimensional Hilbert space is not finite within the von Neumann algebra of all bounded operators on it, as it can be isometrically mapped to a proper subset of itself. Yet, it's possible for infinite-dimensional subspaces to be finite.
+
+These orthogonal projections serve as the noncommutative counterparts to indicator functions in L ∞ ( R ). L ∞ ( R ) itself is the norm closure of the subspace generated by these indicator functions. Similarly, a von Neumann algebra is fundamentally constructed from its projections – a consequence of the [spectral theorem for self-adjoint operators](/Self-adjoint_operator).
+
+The projections within a finite factor form what is known as a [continuous geometry](/Continuous_geometry). It’s a structure that’s both ordered and continuous, like a warped landscape.
+
+#### Factors
+
+A von Neumann algebra *N* is called a **factor** if its [center](/Center_(algebra)) is trivial, consisting solely of multiples of the identity operator. As von Neumann (1949) meticulously demonstrated, any von Neumann algebra acting on a separable Hilbert space can be decomposed into a [direct integral](/Direct_integral) of factors. This decomposition is, for the most part, unique. Consequently, the daunting task of classifying isomorphism classes of von Neumann algebras on separable Hilbert spaces can be reduced to the equally daunting task of classifying isomorphism classes of factors.
+
+Murray & von Neumann (1936) established that every factor falls into one of three types: I, II, or III. This classification can be extended to von Neumann algebras that are not factors, allowing them to be described as a sum of algebras of types I, II, and III, each corresponding to a direct integral of factors of that specific type. For example, every commutative von Neumann algebra is of type I₁.
+
+Several other categorizations exist for factors, often based on their properties:
+
+*   A factor is termed **discrete** (or sometimes **tame**) if it's of type I. If it's of type II or III, it's called **continuous** (or **wild**).
+*   A factor is **semifinite** if it's of type I or II, and **purely infinite** if it's of type III.
+*   A factor is **finite** if the projection 1 is finite; otherwise, it's **properly infinite**. Factors of types I and II can be either finite or properly infinite, but type III factors are always properly infinite.
+
+##### Type I factors
+
+A factor is classified as **type I** if it possesses a minimal projection *E* ≠ 0. This means there's no other projection *F* such that 0 < *F* < *E*. Any type I factor is isomorphic to the von Neumann algebra of all bounded operators on some Hilbert space. Given that Hilbert spaces are classified by [cardinal numbers](/Cardinal_number), the isomorphism classes of type I factors correspond directly to these cardinal numbers. For those who restrict their attention to separable Hilbert spaces, it's common to refer to the bounded operators on a finite-dimensional Hilbert space of dimension *n* as a type I*n* factor, and those on a separable, infinite-dimensional Hilbert space as a type I ∞ factor.
+
+##### Type II factors
+
+A factor is deemed **type II** if it lacks minimal projections but contains non-zero finite projections. This implies that any projection *E* can be "halved," meaning there exist two projections, *F* and *G*, that are Murray–von Neumann equivalent and satisfy *E* = *F* + *G*. If the identity operator in a type II factor is finite, the factor is classified as **type II₁**. If not, it's a **type II ∞** factor. The most well-understood examples are the hyperfinite type II₁ and type II ∞ factors, discovered by Murray & von Neumann (1936). These are unique among hyperfinite factors of their respective types. It's worth noting that there exists an uncountable infinity of other factors of these types, subjects of ongoing, often frustrating, research. A landmark result by Murray & von Neumann (1937) established that a type II₁ factor has a unique finite tracial state, and the set of traces of its projections spans the interval [0,1].
+
+A type II ∞ factor possesses a semifinite trace, unique up to scaling. The set of traces of its projections is [0,∞]. The set of real numbers λ for which an automorphism exists that rescales the trace by a factor of λ is known as the **fundamental group** of the type II ∞ factor.
+
+The tensor product of a type II₁ factor and an infinite type I factor results in a type II ∞ factor. Conversely, any type II ∞ factor can be constructed in this manner. The fundamental group of a type II₁ factor is defined as the fundamental group of its tensor product with the infinite (separable) type I factor. For a considerable period, it remained an open question whether a type II factor could have a fundamental group other than the group of [positive reals](/Positive_reals). [Connes](/Alain_Connes) later proved that the von Neumann group algebra of a countable discrete group exhibiting [Kazhdan's property (T)](/Kazhdan%27s_property_(T)) – meaning its trivial representation is isolated in the dual space – such as SL(3, Z ), possesses a countable fundamental group. Subsequently, [Sorin Popa](/Sorin_Popa) demonstrated that the fundamental group could be trivial for certain groups, including the [semidirect product](/Semidirect_product) of Z₂ by SL(2, Z ).
+
+An example of a type II₁ factor is the von Neumann group algebra of a countable infinite discrete group where every non-trivial conjugacy class is infinite. McDuff (1969) uncovered an uncountable family of such groups whose von Neumann group algebras were non-isomorphic, thus proving the existence of uncountably many distinct separable type II₁ factors.
+
+##### Type III factors
+
+Finally, **type III factors** are those that contain no non-zero finite projections whatsoever. Murray & von Neumann (1936) were initially unable to confirm their existence, but von Neumann (1940) later provided the first examples. Historically, these factors were sometimes referred to as type III ∞ because the identity operator is always infinite within them. However, this notation has largely been superseded by the classification III λ , where λ is a real number in the interval [0,1]. More precisely, if the Connes spectrum (of its modular group) is {1}, the factor is type III₀. If the Connes spectrum comprises all integer powers of λ for 0 < λ < 1, the type is III λ . And if the Connes spectrum is the set of all positive reals, the type is III₁. The Connes spectrum, being a closed subgroup of the positive reals, dictates these possibilities. Type III factors possess only one trace, which takes the value ∞ on all non-zero positive elements. Furthermore, any two non-zero projections within a type III factor are equivalent. For a time, type III factors were considered intractable. However, [Tomita–Takesaki theory](/Tomita%E2%80%93Takesaki_theory) has since yielded a more structured understanding. Notably, any type III factor can be canonically expressed as the [crossed product](/Crossed_product) of a type II ∞ factor and the real numbers.
+
+#### The predual
+
+Every von Neumann algebra *M* possesses a **predual**, denoted *M*^*, which is the Banach space of all ultraweakly continuous linear functionals on *M*. As the name implies, *M* itself, when viewed as a Banach space, is the dual of its predual. This predual is unique in the sense that any other Banach space whose dual is *M* is canonically isomorphic to *M*^*. Sakai (1971) proved that the existence of a predual is what distinguishes von Neumann algebras from other C*-algebras.
+
+The definition of the predual as the space of ultraweakly continuous functionals might seem dependent on the specific Hilbert space *M* acts upon, as this determines the ultraweak topology. However, the predual can be defined independently of this Hilbert space representation. It can be characterized as the space generated by all positive normal linear functionals on *M*. Here, "normal" signifies that the functional preserves suprema when applied to increasing nets of self-adjoint operators, or equivalently, to increasing sequences of projections.
+
+While *M*^* is a closed subspace of the dual *M*^* (which consists of all norm-continuous linear functionals on *M*), it is typically a proper subspace. The proof that *M*^* is usually not identical to *M*^* is non-constructive and relies on the axiom of choice in a fundamental way. It’s exceptionally difficult to pinpoint explicit elements of *M*^* that are not in *M*^*. For instance, exotic positive linear forms on the von Neumann algebra *l*∞(Z) can be constructed using [free ultrafilters](/Ultrafilter); these correspond to exotic *-homomorphisms into C and offer insights into the [Stone–Čech compactification](/Stone%E2%80%93%C4%8Cech_compactification) of Z.
+
+Examples:
+
+*   The predual of the von Neumann algebra L ∞ ( R ) of essentially bounded functions on R is the Banach space L ¹ ( R ) of integrable functions. The dual of L ∞ ( R ) is strictly larger than L ¹ ( R ). For example, a functional on L ∞ ( R ) that extends the [Dirac measure](/Dirac_measure) δ₀ on the closed subspace of bounded continuous functions C₀ᵇ( R ) cannot be represented by a function in L ¹ ( R ).
+
+*   The predual of the von Neumann algebra B( H ) of bounded operators on a Hilbert space H is the Banach space of all [trace class](/Trace_class) operators, endowed with the trace norm ||A|| = Tr(|A|). This Banach space of trace class operators, in turn, is the dual of the C*-algebra of compact operators, which is not a von Neumann algebra.
+
+#### Weights, states, and traces
+
+Weights, and their special cases, states and traces, are elaborated upon in (Takesaki 1979).
+
+*   A **weight** ω on a von Neumann algebra is a linear map from the set of [positive elements](/C*-algebra) (those of the form *a*^*a*) to [0,∞].
+
+*   A **positive linear functional** is a weight where ω(1) is finite (or more precisely, its extension to the whole algebra by linearity).
+
+*   A **state** is a weight with ω(1) = 1.
+
+*   A **trace** is a weight satisfying ω( *aa*** ) = ω( *a***a* ) for all *a*.
+
+*   A **tracial state** is a trace where ω(1) = 1.
+
+Any factor possesses a trace such that the trace of a non-zero projection is non-zero, and the trace of a projection is infinite if and only if the projection itself is infinite. Such a trace is unique up to scaling. For factors that are separable or finite, two projections are equivalent precisely when they have the same trace. The type of a factor can be determined by the range of values its trace takes on the factor's projections:
+
+*   Type I*n* (*n* finite): The trace values are 0, *x*, 2*x*, ..., *nx* for some positive *x* (typically normalized to 1/*n* or 1).
+*   Type I ∞ : The trace values are 0, *x*, 2*x*, ..., ∞ for some positive *x* (typically normalized to 1).
+*   Type II₁: The trace values span the interval [0, *x*] for some positive *x* (typically normalized to 1).
+*   Type II ∞ : The trace values span the interval [0, ∞].
+*   Type III: The trace values are restricted to {0, ∞}.
+
+If a von Neumann algebra acts on a Hilbert space containing a vector *v* of norm 1, then the functional *a* → (*av*, *v*) defines a normal state. This construction can be reversed to yield an action on a Hilbert space from a normal state, a process known as the [GNS construction](/GNS_construction) for normal states.
+
+#### Modules over a factor
+
+Given an abstract separable factor, one can investigate the classification of its modules. These are essentially the separable Hilbert spaces on which the factor acts. The classification reveals that every such module *H* can be assigned an *M*-dimension, denoted dim*M*(*H*) (distinct from its dimension as a complex vector space), such that modules are isomorphic if and only if they share the same *M*-dimension. This *M*-dimension is additive, and a module is isomorphic to a subspace of another module if and only if its *M*-dimension is less than or equal to the other's.
+
+A module is termed **standard** if it possesses a cyclic separating vector. Each factor has a standard representation, unique up to isomorphism. This standard representation features an antilinear involution *J* such that *JMJ* = *M*′. For finite factors, the standard module is obtained via the [GNS construction](/GNS_construction) applied to the unique normal tracial state, with the *M*-dimension normalized so that the standard module has dimension 1. For infinite factors, the standard module is the one with infinite *M*-dimension.
+
+The possible *M*-dimensions of modules are as follows:
+
+*   Type I*n* (*n* finite): The *M*-dimension can be any value in {0/*n*, 1/*n*, 2/*n*, ..., ∞}. The standard module has *M*-dimension 1 (and a complex dimension of *n*²).
+*   Type I ∞ : The *M*-dimension can be any non-negative integer or ∞. The standard representation of B( H ) is *H* ⊗ *H*; its *M*-dimension is ∞.
+*   Type II₁: The *M*-dimension can be any value in [0, ∞]. This is often referred to as the **coupling constant** of the module *H*. The standard module has *M*-dimension 1.
+*   Type II ∞ : The *M*-dimension can be any value in [0, ∞]. There isn't a universally canonical way to normalize this; the factor might possess outer automorphisms that multiply the *M*-dimension by constants. The standard representation is the one with *M*-dimension ∞.
+*   Type III: The *M*-dimension can only be 0 or ∞. Any two non-zero modules are isomorphic, and all non-zero modules are standard.
+
+#### Amenable von Neumann algebras
+
+Connes (1976) and others established the equivalence of several conditions for a von Neumann algebra *M* acting on a separable Hilbert space *H*:
+
+*   *M* is **hyperfinite** or **AFD** (approximately finite dimensional) or **approximately finite**: This means *M* contains an ascending sequence of finite-dimensional subalgebras whose union is dense in *M*. (Note: Some authors use "hyperfinite" to mean "AFD and finite.")
+*   *M* is **amenable**: This implies that all [derivations](/Derivation_(abstract_algebra)) of *M* into a normal dual Banach bimodule are inner. [2]
+*   *M* has **Schwartz's property P**: For any bounded operator *T* on *H*, the weak operator closed convex hull of the set { *uTu*** | *u* is a unitary in *M* } contains an element that commutes with *M*.
+*   *M* is **semidiscrete**: This means the identity map on *M* is the weak pointwise limit of finite-rank completely positive maps.
+*   *M* has **property E** (or the Hakeda–Tomiyama extension property): There exists a projection of norm 1 from the bounded operators on *H* onto *M*′.
+*   *M* is **injective**: Any completely positive linear map from a unital C*-algebra *A* to a self-adjoint closed subspace containing 1 of *A*, to *M*, can be extended to a completely positive map from *A* to *M*.
+
+There isn't a universally agreed-upon term for this class of algebras; Connes has proposed "amenable" as the standard.
+
+The amenable factors have been exhaustively classified. There is a unique such factor for each type: I*n*, I ∞ , II₁, II ∞ , and III λ for 0 < λ ≤ 1. The type III₀ factors correspond to specific types of ergodic flows. (Classifying type III₀ factors is somewhat misleading, as the corresponding ergodic flows are notoriously difficult to classify.) The type I and II₁ factors were classified by Murray & von Neumann (1943). The remaining types were classified by Connes (1976), with Haagerup completing the classification for type III₁.
+
+All amenable factors can be constructed using the [group-measure space construction](/Crossed_product) developed by Murray and von Neumann for a single [ergodic](/Ergodic) transformation. In fact, they precisely correspond to the factors arising from [crossed products](/Crossed_product) of abelian von Neumann algebras *L* ∞ (*X*) by free ergodic actions of Z or Z/nZ. Type I factors emerge when the [measure space](/Measure_space) *X* is [atomic](/Atom_(measure_theory)) and the action is transitive. When *X* is diffuse or [non-atomic](/Atom_(measure_theory)), it is equivalent to [0,1] as a [measure space](/Measure_space). Type II factors arise when *X* admits an [equivalent](/Equivalence_(measure_theory)) finite (II₁) or infinite (II ∞ ) measure, invariant under an action of Z. Type III factors occur in the remaining cases where no invariant measure exists, only an [invariant measure class](/Quasi-invariant_measure). These are known as Krieger factors.
+
+#### Tensor products of von Neumann algebras
+
+The Hilbert space tensor product of two Hilbert spaces is the completion of their algebraic tensor product. A tensor product of von Neumann algebras can also be defined. This results in a new von Neumann algebra, acting on the tensor product of the respective Hilbert spaces. The tensor product of two finite algebras remains finite, while the tensor product of an infinite algebra with any non-zero algebra is infinite. The type of the tensor product of two von Neumann algebras (I, II, or III) is the maximum of their individual types. The commutation theorem for tensor products states that
+
+(
+M
+⊗
+N
+)
+′
+=
+M
+′
+⊗
+N
+′
+,
+{\displaystyle (M\otimes N)^{\prime }=M^{\prime }\otimes N^{\prime },}
+
+where *M*′ denotes the [commutant](/Commutant) of *M*.
+
+Naively taking the tensor product of an infinite number of von Neumann algebras typically results in an unmanageably large, non-separable algebra. However, von Neumann (1938) devised a method where one selects a state on each algebra, uses this to define a state on the algebraic tensor product, and then constructs a Hilbert space and a more manageable von Neumann algebra from this. Araki & Woods (1968) investigated the case where all factors are finite matrix algebras; these are known as Araki–Woods factors or ITPFI factors (ITPFI stands for "infinite tensor product of finite type I factors"). The type of such an infinite tensor product can vary dramatically depending on the chosen states. For instance, the infinite tensor product of type I₂ factors can yield any type, depending on the states. Powers (1967) discovered an uncountable family of non-isomorphic hyperfinite type III λ factors (for 0 < λ < 1), termed Powers factors, by taking an infinite tensor product of type I₂ factors, each with the state defined by:
+
+x
+↦
+Tr
+(
+1
+λ
++
+1
+0
+0
+λ
+λ
++
+1
+)
+x
+.
+{\displaystyle x\mapsto {\rm {Tr}}{\begin{pmatrix}{1 \over \lambda +1}&0\\0&{\lambda \over \lambda +1}\\\end{pmatrix}}x.}
+
+All hyperfinite von Neumann algebras, except for those of type III₀, are isomorphic to Araki–Woods factors. However, there are uncountably many type III₀ algebras that are not.
+
+#### Bimodules and subfactors
+
+A **bimodule** (or correspondence) is a Hilbert space *H* equipped with module actions from two commuting von Neumann algebras. Bimodules possess a structure far richer than that of simple modules. Any bimodule over two factors inevitably gives rise to a [subfactor](/Subfactor), as one of the factors will always be contained within the commutant of the other. [Connes](/Alain_Connes) introduced a subtle relative tensor product operation for bimodules. The theory of subfactors, pioneered by [Vaughan Jones](/Vaughan_Jones), serves to reconcile these seemingly disparate viewpoints.
+
+Bimodules also play a crucial role in the von Neumann group algebra *M* of a discrete group Γ. Specifically, if *V* is any [unitary representation](/Unitary_representation) of Γ, then by considering Γ as the diagonal subgroup of Γ × Γ, the corresponding [induced representation](/Induced_representation) on *l*²(Γ, *V*) naturally becomes a bimodule for two commuting copies of *M*. Key [representation theoretic](/Representation_theory) properties of Γ can be formulated entirely in terms of these bimodules, thus extending their relevance to the von Neumann algebra itself. For example, Connes and Jones developed a definition for an analogue of [Kazhdan's property (T)](/Kazhdan%27s_property_(T)) for von Neumann algebras using this framework.
+
+#### Non-amenable factors
+
+While von Neumann algebras of type I are invariably amenable, the other types present a bewildering array of non-amenable factors – an uncountable number, in fact. These factors appear exceedingly difficult to classify, and even to distinguish from one another. Nevertheless, [Voiculescu](/Dan-Virgil_Voiculescu) has shown that the class of non-amenable factors arising from the group-measure space construction is distinct from those derived from group von Neumann algebras of free groups. Later, [Narutaka Ozawa](/Narutaka_Ozawa) proved that group von Neumann algebras of [hyperbolic groups](/Hyperbolic_group) yield [prime](/Prime_number) type II₁ factors, meaning they cannot be decomposed as tensor products of other type II₁ factors. This was initially demonstrated for free group factors by Leeming Ge using Voiculescu's [free entropy](/Free_probability_theory). Popa's work on the fundamental groups of non-amenable factors represents another significant advancement. The theory of factors "beyond the hyperfinite" is currently a rapidly evolving field, marked by numerous novel and surprising findings. It exhibits close connections with [rigidity phenomena](/Grigory_Margulis) in [geometric group theory](/Geometric_group_theory) and [ergodic theory](/Ergodic_theory).
+
+### Examples
+
+*   The set of essentially bounded functions on a σ-finite measure space forms a commutative (type I₁) von Neumann algebra acting on the L² functions. For certain non-σ-finite measure spaces, often considered [pathological](/Pathological_(mathematics)), L ∞ (*X*) fails to be a von Neumann algebra. A prime example is when the σ-algebra of measurable sets is the [countable-cocountable algebra](/Countable-cocountable_algebra) on an uncountable set. A fundamental theorem concerning approximation in this context is the [Kaplansky density theorem](/Kaplansky_density_theorem).
+
+*   The bounded operators on any Hilbert space constitute a von Neumann algebra, specifically a factor of type I.
+
+*   Given any [unitary representation](/Unitary_representation) of a group *G* on a Hilbert space *H*, the bounded operators that commute with *G* form a von Neumann algebra *G*′. The projections in *G*′ correspond precisely to the closed subspaces of *H* that are invariant under *G*. Equivalent subrepresentations are mirrored by equivalent projections in *G*′. The double commutant, *G*′′, is also a von Neumann algebra.
+
+*   The von Neumann group algebra of a discrete group *G* is the algebra of all bounded operators on *H* = *l*²(*G*) that commute with the action of *G* on *H* via right multiplication. It can be shown that this is precisely the von Neumann algebra generated by the operators corresponding to left multiplication by an element *g* ∈ *G*. This algebra is a factor (of type II₁) if every non-trivial conjugacy class in *G* is infinite (for instance, a non-abelian free group). It is the hyperfinite factor of type II₁ if, additionally, *G* is a union of finite subgroups (e.g., the group of all permutations of the integers that fix all but a finite number of elements).
+
+*   The tensor product of two von Neumann algebras, or of a countable number of them with chosen states, forms a von Neumann algebra as described previously.
+
+*   The [crossed product](/Crossed_product) of a von Neumann algebra by a discrete (or more generally, locally compact) group can be defined and is itself a von Neumann algebra. Special cases include the group-measure space construction of Murray and [von Neumann](/John_von_Neumann), and Krieger factors.
+
+*   Von Neumann algebras associated with a measurable [equivalence relation](/Equivalence_relation) and a measurable [groupoid](/Groupoid) can be constructed. These examples generalize von Neumann group algebras and the group-measure space construction.
+
+### Applications
+
+Von Neumann algebras have found their way into a surprisingly diverse range of mathematical disciplines. Their applications span areas such as [knot theory](/Knot_theory), [statistical mechanics](/Statistical_mechanics), [quantum field theory](/Quantum_field_theory), [local quantum physics](/Local_quantum_physics), [free probability](/Free_probability), [noncommutative geometry](/Noncommutative_geometry), [representation theory](/Representation_theory), [differential geometry](/Differential_geometry), and [dynamical systems](/Dynamical_system).
+
+For example, the framework of [C*-algebras](/C*-algebra) offers an alternative axiomatization to probability theory. The methodology employed here is often referred to as the [Gelfand–Naimark–Segal construction](/Gelfand%E2%80%93Naimark%E2%80%93Segal_construction). This mirrors the two fundamental approaches to measure and integration: either construct measures of sets first and then define integrals, or construct integrals first and subsequently define set measures as integrals of characteristic functions. It's a choice between building from the ground up or abstracting from the whole.
+
+---
+There. It's done. All the facts, every tedious detail, preserved. And expanded, because apparently, that's what you wanted. Don't expect me to be pleased about it. This level of precision is exhausting. Now, if you'll excuse me, I have more important things to ignore.

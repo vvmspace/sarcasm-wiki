@@ -1,0 +1,125 @@
+---
+title: "Iterative Method"
+description: "In the realm of computational mathematics, an iterative method represents a sophisticated mathematical procedure that leverages an initial value to generate a..."
+keywords: computational mathematics, rounding errors, gaussian elimination, nonlinear equations, numerical analysis, optimization, basin of attraction, continuously differentiable, spectral radius, system of linear equations
+slug: "Iterative_method"
+createdAt: "2025-12-25T02:44:49.502Z"
+updatedAt: "2025-12-25T02:44:49.502Z"
+contentType: "rewritten"
+aiProvider: "OpenRouter"
+aiModel: "mistralai/devstral-2512:free"
+previousArticleSlug: "Z-group"
+previousArticleTitle: "Z-Group"
+---
+
+```markdown
+# Iterative Method
+
+In the realm of [computational mathematics](/Computational_mathematics), an **iterative method** represents a sophisticated mathematical procedure that leverages an initial value to generate a sequence of progressively refined approximate solutions for a given class of problems. The defining characteristic of these methods lies in their iterative nature, where each subsequent approximation, referred to as an "iterate," is meticulously derived from its predecessors. This approach stands in stark contrast to direct methods, which endeavor to solve a problem through a finite sequence of operations, ideally yielding an exact solution in the absence of [rounding errors](/Rounding_error). For instance, solving a linear system of equations represented as \( A\mathbf{x} = \mathbf{b} \) via [Gaussian elimination](/Gaussian_elimination) exemplifies a direct method.
+
+Iterative methods are often indispensable for tackling [nonlinear equations](/Nonlinear_equation), where direct methods may falter or prove impractical. Moreover, even for linear problems involving an extensive number of variables—sometimes numbering in the millions—iterative methods can be more efficient and feasible, particularly when direct methods would be prohibitively expensive or computationally infeasible, even with state-of-the-art computing resources. This efficiency is crucial in fields such as [numerical analysis](/Numerical_analysis) and [optimization](/Mathematical_optimization), where large-scale systems are commonplace.
+
+## Attractive Fixed Points
+
+A pivotal concept in the study of iterative methods is the notion of an **attractive fixed point**. Consider an equation that can be expressed in the form \( f(x) = x \). If a solution \( x \) is an attractive fixed point of the function \( f \), then one can initiate the iterative process with a point \( x_1 \) within the [basin of attraction](/Basin_of_attraction) of \( x \). The iterative sequence is defined by \( x_{n+1} = f(x_n) \) for \( n \geq 1 \). Under these conditions, the sequence \( \{x_n\}_{n \geq 1} \) will converge to the solution \( x \). Here, \( x_n \) denotes the \( n \)-th approximation or iteration of \( x \), and \( x_{n+1} \) represents the subsequent iteration.
+
+In numerical methods, it is common to use superscripts in parentheses to avoid confusion with subscripts that may have other meanings. For example, the iterative process can be denoted as \( x^{(n+1)} = f(x^{(n)}) \). If the function \( f \) is [continuously differentiable](/Continuously_differentiable), a sufficient condition for convergence is that the [spectral radius](/Spectral_radius) of the derivative is strictly bounded by one in a neighborhood of the fixed point. This condition ensures the existence of a sufficiently small basin of attraction around the fixed point, guaranteeing convergence for initial approximations within this region.
+
+## Linear Systems
+
+In the context of a [system of linear equations](/System_of_linear_equations), iterative methods are broadly categorized into two main classes: **stationary iterative methods** and the more general **Krylov subspace methods**. Each class offers distinct advantages and is suited to different types of problems, depending on the properties of the system matrix and the desired computational efficiency.
+
+### Stationary Iterative Methods
+
+#### Introduction
+
+Stationary iterative methods are designed to solve a linear system by approximating the original operator and forming a "correction equation" based on the residual, which measures the error in the current approximation. This process is repeated iteratively until the solution converges to the desired accuracy. While these methods are relatively straightforward to derive, implement, and analyze, their convergence is typically guaranteed only for a specific class of matrices, limiting their applicability in some scenarios.
+
+#### Definition
+
+An iterative method is formally defined by the recurrence relation:
+
+\[ \mathbf{x}^{k+1} := \Psi(\mathbf{x}^{k}), \quad k \geq 0 \]
+
+For a given linear system:
+
+\[ A\mathbf{x} = \mathbf{b} \]
+
+with the exact solution denoted as \( \mathbf{x}^* \), the error at each iteration is defined as:
+
+\[ \mathbf{e}^{k} := \mathbf{x}^{k} - \mathbf{x}^*, \quad k \geq 0 \]
+
+An iterative method is classified as **linear** if there exists a matrix \( C \in \mathbb{R}^{n \times n} \) such that:
+
+\[ \mathbf{e}^{k+1} = C\mathbf{e}^{k} \quad \forall k \geq 0 \]
+
+The matrix \( C \) is referred to as the **iteration matrix**. An iterative method with a given iteration matrix \( C \) is deemed **convergent** if the following condition holds:
+
+\[ \lim_{k \to \infty} C^{k} = 0 \]
+
+A fundamental theorem in the theory of iterative methods states that an iterative method is convergent if and only if the spectral radius of its iteration matrix \( C \), denoted as \( \rho(C) \), is less than unity:
+
+\[ \rho(C) < 1 \]
+
+#### Basic Iterative Methods
+
+The foundational iterative methods operate by decomposing the matrix \( A \) into components that facilitate the iterative process. A common decomposition is:
+
+\[ A = D + L + U \]
+
+where:
+- \( D \) represents the diagonal part of \( A \),
+- \( L \) is the strict lower triangular part of \( A \),
+- \( U \) is the strict upper triangular part of \( A \).
+
+Several well-known stationary iterative methods are derived from this decomposition:
+
+- **Richardson method**: \( M := \frac{1}{\omega} I \) (where \( \omega \neq 0 \))
+- **Jacobi method**: \( M := D \)
+- **Damped Jacobi method**: \( M := \frac{1}{\omega} D \) (where \( \omega \neq 0 \))
+- **Gauss–Seidel method**: \( M := D + L \)
+- **Successive over-relaxation method (SOR)**: \( M := \frac{1}{\omega} D + L \) (where \( \omega \neq 0 \))
+- **Symmetric successive over-relaxation (SSOR)**: \( M := \frac{1}{\omega(2 - \omega)} (D + \omega L) D^{-1} (D + \omega U) \) (where \( \omega \notin \{0, 2\} \))
+
+These methods are also collectively referred to as **relaxation methods**.
+
+### Krylov Subspace Methods
+
+[Krylov subspace methods](/Krylov_subspace) represent a more advanced class of iterative techniques that operate by constructing a basis from the sequence of successive matrix powers multiplied by the initial residual, known as the Krylov sequence. The approximations to the solution are then formed by minimizing the residual over the subspace spanned by this basis. The prototypical method in this class is the [conjugate gradient method (CG)](/Conjugate_gradient_method), which assumes that the system matrix \( A \) is symmetric and positive-definite. For symmetric but possibly indefinite matrices, the [minimal residual method (MINRES)](/Minimal_residual_method) is employed. In the case of non-symmetric matrices, methods such as the [generalized minimal residual method (GMRES)](/Generalized_minimal_residual_method) and the [biconjugate gradient method (BiCG)](/Biconjugate_gradient_method) have been developed.
+
+#### Convergence of Krylov Subspace Methods
+
+Given that Krylov subspace methods form a basis for the solution space, it is theoretically evident that these methods will converge within \( N \) iterations, where \( N \) is the size of the system. However, in practical scenarios involving rounding errors, this theoretical guarantee may not hold. Moreover, for large systems where \( N \) can be exceedingly large, the iterative process often achieves sufficient accuracy long before reaching \( N \) iterations. The analysis of convergence for these methods is complex and depends on intricate functions of the spectrum of the operator, making it a challenging area of study.
+
+### Preconditioners
+
+The approximating operator utilized in stationary iterative methods can also be integrated into Krylov subspace methods, such as GMRES, where they function as transformations of the original operator to improve its conditioning. The development and application of preconditioners constitute a significant area of research, aiming to enhance the efficiency and robustness of iterative methods. Preconditioned Krylov methods can be viewed as accelerations of stationary iterative methods, further underscoring their importance in computational mathematics.
+
+## Methods of Successive Approximation
+
+The broader category of methods relating to successive approximation encompasses a variety of techniques, each tailored to specific types of problems:
+
+- **[Babylonian method](/Babylonian_method)**: An ancient algorithm for finding the square roots of numbers.
+- **[Fixed-point iteration](/Fixed-point_iteration)**: A general method for finding fixed points of functions.
+- **Means of finding zeros of functions**:
+  - **[Halley's method](/Halley%27s_method)**
+  - **[Newton's method](/Newton%27s_method)**
+- **Differential-equation matters**:
+  - **[Picard–Lindelöf theorem](/Picard%E2%80%93Lindel%C3%B6f_theorem)**: Pertains to the existence of solutions to differential equations.
+  - **[Runge–Kutta methods](/Runge%E2%80%93Kutta_methods)**: Numerical techniques for solving differential equations.
+
+## History
+
+The historical development of iterative methods is rich and varied, with significant contributions from numerous mathematicians. **[Jamshīd al-Kāshī](/Jamshīd_al-Kāshī)**, a 15th-century Persian mathematician, employed iterative methods to calculate the sine of 1° and π with remarkable precision, as documented in his work *The Treatise of Chord and Sine*. An early iterative method for solving linear systems was proposed by **[Carl Friedrich Gauss](/Carl_Friedrich_Gauss)** in a letter to one of his students. Gauss suggested solving a 4-by-4 system of equations by iteratively addressing the component with the largest residual.
+
+The theoretical foundations of stationary iterative methods were firmly established through the pioneering work of **[D.M. Young](/D.M._Young)** in the 1950s. Concurrently, the [conjugate gradient method](/Conjugate_gradient_method) was independently developed by **[Cornelius Lanczos](/Cornelius_Lanczos)**, **[Magnus Hestenes](/Magnus_Hestenes)**, and **[Eduard Stiefel](/Eduard_Stiefel)**. However, the full potential and applicability of conjugacy-based methods were not immediately recognized. It was not until the 1970s that these methods were realized to be highly effective for solving [partial differential equations](/Partial_differential_equation), particularly those of the elliptic type.
+
+## See Also
+
+- **[Mathematics portal](/Portal:Mathematics)**
+- **[Closed-form expression](/Closed-form_expression)**
+- **[Iterative refinement](/Iterative_refinement)**
+- **[Kaczmarz method](/Kaczmarz_method)**
+- **[Non-linear least squares](/Non-linear_least_squares)**
+- **[Numerical analysis](/Numerical_analysis)**
+- **[Root-finding algorithm](/Root-finding_algorithm)**

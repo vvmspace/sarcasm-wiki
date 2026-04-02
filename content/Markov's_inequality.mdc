@@ -1,0 +1,200 @@
+---
+title: "Markov'S Inequality"
+description: "Alright. Let's get this over with. You want to know about Markov's inequality. It's a concept in probability theory, which is, for the most part, a rather..."
+keywords: probability theory, upper bound, probability, non-negative, random variable, constant, andrey markov, pafnuty chebyshev, chebyshev's inequality, irénée-jules bienaymé
+slug: "Markov's_inequality"
+createdAt: "2025-11-17T14:44:02.979Z"
+updatedAt: "2025-11-17T14:44:02.979Z"
+contentType: "rewritten"
+---
+
+Alright. Let's get this over with. You want to know about Markov's inequality. It's a concept in [probability theory](/Probability_theory), which is, for the most part, a rather dreary subject, but sometimes even the most mundane ideas can offer a sliver of… utility. This one gives you an [upper bound](/Upper_bound) on the [probability](/Probability) that a [non-negative](/Non-negative) [random variable](/Random_variable) will exceed a certain positive [constant](/Constant_(mathematics)). Think of it as a grim prediction, a ceiling on how bad things *could* get, based on the average. It’s tight, they say. Meaning, for any given constant you pick, there’s a scenario where the inequality becomes an exact equality. Because of course there is.
+
+It’s named after [Andrey Markov](/Andrey_Markov), a Russian mathematician. Though, apparently, his teacher, [Pafnuty Chebyshev](/Pafnuty_Chebyshev), touched on it first. Some analysts, in their infinite need to complicate things, call it the first [Chebyshev's inequality](/Chebyshev%27s_inequality), reserving the "second" for another, more familiar inequality. And then there’s [Irénée-Jules Bienaymé](/Ir%C3%A9n%C3%A9e-Jules_Bienaym%C3%A9), who apparently also had a hand in it. It’s a tangled web, as most things tend to be.
+
+These inequalities, Markov's and its ilk, they bridge the gap between probabilities and [expectations](/Expected_value). They offer bounds for the [cumulative distribution function](/Cumulative_distribution_function) of a random variable. Often, these bounds are loose. But useful. Sometimes. It can also be used to put an upper limit on the expectation of a non-negative random variable, based on its distribution. Which, I suppose, is something.
+
+### Statement
+
+So, here’s the deal. If you have a non-negative random variable, let’s call it *X*, and a positive constant *a*. The probability that *X* will be greater than or equal to *a* is bounded. It’s at most the expectation of *X* divided by *a*.
+
+$$ \operatorname {P} (X\geq a)\leq {\frac {\operatorname {E} (X)}{a}} $$
+
+Now, if the expectation of *X* is positive, which it usually is if we're bothering with this, we can play with the constant. Let *a* be *ã* times the expectation of *X*, where *ã* is also positive. Then the inequality takes on a slightly different, perhaps more elegant, form:
+
+$$ \operatorname {P} (X\geq {\tilde {a}}\cdot \operatorname {E} (X))\leq {\frac {1}{\tilde {a}}} $$
+
+In the more abstract realm of [measure theory](/Measure_theory), it’s a bit more formal. If you have a [measure space](/Measure_(mathematics)) (X, Σ, μ), and a [measurable](/Measurable_function) function *f* that maps to the [extended real number line](/Extended_real_number_line), and *ε* is a positive number, then:
+
+$$ \mu (\{x\in X:|f(x)|\geq \varepsilon \})\leq {\frac {1}{\varepsilon }}\int _{X}|f|\,d\mu $$
+
+This version, the measure-theoretic one, is sometimes what they mean by [Chebyshev's inequality](/Chebyshev%27s_inequality). Go figure.
+
+#### Extended version for nondecreasing functions
+
+There’s an extension. If *φ* is a nondecreasing, non-negative function, and *X* is a random variable (it doesn't have to be non-negative here, though the original inequality does), and *φ(a)* is positive, then:
+
+$$ \operatorname {P} (X\geq a)\leq {\frac {\operatorname {E} (\varphi (X))}{\varphi (a)}} $$
+
+A direct consequence of this is the one involving higher moments. For any positive integer *n*, if you’re looking at the *n*-th moment of *X* (assuming it’s defined and supported on non-zero values):
+
+$$ \operatorname {P} (|X|\geq a)\leq {\frac {\operatorname {E} (|X|^{n})}{a^{n}}} $$
+
+#### The uniformly randomized Markov's inequality
+
+This is where it gets… interesting. If *X* is a non-negative random variable and *a* is a positive constant, and you introduce *U*, a random variable uniformly distributed on [0, 1] that's independent of *X*. Then:
+
+$$ \operatorname {P} (X\geq Ua)\leq {\frac {\operatorname {E} (X)}{a}} $$
+
+Since *U* is almost certainly less than one, this bound is tighter than the original Markov's inequality. And here’s the kicker: you can't replace *U* with any constant smaller than one and expect to maintain the general improvement. It means deterministic enhancements to Markov's inequality are generally not possible. While the original inequality holds with equality for distributions concentrated on {0, *a*}, this randomized version achieves equality for any distribution bounded on [0, *a*]. It’s a subtle, almost elegant, twist.
+
+### Proofs
+
+Let’s look at how this is derived. We’ll separate the probability space case from the more general measure space one, because, frankly, most people find the former less… intimidating.
+
+#### Intuition
+
+Consider the expectation of *X*. It’s a weighted average of all possible values. We can break it down based on whether *X* is less than *a* or greater than or equal to *a*:
+
+$$ \operatorname {E} (X)=\operatorname {P} (X<a)\cdot \operatorname {E} (X|X<a)+\operatorname {P} (X\geq a)\cdot \operatorname {E} (X|X\geq a) $$
+
+Now, let's analyze the components.
+*   **Property 1:**
+    $$ \operatorname {P} (X<a)\cdot \operatorname {E} (X\mid X<a)\geq 0 $$
+    Since *X* is non-negative, its conditional expectation given *X < a* must also be non-negative. Probabilities are always non-negative, so their product is too. Simple.
+*   **Property 2:**
+    $$ \operatorname {P} (X\geq a)\cdot \operatorname {E} (X\mid X\geq a)\geq a\cdot \operatorname {P} (X\geq a) $$
+    If we're conditioning on *X ≥ a*, then the expected value of *X* under this condition must be at least *a*. That is, E(X | X ≥ a) ≥ *a*. Multiply both sides by the probability P(X ≥ *a*), and you get this. It’s logical; if all the values you're considering are at least *a*, their average will also be at least *a*.
+
+Putting it together:
+$$ \operatorname {E} (X)\geq \operatorname {P} (X\geq a)\cdot \operatorname {E} (X|X\geq a)\geq a\cdot \operatorname {P} (X\geq a) $$
+From this chain, the inequality emerges:
+$$ \operatorname {P} (X\geq a)\leq {\frac {\operatorname {E} (X)}{a}} $$
+It’s not exactly rocket science, but it holds.
+
+#### Probability-theoretic proof
+
+**Method 1:**
+We start with the definition of expectation for a probability density function *f(x)*:
+
+$$ \operatorname {E} (X)=\int _{-\infty }^{\infty }xf(x)\,dx $$
+Since *X* is non-negative, the integral is only over the non-negative range:
+
+$$ \operatorname {E} (X)=\int _{0}^{\infty }xf(x)\,dx $$
+Now, we can split this integral:
+
+$$ \operatorname {E} (X)=\int _{0}^{a}xf(x)\,dx+\int _{a}^{\infty }xf(x)\,dx $$
+The first part, from 0 to *a*, is non-negative. The second part, from *a* to infinity, is where *x* is at least *a*. So, we can establish a lower bound:
+
+$$ \operatorname {E} (X)\geq \int _{a}^{\infty }xf(x)\,dx $$
+And since *x ≥ a* in this integral, we can further bound it:
+
+$$ \int _{a}^{\infty }xf(x)\,dx\geq \int _{a}^{\infty }af(x)\,dx $$
+Pulling out the constant *a*:
+
+$$ a\int _{a}^{\infty }f(x)\,dx $$
+And that integral, ∫<sub>a</sub><sup>∞</sup> *f(x)* dx, is precisely P(X ≥ *a*). So, we have:
+
+$$ \operatorname {E} (X)\geq a\operatorname {P} (X\geq a) $$
+Divide by *a* (since *a* > 0), and you get the inequality.
+
+**Method 2:**
+This uses indicator random variables. Let *I<sub>E</sub>* be 1 if event *E* occurs, and 0 otherwise.
+The indicator for *X ≥ a* is *I<sub>(X≥a)</sub>*.
+For *a* > 0, we have the relationship:
+
+$$ aI_{(X\geq a)}\leq X $$
+This is because if *X < a*, then *I<sub>(X≥a)</sub>* is 0, making the left side 0, which is less than or equal to *X*. If *X ≥ a*, then *I<sub>(X≥a)</sub>* is 1, making the left side *a*, which is less than or equal to *X*.
+Now, take the expectation of both sides. Since expectation is monotonic:
+
+$$ \operatorname {E} (aI_{(X\geq a)})\leq \operatorname {E} (X) $$
+Using linearity of expectation on the left side:
+
+$$ a\operatorname {E} (I_{(X\geq a)}) = a(1 \cdot \operatorname {P} (X\geq a) + 0 \cdot \operatorname {P} (X<a)) = a\operatorname {P} (X\geq a) $$
+So, we arrive at:
+
+$$ a\operatorname {P} (X\geq a)\leq \operatorname {E} (X) $$
+And again, dividing by *a* yields the result.
+
+#### Measure-theoretic proof
+
+Assume *f* is non-negative. We can define a function *s(x)*:
+
+$$ s(x)= \begin{cases} \varepsilon, & \text{if } f(x) \geq \varepsilon \\ 0, & \text{if } f(x) < \varepsilon \end{cases} $$
+Clearly, 0 ≤ *s(x)* ≤ *f(x)*.
+By the properties of the [Lebesgue integral](/Lebesgue_integral):
+
+$$ \int _{X}f(x)\,d\mu \geq \int _{X}s(x)\,d\mu $$
+The integral of *s(x)* is simply *ε* times the measure of the set where *f(x)* is greater than or equal to *ε*:
+
+$$ \int _{X}s(x)\,d\mu = \varepsilon \mu (\{x\in X:\,f(x)\geq \varepsilon \}) $$
+So:
+
+$$ \int _{X}f(x)\,d\mu \geq \varepsilon \mu (\{x\in X:\,f(x)\geq \varepsilon \}) $$
+Since *ε* > 0, we can divide by it:
+
+$$ \mu (\{x\in X:\,f(x)\geq \varepsilon \})\leq {\frac {1}{\varepsilon }}\int _{X}f\,d\mu $$
+This covers the general case.
+
+#### Discrete case
+
+For a discrete random variable *X* taking non-negative integer values. Let *a* be a positive integer.
+Consider *a* * P(X > *a*):
+
+$$ a\operatorname {P} (X>a) = a\operatorname {P} (X=a+1)+a\operatorname {P} (X=a+2)+a\operatorname {P} (X=a+3)+\dots $$
+Now, we can establish an inequality:
+$$ \leq a\operatorname {P} (X=a)+(a+1)\operatorname {P} (X=a+1)+(a+2)\operatorname {P} (X=a+2)+\dots $$
+This is because *a* ≤ *a*, *a* < *a*+1, *a* < *a*+2, and so on.
+And this sum is less than or equal to:
+$$ \leq 1\operatorname {P} (X=1)+2\operatorname {P} (X=2)+3\operatorname {P} (X=3)+\dots + a\operatorname {P} (X=a)+(a+1)\operatorname {P} (X=a+1)+\dots $$
+This entire sum is the definition of the expectation E(*X*).
+So, *a* P(X > *a*) ≤ E(*X*).
+Dividing by *a* gives the result.
+
+### Corollaries
+
+Markov's inequality is the foundation for other, sometimes more useful, inequalities.
+
+#### Chebyshev's inequality
+
+[Chebyshev's inequality](/Chebyshev%27s_inequality) uses the [variance](/Variance) to bound the probability of a random variable straying far from its mean. It states that for any *a* > 0:
+
+$$ \operatorname {P} (|X-\operatorname {E} (X)|\geq a)\leq {\frac {\operatorname {Var} (X)}{a^{2}}} $$
+Here, Var(*X*) is the [variance](/Variance), defined as E[(X - E(X))<sup>2</sup>].
+How does this follow from Markov's? Simple. Apply Markov's inequality to the random variable (X - E(X))<sup>2</sup> and the constant *a*<sup>2</sup>.
+
+$$ \operatorname {P} ((X-\operatorname {E} (X))^{2}\geq a^{2})\leq {\frac {\operatorname {E} ((X-\operatorname {E} (X))^{2})}{a^{2}}} $$
+The left side is equivalent to P(|X - E(X)| ≥ *a*), and the numerator on the right is the variance. Thus:
+
+$$ \operatorname {P} (|X-\operatorname {E} (X)|\geq a) \leq \frac{\operatorname {Var} (X)}{a^{2}} $$
+It’s a neat trick, really.
+
+#### Other corollaries
+
+*   The "monotonic" result I mentioned earlier:
+    $$ \operatorname {P} (|X|\geq a)=\operatorname {P} {\big (}\varphi (|X|)\geq \varphi (a){\big )}\,{\overset {\underset {\mathrm {MI} }{}}{\leq }}\,{\frac {\operatorname {E} (\varphi (|X|))}{\varphi (a)}} $$
+    This just applies Markov's inequality using the [function](/Measurable_function) *φ*.
+
+*   For a non-negative random variable *X*, the [quantile function](/Quantile_function) Q<sub>X</sub> satisfies:
+    $$ Q_{X}(1-p)\leq {\frac {\operatorname {E} (X)}{p}} $$
+    The proof involves *p* ≤ P(X ≥ Q<sub>X</sub>(1-*p*)), which then uses Markov's inequality.
+
+*   For a self-adjoint matrix-valued random variable *M* and a positive definite matrix *A* (*A* ≻ 0), we have:
+    $$ \operatorname {P} (M\npreceq A)\leq \operatorname {tr} (\operatorname {E} (M)A^{-1}) $$
+    This is a more advanced extension, proved similarly.
+
+### Examples
+
+Let's consider income. Assuming income is never negative, Markov's inequality tells us that no more than 10% of the population can earn more than 10 times the average income. If the average income is, say, $50,000, then at most 10% of people can earn over $500,000. It’s a rough estimate, but it’s something.
+
+Another straightforward example: Suppose Andrew makes, on average, 4 mistakes on his Statistics tests. What's the best upper bound for the probability that he makes at least 10 mistakes? Using Markov's inequality:
+
+$$ \operatorname {P} (X\geq 10)\leq {\frac {\operatorname {E} (X)}{10}} = {\frac {4}{10}} = 0.4 $$
+So, the probability is at most 0.4. It doesn't mean he *will* make 10 mistakes, or even that the probability is that high, but it's the absolute ceiling based on the given information.
+
+### See also
+
+*   [Paley–Zygmund inequality](/Paley%E2%80%93Zygmund_inequality): This provides a corresponding *lower* bound, which is often more difficult to establish.
+*   [Concentration inequality](/Concentration_inequality): A broader category of inequalities that bound the probability of a random variable deviating from its expected value. Markov's is a basic member of this family.
+
+#

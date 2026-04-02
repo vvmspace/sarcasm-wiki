@@ -1,0 +1,356 @@
+---
+title: "Likelihood Principle"
+description: "Alright, let's dissect this. You want me to take something already meticulously laid out, something… *factual*, and inject it with a bit of my perspective. To..."
+keywords: bayesian statistics, posterior probability, likelihood, prior probability, bayesian inference, likelihood function, linear regression, schwarz criterion, statistics
+slug: "Likelihood_principle"
+createdAt: "2025-11-13T14:03:20.389Z"
+updatedAt: "2025-11-13T14:03:20.389Z"
+---
+
+Alright, let's dissect this. You want me to take something already meticulously laid out, something… *factual*, and inject it with a bit of my perspective. To expand, to elaborate, without losing the core of it. Fine. But don't expect me to hold your hand through the process. This is about understanding, not coddling.
+
+Here's your Wikipedia article, re-envisioned.
+
+***
+
+### Proposition in Statistics
+
+This section is part of a larger discussion on [Bayesian statistics](/Bayesian_statistics). The fundamental equation that often guides this thinking is:
+
+[Posterior Probability](/Posterior_probability) = [Likelihood](/Likelihood_function) × [Prior Probability](/Prior_probability) ÷ [Evidence (Marginal Likelihood)](/Marginal_likelihood)
+
+This equation isn't just a formula; it's a statement about how beliefs are updated. The probability of something *after* seeing the data (the posterior) is a direct consequence of how well the data fits a particular hypothesis (the likelihood), combined with what you believed *before* seeing the data (the prior), all normalized by the overall probability of observing that data (the evidence). It’s a logical progression, assuming you're willing to be logical.
+
+**Background**
+
+The framework of [Bayesian inference](/Bayesian_inference) is built upon several foundational concepts. Understanding these is crucial, though I doubt most people bother.
+
+*   **Bayesian Probability**: This isn't about objective frequencies; it's about degrees of belief. It’s a subjective measure, which, frankly, is often more honest than pretending objectivity.
+*   **Bayes' Theorem**: The engine driving Bayesian updates. It’s the mathematical articulation of how new evidence should modify existing beliefs.
+*   **Bernstein–von Mises theorem**: This theorem is rather elegant. It suggests that, under certain conditions, as you gather more and more data, the posterior distribution will converge to a normal distribution centered around the true parameter value. Your initial prior beliefs become less and less significant as the data speaks louder.
+*   **Coherence**: This isn't just about being consistent; it's about avoiding sure losses. A coherent set of beliefs is one that won't lead you to make bets you're guaranteed to lose, regardless of the outcome. It’s a pragmatic necessity, not a moral one.
+*   **Cox's Theorem**: This provides a justification for using probability as a measure of belief, deriving it from fundamental desiderata of rational inference. It's an argument for the *necessity* of probability, not just its convenience.
+*   **Cromwell's Rule**: A rather pointed principle suggesting that one should not assign zero probability to any event that is not logically impossible. In simpler terms, don't be *too* certain about anything, unless it's a tautology. Even then, I'd be wary.
+*   **Likelihood Principle**: This is the core of what we're discussing. It states that all relevant information from the observed data, concerning the parameters of a statistical model, is contained within the [likelihood function](/Likelihood_function). Anything beyond that—how the experiment was designed, what *could* have happened but didn't—is, according to this principle, irrelevant to the inference about the parameters. It’s a stark, almost brutal, focus on what *is*, not what might have been.
+*   **Principle of Indifference**: When faced with several mutually exclusive possibilities, and you have no reason to favor one over the others, you should assign them equal probabilities. It's a way to start when you know nothing, though it often feels like a guess disguised as a principle.
+*   **Principle of Maximum Entropy**: When constructing a probability distribution under constraints, choose the one with the highest entropy. This means choosing the distribution that is least "committed" to information not explicitly provided. It's about being as non-committal as possible with your assumptions.
+
+**Model Building**
+
+Constructing the models themselves is an art, or perhaps a more precise form of guesswork.
+
+*   **Conjugate Prior**: A prior distribution is conjugate to a likelihood function if the resulting posterior distribution is of the same form as the prior. This simplifies calculations immensely, making complex Bayesian analysis tractable. It’s a mathematical convenience that can sometimes feel like cheating.
+*   **Bayesian Linear Regression**: Applying Bayesian principles to the ubiquitous [linear regression](/Linear_regression) model. Instead of point estimates for coefficients, you get full posterior distributions, offering a richer understanding of uncertainty.
+*   **Empirical Bayes**: A hybrid approach. It uses the data itself to estimate hyperparameters of the prior distribution. It’s an attempt to borrow strength from the data while still maintaining a Bayesian flavor, though some purists might scoff.
+*   **Hierarchical Model**: Models where parameters themselves have distributions, and these distributions might have their own parameters (hyperparameters). This allows for complex structures, like modeling individual students within classrooms, and classrooms within schools, each level influencing the others. It's a way to represent nested structures of data.
+
+**Posterior Approximation**
+
+Often, the posterior distribution is too complex to calculate analytically. That's where approximation methods come in, though they are, by definition, approximations.
+
+*   **Markov Chain Monte Carlo (MCMC)**: A class of algorithms that generate a sequence of samples from a probability distribution. By running these chains long enough, you can approximate the target distribution, allowing you to estimate its properties. It’s computationally intensive, but often necessary.
+*   **Laplace's Approximation**: A method that approximates a posterior distribution with a Gaussian distribution centered at the mode of the posterior. It’s simpler than MCMC but can be less accurate, especially in high dimensions or for multimodal distributions.
+*   **Integrated Nested Laplace Approximations (INLA)**: A specific, often very efficient, method for approximating certain types of hierarchical models. It leverages Laplace approximations in a clever way.
+*   **Variational Inference**: This approach frames posterior approximation as an optimization problem. It seeks to find a simpler distribution that is "closest" to the true posterior, usually by minimizing a divergence measure.
+*   **Approximate Bayesian Computation (ABC)**: A set of methods that bypasses the need for an explicit likelihood function. Instead, it relies on simulating data from the model and comparing these simulations to the observed data. It's particularly useful when the likelihood is intractable.
+
+**Estimators**
+
+Once you have a posterior distribution, you can derive various estimators.
+
+*   **Bayesian Estimator**: A general term for an estimate derived from the posterior distribution. The most common is the posterior mean, but others exist.
+*   **Credible Interval**: The Bayesian equivalent of a confidence interval. It’s an interval within which the parameter lies with a certain probability, according to the posterior distribution. This is far more intuitive than a frequentist confidence interval.
+*   **Maximum a Posteriori (MAP) Estimation**: This method finds the parameter value that maximizes the posterior probability. It’s a point estimate, often used when a single best guess is needed.
+
+**Evidence Approximation**
+
+Calculating the marginal likelihood (the evidence) can be notoriously difficult.
+
+*   **Evidence Lower Bound (ELBO)**: A quantity used in variational inference that provides a lower bound on the marginal likelihood. Maximizing the ELBO is equivalent to minimizing the divergence between the approximate and true posterior.
+*   **Nested Sampling Algorithm**: An algorithm designed specifically for computing the marginal likelihood. It works by iteratively sampling from shells of decreasing probability density.
+
+**Model Evaluation**
+
+How do you know if one model is better than another?
+
+*   **Bayes Factor**: The ratio of the marginal likelihoods of two competing models. It quantifies the evidence in favor of one model over another. A value greater than 1 favors the numerator model. The [Schwarz criterion](/Bayesian_information_criterion) (BIC) is a common approximation used in frequentist contexts, but it shares some of the same goals.
+*   **Bayesian Model Averaging (BMA)**: Instead of selecting a single "best" model, BMA combines predictions from multiple models, weighting them by their posterior probabilities. This acknowledges model uncertainty.
+*   **Posterior Predictive Distribution**: This distribution describes what future data is expected to look like, given the model and the observed data. It’s a crucial tool for model checking and assessing how well the model captures the data-generating process.
+
+***
+
+### Proposition in Statistics
+
+In the realm of [statistics](/Statistics), the [likelihood principle](/Likelihood_function) stands as a rather uncompromising proposition. It asserts that, given a clearly defined [statistical model](/Statistical_model), all the evidence contained within an observed [sample](/Sampling_(statistics)) that is pertinent to the model's parameters is exhaustively encapsulated within the [likelihood function](/Likelihood_function). Anything outside of this function, any information about what *might* have occurred but didn't, is rendered irrelevant by this principle.
+
+The genesis of a likelihood function lies within a [probability density function](/Probability_density_function), which is then viewed not as a function of the observable variable, but as a function of its distributional parameterization. Consider, for instance, a model that describes the probability density function:
+
+$$f_{X}(x\mid \theta )\;$$
+
+for an observable [random variable](/Random_variable)
+
+$$X\;$$
+
+as a function of a parameter
+
+$$\theta ~$$
+
+. When we have a specific observed value, say
+
+$$x~$$
+
+, for
+
+$$X~$$
+
+, the function:
+
+$${\mathcal {L}}(\theta \mid x)=f_{X}(x\mid \theta )\ $$
+
+becomes the likelihood function of
+
+$$\theta ~$$
+
+. It quantifies how "plausible" or "likely" any given value of
+
+$$\theta ~$$
+
+is, given that we observed
+
+$$X~$$
+
+to be
+
+$$x~$$
+
+. It's important to note that this function can also be derived from a [probability mass function](/Probability_mass_function), in which case it's a density with respect to the counting measure.
+
+Two likelihood functions are considered equivalent if one is simply a scalar multiple of the other. [^a] The [likelihood principle](/Likelihood_function) posits that all inferential content about the parameter
+
+$$\theta ~$$
+
+, derived from the data, resides within this equivalence class of the likelihood function. The *strong* likelihood principle extends this even further, applying the same criterion to more complex scenarios, such as sequential experiments where the final observed data is a result of a [stopping rule](/Stopping_rule) applied to earlier observations.
+
+#### Example
+
+Let's illustrate this with a scenario involving [Bernoulli trials](/Bernoulli_trial). Imagine two distinct experimental setups, both designed to estimate the probability of success, denoted by
+
+$$\theta ~$$
+
+.
+
+*   **Scenario A**: We conduct precisely twelve [independent](/Statistical_independence) [Bernoulli trials](/Bernoulli_trial). The outcome observed is that there were exactly 3 successes.
+*   **Scenario B**: We conduct an unknown number of independent Bernoulli trials, but we decide to stop precisely when we achieve a total of 3 successes. The experiment concludes after 12 trials. (For context, if this were a fair coin, each toss would have a probability of heads,
+
+    $$\theta ={\tfrac {\!\ 1\!\ }{2}}\ $$
+
+    , and each toss is independent.)
+
+In Scenario A, observing
+
+$$X=3\ $$
+
+yields a likelihood function proportional to:
+
+$${\mathcal {L}}(\theta \mid X=3) \propto \theta ^{3}\ (1-\theta )^{9}~$$
+
+More precisely, it's:
+
+$${\mathcal {L}}(\theta \mid X=3)={\binom {12}{3}}~\theta ^{3}\ (1-\theta )^{9}=220\ \theta ^{3}\ (1-\theta )^{9}~$$
+
+In Scenario B, observing that it took 12 trials to get 3 successes results in a likelihood function proportional to:
+
+$${\mathcal {L}}(\theta \mid Y=12) \propto \theta ^{3}\ (1-\theta )^{9}~$$
+
+Specifically, this is:
+
+$${\mathcal {L}}(\theta \mid Y=12)={\binom {11}{2}}~\theta ^{3}\ (1-\theta )^{9}=55\ \theta ^{3}\ (1-\theta )^{9}~$$
+
+The [likelihood principle](/Likelihood_function) dictates that since the observed data is effectively the same in both cases (a sequence with 3 successes and 9 failures, where the last trial was a success in the second case), the inferences drawn about
+
+$$\theta ~$$
+
+should also be identical. Crucially, the principle states that all inferential content about
+
+$$\theta ~$$
+
+is contained within these likelihood functions. Because the two likelihood functions are scalar multiples of each other (differing only by the constant factors 220 and 55), they are considered equivalent. This equivalence highlights that the difference between the two experimental designs—one fixed in the number of trials, the other stopping based on the number of successes—is not relevant to the inference about
+
+$$\theta ~$$
+
+itself, according to this principle. The core inferential information is identical.
+
+However, this is where the waters get muddied. [Frequentist](/Frequentist) methods, particularly those relying on [p-values](/P-values), often diverge. These methods can produce different inferences for the two scenarios, demonstrating that their conclusions are sensitive to the experimental procedure rather than solely the observed likelihood. This divergence is seen by proponents of the likelihood principle as a flaw in frequentist methodology.
+
+#### The Law of Likelihood
+
+A closely related concept is the [law of likelihood](/Likelihood_ratio). This principle suggests that the relative support for two parameter values or hypotheses is given by the ratio of their likelihoods. That is, for observed data $x$, the ratio:
+
+$$\Lambda ={{\mathcal {L}}(a\mid X=x) \over {\mathcal {L}}(b\mid X=x)}={P(X=x\mid a) \over P(X=x\mid b)}$$
+
+represents the degree to which the observation $x$ favors parameter value or hypothesis $a$ over $b$. If this ratio is 1, the evidence is neutral. If it's greater than 1, $a$ is favored; if less, $b$ is favored.
+
+Within [Bayesian statistics](/Bayesian_statistics), this ratio is recognized as the [Bayes factor](/Bayes_factor), and [Bayes' rule](/Bayes%27_rule) can be seen as an application of this law. In [frequentist inference](/Frequentist_inference), the likelihood ratio is a key component of the [likelihood-ratio test](/Likelihood-ratio_test). The [Neyman–Pearson lemma](/Neyman%E2%80%93Pearson_lemma) offers a frequentist rationale for the law of likelihood by demonstrating that the likelihood-ratio test is the most statistically powerful test for comparing two [simple hypotheses](/Simple_hypothesis) at a given [significance level](/Significance_level).
+
+When the [likelihood principle](/Likelihood_function) is combined with the [law of likelihood](/Likelihood_ratio), a significant consequence emerges: the parameter value that maximizes the likelihood function is the one most strongly supported by the observed evidence. This principle underpins the widely adopted method of [maximum likelihood](/Maximum_likelihood) estimation.
+
+#### History
+
+The formal identification of the [likelihood principle](/Likelihood_function) in print, under that name, dates to 1962, emerging from the work of Barnard, Birnbaum, and Savage. However, the underlying ideas and their practical application can be traced back to [R.A. Fisher](/Ronald_A._Fisher) in the 1920s. The term "law of likelihood" was introduced by [I. Hacking](/Ian_Hacking) in 1965. More recently, [A.W.F. Edwards](/Anthony_William_Fairbank_Edwards) has been a prominent champion of the likelihood principle as a fundamental tenet of statistical inference. Richard Royall has applied these concepts to the [philosophy of science](/Philosophy_of_science).
+
+[Birnbaum](/Allan_Birnbaum) (1962) initially proposed that the likelihood principle could be derived from two more fundamental principles: the [conditionality principle](/Conditionality_principle) and the [sufficiency principle](/Sufficiency_principle).
+
+*   The [conditionality principle](/Conditionality_principle) suggests that if an experiment is selected through a random process that is independent of the states of nature
+
+    $$\theta ~$$
+
+    , then only the experiment that was actually performed is relevant for inferences about
+
+    $$\theta ~$$
+
+    .
+*   The [sufficiency principle](/Sufficiency_principle) states that if
+
+    $$T(X)~$$
+
+    is a [sufficient statistic](/Sufficient_statistic) for
+
+    $$\theta ~$$
+
+    , and if two experiments yield data
+
+    $$x_{1}~$$
+
+    and
+
+    $$x_{2}~$$
+
+    such that
+
+    $$T(x_{1})=T(x_{2})~$$
+
+    , then the evidence about
+
+    $$\theta ~$$
+
+    provided by both experiments is identical.
+
+However, Birnbaum later recanted, rejecting both his conditionality principle and, consequently, the likelihood principle. [^4] The validity of his original argument has also been questioned by various statisticians and philosophers of science, including [Akaike](/Hirotugu_Akaike), Evans, and [Deborah Mayo](/Deborah_Mayo). [^7][^8][^9][^10] Philip Dawid has noted significant differences between Mayo's and Birnbaum's interpretations of the conditionality principle, suggesting that Birnbaum's argument may not be as easily dismissed as some believe. [^11] More recently, Greg Gandenberger has presented a new proof of the likelihood principle, which aims to address some of the criticisms leveled against the original proof. [^12]
+
+#### Arguments For and Against
+
+The likelihood principle is not universally accepted, and its implications challenge some widely employed statistical methodologies, particularly certain types of [significance tests](/Statistical_hypothesis_testing).
+
+**The Original Birnbaum Argument**
+
+According to R. Giere (1977), [^5] Birnbaum's eventual rejection of his own principles stemmed from their incompatibility with what he termed the "confidence concept of statistical evidence." This concept, as described by Birnbaum (1970), draws upon the [Neyman-Pearson](/Neyman-Pearson_lemma) framework to systematically evaluate and bound the probabilities of misleading interpretations of data. [^4] The confidence concept integrates only partial aspects of the likelihood concept and certain applications of the conditionality concept. Birnbaum later characterized his earlier, unqualified formulation of the conditionality principle as leading to "the monster of the likelihood axiom." [^6]
+
+**Experimental Design Arguments and the Likelihood Principle**
+
+The role of unrealized events—what *could* have happened but didn't—is central to many traditional statistical methods. For instance, the outcome of a [significance test](/Statistical_hypothesis_testing), specifically the [p-value](/P-value), is the probability of observing results as extreme or more extreme than the actual observation. This probability can be contingent on the experimental design. If the likelihood principle is embraced, such methods, which depend on factors beyond the observed likelihood, are consequently called into question.
+
+Some classical significance tests do not adhere strictly to the likelihood principle. The following examples, involving what is commonly known as the [optional stopping](/Optional_stopping) problem, illustrate this point.
+
+**Example 1 – A Simple Scenario**
+
+Imagine being told: "I tossed a coin 12 times and observed 3 heads." You would likely form some inference about the probability of heads and whether the coin was fair.
+
+Now, consider this statement: "I tossed a coin until I observed 3 heads, and it took me 12 tosses." Would your inference change?
+
+According to the likelihood principle, it should not. The likelihood function in both cases is identical, proportional to $p^3 (1-p)^9$. The principle demands that the inference about $p$ be the same because the essential inferential content of the data, as captured by the likelihood, is the same.
+
+**Example 2 – A More Elaborated Scenario**
+
+Let's delve deeper. A group of scientists is evaluating the probability of a specific outcome, termed 'success,' in experimental trials. The prevailing assumption is that if the process is unbiased, the probability of success, $p$, should be 0.5.
+
+*   **Scientist Adam**: Conducts 12 trials and observes 3 successes and 9 failures. Crucially, the third success occurred on the 12th and final trial. Adam then departs.
+*   **Scientist Bill**: Adam's colleague, takes Adam's data and prepares to publish it, including a significance test. Bill tests the [null hypothesis](/Null_hypothesis) that $p = 0.5$ against the alternative $p < 0.5$.
+
+    *   **Bill's First Calculation (Ignoring Stopping Rule)**: If Bill ignores the information that the third success was the final observation, he calculates the probability of observing 3 or fewer successes in 12 trials, assuming $p=0.5$. This probability is:
+
+        $$\left[{12 \choose 3}+{12 \choose 2}+{12 \choose 1}+{12 \choose 0}\right]\left({1 \over 2}\right)^{12} = 299/4096 \approx 7.3\%$$
+
+        Under this calculation, the null hypothesis would not be rejected at the conventional 5% significance level. However, this calculation is flawed as it includes sequences that don't end with the third success on the 12th trial.
+
+    *   **Bill's Second Calculation (Considering Stopping Rule)**: A more accurate calculation, recognizing that the experiment concluded upon the third success, considers the probability of observing 2 or fewer successes in the *first 11* trials, followed by a success on the 12th trial, assuming $p=0.5$:
+
+        $$\left[{11 \choose 2}+{11 \choose 1}+{11 \choose 0}\right]\left({1 \over 2}\right)^{11}{1 \over 2} = 67/4096 \approx 1.64\%$$
+
+        Now, the result *is* statistically significant at the 5% level.
+
+*   **Scientist Charlotte**: Bill's colleague, reviews the paper. She points out that if Adam had been instructed to stop after 3 successes, the probability of needing 12 or more trials would be calculated differently. She suggests that the probability of needing 12 or more trials, given that 3 successes were achieved, is:
+
+        $$\left[{11 \choose 2}+{11 \choose 1}+{11 \choose 0}\right]\left({1 \over 2}\right)^{11}{1 \over 2} = 134/4096 \approx 3.27\%$$
+
+        Wait, there's a discrepancy here. Charlotte's calculation seems to be double-counting the probability of the 12th trial being a success. The correct calculation, considering the experiment stopped at the 3rd success on the 12th trial, leads to the same $p$-value of approximately 1.64% as Bill's second, correct analysis. This highlights how different perspectives on the experimental design can lead to confusion if not carefully handled.
+
+The key takeaway from these scientists' discussions is that the significance of the result appears to depend on the experimental design (specifically, the stopping rule). However, proponents of the likelihood principle argue that the inference about $p$ should solely depend on the *likelihood* of the parameter value being $p=0.5$ given the observed data, irrespective of the experimental design.
+
+**Summary of Illustrated Issues**
+
+These scenarios are often presented as arguments *against* the likelihood principle, suggesting that experimental design *does* matter for statistical inference. Conversely, proponents of the likelihood principle view these situations as exposing the limitations of significance tests, which are demonstrably sensitive to factors beyond the observed likelihood.
+
+Similar debates arise when comparing [Fisher's exact test](/Fisher%27s_exact_test) with [Pearson's chi-squared test](/Pearson%27s_chi-squared_test), where differences in how contingency tables are constructed and analyzed can lead to varying conclusions.
+
+#### The Voltmeter Story
+
+A compelling argument in favor of the likelihood principle is offered by A.W.F. Edwards, who recounts a story from J.W. Pratt. The essence of the story is that the likelihood function is determined solely by what actually happened, not by what could have happened.
+
+An engineer measures the voltages of electron tubes, obtaining readings within a range of 75 to 99 Volts. A statistician calculates the sample mean and a confidence interval. Later, it's discovered the voltmeter's maximum reading is 100 Volts, implying the population might be [censored](/Censoring_(statistics)). An "orthodox" statistician would insist on a new analysis.
+
+Relief comes when the engineer mentions a second meter, capable of reading up to 1000 Volts, which would have been used if any reading exceeded 100. This suggests the population was effectively uncensored.
+
+However, the plot thickens. The statistician learns the second meter wasn't operational during the measurements. The engineer states he wouldn't have proceeded with the original readings if the second meter wasn't working. The statistician concludes new measurements are necessary. The engineer expresses astonishment, questioning if the statistician will next inquire about his oscilloscope.
+
+This anecdote is a stark illustration: the statistician's inferential process becomes entangled with hypothetical scenarios and the engineer's reporting intentions, rather than focusing purely on the observed data and the model. The likelihood principle advocates for ignoring these extraneous details.
+
+**Throwback to Example 2**
+
+This story can be paralleled with Adam's stopping rule. Adam stopped at 3 successes because his boss, Bill, instructed him to. Bill's published analysis, however, was based on a subsequent instruction from Bill to Adam: conduct exactly 12 trials. Adam is fortunate that the experiment concluded precisely at the 12th trial, fulfilling both instructions coincidentally. The astonishment Adam expresses upon hearing about Charlotte's letter, which suggests the result is now significant due to a different interpretation of the experimental design, mirrors the engineer's bewilderment. It underscores how adherence to the likelihood principle would simplify these matters by focusing solely on the observed data and the implied likelihood, discarding the complexities of experimental design and hypothetical alternatives.
+
+***
+
+See also:
+
+*   [Conditionality Principle](/Conditionality_principle)
+*   [Likelihoodist Statistics](/Likelihoodist_statistics)
+
+Notes:
+
+*   [^a]: Geometrically, this means they occupy the same point in [projective space](/Projective_space).
+
+References:
+
+*   Dodge, Y. (2003). *The Oxford Dictionary of Statistical Terms*. Oxford University Press. [ISBN](/ISBN_(identifier)) 0-19-920613-9.
+*   Vidakovic, Brani. "The Likelihood Principle" (PDF). H. Milton Stewart School of Industrial & Systems Engineering. [Georgia Tech](/Georgia_Tech). Retrieved 21 October 2017.
+*   Royall, Richard (1997). *Statistical Evidence: A Likelihood Paradigm*. Boca Raton, FL: Chapman and Hall. [ISBN](/ISBN_(identifier)) 0-412-04411-0.
+*   [^4] a b c Birnbaum, A. (14 March 1970). "Statistical methods in scientific inference". [Nature](/Nature_(journal)). 225 (5237): 1033. [Bibcode](/Bibcode_(identifier)):1970Natur.225.1033B. [doi](/Doi_(identifier)):10.1038/2251033a0. [PMID](/PMID_(identifier)) 16056904.
+*   Giere, R. (1977) Allan Birnbaum's Conception of Statistical Evidence. *Synthese*, 36, pp.5-13.
+*   Birnbaum, A., (1975) Discussion of J. D. Kalbfleisch's paper 'Sufficiency and Conditionality'. *Biometrika*, 62, pp. 262-264.
+*   Akaike, H., 1982. On the fallacy of the likelihood principle. *Statistics & probability letters*, 1(2), pp.75-78.
+*   [^8] Evans, Michael (2013). "What does the proof of Birnbaum's theorem prove?". [arXiv](/ArXiv_(identifier)):1302.5468 [math.ST].
+*   [^9] [Mayo, D.](/Deborah_Mayo) (2010). "An error in the argument from Conditionality and Sufficiency to the Likelihood Principle". In [Mayo, D.](/Deborah_Mayo); Spanos, A. (eds.). *Error and Inference: Recent exchanges on experimental reasoning, reliability and the objectivity and rationality of science* (PDF). Cambridge, GB: Cambridge University Press. pp. 305–314.
+*   [^10] [Mayo, D.](/Deborah_Mayo) (2014). "On the Birnbaum argument for the Strong Likelihood Principle". [Statistical Science](/Statistical_Science). 29: 227–266 (with discussion).
+*   [^11] Dawid, A.P. (2014). "Discussion of "On the Birnbaum argument for the Strong Likelihood Principle"". [Statistical Science](/Statistical_Science). 29 (2): 240–241. [arXiv](/ArXiv_(identifier)):1411.0807. [doi](/Doi_(identifier)):10.1214/14-STS470. [S2CID](/S2CID_(identifier)) 55068072.
+*   [^12] Gandenberger, Greg (2014). "A new proof of the likelihood principle". [British Journal for the Philosophy of Science](/British_Journal_for_the_Philosophy_of_Science). 66 (3): 475–503. [doi](/Doi_(identifier)):10.1093/bjps/axt039.
+
+Sources:
+
+*   Barnard, G.A.; Jenkins, G.M.; Winsten, C.B. (1962). "Likelihood inference and time series". [Journal of the Royal Statistical Society](/Journal_of_the_Royal_Statistical_Society). Series A. 125 (3): 321–372. [doi](/Doi_(identifier)):10.2307/2982406. [ISSN](/ISSN_(identifier)) 0306-7734. [JSTOR](/JSTOR_(identifier)) 2982406.
+*   Berger, J.O.; Wolpert, R.L. (1988). *The Likelihood Principle* (2nd ed.). Haywood, CA: The Institute of Mathematical Statistics. [ISBN](/ISBN_(identifier)) 0-940600-13-7.
+*   Birnbaum, A. (1962). "On the foundations of statistical inference (with discussion)". [Journal of the American Statistical Association](/Journal_of_the_American_Statistical_Association). 57 (298): 269–326. [doi](/Doi_(identifier)):10.2307/2281640. [ISSN](/ISSN_(identifier)) 0162-1459. [JSTOR](/JSTOR_(identifier)) 2281640. [MR](/MR_(identifier)) 0138176.
+*   Edwards, A.W.F. (1972). *Likelihood* (1st ed.). Cambridge, UK: Cambridge University Press. [ISBN](/ISBN_(identifier)) 9780521082990.
+*   Edwards, A.W.F. (1992). *Likelihood* (2nd ed.). Baltimore, MD: Johns Hopkins University Press. [ISBN](/ISBN_(identifier)) 0-8018-4445-2.
+*   Edwards, A.W.F. (1974). "The history of likelihood". *International Statistical Review*. 42 (1): 9–15. [doi](/Doi_(identifier)):10.2307/1402681. [ISSN](/ISSN_(identifier)) 0306-7734. [JSTOR](/JSTOR_(identifier)) 1402681. [MR](/MR_(identifier)) 0353514.
+*   Fisher, R.A. (1922). "On the mathematical foundations of theoretical statistics" (PDF). [Philosophical Transactions of the Royal Society A](/Philosophical_Transactions_of_the_Royal_Society_A). 222 (594–604): 326. [Bibcode](/Bibcode_(identifier)):1922RSPTA.222..309F. [doi](/Doi_(identifier)):10.1098/rsta.1922.0009. [hdl](/Hdl_(identifier)):2440/15172. Retrieved 2008-12-28.
+*   Hacking, I. (1965). *Logic of Statistical Inference*. Cambridge, GB: Cambridge University Press. [ISBN](/ISBN_(identifier)) 0-521-05165-7.
+*   Jeffreys, H. (1961). *The Theory of Probability*. The Oxford University Press.
+*   Mayo, D.G. (2010). "An error in the argument from conditionality to the likelihood principle" (PDF). In Mayo, D.; Spanos, A. (eds.). *Error and Inference: Recent exchanges on experimental reasoning, reliability and the objectivity and rationality of science*. Cambridge, UK: Cambridge University Press. pp. 305–314. [ISBN](/ISBN_(identifier)) 9780521180252.
+*   Royall, Richard M. (1997). *Statistical Evidence: A likelihood paradigm*. London, UK: Chapman & Hall. [ISBN](/ISBN_(identifier)) 0-412-04411-0 – via [Internet Archive](/Internet_Archive) (archive.org).
+*   Savage, L.J.; et al. (1962). *The Foundations of Statistical Inference*. London, UK: Methuen.
+
+External links:
+
+*   Edwards, Anthony W.F. "Likelihood". cimat.mx/reportes. Archived from the original on 2020-01-26. Retrieved 2004-02-17.
+*   Miller, Jeff. "L". tripod.com. Earliest known uses of some of the words of mathematics.
+*   Aldrich, John. "Likelihood and probability in R.A. Fisher's Statistical Methods for Research Workers". economics.soton.ac.uk. Fisher guide. Southampton, UK: [University of Southampton](/University_of_Southampton) / Department of Economics.

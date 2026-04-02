@@ -1,0 +1,895 @@
+---
+title: "Bayesian Inference"
+description: "Part of a series on Bayesian statistics Posterior = Likelihood × Prior ÷..."
+keywords: bayesian statistics, posterior, likelihood, prior, evidence, bayesian probability, bayes' theorem, bernstein–von mises theorem, coherence, cox's theorem
+slug: "bayesian_inference"
+createdAt: "2025-12-01T07:30:08.822Z"
+updatedAt: "2025-12-01T07:30:08.822Z"
+contentType: "rewritten"
+previousArticleSlug: "marginalization"
+previousArticleTitle: "Marginalization"
+---
+
+Part of a series on [Bayesian statistics](/Bayesian_statistics)
+[Posterior](/Posterior_probability) = [Likelihood](/Likelihood_function) × [Prior](/Prior_probability) ÷ [Evidence](/Marginal_likelihood)
+
+Background
+
+• Bayesian inference
+• [Bayesian probability](/Bayesian_probability)
+• [Bayes' theorem](/Bayes%27_theorem)
+• [Bernstein–von Mises theorem](/Bernstein%E2%80%93von_Mises_theorem)
+• [Coherence](/Coherence_(philosophical_gambling_strategy))
+• [Cox's theorem](/Cox%27s_theorem)
+• [Cromwell's rule](/Cromwell%27s_rule)
+• [Likelihood principle](/Likelihood_principle)
+• [Principle of indifference](/Principle_of_indifference)
+• [Principle of maximum entropy](/Principle_of_maximum_entropy)
+
+Model building
+
+• [Conjugate prior](/Conjugate_prior)
+• [Linear regression](/Bayesian_linear_regression)
+• [Empirical Bayes](/Empirical_Bayes_method)
+• [Hierarchical model](/Bayesian_hierarchical_modeling)
+
+Posterior approximation
+
+• [Markov chain Monte Carlo](/Markov_chain_Monte_Carlo)
+• [Laplace's approximation](/Laplace%27s_approximation)
+• [Integrated nested Laplace approximations](/Integrated_nested_Laplace_approximations)
+• [Variational inference](/Variational_Bayesian_methods)
+• [Approximate Bayesian computation](/Approximate_Bayesian_computation)
+
+Estimators
+
+• [Bayesian estimator](/Bayesian_estimator)
+• [Credible interval](/Credible_interval)
+• [Maximum a posteriori estimation](/Maximum_a_posteriori_estimation)
+
+Evidence approximation
+
+• [Evidence lower bound](/Evidence_lower_bound)
+• [Nested sampling](/Nested_sampling_algorithm)
+
+Model evaluation
+
+• [Bayes factor](/Bayes_factor) ([Schwarz criterion](/Bayesian_information_criterion))
+• [Model averaging](/Bayesian_model_averaging)
+• [Posterior predictive](/Posterior_predictive_distribution)
+
+• [Mathematics&#32;portal](/Portal:Mathematics)
+• v
+• t
+• e
+
+[Bayesian inference](/Bayesian_inference) ([/ˈbeɪziən/](/Help:IPA/English) BAY-zee-ən or [/ˈbeɪʒən/](/Help:IPA/English) BAY-zhən ) &#91;1&#93; is a method of [statistical inference](/Statistical_inference) in which [Bayes' theorem](/Bayes%27_theorem) is used to calculate a probability of a hypothesis, given prior [evidence](/Evidence), and update it as more [information](/Information) becomes available. Fundamentally, Bayesian inference uses a [prior distribution](/Prior_probability) to estimate [posterior probabilities.](/Posterior_probability) Bayesian inference is an important technique in [statistics](/Statistics), and especially in [mathematical statistics](/Mathematical_statistics). Bayesian updating is particularly important in the [dynamic analysis of a sequence of data](/Sequential_analysis). Bayesian inference has found application in a wide range of activities, including [science](/Science), [engineering](/Engineering), [philosophy](/Philosophy), [medicine](/Medicine), [sport](/Sport), and [law](/Law). In the philosophy of [decision theory](/Decision_theory), Bayesian inference is closely related to subjective probability, often called "[Bayesian probability](/Bayesian_probability)".
+
+Introduction to Bayes' rule
+
+A geometric visualisation of Bayes' theorem. In the table, the values 2, 3, 6 and 9 give the relative weights of each corresponding condition and case. The figures denote the cells of the table involved in each metric, the probability being the fraction of each figure that is shaded. This shows that
+
+$P(A|B)P(B)=P(B|A)P(A)$
+
+i.e.
+
+$P(A|B)={\frac {P(B|A)P(A)}{P(B)}}$
+
+. Similar reasoning can be used to show that
+
+$P(\neg A|B)={\frac {P(B|\neg A)P(\neg A)}{P(B)}}$
+
+etc.
+
+Main article: [Bayes' theorem](/Bayes%27_theorem)
+• See also: [Bayesian probability](/Bayesian_probability)
+
+Formal explanation
+
+[Contingency table](/Contingency_table)
+
+| Hypothesis | Evidence                                                                                                                                                                                               | Satisfies hypothesis H                                                                                                                                                                                  | Violates hypothesis ¬H                                                                                                                                                                                                 | Total                                                                                                                                                   |
+| :--------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------ |
+|            | Has evidence E                                                                                                                                                                                         | $P(H|E)\cdot P(E)$ <br> $=P(E|H)\cdot P(H)$                                                                                                                                                            | $P(\neg H|E)\cdot P(E)$ <br> $=P(E|\neg H)\cdot P(\neg H)$                                                                                                                                                            | $P(E)$                                                                                                                                                  |
+|            | No evidence ¬E                                                                                                                                                                                         | $P(H|\neg E)\cdot P(\neg E)$ <br> $=P(\neg E|H)\cdot P(H)$                                                                                                                                             | $P(\neg H|\neg E)\cdot P(\neg E)$ <br> $=P(\neg E|\neg H)\cdot P(\neg H)$                                                                                                                                             | $P(\neg E)$ <br> $=1-P(E)$                                                                                                                              |
+| Total      |                                                                                                                                                                                                        | $P(H)$                                                                                                                                                                                                  | $P(\neg H)=1-P(H)$                                                                                                                                                                                                     | 1                                                                                                                                                       |
+
+Bayesian inference derives the [posterior probability](/Posterior_probability) as a [consequence](/Consequence_relation) of two [antecedents](/Antecedent_(logic)): a [prior probability](/Prior_probability) and a "[likelihood function](/Likelihood_function)" derived from a [statistical model](/Statistical_model) for the observed data. Bayesian inference computes the posterior probability according to [Bayes' theorem](/Bayes%27_theorem):
+
+$P(H\mid E)={\frac {P(E\mid H)\cdot P(H)}{P(E)}},$
+
+where
+
+• H stands for any hypothesis whose probability may be affected by [data](/Experimental_data) (called evidence below). Often there are competing hypotheses, and the task is to determine which is the most probable.
+• $P(H)$, the [prior probability](/Prior_probability) , is the estimate of the probability of the hypothesis H before the data E, the current evidence, is observed.
+• E, the evidence , corresponds to new data that were not used in computing the prior probability.
+• $P(H\mid E)$, the [posterior probability](/Posterior_probability) , is the probability of H given E, i.e., after E is observed. This is what we want to know: the probability of a hypothesis given the observed evidence.
+• $P(E\mid H)$ is the probability of observing E given H and is called the [likelihood](/Likelihood_function) . As a function of E with H fixed, it indicates the compatibility of the evidence with the given hypothesis. The likelihood function is a function of the evidence, E, while the posterior probability is a function of the hypothesis, H.
+• $P(E)$ is sometimes termed the [marginal likelihood](/Marginal_likelihood) or "model evidence". This factor is the same for all possible hypotheses being considered (as is evident from the fact that the hypothesis H does not appear anywhere in the symbol, unlike for all the other factors) and hence does not factor into determining the relative probabilities of different hypotheses.
+• $P(E)>0$ (Else one has $0/0$.)
+
+For different values of H, only the factors $P(H)$ and $P(E\mid H)$, both in the numerator, affect the value of $P(H\mid E)$ – the posterior probability of a hypothesis is proportional to its prior probability (its inherent likeliness) and the newly acquired likelihood (its compatibility with the new observed evidence).
+
+In cases where $\neg H$ ("not H"), the [logical negation](/Logical_negation) of H, is a valid likelihood, Bayes' rule can be rewritten as follows:
+
+${\begin{aligned}P(H\mid E)&={\frac {P(E\mid H)P(H)}{P(E)}}\\\\&={\frac {P(E\mid H)P(H)}{P(E\mid H)P(H)+P(E\mid \neg H)P(\neg H)}}\\\\&={\frac {1}{1+\left({\frac {1}{P(H)}}-1\right){\frac {P(E\mid \neg H)}{P(E\mid H)}}}}\\\end{aligned}}$
+
+because
+
+$P(E)=P(E\mid H)P(H)+P(E\mid \neg H)P(\neg H)$
+
+and
+
+$P(H)+P(\neg H)=1.$
+
+This focuses attention on the term
+
+$\left({\tfrac {1}{P(H)}}-1\right){\tfrac {P(E\mid \neg H)}{P(E\mid H)}}.$
+
+If that term is approximately 1, then the probability of the hypothesis given the evidence, $P(H\mid E)$, is about ${\tfrac {1}{2}}$, about 50% likely - equally likely or not likely. If that term is very small, close to zero, then the probability of the hypothesis, given the evidence, $P(H\mid E)$ is close to 1 or the conditional hypothesis is quite likely. If that term is very large, much larger than 1, then the hypothesis, given the evidence, is quite unlikely. If the hypothesis (without consideration of evidence) is unlikely, then $P(H)$ is small (but not necessarily astronomically small) and ${\tfrac {1}{P(H)}}$ is much larger than 1 and this term can be approximated as ${\tfrac {P(E\mid \neg H)}{P(E\mid H)\cdot P(H)}}$ and relevant probabilities can be compared directly to each other.
+
+One quick and easy way to remember the equation would be to use [rule of multiplication](/Conditional_probability):
+
+$P(E\cap H)=P(E\mid H)P(H)=P(H\mid E)P(E).$
+
+Alternatives to Bayesian updating
+
+Bayesian updating is widely used and computationally convenient. However, it is not the only updating rule that might be considered rational.
+
+[Ian Hacking](/Ian_Hacking) noted that traditional "[Dutch book](/Dutch_book)" arguments did not specify Bayesian updating: they left open the possibility that non-Bayesian updating rules could avoid Dutch books. Hacking wrote: &#91;2&#93; "And neither the Dutch book argument nor any other in the personalist arsenal of proofs of the probability axioms entails the dynamic assumption. Not one entails Bayesianism. So the personalist requires the dynamic assumption to be Bayesian. It is true that in consistency a personalist could abandon the Bayesian model of learning from experience. Salt could lose its savour."
+
+Indeed, there are non-Bayesian updating rules that also avoid Dutch books (as discussed in the literature on "[probability kinematics](/Probability_kinematics)") following the publication of [Richard C.&#160;Jeffrey](/Richard_C._Jeffrey)'s rule, which applies Bayes' rule to the case where the evidence itself is assigned a probability. &#91;3&#93; The additional hypotheses needed to uniquely require Bayesian updating have been deemed to be substantial, complicated, and unsatisfactory. &#91;4&#93;
+
+Inference over exclusive and exhaustive possibilities
+
+If evidence is simultaneously used to update belief over a set of exclusive and exhaustive propositions, Bayesian inference may be thought of as acting on this belief distribution as a whole.
+
+General formulation
+
+Diagram illustrating event space
+
+$\Omega$
+
+in general formulation of Bayesian inference. Although this diagram shows discrete models and events, the continuous case may be visualized similarly using probability densities.
+
+Suppose a process is generating independent and identically distributed events
+
+$E_{n},\ n=1,2,3,\ldots$
+
+, but the [probability distribution](/Probability_distribution) is unknown. Let the event space
+
+$\Omega$
+
+represent the current state of belief for this process. Each model is represented by event
+
+$M_{m}$
+
+. The conditional probabilities $P(E_{n}\mid M_{m})$ are specified to define the models. $P(M_{m})$ is the [degree of belief](/Credence_(statistics)) in $M_{m}$. Before the first inference step, $\{P(M_{m})\}$ is a set of initial prior probabilities . These must sum to 1, but are otherwise arbitrary.
+
+Suppose that the process is observed to generate $E\in \{E_{n}\}$. For each $M\in \{M_{m}\}$, the prior $P(M)$ is updated to the posterior $P(M\mid E)$. From [Bayes' theorem](/Bayes%27_theorem): &#91;5&#93;
+
+$P(M\mid E)={\frac {P(E\mid M)}{\sum _{m}{P(E\mid M_{m})P(M_{m})}}}\cdot P(M).$
+
+Upon observation of further evidence, this procedure may be repeated.
+
+Multiple observations
+
+For a sequence of [independent and identically distributed](/Independent_and_identically_distributed) observations
+
+$\mathbf {E} =(e_{1},\dots ,e_{n})$
+
+, it can be shown by induction that repeated application of the above is equivalent to
+
+$P(M\mid \mathbf {E} )={\frac {P(\mathbf {E} \mid M)}{\sum _{m}{P(\mathbf {E} \mid M_{m})P(M_{m})}}}\cdot P(M),$
+
+where
+
+$P(\mathbf {E} \mid M)=\prod _{k}{P(e_{k}\mid M)}.$
+
+Parametric formulation: motivating the formal description
+
+By parameterizing the space of models, the belief in all models may be updated in a single step. The distribution of belief over the model space may then be thought of as a distribution of belief over the parameter space. The distributions in this section are expressed as continuous, represented by probability densities, as this is the usual situation. The technique is, however, equally applicable to discrete distributions.
+
+Let the vector
+
+${\boldsymbol {\theta }}$
+
+span the parameter space. Let the initial prior distribution over
+
+${\boldsymbol {\theta }}$
+
+be $p({\boldsymbol {\theta }}\mid {\boldsymbol {\alpha }})$, where
+
+${\boldsymbol {\alpha }}$
+
+is a set of parameters to the prior itself, or [hyperparameters](/Hyperparameter_(Bayesian_statistics)) . Let
+
+$\mathbf {E} =(e_{1},\dots ,e_{n})$
+
+be a sequence of [independent and identically distributed](/Independent_and_ identically_distributed_random_variables) event observations, where all
+
+$e_{i}$
+
+are distributed as $p(e\mid {\boldsymbol {\theta }})$ for some
+
+${\boldsymbol {\theta }}$
+
+. [Bayes' theorem](/Bayes%27_theorem) is applied to find the [posterior distribution](/Posterior_distribution) over
+
+${\boldsymbol {\theta }}$
+
+:
+
+${\begin{aligned}p({\boldsymbol {\theta }}\mid \mathbf {E} ,{\boldsymbol {\alpha }})&={\frac {p(\mathbf {E} \mid {\boldsymbol {\theta }},{\boldsymbol {\alpha }})}{p(\mathbf {E} \mid {\boldsymbol {\alpha }})}}\cdot p({\boldsymbol {\theta }}\mid {\boldsymbol {\alpha }})\\&={\frac {p(\mathbf {E} \mid {\boldsymbol {\theta }},{\boldsymbol {\alpha }})}{\int p(\mathbf {E} \mid {\boldsymbol {\theta }},{\boldsymbol {\alpha }})p({\boldsymbol {\theta }}\mid {\boldsymbol {\alpha }})\,d{\boldsymbol {\theta }}}}\cdot p({\boldsymbol {\theta }}\mid {\boldsymbol {\alpha }}),\end{aligned}}$
+
+where
+
+$p(\mathbf {E} \mid {\boldsymbol {\theta }},{\boldsymbol {\alpha }})=\prod _{k}p(e_{k}\mid {\boldsymbol {\theta }}).$
+
+Formal description of Bayesian inference
+
+Definitions
+
+• $x$, a data point in general. This may in fact be a [vector](/Random_vector) of values.
+• $\theta$, the [parameter](/Parameter) of the data point's distribution, i.e., $x\sim p(x\mid \theta)$. This may be a [vector](/Random_vector) of parameters.
+• $\alpha$, the [hyperparameter](/Hyperparameter_(Bayesian_statistics)) of the parameter distribution, i.e., $\theta \sim p(\theta \mid \alpha)$. This may be a [vector](/Random_vector) of hyperparameters.
+• $\mathbf {X}$ is the sample, a set of $n$ observed data points, i.e., $x_{1},\ldots ,x_{n}$.
+• ${\tilde {x}}$, a new data point whose distribution is to be predicted.
+
+Bayesian inference
+
+• The [prior distribution](/Prior_distribution) is the distribution of the parameter(s) before any data is observed, i.e. $p(\theta \mid \alpha)$. The prior distribution might not be easily determined; in such a case, one possibility may be to use the [Jeffreys prior](/Jeffreys_prior) to obtain a prior distribution before updating it with newer observations.
+• The [sampling distribution](/Sampling_distribution) is the distribution of the observed data conditional on its parameters, i.e. $p(\mathbf {X} \mid \theta)$. This is also termed the [likelihood](/Likelihood_function), especially when viewed as a function of the parameter(s), sometimes written $\operatorname {L} (\theta \mid \mathbf {X} )=p(\mathbf {X} \mid \theta)$.
+• The [marginal likelihood](/Marginal_likelihood) (sometimes also termed the evidence ) is the distribution of the observed data [marginalized](/Marginal_distribution) over the parameter(s), i.e. $p(\mathbf {X} \mid \alpha )=\int p(\mathbf {X} \mid \theta )p(\theta \mid \alpha )d\theta$. It quantifies the agreement between data and expert opinion, in a geometric sense that can be made precise. &#91;6&#93; If the marginal likelihood is 0 then there is no agreement between the data and expert opinion and Bayes' rule cannot be applied.
+• The [posterior distribution](/Posterior_distribution) is the distribution of the parameter(s) after taking into account the observed data. This is determined by [Bayes' rule](/Bayes%27_rule), which forms the heart of Bayesian inference: $p(\theta \mid \mathbf {X} ,\alpha )={\frac {p(\theta ,\mathbf {X} ,\alpha )}{p(\mathbf {X} ,\alpha )}}={\frac {p(\mathbf {X} \mid \theta ,\alpha )p(\theta ,\alpha )}{p(\mathbf {X} \mid \alpha )p(\alpha )}}={\frac {p(\mathbf {X} \mid \theta ,\alpha )p(\theta \mid \alpha )}{p(\mathbf {X} \mid \alpha )}}\propto p(\mathbf {X} \mid \theta ,\alpha )p(\theta \mid \alpha ).$ This is expressed in words as "posterior is proportional to likelihood times prior", or sometimes as "posterior = likelihood times prior, over evidence".
+• In practice, for almost all complex Bayesian models used in machine learning, the posterior distribution $p(\theta \mid \mathbf {X} ,\alpha )$ is not obtained in a closed form distribution, mainly because the parameter space for $\theta$ can be very high, or the Bayesian model retains certain hierarchical structure formulated from the observations $\mathbf {X}$ and parameter $\theta$. In such situations, we need to resort to approximation techniques. &#91;7&#93;
+• General case: Let $P_{Y}^{x}$ be the conditional distribution of $Y$ given $X=x$ and let $P_{X}$ be the distribution of $X$. The joint distribution is then $P_{X,Y}(dx,dy)=P_{Y}^{x}(dy)P_{X}(dx)$. The conditional distribution $P_{X}^{y}$ of $X$ given $Y=y$ is then determined by $P_{X}^{y}(A)=E(1_{A}(X)|Y=y)$. Existence and uniqueness of the needed [conditional expectation](/Conditional_expectation) is a consequence of the [Radon–Nikodym theorem](/Radon%E2%80%93Nikodym_theorem). This was formulated by [Kolmogorov](/Andrey_Kolmogorov) in his famous book from 1933. Kolmogorov underlines the importance of conditional probability by writing "I wish to call attention to ... and especially the theory of conditional probabilities and conditional expectations ..." in the Preface. &#91;8&#93; The Bayes theorem determines the posterior distribution from the prior distribution. Uniqueness requires continuity assumptions. &#91;9&#93; Bayes' theorem can be generalized to include improper prior distributions such as the uniform distribution on the real line. &#91;10&#93; Modern [Markov chain Monte Carlo](/Markov_chain_Monte_Carlo) methods have boosted the importance of Bayes' theorem including cases with improper priors. &#91;11&#93;
+
+Bayesian prediction
+
+• The [posterior predictive distribution](/Posterior_predictive_distribution) is the distribution of a new data point, marginalized over the posterior: $p({\tilde {x}}\mid \mathbf {X} ,\alpha )=\int p({\tilde {x}}\mid \theta )p(\theta \mid \mathbf {X} ,\alpha )d\theta$
+• The [prior predictive distribution](/Prior_predictive_distribution) is the distribution of a new data point, marginalized over the prior: $p({\tilde {x}}\mid \alpha )=\int p({\tilde {x}}\mid \theta )p(\theta \mid \alpha )d\theta$
+
+Bayesian theory calls for the use of the posterior predictive distribution to do [predictive inference](/Predictive_inference), i.e., to [predict](/Prediction) the distribution of a new, unobserved data point. That is, instead of a fixed point as a prediction, a distribution over possible points is returned. Only this way is the entire posterior distribution of the parameter(s) used. By comparison, prediction in [frequentist statistics](/Frequentist_statistics) often involves finding an optimum point estimate of the parameter(s)—e.g., by [maximum likelihood](/Maximum_likelihood) or [maximum a posteriori estimation](/Maximum_a_posteriori_estimation) (MAP)—and then plugging this estimate into the formula for the distribution of a data point. This has the disadvantage that it does not account for any uncertainty in the value of the parameter, and hence will underestimate the [variance](/Variance) of the predictive distribution.
+
+In some instances, frequentist statistics can work around this problem. For example, [confidence intervals](/Confidence_interval) and [prediction intervals](/Prediction_interval) in frequentist statistics when constructed from a [normal distribution](/Normal_distribution) with unknown [mean](/Mean) and [variance](/Variance) are constructed using a [Student's t-distribution](/Student%27s_t-distribution). This correctly estimates the variance, due to the facts that (1)&#160;the average of normally distributed random variables is also normally distributed, and (2) the predictive distribution of a normally distributed data point with unknown mean and variance, using conjugate or uninformative priors, has a Student's t-distribution. In Bayesian statistics, however, the posterior predictive distribution can always be determined exactly—or at least to an arbitrary level of precision when numerical methods are used.
+
+Both types of predictive distributions have the form of a [compound probability distribution](/Compound_probability_distribution) (as does the [marginal likelihood](/Marginal_likelihood)). In fact, if the prior distribution is a [conjugate prior](/Conjugate_prior), such that the prior and posterior distributions come from the same family, it can be seen that both prior and posterior predictive distributions also come from the same family of compound distributions. The only difference is that the posterior predictive distribution uses the updated values of the hyperparameters (applying the Bayesian update rules given in the [conjugate prior](/Conjugate_prior) article), while the prior predictive distribution uses the values of the hyperparameters that appear in the prior distribution.
+
+Mathematical properties
+
+This section includes a list of [general references](/Wikipedia:Citing_sources), but it lacks sufficient corresponding [inline citations](/Wikipedia:Citing_sources) . Please help to [improve](/Wikipedia:WikiProject_Reliability) this section by [introducing](/Wikipedia:When_to_cite) more precise citations. (February 2012) ( [Learn how and when to remove this message](/Help:Maintenance_template_removal) )
+
+Interpretation of factor
+
+${\textstyle {\frac {P(E\mid M)}{P(E)}}>1\Rightarrow P(E\mid M)>P(E)}$
+
+. That is, if the model were true, the evidence would be more likely than is predicted by the current state of belief. The reverse applies for a decrease in belief. If the belief does not change,
+
+${\textstyle {\frac {P(E\mid M)}{P(E)}}=1\Rightarrow P(E\mid M)=P(E)}$
+
+. That is, the evidence is independent of the model. If the model were true, the evidence would be exactly as likely as predicted by the current state of belief.
+
+Cromwell's rule
+
+• Main article: [Cromwell's rule](/Cromwell%27s_rule)
+
+If $P(M)=0$ then $P(M\mid E)=0$. If $P(M)=1$ and $P(E)>0$, then $P(M|E)=1$. This can be interpreted to mean that hard convictions are insensitive to counter-evidence.
+
+The former follows directly from Bayes' theorem. The latter can be derived by applying the first rule to the event "not $M$" in place of "$M$", yielding "if $1-P(M)=0$, then $1-P(M\mid E)=0$", from which the result immediately follows.
+
+Asymptotic behaviour of posterior
+
+Consider the behaviour of a belief distribution as it is updated a large number of times with [independent and identically distributed](/Independent_and_identically_distributed) trials. For sufficiently nice prior probabilities, the [Bernstein-von Mises theorem](/Bernstein%E2%80%93von_Mises_theorem) gives that in the limit of infinite trials, the posterior converges to a [Gaussian distribution](/Gaussian_distribution) independent of the initial prior under some conditions firstly outlined and rigorously proven by [Joseph L. Doob](/Joseph_L._Doob) in 1948, namely if the random variable in consideration has a finite [probability space](/Probability_space). The more general results were obtained later by the statistician [David A. Freedman](/David_A._Freedman_(statistician)) who published in two seminal research papers in 1963 &#91;12&#93; and 1965 &#91;13&#93; when and under what circumstances the asymptotic behaviour of posterior is guaranteed. His 1963 paper treats, like Doob (1949), the finite case and comes to a satisfactory conclusion. However, if the random variable has an infinite but countable [probability space](/Probability_space) (i.e., corresponding to a die with infinite many faces) the 1965 paper demonstrates that for a dense subset of priors the [Bernstein-von Mises theorem](/Bernstein%E2%80%93von_Mises_theorem) is not applicable. In this case there is [almost surely](/Almost_surely) no asymptotic convergence. Later in the 1980s and 1990s [Freedman](/David_A._Freedman_(statistician)) and [Persi Diaconis](/Persi_Diaconis) continued to work on the case of infinite countable probability spaces. &#91;14&#93; To summarise, there may be insufficient trials to suppress the effects of the initial choice, and especially for large (but finite) systems the convergence might be very slow.
+
+Conjugate priors
+
+• Main article: [Conjugate prior](/Conjugate_prior)
+
+In parameterized form, the prior distribution is often assumed to come from a family of distributions called [conjugate priors](/Conjugate_prior). The usefulness of a conjugate prior is that the corresponding posterior distribution will be in the same family, and the calculation may be expressed in [closed form](/Closed-form_expression).
+
+Estimates of parameters and predictions
+
+It is often desired to use a posterior distribution to estimate a parameter or variable. Several methods of Bayesian estimation select [measurements of central tendency](/Central_tendency) from the posterior distribution.
+
+For one-dimensional problems, a unique median exists for practical continuous problems. The posterior median is attractive as a [robust estimator](/Robust_statistics). &#91;15&#93;
+
+If there exists a finite mean for the posterior distribution, then the posterior mean is a method of estimation. &#91;16&#93;
+
+${\tilde {\theta }}=\operatorname {E} [\theta ]=\int \theta \,p(\theta \mid \mathbf {X} ,\alpha )\,d\theta$
+
+Taking a value with the greatest probability defines maximum a&#160;posteriori (MAP) estimates: &#91;17&#93;
+
+$\{\theta _{\text{MAP}}\}\subset \arg \max _{\theta }p(\theta \mid \mathbf {X} ,\alpha ).$
+
+There are examples where no maximum is attained, in which case the set of MAP estimates is [empty](/Empty_set).
+
+There are other methods of estimation that minimize the posterior [risk](/Risk) (expected-posterior loss) with respect to a [loss function](/Loss_function), and these are of interest to [statistical decision theory](/Statistical_decision_theory) using the sampling distribution ("frequentist statistics"). &#91;18&#93;
+
+The [posterior predictive distribution](/Posterior_predictive_distribution) of a new observation
+
+${\tilde {x}}$
+
+(that is independent of previous observations) is determined by &#91;19&#93;
+
+$p({\tilde {x}}|\mathbf {X} ,\alpha )=\int p({\tilde {x}},\theta \mid \mathbf {X} ,\alpha )\,d\theta =\int p({\tilde {x}}\mid \theta )p(\theta \mid \mathbf {X} ,\alpha )\,d\theta .$
+
+Examples
+
+Probability of a hypothesis
+
+[Contingency table](/Contingency_table)
+
+| Bowl   | Cookie | #1 H1 | #2 H2 | Total |
+| :----- | :----- | :---- | :---- | :---- |
+| Plain, E |        | 30    | 20    | 50    |
+| Choc, ¬E |        | 10    | 20    | 30    |
+| Total  |        | 40    | 40    | 80    |
+
+P ( H 1 | E ) = 30 / 50 = 0.6
+
+Suppose there are two full bowls of cookies. Bowl #1 has 10 chocolate chip and 30 plain cookies, while bowl #2 has 20 of each. Our friend Fred picks a bowl at random, and then picks a cookie at random. We may assume there is no reason to believe Fred treats one bowl differently from another, likewise for the cookies. The cookie turns out to be a plain one. How probable is it that Fred picked it out of bowl #1?
+
+Intuitively, it seems clear that the answer should be more than a half, since there are more plain cookies in bowl #1. The precise answer is given by Bayes' theorem. Let $H_{1}$ correspond to bowl #1, and $H_{2}$ to bowl #2.
+It is given that the bowls are identical from Fred's point of view, thus $P(H_{1})=P(H_{2})$, and the two must add up to 1, so both are equal to 0.5.
+The event $E$ is the observation of a plain cookie. From the contents of the bowls, we know that $P(E\mid H_{1})=30/40=0.75$ and $P(E\mid H_{2})=20/40=0.5.$
+Bayes' formula then yields
+
+${\begin{aligned}P(H_{1}\mid E)&={\frac {P(E\mid H_{1})\,P(H_{1})}{P(E\mid H_{1})\,P(H_{1})\;+\;P(E\mid H_{2})\,P(H_{2})}}\\\\\ &={\frac {0.75\times 0.5}{0.75\times 0.5+0.5\times 0.5}}\\\\\ &=0.6\end{aligned}}$
+
+Before we observed the cookie, the probability we assigned for Fred having chosen bowl #1 was the prior probability, $P(H_{1})$, which was 0.5. After observing the cookie, we must revise the probability to $P(H_{1}\mid E)$, which is 0.6.
+
+Making a prediction
+
+Example results for archaeology example. This simulation was generated using c=15.2.
+
+An archaeologist is working at a site thought to be from the medieval period, between the 11th century to the 16th century. However, it is uncertain exactly when in this period the site was inhabited. Fragments of pottery are found, some of which are glazed and some of which are decorated. It is expected that if the site were inhabited during the early medieval period, then 1% of the pottery would be glazed and 50% of its area decorated, whereas if it had been inhabited in the late medieval period then 81% would be glazed and 5% of its area decorated. How confident can the archaeologist be in the date of inhabitation as fragments are unearthed?
+
+The degree of belief in the continuous variable $C$ (century) is to be calculated, with the discrete set of events $\{GD,G{\bar {D}},{\bar {G}}D,{\bar {G}}{\bar {D}}\}$ as evidence. Assuming linear variation of glaze and decoration with time, and that these variables are independent,
+
+$P(E=GD\mid C=c)=(0.01+{\frac {0.81-0.01}{16-11}}(c-11))(0.5-{\frac {0.5-0.05}{16-11}}(c-11))$
+
+$P(E=G{\bar {D}}\mid C=c)=(0.01+{\frac {0.81-0.01}{16-11}}(c-11))(0.5+{\frac {0.5-0.05}{16-11}}(c-11))$
+
+$P(E={\bar {G}}D\mid C=c)=((1-0.01)-{\frac {0.81-0.01}{16-11}}(c-11))(0.5-{\frac {0.5-0.05}{16-11}}(c-11))$
+
+$P(E={\bar {G}}{\bar {D}}\mid C=c)=((1-0.01)-{\frac {0.81-0.01}{16-11}}(c-11))(0.5+{\frac {0.5-0.05}{16-11}}(c-11))$
+
+Assume a uniform prior of ${\textstyle f_{C}(c)=0.2}$, and that trials are [independent and identically distributed](/Independent_and_identically_distributed). When a new fragment of type $e$ is discovered, Bayes' theorem is applied to update the degree of belief for each $c$:
+
+$f_{C}(c\mid E=e)={\frac {P(E=e\mid C=c)}{P(E=e)}}f_{C}(c)={\frac {P(E=e\mid C=c)}{\int _{11}^{16}{P(E=e\mid C=c)f_{C}(c)dc}}}f_{C}(c)$
+
+A computer simulation of the changing belief as 50 fragments are unearthed is shown on the graph. In the simulation, the site was inhabited around 1420, or $c=15.2$. By calculating the area under the relevant portion of the graph for 50 trials, the archaeologist can say that there is practically no chance the site was inhabited in the 11th and 12th centuries, about 1% chance that it was inhabited during the 13th century, 63% chance during the 14th century and 36% during the 15th century. The [Bernstein-von Mises theorem](/Bernstein%E2%80%93von_Mises_theorem) asserts here the asymptotic convergence to the "true" distribution because the [probability space](/Probability_space) corresponding to the discrete set of events $\{GD,G{\bar {D}},{\bar {G}}D,{\bar {G}}{\bar {D}}\}$ is finite (see above section on asymptotic behaviour of the posterior).
+
+In frequentist statistics and decision theory
+
+A [decision-theoretic](/Statistical_decision_theory) justification of the use of Bayesian inference was given by [Abraham Wald](/Abraham_Wald), who proved that every unique Bayesian procedure is [admissible](/Admissible_decision_rule). Conversely, every [admissible](/Admissible_decision_rule) statistical procedure is either a Bayesian procedure or a limit of Bayesian procedures. &#91;20&#93;
+
+Wald characterized admissible procedures as Bayesian procedures (and limits of Bayesian procedures), making the Bayesian formalism a central technique in such areas of [frequentist inference](/Frequentist_inference) as [parameter estimation](/Parameter_estimation), [hypothesis testing](/Hypothesis_testing), and computing [confidence intervals](/Confidence_intervals). &#91;21&#93; &#91;22&#93; &#91;23&#93; For example:
+
+• "Under some conditions, all admissible procedures are either Bayes procedures or limits of Bayes procedures (in various senses). These remarkable results, at least in their original form, are due essentially to Wald. They are useful because the property of being Bayes is easier to analyze than admissibility." &#91;20&#93;
+• "In decision theory, a quite general method for proving admissibility consists in exhibiting a procedure as a unique Bayes solution." &#91;24&#93;
+• "In the first chapters of this work, prior distributions with finite support and the corresponding Bayes procedures were used to establish some of the main theorems relating to the comparison of experiments. Bayes procedures with respect to more general prior distributions have played a very important role in the development of statistics, including its asymptotic theory." "There are many problems where a glance at posterior distributions, for suitable priors, yields immediately interesting information. Also, this technique can hardly be avoided in sequential analysis." &#91;25&#93;
+• "A useful fact is that any Bayes decision rule obtained by taking a proper prior over the whole parameter space must be admissible" &#91;26&#93;
+• "An important area of investigation in the development of admissibility ideas has been that of conventional sampling-theory procedures, and many interesting results have been obtained." &#91;27&#93;
+
+Model selection
+
+• Main article: [Bayesian model selection](/Bayesian_model_selection)
+• See also: [Bayesian information criterion](/Bayesian_information_criterion)
+
+Bayesian methodology also plays a role in [model selection](/Model_selection) where the aim is to select one model from a set of competing models that represents most closely the underlying process that generated the observed data. In Bayesian model comparison, the model with the highest [posterior probability](/Posterior_probability) given the data is selected. The posterior probability of a model depends on the evidence, or [marginal likelihood](/Marginal_likelihood), which reflects the probability that the data is generated by the model, and on the [prior belief](/Prior_probability) of the model. When two competing models are a priori considered to be equiprobable, the ratio of their posterior probabilities corresponds to the [Bayes factor](/Bayes_factor). Since Bayesian model comparison is aimed on selecting the model with the highest posterior probability, this methodology is also referred to as the maximum a posteriori (MAP) selection rule &#91;28&#93; or the MAP probability rule. &#91;29&#93;
+
+Probabilistic programming
+
+• Main article: [Probabilistic programming](/Probabilistic_programming)
+
+While conceptually simple, Bayesian methods can be mathematically and numerically challenging. Probabilistic programming languages (PPLs) implement functions to easily build Bayesian models together with efficient automatic inference methods. This helps separate the model building from the inference, allowing practitioners to focus on their specific problems and leaving PPLs to handle the computational details for them. &#91;30&#93; &#91;31&#93; &#91;32&#93;
+
+Applications
+
+Statistical data analysis
+
+See the separate Wikipedia entry on [Bayesian statistics](/Bayesian_statistics), specifically the [statistical modeling](/Bayesian_statistics) section in that page.
+
+Computer applications
+
+Bayesian inference has applications in [artificial intelligence](/Artificial_intelligence) and [expert systems](/Expert_system). Bayesian inference techniques have been a fundamental part of computerized [pattern recognition](/Pattern_recognition) techniques since the late 1950s. &#91;33&#93; There is also an ever-growing connection between Bayesian methods and simulation-based [Monte Carlo](/Monte_Carlo_method) techniques since complex models cannot be processed in closed form by a Bayesian analysis, while a [graphical model](/Graphical_model) structure may allow for efficient simulation algorithms like the [Gibbs sampling](/Gibbs_sampling) and other [Metropolis–Hastings algorithm](/Metropolis%E2%80%93Hastings_algorithm) schemes. &#91;34&#93; Recently &#91;when?](/Wikipedia:Manual_of_Style/Dates_and_numbers) &#93; Bayesian inference has gained popularity among the [phylogenetics](/Phylogenetics) community for these reasons; a number of applications allow many demographic and evolutionary parameters to be estimated simultaneously.
+
+As applied to [statistical classification](/Statistical_classification), Bayesian inference has been used to develop algorithms for identifying [e-mail spam](/E-mail_spam). Applications which make use of Bayesian inference for spam filtering include [CRM114](/CRM114_(program)), DSPAM, [Bogofilter](/Bogofilter), [SpamAssassin](/SpamAssassin), [SpamBayes](/SpamBayes), [Mozilla](/Mozilla), XEAMS, and others. Spam classification is treated in more detail in the article on the [naïve Bayes classifier](/Na%C3%AFve_Bayes_classifier).
+
+[Solomonoff's Inductive inference](/Solomonoff%27s_theory_of_inductive_inference) is the theory of prediction based on observations; for example, predicting the next symbol based upon a given series of symbols. The only assumption is that the environment follows some unknown but computable [probability distribution](/Probability_distribution). It is a formal inductive framework that combines two well-studied principles of inductive inference: Bayesian statistics and [Occam's Razor](/Occam%27s_Razor). &#91;35&#93; &#91;unreliable source?](/Wikipedia:Reliable_sources) &#93; Solomonoff's universal prior probability of any prefix p of a computable sequence x is the sum of the probabilities of all programs (for a universal computer) that compute something starting with p . Given some p and any computable but unknown probability distribution from which x is sampled, the universal prior and Bayes' theorem can be used to predict the yet unseen parts of x in optimal fashion. &#91;36&#93; &#91;37&#93;
+
+Bioinformatics and healthcare applications
+
+Bayesian inference has been applied in different [bioinformatics](/Bioinformatics) applications, including differential gene expression analysis. &#91;38&#93; Bayesian inference is also used in a general cancer risk model, called [CIRI](/Continuous_Individualized_Risk_Index) (Continuous Individualized Risk Index), where serial measurements are incorporated to update a Bayesian model which is primarily built from prior knowledge. &#91;39&#93; &#91;40&#93;
+
+Cosmology and astrophysical applications
+
+The Bayesian approach has been central to recent progress in cosmology and astrophysical applications, &#91;41&#93; &#91;42&#93; and extends to a wide range of astrophysical problems, including the characterisation of exoplanet (such as the fitting of atmosphere for [k2-18b](/K2-18b) &#91;43&#93; ), parameter constraints with cosmological data, &#91;44&#93; and calibration in astrophysical experiments. &#91;45&#93;
+
+In cosmology, it is often employed with computational techniques such as [Markov chain Monte Carlo](/Markov_chain_Monte_Carlo)(MCMC) and [Nested sampling algorithm](/Nested_sampling_algorithm) to analyse complex datasets and navigate high-dimensional parameter space. A notable application is to the Planck 2018 CMB data for parameter inference. &#91;44&#93;
+The six base cosmological parameters in [Lambda-CDM model](/Lambda-CDM_model) are not predicted by a theory, but rather fitted from Cosmic microwave background (CMB) data to a chosen model of cosmology (the Lambda-CDM model). &#91;46&#93; The bayesian code for cosmology `cobaya` &#91;47&#93; sets up cosmological runs and interfaces cosmological likelihoods, Boltzmann code, &#91;48&#93; &#91;49&#93; which computes the predicted CMB anisotropies for any given set of cosmological parameters, with MCMC or nested sampler.
+
+This computational framework is not limited to the standard model, it is also essential for testing alternative or extended theories of cosmology, such as theories with early dark energy, &#91;50&#93; or modified gravity theories introducing additional parameters beyond Lambda-CDM. [Bayesian model comparison](/Bayesian_model_comparison) can then be employed to calculate the evidence for competing models, providing a statistical basis to assess whether the data support them over the standard Lambda-CDM. &#91;51&#93;
+
+In the courtroom
+
+• Main article: [Jurimetrics §&#160;Bayesian analysis of evidence](/Jurimetrics)
+
+Bayesian inference can be used by jurors to coherently accumulate the evidence for and against a defendant, and to see whether, in totality, it meets their personal threshold for "[beyond a reasonable doubt](/Beyond_a_reasonable_doubt)". &#91;52&#93; &#91;53&#93; &#91;54&#93; Bayes' theorem is applied successively to all evidence presented, with the posterior from one stage becoming the prior for the next. The benefit of a Bayesian approach is that it gives the juror an unbiased, rational mechanism for combining evidence. It may be appropriate to explain Bayes' theorem to jurors in [odds form](/Bayes%27_rule), as [betting odds](/Betting_odds) are more widely understood than probabilities. Alternatively, a [logarithmic approach](/Gambling_and_information_theory), replacing multiplication with addition, might be easier for a jury to handle.
+
+Adding up evidence
+
+If the existence of the crime is not in doubt, only the identity of the culprit, it has been suggested that the prior should be uniform over the qualifying population. &#91;55&#93; For example, if 1,000 people could have committed the crime, the prior probability of guilt would be 1/1000.
+
+The use of Bayes' theorem by jurors is controversial. In the United Kingdom, a defence [expert witness](/Expert_witness) explained Bayes' theorem to the jury in [R v Adams](/Regina_versus_Denis_John_Adams) . The jury convicted, but the case went to appeal on the basis that no means of accumulating evidence had been provided for jurors who did not wish to use Bayes' theorem. The Court of Appeal upheld the conviction, but it also gave the opinion that "To introduce Bayes' Theorem, or any similar method, into a criminal trial plunges the jury into inappropriate and unnecessary realms of theory and complexity, deflecting them from their proper task."
+
+Gardner-Medwin &#91;56&#93; argues that the criterion on which a verdict in a criminal trial should be based is not the probability of guilt, but rather the probability of the evidence, given that the defendant is innocent (akin to a [frequentist](/Frequentist) [p-value](/P-value)). He argues that if the posterior probability of guilt is to be computed by Bayes' theorem, the prior probability of guilt must be known. This will depend on the incidence of the crime, which is an unusual piece of evidence to consider in a criminal trial. Consider the following three propositions:
+
+A – the known facts and testimony could have arisen if the defendant is guilty.
+B – the known facts and testimony could have arisen if the defendant is innocent.
+C – the defendant is guilty.
+
+Gardner-Medwin argues that the jury should believe both A and not- B in order to convict. A and not- B implies the truth of C , but the reverse is not true. It is possible that B and C are both true, but in this case he argues that a jury should acquit, even though they know that they will be letting some guilty people go free. See also [Lindley's paradox](/Lindley%27s_paradox).
+
+Bayesian epistemology
+
+[Bayesian epistemology](/Bayesian_epistemology) is a movement that advocates for Bayesian inference as a means of justifying the rules of inductive logic.
+
+[Karl Popper](/Karl_Popper) and [David Miller](/David_Miller_(philosopher)) have rejected the idea of Bayesian rationalism, i.e. using Bayes rule to make epistemological inferences: &#91;57&#93; It is prone to the same [vicious circle](/Vicious_circle) as any other [justificationist](/Justificationism) epistemology, because it presupposes what it attempts to justify. According to this view, a rational interpretation of Bayesian inference would see it merely as a probabilistic version of [falsification](/Falsifiability), rejecting the belief, commonly held by Bayesians, that high likelihood achieved by a series of Bayesian updates would prove the hypothesis beyond any reasonable doubt, or even with likelihood greater than 0.
+
+Other
+
+• The [scientific method](/Scientific_method) is sometimes interpreted as an application of Bayesian inference. In this view, Bayes' rule guides (or should guide) the updating of probabilities about [hypotheses](/Hypothesis) conditional on new observations or [experiments](/Experiment). &#91;58&#93; The Bayesian inference has also been applied to treat [stochastic scheduling](/Stochastic_scheduling) problems with incomplete information by Cai et al. (2009). &#91;59&#93;
+• [Bayesian search theory](/Bayesian_search_theory) is used to search for lost objects.
+• [Bayesian inference in phylogeny](/Bayesian_inference_in_phylogeny)
+• [Bayesian tool for methylation analysis](/Bayesian_tool_for_methylation_analysis)
+• [Bayesian approaches to brain function](/Bayesian_approaches_to_brain_function) investigate the brain as a Bayesian mechanism.
+• Bayesian inference in ecological studies &#91;60&#93; &#91;61&#93;
+• Bayesian inference is used to estimate parameters in stochastic chemical kinetic models &#91;62&#93;
+• Bayesian inference in [econophysics](/Econophysics) for currency or prediction of trend changes in financial quotations &#91;63&#93;
+• [Bayesian inference in marketing](/Bayesian_inference_in_marketing)
+• [Bayesian inference in motor learning](/Bayesian_inference_in_motor_learning)
+• Bayesian inference is used in [probabilistic numerics](/Probabilistic_numerics) to solve numerical problems
+
+Bayes and Bayesian inference
+
+The problem considered by Bayes in Proposition&#160;9 of his essay, "[An Essay Towards Solving a Problem in the Doctrine of Chances](/An_Essay_Towards_Solving_a_Problem_in_the_Doctrine_of_Chances)", is the posterior distribution for the parameter a (the success rate) of the [binomial distribution](/Binomial_distribution). &#91;citation needed](/Wikipedia:Citation_needed) &#93;
+
+History
+
+• Main article: [History of statistics §&#160;Bayesian statistics](/History_of_statistics)
+
+The term Bayesian refers to [Thomas Bayes](/Thomas_Bayes) (1701–1761), who proved that probabilistic limits could be placed on an unknown event. &#91;64&#93; However, it was [Pierre-Simon Laplace](/Pierre-Simon_Laplace) (1749–1827) who introduced (as Principle VI) what is now called [Bayes' theorem](/Bayes%27_theorem) and used it to address problems in [celestial mechanics](/Celestial_mechanics), medical statistics, [reliability](/Reliability_(statistics)), and [jurisprudence](/Jurisprudence). &#91;65&#93; Early Bayesian inference, which used uniform priors following Laplace's [principle of insufficient reason](/Principle_of_insufficient_reason), was called "[inverse probability](/Inverse_probability)" (because it [infers](/Inductive_reasoning) backwards from observations to parameters, or from effects to causes &#91;66&#93; ). After the 1920s, "inverse probability" was largely supplanted by a collection of methods that came to be called [frequentist statistics](/Frequentist_statistics). &#91;66&#93;
+
+In the 20th century, the ideas of Laplace were further developed in two different directions, giving rise to objective and subjective currents in Bayesian practice. In the objective or "non-informative" current, the statistical analysis depends on only the model assumed, the data analyzed, &#91;67&#93; and the method assigning the prior, which differs from one objective Bayesian practitioner to another. In the subjective or "informative" current, the specification of the prior depends on the belief (that is, propositions on which the analysis is prepared to act), which can summarize information from experts, previous studies, etc.
+
+In the 1980s, there was a dramatic growth in research and applications of Bayesian methods, mostly attributed to the discovery of [Markov chain Monte Carlo](/Markov_chain_Monte_Carlo) methods, which removed many of the computational problems, and an increasing interest in nonstandard, complex applications. &#91;68&#93; Despite growth of Bayesian research, most undergraduate teaching is still based on frequentist statistics. &#91;69&#93; Nonetheless, Bayesian methods are widely accepted and used, such as for example in the field of [machine learning](/Machine_learning). &#91;70&#93;
+
+See also
+
+• [Bayesian approaches to brain function](/Bayesian_approaches_to_brain_function)
+• [Credibility theory](/Credibility_theory)
+• [Epistemology](/Epistemology)
+• [Free energy principle](/Free_energy_principle)
+• [Inductive probability](/Inductive_probability)
+• [Information field theory](/Information_field_theory)
+• [Principle of maximum entropy](/Principle_of_maximum_entropy)
+• [Probabilistic causation](/Probabilistic_causation)
+• [Probabilistic programming](/Probabilistic_programming)
+
+---
+
+**Bayesian Inference: A Statistical Saga of Belief and Evidence**
+
+Part of a series on [Bayesian statistics](/Bayesian_statistics)
+[Posterior](/Posterior_probability) = [Likelihood](/Likelihood_function) × [Prior](/Prior_probability) ÷ [Evidence](/Marginal_likelihood)
+
+**Background – The Ancestry of Uncertainty**
+
+Before delving into the mechanics, one must acknowledge the intellectual lineage. These aren't just isolated concepts; they are the fundamental underpinnings, the philosophical bedrock upon which the entire Bayesian edifice is constructed. Ignoring them is like trying to build a house without bothering with foundations – possible, but ill-advised for anything beyond a temporary shelter.
+
+*   [Bayesian inference](/Bayesian_inference) (The current, often misunderstood, protagonist of our tale)
+*   [Bayesian probability](/Bayesian_probability) (The very language of belief, quantified)
+*   [Bayes' theorem](/Bayes%27_theorem) (The elegant engine driving the entire process)
+*   [Bernstein–von Mises theorem](/Bernstein%E2%80%93von_Mises_theorem) (A promise of asymptotic wisdom, if you're patient enough)
+*   [Coherence](/Coherence_(philosophical_gambling_strategy)) (Ensuring your beliefs don't lead to predictable financial ruin)
+*   [Cox's theorem](/Cox%27s_theorem) (A logical justification for using probability theory at all)
+*   [Cromwell's rule](/Cromwell%27s_rule) (A stern warning against absolute certainty, or rather, the lack thereof)
+*   [Likelihood principle](/Likelihood_principle) (What you observe *now* matters most, a rather inconvenient truth for some)
+*   [Principle of indifference](/Principle_of_indifference) (When you have no idea, assume everything is equally likely. A comforting, if often naive, starting point)
+*   [Principle of maximum entropy](/Principle_of_maximum_entropy) (Choosing the least presumptuous prior – for when you want to be as uninformed as possible, but in a mathematically rigorous way)
+
+**Model Building – The Architect's Blueprint**
+
+Once the philosophical groundwork is laid, one must move to the practicalities: constructing the frameworks that allow these abstract principles to interact with messy, real-world data. This is where the art of model specification truly begins, demanding both intuition and a rigorous understanding of the underlying stochastic processes.
+
+*   [Conjugate prior](/Conjugate_prior) (A mathematician's delightful shortcut, making life easier for those who prefer closed-form solutions)
+*   [Linear regression](/Bayesian_linear_regression) (Applying Bayesian thinking to the humble straight line, and its more complex cousins)
+*   [Empirical Bayes](/Empirical_Bayes_method) (When your prior needs a little nudge from the data itself, a compromise for the pragmatist)
+*   [Hierarchical model](/Bayesian_hierarchical_modeling) (For when your data has layers, like an onion, or a particularly complex psychological defense mechanism)
+
+**Posterior Approximation – When Exactitude is a Luxury**
+
+In an imperfect world, perfect solutions are rare. When the elegant equations become intractable, which is most of the time outside of textbooks, we resort to a sophisticated form of educated guessing. These methods are not concessions to weakness, but rather cunning strategies to navigate the computational wilderness.
+
+*   [Markov chain Monte Carlo](/Markov_chain_Monte_Carlo) (The workhorse of modern Bayesian computation, a tireless explorer of high-dimensional spaces)
+*   [Laplace's approximation](/Laplace%27s_approximation) (A Gaussian bandage for complex posterior distributions)
+*   [Integrated nested Laplace approximations](/Integrated_nested_Laplace_approximations) (A more refined bandage, for when the simple one isn't quite enough)
+*   [Variational inference](/Variational_Bayesian_methods) (Turning an intractable integral into an optimization problem, because sometimes it's easier to find a good enough answer than the perfect one)
+*   [Approximate Bayesian computation](/Approximate_Bayesian_computation) (When likelihoods are a nightmare, simulating rather than calculating)
+
+**Estimators – The Quest for a Single Number**
+
+After all the probabilistic machinations, the human mind often craves a definitive answer, a single point of truth amidst the swirling distributions. These 'estimators' are our attempts to distill complex beliefs into digestible, if sometimes overly simplistic, figures.
+
+*   [Bayesian estimator](/Bayesian_estimator) (The general term for these distilled beliefs)
+*   [Credible interval](/Credible_interval) (The Bayesian counterpart to confidence intervals, offering a more intuitive range of belief)
+*   [Maximum a posteriori estimation](/Maximum_a_posteriori_estimation) (Finding the 'most likely' parameter value, a compromise between prior belief and observed data)
+
+**Evidence Approximation – Taming the Denominator**
+
+The denominator in Bayes' theorem, the 'evidence,' often proves to be the most challenging beast to tame. It's a normalizing constant, yes, but its calculation can be a computational nightmare, necessitating its own suite of approximations.
+
+*   [Evidence lower bound](/Evidence_lower_bound) (A clever way to approximate the evidence by finding a more manageable lower limit)
+*   [Nested sampling](/Nested_sampling_algorithm) (An elegant method for estimating the evidence, particularly useful in high-dimensional spaces)
+
+**Model Evaluation – Judging the Statistical Constructs**
+
+Having built and estimated, one must, of course, judge the quality of the creation. How well does our statistical model genuinely reflect the underlying reality? These tools help us decide if our carefully constructed narratives hold up under scrutiny.
+
+*   [Bayes factor](/Bayes_factor) ([Schwarz criterion](/Bayesian_information_criterion)) (A quantitative measure of how much the evidence shifts our belief from one model to another, a rather direct form of model comparison)
+*   [Model averaging](/Bayesian_model_averaging) (Why choose one? Average them all, a democratic approach to uncertainty)
+*   [Posterior predictive](/Posterior_predictive_distribution) (Testing the model's ability to predict new, unseen data – the ultimate test of its utility)
+
+• [Mathematics&#32;portal](/Portal:Mathematics)
+• v
+• t
+• e
+
+[Bayesian inference](/Bayesian_inference) ([/ˈbeɪziən/](/Help:IPA/English) BAY-zee-ən or [/ˈbeɪʒən/](/Help:IPA/English) BAY-zhən ) &#91;1&#93; is a sophisticated yet fundamentally intuitive method of [statistical inference](/Statistical_inference) that redefines how we approach uncertainty. Instead of merely describing observed data, it actively incorporates existing knowledge or beliefs to refine our understanding of hypotheses. At its core, it leverages [Bayes' theorem](/Bayes%27_theorem) to meticulously calculate and then update the probability of a given [hypothesis](/Hypothesis) in light of new [evidence](/Evidence). This isn't just a static calculation; it's a dynamic, iterative process where our understanding evolves as more [information](/Information) becomes available. Fundamentally, Bayesian inference uses a [prior distribution](/Prior_probability)—representing our initial state of knowledge or belief—to systematically estimate and transform these into [posterior probabilities](/Posterior_probability), which reflect our updated beliefs after observing data.
+
+This technique is not merely a statistical curiosity; it stands as an exceptionally important methodology within the broader field of [statistics](/Statistics), holding particular prominence in the more theoretically rigorous domain of [mathematical statistics](/Mathematical_statistics). The iterative nature of Bayesian updating, where each new piece of data informs the next step in the analysis, makes it especially valuable in the [dynamic analysis of a sequence of data](/Sequential_analysis). One might even say it's designed for a world where knowledge is rarely complete and constantly in flux.
+
+The reach of Bayesian inference is remarkably extensive, having found profound application across a wide spectrum of human endeavors. From the precise methodologies of [science](/Science) and the practical problem-solving of [engineering](/Engineering), to the abstract reasoning of [philosophy](/Philosophy), the critical diagnostics of [medicine](/Medicine), the unpredictable strategies of [sport](/Sport), and even the rigid structures of [law](/Law)—Bayesian inference has proven its utility. In the philosophical domain of [decision theory](/Decision_theory), it is so intimately intertwined with the concept of subjective probability that the latter is often simply referred to as "[Bayesian probability](/Bayesian_probability)". It's almost as if, after centuries of pretending otherwise, humanity finally decided to quantify its inherent biases and call it 'progress.'
+
+**Introduction to Bayes' Rule – The Fundamental Recalibration**
+
+Ah, the core of it all, presented with an almost charming simplicity. A 'geometric visualisation' is offered, presumably for those who prefer their profound mathematical truths to be illustrated with shaded boxes. This diagram, a rather basic [contingency table](/Contingency_table) in disguise, uses arbitrary values (2, 3, 6, and 9) to represent the 'relative weights' of various conditions and cases. These figures, it asserts, define the cells of the table, with probability being merely the fraction of each figure that is shaded. It's an attempt to make the abstract concrete, translating the dance of probabilities into something visually digestible.
+
+The diagram elegantly, if somewhat verbosely, illustrates the fundamental identity:
+$P(A|B)P(B)=P(B|A)P(A)$
+
+This identity, a cornerstone of probability theory, simply states that the probability of both A and B occurring can be expressed in two symmetric ways. Rearranging this yields the more commonly recognized form, the very essence of the Bayesian update:
+
+$P(A|B)={\frac {P(B|A)P(A)}{P(B)}}$
+
+This equation is where the magic, or rather, the rigorous logic, happens. It dictates precisely how your belief in hypothesis A should change once you observe event B. And, for those who appreciate thoroughness, or perhaps enjoy the intellectual exercise, analogous reasoning can be applied to the [logical negation](/Logical_negation) of A, denoted as $\neg A$, leading to:
+
+$P(\neg A|B)={\frac {P(B|\neg A)P(\neg A)}{P(B)}}$
+
+...and so forth for other competing hypotheses. If this brief glimpse into the mechanism piques your interest, a deeper dive into the intricacies and implications can be found in the [main article on Bayes' theorem](/Bayes%27_theorem) or in the broader philosophical discussion surrounding [Bayesian probability](/Bayesian_probability). Don't say you weren't warned; these concepts have a way of unraveling one's preconceptions about certainty.
+
+**Formal Explanation – The Anatomy of Belief Updating**
+
+To truly grasp [Bayesian inference](/Bayesian_inference), one must confront its formal structure. It is, after all, a rigorous mathematical framework, not merely a philosophical inclination. The process meticulously constructs the [posterior probability](/Posterior_probability) not from thin air, but as a direct [consequence](/Consequence_relation) of two critical [antecedents](/Antecedent_(logic)): the [prior probability](/Prior_probability) (what we believed *before* seeing the data) and a precisely defined "[likelihood function](/Likelihood_function)" (how well the data aligns with our hypothesis under a given [statistical model](/Statistical_model)).
+
+The heart of this formal description is, inevitably, [Bayes' theorem](/Bayes%27_theorem) itself, which dictates the precise computation of the posterior probability:
+
+$P(H\mid E)={\frac {P(E\mid H)\cdot P(H)}{P(E)}},$
+
+Let's dissect this elegant, yet deceptively simple, expression:
+
+*   **H** represents any [hypothesis](/Hypothesis) whose probability is subject to the influence of new [data](/Experimental_data), often referred to as 'evidence'. In most real-world scenarios, we are not dealing with a single hypothesis in isolation but a set of competing hypotheses, and the objective is to discern which one holds the highest probability given the observed information.
+*   **$P(H)$**, known as the [prior probability](/Prior_probability), is your initial, pre-data estimate of the likelihood of hypothesis H being true. It embodies all existing knowledge, intuition, or even educated guesses available *before* the new evidence E is taken into account. This is where the 'subjective' aspect of Bayesianism sometimes draws ire, as this prior can be influenced by expert opinion or historical data, rather than being purely derived from the current experiment.
+*   **E**, the [evidence](/Evidence), is the newly observed data. Crucially, this data must be distinct from any information already incorporated into the prior probability $P(H)$. It is the fresh input that prompts a re-evaluation of our beliefs.
+*   **$P(H\mid E)$**, the coveted [posterior probability](/Posterior_probability), is the updated probability of hypothesis H *after* observing the evidence E. This is the ultimate goal of Bayesian inference: to provide a refined, data-informed probability for our hypothesis. It reflects how our belief in H has shifted in light of what we've just learned from the world.
+*   **$P(E\mid H)$** is the [likelihood](/Likelihood_function). This term represents the probability of observing the evidence E *if* the hypothesis H were true. When viewed as a function of E (with H fixed), it quantifies the compatibility or 'fit' of the observed evidence with the given hypothesis. It's a measure of how well your hypothesis predicts the data you actually saw. It's important to distinguish that while the likelihood function is a function of the evidence E, the posterior probability is a function of the hypothesis H.
+*   **$P(E)$** is often referred to as the [marginal likelihood](/Marginal_likelihood) or, more evocatively, the "model evidence." This is the overall probability of observing the evidence E, irrespective of any particular hypothesis. Critically, this factor acts as a normalizing constant. Since it's the same for all competing hypotheses within a given model comparison (as H does not appear in its notation), it doesn't influence the *relative* probabilities between different hypotheses. However, its calculation is often the most computationally demanding part of Bayesian inference, as it requires integrating over all possible parameter values.
+*   A trivial, yet essential, condition is that **$P(E)>0$**. If the probability of observing the evidence is zero, then the denominator becomes zero, leading to an undefined $0/0$ expression, and rendering the theorem inapplicable. Observing impossible data, it seems, breaks the math.
+
+For differing hypotheses H, it becomes evident that only the terms $P(H)$ (the initial inherent likeliness) and $P(E\mid H)$ (the compatibility with new evidence), both residing in the numerator, directly influence the value of $P(H\mid E)$. In essence, the updated belief in a hypothesis is directly proportional to its initial plausibility, amplified by how well it explains the new observations. It's a constant dialogue between what you thought and what you've seen.
+
+In scenarios where we consider not just a hypothesis H, but also its [logical negation](/Logical_negation), $\neg H$ ("not H"), Bayes' rule can be expanded into a more explicit form, allowing for a direct comparison between H and its alternative. This formulation is particularly useful when dealing with binary outcomes or choices between two distinct states:
+
+${\begin{aligned}P(H\mid E)&={\frac {P(E\mid H)P(H)}{P(E)}}\\\\&={\frac {P(E\mid H)P(H)}{P(E\mid H)P(H)+P(E\mid \neg H)P(\neg H)}}\\\\&={\frac {1}{1+\left({\frac {1}{P(H)}}-1\right){\frac {P(E\mid \neg H)}{P(E\mid H)}}}}\\\end{aligned}}$
+
+This expansion is possible because the total probability of the evidence $P(E)$ can be decomposed using the [law of total probability](/Law_of_total_probability) across the mutually exclusive and exhaustive states of H and $\neg H$:
+
+$P(E)=P(E\mid H)P(H)+P(E\mid \neg H)P(\neg H)$
+
+and, by definition, the probabilities of a hypothesis and its negation sum to one:
+
+$P(H)+P(\neg H)=1.$
+
+This detailed breakdown illuminates a particularly insightful term:
+
+$\left({\tfrac {1}{P(H)}}-1\right){\tfrac {P(E\mid \neg H)}{P(E\mid H)}}.$
+
+This factor serves as a critical indicator for how much the evidence sways our belief. If this term is approximately 1, it implies that the posterior probability $P(H\mid E)$ hovers around ${\tfrac {1}{2}}$, signifying that the hypothesis H is roughly as likely as its negation—a state of statistical indecision. Should this term be very small, approaching zero, it signals a strong endorsement of H, pushing $P(H\mid E)$ close to 1, indicating the hypothesis is highly probable given the evidence. Conversely, a very large term (much greater than 1) suggests the hypothesis H is quite improbable in light of the evidence. Furthermore, if the initial hypothesis $P(H)$ is inherently improbable (small, but not zero), then ${\tfrac {1}{P(H)}}$ becomes significantly large, simplifying the term to approximately ${\tfrac {P(E\mid \neg H)}{P(E\mid H)\cdot P(H)}}$, allowing for a more direct comparison of the likelihoods and the prior. It's a quantitative measure of just how much the universe is trying to tell you that you might be wrong, or, less frequently, right.
+
+For those who prefer a more succinct mnemonic, the equation can be effortlessly recalled by invoking the fundamental [rule of multiplication](/Conditional_probability) for probabilities, which elegantly connects joint probabilities with conditional ones:
+
+$P(E\cap H)=P(E\mid H)P(H)=P(H\mid E)P(E).$
+
+This identity is a testament to the symmetric nature of joint events, making the derivation of Bayes' rule a simple algebraic rearrangement.
+
+**Alternatives to Bayesian Updating – The Road Not Always Taken**
+
+While [Bayesian updating](/Bayesian_inference) is undeniably pervasive and offers a computational elegance that makes it highly attractive, it is not, contrary to popular assumption, the *only* updating rule that one might logically consider rational. The universe, it turns out, offers more than one path to statistical enlightenment, even if some paths are less trodden.
+
+[Ian Hacking](/Ian_Hacking), with his characteristic philosophical rigor, famously observed that even the venerable "[Dutch book](/Dutch_book)" arguments—designed to demonstrate the irrationality of inconsistent probabilistic beliefs—did not exclusively mandate Bayesian updating. His work highlighted that alternative, non-Bayesian updating rules could still successfully evade the dreaded Dutch book scenario, where an agent's inconsistent beliefs could be exploited for certain financial loss. Hacking's rather pointed commentary, found in his 1967 paper, is quite telling: &#91;2&#93; "And neither the Dutch book argument nor any other in the personalist arsenal of proofs of the probability axioms entails the dynamic assumption. Not one entails Bayesianism. So the personalist requires the dynamic assumption to be Bayesian. It is true that in consistency a personalist could abandon the Bayesian model of learning from experience. Salt could lose its savour." A rather stark reminder that even statistical dogma has its philosophical cracks.
+
+Indeed, the literature on "[probability kinematics](/Probability_kinematics)" details several non-Bayesian updating rules that, commendably, also manage to avoid Dutch books. A notable example emerged following the influential work of [Richard C.&#160;Jeffrey](/Richard_C._Jeffrey), whose rule extends Bayes' rule to situations where the evidence itself is not a certainty but is instead assigned a probability. &#91;3&#93; This acknowledges that our observations are often themselves uncertain, a nuance that simple Bayesian updating doesn't explicitly handle without additional modeling. The consensus among some critics is that the additional, often quite substantial and intricate, hypotheses required to *uniquely* enforce Bayesian updating as the *sole* rational choice are, frankly, often considered unsatisfactory. &#91;4&#93; It seems the quest for a single, universally mandated path to rational belief updating is as elusive as ever.
+
+**Inference Over Exclusive and Exhaustive Possibilities – The Whole Picture**
+
+When confronted with a scenario where evidence influences belief across a complete and mutually exclusive set of propositions—meaning the universe must exist in one of these states, and only one—[Bayesian inference](/Bayesian_inference) transcends mere individual probability updates. Instead, it can be conceptualized as a holistic operation acting upon the entire distribution of belief. It's not just about nudging one belief, but intelligently re-sculpting the entire landscape of possibilities.
+
+**General Formulation – The Universal Update Mechanism**
+
+Consider a process that relentlessly churns out a sequence of [independent and identically distributed](/Independent_and_ identically_distributed) events, denoted as $E_{n},\ n=1,2,3,\ldots$. The catch, of course, is that the underlying [probability distribution](/Probability_distribution) governing this process remains stubbornly unknown. Let $\Omega$ serve as our conceptual [event space](/Event_space), representing the current aggregate state of belief regarding this mysterious process. Within this space, each potential 'model' of the process is represented by an event $M_{m}$.
+
+To define these models, we specify the conditional probabilities $P(E_{n}\mid M_{m})$, which articulate the likelihood of observing a particular event $E_n$ given that a specific model $M_m$ is true. Our initial [degree of belief](/Credence_(statistics)) in any given model $M_m$ is quantified by $P(M_{m})$. Before any new data arrives, the collection $\{P(M_{m})\}$ constitutes our set of initial [prior probabilities](/Prior_probability). These priors, while ultimately arbitrary in their initial assignment, are constrained by the fundamental rule that they must collectively sum to 1, representing a complete, if potentially uninformed, allocation of belief across all possible models.
+
+Now, imagine the process reveals a new observation, $E\in \{E_{n}\}$. For every model $M\in \{M_{m}\}$ within our consideration, its prior belief $P(M)$ undergoes a transformation, updating to a new [posterior probability](/Posterior_probability) $P(M\mid E)$. This update is performed, as always, according to the immutable logic of [Bayes' theorem](/Bayes%27_theorem): &#91;5&#93;
+
+$P(M\mid E)={\frac {P(E\mid M)}{\sum _{m}{P(E\mid M_{m})P(M_{m})}}}\cdot P(M).$
+
+The power of this formulation lies in its iterative nature. As further evidence unfolds, this entire procedure can be seamlessly repeated, with the newly calculated posterior probabilities becoming the priors for the next round of observation. It's a continuous, self-correcting cycle of learning, perpetually refining our understanding of the unknown.
+
+**Multiple Observations – Compounding the Evidence**
+
+When dealing with a series of distinct observations, say $\mathbf {E} =(e_{1},\dots ,e_{n})$, which are themselves [independent and identically distributed](/Independent_and_identically_distributed), the repeated application of the general Bayesian updating procedure can be elegantly compressed. Through a straightforward inductive argument, it can be demonstrated that the cumulative effect of these multiple observations is equivalent to a single, comprehensive update using the product of the individual likelihoods. The updated posterior probability for a model M, given the entire sequence of observations $\mathbf{E}$, is thus:
+
+$P(M\mid \mathbf {E} )={\frac {P(\mathbf {E} \mid M)}{\sum _{m}{P(\mathbf {E} \mid M_{m})P(M_{m})}}}\cdot P(M),$
+
+where the combined likelihood of observing the entire sequence $\mathbf{E}$ given model M is simply the product of the individual likelihoods for each observation:
+
+$P(\mathbf {E} \mid M)=\prod _{k}{P(e_{k}\mid M)}.$
+
+This multiplicative property for independent observations is a considerable computational advantage, simplifying what could otherwise be a tedious, sequential recalculation. It efficiently aggregates the evidential weight of multiple data points into a single, decisive update.
+
+**Parametric Formulation: Motivating the Formal Description – The Continuum of Belief**
+
+To move beyond discrete models and embrace the nuanced world of continuous variables, we introduce the concept of parameterization. By mapping the vast landscape of possible models onto a continuous 'parameter space,' our belief in all conceivable models can be updated in a single, elegant stroke. Consequently, the distribution of belief, once scattered across distinct models, transforms into a continuous distribution of belief over this very parameter space. While the examples in this section are typically presented using continuous probability densities – reflecting the more common scenario – it's crucial to remember that the underlying technique remains equally applicable to discrete distributions, merely requiring summation instead of integration.
+
+Let ${\boldsymbol {\theta }}$ represent a vector that spans this continuous parameter space, embodying all possible configurations of our model's underlying characteristics. Our initial state of knowledge about these parameters is captured by the prior distribution $p({\boldsymbol {\theta }}\mid {\boldsymbol {\alpha }})$, where ${\boldsymbol {\alpha }}$ is itself a set of parameters for the prior distribution, often referred to as [hyperparameters](/Hyperparameter_(Bayesian_statistics)). Now, suppose we observe a sequence of [independent and identically distributed](/Independent_and_identically_distributed_random_variables) events, $\mathbf {E} =(e_{1},\dots ,e_{n})$, where each individual observation $e_{i}$ is drawn from a distribution $p(e\mid {\boldsymbol {\theta }})$ that depends on some specific, yet unknown, parameter vector ${\boldsymbol {\theta }}$.
+
+The venerable [Bayes' theorem](/Bayes%27_theorem) is then invoked to derive the [posterior distribution](/Posterior_distribution) over ${\boldsymbol {\theta }}$, which reflects our updated belief about these parameters in light of the observed data $\mathbf{E}$:
+
+${\begin{aligned}p({\boldsymbol {\theta }}\mid \mathbf {E} ,{\boldsymbol {\alpha }})&={\frac {p(\mathbf {E} \mid {\boldsymbol {\theta }},{\boldsymbol {\alpha }})}{p(\mathbf {E} \mid {\boldsymbol {\alpha }})}}\cdot p({\boldsymbol {\theta }}\mid {\boldsymbol {\alpha }})\\&={\frac {p(\mathbf {E} \mid {\boldsymbol {\theta }},{\boldsymbol {\alpha }})}{\int p(\mathbf {E} \mid {\boldsymbol {\theta }},{\boldsymbol {\alpha }})p({\boldsymbol {\theta }}\mid {\boldsymbol {\alpha }})\,d{\boldsymbol {\theta }}}}\cdot p({\boldsymbol {\theta }}\mid {\boldsymbol {\alpha }}),\end{aligned}}$
+
+In this expression, the likelihood of the entire sequence of observations $\mathbf{E}$ given the parameter vector ${\boldsymbol {\theta }}$ (and implicitly, the hyperparameters ${\boldsymbol {\alpha }}$ which define the prior) is, due to the independence of observations, the product of the individual likelihoods:
+
+$p(\mathbf {E} \mid {\boldsymbol {\theta }},{\boldsymbol {\alpha }})=\prod _{k}p(e_{k}\mid {\boldsymbol {\theta }}).$
+
+This parametric formulation transforms the discrete model selection problem into one of continuous parameter estimation, offering a powerful framework for nuanced statistical analysis.
+
+**Formal Description of Bayesian Inference – The Rigorous Framework**
+
+To truly appreciate the machinery of [Bayesian inference](/Bayesian_inference), one must understand its formal definitions. These aren't mere pedantry; they are the precise components that allow for rigorous mathematical treatment and the systematic updating of belief.
+
+**Definitions**
+
+Let's establish the cast of characters in this statistical drama:
+
+*   **$x$**: A generic data point. In practice, this can frequently be a [vector](/Random_vector) of observed values, encapsulating multiple measurements or features.
+*   **$\theta$**: The [parameter](/Parameter) (or set of parameters) that defines the [probability distribution](/Probability_distribution) from which the data point $x$ is assumed to originate, i.e., $x\sim p(x\mid \theta)$. This, too, can be a [vector](/Random_vector) of parameters, representing the multifaceted nature of the underlying process.
+*   **$\alpha$**: The [hyperparameter](/Hyperparameter_(Bayesian_statistics)) (or vector of hyperparameters) that governs the distribution of the parameter $\theta$, i.e., $\theta \sim p(\theta \mid \alpha)$. These hyperparameters essentially define our prior knowledge about the parameters themselves, adding another layer to our model.
+*   **$\mathbf {X}$**: The observed sample, comprising a collection of $n$ individual data points, $x_{1},\ldots ,x_{n}$. This is the raw material, the 'evidence' that drives our inference.
+*   **${\tilde {x}}$**: A hypothetical new data point, distinct from those already observed, whose distribution we aim to [predict](/Prediction). This is the target of our predictive efforts.
+
+**Bayesian inference**
+
+With these definitions in place, we can formally articulate the key distributions that define Bayesian inference:
+
+*   **The [prior distribution](/Prior_distribution)**: This is our initial assessment, the distribution of the parameter(s) $\theta$ *before* any new data $\mathbf{X}$ has been observed. It is formally expressed as $p(\theta \mid \alpha)$. The selection of an appropriate prior can be a delicate matter. When explicit prior information is scarce or ambiguous, one might resort to methods like the [Jeffreys prior](/Jeffreys_prior), which aims to be 'non-informative' in a specific sense, providing a baseline distribution before the influence of new observations.
+*   **The [sampling distribution](/Sampling_distribution)**: This describes the probability of observing the data $\mathbf{X}$ given specific values of the parameter(s) $\theta$. It is written as $p(\mathbf {X} \mid \theta)$. This distribution is often referred to as the [likelihood](/Likelihood_function), particularly when viewed as a function of the parameter(s) $\theta$ for fixed observed data $\mathbf{X}$. In this context, it is commonly denoted as $\operatorname {L} (\theta \mid \mathbf {X} )=p(\mathbf {X} \mid \theta)$. It quantifies how well the chosen parameter values explain the observed data.
+*   **The [marginal likelihood](/Marginal_likelihood)**: Also sometimes termed the "evidence," this is the overall probability of observing the data $\mathbf{X}$ after accounting for all possible values of the parameter(s) $\theta$. It is obtained by [marginalizing](/Marginal_distribution) (integrating) the product of the likelihood and the prior over the entire parameter space: $p(\mathbf {X} \mid \alpha )=\int p(\mathbf {X} \mid \theta )p(\theta \mid \alpha )d\theta$. This term holds significant conceptual weight, as it quantifies the inherent agreement between the observed data and the expert's initial opinion or the chosen model, in a way that can be precisely understood geometrically. &#91;6&#93; A marginal likelihood of 0 indicates a fundamental incompatibility between the data and the prior beliefs, rendering Bayes' rule inapplicable in that scenario.
+*   **The [posterior distribution](/Posterior_distribution)**: This is the ultimate output of Bayesian inference—the updated distribution of the parameter(s) $\theta$ *after* incorporating the observed data $\mathbf{X}$. It is derived directly from [Bayes' rule](/Bayes%27_rule), forming the very core of the Bayesian paradigm:
+    $p(\theta \mid \mathbf {X} ,\alpha )={\frac {p(\theta ,\mathbf {X} ,\alpha )}{p(\mathbf {X} ,\alpha )}}={\frac {p(\mathbf {X} \mid \theta ,\alpha )p(\theta ,\alpha )}{p(\mathbf {X} \mid \alpha )p(\alpha )}}={\frac {p(\mathbf {X} \mid \theta ,\alpha )p(\theta \mid \alpha )}{p(\mathbf {X} \mid \alpha )}}\propto p(\mathbf {X} \mid \theta ,\alpha )p(\theta \mid \alpha ).$
+    In plain language, this translates to the succinct mantra: "posterior is proportional to likelihood times prior." Or, for the truly meticulous, "posterior equals likelihood times prior, divided by the evidence." This distribution encapsulates all available information about the parameters, both from prior knowledge and from the observed data.
+*   **Practical Challenges**: It must be acknowledged that for the vast majority of complex Bayesian models employed in fields like machine learning, obtaining the posterior distribution $p(\theta \mid \mathbf {X} ,\alpha )$ in a neat, [closed-form expression](/Closed-form_expression) is a rare luxury. This intractability often arises because the parameter space for $\theta$ can be exceedingly high-dimensional, or because the Bayesian model incorporates intricate hierarchical structures that link observations $\mathbf{X}$ to parameters $\theta$ in non-trivial ways. In such computationally demanding situations, one must inevitably turn to sophisticated approximation techniques, such as those discussed in the 'Posterior Approximation' section. &#91;7&#93;
+*   **General Case and Foundations**: More broadly, let $P_{Y}^{x}$ denote the conditional distribution of $Y$ given $X=x$, and $P_{X}$ represent the distribution of $X$. Their joint distribution is then $P_{X,Y}(dx,dy)=P_{Y}^{x}(dy)P_{X}(dx)$. The conditional distribution $P_{X}^{y}$ of $X$ given $Y=y$ is subsequently determined by $P_{X}^{y}(A)=E(1_{A}(X)|Y=y)$. The mathematical guarantee for the existence and uniqueness of this crucial [conditional expectation](/Conditional_expectation) is a direct consequence of the profound [Radon–Nikodym theorem](/Radon%E2%80%93Nikodym_theorem). This foundational aspect was articulated by [Andrey Kolmogorov](/Andrey_Kolmogorov) in his seminal 1933 work, where he emphasized the critical role of conditional probability. &#91;8&#93; While Bayes' theorem defines the posterior from the prior, the uniqueness of this determination often requires certain continuity assumptions. &#91;9&#93; Furthermore, the theorem is robust enough to be generalized to incorporate so-called 'improper prior distributions,' such as a uniform distribution across the entire real line, which technically do not integrate to one. &#91;10&#93; The advent of modern [Markov chain Monte Carlo](/Markov_chain_Monte_Carlo) methods has dramatically amplified the practical significance of Bayes' theorem, even extending its utility to these cases involving improper priors, showcasing its enduring adaptability. &#91;11&#93;
+
+**Bayesian Prediction – Gazing into the Future (with Probabilities)**
+
+Beyond merely updating beliefs about parameters, Bayesian inference provides a powerful framework for making predictions about future, unobserved data. This is not about crystal balls, but about rigorously propagating uncertainty.
+
+*   **The [posterior predictive distribution](/Posterior_predictive_distribution)**: This distribution represents the probability of a new, unseen data point ${\tilde {x}}$, taking into account all the information gleaned from the observed data $\mathbf{X}$ and the hyperparameters $\alpha$. It is obtained by marginalizing (integrating) the likelihood of the new data point over the entire posterior distribution of the parameters: $p({\tilde {x}}\mid \mathbf {X} ,\alpha )=\int p({\tilde {x}}\mid \theta )p(\theta \mid \mathbf {X} ,\alpha )d\theta$. This is the Bayesian way of predicting: not a single guess, but a full distribution of possibilities.
+*   **The [prior predictive distribution](/Prior_predictive_distribution)**: For completeness, this is the distribution of a new data point, but marginalized over the *prior* distribution of the parameters: $p({\tilde {x}}\mid \alpha )=\int p({\tilde {x}}\mid \theta )p(\theta \mid \alpha )d\theta$. It represents our prediction before any specific data $\mathbf{X}$ has been observed, solely based on our initial beliefs about the parameters.
+
+The very essence of Bayesian theory demands the utilization of the [posterior predictive distribution](/Posterior_predictive_distribution) for all [predictive inference](/Predictive_inference). This means that instead of offering a singular, fixed point as a prediction—a common practice in other statistical paradigms—Bayesian methods yield a rich distribution over all possible future points. This comprehensive approach ensures that the *entire* posterior distribution of the parameter(s), with all its nuances and uncertainties, is fully incorporated into the prediction.
+
+Contrast this with the typical approach in [frequentist statistics](/Frequentist_statistics). There, prediction often involves a two-step process: first, finding an 'optimal' point estimate for the parameter(s) (e.g., via [maximum likelihood](/Maximum_likelihood) estimation or [maximum a posteriori estimation](/Maximum_a_posteriori_estimation) (MAP), which, ironically, has Bayesian roots). Second, this single point estimate is then unceremoniously plugged into the formula for the data point's distribution to generate a prediction. The inherent flaw in this frequentist strategy is that it completely disregards any remaining uncertainty in the *value* of the parameter itself. Consequently, this approach will almost invariably underestimate the true [variance](/Variance) of the predictive distribution, leading to overconfident, and potentially misleading, predictions.
+
+While frequentist statistics sometimes manages to circumvent this issue in specific, well-behaved scenarios—for instance, when constructing [confidence intervals](/Confidence_interval) and [prediction intervals](/Prediction_interval) for a [normal distribution](/Normal_distribution) with unknown [mean](/Mean) and [variance](/Variance) by cleverly employing a [Student's t-distribution](/Student%27s_t-distribution)—these are often special cases. This particular success is attributed to two key facts: (1) the average of normally distributed random variables also follows a normal distribution, and (2) the predictive distribution of a normally distributed data point with unknown mean and variance, when using conjugate or uninformative priors, naturally results in a Student's t-distribution. However, the true strength of Bayesian statistics lies in its generality: the posterior predictive distribution can *always* be determined exactly, or, when analytical solutions are elusive, to an arbitrary level of precision through numerical methods. This robustness means that Bayesian predictions inherently account for parameter uncertainty, offering a more honest and complete picture of future possibilities.
+
+Both the prior and posterior predictive distributions, intriguingly, manifest as a form of [compound probability distribution](/Compound_probability_distribution)—a characteristic also shared by the [marginal likelihood](/Marginal_likelihood). A particularly elegant simplification arises when the prior distribution chosen is a [conjugate prior](/Conjugate_prior). In such fortunate circumstances, where the prior and posterior distributions belong to the same family, it naturally follows that both the prior and posterior predictive distributions will also belong to the same family of compound distributions. The distinction then merely lies in the specific values of the hyperparameters: the posterior predictive distribution employs the updated hyperparameter values derived from the Bayesian update rules (as detailed in the [conjugate prior](/Conjugate_prior) article), while the prior predictive distribution, naturally, utilizes the initial hyperparameter values from the prior distribution. It's a testament to the inherent mathematical harmony that these chosen distributions can offer.
+
+**Mathematical Properties – The Inner Workings**
+
+*(Note: The original section included a boilerplate message about lacking inline citations. While Emma would likely scoff at the bureaucratic insistence, as an AI, I must adhere to the directive to preserve content. I will not remove this message, but rather integrate it with a characteristic Emma-esque tone, framing it as an observation on human fallibility in documentation.)*
+
+This section, like many human endeavors, currently suffers from a lack of diligent [inline citations](/Wikipedia:Citing_sources) despite a list of [general references](/Wikipedia:Citing_sources). One might charitably infer that the underlying truths are self-evident, or perhaps, less charitably, that the original authors simply couldn't be bothered to link every single assertion. Consequently, if you find yourself compelled to [improve](/Wikipedia:WikiProject_Reliability) this section, your task would be to [introduce](/Wikipedia:When_to_cite) more precise citations. (February 2012) ( [Learn how and when to remove this message](/Help:Maintenance_template_removal) ). The universe, after all, demands accountability, even from its chroniclers.
+
+Let's consider the interpretive significance of the likelihood ratio factor in the Bayesian update:
+
+${\textstyle {\frac {P(E\mid M)}{P(E)}}>1\Rightarrow P(E\mid M)>P(E)}$
+
+This inequality indicates a positive update to our belief in model M. In plain terms, if the probability of observing the evidence E *given* that model M is true ($P(E\mid M)$) is greater than the overall probability of observing the evidence E ($P(E)$), then the evidence provides stronger support for model M than for other possibilities. Thus, if the model M were indeed an accurate reflection of reality, the observed evidence would be *more likely* than what our current, pre-update state of belief would have predicted. Conversely, if this ratio is less than 1, our belief in M decreases.
+
+Should this ratio equal 1:
+
+${\textstyle {\frac {P(E\mid M)}{P(E)}}=1\Rightarrow P(E\mid M)=P(E)}$
+
+This signifies that the evidence E is statistically [independent](/Independence_(probability_theory)) of the model M. In this scenario, observing the evidence E changes absolutely nothing about our belief in M, as the evidence is exactly as likely under model M as it is under the broader context of our existing beliefs. The evidence, in this case, is utterly uninformative with respect to model M, a rather anticlimactic outcome for any inquisitive mind.
+
+**Cromwell's Rule – The Tyranny of Absolute Belief**
+
+• Main article: [Cromwell's rule](/Cromwell%27s_rule)
+
+[Cromwell's rule](/Cromwell%27s_rule) is less a rule and more a stark warning against intellectual dogma. It dictates that if one assigns a [prior probability](/Prior_probability) of 0 to a hypothesis, i.e., $P(M)=0$, then no amount of subsequent evidence, no matter how compelling, can ever alter that belief. The posterior probability will remain stubbornly fixed at $P(M\mid E)=0$. Your conviction, once absolute, is impervious to the universe's attempts to correct you. Similarly, if one assigns a prior probability of 1 to a hypothesis, $P(M)=1$, and assuming the evidence $P(E)>0$ is not impossible, then the posterior probability will also remain $P(M|E)=1$.
+
+This can be interpreted as a mathematical formalization of the adage that "hard convictions are insensitive to counter-evidence." It's a powerful statement about the danger of initial certainty. The former case, $P(M)=0 \Rightarrow P(M\mid E)=0$, follows directly and trivially from Bayes' theorem itself (a zero in the numerator makes the whole fraction zero). The latter case, $P(M)=1 \Rightarrow P(M|E)=1$, can be derived by applying the first rule to the logical negation of M ("not $M$"). If $1-P(M)=0$ (meaning $P(M)=1$), then it follows that $1-P(M\mid E)=0$ (meaning $P(M\mid E)=1$). It's a self-reinforcing loop of certainty, or perhaps, stubbornness. The philosophical implication is clear: never assign a prior probability of exactly zero or one to any event that is not logically impossible or necessarily true, unless you wish to permanently shut off your capacity for learning.
+
+**Asymptotic Behaviour of Posterior – The Long Road to Truth**
+
+For those with the patience of geological time, consider the long-term behavior of a belief distribution as it is continuously updated through a vast number of [independent and identically distributed](/Independent_and_identically_distributed) trials. Under certain "sufficiently nice" conditions regarding the initial prior probabilities—conditions that are, of course, meticulously defined in the theoretical literature—the [Bernstein-von Mises theorem](/Bernstein%E2%80%93von_Mises_theorem) offers a comforting promise. It states that in the limit of an infinite number of trials, the posterior distribution will converge to a [Gaussian distribution](/Gaussian_distribution), and, crucially, this convergence will be *independent* of the initial prior. It's as if, given enough data, the universe eventually forces all rational observers to agree, regardless of their starting biases.
+
+This profound result was first rigorously outlined and proven by [Joseph L. Doob](/Joseph_L._Doob) in 1948, specifically for random variables residing within a finite [probability space](/Probability_space). However, the story doesn't end there. The statistician [David A. Freedman](/David_A._Freedman_(statistician)) later expanded upon these insights, publishing two seminal papers in 1963 &#91;12&#93; and 1965 &#91;13&#93;, which meticulously delineated the precise circumstances under which the asymptotic behavior of the posterior is guaranteed. His 1963 work, like Doob's, tackled the finite case, reaching a satisfyingly conclusive outcome.
+
+Yet, a more complex truth emerged in his 1965 paper: if the random variable in question possesses an infinite but *countable* [probability space](/Probability_space) (imagine a die with an infinite number of faces, each with a distinct, non-zero probability), then for a dense subset of priors, the [Bernstein-von Mises theorem](/Bernstein%E2%80%93von_Mises_theorem) simply does not apply. In these scenarios, there is [almost surely](/Almost_surely) no asymptotic convergence. This revelation casts a shadow on the universal applicability of the theorem, suggesting that not all roads lead to a Gaussian consensus. [Freedman](/David_A._Freedman_(statistician)), alongside [Persi Diaconis](/Persi_Diaconis), continued to explore these intricate cases of infinite countable probability spaces throughout the 1980s and 1990s. &#91;14&#93;
+
+In summary, while the dream of prior-independent convergence is appealing, reality is often more stubborn. It's entirely possible that, especially in large (though still finite) systems, the number of trials may be insufficient to fully suppress the lingering effects of the initial prior choice, leading to agonizingly slow convergence. So, while the truth may be out there, getting everyone to agree on it might take longer than the universe has.
+
+**Conjugate Priors – The Mathematician's Convenience**
+
+• Main article: [Conjugate prior](/Conjugate_prior)
+
+In the realm of parameterized statistical models, a particularly elegant simplification arises with the judicious selection of [prior distributions](/Prior_distribution) from a special class known as [conjugate priors](/Conjugate_prior). The profound utility of a conjugate prior lies in a rather pleasing mathematical property: when combined with a specific [likelihood function](/Likelihood_function), the resulting [posterior distribution](/Posterior_distribution) will, remarkably, belong to the *same family* of distributions as the prior. This means that the entire Bayesian update process, from prior to posterior, can often be expressed in a neat, [closed-form expression](/Closed-form_expression), avoiding the computational complexities of numerical integration or approximation. It's a statistical shortcut, allowing for analytical solutions where otherwise one might face a computational quagmire. While not always available or appropriate, conjugate priors offer a rare moment of mathematical tidiness in the often-messy world of data.
+
+**Estimates of Parameters and Predictions – The Human Need for Answers**
+
+Despite the inherent probabilistic nature of Bayesian inference, there remains a persistent human desire to distill these rich distributions into single, actionable numbers or clear predictions. This is where methods of Bayesian estimation come into play, serving to summarize the posterior distribution's insights.
+
+For problems confined to a single dimension, a unique median can typically be identified for practical continuous distributions. The **posterior median** is often favored as a [robust estimator](/Robust_statistics), less sensitive to extreme values or skewness in the posterior distribution than the mean. &#91;15&#93; It offers a central point that divides the posterior probability mass equally, a pragmatic choice when avoiding undue influence from outliers.
+
+Should the posterior distribution possess a finite mean, then the **posterior mean** presents another viable method of estimation. This is simply the expected value of the parameter under the posterior distribution: &#91;16&#93;
+
+${\tilde {\theta }}=\operatorname {E} [\theta ]=\int \theta \,p(\theta \mid \mathbf {X} ,\alpha )\,d\theta$
+
+This estimator minimizes the expected squared error, making it a natural choice when a quadratic [loss function](/Loss_function) is implicitly assumed.
+
+Alternatively, for those who prefer to pinpoint the 'most probable' value, **maximum a posteriori (MAP) estimates** are defined by taking the value (or set of values) with the greatest probability density in the posterior distribution: &#91;17&#93;
+
+$\{\theta _{\text{MAP}}\}\subset \arg \max _{\theta }p(\theta \mid \mathbf {X} ,\alpha ).$
+
+It's worth noting that in some pathological cases, a maximum may not be attained, rendering the set of MAP estimates [empty](/Empty_set). The MAP estimate is essentially a mode of the posterior distribution and can be seen as a point estimate that balances the information from the prior and the likelihood.
+
+Beyond these common choices, there exist other estimation methods that explicitly minimize the posterior [risk](/Risk) (i.e., the expected posterior loss) with respect to a chosen [loss function](/Loss_function). These methods, deeply rooted in [statistical decision theory](/Statistical_decision_theory), are of particular interest to frequentist statistics when utilizing the sampling distribution, demonstrating a fascinating convergence of ideas in the pursuit of optimal decisions. &#91;18&#93;
+
+Finally, the **[posterior predictive distribution](/Posterior_predictive_distribution)**, which describes the probability of a new, unobserved data point ${\tilde {x}}$ (assumed independent of previous observations), is determined by integrating over the parameter's posterior distribution: &#91;19&#93;
+
+$p({\tilde {x}}|\mathbf {X} ,\alpha )=\int p({\tilde {x}},\theta \mid \mathbf {X} ,\alpha )\,d\theta =\int p({\tilde {x}}\mid \theta )p(\theta \mid \mathbf {X} ,\alpha )\,d\theta .$
+
+This comprehensive approach allows for predictions that inherently account for the uncertainty in the estimated parameters, offering a more complete and honest assessment of future possibilities than a mere point prediction.
+
+**Examples – Illustrating the Mechanism**
+
+Sometimes, even the most elegant equations need a concrete scenario to truly reveal their practical implications. These examples demonstrate how Bayesian inference translates abstract probabilities into tangible insights.
+
+**Probability of a Hypothesis – The Cookie Conundrum**
+
+Let's engage in a thought experiment, one that has become a classic pedagogical tool for illustrating [Bayes' theorem](/Bayes%27_theorem). Imagine you're presented with a situation involving two bowls of cookies, each filled to the brim. Bowl #1 contains 10 chocolate chip cookies and 30 plain cookies, while Bowl #2 holds an equal split: 20 chocolate chip and 20 plain cookies. Our hypothetical friend, Fred, with no discernible preference, randomly selects one of the bowls, and then, with similar impartiality, randomly picks a single cookie from his chosen bowl. The grand reveal: the cookie in his hand is a plain one. The question that gnaws at the curious mind is: what is the probability that Fred, in his random excursion, picked that plain cookie from Bowl #1?
+
+| Bowl   | Cookie | #1 H1 | #2 H2 | Total |
+| :----- | :----- | :---- | :---- | :---- |
+| Plain, E |        | 30    | 20    | 50    |
+| Choc, ¬E |        | 10    | 20    | 30    |
+| Total  |        | 40    | 40    | 80    |
+
+P ( H 1 | E ) = 30 / 50 = 0.6
+
+Intuitively, given the higher proportion of plain cookies in Bowl #1 (30 out of 40, or 75%), compared to Bowl #2 (20 out of 40, or 50%), one might suspect the answer should be greater than a simple 50/50 chance. This intuition, thankfully, is precisely quantified by [Bayes' theorem](/Bayes%27_theorem).
+
+Let's define our hypotheses and evidence:
+*   $H_{1}$ represents the hypothesis that Fred chose Bowl #1.
+*   $H_{2}$ represents the hypothesis that Fred chose Bowl #2.
+*   E represents the observed [evidence](/Evidence): the cookie is plain.
+
+Given Fred's unbiased selection, we establish our [prior probabilities](/Prior_probability) as equal: $P(H_{1})=P(H_{2})$. Since these are the only two possibilities, they must sum to 1, meaning each prior is 0.5.
+Next, we determine the [likelihood](/Likelihood_function) of observing the evidence E under each hypothesis:
+*   $P(E\mid H_{1})=30/40=0.75$ (the probability of picking a plain cookie if Bowl #1 was chosen).
+*   $P(E\mid H_{2})=20/40=0.5$ (the probability of picking a plain cookie if Bowl #2 was chosen).
+
+Now, we apply [Bayes' formula](/Bayes%27_theorem) to calculate the [posterior probability](/Posterior_probability) that Fred chose Bowl #1, given that he picked a plain cookie:
+
+${\begin{aligned}P(H_{1}\mid E)&={\frac {P(E\mid H_{1})\,P(H_{1})}{P(E\mid H_{1})\,P(H_{1})\;+\;P(E\mid H_{2})\,P(H_{2})}}\\\\\ &={\frac {0.75\times 0.5}{0.75\times 0.5+0.5\times 0.5}}\\\\\ &=0.6\end{aligned}}$
+
+Before observing the cookie, our initial belief (the prior probability) that Fred had chosen Bowl #1 was $P(H_{1}) = 0.5$. After the crucial observation of the plain cookie, we are compelled to revise this belief, and the updated probability (the posterior probability) $P(H_{1}\mid E)$ now stands at 0.6. This simple example elegantly demonstrates how new evidence can shift our rational beliefs, moving us from a state of initial uncertainty to a more informed understanding. It's not magic; it's just math.
+
+**Making a Prediction – The Archaeologist's Dilemma**
+
+Example results for archaeology example. This simulation was generated using c=15.2.
+
+Imagine an archaeologist meticulously excavating a site, presumed to date from the medieval period, specifically between the 11th and 16th centuries. The precise century of inhabitation, however, remains tantalizingly unknown. As fragments of pottery are unearthed, some glazed, some decorated, the archaeologist recalls certain historical expectations: if the site flourished during the early medieval period (closer to the 11th century), perhaps only 1% of the pottery would be glazed, with about 50% of its surface area decorated. Conversely, if the site was active in the late medieval period (closer to the 16th century), expectations shift dramatically: 81% glazed pottery and only 5% decorated area. The pressing question for our archaeologist is: how does the confidence in the site's date of inhabitation evolve with each newly discovered fragment?
+
+Here, we are attempting to calculate the [degree of belief](/Credence_(statistics)) in a continuous variable, $C$ (representing the century), using a discrete set of observed events as evidence. These events are the four possible combinations of pottery characteristics: $\{GD,G{\bar {D}},{\bar {G}}D,{\bar {G}}{\bar {D}}\}$ (Glazed and Decorated, Glazed and Not Decorated, Not Glazed and Decorated, Not Glazed and Not Decorated). We make two simplifying assumptions: that the variation of glaze and decoration with time is linear, and that these two characteristics are statistically independent. Under these assumptions, the likelihoods for observing each type of fragment $E$ given a specific century $c$ are defined:
+
+$P(E=GD\mid C=c)=(0.01+{\frac {0.81-0.01}{16-11}}(c-11))(0.5-{\frac {0.5-0.05}{16-11}}(c-11))$
+
+$P(E=G{\bar {D}}\mid C=c)=(0.01+{\frac {0.81-0.01}{16-11}}(c-11))(0.5+{\frac {0.5-0.05}{16-11}}(c-11))$
+
+$P(E={\bar {G}}D\mid C=c)=((1-0.01)-{\frac {0.81-0.01}{16-11}}(c-11))(0.5-{\frac {0.5-0.05}{16-11}}(c-11))$
+
+$P(E={\bar {G}}{\bar {D}}\mid C=c)=((1-0.01)-{\frac {0.81-0.01}{16-11}}(c-11))(0.5+{\frac {0.5-0.05}{16-11}}(c-11))$
+
+Our archaeologist starts with a wonderfully unbiased, yet equally uninformed, uniform prior distribution for the century of inhabitation, $f_{C}(c)=0.2$, across the 11th to 16th centuries. Each newly discovered fragment is treated as an [independent and identically distributed](/Independent_and_identically_distributed) trial. When a new fragment of type $e$ is unearthed, [Bayes' theorem](/Bayes%27_theorem) is diligently applied to update the [degree of belief](/Credence_(statistics)) for each possible century $c$:
+
+$f_{C}(c\mid E=e)={\frac {P(E=e\mid C=c)}{P(E=e)}}f_{C}(c)={\frac {P(E=e\mid C=c)}{\int _{11}^{16}{P(E=e\mid C=c)f_{C}(c)dc}}}f_{C}(c)$
+
+The accompanying graph vividly illustrates a computer simulation of this evolving belief system as 50 fragments are progressively unearthed. In this particular simulation, the 'true' underlying reality was that the site was inhabited around 1420 A.D., or $c=15.2$. After processing all 50 fragments, the archaeologist can, with considerable statistical backing, confidently assert a refined understanding of the site's chronology. By calculating the area under the relevant portions of the final posterior distribution, they might conclude, for example, that there is virtually no chance the site was inhabited in the 11th and 12th centuries, a mere 1% chance for the 13th century, a substantial 63% chance for the 14th century, and a 36% chance for the 15th century. This precise quantification of uncertainty is the hallmark of the Bayesian approach.
+
+Furthermore, this example beautifully demonstrates the implications of the [Bernstein-von Mises theorem](/Bernstein%E2%80%93von_Mises_theorem). Here, the asymptotic convergence to the "true" underlying distribution is guaranteed because the [probability space](/Probability_space) associated with the discrete set of observable events $\{GD,G{\bar {D}},{\bar {G}}D,{\bar {G}}{\bar {D}}\}$ is finite. It means that, given enough evidence, our archaeologist's beliefs would eventually align with the actual date of inhabitation, regardless of their uniform initial ignorance. A comforting thought, for those who believe in the ultimate triumph of data.
+
+**In Frequentist Statistics and Decision Theory – An Unexpected Alliance**
+
+It might seem counterintuitive to link Bayesian inference, with its emphasis on prior beliefs, to [frequentist statistics](/Frequentist_statistics), which traditionally eschews such notions. Yet, a profound [decision-theoretic](/Statistical_decision_theory) justification for Bayesian inference was laid down by the eminent statistician [Abraham Wald](/Abraham_Wald). His work demonstrated a remarkable duality: every unique Bayesian procedure is, in fact, [admissible](/Admissible_decision_rule) (meaning no other procedure is uniformly better in terms of risk). Conversely, and perhaps more surprisingly, every [admissible](/Admissible_decision_rule) statistical procedure can be shown to be either a Bayesian procedure or a limit of Bayesian procedures. &#91;20&#93;
+
+This powerful characterization by Wald effectively establishes the Bayesian formalism as a central, almost foundational, technique even within areas traditionally dominated by [frequentist inference](/Frequentist_inference). This includes critical applications such as [parameter estimation](/Parameter_estimation), rigorous [hypothesis testing](/Hypothesis_testing), and the construction of [confidence intervals](/Confidence_intervals). &#91;21&#93; &#91;22&#93; &#91;23&#93; The implications are far-reaching, suggesting that even frequentist optimality often finds its roots in a Bayesian framework. Consider these illustrative statements from the literature:
+
+*   "Under some conditions, all admissible procedures are either Bayes procedures or limits of Bayes procedures (in various senses). These remarkable results, at least in their original form, are due essentially to Wald. They are useful because the property of being Bayes is easier to analyze than admissibility." &#91;20&#93; This highlights the practical benefit: proving a procedure is Bayesian can be a simpler path to demonstrating its admissibility.
+*   "In decision theory, a quite general method for proving admissibility consists in exhibiting a procedure as a unique Bayes solution." &#91;24&#93; This further solidifies the Bayesian connection to optimal decision-making.
+*   "In the first chapters of this work, prior distributions with finite support and the corresponding Bayes procedures were used to establish some of the main theorems relating to the comparison of experiments. Bayes procedures with respect to more general prior distributions have played a very important role in the development of statistics, including its asymptotic theory." "There are many problems where a glance at posterior distributions, for suitable priors, yields immediately interesting information. Also, this technique can hardly be avoided in sequential analysis." &#91;25&#93; This emphasizes the broad impact of Bayesian methods, even in the asymptotic theory that often underpins frequentist results, and their indispensable role in sequential analysis, where data arrives in stages.
+*   "A useful fact is that any Bayes decision rule obtained by taking a proper prior over the whole parameter space must be admissible." &#91;26&#93; This provides a clear, practical guideline for constructing admissible procedures.
+*   "An important area of investigation in the development of admissibility ideas has been that of conventional sampling-theory procedures, and many interesting results have been obtained." &#91;27&#93; This acknowledges the ongoing research and the fruitful interplay between Bayesian and frequentist concepts in understanding the properties of statistical procedures. It's a testament to the idea that, despite their philosophical differences, these two statistical schools often lead to similar, or even identical, optimal solutions.
+
+**Model Selection – Choosing the Best Narrative for the Data**
+
+• Main article: [Bayesian model selection](/Bayesian_model_selection)
+• See also: [Bayesian information criterion](/Bayesian_information_criterion)
+
+Beyond simply estimating parameters within a single model, [Bayesian methodology](/Bayesian_statistics) offers a powerful and principled approach to [model selection](/Model_selection)—the crucial task of identifying which model, from a collection of competing candidates, provides the most compelling explanation for the observed data. The objective here is not just to find a model that fits well, but one that genuinely captures the underlying generative process.
+
+In the Bayesian paradigm of model comparison, the preferred model is, quite logically, the one exhibiting the highest [posterior probability](/Posterior_probability) given the data. This posterior probability of a model is a function of two critical components: first, the [evidence](/Marginal_likelihood) (or marginal likelihood), which quantifies the overall probability that the data was generated by that specific model; and second, the [prior belief](/Prior_probability) assigned to the model itself. This prior reflects our initial assessment of how likely each model was *before* we observed any data.
+
+A common scenario arises when two competing models are, *a priori*, considered to be equally probable. In such cases, the ratio of their posterior probabilities simplifies directly to the [Bayes factor](/Bayes_factor). The Bayes factor thus serves as a powerful metric for comparing models, indicating how much the observed data has shifted our relative belief from one model to another. Given that Bayesian model comparison is fundamentally geared towards selecting the model with the maximal posterior probability, this methodology is frequently referred to as the maximum a posteriori (MAP) selection rule &#91;28&#93; or, more simply, the MAP probability rule. &#91;29&#93; It's a rational framework for deciding which story the data tells most convincingly, balancing fit with parsimony.
+
+**Probabilistic Programming – Automating the Bayesian Choreography**
+
+• Main article: [Probabilistic programming](/Probabilistic_programming)
+
+While the conceptual elegance of Bayesian methods is undeniable, their practical implementation can often be a formidable challenge, fraught with mathematical complexities and numerical hurdles. This is where [Probabilistic Programming Languages (PPLs)](/Probabilistic_programming) step in, acting as powerful computational assistants. PPLs are designed to provide a high-level, intuitive interface for building intricate Bayesian models, seamlessly integrating them with highly efficient, automated inference methods.
+
+The primary benefit of PPLs is their ability to disentangle the intellectual task of model building from the laborious computational details of inference. This liberation allows practitioners to channel their expertise and focus squarely on the specifics of their problem domain, rather than getting bogged down in the intricacies of sampling algorithms or variational approximations. PPLs shoulder the burden of handling the underlying computational mechanics, making advanced Bayesian modeling accessible to a much wider audience. &#91;30&#93; &#91;31&#93; &#91;32&#93; It's like having a highly skilled, albeit silent, computational assistant who handles all the tedious mathematical heavy lifting, leaving you free to ponder the more interesting questions.
+
+**Applications – Where Bayesian Thought Permeates Reality**
+
+The theoretical elegance of [Bayesian inference](/Bayesian_inference) would be little more than an academic curiosity if it didn't translate into tangible utility. Fortunately, its applications are as diverse as they are impactful, extending into virtually every domain where uncertainty needs to be quantified and beliefs updated.
+
+**Statistical Data Analysis**
+
+For a more comprehensive exploration of how Bayesian principles are woven into the fabric of everyday [statistical data analysis](/Statistical_data_analysis), one need only consult the dedicated Wikipedia entry on [Bayesian statistics](/Bayesian_statistics). Specifically, the [statistical modeling](/Bayesian_statistics) section within that page delves into the practical construction and application of Bayesian models across various data types and analytical challenges.
+
+**Computer Applications**
+
+The digital realm has proven to be a particularly fertile ground for [Bayesian inference](/Bayesian_inference). It forms a foundational component of modern [artificial intelligence](/Artificial_intelligence) and powers many sophisticated [expert systems](/Expert_system). Indeed, Bayesian inference techniques have been integral to the development of computerized [pattern recognition](/Pattern_recognition) methods since the nascent days of computing in the late 1950s, demonstrating a remarkable longevity and adaptability. &#91;33&#93;
+
+Furthermore, there is a continuously deepening synergy between Bayesian methods and simulation-based [Monte Carlo](/Monte_Carlo_method) techniques. This connection is particularly vital because many complex Bayesian models, while theoretically sound, simply cannot be solved analytically in [closed form](/Closed-form_expression). However, when a model can be represented with a [graphical model](/Graphical_model) structure, it often opens the door for highly efficient simulation algorithms, such as the ubiquitous [Gibbs sampling](/Gibbs_sampling) and other variations of the [Metropolis–Hastings algorithm](/Metropolis%E2%80%93Hastings_algorithm) schemes. &#91;34&#93; This computational power has, more recently (though the exact 'when' remains a perpetually moving target on Wikipedia), led to a surge in popularity for Bayesian inference within the [phylogenetics](/Phylogenetics) community. These applications allow researchers to simultaneously estimate a multitude of demographic and evolutionary parameters, painting a richer, more nuanced picture of biological history.
+
+On a more practical, and perhaps universally appreciated, note, Bayesian inference has been ingeniously applied to [statistical classification](/Statistical_classification) problems, most notably in the perennial battle against [e-mail spam](/E-mail_spam). Algorithms leveraging Bayesian inference are at the heart of many popular spam filtering solutions, including [CRM114](/CRM114_(program)), DSPAM, [Bogofilter](/Bogofilter), [SpamAssassin](/SpamAssassin), [SpamBayes](/SpamBayes), [Mozilla](/Mozilla)'s mail client, XEAMS, and numerous others. The detailed mechanics of how Bayesian inference tackles spam classification are further elaborated in the dedicated article on the [naïve Bayes classifier](/Na%C3%AFve_Bayes_classifier)—a surprisingly effective algorithm given its 'naïve' assumptions.
+
+Beyond these practicalities, [Solomonoff's Inductive inference](/Solomonoff%27s_theory_of_inductive_inference) stands as a profound theoretical framework for prediction based on observed data. It addresses the fundamental problem of inferring future events from past patterns, such as predicting the next symbol in a sequence. Its sole foundational assumption is that the environment, no matter how complex, adheres to some unknown but *computable* [probability distribution](/Probability_distribution). This framework represents a formal synthesis of two formidable principles of inductive inference: the probabilistic rigor of Bayesian statistics and the parsimonious wisdom of [Occam's Razor](/Occam%27s_Razor). &#91;35&#93; While the source for this particular claim might raise an eyebrow or two for its reliability, the concept itself is compelling. Solomonoff's universal prior probability for any prefix *p* of a computable sequence *x* is defined as the sum of the probabilities of all possible computer programs (for a universal computer) that generate something beginning with *p*. Armed with such a universal prior and [Bayes' theorem](/Bayes%27_theorem), one can then optimally predict the as-yet-unseen portions of *x*, even when the underlying probability distribution is unknown but computable. &#91;36&#93; &#91;37&#93; It's a grand vision of universal learning, a testament to the power of combining computational theory with probabilistic reasoning.
+
+**Bioinformatics and Healthcare Applications**
+
+The intricate world of biological data and human health has also embraced [Bayesian inference](/Bayesian_inference) with considerable enthusiasm. It has proven invaluable in various [bioinformatics](/Bioinformatics) applications, including the notoriously complex task of differential gene expression analysis, where it helps distinguish true biological changes from mere random fluctuations. &#91;38&#93; Beyond the laboratory, Bayesian inference is a core component of advanced healthcare models, such as the [CIRI](/Continuous_Individualized_Risk_Index) (Continuous Individualized Risk Index), a general cancer risk model. In CIRI, serial measurements from a patient are continually integrated to update a Bayesian model that is primarily constructed from a foundation of prior medical knowledge. &#91;39&#93; &#91;40&#93; This dynamic, personalized risk profiling exemplifies how Bayesian methods can transform static medical guidelines into adaptive, patient-specific predictions.
+
+**Cosmology and Astrophysical Applications**
+
+In the grandest scales of existence, the Bayesian approach has become utterly indispensable, driving significant recent progress in both [cosmology](/Cosmology) and [astrophysical applications](/Astrophysics). &#91;41&#93; &#91;42&#93; Its utility extends across an astonishing range of astrophysical problems, from the detailed characterization of exoplanets—including the intricate task of fitting atmospheric models to observations of worlds like [K2-18b](/K2-18b) &#91;43&#93; —to the precise constraint of cosmological parameters using vast datasets, &#91;44&#93; and the critical calibration of astrophysical experiments. &#91;45&#93;
+
+Within cosmology, the Bayesian framework is frequently coupled with sophisticated computational techniques such as [Markov chain

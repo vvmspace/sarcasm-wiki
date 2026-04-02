@@ -1,0 +1,157 @@
+---
+title: "Time Stretching (Audio)"
+description: "The following content is not a redirect. It is a comprehensive article on Audio time stretching and pitch scaling, crafted with meticulous detail and an..."
+keywords: audio, sound, audio time stretching, pitch scaling, digital signal processing, audio signal's, pitch, audio production
+slug: "Time_stretching_(audio)"
+createdAt: "2025-12-09T10:03:04.098Z"
+updatedAt: "2025-12-09T10:03:04.098Z"
+contentType: "rewritten"
+previousArticleSlug: "XFM"
+previousArticleTitle: "XFM"
+---
+
+The following content is not a redirect. It is a comprehensive article on [Audio time stretching and pitch scaling](/Audio_time_stretching_and_pitch_scaling), crafted with meticulous detail and an utterly unavoidable sense of cosmic weariness. Consider it a public service, delivered with the enthusiasm of a tax audit.
+
+***
+
+# Audio Time Stretching and Pitch Scaling
+
+Manipulating [audio](/Audio) signals in ways that defy the natural laws of [sound](/Sound) can often feel like a pointless exercise, yet here we are. [Audio time stretching](/Time_stretching) and [pitch scaling](/Pitch_shift) represent two distinct but intrinsically linked domains within [digital signal processing](/Digital_signal_processing) ([DSP](/Digital_signal_processing)), allowing for the independent alteration of an [audio signal's](/Audio_signal) duration without affecting its [pitch](/Pitch), or its pitch without altering its duration. It's a testament to human persistence in making things sound different, whether for artistic expression or simply to correct someone else's temporal misjudgment.
+
+These techniques are foundational to a vast array of [audio production](/Music_production) tasks, [speech processing](/Speech_processing) applications, and even [forensic audio analysis](/Audio_forensics). The core challenge lies in the inherent coupling of pitch and time in traditional [sound recording](/Sound_recording): speeding up a recording naturally raises its pitch, while slowing it down lowers it—a phenomenon anyone who's ever fiddled with a [turntable](/Turntable) or a [tape recorder](/Tape_recorder) at the wrong speed can attest to. The entire endeavor is about breaking this fundamental, inconvenient link, often with results that range from pristine to utterly horrifying.
+
+## Fundamental Principles: Deconstructing the Unbreakable
+
+At its heart, the process of independently adjusting [time](/Time) or [pitch](/Pitch) involves a rather elaborate deception. Sound, as we perceive it, is a [waveform](/Waveform)—a [vibration](/Vibration) through a medium, characterized by its [frequency](/Frequency) (which dictates pitch) and [amplitude](/Amplitude) (which dictates [loudness](/Loudness)). When you play a recording faster, you compress the waveform, increasing the number of [cycles](/Cycle_(physics)) per second, thus raising the frequency and, consequently, the pitch. Slow it down, and you expand the waveform, lowering the frequency. Simple physics, really. Unyielding physics, as it turns out.
+
+The goal of time stretching and pitch scaling is to circumvent this physical reality. Instead of merely playing the entire waveform faster or slower, these algorithms meticulously analyze the [audio signal](/Audio_signal), break it down into smaller, more manageable components, manipulate those components, and then painstakingly reassemble them. It's like disassembling a finely tuned [watch](/Watch), adjusting the [gears](/Gear) for a different speed, and then hoping it still tells the correct time. Often, it doesn't.
+
+The underlying magic trick often relies on methods from [spectral analysis](/Spectral_analysis), particularly the [Fourier transform](/Fourier_transform) or its more practical cousin, the [Short-time Fourier transform](/Short-time_Fourier_transform) ([STFT](/Short-time_Fourier_transform)). These tools decompose a complex audio signal into its constituent frequencies and their corresponding amplitudes over short, overlapping segments. This spectral representation allows for a more granular, dare I say, *intelligent* manipulation of the sound's characteristics. Without delving too deeply into the mathematical tedium, imagine separating the sound into its individual musical notes and their overtones, then deciding which of those to accelerate, decelerate, or transpose, and then gluing it all back together without leaving audible seams. It's a task that perfectly illustrates humanity's penchant for making things unnecessarily complicated.
+
+## Audio Time Stretching Techniques (Without Pitch Change)
+
+The objective here is to alter the duration of an [audio segment](/Audio_segment) while preserving its original [pitch](/Pitch) and [timbre](/Timbre). This is akin to stretching a rubber band without changing its intrinsic material properties, a feat that is, as you might imagine, prone to degradation. Early attempts were crude, often resulting in audible [artifacts](/Artifact_(error)) that sounded like the audio was drowning or gargling. Modern algorithms, however, have become remarkably sophisticated, capable of producing results that are, at times, almost imperceptible. A true marvel, if you care for such things.
+
+### Granular Synthesis-Based Methods
+
+One of the more elegant approaches involves the concept of [granular synthesis](/Granular_synthesis), which treats an [audio waveform](/Audio_waveform) not as a continuous stream, but as a collection of tiny, discrete "grains" of sound, each lasting mere milliseconds.
+
+*   **[Phase Vocoder](/Phase_vocoder)**: This is arguably one of the most powerful and widely used algorithms for both time stretching and pitch scaling. The [phase vocoder](/Phase_vocoder) operates in the [frequency domain](/Frequency_domain). It analyzes the [phase](/Phase_(waves)) and [amplitude](/Amplitude) of individual [frequency components](/Frequency_component) within short, overlapping [audio frames](/Audio_frame) (obtained via [STFT](/Short-time_Fourier_transform)). To stretch time, the vocoder essentially slows down the rate at which these spectral frames are advanced and re-synthesized. The critical element is maintaining [phase coherence](/Phase_(waves)) between overlapping frames to avoid unpleasant [comb filtering](/Comb_filter) or [flanging](/Flanging) artifacts. When done correctly, the [phase vocoder](/Phase_vocoder) can produce remarkably transparent results, particularly for [harmonic](/Harmonic) sounds. When done incorrectly, it sounds like a broken robot attempting to sing.
+
+*   **[PSOLA (Pitch Synchronous Overlap-Add)](/PSOLA_(sound_processing))**: Operating primarily in the [time domain](/Time_domain), [PSOLA](/PSOLA_(sound_processing)) is particularly effective for [speech](/Speech) and [monophonic](/Monophony) signals. It identifies points of [pitch periodicity](/Periodicity) (the start of each [glottal pulse](/Glottal_pulse) in speech, for example) and then segments the audio into short, overlapping "pitch periods" or "analysis windows." To stretch time, these segments are simply repeated or skipped. The key is to ensure that the overlap-add process occurs at points of similar waveform shape (i.e., [phase](/Phase_(waves))) to minimize discontinuities. The "pitch synchronous" aspect ensures that the fundamental frequency of the sound is preserved, making it highly suitable for applications where maintaining natural voice quality is paramount. It’s less adept with complex, [polyphonic](/Polyphony) music, where identifying a single, coherent pitch period becomes a fool's errand.
+
+### Overlap-Add (OLA) Methods
+
+These methods are the workhorses of many [time-stretching](/Time_stretching) algorithms, forming the basis for variations like [PSOLA](/PSOLA_(sound_processing)) and others.
+
+*   **[Synchronized Overlap-Add (SOLA)](/Overlap-add_method)**: A more general class of [time-domain](/Time_domain) algorithms. [SOLA](/Overlap-add_method) works by taking segments of the [audio signal](/Audio_signal), shifting them in time, and then smoothly overlapping and adding them back together. The "synchronization" part involves searching for the optimal overlap point—typically the point of highest cross-correlation or waveform similarity—between the end of one segment and the beginning of the next. This minimizes audible clicks and pops. For time stretching, segments are taken from the original signal, but output at a slower rate, sometimes with segments being repeated or extended. For time compression, segments are removed or shortened. It's a delicate balancing act, and the search for the "optimal" overlap point can be computationally intensive, a small price to pay for not sounding like a malfunctioning cassette player.
+
+*   **[Waveform Similarity Overlap-Add (WSOLA)](/Waveform_similarity_overlap-add)**: An enhancement to the basic [SOLA](/Overlap-add_method) method, [WSOLA](/Waveform_similarity_overlap-add) improves quality by searching for the segment in the original [audio](/Audio) that *best matches* the current output segment, rather than simply taking the next consecutive segment. This allows for greater flexibility in choosing segments that will blend seamlessly, reducing the likelihood of phase discontinuities and transient smearing. It's like carefully selecting puzzle pieces that fit, instead of just forcing them together. This method is particularly good at preserving [transients](/Transient_(acoustics)) (sharp, sudden sounds like drum hits), which are notoriously difficult for many [time-stretching](/Time_stretching) algorithms to handle without introducing unpleasant echoes or muddiness.
+
+## Audio Pitch Scaling Techniques (Without Time Change)
+
+The inverse challenge to [time stretching](/Time_stretching) is altering the [pitch](/Pitch) of an [audio signal](/Audio_signal) without affecting its duration. This is what allows a vocalist to sound like a baritone or a soprano without singing faster or slower, or a [guitar](/Guitar) riff to be transposed without changing its [tempo](/Tempo). It's the kind of magic trick that has revolutionized [music production](/Music_production) and, regrettably, enabled a generation of poorly tuned pop songs.
+
+### Resampling with Time Correction
+
+A naive approach to pitch shifting involves [resampling](/Resampling) the [audio](/Audio). If you resample at a higher rate, the [waveform](/Waveform) is effectively compressed, increasing its [frequency](/Frequency) and thus its pitch. Conversely, resampling at a lower rate expands the waveform, lowering the pitch. The problem, as noted earlier, is that this also changes the duration. To correct for this, additional [time-stretching](/Time_stretching) or [time-compression](/Time_compression) techniques must be applied.
+
+For example, to raise the pitch without changing duration:
+1.  The [audio](/Audio) is first [resampled](/Resampling) at a higher rate, which raises the pitch but also shortens the duration.
+2.  Then, a [time-stretching](/Time_stretching) algorithm (like a [phase vocoder](/Phase_vocoder) or [PSOLA](/PSOLA_(sound_processing))) is applied to restore the original duration.
+
+This combined approach is effective but requires careful synchronization between the resampling and time-stretching stages to avoid introducing [artifacts](/Artifact_(error)).
+
+### Phase Vocoder for Pitch Shifting
+
+As mentioned, the [phase vocoder](/Phase_vocoder) is a versatile beast. For [pitch scaling](/Pitch_shift), the process differs slightly from time stretching:
+1.  The [audio](/Audio) is analyzed into its [spectral components](/Spectral_analysis) using [STFT](/Short-time_Fourier_transform).
+2.  The [frequencies](/Frequency) of these components are then shifted up or down, effectively transposing the perceived pitch. This is done by adjusting the *rate* at which the [phase](/Phase_(waves)) of each [frequency bin](/Frequency_bin) evolves, which directly relates to its instantaneous frequency.
+3.  The modified spectral frames are then re-synthesized back into a [time-domain](/Time_domain) audio signal.
+
+The [phase vocoder](/Phase_vocoder) is excellent for maintaining [timbral](/Timbre) quality, especially for [harmonic](/Harmonic) sounds. However, it can sometimes struggle with extremely high transpositions, leading to a "smearing" or "chorusing" effect, particularly on [transients](/Transient_(acoustics)). It also tends to produce an artificial, robotic quality if not handled with care, especially in [speech](/Speech).
+
+### Harmonic and Percussive Separation
+
+More advanced techniques leverage the ability to separate the [audio signal](/Audio_signal) into its [harmonic](/Harmonic) (tonal) and [percussive](/Percussion) (transient) components. This is often achieved using techniques like [non-negative matrix factorization](/Non-negative_matrix_factorization) ([NMF](/Non-negative_matrix_factorization)) or other [source separation](/Source_separation) algorithms. Once separated:
+*   The [harmonic](/Harmonic) components can be pitch-shifted using a [phase vocoder](/Phase_vocoder) or similar method, which works well for continuous tones.
+*   The [percussive](/Percussion) components, which are largely [atharmonic](/Atonality) and defined by their sharp [transients](/Transient_(acoustics)), can be time-stretched or compressed independently (or left untouched) and then re-combined.
+
+This approach significantly reduces [artifacts](/Artifact_(error)) because it treats the different characteristics of sound with tailored algorithms, avoiding the "one-size-fits-all" problem that plagues simpler methods. It's a more sophisticated way of lying to the listener's ears.
+
+## Combined Algorithms and Implementations
+
+Most modern [audio software](/Digital_audio_workstation) ([DAW](/Digital_audio_workstation)) and plugins offer integrated solutions for both [time stretching](/Time_stretching) and [pitch scaling](/Pitch_shift). These often combine elements of the techniques described above, dynamically choosing the best algorithm or parameters based on the characteristics of the [audio material](/Audio_material) (e.g., [monophonic](/Monophony) vs. [polyphonic](/Polyphony), [speech](/Speech) vs. [music](/Music)).
+
+Key considerations in implementation include:
+
+*   **[Artifacts](/Artifact_(error))**: The bane of all [DSP](/Digital_signal_processing) engineers. Common artifacts include [phasiness](/Phase_(waves)), [flanging](/Flanging), [chorusing](/Chorus_(effect)), [graininess](/Granular_synthesis), [transient smearing](/Transient_(acoustics)), and the infamous "chipmunk" effect for high pitch shifts or "Darth Vader" effect for low ones, especially noticeable in [speech](/Speech) when [formants](/Formant) are not correctly handled.
+*   **Computational Cost**: More sophisticated algorithms, especially those involving extensive [spectral analysis](/Spectral_analysis) or [waveform similarity](/Waveform_similarity_overlap-add) searches, require significant [processing power](/Central_processing_unit). Real-time implementation, particularly for [live performance](/Live_performance) or [DJing](/DJ), demands highly optimized code.
+*   **Quality vs. Speed**: There's often a trade-off. Algorithms designed for maximum transparency might be slower, while faster algorithms might introduce more noticeable artifacts. Users typically have options to prioritize one over the other, depending on their tolerance for sonic imperfection.
+
+## Applications: The Endless Pursuit of Sonic Alteration
+
+The utility of [audio time stretching](/Audio_time_stretching_and_pitch_scaling) and [pitch scaling](/Audio_time_stretching_and_pitch_scaling) spans a surprisingly wide, if not always dignified, range of fields.
+
+*   **[Music Production](/Music_production) and [DJing](/DJ)**: This is perhaps the most obvious application.
+    *   **[Remixing](/Remix) and [Sampling](/Sampling_(music))**: Producers can match the [tempo](/Tempo) and [key](/Key_(music)) of disparate [audio loops](/Audio_loop) and [samples](/Sample_(music)) to create cohesive new tracks. No more awkward, out-of-sync transitions.
+    *   **[Tempo](/Tempo) Adjustment**: A band can record a track at a comfortable tempo and then adjust it slightly faster or slower to achieve a desired feel without re-recording.
+    *   **[Pitch Correction](/Auto-Tune)**: While [Auto-Tune](/Auto-Tune) is a specific type of pitch correction, the underlying principles of pitch shifting are used to subtly (or not-so-subtly) correct off-key notes in vocal performances.
+    *   **[Sound Design](/Sound_design)**: Altering the pitch and duration of sounds can create entirely new sonic textures for [film](/Film), [television](/Television), and [video games](/Video_game). A stretched metal clang can become the sound of a monstrous creature, for instance.
+    *   **[DJ](/DJ) Mixing**: [DJs](/DJ) use these tools to seamlessly beatmatch tracks with different original tempos, maintaining a continuous flow for the dance floor.
+
+*   **[Speech Processing](/Speech_processing)**:
+    *   **[Audiobooks](/Audiobook) and [Podcasts](/Podcast)**: Listeners can speed up or slow down narration to suit their comprehension and available time, often without the speaker sounding like a deranged chipmunk or a molasses-soaked giant.
+    *   **[Voice Modulation](/Voice_changer)**: Creating different character voices for [animation](/Animation), [games](/Video_game), or [theatre](/Theatre).
+    *   **[Accessibility](/Accessibility)**: For individuals with hearing or cognitive impairments, slowing down speech can improve intelligibility.
+
+*   **[Audio Forensics](/Audio_forensics)**:
+    *   Analyzing recorded evidence: Investigators can slow down or pitch-shift indistinct speech or environmental sounds to enhance clarity without altering the fundamental characteristics of the recording, which would compromise its evidential value. It's not as dramatic as you see in the movies, but it gets the job done.
+
+*   **[Musical Instrument Digital Interface (MIDI)](/MIDI)**:
+    *   While [MIDI](/MIDI) itself doesn't contain audio, it often controls [synthesizers](/Synthesizer) and [samplers](/Sampler_(musical_instrument)) that utilize [time stretching](/Time_stretching) and [pitch scaling](/Pitch_shift) to manipulate the sound generated or triggered by [MIDI](/MIDI) data.
+
+## Challenges and Limitations: The Inevitable Imperfections
+
+Despite significant advancements, [time stretching](/Time_stretching) and [pitch scaling](/Pitch_shift) algorithms are far from perfect. The inherent complexity of [audio signals](/Audio_signal) makes truly transparent manipulation an elusive goal.
+
+*   **[Transient](/Transient_(acoustics)) Preservation**: Sharp, sudden sounds like drum hits or plucked strings are notoriously difficult to stretch or shift without introducing pre-echoes, post-echoes, or a general "smearing" effect. Algorithms like [WSOLA](/Waveform_similarity_overlap-add) attempt to mitigate this, but it remains a significant challenge, especially for complex [polyphonic](/Polyphony) material.
+*   **[Phase Coherence](/Phase_(waves))**: Maintaining the correct phase relationships between different [frequency components](/Frequency_component) is crucial for natural-sounding results. Errors here lead to metallic, [phasiness](/Phase_(waves)), or [chorusing](/Chorus_(effect)) artifacts.
+*   **[Formant](/Formant) Manipulation**: In [speech](/Speech), [formants](/Formant) (the resonant frequencies of the vocal tract) are critical for distinguishing vowels and maintaining natural voice quality. Simple pitch shifting without [formant correction](/Formant_synthesis) can lead to the "chipmunk" or "Darth Vader" effects, where the speaker's identity is distorted. Advanced algorithms attempt to identify and shift formants independently of the fundamental pitch.
+*   **[Polyphonic](/Polyphony) Complexity**: Processing single, [monophonic](/Monophony) lines is relatively straightforward. Dealing with complex, [polyphonic](/Polyphony) music (multiple instruments and voices simultaneously) is exponentially harder, as algorithms struggle to isolate and manipulate individual components without affecting others. This often leads to a "mushy" or "watery" sound.
+*   **Computational Overhead**: High-quality algorithms are computationally intensive, requiring significant [CPU](/Central_processing_unit) resources, which can be a bottleneck for real-time applications or when processing large amounts of [audio](/Audio).
+*   **Parameter Sensitivity**: Many algorithms have a multitude of parameters that need to be carefully tuned for optimal results, often requiring a deep understanding of the underlying [DSP](/Digital_signal_processing) principles or, more commonly, a frustrating amount of trial and error.
+
+## Historical Context: From Analog Hacks to Digital Wizardry
+
+The desire to manipulate [time](/Time) and [pitch](/Pitch) in [audio](/Audio) is not a modern invention. Early attempts were, predictably, analog and wonderfully crude.
+
+*   **Analog Era**: Before the advent of [digital signal processing](/Digital_signal_processing), engineers relied on mechanical and electrical means.
+    *   **[Vari-speed](/Vari-speed)**: The simplest method involved changing the playback speed of [tape recorders](/Tape_recorder) or [turntables](/Turntable). This, of course, inextricably linked pitch and duration, leading to the characteristic "chipmunk" or "slow-motion monster" voices.
+    *   **Tape Splicing**: To stretch or compress time without pitch change was a laborious process of physically cutting and re-splicing [magnetic tape](/Magnetic_tape), repeating or removing tiny segments. This was incredibly time-consuming and prone to audible clicks and glitches.
+    *   **[Harmonizers](/Harmonizer)**: Devices like the [Eventide H910 Harmonizer](/Eventide_H910_Harmonizer), introduced in the late 1970s, were among the first commercial units capable of rudimentary pitch shifting using [digital delay lines](/Delay_line) and [sampling](/Sampling_(signal_processing)) techniques, often with a distinctive, somewhat artificial sound.
+
+*   **Digital Revolution**: The advent of affordable [digital signal processing](/Digital_signal_processing) chips and powerful [computers](/Computer) in the late 20th century truly opened the floodgates.
+    *   **Early [DSP](/Digital_signal_processing) Implementations**: Researchers began to explore [time-domain](/Time_domain) and [frequency-domain](/Frequency_domain) algorithms with greater precision. The [phase vocoder](/Phase_vocoder) concept, while theoretically described earlier, became practically implementable.
+    *   **[PSOLA](/PSOLA_(sound_processing)) and [SOLA](/Overlap-add_method) Development**: These algorithms were refined for speech and music applications, leading to more natural-sounding results.
+    *   **Commercial Software Integration**: By the late 1990s and early 2000s, [DAWs](/Digital_audio_workstation) like [Pro Tools](/Pro_Tools), [Logic Pro](/Logic_Pro), and [Cubase](/Cubase) began integrating sophisticated [time-stretching](/Time_stretching) and [pitch-scaling](/Pitch_shift) capabilities as standard features, making these once specialized techniques accessible to a wider audience of [music producers](/Music_producer) and [sound designers](/Sound_designer). The days of manually splicing tape were, thankfully, behind us.
+
+## Related Concepts: The Broader Sonic Manipulation Landscape
+
+[Audio time stretching](/Audio_time_stretching_and_pitch_scaling) and [pitch scaling](/Audio_time_stretching_and_pitch_scaling) exist within a larger ecosystem of [audio manipulation](/Audio_processing) techniques.
+
+*   **[Auto-Tune](/Auto-Tune)**: A specific and often controversial form of [pitch correction](/Pitch_correction) that automatically detects and corrects off-key notes in vocal or instrumental performances, snapping them to the nearest semitone within a specified [scale](/Scale_(music)). It relies heavily on pitch detection and subtle pitch shifting.
+*   **[Sampler](/Sampler_(musical_instrument))**: A [musical instrument](/Musical_instrument) that records and plays back snippets of [audio](/Audio) (samples). Modern [samplers](/Sampler_(musical_instrument)) often incorporate sophisticated [time-stretching](/Time_stretching) and [pitch-scaling](/Pitch_shift) capabilities, allowing users to manipulate samples extensively.
+*   **[Audio Compression](/Audio_compression)**: While the term "compression" can refer to reducing the [dynamic range](/Dynamic_range) of an [audio signal](/Audio_signal), it also refers to reducing the [file size](/File_size) of digital audio. Neither is directly related to time stretching or pitch scaling, but all fall under the umbrella of [audio processing](/Audio_processing).
+*   **[Tempo](/Tempo) vs. [Pitch](/Pitch)**: These are the two primary parameters manipulated by the techniques discussed. [Tempo](/Tempo) refers to the speed or pace of a musical piece, while [pitch](/Pitch) refers to the perceived highness or lowness of a sound. The entire point of these algorithms is to separate these two, which are naturally intertwined in analog audio.
+*   **[Delay Lines](/Delay_line)**: Fundamental components in many [DSP](/Digital_signal_processing) algorithms, [delay lines](/Delay_line) temporarily store [audio samples](/Audio_sample), allowing for operations like [echo](/Echo) effects, [flanging](/Flanging), and the controlled overlap-add processes central to [time stretching](/Time_stretching) and [pitch scaling](/Pitch_shift).
+
+In essence, these techniques are about imposing human will upon the raw, unyielding physics of sound. The results are often impressive, sometimes transformative, and occasionally, a stark reminder that some things are best left alone.
+
+## See Also
+
+*   [Audio signal processing](/Audio_signal_processing)
+*   [Digital audio workstation](/Digital_audio_workstation)
+*   [Musical acoustics](/Musical_acoustics)
+*   [Sound engineering](/Sound_engineering)
+*   [Voice changer](/Voice_changer)

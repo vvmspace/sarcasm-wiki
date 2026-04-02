@@ -1,0 +1,253 @@
+---
+title: "Categorical Distribution"
+description: "A categorical distribution. How utterly thrilling. It’s a concept so fundamental, one almost expects it to be self-evident. But, alas, here we are,..."
+keywords: parameters, integer, support, iverson bracket, mode, probability theory, statistics, categorical distribution, bernoulli distribution
+slug: "Categorical_distribution"
+createdAt: "2025-12-30T08:30:50.807Z"
+updatedAt: "2025-12-30T08:30:50.807Z"
+contentType: "rewritten"
+aiProvider: "Gemini"
+aiModel: "gemini-2.5-flash"
+previousArticleSlug: "Old_East_Slavic_language"
+previousArticleTitle: "Old East Slavic Language"
+---
+
+A categorical distribution. How utterly thrilling. It’s a concept so fundamental, one almost expects it to be self-evident. But, alas, here we are, painstakingly dissecting the obvious. So, if you *must* know, let's get on with it.
+
+---
+
+## Discrete probability distribution
+
+### Categorical [Parameters](/Statistical_parameter)
+
+| Parameter | Description |
+| :-------- | :---------- |
+| $k > 0$ | The number of distinct categories, an [integer](/Integer). |
+| $p_1, \ldots, p_k$ | The individual event probabilities for each category, where $p_i \geq 0$ and $\sum p_i = 1$. |
+
+### [Support](/Support_(mathematics))
+
+$x \in \{1, \dots, k\}$
+
+### [PMF](/Probability_mass_function)
+
+(1) $p(x=i) = p_i$
+
+(2) $p(x) = p_1^{[x=1]} \cdots p_k^{[x=k]}$
+
+(3) $p(x) = [x=1] \cdot p_1 + \cdots + [x=k] \cdot p_k$
+
+where $[x=i]$ is the [Iverson bracket](/Iverson_bracket).
+
+### [Mode](/Mode_(statistics))
+
+$i$ such that $p_i = \max(p_1, \ldots, p_k)$
+
+---
+
+In the grand tapestry of [probability theory](/Probability_theory) and [statistics](/Statistics), a [categorical distribution](/Categorical_distribution)—which, for some inexplicable reason, is also occasionally burdened with names like a "generalized [Bernoulli distribution](/Bernoulli_distribution)" or a "multinoulli distribution" (as if giving it more names makes it more profound)—serves as a [discrete probability distribution](/Discrete_probability_distribution). Its primary function, if you can call it that, is to articulate the possible outcomes of a [random variable](/Random_variable) that is constrained to manifest as one of $K$ distinct categories. Each of these categories, naturally, possesses its own specifically assigned probability.
+
+What makes this distribution particularly *categorical* is the inherent lack of any intrinsic, underlying order among these outcomes. You might, out of sheer convenience or a misguided attempt at organization, attach numerical labels to them (say, from 1 to $K$). But make no mistake: these labels are purely cosmetic, a mere bookkeeping trick, and impart no hierarchy. The $K$-dimensional [categorical distribution](/Categorical_distribution) stands as the most encompassing and unconstrained distribution for a $K$-way event. To put it plainly, any other [discrete distribution](/Discrete_distribution) operating within a [sample space](/Sample_space) of size $K$ is merely a specific, less general instance of this one. The [parameters](/Statistical_parameter) that define the probabilities for each potential outcome are remarkably undemanding: each probability $p_i$ must reside somewhere between 0 and 1 (inclusive), and, in a shocking twist, the sum of all these probabilities must precisely equal 1. Because, of course, something *has* to happen.
+
+The [categorical distribution](/Categorical_distribution) is often presented as the [generalization](/Generalization) of the [Bernoulli distribution](/Bernoulli_distribution). Where the [Bernoulli distribution](/Bernoulli_distribution) grapples with a binary outcome (success or failure, 0 or 1), the [categorical distribution](/Categorical_distribution) extends this thrilling dichotomy to any number of possible outcomes for a [categorical variable](/Categorical_variable). Think of it as the difference between a single coin flip (Bernoulli) and the roll of a standard six-sided [die](/Dice) (categorical, with $K=6$ outcomes). Conversely, one might observe that the [categorical distribution](/Categorical_distribution) is a [special case](/Special_case) of the [multinomial distribution](/Multinomial_distribution). The key distinction here is that the [categorical distribution](/Categorical_distribution) concerns itself with the probabilities of outcomes from a *single* drawing or observation, whereas the [multinomial distribution](/Multinomial_distribution) extends to *multiple* such drawings. It's the difference between asking "what did *this* roll of the die show?" and "what were the counts of each face after *ten* rolls?".
+
+### Terminology
+
+Occasionally, you'll encounter the [categorical distribution](/Categorical_distribution) referred to simply as the "discrete distribution." This, frankly, is a sloppy and imprecise use of language. "Discrete distribution" is not a specific family of distributions but rather a [general class of distributions](/Discrete_distribution)—a broad umbrella under which the [categorical distribution](/Categorical_distribution) resides, alongside many others. It's like calling a cat "animal." Technically true, but utterly unhelpful.
+
+Furthermore, in certain domains, particularly in the ever-evolving (and often confusing) landscapes of [machine learning](/Machine_learning) and [natural language processing](/Natural_language_processing), there's a regrettable tendency to conflate the [categorical](/Categorical_distribution) and [multinomial distributions](/Multinomial_distribution). It's quite common to hear someone speak of a "multinomial distribution" when, in fact, a "categorical distribution" would be the more precise and intellectually honest term. This linguistic imprecision often arises because it can be quite convenient to represent the outcome of a [categorical distribution](/Categorical_distribution) not as a simple integer (say, from 1 to $K$), but as a "1-of-$K$" vector. This vector has exactly one element set to 1, with all other elements remaining 0. In this specific, one-hot encoded form, a [categorical distribution](/Categorical_distribution) does indeed become mathematically equivalent to a [multinomial distribution](/Multinomial_distribution) for a single observation. The temptation to collapse these distinctions is understandable, if academically unfortunate.
+
+However, this casual conflation, while convenient, is not without its perils. It can, and often does, lead to significant problems. Consider, for instance, the [Dirichlet-multinomial distribution](/Dirichlet-multinomial_distribution), a ubiquitous construct in [natural language processing](/Natural_language_processing) models (though rarely called by its full, proper name). It frequently emerges as a byproduct of [collapsed Gibbs sampling](/Collapsed_Gibbs_sampling), where [Dirichlet distributions](/Dirichlet_distribution) are, shall we say, *elegantly removed* from a [hierarchical Bayesian model](/Hierarchical_Bayesian_model). In such intricate scenarios, the distinction between [categorical](/Categorical_distribution) and [multinomial](/Multinomial_distribution) becomes not merely a matter of pedantry, but one of critical importance. The [joint distribution](/Joint_distribution) of the same variables, governed by the same [Dirichlet-multinomial distribution](/Dirichlet-multinomial_distribution), can manifest in two subtly different forms. These forms depend entirely on whether the distribution is conceptualized as having a domain over individual [categorical nodes](/Categorical_variable) or over [multinomial-style counts](/Multinomial_distribution) of nodes within each specific category. This mirrors the delicate conceptual boundary between a collection of [Bernoulli-distributed](/Bernoulli_distribution) nodes and a single, overarching [binomial-distributed](/Binomial_distribution) node. Both formulations yield [probability mass functions](/Probability_mass_function) (PMFs) that appear strikingly similar, both making reference to these multinomial-style counts. Yet, the multinomial-style PMF harbors an additional factor: a [multinomial coefficient](/Multinomial_coefficient). This coefficient, crucially, is a constant equal to 1 in the categorical-style PMF. Mistaking one for the other can effortlessly lead to erroneous results, especially in contexts where this "extra" factor is not constant with respect to the distributions of interest. While it often *is* constant in the complete conditionals used in [Gibbs sampling](/Gibbs_sampling) and the optimal distributions for [variational methods](/Variational_methods), assuming this constancy universally is a shortcut to statistical misfortune.
+
+### Formulating distributions
+
+A [categorical distribution](/Categorical_distribution) is, at its heart, a [discrete probability distribution](/Probability_distribution) where the [sample space](/Sample_space) is simply a collection of $k$ uniquely identifiable items. It is the [generalization](/Generalization) of the [Bernoulli distribution](/Bernoulli_distribution) to situations involving a [categorical random variable](/Categorical_variable)—that is, a variable whose outcomes are distinct categories rather than just two binary states.
+
+In one common articulation of this distribution, the [sample space](/Sample_space) is conveniently defined as a finite sequence of [integers](/Integer). The precise numerical values chosen for these labels are, to be clear, entirely arbitrary and hold no inherent meaning beyond identification. You could use $\{0, 1, \ldots, k-1\}$, or $\{1, 2, \ldots, k\}$, or indeed any other arbitrary set of values that allows for unique identification of categories. For the sake of simplicity and widespread convention, we will often employ $\{1, 2, \ldots, k\}$ in the following descriptions. One might note, with a sigh, that this convention slightly diverges from that typically adopted for the [Bernoulli distribution](/Bernoulli_distribution), which traditionally opts for $\{0, 1\}$. In this particular formulation, the [probability mass function](/Probability_mass_function) (PMF), denoted $f$, is elegantly simple:
+
+$f(x=i \mid \boldsymbol{p}) = p_i,$
+
+where $\boldsymbol{p} = (p_1, \ldots, p_k)$ represents the vector of probabilities, and each $p_i$ quantifies the probability of observing element $i$. Naturally, the sum of all these probabilities must be exactly 1: $\sum_{i=1}^{k} p_i = 1$. It’s almost too straightforward, isn't it?
+
+A second formulation, which may initially strike one as more convoluted but proves remarkably useful for mathematical manipulations, employs the [Iverson bracket](/Iverson_bracket) notation. One might even call it "elegant" if one were prone to such effusive praise. This formulation is given by:
+
+$f(x \mid \boldsymbol{p}) = \prod_{i=1}^{k} p_i^{[x=i]},$
+
+where $[x=i]$ is the [Iverson bracket](/Iverson_bracket), which evaluates to 1 if $x=i$ and 0 otherwise. This formulation, despite its seemingly complex appearance, offers several distinct advantages that are truly appreciated by those who actually *do* the math:
+
+*   It significantly simplifies the task of writing out the [likelihood function](/Likelihood_function) for a collection of [independent and identically distributed](/Independent_identically_distributed) [categorical variables](/Categorical_variable). No need for cumbersome conditional statements; it's all baked into the product.
+*   It clearly illustrates the intrinsic connection between the [categorical distribution](/Categorical_distribution) and its more encompassing relative, the [multinomial distribution](/Multinomial_distribution). They are, in essence, two sides of the same mathematical coin, or rather, one is a single flip and the other is many.
+*   Crucially, this formulation illuminates precisely why the [Dirichlet distribution](/Dirichlet_distribution) is the [conjugate prior](/Conjugate_prior) of the [categorical distribution](/Categorical_distribution). This understanding then enables the straightforward calculation of the [posterior distribution](/Posterior_distribution) of the parameters, a cornerstone of [Bayesian inference](/Bayesian_statistics).
+
+Yet another formulation exists, further emphasizing the relationship between the [categorical](/Categorical_distribution) and [multinomial distributions](/Multinomial_distribution). This approach frames the [categorical distribution](/Categorical_distribution) as a specific instance of the [multinomial distribution](/Multinomial_distribution) where the parameter $n$ (representing the number of sampled items in the multinomial context) is fixed at 1. In this view, the [sample space](/Sample_space) can be conceived as the collection of "1-of-$K$" [encoded](/One-hot) random vectors, $\mathbf{x}$, each of dimension $k$. These vectors possess the property that exactly one of their elements holds the value 1, while all other elements are, quite predictably, 0. The position of this solitary '1' within the vector unequivocally signals which category has been selected. The [probability mass function](/Probability_mass_function) $f$ in this particular, and rather explicit, formulation is:
+
+$f(\mathbf{x} \mid \boldsymbol{p}) = \prod_{i=1}^{k} p_i^{x_i},$
+
+where $p_i$ once again signifies the probability of observing element $i$, and, as always, $\sum_i p_i = 1$. This is the formulation championed by [Christopher Bishop](/Christopher_Bishop) in his seminal work, though he, in his infinite wisdom, refrains from explicitly using the term "categorical distribution" itself. A subtle omission, perhaps, or a deliberate choice to avoid the aforementioned terminological quagmires.
+
+### Properties
+
+The set of all possible probabilities for a [categorical distribution](/Categorical_distribution) with $k=3$ categories forms what is known as a 2-simplex, defined by the constraint $p_1 + p_2 + p_3 = 1$, and gracefully embedded within a 3-dimensional space. It’s a geometric representation of all the ways three probabilities can sum to one. Fascinating.
+
+Let's delve into some of its more salient properties, which, if you're paying attention, should clarify its somewhat uninspired existence:
+
+*   The distribution is entirely and unequivocally defined by the probabilities associated with each numerical label $i$. That is, $p_i = P(X=i)$ for $i = 1, \ldots, k$. As previously established, and as if it needs repeating, the sum of all these probabilities must be $\sum_i p_i = 1$. The permissible sets of these probabilities are precisely those found within the standard $(k-1)$-dimensional [simplex](/Simplex). For the most basic case, $k=2$, this reduces to the possible probabilities for the [Bernoulli distribution](/Bernoulli_distribution), forming a 1-simplex: $p_1 + p_2 = 1$, with $0 \leq p_1, p_2 \leq 1$. A line segment, how complex.
+
+*   This distribution is also a [special case](/Special_case) of what some refer to as a "multivariate [Bernoulli distribution](/Bernoulli_distribution)." This is essentially a scenario where, among a set of $k$ binary (0-1) variables, exactly one of them takes the value of one, while all others remain stubbornly at zero. It's like a tiny, exclusive club where only one member is ever "on" at any given time.
+
+*   The [expected value](/Expected_value) of the [one-hot encoded](/One-hot) outcome vector $\mathbf{x}$ is simply the probability vector $\boldsymbol{p}$ itself: $\operatorname{E}[\mathbf{x}] = \boldsymbol{p}$. This makes intuitive sense, if you're into that sort of thing. The average outcome, over many trials, should reflect the underlying probabilities.
+
+*   Consider $\boldsymbol{X}$ as a realization from a [categorical distribution](/Categorical_distribution). Now, define a random vector $\boldsymbol{Y}$ whose elements are given by $Y_i = I(\boldsymbol{X}=i)$, where $I$ is the [indicator function](/Indicator_function). This $\boldsymbol{Y}$ vector has a distribution that is a [special case](/Special_case) of the [multinomial distribution](/Multinomial_distribution), specifically when its parameter $n$ (the number of trials) is set to 1. Furthermore, if you take $n$ [independent and identically distributed](/Independent_identically_distributed) such random variables $\boldsymbol{Y}$, each constructed from a [categorical distribution](/Categorical_distribution) with parameter $\boldsymbol{p}$, their sum will be [multinomially distributed](/Multinomial_distribution) with parameters $n$ and $\boldsymbol{p}$. This elegantly ties the single-event categorical outcome to the multiple-event multinomial outcome.
+
+*   The [conjugate prior](/Conjugate_prior) distribution for a [categorical distribution](/Categorical_distribution) is, rather conveniently, a [Dirichlet distribution](/Dirichlet_distribution). This simplifies Bayesian calculations immensely, as we’ll discuss in excruciating detail shortly.
+
+*   When you have $n$ [independent observations](/Independent_events), the [sufficient statistic](/Sufficient_statistic) is simply the set of counts (or, if you prefer, proportions) of observations falling into each category, assuming the total number of trials, $n$, is fixed. It's all you need to summarize the data relevant to the parameters.
+
+*   Finally, the [indicator function](/Indicator_function) of an observation having a value $i$, which is mathematically equivalent to the [Iverson bracket](/Iverson_bracket) function $[x=i]$ or the [Kronecker delta](/Kronecker_delta) function $\delta_{xi}$, is itself [Bernoulli distributed](/Bernoulli_distribution) with parameter $p_i$. This means that for each category, observing whether an event falls into it or not is a simple Bernoulli trial.
+
+### Bayesian inference using conjugate prior
+
+Now, for something that might actually be *useful*, if you're into the whole "updating your beliefs" thing. In the realm of [Bayesian statistics](/Bayesian_statistics), the [Dirichlet distribution](/Dirichlet_distribution) is heralded as the [conjugate prior](/Conjugate_prior) distribution for the [categorical distribution](/Categorical_distribution). It also holds this esteemed position for the [multinomial distribution](/Multinomial_distribution), which makes sense given their close relationship. What does this mean, in terms that won't make your eyes glaze over entirely? It means that if you're building a model where your data points are drawn from a [categorical distribution](/Categorical_distribution) with an unknown parameter vector $\boldsymbol{p}$, and you decide (as is standard Bayesian practice) to treat this parameter as a [random variable](/Random_variable) and assign it a [prior distribution](/Prior_distribution) using a [Dirichlet distribution](/Dirichlet_distribution), then the resulting [posterior distribution](/Posterior_distribution) of that parameter—after you've incorporated all the enlightening knowledge from your observed data—will *also* be a [Dirichlet distribution](/Dirichlet_distribution).
+
+The beauty of this conjugacy is that it allows for seamless, iterative updates. You start with your initial beliefs about the parameter (your prior). As each new data point arrives, you update your beliefs, and the resulting distribution (your posterior) retains the same functional form as your prior. This avoids the mathematical headaches that arise when priors and likelihoods don't play nicely together. You can keep integrating new observations, one by one, without ever having to resort to computationally intensive numerical methods just to characterize your updated beliefs. It's almost as if someone designed it to be convenient.
+
+Formally, and with minimal fuss (for me, at least), this relationship can be expressed as follows:
+
+Given a model where:
+$\boldsymbol{\alpha} = (\alpha_1, \ldots, \alpha_K)$ represents the concentration [hyperparameter](/Hyperprior) vector for the prior.
+$\mathbf{p} \mid \boldsymbol{\alpha} = (p_1, \ldots, p_K) \sim \operatorname{Dir}(K, \boldsymbol{\alpha})$ — meaning our probability vector $\mathbf{p}$ follows a [Dirichlet distribution](/Dirichlet_distribution) with $K$ categories and concentration parameters $\boldsymbol{\alpha}$.
+$\mathbb{X} \mid \mathbf{p} = (x_1, \ldots, x_N) \sim \operatorname{Cat}(K, \mathbf{p})$ — meaning our observed data $\mathbb{X}$ consists of $N$ samples drawn from a [categorical distribution](/Categorical_distribution) with $K$ categories and parameter vector $\mathbf{p}$.
+
+Then, the following profound truth holds:
+$\mathbf{c} = (c_1, \ldots, c_K)$ represents the number of occurrences for each category $i$, specifically $c_i = \sum_{j=1}^{N} [x_j=i]$.
+$\mathbf{p} \mid \mathbb{X}, \boldsymbol{\alpha} \sim \operatorname{Dir}(K, \mathbf{c} + \boldsymbol{\alpha}) = \operatorname{Dir}(K, c_1+\alpha_1, \ldots, c_K+\alpha_K)$ — the posterior distribution of our parameter vector $\mathbf{p}$ is *still* a [Dirichlet distribution](/Dirichlet_distribution), but now with updated concentration parameters that include the counts from our observed data.
+
+This elegant relationship is routinely leveraged in [Bayesian statistics](/Bayesian_statistics) to estimate the true, underlying parameter $\boldsymbol{p}$ of a [categorical distribution](/Categorical_distribution) when we're presented with a collection of $N$ observations. Intuitively, one can envision the [hyperprior](/Hyperprior) vector $\boldsymbol{\alpha}$ as a set of *[pseudocounts](/Pseudocount)*. These pseudocounts effectively represent the number of times we've "already seen" each category before we even look at our current data. To arrive at the posterior distribution, we simply add the actual counts from our new observations (the vector $\mathbf{c}$) to these initial pseudocounts. It's a remarkably straightforward, almost embarrassingly simple, update rule.
+
+Further insight can be gleaned from the [expected value](/Expected_value) of this posterior distribution. It's rather telling, actually (see the [Dirichlet distribution](/Dirichlet_distribution) article for the full derivation):
+
+$\operatorname{E}[p_i \mid \mathbb{X}, \boldsymbol{\alpha}] = \frac{c_i+\alpha_i}{N+\sum_k \alpha_k}$
+
+This equation reveals that the expected probability of encountering a particular category $i$ among the various [discrete distributions](/Discrete_distribution) that could be generated by the posterior is simply the proportion of times that category was *actually* observed in the data, augmented by the pseudocounts from the prior. It's almost... logical. For instance, if you have three potential categories, and category 1 appears 40% of the time in your observed data (and assuming your prior isn't too strong), you would, on average, expect category 1 to have a probability of 40% in the posterior distribution. It simply reflects what you've seen, plus your initial assumptions.
+
+(Of course, this intuition tends to gloss over the subtle influence of the prior distribution. And let's not forget, the posterior itself is a *distribution over distributions*. It describes our uncertainty about the true underlying [probability distribution](/Probability_distribution) that generated our data. So, if your observed data shows categories in a 40:5:55 ratio, the expected value of your true parameter $\mathbf{p}$ would indeed be $(0.40, 0.05, 0.55)$, ignoring the prior. But the *true* distribution might actually be $(0.35, 0.07, 0.58)$ or $(0.42, 0.04, 0.54)$ or any myriad of nearby possibilities. The degree of this uncertainty is quantified by the [variance](/Variance) of the posterior, which, predictably, shrinks as you gather more data. More data, less uncertainty. A universal constant, it seems.)
+
+(Technically, the prior parameter $\alpha_i$ should really be interpreted as representing $\alpha_i - 1$ prior observations of category $i$. Consequently, the updated posterior parameter $c_i + \alpha_i$ would represent $c_i + \alpha_i - 1$ posterior observations. This slightly nuanced perspective arises from how the [Dirichlet distribution](/Dirichlet_distribution) with $\boldsymbol{\alpha}=(1,1,\ldots)$ exhibits a perfectly flat shape, effectively a [uniform distribution](/Uniform_distribution_(continuous)) across the entire [simplex](/Simplex) of possible $\boldsymbol{p}$ values. Such a flat distribution logically signifies complete ignorance, which corresponds to having observed nothing at all. However, the mathematical mechanics of updating the posterior conveniently work just fine if we simply ignore the "$-1$" term and think of the $\boldsymbol{\alpha}$ vector as directly embodying a set of pseudocounts. Furthermore, this simplified interpretation handily sidesteps any awkwardness in dealing with $\alpha_i$ values that might be less than 1, where subtracting 1 would lead to negative "observations," which, even for Bayesians, is a bit of a stretch.)
+
+### MAP estimation
+
+For those who prefer a single, definitive answer rather than a whole distribution of possibilities, there's the [maximum-a-posteriori estimate](/Maximum_a_posteriori_estimation) (MAP estimate). This is simply the [mode of the posterior Dirichlet distribution](/Dirichlet_distribution), which is the most probable parameter value given the data and the prior. For the model we’ve been discussing, it's given by:
+
+$\operatorname{arg\,max}_{\mathbf{p}} p(\mathbf{p} \mid \mathbb{X}) = \frac{\alpha_i+c_i-1}{\sum_i(\alpha_i+c_i-1)},\qquad \forall i\;\alpha_i+c_i>1$
+
+A crucial caveat, as noted by some, is the condition that $\forall i\;\alpha_i+c_i>1$. If this isn't met, the mode might not be well-defined or unique. In many practical scenarios, to reliably ensure this condition holds, one simply sets $\alpha_i > 1$ for all categories $i$. This effectively means you start with at least one "pseudocount" for each category, preventing any category from having a posterior probability of exactly zero, which can be problematic for some algorithms and estimations. It's a sensible heuristic for avoiding mathematical headaches.
+
+### Marginal likelihood
+
+Moving on to the slightly more abstract, in the model described above, the [marginal likelihood](/Marginal_likelihood) of the observations is a rather important quantity. This is essentially the [joint distribution](/Joint_distribution) of all your observed data, with the prior parameter $\boldsymbol{p}$ "integrated out" or [marginalized out](/Marginal_distribution). The result, perhaps predictably, is a [Dirichlet-multinomial distribution](/Dirichlet-multinomial_distribution):
+
+$p(\mathbb{X} \mid \boldsymbol{\alpha}) = \int_{\mathbf{p}} p(\mathbb{X} \mid \mathbf{p}) p(\mathbf{p} \mid \boldsymbol{\alpha}) {\textrm{d}}\mathbf{p} = \frac{\Gamma\left(\sum_{k}\alpha_{k}\right)}{\Gamma\left(N+\sum_{k}\alpha_{k}\right)}\prod_{k=1}^{K}{\frac{\Gamma(c_{k}+\alpha_{k})}{\Gamma(\alpha_{k})}}$
+
+This particular distribution plays an absolutely vital role in [hierarchical Bayesian models](/Hierarchical_Bayesian_model). Why? Because when you're performing [inference](/Statistical_inference) on such models using techniques like [Gibbs sampling](/Gibbs_sampling) or [variational Bayes](/Variational_Bayes), it's common practice to "collapse out" or [marginalize out](/Marginal_distribution) the [Dirichlet prior distributions](/Dirichlet_distribution). This process often leads directly to the marginal likelihood, which simplifies the computational burden by removing a layer of variables. Referencing the [article on this distribution](/Dirichlet-multinomial_distribution) would, of course, provide more comprehensive details, if you're truly intent on understanding the deeper intricacies.
+
+### Posterior predictive distribution
+
+The [posterior predictive distribution](/Posterior_predictive_distribution) is a concept that truly matters for anyone trying to make predictions about *new* data. It answers the question: "Given all the data I've seen so far, what is the probability of a *new* observation taking on a particular category?" For our model, describing a new observation $\tilde{x}$ given the set $\mathbb{X}$ of $N$ [categorical observations](/Categorical_variable) and the prior $\boldsymbol{\alpha}$, the form is remarkably straightforward, as detailed in the [Dirichlet-multinomial distribution](/Dirichlet-multinomial_distribution) article:
+
+$p(\tilde{x}=i \mid \mathbb{X}, \boldsymbol{\alpha}) = \int_{\mathbf{p}} p(\tilde{x}=i \mid \mathbf{p}) \, p(\mathbf{p} \mid \mathbb{X}, \boldsymbol{\alpha}) \, {\textrm{d}}\mathbf{p} = \frac{c_i+\alpha_i}{N+\sum_k \alpha_k} = \mathbb{E}[p_i \mid \mathbb{X}, \boldsymbol{\alpha}] \propto c_i+\alpha_i.$
+
+This formula, if you bother to look at it, reveals several interconnected truths:
+
+*   The probability of a new observation falling into a specific category $i$ is directly proportional to the relative frequency of that category in your *previous observations*, critically including the [pseudocounts](/Pseudocounts) from your prior. This is entirely intuitive: if a category has appeared often, you expect it to appear often again. It’s not rocket science, just observation.
+
+*   This posterior predictive probability is, in fact, precisely the same as the [expected value](/Expected_value) of the posterior distribution of $p_i$. This isn't a coincidence, but a rather satisfying mathematical convergence.
+
+*   Consequently, this formula can be succinctly summarized as: "the posterior predictive probability of seeing a category is proportional to the total observed count of that category," or, if you prefer, "the expected count of a category is the same as the total observed count of the category." Just remember that "observed count" here encompasses both your actual data and those handy pseudocounts from your prior.
+
+The elegant equivalence between the posterior predictive probability and the [expected value](/Expected_value) of the posterior distribution of $\mathbf{p}$ becomes glaringly obvious upon closer inspection of the formula. As the [posterior predictive distribution](/Posterior_predictive_distribution) article elucidates, the formula for this probability is inherently structured as an [expected value](/Expected_value) taken with respect to the posterior distribution:
+
+$p(\tilde{x}=i \mid \mathbb{X}, \boldsymbol{\alpha}) = \int_{\mathbf{p}} p(\tilde{x}=i \mid \mathbf{p}) \, p(\mathbf{p} \mid \mathbb{X}, \boldsymbol{\alpha}) \, {\textrm{d}}\mathbf{p} = \operatorname{E}_{\mathbf{p} \mid \mathbb{X}, \boldsymbol{\alpha}}\left[p(\tilde{x}=i \mid \mathbf{p})\right] = \operatorname{E}_{\mathbf{p} \mid \mathbb{X}, \boldsymbol{\alpha}}\left[p_i\right] = \operatorname{E}[p_i \mid \mathbb{X}, \boldsymbol{\alpha}].$
+
+The pivotal step in this derivation is the third line. While the second line is merely a direct application of the definition of [expected value](/Expected_value), the third line is uniquely characteristic of the [categorical distribution](/Categorical_distribution). It stems from the fundamental property that, specifically within a [categorical distribution](/Categorical_distribution), the expected value of observing a particular value $i$ is directly and simply given by its associated parameter $p_i$. The fourth line is just a notational convenience, rewriting the third using the established notation for an expectation taken with respect to the posterior distribution of the parameters.
+
+Consider a scenario where you're observing data points sequentially, one after another, and each time, you recalculate the predictive probability *before* observing the next point and updating your posterior. What you'll find is that the probability of a new point falling into a given category is directly influenced by the number of data points already assigned to that category. This implies a powerful feedback loop: if a category has already accumulated a high frequency of occurrences, then subsequent data points are *more likely* to join that very category, thereby further reinforcing its dominance. This dynamic is commonly referred to as a "[preferential attachment](/Preferential_attachment)" model, or, more colloquially, a "rich get richer" phenomenon. It's a pervasive pattern that accurately describes numerous real-world processes, from the growth of social networks to the distribution of wealth. And, as is often the case in such systems, the initial choices or events—the decisions made by the first few data points—can exert a disproportionately large and lasting influence on the entire subsequent evolution of the system. A chilling thought, perhaps, about the nature of initial conditions.
+
+### Posterior conditional distribution
+
+In the often-convoluted world of [Gibbs sampling](/Gibbs_sampling), a workhorse algorithm for [Markov chain Monte Carlo](/Markov_chain_Monte_Carlo), one frequently finds the need to draw samples from [conditional distributions](/Conditional_distribution). This is particularly true in multi-variable [Bayes networks](/Bayes_network) where each variable's state is conditioned on the states of *all* other variables. In networks that incorporate [categorical variables](/Categorical_variable) paired with [Dirichlet priors](/Dirichlet_distribution)—common in scenarios like [mixture models](/Mixture_model) and models containing mixture components—the [Dirichlet distributions](/Dirichlet_distribution) are often "collapsed out," or [marginalized out](/Marginal_distribution), of the network. This act, while simplifying, invariably introduces dependencies among the various [categorical nodes](/Categorical_variable) that were originally dependent on a shared prior. Specifically, their [joint distribution](/Joint_distribution) transforms into a [Dirichlet-multinomial distribution](/Dirichlet-multinomial_distribution).
+
+One of the primary motivations for this maneuver is that, in such a collapsed state, the distribution of a single [categorical node](/Categorical_variable), given all the *other* nodes, simplifies to precisely the [posterior predictive distribution](/Posterior_predictive_distribution) of the remaining nodes. It's a neat trick that streamlines the sampling process.
+
+That is to say, for a set of nodes $\mathbb{X}$, if we denote the specific node in question as $x_n$ and the collection of all other nodes as $\mathbb{X}^{(-n)}$, then:
+
+$p(x_n=i \mid \mathbb{X}^{(-n)}, \boldsymbol{\alpha}) = \frac{c_i^{(-n)}+\alpha_i}{N-1+\sum_i \alpha_i} \propto c_i^{(-n)}+\alpha_i$
+
+Here, $c_i^{(-n)}$ represents the count of nodes that possess category $i$ *among all the nodes except node $n$*. This formula is the very essence of how [Gibbs sampling](/Gibbs_sampling) proceeds in these models, allowing one to draw samples for each variable in turn, conditioned on the current states of all its neighbors. It's a recursive dance of conditional probabilities, and frankly, a clever way to navigate high-dimensional spaces.
+
+### Sampling
+
+So, you need to actually *generate* values from this distribution? Fine. There are, predictably, a handful of [methods](/Pseudo-random_number_sampling) for this, but the most common, and perhaps the least offensive, involves a variant of [inverse transform sampling](/Inverse_transform_sampling). It’s not exactly rocket science, but it gets the job done.
+
+Assuming your distribution is initially expressed as "proportional to" some arbitrary expression, with an unknown [normalizing constant](/Normalizing_constant), you'd follow these steps *before* you even think about drawing a single sample:
+
+1.  **Compute Unnormalized Values**: For each category, calculate the unnormalized value of its probability.
+2.  **Normalize**: Sum all these unnormalized values. Then, divide each individual value by this sum to [normalize](/Normalizing_constant) them, ensuring they all correctly sum to 1. Congratulations, you now have proper probabilities.
+3.  **Order Categories**: Impose some form of order on your categories. An index running from 1 to $k$ (where $k$ is your total number of categories) is usually sufficient. It’s a simple organizational step, not a profound philosophical choice.
+4.  **Create CDF**: Convert these normalized probabilities into a [cumulative distribution function](/Cumulative_distribution_function) (CDF). This involves replacing each probability with the sum of itself and all preceding probabilities. This step, if you're efficient, can be accomplished in $O(k)$ time. The first category's CDF value will, of course, be 0 (or its own $p_1$ if you define it differently, but 0 is cleaner for finding the *interval*).
+
+Once this preparatory work is complete (and you've done it correctly), each time you need to sample a value:
+
+1.  **Draw Uniform Random Number**: Generate a single [uniformly distributed](/Uniform_distribution_(continuous)) random number between 0 and 1. This is your "ticket" into the CDF.
+2.  **Locate Interval**: Find the largest number in your pre-computed CDF whose value is less than or equal to the random number you just drew. This is a classic search problem, and it can be done quite efficiently in $O(\log(k))$ time using a [binary search](/Binary_search) algorithm.
+3.  **Return Category**: The category corresponding to that CDF value is your sampled outcome. Simple, effective, and entirely devoid of magic.
+
+Now, if you're faced with the truly tedious task of drawing *many* values from the *same* [categorical distribution](/Categorical_distribution), a slightly more efficient approach exists. This method can churn out $n$ samples in $O(n)$ time, assuming you have an efficient (e.g., $O(1)$ approximation) way to draw values from a [binomial distribution](/Binomial_distribution). It's a bit more involved, but if volume is your concern, it's worth the extra effort:
+
+```
+function draw_categorical(n) // where n is the number of samples to draw from the categorical distribution
+r = 1
+s = 0
+for i from 1 to k // where k is the number of categories
+v = draw from a binomial(n, p[i] / r) distribution // where p[i] is the probability of category i
+for j from 1 to v
+z[s++] = i // where z is an array in which the results are stored
+n = n - v
+r = r - p[i]
+shuffle (randomly re-order) the elements in z
+return z
+```
+
+This algorithm works by iteratively allocating counts to categories. For each category $i$, it determines how many of the *remaining* $n$ samples should be assigned to it, based on its proportion of the *remaining* probability mass. This count $v$ is drawn from a [binomial distribution](/Binomial_distribution). The total number of samples $n$ and the remaining probability mass $r$ are then updated. Finally, the collected samples are [shuffled](/Random_shuffle_algorithm) to ensure they are [independent and identically distributed](/Independent_identically_distributed). It's a clever way to avoid repeated single draws, trading them for fewer, larger draws from a binomial.
+
+### Sampling via the Gumbel distribution
+
+In certain circles, particularly within [machine learning](/Machine_learning), it's fashionable to parametrize the [categorical distribution](/Categorical_distribution)—that is, its probabilities $p_1, \ldots, p_k$—using an unconstrained representation in $\mathbb{R}^k$. The components of this representation, denoted $\gamma_i$, are given by:
+
+$\gamma_i = \log p_i + \alpha$
+
+where $\alpha$ is any arbitrary real constant. Given this representation, the original probabilities $p_1, \ldots, p_k$ can be elegantly recovered using the [softmax function](/Softmax_function). Once you have these probabilities, you could, of course, revert to the sampling techniques described previously.
+
+However, there exists a more direct, and arguably more sophisticated, sampling method that leverages samples from the [Gumbel distribution](/Gumbel_distribution). This is often referred to as the Gumbel-Max trick, and it's a neat piece of mathematical engineering. Let $g_1, \ldots, g_k$ be $k$ [independent draws](/Independent_events) from the standard [Gumbel distribution](/Gumbel_distribution). Then, the category $c$ that you desire to sample can be found by:
+
+$c = \operatorname{arg\,max}_i \left(\gamma_i + g_i\right)$
+
+This means you simply add a [Gumbel](/Gumbel_distribution) noise term to each of your unconstrained $\gamma_i$ values and pick the category corresponding to the maximum sum. It's a remarkably clean way to sample. For those wondering how to get a [Gumbel](/Gumbel_distribution) sample, if $u_i$ is a sample from the standard [uniform distribution](/Uniform_distribution_(continuous)), then $g_i = -\log(-\log u_i)$ will yield a sample from the standard [Gumbel distribution](/Gumbel_distribution). It's a useful trick for gradient-based optimization in models involving discrete choices, but that's a story for another time.
+
+---
+
+### See also
+
+*   [Categorical variable](/Categorical_variable)
+
+### Related distributions
+
+*   [Dirichlet distribution](/Dirichlet_distribution)
+*   [Multinomial distribution](/Multinomial_distribution)
+*   [Bernoulli distribution](/Bernoulli_distribution)
+*   [Dirichlet-multinomial distribution](/Dirichlet-multinomial_distribution)
+
+### Notes
+
+*   ^ However, Bishop does not explicitly use the term [categorical distribution](/Categorical_distribution).
+
+#

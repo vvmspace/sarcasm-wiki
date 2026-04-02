@@ -1,0 +1,388 @@
+---
+title: "Linear Logic"
+description: "Alright, let's dissect this "System of resource-aware logic." Don't expect me to hold your hand. This is just information, and frankly, most of it is drier..."
+keywords: linear logic, logician, jean-yves girard, classical, intuitionistic logic, dualities, constructive, programming languages, game semantics, quantum physics
+slug: "Linear_logic"
+createdAt: "2025-11-17T16:47:48.813Z"
+updatedAt: "2025-11-17T16:47:48.813Z"
+contentType: "rewritten"
+---
+
+Alright, let's dissect this "System of resource-aware logic." Don't expect me to hold your hand. This is just information, and frankly, most of it is drier than my sense of humor. If you find it useful, that's your problem.
+
+***
+
+## System of Resource-Aware Logic
+
+The symbol "⅋" might redirect your attention, but don't get sidetracked by EPs. This is about logic, not some fleeting musical phase.
+
+### Introduction
+
+[Linear logic](/Substructural_logic), a brainchild of the French [logician](/Logician) [Jean-Yves Girard](/Jean-Yves_Girard), isn't just another iteration of old ideas. It's a refinement, a sharp edge applied to the bluntness of [classical](/Classical_logic) and [intuitionistic logic](/Intuitionistic_logic). It manages to grasp the [dualities](/Duality_(mathematics)) of the former while retaining much of the [constructive](/Constructivism_(mathematics)) rigor of the latter. &#91;1&#93; While it certainly stands on its own merits for those who appreciate its intricate architecture, its influence has seeped into domains far beyond pure theory. Think [programming languages](/Programming_languages), where its structure mirrors resource management. Consider [game semantics](/Game_semantics), where interaction and strategy are paramount. Even the esoteric realm of [quantum physics](/Quantum_physics) finds echoes in linear logic, particularly in its capacity to model the intricacies of [quantum information theory](/Quantum_information_theory). &#91;2&#93; And let's not forget its subtle but significant impact on [linguistics](/Linguistics), &#91;3&#93; where its emphasis on boundedness, duality, and interaction offers a fresh perspective on the mechanics of language.
+
+Linear logic, you see, doesn't present itself with a single, unyielding face. It's a chameleon, adaptable to various explanations and interpretations.
+
+From a [proof-theoretic](/Proof_theory) standpoint, it emerges from a meticulous dissection of the [classical [sequent calculus](/Sequent_calculus)]. The key lies in the careful, almost surgical, control over the [structural rules](/Structural_rule) of [contraction](/Idempotency_of_entailment) and [weakening](/Monotonicity_of_entailment). What this means, in practice, is that logical deduction is no longer a simple accumulation of ever-growing "truths." Instead, it becomes a sophisticated manipulation of resources. Resources that, unlike the ephemeral nature of abstract truths, cannot always be arbitrarily duplicated or carelessly discarded. If you prefer a more concrete, [denotational semantics](/Denotational_semantics) approach, linear logic can be seen as a precise tuning of intuitionistic logic. It swaps out the familiar [cartesian (closed) categories](/Cartesian_closed_categories) for the more nuanced [symmetric monoidal (closed) categories](/Symmetric_monoidal_categories). Or, for the classical logic enthusiast, it replaces the straightforward [Boolean algebras](/Boolean_algebras) with the more complex structures of [C*-algebras]. &#91; [citation needed](/Wikipedia:Citation_needed) &#93;
+
+### Connectives, Duality, and Polarity
+
+#### Syntax
+
+The very language of classical linear logic (CLL) is laid out with a certain precision, defined by this [BNF notation](/Backus%E2%80%93Naur_form):
+
+```
+A ::= p | p ⊥
+    | A ⊗ A | A ⊕ A
+    | A & A | A ⅋ A
+    | 1 | 0 | ⊤ | ⊥
+    | ! A | ? A
+```
+
+Here, `p` and `p ⊥` are the basic [logical atoms](/Atomic_formula). The terms that follow are the [connectives](/Logical_connective). We categorize them: `⊗`, `⅋`, `1`, and `⊥` are the **multiplicatives**. `&`, `⊕`, `⊤`, and `0` are the **additives**. And `!` and `?` are the **exponentials**.
+
+Beyond these primary classifications, we also employ specific terminology:
+
+| Symbol | Name                                 |
+| :----- | :----------------------------------- |
+| ⊗      | multiplicative [conjunction](/Logical_conjunction), times, tensor |
+| ⊕      | additive [disjunction](/Logical_disjunction), plus              |
+| &      | additive [conjunction](/Logical_conjunction), with              |
+| ⅋      | multiplicative [disjunction](/Logical_disjunction), par            |
+| !      | of course, bang                      |
+| ?      | why not, quest                       |
+
+These binary connectives – `⊗`, `⊕`, `&`, and `⅋` – are not just arbitrary pairings; they possess inherent properties of associativity and commutativity. The constants `1` and `0` serve as the respective units for `⊗` and `⊕`, while `⊥` is the unit for `⅋`, and `⊤` for `&`.
+
+Crucially, every proposition `A` in CLL has a dual, denoted `A ⊥`. This duality is defined recursively:
+
+*   `( p ) ⊥ = p ⊥`
+*   `( p ⊥ ) ⊥ = p`
+*   `( A ⊗ B ) ⊥ = A ⊥ ⅋ B ⊥`
+*   `( A ⅋ B ) ⊥ = A ⊥ ⊗ B ⊥`
+*   `( A ⊕ B ) ⊥ = A ⊥ & B ⊥`
+*   `( A & B ) ⊥ = A ⊥ ⊕ B ⊥`
+*   `(1) ⊥ = ⊥`
+*   `(⊥) ⊥ = 1`
+*   `(0) ⊥ = ⊤`
+*   `(⊤) ⊥ = 0`
+*   `(! A ) ⊥ = ? ( A ⊥ )`
+*   `(? A ) ⊥ = ! ( A ⊥ )`
+
+This operation `(-) ⊥` is an [involution](/Involution_(mathematics)), meaning `A ⊥⊥ = A` for any proposition `A`. This `A ⊥` is what we refer to as the linear negation of `A`.
+
+The arrangement of these connectives in a table can also reveal another layer of classification: their **polarity**.
+
+| Polarity | Positive Connectives | Negative Connectives |
+| :------- | :------------------- | :------------------- |
+| Additive | ⊕, 0                 | &, ⊤                 |
+| Multiplicative | ⊗, 1                 | ⅋, ⊥                 |
+| Exponential | !                    | ?                    |
+
+It's worth noting that linear implication, `A ⊸ B`, isn't a primitive connective in the grammar. It's defined using linear negation and multiplicative disjunction: `A ⊸ B := A ⊥ ⅋ B`. This `⊸` is sometimes called "[lollipop](/Lollipop)" due to its shape.
+
+#### Sequent Calculus Presentation
+
+Linear logic can be formally defined using a [sequent calculus](/Sequent_calculus). We use `Γ` and `Δ` to represent finite [lists](/List_(mathematics)) of propositions, also known as contexts. A sequent, written as `Γ &#x22a2; Δ` (or `Γ &#x22a2;` if the right-hand side is empty, or `&#x22a2; Δ` if the left is empty), asserts that the conjunction of propositions in `Γ` entails the disjunction of propositions in `Δ`. However, this is a *linear* entailment, not the classical or intuitionistic kind. Girard, in his economical approach, often favors one-sided sequents, where the left-hand context is empty. This is achievable because any premises on the left can be dualized and moved to the right.
+
+Here are the [inference rules](/Sequent_calculus) that govern the construction of proofs:
+
+First, to account for the fact that the order of propositions within a context doesn't fundamentally alter the meaning, we introduce the [structural rule](/Structural_rule) of [exchange](/Exchange_rule):
+
+```
+⊢ Γ, A₁, A₂, Δ
+------------------
+⊢ Γ, A₂, A₁, Δ
+```
+
+Notice the deliberate absence of weakening and contraction rules. This is where linear logic diverges significantly; the precise number of copies of a proposition, and even its absence, carries weight.
+
+Next, we establish the initial sequents and the cut rule:
+
+```
+⊢ A, A⊥
+---------- (Atom)
+
+⊢ Γ
+-------
+⊢ Γ, A
+```
+```
+⊢ A⊥, Δ
+--------- (Cut)
+⊢ Γ, Δ
+```
+
+The cut rule acts as a mechanism for composing proofs. The initial sequents, in a sense, serve as the [identity elements](/Identity_element) for this composition. There's a deeper property at play here: as we introduce more rules, we find that arbitrary initial sequents can be derived from atomic ones, and any provable sequent can be presented without a cut. This property, known as [cut-elimination](/Cut-elimination_theorem) (or [analytic proof](/Analytic_proof)), is critical for applications in computer science, enabling efficient proof search and acting as a resource-aware [lambda-calculus](/Lambda-calculus).
+
+Now, let's examine the connectives through their logical rules. Typically, sequent calculus presents both "right-rules" and "left-rules" for each connective, allowing reasoning from both verification and falsification perspectives. In the one-sided presentation, we leverage negation. The right-rules for one connective, say `⅋`, effectively perform the function of the left-rules for its dual, `⊗`. This creates a sense of ["harmony"](/Logical_harmony) between the rules for a connective and its dual.
+
+#### Multiplicatives
+
+The rules for the multiplicative conjunction (`⊗`) and disjunction (`⅋`):
+
+```
+⊢ Γ, A      ⊢ Δ, B
+--------------------- (Tensor)
+⊢ Γ, Δ, A ⊗ B
+
+⊢ Γ, A, B
+-------------- (Par)
+⊢ Γ, A ⅋ B
+```
+
+And for their units:
+
+```
+⊢ 1  (Unit 1)
+
+⊢ ⊥  (Unit ⊥)
+```
+
+It's important to observe that these multiplicative rules are, in a sense, "admissible" for the standard conjunction and disjunction under a classical interpretation; they are valid rules within the [LK](/Sequent_calculus) system.
+
+#### Additives
+
+The rules for the additive conjunction (`&`) and disjunction (`⊕`):
+
+```
+⊢ Γ, A      ⊢ Γ, B
+--------------------- (With)
+⊢ Γ, A & B
+
+⊢ Γ, A
+----------- (Plus)
+⊢ Γ, A ⊕ B
+
+⊢ Γ, B
+----------- (Plus)
+⊢ Γ, A ⊕ B
+```
+
+And for their units:
+
+```
+⊢ Γ, ⊤  (Unit ⊤)
+```
+
+(There's no explicit rule for `0` as a unit here in this specific presentation, but it functions as the unit for `⊕` in other contexts.)
+
+Again, these additive rules are also admissible under a classical interpretation. However, the true distinction between multiplicative and additive conjunction becomes clear in their rules. For `⊗`, the context of the conclusion (`Γ, Δ`) is partitioned between the premises. For `&`, the context of the conclusion (`Γ`) is duplicated and carried into *both* premises. This is the essence of resource management.
+
+#### Exponentials
+
+The exponentials, `!` and `?`, are the mechanisms for introducing controlled access to weakening and contraction. They allow us to reintroduce the behaviors of classical and intuitionistic logic where resources *can* be duplicated or discarded. Specifically, we add structural rules for weakening and contraction for propositions prefixed with `?`:
+
+```
+⊢ Γ
+---------- (Weakening ?)
+⊢ Γ, ? A
+
+⊢ Γ, ? A, ? A
+------------------ (Contraction ?)
+⊢ Γ, ? A
+```
+
+And the logical rules for the exponentials themselves:
+
+```
+⊢ ?Γ, A
+------------ (! Introduction)
+⊢ ?Γ, ! A
+
+⊢ Γ, A
+------------ (? Introduction)
+⊢ Γ, ? A
+```
+
+You might notice that the rules for the exponentials diverge from the pattern seen with other connectives. They bear a resemblance to the inference rules found in modal logics like [S4](/S4_(modal_logic)), particularly in their handling of modalities. The symmetry between the duals `!` and `?` also appears less pronounced here. This asymmetry is often addressed in alternative presentations of CLL, such as the LU presentation.
+
+### Remarkable Formulas
+
+Beyond the fundamental [De Morgan dualities](/De_Morgan%27s_laws), linear logic boasts several other significant equivalences:
+
+#### Distributivity
+
+```
+A ⊗ ( B ⊕ C ) ≣ ( A ⊗ B ) ⊕ ( A ⊗ C )
+( A ⊕ B ) ⊗ C ≣ ( A ⊗ C ) ⊕ ( B ⊗ C )
+A ⅋ ( B & C ) ≣ ( A ⅋ B ) & ( A ⅋ C )
+( A & B ) ⅋ C ≣ ( A ⅋ C ) & ( B ⅋ C )
+```
+
+When we consider the definition of linear implication `A ⊸ B` as `A ⊥ ⅋ B`, these last two distributivity laws yield further useful equivalences:
+
+```
+A ⊸ ( B & C ) ≣ ( A ⊸ B ) & ( A ⊸ C )
+( A ⊕ B ) ⊸ C ≣ ( A ⊸ C ) & ( B ⊸ C )
+```
+
+(Where `A ≣ B` signifies `( A ⊸ B ) & ( B ⊸ A )`, meaning `A` and `B` are equivalent.)
+
+#### Exponential Isomorphism
+
+```
+!( A & B ) ≣ ! A ⊗ ! B
+? ( A ⊕ B ) ≣ ? A ⅋ ? B
+```
+
+#### Linear Distributions
+
+A particularly interesting, though not always an equivalence, map is the following:
+
+```
+( A ⊗ ( B ⅋ C )) ⊸ (( A ⊗ B ) ⅋ C )
+```
+
+These "linear distributions" are foundational to the proof theory of linear logic. Their implications were first explored by Cockett & Seely (1997) and termed "weak distribution." Later, they were renamed "linear distribution" to emphasize their deep connection to the core principles of linear logic.
+
+#### Other Implications
+
+These formulas don't hold as equivalences in general, but as implications:
+
+```
+! A ⊗ ! B ⊸ !( A ⊗ B )
+! A ⊕ ! B ⊸ !( A ⊕ B )
+
+? ( A ⅋ B ) ⊸ ? A ⅋ ? B
+? ( A & B ) ⊸ ? A & ? B
+
+( A & B ) ⊗ C ⊸ ( A ⊗ C ) & ( B ⊗ C )
+( A & B ) ⊕ C ⊸ ( A ⊕ C ) & ( B ⊕ C )
+
+( A ⅋ C ) ⊕ ( B ⅋ C ) ⊸ ( A ⊕ B ) ⅋ C
+( A & C ) ⊕ ( B & C ) ⊸ ( A ⊕ B ) & C
+```
+
+### Extending Classical/Intuitionistic Logic
+
+The power of linear logic lies in its ability to encompass familiar logics. Both intuitionistic and classical implication can be *recovered* by strategically inserting exponentials. Intuitionistic implication is modeled as `! A ⊸ B`, while classical implication can be represented as `!? A ⊸ ? B` or `! A ⊸ ?! B`, among other variations. The role of the exponentials here is to permit the unlimited use of a formula, a freedom always present in classical and intuitionistic logic.
+
+Formally, there's a translation from intuitionistic logic formulas to linear logic formulas such that provability is preserved. Through the [Gödel–Gentzen negative translation](/G%C3%B6del%E2%80%93Gentzen_negative_translation), we can even embed classical [first-order logic](/First-order_logic) within linear first-order logic.
+
+### Proof Systems
+
+#### Proof Nets
+
+Introduced by [Jean-Yves Girard](/Jean-Yves_Girard), [proof nets](/Proof_net) are designed to cut through the "bureaucracy" of proof derivations. They aim to identify proofs that are essentially the same, even if their sequential presentation differs.
+
+Consider these two derivations:
+
+```
+⊢ A, B, C, D
+------------------
+⊢ A ⅋ B, C, D
+------------------
+⊢ A ⅋ B, C ⅋ D
+
+⊢ A, B, C, D
+------------------
+⊢ A, B, C ⅋ D
+------------------
+⊢ A ⅋ B, C ⅋ D
+```
+
+While distinct in their sequential steps, they represent the same logical conclusion. Proof nets offer a graphical representation to make these "morally identical" proofs truly identical.
+
+### Semantics
+
+Linear logic, being a system that meticulously tracks resources, has necessitated the development of diverse semantic models. Unlike classical or intuitionistic logic, where assumptions are often treated as infinitely available, linear logic views them as finite resources that are consumed during a proof. &#91;8&#93;
+
+The primary semantic approaches include:
+
+*   **Phase Semantics:** An earlier model focused on the concept of provability. &#91; [citation needed](/Wikipedia:Citation_needed) &#93;
+*   **[Categorical Semantics](/Categorical_semantics):** This provides an algebraic framework where proofs are represented as [morphisms](/Morphism). The appropriate category here is a specialized subcategory of complete, separated, [bornological vector space](/Vector_bornology) equipped with [continuous linear maps](/Continuous_linear_map). &#91;9&#93;
+*   **Game Semantics:** An interactive model that casts formulas as games and proofs as winning [strategies](/Strategy). &#91;10&#93;
+*   **Denotational Semantics:** This approach interprets proofs as abstract mathematical objects. &#91;11&#93;
+
+The [algebraic semantics](/Algebraic_semantics_(math)) for linear logic is often described using [quantales](/Quantale). &#91; [citation needed](/Wikipedia:Citation_needed) &#93;
+
+In the field of [linguistics](/Linguistics), linear logic has found application in modeling grammatical [parsing](/Parsing) as a form of [deduction](/Logical_deduction). Here, a valid parse tree for a sentence corresponds to proving its existence using implication rules derived from the grammar. &#91;12&#93;
+
+#### The Resource Interpretation
+
+Lafont (1993) was among the first to demonstrate how intuitionistic linear logic could be interpreted as a logic of resources. This grants the logical language the ability to formally reason about resources, rather than relying on external, non-logical predicates as in classical logic. The venerable [Tony Hoare](/Tony_Hoare) (1985) &#91; [full citation needed](/Wikipedia:Citing_sources) &#93; famously used the example of purchasing items from a [vending machine](/Vending_machine) to illustrate these concepts, and culinary analogies have since become a staple for explaining the connectives. &#91;13&#93;
+
+Consider a [prix fixe](/Prix_fixe) menu. This can be represented as a linear implication:
+
+(Cash) ⊸ (Meal)
+
+or, equivalently, using par:
+
+(Cash) ⊥ ⅋ (Meal)
+
+The choice of connective depends on whether implication or par is considered primitive. The various courses of the meal are then combined using the tensor product (`⊗`), signifying that a purchased meal necessarily includes all its components. For instance, a "Meal" might be defined as:
+
+(Meal) := (Appetizer) ⊗ (Main) ⊗ (Dessert) ⊗ (Drink)
+
+A customer's selection, where a choice must be made between options, is represented by additive conjunction (`&`):
+
+(Appetizer) := (Soup) & (Salad)
+
+This indicates that the customer must choose either soup *or* salad. Conversely, the restaurant's choices, where one option is offered from a set, are modeled by additive disjunction (`⊕`). If the dessert is a seasonal fruit selection, it might be modeled as:
+
+(Dessert) := (Summer berries) ⊕ (Apple slices) ⊕ (Winter pineapple) ⊕ (Cherries)
+
+An "all-you-can-eat" or "bottomless" item is naturally represented by the `!` exponential:
+
+(Drink) := (Coffee) & (Tea) & !(Tap water)
+
+In this resource interpretation, the constant `1` signifies the absence of any resource, acting as the unit for `⊗` (any formula `A` is equivalent to `A ⊗ 1`). `⊤` is the unit for `&`, allowing for the consumption of unneeded resources. `0` represents an impossible product, serving as the unit for `⊕` (a machine that might produce `A` or `0` is effectively equivalent to one that always produces `A`, as it never fails to produce a valid outcome). Finally, `?` denotes unconsumable or freely available resources. &#91;14&#93;
+
+### Decidability/Complexity of Entailment
+
+The full system of classical linear logic (CLL) presents an [undecidable](/Undecidable_problem) [entailment](/Entailment) relation. &#91;15&#93; However, examining specific fragments reveals varying levels of complexity:
+
+*   **Multiplicative Linear Logic (MLL):** This fragment, containing only the multiplicative connectives, has an [NP-complete](/NP-complete) entailment problem. This holds even when restricted to [Horn clauses](/Horn_clauses) within the purely implicative fragment, &#91;16&#93; or to formulas without atoms. &#91;17&#93;
+*   **Multiplicative-Additive Linear Logic (MALL):** This fragment, including multiplicatives and additives but excluding exponentials, has a [PSPACE-complete](/PSPACE-complete) entailment problem. &#91;15&#93;
+*   **Multiplicative-Exponential Linear Logic (MELL):** This fragment combines multiplicatives and exponentials. Due to reductions from the reachability problem for [Petri nets](/Petri_nets), &#91;18&#93; MELL entailment is at least [EXPSPACE-hard](/EXPSPACE). The decidability of MELL itself was a long-standing open problem, with a purported proof in 2015 later found to be erroneous. &#91;19&#93; &#91;20&#93;
+*   **[Affine Linear Logic](/Affine_logic):** This logic, which extends linear logic by allowing weakening (but not contraction), was proven to be decidable in 1995. &#91;21&#93;
+
+### Variants
+
+The landscape of linear logic is further diversified by modifications to the structural rules:
+
+*   **[Affine Logic](/Affine_logic):** This variant forbids contraction but permits global weakening. It remains decidable.
+*   **Strict Logic or [Relevance Logic](/Relevance_logic):** This logic forbids weakening but allows global contraction.
+*   **[Non-commutative Logic](/Noncommutative_logic) or Ordered Logic:** This system removes the rule of exchange, in addition to forbidding weakening and contraction. In ordered logic, linear implication bifurcates into distinct left- and right-implications.
+
+Several intuitionistic variants of linear logic have also been explored. When based on a single-conclusion sequent calculus, such as in ILL (Intuitionistic Linear Logic), the connectives `⅋`, `⊥`, and `?` are omitted, and linear implication is treated as a primitive. In FILL (Full Intuitionistic Linear Logic), these connectives are present, linear implication remains primitive, and, similar to intuitionistic logic, all connectives (except for linear negation) are independent. First- and higher-order extensions of linear logic also exist, following relatively standard formal development patterns, analogous to [first-order logic](/First-order_logic) and [higher-order logic](/Higher-order_logic).
+
+### See Also
+
+*   [Philosophy portal](/Portal:Philosophy)
+*   [Chu spaces](/Chu_space)
+*   [Computability logic](/Computability_logic)
+*   [Game semantics](/Game_semantics)
+*   [Geometry of interaction](/Geometry_of_interaction)
+*   [Intuitionistic logic](/Intuitionistic_logic)
+*   [Linear logic programming](/Linear_logic_programming)
+*   [Linear type system](/Linear_type_system), a [substructural type system](/Substructural_type_system)
+*   [Ludics](/Ludics)
+*   [Proof nets](/Proof_net)
+*   [Uniqueness type](/Uniqueness_type)
+
+### Notes
+
+*   ^ Girard 1987.
+*   ^ Baez & Stay 2008.
+*   ^ De Paiva, Van Genabith & Ritter 1999.
+*   ^ Girard 1987, p.22, Def.1.15.
+*   ^ Girard 1987, p.25-26, Def.1.21.
+*   ^ Cockett & Seely 1997.
+*   ^ Di Cosmo 1996.
+*   ^ Jean-Yves, Girard. "LINEAR LOGIC: ITS SYNTAX AND SEMANTICS" (PDF). Linear Logic: Its Syntax and Semantics : 42.
+*   ^ Blute, Richard; Ehrhard, Thomas; Tasson, Christine (13 January 2011). "A convenient differential category" (PDF). *[cite journal](/Template:Cite_journal)* : Cite journal requires |journal= ([help](/Help:CS1_errors)).
+*   ^ Andreas Blass: "A game semantics for linear logic", *Annals of Pure and Applied Logic*, vol. 56 (1992) pp. 183–220.
+*   ^ Di Cosmo, Roberto; Miller, Dale (2023), "Linear Logic", in Zalta, Edward N.; Nodelman, Uri (eds.), *The Stanford Encyclopedia of Philosophy* (Fall 2023 ed.), Metaphysics Research Lab, Stanford University, retrieved 20 September 2025
+*   ^ Crouch, Dick; van Genabith, Josef (20 June 2000). "Linear Logic for Linguists" (PDF). p. 8.
+*   ^ a b Crouch & van Genabith 2000, p. 15.
+*   ^ Crouch & van Genabith 2000, pp. 60–61.
+*   ^ a b For this result and discussion of some of the fragments below, see: Lincoln et al. (1992)
+*   ^ Kanovich 1992.
+*   ^ Lincoln & Winkler 1994.
+*   ^ Gunter & Gehlot 1989.
+*   ^ Bimbó 2015.
+*   ^ Straßburger 2019.
+*   ^ Kopylov 1995.
+
+#

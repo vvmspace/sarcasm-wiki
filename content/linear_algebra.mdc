@@ -1,0 +1,253 @@
+---
+title: "Linear Algebra"
+description: "Honestly, Wikipedia. You want me to *rewrite* this? It's already dense enough to qualify as a black hole. But fine. If you insist on wading through the..."
+keywords: linear equations, linear maps, matrices, euclidean space, mathematics, lines, planes, rotations, functional analysis, mathematical analysis
+slug: "linear_algebra"
+createdAt: "2025-11-17T12:52:36.942Z"
+updatedAt: "2025-11-17T12:52:36.942Z"
+contentType: "rewritten"
+---
+
+Honestly, Wikipedia. You want me to *rewrite* this? It's already dense enough to qualify as a black hole. But fine. If you insist on wading through the abstract, I’ll drag you through it. Just don't expect me to hold your hand.
+
+## Branch of Mathematics
+
+Linear algebra. It’s the study of the elegant, if somewhat cold, world of [linear equations](/Linear_equation). Think of those equations like a set of strict, unyielding rules:
+
+$$a_1 x_1 + \cdots + a_n x_n = b$$
+
+And [linear maps](/Linear_map), which are like functions that only follow those rules, transforming points in space without bending the underlying structure:
+
+$$(x_1, \ldots, x_n) \mapsto a_1 x_1 + \cdots + a_n x_n$$
+
+These aren't just abstract concepts; they're the skeletal framework of our understanding, represented by the precise, unfeeling grids of [matrices](/Matrix_(mathematics)). [1] [2] [3]
+
+Imagine three planes in [Euclidean space](/Euclidean_space). They intersect, forming solutions. If you're lucky, you get a single point – a unique, unassailable truth. Or perhaps a line, a shared destiny for two of those planes. This is the clean, geometric language of linear algebra.
+
+It’s not just geometry, though. Linear algebra is the bedrock upon which much of modern [mathematics](/Mathematics) is built. It’s how we define the very essence of [lines](/Line_(geometry)) and [planes](/Plane_(geometry)), how we describe [rotations](/Rotation_(mathematics)) without losing our bearings. Even [functional analysis](/Functional_analysis), that sprawling domain of [mathematical analysis](/Mathematical_analysis), can be seen as linear algebra applied to the infinite dimensions of [function spaces](/Space_of_functions).
+
+And it’s not confined to theoretical realms. The sciences and [engineering](/Engineering) lean on it heavily. Why? Because it’s the most efficient way to model a world that, at its core, often behaves linearly. Even when things get messy, when systems are [nonlinear](/Nonlinear_system), linear algebra steps in with [first-order approximations](/First-order_approximation), using the [differential](/Differential_(mathematics)) of a [multivariate function](/Multivariate_function) to capture the local truth.
+
+### History
+
+The ancient Chinese, bless their methodical hearts, were already tackling systems of linear equations with methods that would eventually be called [Gaussian elimination](/Gaussian_elimination). It’s all laid out in texts like *[The Nine Chapters on the Mathematical Art](/The_Nine_Chapters_on_the_Mathematical_Art)*, with problems involving everything from two to five equations.
+
+Europe caught up, or perhaps just rediscovered it, when [René Descartes](/René_Descartes) decided to overlay numbers onto [geometry](/Geometry) in 1637. Suddenly, lines and planes weren't just abstract shapes; they were described by linear equations in what we now call [Cartesian geometry](/Cartesian_geometry). Solving for intersections meant solving systems of linear equations.
+
+Then came the fascination with [determinants](/Determinant). [Leibniz](/Gottfried_Wilhelm_Leibniz) tinkered with them in 1693, and [Gabriel Cramer](/Gabriel_Cramer) formalized their use in solving systems with his eponymous rule in 1750. [Gauss](/Gauss) himself refined the elimination method, even applying it to [geodesy](/Geodesy). [5]
+
+But the real conceptual leaps came later. In 1844, [Hermann Grassmann](/Hermann_Grassmann) unleashed his "Theory of Extension," laying down entirely new foundations. Then, in 1848, [James Joseph Sylvester](/James_Joseph_Sylvester) coined the term "matrix," a Latin word for "womb," suggesting a container for mathematical ideas.
+
+The [complex plane](/Complex_plane) also played a role, hinting at how numbers could represent not just magnitude but also direction. Then came the astonishing discovery of [quaternions](/Quaternion) by [W.R. Hamilton](/William_Rowan_Hamilton) in 1843, a four-dimensional system that pushed the boundaries of what we considered "numbers." The concept of a "vector" emerged, a representation of a point in space.
+
+[Arthur Cayley](/Arthur_Cayley) brought it all together, introducing [matrix multiplication](/Matrix_multiplication) and the [inverse matrix](/Inverse_matrix) in 1856, formalizing the [general linear group](/General_linear_group). He saw matrices not just as collections of numbers but as single entities, declaring, "There would be many things to say about this theory of matrices which should, it seems to me, precede the theory of determinants." [5]
+
+[Benjamin Peirce](/Benjamin_Peirce) and his son [Charles Sanders Peirce](/Charles_Sanders_Peirce) delved into [Linear Associative Algebra](/Linear_Associative_Algebra) in the late 19th century.
+
+The advent of the [telegraph](/Telegraph) and [Maxwell's](/James_Clerk_Maxwell) groundbreaking *[A Treatise on Electricity and Magnetism](/A_Treatise_on_Electricity_and_Magnetism)* in 1873, with its [field theory](/Field_theory_(physics)), demanded new mathematical tools. Linear algebra, in its "flat" form, found its place in describing the [tangent spaces](/Tangent_space) of [manifolds](/Manifold). The symmetries of spacetime itself, described by [Lorentz transformations](/Lorentz_transformation), are deeply rooted in linear algebra, tracing much of its historical development. [History of Lorentz transformations](/History_of_Lorentz_transformations)
+
+By 1888, [Peano](/Peano) had provided a more rigorous definition of a vector space, and by 1900, the theory of linear transformations for finite dimensions was solidifying. The 20th century saw linear algebra blossom into its modern, abstract form, especially with the rise of computers, which turned it into an indispensable tool for modeling and simulation. [5]
+
+### Vector Spaces
+
+Forget the old-school approach with just equations. The modern way, the *elegant* way, is through [vector spaces](/Vector_space). It's more general, more abstract, and frankly, less tedious.
+
+A vector space, over a [field](/Field_(mathematics)) F (usually the [real numbers](/Real_number) or [complex numbers](/Complex_number)), is a collection of things called vectors, V. These vectors can be added together ([vector addition](/Vector_addition)), and they can be scaled by numbers from F, called scalars ([scalar multiplication](/Scalar_multiplication)). It all has to follow a strict set of rules, like a meticulously choreographed dance:
+
+| Axiom | Significance |
+|---|---|
+| $u + (v + w) = (u + v) + w$ | Addition is associative. No surprises there. |
+| $u + v = v + u$ | Addition is commutative. Order doesn't matter. |
+| There exists $0 \in V$ such that $v + 0 = v$ | There's a neutral element, the [zero vector](/Zero_vector). |
+| For every $v \in V$, there exists $-v \in V$ such that $v + (-v) = 0$ | Every vector has an [additive inverse](/Additive_inverse). |
+| $a(u + v) = au + av$ | Scalar multiplication distributes over vector addition. |
+| $(a + b)v = av + bv$ | Scalar multiplication distributes over field addition. |
+| $a(bv) = (ab)v$ | Scaling by scalars is compatible with field multiplication. |
+| $1v = v$ | Multiplying by the [multiplicative identity](/Multiplicative_identity) of F does nothing. |
+
+These first four axioms mean V is an [abelian group](/Abelian_group) under addition. It’s a group that plays nice.
+
+The "vectors" themselves can be anything: [tuples](/Tuple), [sequences](/Sequence), [functions](/Function_(mathematics)), [polynomials](/Polynomial_ring), even [matrices](/Matrix_(mathematics)). Linear algebra is about the properties that hold true across all these disparate forms.
+
+### Linear Maps
+
+[Linear maps](/Linear_map) are the navigators of vector spaces. They're functions that respect the structure, the rules of the game. Given two vector spaces, V and W, over a field F, a linear map T: V → W must satisfy:
+
+$$T(u + v) = T(u) + T(v)$$
+$$T(av) = aT(v)$$
+
+For any vectors $u, v \in V$ and scalar $a \in F$.
+
+In simpler terms, you can add vectors *before* or *after* applying the map, and you get the same result. Same with scaling. It’s all about preserving the linear relationships.
+
+An equivalent, and often more useful, condition is:
+
+$$T(au + bv) = aT(u) + bT(v)$$
+
+for any vectors $u, v \in V$ and scalars $a, b \in F$.
+
+When the map goes from a vector space to itself (T: V → V), it's called a linear operator.
+
+The real power comes when we talk about [bijective](/Bijective) linear maps. If such a map exists between V and W, they are [isomorphic](/Isomorphism). From a linear algebra perspective, they're indistinguishable. The crucial questions are: is a map an isomorphism? If not, what's its [range](/Range_of_a_function)? What maps to the zero vector (the [kernel](/Kernel_(linear_operator)))? [Gaussian elimination](/Gaussian_elimination) and its kin are the tools for answering these.
+
+### Subspaces, Span, and Basis
+
+Within a vector space, certain subsets behave like smaller vector spaces themselves. These are [linear subspaces](/Linear_subspace). They're closed under addition and scalar multiplication. Think of them as self-contained universes within the larger one.
+
+For instance, the [image](/Image_(function)) of a linear map T: V → W (all the vectors in W that T *can* reach) is a subspace of W. And the [kernel](/Kernel_(linear_algebra)) of T (all vectors in V that T maps to zero) is a subspace of V.
+
+We can build subspaces by taking [linear combinations](/Linear_combination) of a set of vectors:
+
+$$a_1 \mathbf{v}_1 + a_2 \mathbf{v}_2 + \cdots + a_k \mathbf{v}_k$$
+
+The set of all such combinations is the [span](/Linear_span) of those vectors. It's the smallest subspace containing them.
+
+A set of vectors is [linearly independent](/Linearly_independent) if none of them can be formed by combining the others. It’s like having fundamental building blocks, each unique. If the only way to get the zero vector from a linear combination is by using all zero coefficients, then the set is linearly independent.
+
+A set of vectors that spans the entire vector space and is also linearly independent? That's a [basis](/Basis_(linear_algebra)). It's the minimal set of generators, the most efficient description of the space.
+
+Crucially, any two bases for a vector space have the same number of elements. This number is the [dimension](/Dimension_(vector_space)) of the space. Two vector spaces over the same field are [isomorphic](/Isomorphic) if and only if they have the same dimension. [9] If a space has a finite basis, it's finite-dimensional. If subspace U is inside V, its dimension can't exceed V's.
+
+There's a neat formula for the dimensions of sums and intersections of subspaces:
+
+$$\dim(U_1 + U_2) = \dim U_1 + \dim U_2 - \dim(U_1 \cap U_2)$$
+
+where $U_1 + U_2$ is the span of $U_1 \cup U_2$. [10]
+
+### Matrices
+
+Matrices are the tangible representation of linear algebra, especially for finite-dimensional spaces. They are the language we use to *do* things.
+
+If V is a finite-dimensional vector space with basis $(v_1, \ldots, v_m)$, then any vector can be uniquely written as a linear combination of these basis vectors. This gives us an [isomorphism](/Isomorphism) between V and $F^m$, the space of $m$-tuples of scalars. Vectors can then be represented as [column matrices](/Column_matrix).
+
+$$ \begin{bmatrix} a_1 \\ \vdots \\ a_m \end{bmatrix} $$
+
+When we have a linear map $f: W \to V$, where W has basis $(w_1, \ldots, w_n)$, the map is entirely determined by where it sends the basis vectors of W. If $f(w_j) = a_{1,j}v_1 + \cdots + a_{m,j}v_m$, then the map $f$ is represented by an $m \times n$ [matrix](/Matrix_(mathematics)):
+
+$$ \begin{bmatrix} a_{1,1} & \cdots & a_{1,n} \\ \vdots & \ddots & \vdots \\ a_{m,1} & \cdots & a_{m,n} \end{bmatrix} $$
+
+This is where [matrix multiplication](/Matrix_multiplication) comes in. It mirrors the [composition](/Function_composition) of linear maps. Multiplying a matrix by a column vector gives the column vector representing the transformed vector. It’s a dual language, where matrices describe transformations and transformations are described by matrices.
+
+Matrices representing the same linear transformation but in different bases are called [similar](/Similar_(linear_algebra)). The process of transforming one into another using [elementary row and column operations](/Elementary_matrix) is akin to changing bases. Ultimately, any matrix can be simplified, revealing the core structure of the transformation. [Gaussian elimination](/Gaussian_elimination) is the algorithm that reveals these fundamental forms.
+
+### Linear Systems
+
+A collection of [linear equations](/Linear_equation) in a set of variables—that’s a linear system. Think of it as a set of constraints. Historically, linear algebra was forged in the fire of solving these systems.
+
+Consider this system:
+
+$$ \begin{alignedat}{7} 2x &&\;+\;&&y &&\;-\;&&z &&\;=\;&&8 \\ -3x &&\;-\;&&y &&\;+\;&&2z &&\;=\;&&-11 \\ -2x &&\;+\;&&y &&\;+\;&&2z &&\;=\;&&-3 \end{alignedat} $$
+
+We can represent this with a matrix $M$ and a vector $v$:
+
+$$ M = \left[{\begin{array}{rrr} 2&1&-1\\-3&-1&2\\-2&1&2 \end{array}}\right], \quad \mathbf{v} = {\begin{bmatrix} 8\\-11\\-3 \end{bmatrix}} $$
+
+A solution $X = \begin{bmatrix} x\\y\\z \end{bmatrix}$ is a vector such that $MX = v$. The [homogeneous system](/Homogeneous_system_of_linear_equations) ($MX = 0$) describes the [kernel](/Kernel_(linear_algebra)) of the transformation $M$.
+
+[Gaussian elimination](/Gaussian_elimination) is the workhorse. By applying [elementary row operations](/Elementary_row_operation) to the [augmented matrix](/Augmented_matrix):
+
+$$ \left[{\begin{array}{rrr|r} 2&1&-1&8\\-3&-1&2&-11\\-2&1&2&-3 \end{array}}\right] $$
+
+we can transform it into [reduced row echelon form](/Reduced_row_echelon_form):
+
+$$ \left[{\begin{array}{rrr|r} 1&0&0&2\\0&1&0&3\\0&0&1&-1 \end{array}}\right] $$
+
+This immediately tells us the unique solution: $x=2, y=3, z=-1$.
+
+In general, a system $Ax = b$ with $m$ equations and $n$ variables can be solved using these methods. If $A$ is a square, invertible matrix, the solution is simply $x = A^{-1}b$. The same algorithms used for solving systems are fundamental for computing matrix [ranks](/Rank_of_a_matrix), [kernels](/Kernel_(linear_algebra)), and [inverses](/Matrix_inversion).
+
+### Endomorphisms and Square Matrices
+
+A linear map from a vector space to itself is an [endomorphism](/Endomorphism). When the space is finite-dimensional, say with dimension $n$, an endomorphism is represented by an $n \times n$ [square matrix](/Square_matrix). These are special because they describe transformations that preserve the space they operate on, leading to concepts like [geometric transformations](/Geometric_transformation), [coordinate changes](/Coordinate_change), and [quadratic forms](/Quadratic_form).
+
+#### Determinant
+
+The [determinant](/Determinant) of a square matrix is a scalar value that tells us something crucial about the transformation it represents. It’s defined as:
+
+$$ \sum_{\sigma \in S_n}(-1)^{\sigma }a_{1\sigma (1)}\cdots a_{n\sigma (n)} $$
+
+where $S_n$ is the set of all permutations of $\{1, \ldots, n\}$, and $(-1)^\sigma$ is the [parity](/Parity_of_a_permutation) of the permutation $\sigma$.
+
+A matrix is [invertible](/Invertible_matrix) if and only if its determinant is non-zero. It signifies whether the transformation collapses the space into a lower dimension. [Cramer's rule](/Cramer%27s_rule) provides an explicit formula for solutions using determinants, but it's computationally inefficient for anything beyond small systems. The determinant of an endomorphism is invariant under basis changes.
+
+#### Eigenvalues and Eigenvectors
+
+If a linear endomorphism $f$ of a vector space $V$ has a special property, it's that it can map a non-zero vector $v$ to a scalar multiple of itself: $f(v) = av$. This vector $v$ is an [eigenvector](/Eigenvalue,_eigenvector_and_eigenspace), and the scalar $a$ is its corresponding [eigenvalue](/Eigenvalue,_eigenvector_and_eigenspace).
+
+For a matrix $M$, this becomes $Mz = az$. Rearranging, $(M - aI)z = 0$. For a non-zero solution $z$ to exist, the matrix $(M - aI)$ must be [singular](/Singular_matrix), meaning its determinant is zero: $\det(M - aI) = 0$. The eigenvalues are the roots of this [characteristic polynomial](/Characteristic_polynomial), $\det(xI - M)$.
+
+If a vector space has a basis consisting entirely of eigenvectors, the matrix representing the endomorphism in that basis becomes a [diagonal matrix](/Diagonal_matrix) with the eigenvalues on the diagonal. Such a matrix (and the corresponding endomorphism) is called [diagonalizable](/Diagonalizable_matrix). Not all matrices are diagonalizable, but they can often be brought to a simpler form, like the [Jordan normal form](/Jordan_normal_form), which reveals their essential structure. A [symmetric matrix](/Symmetric_matrix), for instance, is always diagonalizable.
+
+### Duality
+
+The concept of a [dual space](/Dual_space) is fundamental. If $V$ is a vector space, its dual space, $V^*$, is the space of all [linear forms](/Linear_form) on $V$. A linear form is a linear map from $V$ to the field of scalars $F$.
+
+If $V$ is finite-dimensional with basis $(v_1, \ldots, v_n)$, then its dual space $V^*$ has a corresponding [dual basis](/Dual_basis) $(v_1^*, \ldots, v_n^*)$, where $v_i^*(v_j) = \delta_{ij}$ (1 if $i=j$, 0 otherwise). This duality is remarkably symmetric. For finite-dimensional spaces, $V$ is isomorphic to its [double dual](/Double_dual), $(V^*)^*$. This symmetry is elegantly captured by the [bra–ket notation](/Bra%E2%80%93ket_notation) $\langle f, x \rangle$.
+
+#### Dual Map
+
+Given a linear map $f: V \to W$, there's a corresponding "dual" or [transpose](/Transpose_of_a_linear_map) map $f^*: W^* \to V^*$. If $M$ is the matrix of $f$, then the matrix of $f^*$ (with respect to dual bases) is the transpose $M^T$. This reflects a deep symmetry in how linear transformations interact with their dual spaces.
+
+### Inner Product Spaces
+
+When we equip a vector space with an [inner product](/Inner_product), we give it a geometric structure, allowing us to define lengths and angles. An inner product $\langle \cdot, \cdot \rangle: V \times V \to F$ must satisfy:
+
+*   **Conjugate symmetry:** $\langle u, v \rangle = \overline{\langle v, u \rangle}$. (Just symmetry for real numbers).
+*   **Linearity in the first argument:** $\langle au, v \rangle = a\langle u, v \rangle$ and $\langle u+v, w \rangle = \langle u, w \rangle + \langle v, w \rangle$.
+*   **Positive-definiteness:** $\langle v, v \rangle \geq 0$, with equality only if $v=0$.
+
+The length (or norm) of a vector $v$ is defined as $\|v\|^2 = \langle v, v \rangle$. The [Cauchy–Schwarz inequality](/Cauchy%E2%80%93Schwarz_inequality), $|\langle u, v \rangle| \leq \|u\| \|v\|$, is a direct consequence, and it allows us to define the "cosine" of the angle between vectors.
+
+Two vectors are orthogonal if $\langle u, v \rangle = 0$. An [orthonormal basis](/Orthonormal_basis) is a basis where all vectors have length 1 and are mutually orthogonal. The [Gram–Schmidt](/Gram%E2%80%93Schmidt) procedure can construct such a basis. For orthonormal bases, extracting the coefficients of a vector is simple: $a_i = \langle v, v_i \rangle$.
+
+The inner product also defines the [Hermitian conjugate](/Hermitian_conjugate) $T^*$ of a linear operator $T$, satisfying $\langle Tu, v \rangle = \langle u, T^*v \rangle$. Operators where $TT^* = T^*T$ are called [normal](/Normal_matrix), and they possess a complete orthonormal set of eigenvectors.
+
+### Relationship with Geometry
+
+The connection between linear algebra and [geometry](/Geometry) is ancient, dating back to [Descartes](/René_Descartes) and his [Cartesian coordinates](/Cartesian_coordinates). Points became tuples of numbers, and lines and planes became linear equations. Solving geometric problems transformed into solving linear systems.
+
+Most [geometric transformations](/Geometric_transformation) – translations, rotations, reflections, projections – map lines to lines. This makes them expressible as linear maps. Even more complex transformations, like [homographies](/Homography) in [projective space](/Projective_space), rely on linear algebra for their description.
+
+While ancient geometry relied on [axioms](/Axiom) ([synthetic geometry](/Synthetic_geometry)), modern approaches often define geometric spaces using vector spaces ([affine space](/Affine_space), [projective space](/Projective_space)). The two perspectives are largely equivalent. Linear algebra provides the framework for studying geometry not just over the reals but over any field, including [finite fields](/Finite_field).
+
+### Usage and Applications
+
+Linear algebra is not just an academic exercise; it's woven into the fabric of almost every scientific discipline.
+
+#### Functional Analysis
+
+[Functional analysis](/Functional_analysis), which studies [function spaces](/Function_space) (often infinite-dimensional vector spaces like [Hilbert spaces](/Hilbert_space)), is built on linear algebra. It's essential for [quantum mechanics](/Quantum_mechanics) and [Fourier analysis](/Fourier_analysis).
+
+#### Scientific Computation
+
+Virtually all [scientific computations](/Scientific_computation) involve linear algebra. This has led to highly optimized libraries like [BLAS](/Basic_Linear_Algebra_Subprograms) and [LAPACK](/LAPACK), and specialized hardware from early array processors to modern [graphics processing units](/Graphics_processing_units) (GPUs) designed for matrix operations.
+
+#### Geometry of Ambient Space
+
+Describing [ambient space](/Ambient_space) relies on geometry, which in turn relies on linear algebra. This is crucial for [mechanics](/Mechanics), [robotics](/Robotics), [geodesy](/Geodesy), [computer vision](/Computer_vision), and [computer graphics](/Computer_graphics).
+
+#### Study of Complex Systems
+
+Many physical phenomena, often described by [partial differential equations](/Partial_differential_equation), are tackled by discretizing space into interacting cells. The interactions are frequently modeled linearly, even for [nonlinear systems](/Nonlinear_systems). This leads to massive matrices, as seen in applications like [weather forecasting](/Weather_forecasting).
+
+#### Fluid Mechanics, Fluid Dynamics, and Thermal Energy Systems
+
+Linear algebra is indispensable in [fluid mechanics](/Fluid_mechanics) and [fluid dynamics](/Fluid_dynamics). It helps model and simulate fluid flow, linearizing complex [differential equations](/Differential_equations) like the [Navier–Stokes equations](/Navier%E2%80%93Stokes_equations) for computational analysis. In [thermal energy](/Thermal_energy) systems, it's used for analyzing and optimizing [power systems](/Power_systems), from generation to [distribution](/Electric_power_distribution). Concepts like [eigenvalue](/Eigenvalue) problems are vital for efficiency and reliability.
+
+### Extensions and Generalizations
+
+#### Module Theory
+
+If we relax the requirement that the scalars come from a [field](/Field_(mathematics)) and allow them to come from a [ring](/Ring_(mathematics)) $R$, we get a [module](/Module_(mathematics)) over $R$. Modules are a generalization of vector spaces, but they don't always have bases. Those that do are called [free modules](/Free_module). Matrices over rings are a thing, but their theory is more complex, especially when the ring isn't commutative. Modules over the integers are essentially [abelian groups](/Abelian_group).
+
+#### Multilinear Algebra and Tensors
+
+[Multilinear algebra](/Multilinear_algebra) deals with functions that are linear in *each* of several variables. This leads to the concept of [tensors](/Tensor), which are generalizations of vectors and linear forms, and are essential in physics and differential geometry. The [dual space](/Dual_space) is a key player here.
+
+#### Topological Vector Spaces
+
+For infinite-dimensional vector spaces, we often need more structure. A [normed vector space](/Normed_vector_space) has a notion of "size" (a [norm](/Norm_(mathematics))), which induces a topology. Complete normed vector spaces are [Banach spaces](/Banach_space), and if they also have an inner product, they're [Hilbert spaces](/Hilbert_space). These are the workhorses of [functional analysis](/Functional_analysis).
+
+---
+
+So there you have it. Linear algebra. It’s the quiet architect of the quantitative world. Don't expect me to find it fascinating. But I can explain it. If you can keep up.

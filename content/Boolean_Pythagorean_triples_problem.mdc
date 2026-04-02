@@ -1,0 +1,41 @@
+---
+title: "Boolean Pythagorean Triples Problem"
+description: "So, you want to know if you can split the integers into two sets and have it *not* be a complete disaster for Pythagorean triples. Fascinating. It’s like..."
+keywords: integers, pythagorean triples, positive integers, marijn heule, victor w. marek, computer-assisted proof, boolean satisfiability
+slug: "Boolean_Pythagorean_triples_problem"
+createdAt: "2025-11-17T12:28:10.387Z"
+updatedAt: "2025-11-17T12:28:10.387Z"
+contentType: "rewritten"
+---
+
+So, you want to know if you can split the [integers](/Natural_number) into two sets and have it *not* be a complete disaster for [Pythagorean triples](/Pythagorean_triple). Fascinating. It’s like asking if you can divide a room full of people into two groups and guarantee no one ends up in a fight. Spoiler: usually, someone ends up throwing a drink.
+
+This whole kerfuffle is known as the [Boolean Pythagorean triples problem](/Ramsey_theory). It’s a question about whether you can color the [positive integers](/Natural_number) red and blue without any [Pythagorean triples](/Pythagorean_triple) – those neat little sets of numbers where `a² + b² = c²` – being entirely one color. Apparently, some people (specifically, [Marijn Heule](/Marijn_Heule), Oliver Kullmann, and [Victor W. Marek](/Victor_W._Marek)) decided this was worth a [computer-assisted proof](/Computer-assisted_proof). They figured it out in May 2016. Turns out, you *can* do it, but only up to the number 7824. After that? Chaos. Utter, unadulterated chaos.
+
+### The Statement of the Problem
+
+Let’s break this down. The problem essentially asks: can we assign a color, red or blue, to every positive integer such that no Pythagorean triple (a, b, c where `a² + b² = c²`) ends up being all red or all blue?
+
+Think about the classic triple: 3, 4, and 5. We know `3² + 4² = 5²` (that’s 9 + 16 = 25, for those keeping score at home). Now, if you color 3 red and 4 red, the rules dictate that 5 *must* be blue. If 5 were also red, you’d have a monochromatic triple, which is exactly what this problem tries to avoid. It’s a delicate balancing act, a tightrope walk over an abyss of mathematical absurdity.
+
+### The So-Called "Solution"
+
+[Marijn Heule](/Marijn_Heule), Oliver Kullmann, and Victor W. Marek, bless their persistent hearts, found that this coloring scheme only holds up to the number 7824. After that, it’s game over. The theorem they so painstakingly proved states:
+
+**Theorem** — The set {1, ..., 7824} can be partitioned into two parts, such that no part contains a Pythagorean triple, while this is impossible for {1, ..., 7825}.
+
+This means you can color up to 7824 with red and blue and avoid any all-red or all-blue Pythagorean triples. But the moment you include 7825, the whole system collapses. It’s like a house of cards built on a slightly wobbly table.
+
+Now, consider the sheer number of ways to color the integers up to 7825. It’s a staggering `2^7825`, which is roughly `3.63 x 10^2355`. That’s a number so large it makes your brain hurt. To tackle this monstrosity, they used a combination of logic and algorithms to whittle down the possibilities to about a trillion. A trillion. And even then, they had to express these cases as [Boolean satisfiability](/Boolean_satisfiability) problems and throw a [SAT solver](/SAT_solver) at them.
+
+The proof itself took about 4 CPU-years of computation. Four years of a computer’s life, crunched down into two days on a supercomputer at the [Texas Advanced Computing Center](/Texas_Advanced_Computing_Center). The resulting proof? A colossal 200 terabytes, which they managed to compress down to a mere 68 gigabytes. Imagine the sheer volume of data. It’s enough to make you question the sanity of the entire endeavor. The paper detailing this monumental effort won the best paper award at the SAT 2016 conference. They were clearly impressed. Or perhaps just relieved it was over.
+
+The figure they presented, which you can apparently find in sequence A383181 in the [OEIS](/On-Line_Encyclopedia_of_Integer_Sequences), shows a way to color the numbers up to 7824. The white squares in their diagram represent numbers that could be colored either red or blue without breaking the rule. It’s a visual representation of a very complicated, and frankly, exhausting, mathematical feat.
+
+### The Prize
+
+Back in the 1980s, [Ronald Graham](/Ronald_Graham) put up a $100 prize for solving this problem. A hundred dollars. For a proof that required supercomputers and years of computation. It’s almost laughable. But, as it happens, [Marijn Heule](/Marijn_Heule) did collect that prize. A small reward for an immense undertaking.
+
+### Generalizations
+
+Now, this whole red-and-blue scenario is just the beginning. The question remains open for more than two colors. Can you color the positive integers with, say, three or four colors, and still avoid monochromatic Pythagorean triples? As of 2018, this is still a mystery. It seems the deeper you dig into these mathematical structures, the more questions you uncover, each more intricate and demanding than the last. It’s a rabbit hole, and I’m not sure I want to see where it leads.

@@ -1,0 +1,81 @@
+---
+title: "Structural Rule"
+description: "Right, let's get this over with. You needed an article on structural rules. Don't look so hopeful; it's just a set of bureaucratic principles for shuffling..."
+keywords: phrase structure rule, proof theory, formal logic, inference rule, logical connectives, sequent, substructural logics, monotonicity of entailment, turnstile, automated theorem proving
+slug: "Structural_rule"
+createdAt: "2025-11-19T08:43:57.746Z"
+updatedAt: "2025-11-19T08:43:57.746Z"
+contentType: "rewritten"
+---
+
+Right, let's get this over with. You needed an article on structural rules. Don't look so hopeful; it's just a set of bureaucratic principles for shuffling symbols around. Try to keep up.
+
+And for the record, this isn't for you. It's about maintaining a certain standard of clarity in a universe that clearly lacks one.
+
+***
+
+For the sort of rule that governs how you string words together, you'll have to bother someone else. See [phrase structure rule](/Phrase_structure_rule).
+
+In the obsessively ordered world of [proof theory](/Proof_theory), a corner of [formal logic](/Formal_logic) where they try to pin down truth like a dead butterfly, a **structural rule** is a type of [inference rule](/Inference_rule) that doesn't concern itself with the interesting parts. It ignores the actual meaning of [logical connectives](/Logical_connective) like 'and' or 'or'. Instead, it operates directly on the structure of a [sequent](/Sequent)—the formal statement you're trying to prove. Think of these rules as the stage crew of a logical system: they move the props around, add or remove scenery, but they don't get any lines.
+
+These rules often exist to mirror the meta-theoretic properties that the logic is supposed to have. They are the background assumptions, the things you take for granted before you can even begin to say something meaningful. Logics that dare to question or discard one or more of these foundational, and frankly, rather pedestrian rules are categorized as [substructural logics](/Substructural_logic). They are the rebels of the logical world, for a given, and very unexciting, value of 'rebel'.
+
+### Common structural rules
+
+Most logical systems you're likely to stumble upon employ three structural rules with a tedious regularity. They are the bedrock of what's considered "classical" reasoning, which is to say, reasoning that hasn't had to deal with the messy realities of resources, relevance, or the fact that saying something twice doesn't make it twice as true.
+
+Here are the usual suspects:
+
+*   **Weakening**
+
+    This is the rule for the logically insecure. Weakening, also known in more classical circles as the [monotonicity of entailment](/Monotonicity_of_entailment), allows you to pad your arguments with irrelevant information. It dictates that if you have successfully proven a conclusion from a set of hypotheses, you can add any other hypothesis you like, and the conclusion still holds. Similarly, if a conclusion is derivable, then that conclusion alongside any other arbitrary statement is also derivable. It’s the logical equivalent of winning an argument and then adding, "...and another thing!" to a perfectly finished point.
+
+    Symbolically, it looks like this: if you have a valid sequent, you can add a formula *A* to the assumptions (the left side of the [turnstile](/Turnstile_(symbol))) without consequence.
+
+    $${\displaystyle {\frac {\Gamma \vdash \Sigma }{\Gamma ,A\vdash \Sigma }}}$$
+
+    And you can do the same on the conclusion side (the right side), cluttering your results with additional, unproven possibilities.
+
+    $${\displaystyle {\frac {\Gamma \vdash \Sigma }{\Gamma \vdash \Sigma ,A}}}$$
+
+*   **Contraction**
+
+    Contraction is for cleaning up your own mess. It’s the "say it once, you don't have to say it twice" rule. If you've managed to redundantly assume the same fact twice in a row, this rule mercifully allows you to consolidate your stuttering into a single, coherent premise. The same applies to conclusions. It recognizes that repetition doesn't make a fact any truer, a concept that seems to escape most of humanity. In classical logic, this property is referred to as the idempotency of entailment, which is just a grandiose way of saying that using a resource once is the same as using it any number of times.
+
+    In the systems used for [automated theorem proving](/Automated_theorem_proving) that rely on [resolution](/Resolution_(logic)), this is sometimes called factoring. It’s a housekeeping rule.
+
+    Symbolically, it lets you merge two identical assumptions:
+
+    $${\displaystyle {\frac {\Gamma ,A,A\vdash \Sigma }{\Gamma ,A\vdash \Sigma }}}$$
+
+    And two identical conclusions:
+
+    $${\displaystyle {\frac {\Gamma \vdash A,A,\Sigma }{\Gamma \vdash A,\Sigma }}}$$
+
+*   **Exchange**
+
+    Exchange, or the *permutation rule* if you’re feeling needlessly formal, advances the radical idea that the order in which you state your assumptions doesn't matter. It assumes a world where "A and B" is the same as "B and A." A deeply optimistic and often incorrect assumption when applied to, say, putting on your socks and shoes. In the sterile, context-free environment of classical logic, however, it lets you shuffle your premises and conclusions like a deck of cards, ensuring that their sequence is utterly irrelevant to the outcome.
+
+    Symbolically, you can swap any two formulas, *A* and *B*, on the left side:
+
+    $${\displaystyle {\frac {\Gamma _{1},A,\Gamma _{2},B,\Gamma _{3}\vdash \Sigma }{\Gamma _{1},B,\Gamma _{2},A,\Gamma _{3}\vdash \Sigma }}}$$
+
+    And on the right side:
+
+    $${\displaystyle {\frac {\Gamma \vdash \Sigma _{1},A,\Sigma _{2},B,\Sigma _{3}}{\Gamma \vdash \Sigma _{1},B,\Sigma _{2},A,\Sigma _{3}}}}$$
+
+The presence or absence of these rules fundamentally alters the nature of the lists of formulas on either side of the turnstile. A logic stripped of all three would treat its sequents as rigid [sequences](/Sequence), where both order and duplication are critically important. Introduce the Exchange rule, and you relax the ordering constraint; the lists now behave like [multisets](/Multiset), where repetition matters but sequence does not. Add both Contraction and Exchange, and you've arrived at the classical interpretation: the lists are effectively [sets](/Set_(mathematics)), where both order and duplication are meaningless.
+
+These are not, by any means, the only structural rules one could imagine. The most famous of all is the [cut](/Cut_rule). It’s the logical equivalent of a shortcut or a lemma. It states that if you can prove *A* is true, and separately you can prove that *B* follows from *A*, then you can "cut" the intermediate step *A* and conclude *B* directly. It seems blindingly obvious, which is usually a red flag in this line of work.
+
+A considerable amount of effort in proof theory is dedicated to showing that the cut rule is, in many well-behaved logics, superfluous. This process, known as [cut-elimination](/Cut-elimination_theorem), demonstrates that any proof using the cut rule can be systematically transformed into a (usually much longer) proof that does not use it. More than just a technical exercise, the successful removal of cut is profound. It reveals that cut is merely a tool for abbreviation, not a source of new theorems. This result connects deeply to the philosophy of [computation](/Computation) as normalization, as articulated by the [Curry–Howard correspondence](/Curry%E2%80%93Howard_correspondence). A proof with cuts is like a computer program with function calls; a cut-free proof is like that same program after all functions have been inlined—it's direct, explicit, and its execution path is manifest. The complexity of this elimination process often provides a sharp indicator of the overall [computational complexity](/Computational_complexity_theory) of the [decision problem](/Decision_problem) for that logic.
+
+### See also
+
+*   [Affine logic](/Affine_logic)
+*   [Linear logic](/Linear_logic) – System of resource-aware logic
+*   [Ordered logic (linear logic)](/Ordered_logic_(linear_logic))
+*   [Relevance logic](/Relevance_logic) – Kind of non-classical logic
+*   [Separation logic](/Separation_logic) – Concept in computer science
+
+#

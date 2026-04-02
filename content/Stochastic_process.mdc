@@ -1,0 +1,507 @@
+---
+title: "Stochastic Process"
+description: "Part of a series on Statistics and Probability..."
+keywords: statistics, probability theory, probability, axioms of probability theory, determinism, deterministic system, indeterminism, randomness, probability space, sample space
+slug: "Stochastic_process"
+createdAt: "2025-12-19T13:46:26.708Z"
+updatedAt: "2025-12-19T13:46:26.708Z"
+contentType: "rewritten"
+previousArticleSlug: "Supersymmetry"
+previousArticleTitle: "Supersymmetry"
+---
+
+## Collection of Random Variables
+
+Part of a series on [Statistics](/Statistics) and [Probability theory](/Probability_theory).
+
+### Core Concepts
+
+*   [Probability](/Probability)
+*   [Axioms of probability theory](/Probability_axioms)
+*   [Determinism](/Determinism)
+*   [Deterministic system](/Deterministic_system)
+*   [Indeterminism](/Indeterminism)
+*   [Randomness](/Randomness)
+
+### Probability Spaces and Events
+
+*   [Probability space](/Probability_space)
+*   [Sample space](/Sample_space)
+*   [Event (probability theory)](/Event_(probability_theory))
+*   [Collectively exhaustive events](/Collectively_exhaustive_events)
+*   [Elementary event](/Elementary_event)
+*   [Mutual exclusivity](/Mutual_exclusivity)
+*   [Outcome (probability)](/Outcome_(probability))
+*   [Singleton (mathematics)](/Singleton_(mathematics))
+*   [Experiment (probability theory)](/Experiment_(probability_theory))
+
+### Probability Distributions and Random Variables
+
+*   [Probability distribution](/Probability_distribution)
+*   [Bernoulli distribution](/Bernoulli_distribution)
+*   [Binomial distribution](/Binomial_distribution)
+*   [Exponential distribution](/Exponential_distribution)
+*   [Normal distribution](/Normal_distribution)
+*   [Pareto distribution](/Pareto_distribution)
+*   [Poisson distribution](/Poisson_distribution)
+*   [Probability measure](/Probability_measure)
+*   [Random variable](/Random_variable)
+*   [Bernoulli process](/Bernoulli_process)
+*   [Continuous or discrete variable](/Continuous_or_discrete_variable)
+*   [Expected value](/Expected_value)
+*   [Variance](/Variance)
+*   [Markov chain](/Markov_chain)
+*   [Realization (probability)](/Realization_(probability))
+*   [Random walk](/Random_walk)
+*   [Stochastic process](/Stochastic_process)
+
+### Joint, Marginal, and Conditional Probabilities
+
+*   [Complementary event](/Complementary_event)
+*   [Joint probability distribution](/Joint_probability_distribution)
+*   [Marginal probability distribution](/Marginal_distribution)
+*   [Conditional probability](/Conditional_probability)
+
+### Independence and Related Concepts
+
+*   [Independence (probability theory)](/Independence_(probability_theory))
+*   [Conditional independence](/Conditional_independence)
+*   [Law of total probability](/Law_of_total_probability)
+*   [Law of large numbers](/Law_of_large_numbers)
+*   [Bayes' theorem](/Bayes%27_theorem)
+*   [Boole's inequality](/Boole%27s_inequality)
+
+### Visualizations
+
+*   [Venn diagram](/Venn_diagram)
+*   [Tree diagram (probability theory)](/Tree_diagram_(probability_theory))
+
+---
+
+v • t • e
+
+A computer-simulated realization of a [Wiener](/Wiener_process) or [Brownian motion](/Brownian_motion) process on the surface of a sphere. The Wiener process is widely considered the most studied and central stochastic process in probability theory. ¹ ² ³
+
+In [probability theory](/Probability_theory) and related fields, a stochastic (pronounced /stəˈkæstɪk/) or random process is a [mathematical object](/Mathematical_object), generally defined as a [family](/Indexed_family) of [random variables](/Random_variable) within a [probability space](/Probability_space). The [index](/Index_set) of this family frequently carries the interpretation of time. [Stochastic](/Stochastic) processes are extensively employed as [mathematical models](/Mathematical_model) for systems and phenomena that exhibit apparent random variation. Examples include the growth patterns of a [bacterial](/Bacteria) population, the fluctuations of an [electrical current](/Electrical_current) due to [thermal noise](/Thermal_noise), or the erratic movement of a [gas](/Gas) [molecule](/Molecule). ¹ ⁴ ⁵ Stochastic processes find applications across numerous disciplines, including [biology](/Biology), ⁶ [chemistry](/Chemistry), ⁷ [ecology](/Ecology), ⁸ [neuroscience](/Neuroscience), ⁹ [physics](/Physics), ¹⁰ [image processing](/Image_processing), [signal processing],¹¹ [control theory](/Stochastic_control),¹² [information theory],¹³ [computer science],¹⁴ and [telecommunications].¹⁵ Furthermore, the seemingly erratic changes observed in [financial markets](/Financial_market) have spurred the extensive application of stochastic processes in [finance].¹⁶ ¹⁷ ¹⁸
+
+The study of phenomena and their applications has, in turn, inspired the proposal of novel stochastic processes. Notable examples include the [Wiener process](/Wiener_process), also known as the Brownian motion process, which was utilized by [Louis Bachelier](/Louis_Bachelier) to analyze price fluctuations on the [Paris Bourse].²¹ Another significant process is the [Poisson process](/Poisson_process), employed by [A. K. Erlang]²² to investigate the frequency of phone calls within specific time intervals. These two stochastic processes are widely regarded as the most fundamental and central within the theory,¹ ⁴ ²³ and have been independently rediscovered multiple times, both before and after the work of Bachelier and Erlang, in diverse contexts and geographical locations.²¹ ²⁴
+
+The term "random function" is also used synonymously with stochastic or random process,²⁵ ²⁶ as a stochastic process can be conceptualized as a random element residing within a [function space](/Function_space).²⁷ ²⁸ The terms "stochastic process" and "random process" are often used interchangeably, sometimes without specifying a particular [mathematical space](/Mathematical_space) for the set indexing the random variables.²⁷ ²⁹ However, these terms are frequently employed when the random variables are indexed by the [integers](/Integers) or an [interval](/Interval_(mathematics)) of the [real line].⁵ ²⁹ When the random variables are indexed by the [Cartesian plane](/Cartesian_plane) or a higher-dimensional [Euclidean space](/Euclidean_space), the collection is more commonly referred to as a [random field].⁵ ³⁰ The values assumed by a stochastic process are not exclusively numerical; they can encompass vectors or other mathematical entities.⁵ ²⁸
+
+Stochastic processes can be categorized based on their mathematical properties into various groups, including [random walks],³¹ [martingales](/Martingale_(probability_theory)),³² [Markov processes](/Markov_process),³³ [Lévy processes](/L%C3%A9vy_process),³⁴ [Gaussian processes],³⁵ random fields,³⁶ [renewal processes], and [branching processes].³⁷ The study of stochastic processes draws upon a rich foundation of mathematical disciplines such as [probability](/Probability), [calculus], [linear algebra], [set theory], and [topology],³⁸ ³⁹ ⁴⁰ as well as branches of [mathematical analysis] like [real analysis], [measure theory], [Fourier analysis], and [functional analysis].⁴¹ ⁴² ⁴³ The theory of stochastic processes is considered a significant contribution to mathematics,⁴⁴ and it continues to be a vibrant area of research, driven by both theoretical curiosity and practical applications.⁴⁵ ⁴⁶ ⁴⁷
+
+### Introduction
+
+A stochastic or random process can be formally defined as a collection of random variables, each uniquely associated with an element from a specific indexing set.⁴ ⁵ The set used for indexing is termed the [index set](/Index_set). Historically, this set has often been a [subset](/Subset) of the [real line](/Real_line), such as the [natural numbers](/Natural_numbers), lending the index set an interpretation of time.⁵ Each random variable within the collection draws its values from the same [mathematical space], known as the state space. This state space can, for instance, be the set of integers, the real line, or an [n-dimensional Euclidean space](/Euclidean_space).⁵ An increment refers to the change in a stochastic process between two index values, frequently interpreted as the duration between two points in time.⁴⁸ ⁴⁹ A stochastic process, due to its inherent randomness, can manifest numerous [outcomes](/Outcome_(probability)). A single observed instance of a stochastic process is referred to by various names, including a sample function or realization.²⁸ ⁵⁰
+
+![A simulated realization of a Wiener process.](https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Wiener_process_on_sphere.svg/320px-Wiener_process_on_sphere.svg.png)
+
+A single computer-simulated sample function or realization, among other terms, of a three-dimensional Wiener or Brownian motion process for time 0 ≤ t ≤ 2. The index set of this stochastic process is the non-negative numbers, while its state space is three-dimensional Euclidean space.
+
+### Classifications
+
+Stochastic processes can be classified through various lenses, including their state space, index set, or the dependencies among their constituent random variables. A common method of classification relies on the [cardinality](/Cardinality) of the index set and the state space.⁵¹ ⁵² ⁵³
+
+When the index set of a stochastic process, interpreted as time, contains a finite or countable number of elements (e.g., a finite set of numbers, the integers, or the natural numbers), the process is said to be in [discrete time](/Discrete_time).⁵⁴ ⁵⁵ Conversely, if the index set is an interval of the real line, time is considered [continuous](/Continuous_time). These are referred to as discrete-time and [continuous-time stochastic processes], respectively.⁴⁸ ⁵⁶ ⁵⁷ Discrete-time stochastic processes are generally considered more accessible for study, as continuous-time processes often necessitate more advanced mathematical techniques, particularly due to their uncountable index sets.⁵⁸ ⁵⁹ If the index set consists of integers or a subset thereof, the stochastic process may also be termed a random sequence.⁵⁵
+
+Should the state space be the integers or natural numbers, the stochastic process is designated as discrete or integer-valued. If the state space is the real line, the process is termed real-valued or a process with a continuous state space. When the state space is an [n-dimensional Euclidean space](/Euclidean_space), the process is referred to as an n-dimensional vector process or an n-vector process.⁵¹ ⁵²
+
+### Etymology
+
+The word "stochastic," meaning "pertaining to conjecturing," entered the English language around 1662, derived from a Greek term signifying "to aim at a mark, guess." ¹⁶⁰ Jakob Bernoulli, in his 1713 Latin treatise *Ars Conjectandi* (The Art of Conjecturing), used the phrase "Ars Conjectandi sive Stochastice," translated as "the art of conjecturing or stochastics." ¹⁶¹ This term was later adopted by Ladislaus Bortkiewicz,¹⁶² who used the German word "stochastik" in 1917 to denote randomness. The formal term "stochastic process" first appeared in English in a 1934 paper by [Joseph Doob],⁶⁰ who cited a 1934 German paper by [Aleksandr Khinchin]⁶³ that used "stochastischer Prozeß." However, the German term itself had been employed earlier, notably by Andrei Kolmogorov in 1931.⁶⁵
+
+The word "random," in its current sense of relating to chance or luck, dates back to the 16th century in English. Earlier usages in the 14th century referred to "impetuosity, great speed, force, or violence." The word's etymology traces to Middle French, signifying "speed, haste," likely from a French verb meaning "to run" or "to gallop." The term "random process" predates "stochastic process" and is listed as a synonym by the Oxford English Dictionary. It was notably used in an 1888 article by [Francis Edgeworth].⁶⁶
+
+### Terminology
+
+While definitions may vary slightly, a stochastic process is conventionally understood as a collection of random variables indexed by some set.⁶⁷ ⁶⁸ ⁶⁹ The terms "random process" and "stochastic process" are considered synonymous and are used interchangeably, often without a precise specification of the index set.²⁷ ²⁹ ³⁰ ⁷⁰ ⁷¹ ⁷² Both "collection"²⁸ ⁷⁰ and "family"⁴ ⁷³ are used to describe the set of random variables. Instead of "index set," the terms "parameter set"²⁸ or "parameter space"³⁰ are sometimes employed.
+
+The term "random function" is also used to refer to a stochastic or random process,⁵ ⁷⁴ ⁷⁵ although it is sometimes restricted to processes yielding real values.²⁸ ⁷³ This term is also applied when the index sets are mathematical spaces other than the real line,⁵ ⁷⁶ while "stochastic process" and "random process" typically imply an index set interpreted as time.⁵ ⁷⁶ ⁷⁷ When the index set is an [n-dimensional Euclidean space](/Euclidean_space), the term [random field](/Random_field) is generally preferred.⁵ ²⁸ ³⁰
+
+### Notation
+
+A stochastic process can be denoted in several ways, including {X(t)}<sub>t∈T</sub>,⁵⁶ {X<sub>t</sub>}<sub>t∈T</sub>,⁶⁹ {X<sub>t</sub>},⁷⁸ {X(t)}, or simply X. Some sources may use X(t) or X<sub>t</sub> to refer to the random variable at index *t*, which is technically an [abuse of notation],⁷⁹ as it represents a specific realization rather than the entire process. For instance, when the index set is T = [0, ∞), the process can be denoted as (X<sub>t</sub>, t ≥ 0).²⁹
+
+### Examples
+
+#### Bernoulli Process
+
+The [Bernoulli process](/Bernoulli_process) stands as one of the simplest stochastic processes. It comprises a sequence of [independent and identically distributed](/Independent_and_identically_distributed) (iid) random variables, each taking a value of either one or zero. Typically, the value one occurs with probability *p*, and zero with probability 1−*p*. This process can be analogized to repeatedly flipping a coin, where obtaining a "head" (value one) has probability *p*, and a "tail" (value zero) has probability 1−*p*.⁸⁰ ⁸¹ In essence, a Bernoulli process is a sequence of iid Bernoulli random variables,⁸² where each idealized coin flip represents a [Bernoulli trial].⁸³
+
+#### Random Walk
+
+[Random walks](/Random_walks) are stochastic processes commonly defined as sums of [iid](/Iid) random variables or random vectors within Euclidean space, thus evolving in discrete time.⁸⁴ ⁸⁵ ⁸⁶ ⁸⁷ ⁸⁸ Some definitions, however, extend to processes evolving in continuous time,⁸⁹ particularly the Wiener process used in financial modeling, which has led to some ambiguity and criticism.⁹⁰ Various other types of random walks exist, defined on different mathematical objects like lattices and groups. These are extensively studied and have numerous applications across diverse fields.⁸⁹ ⁹¹
+
+A classic example is the simple random walk, a discrete-time stochastic process with integers as its state space. It's built upon a Bernoulli process where each variable yields either positive one or negative one. This walk occurs on the integers, increasing by one with probability *p* or decreasing by one with probability 1−*p*. The index set for this walk is the natural numbers, and its state space is the integers. When *p* = 0.5, it's termed a symmetric random walk.⁹² ⁹³
+
+#### Wiener Process
+
+The Wiener process, also known as the Brownian motion process, is characterized by [stationary](/Stationary_increments) and [independent increments](/Independent_increments) that are [normally distributed](/Normally_distributed) according to their magnitude.² ⁹⁴ It is named after [Norbert Wiener], who mathematically established its existence. The process is also called Brownian motion due to its historical role in modeling [Brownian movement] in liquids.⁹⁵ ⁹⁶ ⁹⁷
+
+![Realizations of Wiener processes.](https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Wiener_process_with_drift_and_without.svg/320px-Wiener_process_with_drift_and_without.svg.png)
+
+Realizations of Wiener processes (or Brownian motion processes) with drift (blue) and without drift (red).
+
+Holding a pivotal position in probability theory, the Wiener process is often considered the most significant and extensively studied stochastic process, with connections to numerous others.¹ ² ³ ⁹⁸ ⁹⁹ ¹⁰⁰ ¹⁰¹ Its index set is the non-negative real numbers, and its state space is the real numbers, thus possessing both continuous index and state spaces.¹⁰² However, the process can be generalized to have an [n-dimensional Euclidean space](/Euclidean_space) as its state space.⁹¹ ⁹⁹ ¹⁰³ If the [mean](/Mean) of any increment is zero, the resulting process is said to have zero drift. If the mean increment over a time interval is equal to the length of the interval multiplied by a constant real number *μ*, the process is said to have drift *μ*.¹⁰⁴ ¹⁰⁵ ¹⁰⁶
+
+With probability approaching certainty ([almost surely](/Almost_surely)), a sample path of a Wiener process is continuous everywhere yet [nowhere differentiable](/Nowhere_differentiable_function). It can be viewed as a continuous analogue of the simple random walk.⁴⁹ ¹⁰⁵ The process emerges as the mathematical limit of other stochastic processes, such as rescaled random walks,¹⁰⁷ ¹⁰⁸ a concept formalized by [Donsker's theorem](/Donsker%27s_theorem), also known as the functional central limit theorem.¹⁰⁹ ¹¹⁰ ¹¹¹
+
+The Wiener process is a member of several crucial families of stochastic processes, including Markov processes, Lévy processes, and Gaussian processes.² ⁴⁹ It also boasts extensive applications and serves as the primary stochastic process in [stochastic calculus].¹¹² ¹¹³ It plays a central role in quantitative finance,¹¹⁴ ¹¹⁵ for instance, in the Black–Scholes–Merton model.¹¹⁶ The process is also applied in various other fields, encompassing most natural sciences and some social sciences, as a mathematical model for diverse random phenomena.³ ¹¹⁷ ¹¹⁸
+
+#### Poisson Process
+
+The Poisson process exists in several forms and definitions.¹¹⁹ ¹²⁰ One definition is as a counting process, which quantifies the random number of events or points occurring up to a certain time. The number of points within an interval from zero to a given time follows a Poisson random variable dependent on that time and a specific parameter. This process uses the natural numbers as its state space and the non-negative numbers as its index set. It is also known as the Poisson counting process, as it exemplifies a counting process.¹¹⁹
+
+When a Poisson process is defined with a single positive constant parameter, it is termed a homogeneous Poisson process.¹¹⁹ ¹²¹ This homogeneous variant belongs to significant classes of stochastic processes, such as Markov and Lévy processes.⁴⁹
+
+The homogeneous Poisson process can be defined and generalized in multiple ways. If its index set is the real line, it is called the stationary Poisson process.¹²² ¹²³ When the constant parameter is replaced by an integrable function of *t* (where *t* represents time), the resulting process is an inhomogeneous or nonhomogeneous Poisson process, characterized by a non-constant average density of points.¹²⁴ As a fundamental process in queueing theory, the Poisson process is vital for mathematical models, particularly those simulating events that occur randomly within temporal windows.¹²⁵ ¹²⁶
+
+Defined on the real line, the Poisson process can be interpreted as a stochastic process,⁴⁹ ¹²⁷ among other random objects.¹²⁸ ¹²⁹ However, it can also be defined on [n-dimensional Euclidean space](/Euclidean_space) or other mathematical spaces.¹³⁰ In these contexts, it is often viewed as a random set or a random counting measure rather than a stochastic process.²⁸ ¹²⁹ The Poisson process, also known as the Poisson point process, is considered one of the most crucial entities in probability theory, valued for both its theoretical significance and practical applications.²² ¹³¹ Despite its importance, it has been noted that the Poisson process sometimes receives less attention than it warrants, partly because its study is often confined to the real line rather than broader mathematical spaces.¹³¹ ¹³²
+
+### Definitions
+
+#### Stochastic Process
+
+A stochastic process is defined as a collection of random variables, all defined on a common [probability space](/Probability_space) (Ω, 𝓕, P). Here, Ω represents the [sample space](/Sample_space), 𝓕 denotes a [σ-algebra](/Sigma-algebra), and P is the [probability measure](/Probability_measure). These random variables are indexed by a set T and all take values within the same mathematical space S, which must be [measurable](/Measurable) with respect to some [σ-algebra](/Sigma-algebra) Σ.²⁸
+
+In essence, given a probability space (Ω, 𝓕, P) and a measurable space (S, Σ), a stochastic process is a collection of S-valued random variables, expressible as:¹³³
+
+{X(t): t ∈ T}.
+
+Historically, in numerous natural science problems, the point *t* ∈ T represented time, making X(t) a random variable denoting an observation at time *t*.¹³³ A stochastic process can also be represented as {X(t, ω): t ∈ T} to acknowledge its dependence on both the index *t* ∈ T and the outcome ω ∈ Ω.²⁸ ¹³⁴
+
+While the above is considered the traditional definition, other perspectives exist. For instance, a stochastic process can be interpreted or defined as a random variable mapping from Ω to the function space S<sup>T</sup>, where S<sup>T</sup> comprises all possible functions from T to S.²⁷ ⁶⁸ However, this alternative definition as a "function-valued random variable" generally necessitates additional regularity assumptions for formal definition.¹³⁵
+
+#### Index Set
+
+The set T is referred to as the index set¹³⁶ or parameter set²⁸ ¹³⁶ of the stochastic process. Frequently, T is a subset of the [real line](/Real_line), such as the [natural numbers](/Natural_numbers) or an interval, imbuing T with the interpretation of time.¹ Often, T possesses a [total order](/Total_order) relation, although it can be a more general set.¹ ⁵⁴ Examples include the [Cartesian plane](/Cartesian_plane) ℝ² or an [n-dimensional Euclidean space](/Euclidean_space), where an element *t* ∈ T might represent a spatial point.⁴⁸ ¹³⁷ Nevertheless, many theoretical results are established specifically for stochastic processes with a totally ordered index set.¹³⁸
+
+#### State Space
+
+The [mathematical space](/Mathematical_space) S, from which a stochastic process draws its values, is termed its state space. This space can be defined using [integers](/Integer), [real lines](/Real_line), [n-dimensional Euclidean spaces](/Euclidean_space), complex planes, or more abstract mathematical spaces. The state space is constructed using elements that reflect the diverse values the stochastic process can assume.¹ ⁵ ²⁸ ⁵¹ ⁵⁶
+
+#### Sample Function
+
+A sample function represents a single [outcome](/Outcome_(probability)) of a stochastic process. It is formed by selecting a specific value for each random variable within the process.²⁸ ¹³⁹ More precisely, if {X(t, ω): t ∈ T} denotes a stochastic process, then for any specific outcome ω ∈ Ω, the mapping X(⋅, ω): T → S constitutes a sample function, a realization, or, particularly when T represents time, a sample path of the process {X(t, ω): t ∈ T}.⁵⁰ This implies that for a fixed ω ∈ Ω, there exists a function mapping the index set T to the state space S.²⁸ Other terms used for a sample function include trajectory, path function,¹⁴⁰ or simply path.¹⁴¹
+
+#### Increment
+
+An increment of a stochastic process is the difference between two random variables belonging to the same process. For a process indexed by time, an increment quantifies the change over a specific time interval. For instance, if {X(t): t ∈ T} is a stochastic process with state space S and index set T = [0, ∞), then for any two non-negative values *t*₁ and *t*₂ (where *t*₁ ≤ *t*₂), the difference X<sub>*t*₂</sub> - X<sub>*t*₁</sub> is an S-valued random variable known as an increment.⁴⁸ ⁴⁹ While the state space S is often the real line or the natural numbers when studying increments, it can also be an [n-dimensional Euclidean space](/Euclidean_space) or more abstract spaces like [Banach spaces](/Banach_space).⁴⁹
+
+### Further Definitions
+
+#### Law
+
+For a stochastic process X: Ω → S<sup>T</sup> defined on a probability space (Ω, 𝓕, P), its law, denoted by *μ*, is defined as the [pushforward measure](https://en.wikipedia.org/wiki/Pushforward_measure):
+
+*μ* = P ∘ X⁻¹
+
+Here, P is the probability measure, ∘ denotes function composition, and X⁻¹ represents the pre-image of the measurable function. Equivalently, it's the S<sup>T</sup>-valued random variable X, where S<sup>T</sup> is the space of all possible functions from T to S. Thus, the law of a stochastic process is a probability measure.²⁷ ⁶⁸ ¹⁴² ¹⁴³
+
+For any measurable subset B of S<sup>T</sup>, the pre-image of X yields:
+
+X⁻¹(B) = {ω ∈ Ω: X(ω) ∈ B}
+
+Consequently, the law of X can be expressed as:²⁸
+
+*μ*(B) = P({ω ∈ Ω: X(ω) ∈ B})
+
+The law of a stochastic process or a random variable is also referred to as its probability law, probability distribution, or simply distribution.¹³³ ¹⁴² ¹⁴⁴ ¹⁴⁵ ¹⁴⁶
+
+#### Finite-Dimensional Probability Distributions
+
+For a stochastic process X with law *μ*, its finite-dimensional distribution for a set of indices *t*₁, ..., *t*<sub>n</sub> ∈ T is defined as:
+
+*μ*<sub>*t*₁, ..., *t*<sub>n</sub></sub> = P ∘ (X(*t*₁), ..., X(*t*<sub>n</sub>))⁻¹
+
+This measure *μ*<sub>*t*₁, ..., *t*<sub>n</sub></sub> represents the joint distribution of the random vector (X(*t*₁), ..., X(*t*<sub>n</sub>)). It can be viewed as a "projection" of the overall law *μ* onto a finite subset of T.²⁷ ¹⁴⁷
+
+For any measurable subset C within the n-fold [Cartesian power](/Cartesian_power) S<sup>n</sup> = S × ⋯ × S, the finite-dimensional distributions of a stochastic process X can be expressed as:²⁸
+
+*μ*<sub>*t*₁, ..., *t*<sub>n</sub></sub>(C) = P({ω ∈ Ω: (X<sub>*t*₁</sub>(ω), ..., X<sub>*t*<sub>n</sub></sub>(ω)) ∈ C})
+
+These finite-dimensional distributions must satisfy specific mathematical conditions known as consistency conditions.⁵⁷
+
+#### Stationarity
+
+A stochastic process is considered [stationary](/Stationary_process) if all the random variables within the process are identically distributed. This means that for any index *t* ∈ T, the random variable X<sub>*t*</sub> follows the same distribution. Consequently, for any set of *n* index values *t*₁, ..., *t*<sub>n</sub>, the corresponding random variables X<sub>*t*₁</sub>, ..., X<sub>*t*<sub>n</sub></sub> all share the same [probability distribution](/Probability_distribution). Typically, the index set of a stationary stochastic process is interpreted as time, such as the integers or the real line.¹⁴⁸ ¹⁴⁹ The concept of stationarity also extends to point processes and random fields where the index set is not time-based.¹⁴⁸ ¹⁵⁰ ¹⁵¹
+
+When the index set T is interpreted as time, a stochastic process is called stationary if its finite-dimensional distributions remain invariant under time translations. Such processes are useful for modeling physical systems in a steady state that still exhibit random fluctuations.¹⁴⁸ The core intuition behind stationarity is that the process's distribution remains constant over time.¹⁵² A sequence of random variables forms a stationary stochastic process only if these variables are identically distributed.¹⁴⁸
+
+While the above definition is sometimes referred to as strict stationarity, other forms exist. For instance, a discrete-time or continuous-time stochastic process X is stationary in the wide sense (also known as covariance stationarity or stationarity in the broad sense) if it possesses a finite second moment for all *t* ∈ T, and the covariance between X<sub>*t*</sub> and X<sub>*t*+h</sub> depends solely on *h* for all *t* ∈ T.¹⁵² ¹⁵³ [Khinchin]¹⁵³ introduced this related concept.
+
+#### Filtration
+
+A [filtration](/Filtration_(probability_theory)) is an increasing sequence of sigma-algebras defined in relation to a probability space and an index set possessing a [total order](/Total_order), such as subsets of the real numbers. Formally, if a stochastic process has an index set with a total order, a filtration {𝓕<sub>*t*</sub>}<sub>*t*∈T</sub> on a probability space (Ω, 𝓕, P) is a family of sigma-algebras satisfying 𝓕<sub>*s*</sub> ⊆ 𝓕<sub>*t*</sub> ⊆ 𝓕 for all *s* ≤ *t*, where *s*, *t* ∈ T and ≤ denotes the total order of T.⁵¹ This concept allows for the study of the information contained within a stochastic process X<sub>*t*</sub> at time *t*, interpreted as the amount of information available up to that point.⁵¹ ¹⁵⁵ The intuition behind a filtration 𝓕<sub>*t*</sub> is that as time *t* progresses, more information about X<sub>*t*</sub> becomes known or accessible, reflected in progressively finer partitions of Ω. ¹⁵⁶ ¹⁵⁷
+
+#### Modification
+
+A modification of a stochastic process is another process closely related to the original. Specifically, a stochastic process X, sharing the same index set T, state space S, and probability space (Ω, 𝓕, P) as another process Y, is considered a modification of X if P(X<sub>*t*</sub> = Y<sub>*t*</sub>) = 1 for all *t* ∈ T. Two stochastic processes that are modifications of each other possess identical finite-dimensional laws¹⁵⁸ and are termed stochastically equivalent or simply equivalent.¹⁵⁹
+
+The term "version" is also used instead of modification,¹⁵⁰ ¹⁶⁰ ¹⁶¹ ¹⁶² though some authors use "version" for processes with identical finite-dimensional distributions, even if defined on different probability spaces. Thus, processes that are modifications of each other are also versions, but not necessarily vice versa.¹⁶³ ¹⁴²
+
+The [Kolmogorov continuity theorem]¹⁶¹ ¹⁶² ¹⁶⁴ states that for a continuous-time real-valued stochastic process satisfying certain moment conditions on its increments, a modification exists with continuous sample paths with probability one, meaning the process has a continuous modification or version. This theorem can be extended to random fields indexed by [n-dimensional Euclidean space]¹⁶⁵ and to processes with [metric spaces](/Metric_spaces) as state spaces.¹⁶⁶
+
+#### Indistinguishable
+
+Two stochastic processes, X and Y, defined on the same probability space (Ω, 𝓕, P) with identical index set T and state space S, are considered indistinguishable if P(X<sub>*t*</sub> = Y<sub>*t*</sub> for all *t* ∈ T) = 1.¹⁴² ¹⁵⁸ If X and Y are modifications of each other and are [almost surely continuous](/Almost_surely_continuous), then they are indistinguishable.¹⁶⁷
+
+#### Separability
+
+Separability is a property of a stochastic process that relates its index set to the probability measure. This property is often assumed to ensure that functionals of stochastic processes or random fields with uncountable index sets result in random variables. For a process to be separable, its index set must be a [separable space](/Separable_space),¹⁵⁰ ¹⁶⁸ meaning it contains a dense countable subset.
+
+More formally, a real-valued continuous-time stochastic process X on a probability space (Ω, 𝓕, P) is separable if its index set T has a dense countable subset U ⊆ T, and there exists a set Ω₀ ⊆ Ω with P(Ω₀) = 0 such that for every open set G ⊆ T and every closed set F ⊆ ℝ, the events {X<sub>*t*</sub> ∈ F for all *t* ∈ G ∩ U} and {X<sub>*t*</sub> ∈ F for all *t* ∈ G} differ from each other at most on a subset of Ω₀.¹⁶⁹ ¹⁷⁰ ¹⁷¹ The definition of separability¹⁷² can be extended to other index sets and state spaces,¹⁷⁴ including [n-dimensional Euclidean space] for random fields.¹⁵⁰ ³⁰
+
+The concept of separability was introduced by [Joseph Doob].¹⁶⁸ The fundamental idea is that a countable subset of the index set should adequately determine the process's properties.¹⁷² Stochastic processes with countable index sets are inherently separable, thus encompassing all discrete-time processes.¹⁷⁵ A theorem by Doob, sometimes called Doob's separability theorem, asserts that any real-valued continuous-time stochastic process possesses a separable modification.¹⁶⁸ ¹⁷⁰ ¹⁷⁶ Similar theorems exist for more general processes with different index sets and state spaces.¹³⁶
+
+#### Independence
+
+Two stochastic processes, X and Y, defined on the same probability space (Ω, 𝓕, P) with the same index set T, are considered independent if, for any choice of epochs *t*₁, ..., *t*<sub>n</sub> ∈ T, the random vectors (X(*t*₁), ..., X(*t*<sub>n</sub>)) and (Y(*t*₁), ..., Y(*t*<sub>n</sub>)) are independent. ¹⁷⁷ :p. 515
+
+#### Uncorrelatedness
+
+Two stochastic processes {X<sub>*t*</sub>} and {Y<sub>*t*</sub>} are termed uncorrelated if their cross-covariance function K<sub>XY</sub>(*t*₁, *t*₂) = E[(X(*t*₁) - *μ*<sub>X</sub>(*t*₁))(Y(*t*₂) - *μ*<sub>Y</sub>(*t*₂))] is zero for all times *t*₁ and *t*₂. ¹⁷⁸ :p. 142 Formally:
+
+{X<sub>*t*</sub>}, {Y<sub>*t*</sub>} uncorrelated ⟺ K<sub>XY</sub>(*t*₁, *t*₂) = 0 ∀ *t*₁, *t*₂
+
+#### Independence Implies Uncorrelatedness
+
+If two stochastic processes X and Y are independent, they are also uncorrelated.¹⁷⁸ :p. 151
+
+#### Orthogonality
+
+Two stochastic processes {X<sub>*t*</sub>} and {Y<sub>*t*</sub>} are called orthogonal if their cross-correlation function R<sub>XY</sub>(*t*₁, *t*₂) = E[X(*t*₁) *overline{Y(*t*₂))}] is zero for all times. ¹⁷⁸ :p. 142 Formally:
+
+{X<sub>*t*</sub>}, {Y<sub>*t*</sub>} orthogonal ⟺ R<sub>XY</sub>(*t*₁, *t*₂) = 0 ∀ *t*₁, *t*₂
+
+#### Skorokhod Space
+
+A Skorokhod space, denoted D, comprises functions defined on an interval of the real line (e.g., [0,1] or [0,∞)) that are right-continuous with left limits (càdlàg functions).¹⁷⁹ ¹⁸⁰ ¹⁸¹ These functions can take values in the real line or another metric space.¹⁷⁹ ¹⁸² Introduced by [Anatoliy Skorokhod],¹⁸¹ the space is often denoted by D,¹⁷⁹ ¹⁸⁰ ¹⁸¹ ¹⁸² with notations like D[0,1] specifying the domain.¹⁸² ¹⁸⁴ ¹⁸⁵ Skorokhod spaces are crucial in the theory of stochastic processes, as sample functions of continuous-time processes are frequently assumed to belong to such spaces.¹⁸¹ ¹⁸³ While they include continuous functions like those of the Wiener process, they also accommodate functions with jumps, such as those found in the Poisson process.¹⁸⁴ ¹⁸⁶
+
+#### Regularity
+
+In the mathematical construction of stochastic processes, "regularity" refers to assumed conditions that resolve potential construction issues.¹⁸⁷ ¹⁸⁸ For instance, studying processes with uncountable index sets often involves assuming regularity conditions like continuous sample functions.¹⁸⁹ ¹⁹⁰
+
+### Further Examples
+
+#### Markov Processes and Chains
+
+Markov processes are stochastic processes, typically in [discrete or continuous time](/Discrete_time_and_continuous_time), that exhibit the Markov property: the future state depends only on the present state, not on the past history. ¹⁹¹ ¹⁹² The Brownian motion and one-dimensional Poisson processes are continuous-time Markov processes.¹⁹³ [Random walks](/Random_walk) on integers and the [gambler's ruin](/Gambler%27s_ruin) problem are discrete-time examples.¹⁹⁴ ¹⁹⁵
+
+A Markov chain is a type of Markov process, often defined with a discrete state space or index set.¹⁹⁶ Definitions vary; a common one requires a countable state space (whether time is discrete or continuous),¹⁹⁷ ¹⁹⁸ ¹⁹⁹ ²⁰⁰ while another defines it by discrete time (regardless of state space).¹⁹⁶ The discrete-time definition is currently more prevalent, though earlier works by researchers like [Joseph Doob] and [Kai Lai Chung] used the latter.¹⁹⁶ ²⁰¹
+
+Markov processes form a significant class with broad applications.³⁹ ³⁹ For example, [Markov chain Monte Carlo](/Markov_chain_Monte_Carlo) methods, used for simulating complex probability distributions, are based on them and find use in [Bayesian statistics].²⁰³ ²⁰⁴
+
+The Markov property, initially for time-indexed processes, has been adapted for [n-dimensional Euclidean space], yielding [Markov random fields].²⁰⁵ ²⁰⁶ ²⁰⁷
+
+#### Martingale
+
+A martingale is a discrete-time or continuous-time stochastic process where, given the present and past values, the conditional expectation of any future value is equal to the current value.²⁰⁸ ²⁰⁹ ¹⁵⁵ In discrete time, if this holds for the next value, it holds for all future values. The formal definition involves additional conditions and the concept of a [filtration](/Filtration_(probability_theory)), reflecting the idea of increasing information over time. Martingales are typically real-valued,²⁰⁸ ²⁰⁹ ¹⁵⁵ but can also be complex-valued²¹⁰ or more general.²¹¹
+
+Symmetric random walks and Wiener processes (with zero drift) are examples of discrete-time and continuous-time martingales, respectively.²⁰⁸ ²⁰⁹ For a sequence of [independent and identically distributed](/Independent_and_identically_distributed) random variables X₁, X₂, X₃, ... with zero mean, the process of successive partial sums (X₁, X₁ + X₂, X₁ + X₂ + X₃, ...) forms a discrete-time martingale.²¹² Thus, discrete-time martingales generalize partial sums of independent random variables.²¹³
+
+Martingales can also be constructed from other processes, such as the compensated Poisson process derived from the homogeneous Poisson process.²⁰⁹ They can also be built from existing martingales,²¹² for instance, continuous-time martingales based on the Wiener process.²⁰⁸ ²¹⁴
+
+Martingales formalize the notion of a 'fair game', enabling rational expectation calculations.²¹⁵ They originated from the idea that it's impossible to gain an unfair advantage in such games.²¹⁶ Today, they are central to many areas of probability,²¹⁶ ²¹⁷ which drives their study. Martingales often exhibit convergence under certain moment conditions, making them valuable tools for deriving convergence results, largely thanks to [martingale convergence theorems].²¹³ ²¹⁹ ²²⁰
+
+While martingales have numerous statistical applications, their use in statistical inference is sometimes considered less widespread than it could be.²²¹ They are also applied in queueing theory, Palm calculus,²²² economics,²²³ and finance.¹⁷
+
+#### Lévy Process
+
+Lévy processes are a class of stochastic processes generalizing random walks to continuous time.⁴⁹ ²²⁴ They find applications in finance, fluid mechanics, physics, and biology.²²⁵ ²²⁶ Their defining features are stationarity and independent increments: for non-negative times 0 ≤ *t*₁ ≤ ... ≤ *t*<sub>n</sub>, the increments X<sub>*t*₂</sub> - X<sub>*t*₁</sub>, ..., X<sub>*t*<sub>n</sub></sub> - X<sub>*t*<sub>n-1</sub></sub> are independent, and their distributions depend only on the time difference.⁴⁹
+
+Lévy processes can be defined on abstract mathematical spaces like [Banach spaces](/Banach_space), but are commonly defined on Euclidean spaces. Their index set is typically the non-negative numbers [0, ∞), representing time. Key examples include the Wiener process, the one-dimensional homogeneous Poisson process, and [subordinators](/Subordinator_(mathematics)).⁴⁹ ²²⁴
+
+#### Random Field
+
+A random field is a collection of random variables indexed by an [n-dimensional Euclidean space](/Euclidean_space) or a manifold.⁴⁸ ³⁰ Generally, it can be seen as a stochastic process where the index set is not restricted to the real line.⁵ ²⁸ ³⁰ However, a common convention designates collections indexed by two or more dimensions as random fields, distinguishing them from stochastic processes.⁵ ²⁸ ²²⁷ If a strict definition of a stochastic process requires a real-valued index set, then a random field represents a generalization.²²⁸
+
+#### Point Process
+
+A point process is a collection of points randomly distributed within a mathematical space, such as the real line, [n-dimensional Euclidean space](/Euclidean_space), or more abstract spaces.²²⁹ Sometimes termed a random point field to distinguish from processes evolving in time, a point process can be interpreted as a random counting measure or a random set.²³⁰ ²³¹ While some view point processes and stochastic processes as distinct entities, with point processes arising from or associated with stochastic processes, the boundary can be unclear.²³² ²³³
+
+Other authors consider point processes as stochastic processes indexed by sets within the underlying space (e.g., the real line or [n-dimensional Euclidean space]).²³⁶ ²³⁷ Processes like renewal and counting processes are studied within the theory of point processes.²³⁸ ²³³
+
+### History
+
+#### Early Probability Theory
+
+Probability theory originated from the study of games of chance, a practice dating back millennia.²³⁹ However, formal probabilistic analysis was scarce until the mid-17th century. The year 1654 is often cited as the genesis of probability theory, marked by the correspondence between French mathematicians [Pierre Fermat] and [Blaise Pascal] concerning a gambling problem.²⁴¹ ²⁴² Earlier, [Gerolamo Cardano] had written *Liber de Ludo Aleae* (On Games of Chance) in the 16th century, though it was published posthumously in 1663.²⁴³
+
+Following Cardano, [Jakob Bernoulli]²⁴⁴ authored *Ars Conjectandi* (The Art of Conjecturing), a seminal work published posthumously in 1713 that significantly advanced the field and inspired further research.²⁴⁵ ²⁴⁶ Despite contributions from prominent mathematicians like [Pierre-Simon Laplace], [Abraham de Moivre], [Carl Gauss], [Siméon Poisson], and [Pafnuty Chebyshev],²⁴⁷ ²⁴⁸ probability theory was not widely accepted as a branch of mathematics until the 20th century.²⁴⁷ ²⁴⁹ ²⁵⁰ ²⁵¹
+
+#### Statistical Mechanics
+
+In the 19th century, the physical sciences saw the development of [statistical mechanics], which models physical systems, like gases in containers, as collections of numerous moving particles. While some scientists, such as [Rudolf Clausius], attempted to introduce randomness, much of this work lacked it.²⁵² ²⁵³ This began to change in 1859 when [James Clerk Maxwell] made significant contributions to the kinetic theory of gases, modeling particles with random directions and velocities.²⁵⁴ ²⁵⁵ The kinetic theory and statistical physics were further developed by Clausius, [Ludwig Boltzmann], and [Josiah Gibbs], influencing [Albert Einstein]'s later model of [Brownian movement].²⁵⁶
+
+#### Measure Theory and Probability Theory
+
+At the [International Congress of Mathematicians] in [Paris] in 1900, [David Hilbert] proposed his sixth problem, calling for a rigorous axiomatic treatment of physics and probability.¹⁵⁶ ¹⁵⁷ Around the turn of the 20th century, [Henri Lebesgue] and [Émile Borel] were foundational figures in the development of measure theory, a branch of mathematics concerned with integrals of functions. In 1925, [Paul Lévy] published the first probability book incorporating ideas from measure theory.¹⁵⁶
+
+The 1920s witnessed crucial advancements in probability theory in the Soviet Union, spearheaded by mathematicians such as [Sergei Bernstein], [Aleksandr Khinchin],¹⁵⁶ and [Andrei Kolmogorov].¹⁵⁶ Kolmogorov's 1929 publication marked his initial attempt at establishing a measure-theoretic foundation for probability theory.²⁵⁷ In the early 1930s, Khinchin and Kolmogorov initiated probability seminars attended by researchers like [Eugene Slutsky] and [Nikolai Smirnov],²⁵⁸ and Khinchin provided the first formal mathematical definition of a stochastic process as a collection of random variables indexed by the real line.⁶³ ²⁵⁹
+
+#### Birth of Modern Probability Theory
+
+Andrei Kolmogorov's 1933 book, *Grundbegriffe der Wahrscheinlichkeitsrechnung* (Foundations of the Theory of Probability), published in German, established an axiomatic framework for probability theory using measure theory.²⁵¹ This publication is widely considered the advent of modern probability theory, integrating probability and stochastic processes into the mathematical landscape.²⁴⁸ ²⁵¹
+
+Following Kolmogorov's work, Khinchin, Kolmogorov, and other mathematicians including [Joseph Doob], [William Feller], [Maurice Fréchet], [Paul Lévy], [Wolfgang Doeblin], and [Harald Cramér] made further fundamental contributions to probability theory and stochastic processes.²⁴⁸ ²⁵¹ Cramér later described the 1930s as the "heroic period of mathematical probability theory." ²⁵¹ World War II significantly disrupted this progress, leading to events like Feller's emigration from [Sweden] to the [United States]²⁵¹ and the death of Doeblin, now recognized as a pioneer in stochastic processes.²⁶¹
+
+Mathematician [Joseph Doob] conducted early, foundational work in stochastic process theory, particularly in martingale theory.²⁶² ²⁶⁰ His influential book, *Stochastic Processes*, significantly shaped the field of probability theory.²⁶³
+
+#### Stochastic Processes After World War II
+
+Post-World War II, the study of probability theory and stochastic processes gained considerable momentum, with significant advancements across various mathematical domains and the emergence of new areas.²⁵¹ ²⁶⁴ Beginning in the 1940s, [Kiyosi Itô] developed the field of [stochastic calculus], introducing stochastic [integrals] and [differential equations](/Differential_equations) based on the Wiener or Brownian motion process.²⁶⁵
+
+Also in the 1940s, connections were forged between stochastic processes, especially martingales, and [potential theory], with initial insights from [Shizuo Kakutani] and subsequent work by Joseph Doob.²⁶⁴ Pioneering research by [Gilbert Hunt] in the 1950s linked Markov processes and potential theory, profoundly impacting the study of Lévy processes and stimulating further interest in Markov processes using Itô's methods.²¹ ²⁶⁶ ²⁶⁷
+
+In 1953, Doob published his seminal book *Stochastic Processes*, which heavily influenced the field and emphasized the importance of measure theory in probability.²⁶⁴ ²⁶³ Doob was also instrumental in developing martingale theory, with later substantial contributions from [Paul-André Meyer]. Earlier foundational work had been done by [Sergei Bernstein], [Paul Lévy], and [Jean Ville], the latter coining the term "martingale." ²⁶⁸ ²⁶⁹ Techniques from martingale theory became widely adopted for solving diverse probability problems, with methods developed for Markov processes also applied to martingales, and vice versa.²⁶⁴
+
+Other areas of probability, such as the theory of large deviations, were developed and applied to stochastic processes.²⁶⁴ This theory, with roots in the 1930s, found applications in statistical physics and other fields. Significant contributions were made in the 1960s and 1970s by Alexander Wentzell in the Soviet Union and [Monroe D. Donsker] and [Srinivasa Varadhan] in the United States,²⁷⁰ leading to Varadhan receiving the 2007 Abel Prize.²⁷¹ In the 1990s and 2000s, the theories of [Schramm–Loewner evolution]²⁷² and [rough paths]²⁷³ emerged to study stochastic processes and related mathematical objects, resulting in Fields Medals for [Wendelin Werner] in 2008²⁷³ and [Martin Hairer] in 2014.²⁷⁴
+
+The theory of stochastic processes remains an active area of research, with annual international conferences dedicated to the topic.⁴⁵ ²²⁵
+
+### Discoveries of Specific Stochastic Processes
+
+Although Khinchin formalized stochastic processes in the 1930s,⁶³ ²⁵⁹ specific processes like the Brownian motion and Poisson processes had been identified earlier in different contexts.²¹ ²⁴ Certain families of processes, such as point processes and renewal processes, have complex histories spanning centuries.²⁷⁵
+
+#### Bernoulli Process
+
+The Bernoulli process, a mathematical model for biased coin flips, is arguably the earliest studied stochastic process.⁸¹ It is a sequence of independent Bernoulli trials,⁸² named after [Jacob Bernoulli], who used them to analyze games of chance and problems previously explored by Christiaan Huygens.²⁷⁶ Bernoulli's work, including the Bernoulli process, was published in his 1713 book *Ars Conjectandi*.²⁷⁷
+
+#### Random Walks
+
+In 1905, [Karl Pearson] introduced the term "random walk" in the context of a problem involving a walk on a plane, motivated by a biological application.⁸⁹ ²⁷⁷ However, problems involving random walks had been studied earlier, particularly in gambling contexts. For example, the Gambler's ruin problem is based on a simple random walk,⁹⁵ ²⁷⁸ representing a walk with absorbing barriers.²⁴¹ ²⁷⁹ Solutions were provided by Pascal, Fermat, and Huygens, with more detailed analyses by Jakob Bernoulli and [Abraham de Moivre].²⁸⁰ ²⁸¹
+
+[George Pólya] studied symmetric random walks on [lattices](/Lattice_(group)) in the 1920s, investigating the probability of returning to a starting position. Pólya demonstrated that in one and two dimensions, a symmetric random walk returns to its origin infinitely often with probability one, whereas in three or more dimensions, this probability is zero.²⁸² ²⁸³
+
+#### Wiener Process
+
+The [Wiener process](/Wiener_process), or Brownian motion process, has origins in statistics, finance, and physics.²¹ In 1880, Danish astronomer [Thorvald Thiele] used the process in time-series analysis to study model errors, an early application of what is now known as [Kalman filtering].²⁸⁴ ²⁸⁵ ²⁸⁶ His work, however, was largely overlooked, perhaps due to its advanced nature for the time.
+
+[Norbert Wiener] provided the first rigorous mathematical proof of the Wiener process's existence. The mathematical object had appeared earlier in the work of [Thorvald Thiele], [Louis Bachelier], and [Albert Einstein].²¹
+
+French mathematician [Louis Bachelier] employed a Wiener process in his 1900 thesis²⁸⁷ ²⁸⁸ to model stock market prices on the [Paris Bourse]²⁸⁹ without knowledge of Thiele's work.²¹ While some speculate Bachelier drew inspiration from [Jules Regnault]'s random walk model, Bachelier did not cite him.²⁹⁰ Bachelier's thesis is now considered a pioneering work in financial mathematics.²⁸⁹ ²⁹⁰
+
+It is often believed that Bachelier's work went unnoticed until the 1950s, when [Leonard Savage] rediscovered it, leading to greater popularity after the thesis was translated into English in 1964. However, the work remained known within the mathematical community, as evidenced by Bachelier's 1912 book, cited by mathematicians including Doob, Feller,²⁹⁰ and Kolmogorov.²¹ The thesis gained more prominence than the book starting in the 1960s when economists began citing it.²⁹⁰
+
+In 1905, [Albert Einstein] published a paper explaining the physical observation of Brownian motion using concepts from the [kinetic theory of gases].²⁹¹ Einstein derived a [diffusion equation](/Diffusion_equation) describing particle distribution. [Marian Smoluchowski] independently derived similar results shortly after.²⁹¹
+
+Einstein's work and [Jean Perrin]'s experimental findings inspired Norbert Wiener in the 1920s²⁹² to use Percy Daniell's measure theory and Fourier analysis to prove the existence of the Wiener process.²¹
+
+#### Poisson Process
+
+The Poisson process is named after [Siméon Poisson] due to its connection with the [Poisson distribution], though Poisson himself did not study the process.²² ²⁹³ Several claims exist regarding the early discovery or use of the Poisson process.²² ²⁴
+
+The process emerged independently in different contexts in the early 20th century.²² ²⁴
+
+In 1903, [Filip Lundberg] in Sweden published pioneering work proposing the use of a homogeneous Poisson process to model insurance claims.²⁹⁴ ²⁹⁵
+
+Independently, in 1909 in Denmark, [A.K. Erlang] derived the Poisson distribution while developing a model for incoming phone calls. Unaware of Poisson's prior work, Erlang assumed call arrivals were independent over time, leading him to the limiting case of the Poisson distribution as a limit of the binomial distribution.²²
+
+In 1910, [Ernest Rutherford] and [Hans Geiger] published experimental results on alpha particle counts. [Harry Bateman], inspired by their work, studied this counting problem, deriving Poisson probabilities as solutions to differential equations, thus independently discovering the Poisson process.²² Numerous subsequent studies and applications of the Poisson process followed, but its early history is complex due to its diverse applications across fields like biology, ecology, engineering, and various physical sciences.²²
+
+#### Markov Processes
+
+Markov processes and chains are named after [Andrey Markov], who studied Markov chains as an extension of independent random sequences in the early 20th century. In his 1906 paper, Markov proved a [weak law of large numbers](/Weak_law_of_large_numbers) for these chains without the independence assumption, demonstrating convergence of average outcomes to a fixed vector.²⁹⁶ ²⁹⁷ ²⁹⁸ Markov later used Markov chains to analyze vowel distribution in [Alexander Pushkin]'s *Eugene Onegin* and proved a [central limit theorem](/Central_limit_theorem) for them.
+
+In 1912, [Poincaré] studied Markov chains on [finite groups](/Finite_group) for card shuffling. Early applications also include a diffusion model by [Paul] and [Tatyana Ehrenfest] (1907) and a [branching process] introduced by [Francis Galton] and [Henry William Watson] (1873), predating Markov's work.²⁹⁶ ²⁹⁷ The Galton–Watson process was later found to have been independently discovered by [Irénée-Jules Bienaymé] decades earlier.²⁹⁹ [Maurice Fréchet] developed a significant interest in Markov chains starting in 1928, culminating in a detailed study published in 1938.²⁹⁶ ²⁹⁶
+
+[Andrei Kolmogorov] laid much of the groundwork for continuous-time Markov processes in a 1931 paper.²⁵¹ ²⁵⁷ He was partly inspired by Louis Bachelier's 1900 work on stock market fluctuations and [Norbert Wiener]'s studies of Einstein's Brownian motion model.²⁵⁷ ³⁰¹ He introduced and analyzed diffusion processes, deriving governing differential equations.²⁵⁷ ³⁰² Independently, [Sydney Chapman] derived a less rigorous version of the [Chapman–Kolmogorov equation] in 1928 while studying Brownian movement.²⁵⁷ ³⁰³ These equations are now known as Kolmogorov equations²⁵⁷ ³⁰⁴ or Kolmogorov–Chapman equations.²⁵⁷ ³⁰⁵ Other key contributors to the foundations of Markov processes include William Feller (from the 1930s) and Eugene Dynkin (from the 1950s).²⁵¹
+
+#### Lévy Processes
+
+Lévy processes, such as the Wiener and one-dimensional Poisson processes, are named after Paul Lévy, who began studying them in the 1930s.²²⁵ However, their roots lie in [infinitely divisible distributions] dating back to the 1920s.²²⁴ In 1932, Kolmogorov derived a [characteristic function](/Characteristic_function_(probability_theory)) for random variables associated with Lévy processes. Lévy independently derived this result under broader conditions in 1934, and Khinchin presented an alternative form in 1937.²⁵¹ ³⁰⁶ Early foundational work was also contributed by [Bruno de Finetti] and [Kiyosi Itô].²²⁴
+
+### Mathematical Construction
+
+Constructing mathematical objects, including stochastic processes, is essential for proving their existence.²⁵⁷ There are two primary construction approaches. One involves defining a measurable function space, a measurable mapping from a probability space to this function space, and then deriving the corresponding finite-dimensional distributions.²⁵⁷
+
+The other approach defines a collection of random variables with specific finite-dimensional distributions and then uses [Kolmogorov's existence theorem]²⁵⁷ to establish the existence of a corresponding stochastic process.²⁵⁷ ³⁰⁷ This theorem, an existence theorem for measures on infinite product spaces,²⁵⁷ ³¹¹ asserts that if finite-dimensional distributions satisfy consistency conditions, a stochastic process with those distributions exists.²⁵⁷
+
+#### Construction Issues
+
+Constructing continuous-time stochastic processes presents challenges not found in discrete-time processes, primarily due to uncountable index sets.⁵⁸ ⁵⁹ One issue is the potential for multiple stochastic processes to share the same finite-dimensional distributions. For example, both left-continuous and right-continuous modifications of a Poisson process have identical finite-dimensional distributions.³¹² This implies that the process's distribution alone does not uniquely determine the properties of its sample functions.³¹³
+
+Another difficulty arises with functionals dependent on an uncountable number of index points; these may not be measurable, rendering certain event probabilities ill-defined.¹⁶⁸ For instance, the supremum of a stochastic process or random field might not be a well-defined random variable.³⁰ ⁵⁹ For a continuous-time process X, other characteristics depending on an uncountable number of points in T include:¹⁶⁸
+
+*   A sample function of X being a [continuous function](/Continuous_function) of *t* ∈ T.
+*   A sample function of X being a [bounded function](/Bounded_function) of *t* ∈ T.
+*   A sample function of X being an [increasing function](/Increasing_function) of *t* ∈ T.
+
+To address these construction issues, various approaches and assumptions are employed.⁶⁹
+
+#### Resolving Construction Issues
+
+One method, proposed by [Joseph Doob], involves assuming the stochastic process is separable. Separability ensures that infinite-dimensional distributions dictate sample function properties by requiring functions to be essentially determined by values on a dense countable subset of the index set.³¹⁵ This also guarantees that functionals of uncountable index sets are measurable.¹⁶⁸ ³¹⁵
+
+Another approach, developed by [Anatoliy Skorokhod] and [Andrei Kolmogorov], applies to continuous-time processes with metric state spaces.²⁶² ³¹⁶ It assumes sample functions belong to a suitable function space, typically a Skorokhod space (càdlàg functions), which often results in separable processes.⁶⁹ This method is currently more prevalent than the separability assumption.⁶⁹ ²⁶²
+
+While less common, separability is considered more general as every stochastic process has a separable modification.²⁶² It is also used when Skorokhod space construction is impractical, such as in the study of random fields indexed by [n-dimensional Euclidean space].³⁰ ³¹⁸
+
+### Applications
+
+#### Applications in Finance
+
+##### Black-Scholes Model
+
+The [Black-Scholes model](/Black-Scholes_model) is a prominent application of stochastic processes in finance, used for option pricing. Developed by [Fischer Black], [Myron Scholes], and [Robert Solow], it employs [Geometric Brownian motion](/Geometric_Brownian_motion), a specific type of stochastic process, to model asset price dynamics.³¹⁹ ³²⁰ The model assumes continuous-time stochastic behavior for stock prices, yielding a closed-form solution for European options. Its impact on financial markets has been profound, forming the basis for much modern options trading.
+
+A core assumption is that asset prices follow a [log-normal distribution], with continuous returns being normally distributed. Despite its limitations, such as assuming constant volatility, the model remains widely used for its simplicity and practical relevance.
+
+##### Stochastic Volatility Models
+
+[Stochastic volatility models](/Stochastic_volatility) represent another significant financial application, aiming to capture the time-varying nature of market volatility. The [Heston model]³²¹ is a popular example, allowing volatility itself to follow a stochastic process. Unlike the Black-Scholes model's constant volatility assumption, these models offer greater flexibility in describing market dynamics, especially during periods of heightened uncertainty.
+
+#### Applications in Biology
+
+##### Population Dynamics
+
+Stochastic processes are extensively applied in [population dynamics], contrasting with [deterministic models](/Deterministic_model) by incorporating random variations in births, deaths, and migration. The [birth-death process],³²² a simple stochastic model, describes population fluctuations over time. These models are crucial for small populations where random events can have significant consequences, such as in conservation biology or microbial studies.
+
+The [branching process]³²² models population growth where individuals reproduce independently, often used to study population extinction or proliferation, notably in epidemiology for disease spread modeling.
+
+#### Applications in Computer Science
+
+##### Randomized Algorithms
+
+In computer science, stochastic processes are vital for analyzing and developing randomized algorithms, which use random inputs to simplify problem-solving or enhance performance. [Markov chains](/Markov_chain) are extensively used in probabilistic algorithms for optimization and sampling, including Google's PageRank algorithm.³²³ These methods balance computational efficiency with accuracy, essential for large datasets. Randomized algorithms are also employed in cryptography, large-scale simulations, and artificial intelligence. ³²³
+
+##### Queuing Theory
+
+[Queuing theory]³²⁴ is another significant area where stochastic processes model the random arrival and service of tasks in systems, relevant to network traffic and server management. Queuing models help predict delays, optimize resource allocation, and improve throughput in web servers and communication networks, crucial for designing efficient data centers and cloud infrastructure. ³²⁵
+
+### See also
+
+*   [List of stochastic processes topics](/List_of_stochastic_processes_topics)
+*   [Covariance function](/Covariance_function)
+*   [Deterministic system](/Deterministic_system)
+*   [Dynamics of Markovian particles](/Dynamics_of_Markovian_particles)
+*   [Entropy rate](/Entropy_rate) (for a stochastic process)
+*   [Ergodic process](/Ergodic_process)
+*   [Gillespie algorithm](/Gillespie_algorithm)
+*   [Interacting particle system](/Interacting_particle_system)
+*   [Markov chain](/Markov_chain)
+*   [Stochastic cellular automaton](/Stochastic_cellular_automaton)
+*   [Random field](/Random_field)
+*   [Randomness](/Randomness)
+*   [Stationary process](/Stationary_process)
+*   [Statistical model](/Statistical_model)
+*   [Stochastic calculus](/Stochastic_calculus)
+*   [Stochastic control](/Stochastic_control)
+*   [Stochastic parrot](/Stochastic_parrot)
+*   [Stochastic processes and boundary value problems](/Stochastic_processes_and_boundary_value_problems)
+
+### Notes
+
+*   ^ The term "Brownian motion" can refer to the physical phenomenon (Brownian movement) or the mathematical object (stochastic process). To avoid ambiguity, this article uses "Brownian motion process" or "Wiener process" for the latter, following conventions like those of [Gikhman] and [Skorokhod]¹⁹ or Rosenblatt.²⁰
+*   ^ The term "separable" appears twice with distinct meanings: one from probability theory and another from topology/analysis. For a stochastic process to be probabilistically separable, its index set must be a topologically/analytically separable space, among other conditions.¹³⁶
+*   ^ The definition of separability for a continuous-time real-valued stochastic process can be formulated in various ways.¹⁷² ¹⁷³
+*   ^ In the context of point processes, "state space" can refer to the space on which the process is defined (e.g., the real line),²³⁴ ²³⁵ aligning with the index set terminology in stochastic processes.
+*   ^ Also known as James or Jacques Bernoulli.²⁴⁴
+*   ^ The St. Petersburg School in Russia, led by Chebyshev, was a notable exception where mathematicians extensively studied probability theory.²⁴⁹
+*   ^ The transliteration of Khinchin's name also appears as Khintchine in English.⁶³
+*   ^ Doob, citing Khinchin, uses "chance variable," an older term for "random variable." ²⁶⁰
+*   ^ Later translated into English and published in 1950 as *Foundations of the Theory of Probability*.²⁴⁸
+*   ^ This theorem is also known as Kolmogorov's consistency theorem,²⁵⁷ Kolmogorov's extension theorem,²⁵⁸ or the Daniell–Kolmogorov theorem.²⁵⁹
+
+#

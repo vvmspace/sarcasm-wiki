@@ -1,0 +1,174 @@
+---
+title: "Radon Measure"
+description: "For measuring the concentration of radon gas in a building, one might consult Radon mitigation §&#160;Testing. However, the topic at hand delves into a rather..."
+keywords: mathematics, measure theory, radon measure, johann radon, measure, σ-algebra, borel sets, hausdorff topological space, compact
+slug: "Radon_measure"
+createdAt: "2025-11-18T05:13:38.935Z"
+updatedAt: "2025-11-18T05:13:38.935Z"
+contentType: "rewritten"
+---
+
+For measuring the concentration of radon gas in a building, one might consult [Radon mitigation §&#160;Testing](/Radon_mitigation). However, the topic at hand delves into a rather different, though equally specific, kind of Radon.
+
+In the realm of [mathematics](/Mathematics), specifically within the intricate tapestry of [measure theory](/Measure_theory), a [Radon measure](/Radon_measure), named not for the noble gas but for the Austrian mathematician [Johann Radon](/Johann_Radon), stands as a concept of profound significance. It is, in essence, a [measure](/Measure_(mathematics)) defined on the [σ-algebra](/Sigma_algebra) of [Borel sets](/Borel_set) within a [Hausdorff topological space](/Hausdorff_topological_space) X. But it's not just *any* measure; it's one that adheres to a trio of rather demanding conditions: it must be finite on all [compact](/Compact_space) sets, [outer regular](/Regular_measure) on all Borel sets, and [inner regular](/Regular_measure) on [open](/Open_set) sets. These seemingly arbitrary stipulations are, in fact, the very essence of its utility, designed to ensure that the measure is not merely a theoretical construct but is "compatible" with the underlying topology of the space. This compatibility is not a mere nicety; it’s a fundamental requirement that underpins much of modern [mathematical analysis](/Mathematical_analysis) and even finds its way into certain corners of [number theory](/Number_theory), where most measures encountered are, indeed, Radon measures. It's almost as if the universe of measures decided to finally play nice with the concept of proximity.
+
+### Motivation
+
+The quest for a "good" notion of a measure on a [topological space](/Topological_space) has long been a thorny issue, riddled with complexities. The goal is to define a measure that inherently respects the topological structure, not just exists alongside it. One might, for instance, initially define a measure purely on the [Borel sets](/Borel_set) of a topological space. However, this seemingly straightforward approach often leads to a host of problems, not least of which is the potential for such a measure to lack a well-defined [support](/Support_(measure_theory)), rendering it somewhat unwieldy for practical application. It's like having a map without any landmarks – technically a map, but not particularly useful.
+
+An alternative, often favored in certain mathematical circles, is to impose a stricter environment: restrict the focus solely to [locally compact](/Locally_compact_space) [Hausdorff spaces](/Hausdorff_space). Within these more hospitable confines, one can then consider only those measures that possess a direct correspondence to positive [linear functionals](/Linear_functional) defined on the space of [continuous functions](/Continuous_function) with compact support. Some authors, perhaps finding solace in this more constrained definition, even adopt it as the *primary* definition of a Radon measure. This approach, while undeniably elegant and robust, largely sidesteps many pathological problems that plague more general settings. The catch, however, is its inherent limitation: it simply doesn't apply to spaces that fail to be locally compact. It's a beautiful theory, but it only works in its own curated garden.
+
+The landscape shifts slightly when we move beyond the confines of non-negative measures and permit [complex measures](/Complex_measure). In this broader context, Radon measures can be rigorously defined as elements of the continuous dual space of the space of [continuous functions](/Continuous_function) with compact support. Should such a Radon measure happen to be [real](/Real-valued_function), it can be elegantly decomposed into the difference of two positive measures. Extending this further, an arbitrary complex Radon measure can be dissected into four positive Radon measures, where both the real and imaginary components of the functional are themselves expressed as the differences of two positive Radon measures. This decomposition capability highlights the structural integrity of Radon measures.
+
+The true appeal of the theory of Radon measures lies in its ability to retain most of the desirable properties typically found in the standard measure theory for locally compact spaces, yet extend its applicability to *all* [Hausdorff topological spaces](/Hausdorff_topological_space). The conceptual ingenuity behind the definition of a Radon measure is to identify the specific properties that characterize those well-behaved measures on locally compact spaces—the ones corresponding to positive functionals—and then elevate these very properties to serve as the defining criteria for a Radon measure on *any* arbitrary [Hausdorff space](/Hausdorff_space). It's an elegant generalization, allowing us to carry the good behavior of measures into more complex and less accommodating topological environments.
+
+### Definitions
+
+Let's get to the specifics, if you must. Consider a measure *m* defined on the [σ-algebra](/Sigma_algebra) of [Borel sets](/Borel_set) of a [Hausdorff topological space](/Hausdorff_topological_space) *X*. The following conditions are what separate the mundane from the Radon.
+
+*   The measure *m* is designated as [inner regular](/Inner_regular_measure) or, more colloquially, "tight," if for every [open set](/Open_set) *U*, the measure *m*(*U*) is precisely equal to the [supremum](/Supremum) (the least upper bound) of *m*(*K*) across all possible [compact subsets](/Compact_space) *K* that are themselves contained within *U*. This essentially means that the measure of an open set can be approximated from "inside" by compact sets, ensuring it doesn't inflate unexpectedly without any compact substance to back it up.
+
+*   Conversely, the measure *m* is termed [outer regular](/Regular_measure) if, for every [Borel set](/Borel_set) *B*, *m*(*B*) is equal to the [infimum](/Infimum) (the greatest lower bound) of *m*(*U*) over all [open sets](/Open_set) *U* that contain *B*. This condition allows the measure of a Borel set to be approximated from "outside" by open sets, preventing it from having hidden pockets of measure that open sets can't quite capture.
+
+*   Finally, the measure *m* is considered [locally finite](/Locally_finite_measure) if every single point within *X* possesses at least one [neighborhood](/Neighborhood_(mathematics)) *U* for which *m*(*U*) is a finite value. This prevents the measure from becoming infinitely dense at any given point, ensuring a certain "manageability" in its local behavior.
+
+A crucial point of connection emerges when *m* is locally finite: this property inherently implies that *m* must be finite on all [compact sets](/Compact_space). Furthermore, for the specific case of [locally compact Hausdorff spaces](/Locally_compact_space), this implication works in both directions; the converse also holds true. Consequently, within these particular spaces, the condition of local finiteness can be equivalently substituted with the condition of finiteness on compact subsets, simplifying things slightly.
+
+So, when does a measure *m* earn the prestigious title of a [Radon measure](/Radon_measure)? It does so if it is both [inner regular](/Inner_regular_measure) and [locally finite](/Locally_finite_measure). It’s worth noting that in many practical scenarios, especially for finite measures defined on locally compact spaces, these two conditions are sufficient to also guarantee [outer regularity](/Regular_measure) (a phenomenon often seen in what are known as [Radon spaces](/Radon_space)). Life, however, is rarely so simple in the general case.
+
+(One *could*, theoretically, attempt to extend the theory of Radon measures to non-[Hausdorff spaces](/Hausdorff_space). This would typically involve replacing every instance of "compact" with "closed compact." Frankly, the utility of such an extension appears to be negligible, and one wonders why anyone would bother.)
+
+### Radon measures on locally compact spaces
+
+When the underlying [measure space](/Measure_space) is a [locally compact](/Locally_compact) [topological space](/Topological_space), the definition of a [Radon measure](/Radon_measure) takes on a particularly elegant form, expressible in terms of [continuous](/Continuous_function) [linear](/Linear_map) functionals acting on the space of [continuous functions](/Continuous_function) with [compact support](/Support_(mathematics)). This functional-analytic perspective, championed by Bourbaki and many others, offers a powerful alternative framework for developing measure and integration theory. It's a testament to the interconnectedness of mathematics, where seemingly disparate fields find common ground.
+
+#### Measures
+
+Let's stipulate that *X* in the following discussion represents a [locally compact topological space](/Locally_compact_space). The collection of [continuous real-valued functions](/Real-valued_function) defined on *X* that possess [compact support](/Support_(mathematics)) forms a [vector space](/Vector_space), conventionally denoted as K(*X*) or C<sub>c</sub>(*X*). This space can be endowed with a rather natural [locally convex](/Locally_convex_space) topology. To be more precise, K(*X*) can be understood as the union of a family of spaces, K(*X*, *K*), where each K(*X*, *K*) consists of continuous functions whose support is entirely contained within a specific [compact set](/Compact_space) *K*.
+
+Each of these individual spaces, K(*X*, *K*), naturally inherits the topology of [uniform convergence](/Uniform_convergence), a property that transforms it into a [Banach space](/Banach_space)—a complete normed vector space, for those keeping score. However, K(*X*) itself, being a union of these topological spaces, is a special instance of a [direct limit](/Direct_limit) of topological spaces. As such, K(*X*) can be equipped with the direct limit [locally convex topology](/Locally_convex_topological_vector_space) induced by the constituent K(*X*, *K*) spaces. This particular topology is, notably, finer than the simpler topology of uniform convergence, offering a more nuanced way to describe convergence within K(*X*).
+
+Now, if *m* is indeed a [Radon measure](/Radon_measure) on *X*, then the mapping *I*: *f* ↦ ∫ *f*(*x*) *m*(*dx*) defines a continuous positive linear map that projects K(*X*) onto [R](/Real_number). The "positivity" here is straightforward: *I*(*f*) ≥ 0 whenever *f* is a non-negative function. The "continuity" with respect to the direct limit topology, as previously defined, is equivalent to a rather specific condition: for every [compact subset](/Compact_space) *K* of *X*, there must exist a finite constant *M<sub>K</sub>* such that, for any continuous [real-valued function](/Real-valued_function) *f* on *X* whose support is confined to *K*, the following inequality holds:
+
+|*I*(*f*)| ≤ *M<sub>K</sub>* sup<sub>*x*∈*X*</sub> |*f*(*x*)|.
+
+This inequality essentially bounds the integral of *f* by its maximum value over *X*, scaled by a constant dependent only on the compact support *K*. It's a technical way of ensuring that the integral doesn't behave erratically.
+
+Conversely, and this is where the profound [Riesz–Markov–Kakutani representation theorem](/Riesz%E2%80%93Markov%E2%80%93Kakutani_representation_theorem) enters the stage, every positive linear form on K(*X*) can be uniquely represented as an integral with respect to a unique regular [Borel measure](/Borel_measure). This theorem is a cornerstone, establishing a fundamental duality between continuous linear functionals and measures, effectively allowing mathematicians to translate problems between these two domains. It means that the abstract world of functionals precisely mirrors the concrete world of measures, a rather convenient arrangement if you ask me.
+
+A [real-valued Radon measure](/Real-valued_function) is then defined as any continuous linear form on K(*X*). These measures are, quite precisely, the differences of two positive Radon measures. This elegant formulation provides an identification of real-valued Radon measures with the [dual space](/Dual_space) of the [locally convex space](/Locally_convex_space) K(*X*). It's crucial to understand that these real-valued Radon measures do not necessarily have to be [signed measures](/Signed_measure) in the traditional sense. Consider, for example, the measure `sin(x) dx`. This is a perfectly valid real-valued Radon measure. However, it cannot be expressed as the difference of two measures where at least one of them is finite, which is a defining characteristic of an extended signed measure. The oscillations of `sin(x)` across an infinite domain prevent it from being bounded in this way, making it a rather instructive counterexample to a common assumption.
+
+Some authors, in their pursuit of clarity (or perhaps just a different flavor of rigor), choose to define positive Radon measures as the positive linear forms on K(*X*). In such setups, it's common for the terminology to shift slightly: what we've called "Radon measures" would be referred to as "positive measures," and what we've termed "real-valued Radon measures" would simply be called "(real) measures." A slight inconvenience, but one learns to adapt.
+
+#### Integration
+
+To fully construct a robust measure theory for locally compact spaces from this functional-analytic perspective, one must extend the concept of measure (or integral) beyond merely compactly supported continuous functions. This expansion can be systematically achieved for [real-valued](/Real-valued_function) or [complex-valued functions](/Complex_measure) through a series of logical steps:
+
+1.  **Definition of the upper integral μ*(g):** For a [lower semicontinuous](/Lower_semicontinuous) positive (real-valued) function *g*, its upper integral μ*(*g*) is defined as the [supremum](/Supremum) (which may, of course, be infinite) of all positive numbers μ(*h*) where *h* represents any compactly supported continuous function such that *h* ≤ *g*. This effectively "builds up" the integral from below using well-behaved functions.
+
+2.  **Definition of the upper integral μ*(f) for arbitrary positive functions:** For any arbitrary positive (real-valued) function *f*, its upper integral μ*(*f*) is defined as the [infimum](/Infimum) of all upper integrals μ*(*g*) where *g* is any lower semi-continuous function satisfying *g* ≥ *f*. This step allows us to approximate the integral of a general positive function from "above."
+
+3.  **Definition of the vector space F = F(X, μ):** This space comprises all functions *f* on *X* for which the upper integral μ*(*|f|*) of their absolute value is finite. The upper integral of the absolute value, μ*(*|f|*), serves to define a [semi-norm](/Semi-norm) on *F*. Crucially, *F* itself forms a [complete space](/Complete_space) with respect to the topology induced by this semi-norm, meaning that Cauchy sequences in *F* always converge to a limit within *F*.
+
+4.  **Definition of the space L<sup>1</sup>(X, μ) of integrable functions:** This space is constructed as the [closure](/Closure_(topology)) of the space of continuous compactly supported functions, specifically within the larger space *F*. This means that functions in L<sup>1</sup> can be approximated by the more tractable compactly supported continuous functions.
+
+5.  **Definition of the integral for functions in L<sup>1</sup>(X, μ):** The integral for functions belonging to L<sup>1</sup>(X, μ) is then defined by extending it by continuity. This step requires prior verification that μ is indeed continuous with respect to the topology of L<sup>1</sup>(X, μ), ensuring that the extension is well-behaved and consistent.
+
+6.  **Definition of the measure of a set:** Finally, the measure of a given set is defined as the integral (when it exists) of the [indicator function](/Indicator_function) of that set. An indicator function, for those unfamiliar, is simply a function that takes the value 1 for elements within the set and 0 for elements outside it.
+
+One can, with sufficient diligence, verify that these meticulously laid out steps yield a measure theory that is entirely identical to the one derived by starting with a [Radon measure](/Radon_measure) initially defined as a function that assigns a numerical value to each [Borel set](/Borel_set) of *X*. It's a reassuring convergence of methodologies.
+
+The ubiquitous [Lebesgue measure](/Lebesgue_measure) on [R](/Real_number) can be introduced through a few different avenues within this functional-analytic framework. Firstly, one might rely on an "elementary" integral, such as the [Daniell integral](/Daniell_integral) or even the venerable [Riemann integral](/Riemann_integral), specifically for the integration of continuous functions with compact support. These functions are, by their nature, integrable under all elementary definitions of integrals. The measure (in the sense developed above) that emerges from such elementary integration is, precisely, the Lebesgue measure. Alternatively, for those who prefer to avoid reliance on Riemann, Daniell, or similar theories, it is possible to first develop the general theory of [Haar measures](/Haar_measure). The Lebesgue measure can then be defined as the unique Haar measure λ on [R](/Real_number) that satisfies the normalization condition λ([0, 1]) = 1. Pick your poison, they all lead to the same result.
+
+### Examples
+
+The following are all illuminating instances of [Radon measures](/Radon_measure), demonstrating their pervasive presence across various mathematical domains:
+
+*   The ubiquitous [Lebesgue measure](/Lebesgue_measure) on [Euclidean space](/Euclidean_space) (when restricted to its [Borel subsets](/Borel_set)) is a prime example. It is locally finite, meaning any bounded region has finite measure, and satisfies both inner and outer regularity conditions. It's the standard against which many other measures are judged.
+
+*   The [Haar measure](/Haar_measure) on any [locally compact topological group](/Locally_compact_topological_group) generalizes the Lebesgue measure, offering a translation-invariant measure that is inherently inner and outer regular, and locally finite due to the group's local compactness. It's the natural choice for integration on such groups.
+
+*   The [Dirac measure](/Dirac_measure) on any [topological space](/Topological_space) is a remarkably simple yet powerful Radon measure. It assigns a measure of 1 to any set containing a specific point (the "Dirac point") and 0 otherwise. It is trivially finite on compact sets, inner regular (since any open set containing the point will have measure 1, and the compact set {point} has measure 1), and outer regular. It's the ultimate point-mass concentration.
+
+*   The [Gaussian measure](/Gaussian_measure) on [Euclidean space](/Euclidean_space) ℝ<sup>n</sup>, equipped with its [Borel sigma algebra](/Borel_set), is another well-behaved example. Its smooth density function ensures its local finiteness and regularity properties. It's the cornerstone of probability and statistics in continuous spaces.
+
+*   [Probability measures](/Probability_measure) on the [σ-algebra](/Sigma_algebra) of [Borel sets](/Borel_set) of any [Polish space](/Polish_space) are universally Radon. This category is quite broad, not only generalizing the previous examples but also encompassing many measures on spaces that are *not* locally compact. A notable example here is the [Wiener measure](/Wiener_measure) on the space of real-valued continuous functions defined on the interval [0, 1], which is crucial in stochastic processes.
+
+*   [Counting measure](/Counting_measure) on any finite space is, by its very nature, a Radon measure. It simply counts the number of points, and on a finite space, it is trivially finite on all subsets (which are all compact), and thus locally finite and regular.
+
+*   A measure on [R](/Real_number)<sup>n</sup> holds the distinction of being a Radon measure if and only if it is a [locally finite](/Locally_finite_measure) [Borel measure](/Borel_measure). This equivalence, established by authors such as Teschl, and Evans and Gariepy, simplifies the verification process considerably within the familiar Euclidean context. It's a rare moment of mathematical convenience.
+
+However, not all measures are created equal, and the following are decidedly *not* examples of [Radon measures](/Radon_measure), each failing one or more of the critical conditions:
+
+*   The [counting measure](/Counting_measure) on [Euclidean space](/Euclidean_space) is a classic non-example. While it's a perfectly valid measure, it fails the "locally finite" condition. Every single point has a measure of 1, but any open neighborhood of a point contains infinitely many points, leading to an infinite measure. It's simply too "dense" to be locally finite.
+
+*   Consider the space of [ordinals](/Ordinal_number) at most equal to Ω, the [first uncountable ordinal](/First_uncountable_ordinal), endowed with the [order topology](/Order_topology). This space is compact. Now, define a measure that assigns 1 to any [Borel set](/Borel_set) containing an uncountable closed subset of [1, Ω) and 0 otherwise. This is a Borel measure, but it is *not* a Radon measure. The one-point set {Ω} has measure zero, yet *any* open neighborhood of {Ω} (which must necessarily contain an uncountable number of points preceding Ω) will have measure 1. This violates the [inner regularity](/Inner_regular_measure) condition for the open neighborhood of {Ω}, as no compact subset within it can approximate its measure of 1. A subtle, yet devastating, failure.
+
+*   Let *X* be the interval [0, 1) equipped with the topology generated by the collection of half-open intervals {[a, b) : 0 ≤ a < b ≤ 1}. This somewhat peculiar topology is sometimes referred to as the [Sorgenfrey line](/Sorgenfrey_line). On this [topological space](/Topological_space), the standard [Lebesgue measure](/Lebesgue_measure) is *not* Radon. Why? Because the compact sets in the Sorgenfrey line are at most countable. If you take an open interval like [0, 0.5), its Lebesgue measure is 0.5. However, no union of countable compact sets can sum up to 0.5, thus violating the [inner regularity](/Inner_regular_measure) condition. It's a space designed to frustrate standard measures.
+
+*   Let *Z* be a [Bernstein set](/Bernstein_set) in [0, 1] (or any [Polish space](/Polish_space)). A Bernstein set is a subset of [0, 1] that contains no perfect set and whose complement also contains no perfect set. If we consider any measure that vanishes at points on *Z*, it will not be a Radon measure. This is because any compact set contained within a Bernstein set must necessarily be countable. Consequently, the measure cannot be approximated from within by compact sets in a way that satisfies inner regularity for non-countable open sets.
+
+*   The standard [product measure](/Product_measure) on (0, 1)<sup>κ</sup> for an uncountable κ is also not a Radon measure. In such high-dimensional spaces, any compact set is confined within a product of uncountably many closed intervals, each of which is strictly shorter than 1. This "thinness" of compact sets prevents the measure from being adequately approximated by them, again failing inner regularity.
+
+It is worth noting that, intuitively, the [Radon measure](/Radon_measure) proves particularly valuable in areas like [mathematical finance](/Mathematical_finance), especially when dealing with [Lévy processes](/L%C3%A9vy_process). Its utility stems from its ability to exhibit properties reminiscent of both [Lebesgue](/Lebesgue_measure) and [Dirac](/Dirac_measure) measures. Unlike the Lebesgue measure, a Radon measure on a single point is not necessarily zero, allowing it to capture discrete jumps and concentrated values alongside continuous distributions. This duality makes it an indispensable tool for modeling phenomena with both continuous evolution and sudden, abrupt changes.
+
+### Basic properties
+
+#### Moderated Radon measures
+
+Given a [Radon measure](/Radon_measure) *m* on a space *X*, one can construct a related, though subtly different, measure *M* (also defined on the [Borel sets](/Borel_set)). This is achieved by setting:
+
+*M*(*B*) = inf {*m*(*V*) | *V* is an [open set](/Open_set) with *B* ⊆ *V* ⊆ *X*}.
+
+This measure *M* is, by construction, [outer regular](/Regular_measure) and [locally finite](/Locally_finite_measure). Furthermore, it exhibits [inner regularity](/Inner_regular_measure) specifically for open sets. Crucially, *M* coincides with *m* when restricted to compact and open sets. In fact, the original measure *m* can be uniquely reconstructed from *M* as the sole [inner regular measure](/Inner_regular_measure) that matches *M* on compact sets.
+
+A measure *m* is then termed "moderated" if this derived measure *M* is [σ-finite](/Sigma_finite_measure). When *m* is moderated, the measures *m* and *M* become identical. It's important to understand that while a [σ-finite measure](/Sigma_finite_measure) *m* is common, it does *not* automatically imply that *M* is also σ-finite. Thus, being moderated is a strictly stronger condition than merely being σ-finite. It implies a better, more predictable behavior under outer approximation.
+
+Intriguingly, on a [hereditarily Lindelöf space](/Hereditarily_Lindel%C3%B6f_space), every [Radon measure](/Radon_measure) is automatically moderated. These spaces, where every open cover has a countable subcover for every subspace, naturally impose a structure that prevents the kind of pathological behavior that could lead to a non-moderated measure.
+
+An illuminating example of a measure *m* that is σ-finite but *not* moderated (as detailed in Bourbaki) provides a stark illustration of this distinction. Consider a [topological space](/Topological_space) *X* whose underlying set comprises points on the *y*-axis of the real plane, specifically (0, *y*), combined with a collection of discrete points (1/*n*, *m*/*n*<sup>2</sup>) for positive integers *m*, *n*. The topology is defined such that the individual points (1/*n*, *m*/*n*<sup>2</sup>) are all [open sets](/Open_set). A [base of neighborhoods](/Neighborhood_base) for any point (0, *y*) on the *y*-axis is given by "wedges" consisting of all points in *X* of the form (*u*, *v*) where |*v* − *y*| ≤ |*u*| ≤ 1/*n* for some positive integer *n*. This space *X* is, notably, [locally compact](/Locally_compact_space).
+
+Now, define a measure *m* on this space such that the *y*-axis itself has measure 0, while each discrete point (1/*n*, *m*/*n*<sup>2</sup>) is assigned a measure of 1/*n*<sup>3</sup>. This measure *m* is demonstrably [inner regular](/Inner_regular_measure) and [locally finite](/Locally_finite_measure), thus qualifying as a [Radon measure](/Radon_measure). It is also σ-finite, as the entire space can be covered by a countable union of sets with finite measure (e.g., each point (1/*n*, *m*/*n*<sup>2</sup>) is a set of finite measure, and the *y*-axis has measure 0).
+
+However, this measure *m* is *not* [outer regular](/Regular_measure). Any open set *V* that contains the entire *y*-axis must necessarily contain infinitely many of the discrete points (1/*n*, *m*/*n*<sup>2</sup>) for sufficiently small *n*. Consequently, the measure of any such open set *V* will be infinite. This means that *M*(*y*-axis) = ∞, even though *m*(*y*-axis) = 0. The fact that the *y*-axis has *m*-measure 0 but *M*-measure infinity clearly demonstrates that *m* is not moderated, as *M* is not σ-finite. It's a rather clever construction to highlight the subtleties involved.
+
+#### Radon spaces
+
+The term "[Radon space](/Radon_space)" identifies a [topological space](/Topological_space) where every finite [Borel measure](/Borel_measure) is, by definition, a [Radon measure](/Radon_measure). A stronger condition defines a "strongly Radon" space as one where *every* [locally finite Borel measure](/Locally_finite_measure) is a Radon measure. These spaces are particularly well-behaved with respect to measure theory. Any [Suslin space](/Suslin_space) (a continuous image of a Polish space) is not only strongly Radon, but in such spaces, every Radon measure is also guaranteed to be moderated. It's a hierarchy of niceness, where Suslin spaces sit near the top.
+
+#### Duality
+
+As previously highlighted, and indeed, as the primary motivation for its very definition, on a [locally compact Hausdorff space](/Locally_compact_space), [Radon measures](/Radon_measure) exist in a profound dual relationship with positive [linear functionals](/Linear_functional) on the space of [continuous functions](/Continuous_function) with compact support. This duality is not merely a theoretical curiosity; it's a powerful tool that allows mathematicians to transition seamlessly between the abstract world of linear algebra and the concrete world of integration, enriching both.
+
+#### Metric space structure
+
+The [pointed cone](/Cone_(linear_algebra)) M<sub>+</sub>(*X*), which comprises all (positive) [Radon measures](/Radon_measure) on *X*, can be endowed with the structure of a [complete](/Complete_space) [metric space](/Metric_space). This is achieved by defining the "Radon distance" between any two measures *m*<sub>1</sub>, *m*<sub>2</sub> ∈ M<sub>+</sub>(*X*) as:
+
+ρ(*m*<sub>1</sub>, *m*<sub>2</sub>) = sup { |∫<sub>*X*</sub> *f*(*x*) (*m*<sub>1</sub> − *m*<sub>2</sub>)(*dx*) | continuous *f*: *X* → [−1, 1] ⊂ [R](/Real_number) }.
+
+This metric provides a quantifiable way to assess the "closeness" of two Radon measures. However, like many mathematical constructs, this metric comes with its own set of limitations. For instance, the space of Radon [probability measures](/Probability_measure) on *X*, denoted as P(*X*) = {*m* ∈ M<sub>+</sub>(*X*) | *m*(*X*) = 1}, is unfortunately *not* [sequentially compact](/Compact_space) with respect to the Radon metric. This means that it's not guaranteed that every sequence of probability measures within P(*X*) will possess a subsequence that converges under the Radon metric. This lack of sequential compactness can present significant difficulties in certain applications, particularly those involving limits and approximations. In contrast, if *X* itself is a compact metric space, then the [Wasserstein metric](/Wasserstein_metric) (a different, often more desirable, metric) successfully transforms P(*X*) into a compact metric space, offering better convergence properties.
+
+It's important to distinguish between different notions of convergence. Convergence in the Radon metric, often referred to as "strong convergence," certainly implies [weak convergence of measures](/Weak_convergence_of_measures):
+
+ρ(*m*<sub>*n*</sub>, *m*) → 0 ⇒ *m*<sub>*n*</sub> ⇀ *m*.
+
+However, the converse implication is generally false. Weak convergence does not, in most cases, guarantee strong convergence in the Radon metric. This distinction is crucial for understanding the behavior of sequences of measures and choosing the appropriate metric for a given problem. It's a subtle but significant difference that can trip up the unwary.
+
+### See also
+
+*   [Radonifying function](/Radonifying_function)
+*   [Vague topology](/Vague_topology)
+
+### Notes
+
+*   ^ Folland 1999, p.&#160;212
+*   ^ Bourbaki 2004a
+*   ^ Bogachev 2007, pp.&#160;111–117.
+*   ^ Treves 2006, pp.&#160;211, 216–218.
+*   ^ Teschl, p.&#160;31.
+*   ^ Evans, Lawrence C. Evans; Gariepy, Ronald F. (2015). Measure Theory and Fine Properties of Functions (revised&#160;ed.). Boca Raton, FL: CRC Press. [ISBN](/ISBN_(identifier))&#160; 978-1-4822-4238-6 . The definitions used here differ thoroughly from the definitions in that book. By Definitions 1.1, 1.6 and 1.9, the authors define a Radon measure as a locally finite Borel measure. By Theorem 1.8, a Radon measure (in terms of that book) is inner and outer regular.
+*   ^ Schwartz 1974, p.&#160;45
+*   ^ Cont, Rama, and Peter Tankov. Financial modelling with jump processes. Chapman & Hall, 2004.
+*   ^ Bourbaki 2004a, Exercise 5 of section 1
+
+#

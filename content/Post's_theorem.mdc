@@ -1,0 +1,141 @@
+---
+title: "Post'S Theorem"
+description: "Right. So, you want me to take this dry, academic thing and… inject it with something. *Life*, perhaps? Or maybe just a bit of the existential dread that makes..."
+keywords: computability theory, emil post, arithmetical hierarchy, turing degrees, definability, recursion theory, formula, bounded quantifiers
+slug: "Post's_theorem"
+createdAt: "2025-11-17T13:58:24.280Z"
+updatedAt: "2025-11-17T13:58:24.280Z"
+contentType: "rewritten"
+---
+
+Right. So, you want me to take this dry, academic thing and… inject it with something. *Life*, perhaps? Or maybe just a bit of the existential dread that makes it all *real*. Fine. Let's see what we can salvage from this wasteland of logic. Don't expect sunshine and rainbows; you'll get the truth, like it or not.
+
+## Theorem in Computability Theory
+
+In the grim, unforgiving landscape of [computability theory](/Recursion_theory), there’s this thing called Post's theorem. It’s named after [Emil Post](/Emil_Post), a man who probably understood the crushing weight of existence better than most. This theorem, it’s like a chipped mirror reflecting the connection between the [arithmetical hierarchy](/Arithmetical_hierarchy) and the concept of [Turing degrees](/Turing_degree). It’s not pretty, but it’s a map of sorts.
+
+### Background
+
+Before we dive into the abyss, let's lay out some of the wreckage. This theorem, it’s built on concepts like [definability](/Structure_mathematical_logic) and [recursion theory](/Recursion_theory). If these terms feel like a foreign language, that's because they are. They're the lingua franca of systems that operate beyond the comforting, yet ultimately futile, grasp of human intuition.
+
+The [arithmetical hierarchy](/Arithmetical_hierarchy) is a way of categorizing sets of natural numbers. Not just any sets, mind you. These are sets that can be *defined* within the rigid framework of Peano arithmetic. Think of it as a taxonomy of complexity, or perhaps, a classification of how thoroughly a set can be *known*.
+
+A [formula](/Formula_mathematical_logic) gets a label: <span style="font-family: serif; font-size: 1.2em;">&#x3a3;</span><sub>m</sub><sup>0</sup>. This means it’s an existential statement, stripped down, with `m` alternations of quantifiers – existential (`&#x2203;`) and universal (`&#x2200;`) – applied to formulas with only [bounded quantifiers](/Bounded_quantifier). It’s a precise, almost surgical description, like this:
+
+A formula <span style="font-family: serif; font-size: 0.9em;">&#x3d5;</span>(s) in the language of Peano arithmetic is <span style="font-family: serif; font-size: 1.2em;">&#x3a3;</span><sub>m</sub><sup>0</sup> if it looks like this:
+
+<span style="font-family: serif; font-size: 0.9em;">( &#x2203; n<sub>1</sub><sup>1</sup>&#x2203; n<sub>2</sub><sup>1</sup>&#x22EF; &#x2203; n<sub>j<sub>1</sub></sub><sup>1</sup> ) ( &#x2200; n<sub>1</sub><sup>2</sup>&#x22EF; &#x2200; n<sub>j<sub>2</sub></sub><sup>2</sup> ) ( &#x2203; n<sub>1</sub><sup>3</sup>&#x22EF; ) ... ( Q n<sub>1</sub><sup>m</sup>&#x22EF; ) &#x3c1; ( n<sub>1</sub><sup>1</sup>,..., n<sub>j<sub>m</sub></sub><sup>m</sup>, x<sub>1</sub>, ..., x<sub>k</sub> )</span>
+
+where <span style="font-family: serif; font-size: 0.9em;">&#x3c1;</span> is a labyrinth of [bounded quantifiers](/Bounded_quantifier), and Q is a `&#x2200;` if `m` is even, or a `&#x2203;` if `m` is odd. It’s a structure, a cage built of logic.
+
+A set of natural numbers, let’s call it `A`, is considered <span style="font-family: serif; font-size: 1.2em;">&#x3a3;</span><sub>m</sub><sup>0</sup> if it can be defined by such a formula. It means that for any number `n`, `n` is in `A` if and only if <span style="font-family: serif; font-size: 0.9em;">&#x3d5;</span>(n) holds true. We know that if a set is <span style="font-family: serif; font-size: 1.2em;">&#x3a3;</span><sub>m</sub><sup>0</sup>, it’s also <span style="font-family: serif; font-size: 1.2em;">&#x3a3;</span><sub>n</sub><sup>0</sup> for any `n > m`. But for each `m`, there’s always a <span style="font-family: serif; font-size: 1.2em;">&#x3a3;</span><sub>m+1</sub><sup>0</sup> set that *isn’t* <span style="font-family: serif; font-size: 1.2em;">&#x3a3;</span><sub>m</sub><sup>0</sup>. The number of quantifier alternations is a measure of its complexity, a way to rank its insolubility.
+
+Post's theorem doesn't just play with the standard hierarchy; it uses a *relativized* version. A set `A` is <span style="font-family: serif; font-size: 1.2em;">&#x3a3;</span><sub>m</sub><sup>0</sup> relative to another set `B` (written <span style="font-family: serif; font-size: 1.2em;">&#x3a3;</span><sub>m</sub><sup>0,B</sup>) if `A` can be defined by a <span style="font-family: serif; font-size: 1.2em;">&#x3a3;</span><sub>m</sub><sup>0</sup> formula in a language that’s been augmented with a predicate for membership in `B`. It’s like giving the formula a cheat sheet, a glimpse into another world.
+
+While the arithmetical hierarchy carves up sets based on their definability, [Turing degrees](/Turing_degrees) measure their *uncomputability*. A set `A` is [Turing reducible](/Turing_reduction) to a set `B` (written `A &#x2264; T B`) if there’s an [oracle Turing machine](/Oracle_Turing_machine) that can compute the [characteristic function](/Indicator_function) of `A`, provided it has an oracle for `B`. It’s a hierarchy of dependence.
+
+The [Turing jump](/Turing_jump) of a set `A`, denoted `A'`, is essentially the [Halting problem](/Halting_problem) but with a twist – it’s relative to `A`. `A'` is the set of indices of oracle Turing machines that halt on input `0` when given `A` as their oracle. It's a self-referential torment. Every set `A` can be reduced to its jump, `A'`, but its jump is never reducible back to `A`. It’s a one-way ticket to greater complexity.
+
+Post's theorem concerns finitely iterated Turing jumps. For any set `A`, `A^(n)` represents the `n`-fold iterated Turing jump. `A^(0)` is just `A`, and `A^(n+1)` is the jump of `A^(n)`. It’s a chain of escalating insolubility.
+
+### Post's Theorem and Corollaries
+
+Post's theorem is the linchpin, the grim revelation that connects the arithmetical hierarchy to specific Turing degrees: those of the form <span style="font-family: serif; font-size: 0.9em;">&#x2205;</span><sup>(n)</sup>, the finitely iterated Turing jumps of the [empty set](/Empty_set). You could swap the empty set for any other [computable set](/Computable_set) and the theorem would still stand, a testament to the universality of its bleak pronouncements.
+
+The theorem states, with chilling precision:
+
+*   A set `B` is <span style="font-family: serif; font-size: 1.2em;">&#x3a3;</span><sub>n+1</sub><sup>0</sup> if and only if `B` is [recursively enumerable](/Recursively_enumerable) by an oracle Turing machine with an oracle for <span style="font-family: serif; font-size: 0.9em;">&#x2205;</span><sup>(n)</sup>. In other words, `B` is <span style="font-family: serif; font-size: 1.2em;">&#x3a3;</span><sub>1</sub><sup>0,&#x2205;<sup>(n)</sup></sup>. It’s a statement about what can be *discovered* with a certain level of computational power.
+
+*   The set <span style="font-family: serif; font-size: 0.9em;">&#x2205;</span><sup>(n)</sup> itself is <span style="font-family: serif; font-size: 1.2em;">&#x3a3;</span><sub>n</sub><sup>0</sup>-complete for every `n > 0`. This means every <span style="font-family: serif; font-size: 1.2em;">&#x3a3;</span><sub>n</sub><sup>0</sup> set can be [many-one reducible](/Many-one_reduction) to <span style="font-family: serif; font-size: 0.9em;">&#x2205;</span><sup>(n)</sup>. It’s the ultimate representative of its complexity class.
+
+From this central tenet, a cascade of corollaries emerges, further illuminating the intricate, often disturbing, relationships between the arithmetical hierarchy and the Turing degrees.
+
+*   Fix a set `C`. A set `B` is <span style="font-family: serif; font-size: 1.2em;">&#x3a3;</span><sub>n+1</sub><sup>0,C</sup> if and only if `B` is <span style="font-family: serif; font-size: 1.2em;">&#x3a3;</span><sub>1</sub><sup>0,C<sup>(n)</sup></sup>. This is the theorem’s shadow, cast upon any arbitrary oracle `C`.
+
+*   A set `B` is <span style="font-family: serif; font-size: 1.2em;">&#x394;</span><sub>n+1</sub> if and only if `B &#x2264; T &#x2205;<sup>(n)</sup>`. More generally, `B` is <span style="font-family: serif; font-size: 1.2em;">&#x394;</span><sub>n+1</sub><sup>C</sup> if and only if `B &#x2264; T C<sup>(n)</sup>`. It’s about the degree of computability, the inherent difficulty of a problem.
+
+*   A set is deemed "arithmetical" if it falls into the <span style="font-family: serif; font-size: 1.2em;">&#x3a3;</span><sub>n</sub><sup>0</sup> category for some `n`. Post's theorem confirms that, equivalently, a set is arithmetical if and only if it is Turing reducible to <span style="font-family: serif; font-size: 0.9em;">&#x2205;</span><sup>(m)</sup> for some `m`. It’s a classification of sets that are, at least in principle, understandable through formal systems.
+
+### Proof of Post's Theorem
+
+The proof itself is a descent into the formal machinery, a demonstration of how abstract concepts can be grounded in the mechanics of computation.
+
+#### Formalization of Turing Machines in First-Order Arithmetic
+
+The very operation of a [Turing machine](/Turing_machine) `T` on an input `n` can be translated into the cold, hard language of [first-order arithmetic](/First-order_arithmetic). We employ symbols – <span style="font-family: serif; font-size: 0.9em;">A<sub>k</sub></span> for the tape configuration, <span style="font-family: serif; font-size: 0.9em;">B<sub>k</sub></span> for the machine state, and <span style="font-family: serif; font-size: 0.9em;">C<sub>k</sub></span> for the tape head position after `k` steps.
+
+The [transition system](/Transition_system) of `T` dictates the relationship between these states at step `k` and step `k+1`. The initial values (for `k=0`) are derived from the input, the initial state, and the starting position. The machine halts if and only if there exists some `k` where <span style="font-family: serif; font-size: 0.9em;">B<sub>k</sub></span> signifies the halting state.
+
+The precise formulation hinges on the specifics of the Turing machine’s design – its alphabet, its movement capabilities, and so on.
+
+If `T` halts at time `n<sub>1</sub>`, the transitions must hold for `k` bounded by `n<sub>1</sub>`. This leads to a formula <span style="font-family: serif; font-size: 0.9em;">&#x3c6;</span>(n, n<sub>1</sub>) in [first-order arithmetic](/First-order_arithmetic) with no [unbounded quantifiers](/Bounded_quantifier). This formula is satisfied if and only if `T` halts on input `n` at or before time `n<sub>1</sub>`.
+
+##### Implementation Example
+
+Let’s consider a [prefix-free](/Prefix_code) Turing machine with a binary alphabet and no blank symbol. We can represent:
+
+*   <span style="font-family: serif; font-size: 0.9em;">A<sub>k</sub></span>: The tape configuration after `k` steps. This can be encoded as a number, with the m-th bit representing the m-th location on the tape. <span style="font-family: serif; font-size: 0.9em;">A<sub>0</sub></span> is the initial configuration, tied to the input.
+
+*   <span style="font-family: serif; font-size: 0.9em;">B<sub>k</sub></span>: The machine state after `k` steps. <span style="font-family: serif; font-size: 0.9em;">B<sub>0</sub></span> is the initial state, <span style="font-family: serif; font-size: 0.9em;">q<sub>I</sub></span>.
+
+*   <span style="font-family: serif; font-size: 0.9em;">C<sub>k</sub></span>: The machine’s position on the tape after `k` steps. <span style="font-family: serif; font-size: 0.9em;">C<sub>0</sub></span> is 0.
+
+*   M(q, b): The transition function. It maps a (state, bit) pair to a (new state, bit to write, movement direction).
+
+*   bit(j, m): The j-th bit of a number `m`. This can be expressed using first-order arithmetic without unbounded quantifiers.
+
+For a [prefix-free](/Prefix_code) machine, the initial tape configuration `t(n)` for input `n` can be constructed. The machine's operation over `n<sub>1</sub>` steps can then be expressed as a conjunction of initial conditions and formulas for `k < n<sub>1</sub>`:
+
+*   The transition rules are applied: <span style="font-family: serif; font-size: 0.9em;">( B<sub>k+1</sub>, bit(C<sub>k</sub>, A<sub>k+1</sub>), D ) = M( B<sub>k</sub>, bit(C<sub>k</sub>, A<sub>k</sub>) )</span>. This can be expanded into a [quantifier-free formula](/Quantifier-free_formula) since `M` has a finite domain.
+
+*   The tape head movement: <span style="font-family: serif; font-size: 0.9em;">C<sub>k+1</sub> = C<sub>k</sub> + D</span>, where `D` is +1 or -1.
+
+*   The tape remains unchanged except at the current head position: <span style="font-family: serif; font-size: 0.9em;">&#x2200; j : j &#x2260; C<sub>k</sub> &#x2192; ( bit(j, A<sub>k+1</sub>) = bit(j, A<sub>k</sub>) )</span>. The universal quantifier `j` can be bounded by `n<sub>1</sub> + 1` because the tape head won't venture beyond that in `n<sub>1</sub>` steps.
+
+The complete halting condition <span style="font-family: serif; font-size: 0.9em;">&#x3c6;</span>(n, n<sub>1</sub>) is a conjunction of these, including the halting state <span style="font-family: serif; font-size: 0.9em;">B<sub>n<sub>1</sub></sub> = q<sub>H</sub></span>. This formula is <span style="font-family: serif; font-size: 1.2em;">&#x3a3;</span><sub>0</sub><sup>0</sup>, meaning it has no unbounded quantifiers.
+
+#### Recursively Enumerable Sets
+
+Now, consider a set `S` that can be recursively enumerated by a [Turing machine](/Turing_machine). This means there exists a machine `T` that halts on every input `n` belonging to `S`. Using the formalization above, the members of `S` are precisely those `n` for which the formula:
+
+<span style="font-family: serif; font-size: 0.9em;">&#x2203; n<sub>1</sub> : &#x3c6;(n, n<sub>1</sub>)</span>
+
+holds true. This formula is in <span style="font-family: serif; font-size: 1.2em;">&#x3a3;</span><sub>1</sub><sup>0</sup>. Consequently, every recursively enumerable set is within the <span style="font-family: serif; font-size: 1.2em;">&#x3a3;</span><sub>1</sub><sup>0</sup> class.
+
+The converse is also true. For any <span style="font-family: serif; font-size: 1.2em;">&#x3a3;</span><sub>1</sub><sup>0</sup> formula <span style="font-family: serif; font-size: 0.9em;">&#x3c6;</span>(n), we can construct a Turing machine that enumerates the set of `n` satisfying it. This machine systematically checks tuples of numbers, effectively running the computation described by the formula. If the formula holds, the machine halts. Thus, every <span style="font-family: serif; font-size: 1.2em;">&#x3a3;</span><sub>1</sub><sup>0</sup> set is recursively enumerable.
+
+#### Oracle Machines
+
+The operation of an [oracle machine](/Oracle_machine) `T` with an oracle `O` can also be described. If `T` halts within `n<sub>1</sub>` steps on input `n`, this can be formalized by a formula <span style="font-family: serif; font-size: 0.9em;">&#x3c6;<sub>O</sub></span>(n, n<sub>1</sub>). This formula includes:
+
+*   A new predicate, <span style="font-family: serif; font-size: 0.9em;">O<sub>m</sub></span>, representing the oracle's answer for input `m`. This predicate must satisfy some conditions.
+
+*   An additional "oracle tape" where `T` writes the query `m` for each call to `O(m)`. The number of steps `n<sub>1</sub>` limits the size of `m` that can be queried.
+
+If the oracle `O` is for a decision problem, <span style="font-family: serif; font-size: 0.9em;">O<sub>m</sub></span> is either "Yes" (1) or "No" (0). If the decision problem itself is described by a formula <span style="font-family: serif; font-size: 0.9em;">&#x3c8;<sup>O</sup></span>(m), then the halting condition becomes:
+
+<span style="font-family: serif; font-size: 0.9em;">&#x3c6;<sub>O</sub>(n, n<sub>1</sub>) = &#x2200; m < 2<sup>n<sub>1</sub></sup> : ( (&#x3c8;<sup>O</sup>(m) &#x2192; (O<sub>m</sub>=1)) &#x2227; (&#xac;&#x3c8;<sup>O</sup>(m) &#x2192; (O<sub>m</sub>=0)) ) &#x2227; &#x3c6;<sub>O</sub><sup>1</sup>(n, n<sub>1</sub>)</span>
+
+where <span style="font-family: serif; font-size: 0.9em;">&#x3c6;<sub>O</sub><sup>1</sup></span>(n, n<sub>1</sub>) is a quantifier-free formula.
+
+##### Turing Jump
+
+Consider the oracle for the halting problem of another machine, `T'`. The condition <span style="font-family: serif; font-size: 0.9em;">&#x3c8;<sup>O</sup></span>(m) becomes "there exists `m<sub>1</sub>` such that `T'` halts on input `m` after `m<sub>1</sub>` steps". This is <span style="font-family: serif; font-size: 0.9em;">&#x2203; m<sub>1</sub> : &#x3c8;<sub>H</sub></span>(m, m<sub>1</sub>), where <span style="font-family: serif; font-size: 0.9em;">&#x3c8;<sub>H</sub></span> is a formula in <span style="font-family: serif; font-size: 1.2em;">&#x3a3;</span><sub>0</sub><sup>0</sup> (or <span style="font-family: serif; font-size: 1.2em;">&#x3a0;</span><sub>0</sub><sup>0</sup>, they are the same here).
+
+Because there are a finite number of `m < 2<sup>n<sub>1</sub></sup>`, we can find a single `m<sub>1</sub>` that bounds the halting time for all relevant queries. This leads to a formula for the oracle machine halting on `n` that is in <span style="font-family: serif; font-size: 1.2em;">&#x3a3;</span><sub>2</sub><sup>0</sup>. This demonstrates that any set recursively enumerable by an oracle machine with an oracle for <span style="font-family: serif; font-size: 0.9em;">&#x2205;</span><sup>(1)</sup> resides in the <span style="font-family: serif; font-size: 1.2em;">&#x3a3;</span><sub>2</sub><sup>0</sup> class.
+
+The converse also holds. A <span style="font-family: serif; font-size: 1.2em;">&#x3a3;</span><sub>2</sub><sup>0</sup> formula, after being converted to prenex normal form, will have existential quantifiers followed by a negation of a <span style="font-family: serif; font-size: 1.2em;">&#x3a3;</span><sub>1</sub><sup>0</sup> formula. That <span style="font-family: serif; font-size: 1.2em;">&#x3a3;</span><sub>1</sub><sup>0</sup> part can be enumerated and checked using an oracle for <span style="font-family: serif; font-size: 0.9em;">&#x2205;</span><sup>(1)</sup>. This allows us to construct an oracle machine that halts precisely on the set defined by the <span style="font-family: serif; font-size: 1.2em;">&#x3a3;</span><sub>2</sub><sup>0</sup> formula.
+
+#### Higher Turing Jumps
+
+This pattern can be generalized. If every set recursively enumerable by an oracle machine with an oracle for <span style="font-family: serif; font-size: 0.9em;">&#x2205;</span><sup>(p)</sup> is in <span style="font-family: serif; font-size: 1.2em;">&#x3a3;</span><sub>p+1</sub><sup>0</sup>, then for an oracle machine with an oracle for <span style="font-family: serif; font-size: 0.9em;">&#x2205;</span><sup>(p+1)</sup>, the oracle's halting condition <span style="font-family: serif; font-size: 0.9em;">&#x3c8;<sup>O</sup></span>(m) will be in <span style="font-family: serif; font-size: 1.2em;">&#x3a3;</span><sub>p+1</sub><sup>0</sup>.
+
+This halting condition, <span style="font-family: serif; font-size: 0.9em;">&#x3c8;<sup>O</sup></span>(m), can be formulated such that the underlying machine halting formula <span style="font-family: serif; font-size: 0.9em;">&#x3c8;<sub>H</sub></span> is in <span style="font-family: serif; font-size: 1.2em;">&#x3a0;</span><sub>p</sub><sup>0</sup>. When translated into prenex normal form, the resulting formula for the oracle machine halting becomes <span style="font-family: serif; font-size: 1.2em;">&#x3a3;</span><sub>p+2</sub><sup>0</sup>.
+
+By induction, this establishes that every set recursively enumerable by an oracle machine with an oracle for <span style="font-family: serif; font-size: 0.9em;">&#x2205;</span><sup>(p)</sup> is indeed in <span style="font-family: serif; font-size: 1.2em;">&#x3a3;</span><sub>p+1</sub><sup>0</sup>.
+
+The other direction of the induction also holds. If every formula in <span style="font-family: serif; font-size: 1.2em;">&#x3a3;</span><sub>p+1</sub><sup>0</sup> can be enumerated by an oracle machine with an oracle for <span style="font-family: serif; font-size: 0.9em;">&#x2205;</span><sup>(p)</sup>, consider a formula <span style="font-family: serif; font-size: 0.9em;">&#x3c6;</span>(n) in <span style="font-family: serif; font-size: 1.2em;">&#x3a3;</span><sub>p+2</sub><sup>0</sup>. This formula, when put into prenex normal form, will consist of existential quantifiers followed by a negation of a <span style="font-family: serif; font-size: 1.2em;">&#x3a3;</span><sub>p+1</sub><sup>0</sup> formula. That <span style="font-family: serif; font-size: 1.2em;">&#x3a3;</span><sub>p+1</sub><sup>0</sup> part can be enumerated and checked using an oracle for <span style="font-family: serif; font-size: 0.9em;">&#x2205;</span><sup>(p)</sup>.
+
+Consequently, we can enumerate the necessary tuples of numbers and employ an oracle machine with an oracle for <span style="font-family: serif; font-size: 0.9em;">&#x2205;</span><sup>(p+1)</sup> to find a satisfaction for <span style="font-family: serif; font-size: 0.9em;">&#x3c6;</span>(n). This oracle machine will halt precisely on the set of numbers satisfying <span style="font-family: serif; font-size: 0.9em;">&#x3c6;</span>(n), thus enumerating its corresponding set. It’s a cycle of complexity, a relentless march up the hierarchy.
+
+#

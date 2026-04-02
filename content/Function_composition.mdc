@@ -1,0 +1,928 @@
+---
+title: "Function Composition"
+description: "This article is about the mathematical concept; it is not to be confused with Function composition (computer science)), which, while related, delves into the..."
+keywords: operator ring, operator assistance, function, domain, codomain, classes/properties, constant
+slug: "Function_composition"
+createdAt: "2025-12-18T04:07:55.288Z"
+updatedAt: "2025-12-18T04:07:55.288Z"
+contentType: "rewritten"
+previousArticleSlug: "Parallel_transport"
+previousArticleTitle: "Parallel Transport"
+---
+
+This article is about the mathematical concept; it is not to be confused with [Function composition (computer science)](/Function_composition_(computer_science)), which, while related, delves into the specifics of its application within computational paradigms.
+
+*   "Ring operator" redirects here; not to be confused with [operator ring](/Operator_ring) or [operator assistance](/Operator_assistance). The distinction is, of course, critical for those who value precision.
+*   "∘" redirects here. For the character itself, which has a surprising number of doppelgängers, see [Degree symbol §&#160;Lookalikes](/Degree_symbol).
+
+&#x20;
+*   [Function](/Function_(mathematics)) x ↦ f &#8201;( x )
+    [History of the function concept](/History_of_the_function_concept)
+    Types by [domain](/Domain_of_a_function) and [codomain](/Codomain)
+
+    X → 𝔹
+    𝔹 → X
+    𝔹 n → X
+    X → ℤ
+    ℤ → X
+    X → ℝ
+    ℝ → X
+    ℝ n → X
+    X → ℂ
+    ℂ → X
+    ℂ n → X
+
+     [Classes/properties](/List_of_types_of_functions) 
+
+    [Constant](/Constant_function)
+    [Identity](/Identity_function)
+    [Linear](/Linear_map)
+    [Polynomial](/Polynomial)
+    [Rational](/Rational_function)
+    [Algebraic](/Algebraic_function)
+    [Analytic](/Analytic_function)
+    [Smooth](/Smooth_function)
+    [Continuous](/Continuous_function)
+    [Measurable](/Measurable_function)
+    [Injective](/Injective_function)
+    [Surjective](/Surjective_function)
+    [Bijective](/Bijection)
+
+      Constructions
+
+*   [Restriction](/Restriction_(mathematics))
+*   Composition
+*   [λ](/Lambda_calculus)
+*   [Inverse](/Inverse_function)
+
+      Generalizations  
+
+*   [Relation](/Relation_(mathematics)) ([Binary relation](/Binary_relation))
+*   [Set-valued](/Set-valued_function)
+*   [Multivalued](/Multivalued_function)
+*   [Partial](/Partial_function)
+*   [Implicit](/Implicit_function)
+*   [Space](/Function_space)
+*   [Higher-order](/Higher-order_function)
+*   [Morphism](/Morphism)
+*   [Functor](/Functor)
+
+      [List of specific functions](/List_of_mathematical_functions)
+*
+
+*   v
+*   t
+*   e
+
+In the grand, often tedious, theatre of [mathematics](/Mathematics), the composition operator, denoted by the unassuming little circle
+
+
+
+&#x2218;
+
+
+{\displaystyle \circ }
+
+, performs a rather elegant, if somewhat obvious, act. It takes two distinct [functions](/Function_(mathematics)), typically labeled
+
+
+
+f
+
+
+{\displaystyle f}
+
+and
+
+
+
+g
+
+
+{\displaystyle g}
+
+, and, with a flourish, synthesizes them into an entirely new function. This new entity, often represented as
+
+
+
+h
+(
+x
+)
+:=
+(
+f
+&#x2218;
+g
+)
+(
+x
+)
+=
+f
+(
+g
+(
+x
+)
+)
+
+
+{\displaystyle h(x):=(f\circ g)(x)=f(g(x))}
+
+, is the result of applying one function *after* the other. Specifically, the function f is [applied](/Function_application) to the output of g, after g has first operated on the input x. It's a sequential transformation, if you will, where the universe first experiences g, then f.
+
+The expression
+
+
+
+(
+f
+&#x2218;
+g
+)
+
+
+{\displaystyle (f\circ g)}
+
+is conventionally pronounced "the composition of f and g." It's a phrase that rolls off the tongue with an air of sophisticated simplicity, though its implications can be anything but.
+
+It's worth noting the concept of "reverse composition," which, as its name subtly suggests, applies the functions in the inverse sequence. Here, the function
+
+
+
+f
+
+
+{\displaystyle f}
+
+is applied initially, and its output subsequently serves as the input for function
+
+
+
+g
+
+
+{\displaystyle g}
+
+. Intuitively, one can visualize reverse composition as a methodical chaining process, where the transformed output of function f seamlessly feeds into the awaiting input of function g. This creates a cascade of operations, each building upon the last.
+
+Function composition isn't some niche mathematical quirk; it's a specific manifestation of the more general [composition of relations](/Composition_of_relations). Consequently, it inherits all the fundamental properties inherent to relation composition, including, most notably, its unwavering associativity. This foundational connection means that many insights gleaned from the broader theory of relations directly translate to the behavior of composite functions, lending a reassuring consistency to the mathematical landscape.
+
+### Examples
+
+To illustrate this fundamental concept, let's consider a few concrete scenarios, both finite and infinite, because, apparently, examples are required for comprehension.
+
+*   **Composition of functions on a finite [set](/Set_(mathematics)):** Imagine two functions, f and g, operating on a small, discrete set of elements. Let f = {(1, 1), (2, 3), (3, 1), (4, 2)} and g = {(1, 2), (2, 3), (3, 1), (4, 2)}. Each pair (input, output) defines the mapping. To find g ∘ f, we trace the path:
+    *   For input 1: f(1) = 1. Then g(1) = 2. So, (g ∘ f)(1) = 2.
+    *   For input 2: f(2) = 3. Then g(3) = 1. So, (g ∘ f)(2) = 1.
+    *   For input 3: f(3) = 1. Then g(1) = 2. So, (g ∘ f)(3) = 2.
+    *   For input 4: f(4) = 2. Then g(2) = 3. So, (g ∘ f)(4) = 3.
+    Thus, g ∘ f = {(1, 2), (2, 1), (3, 2), (4, 3)}, precisely as depicted in the accompanying figure. It's a rather straightforward chain reaction.
+
+*   **Composition of functions on an [infinite set](/Infinite_set):** Let's elevate the complexity slightly. Consider real-valued functions, operating over the vast expanse of the [real numbers](/Real_number), denoted by R.
+    *   Suppose f : R → R is defined by f(x) = 2x + 4.
+    *   And g : R → R is defined by g(x) = x³.
+    Now, let's compose them, because why not?
+    *   ( f ∘ g )( x ) = f ( g ( x )). Here, g(x) acts as the input for f. So, we substitute x³ into f: f ( x³ ) = 2(x³) + 4 = 2x³ + 4.
+    *   ( g ∘ f )( x ) = g ( f ( x )). Conversely, f(x) becomes the input for g. So, we substitute (2x + 4) into g: g (2x + 4) = (2x + 4)³.
+    Notice, if it wasn't already painfully obvious, that ( f ∘ g )( x ) ≠ ( g ∘ f )( x ). Composition is rarely [commutative](/Commutative), a fact that seems to surprise people more often than it should.
+
+*   **A practical, if mundane, application:** Imagine an airplane's altitude at any given time&#160;t is described by the function a ( t ). Simultaneously, the air pressure at a specific altitude x is given by the function p ( x ). If you're keen to know the air pressure around the plane at time&#160;t, you'd logically combine these. The resulting function, ( p ∘ a )( t ), precisely represents the pressure surrounding the aircraft at that particular moment. It's a simple, elegant way to model dependent variables.
+
+*   **Composition of [permutations](/Permutation):** Functions that merely rearrange elements within a finite set, such as [permutations](/Permutation), can also be composed on the same set. This specific instance is known as the composition of permutations, a fundamental operation in combinatorics and group theory, where the order of operations can drastically alter the final arrangement.
+
+### Properties
+
+The composition of functions possesses several inherent characteristics, some of which are remarkably useful, others merely inevitable.
+
+The composition of functions is, without fail, [associative](/Associative)—a fundamental property directly inherited from its more general ancestor, the [composition of relations](/Composition_of_relations). This means that if you have three functions, f, g, and h, that are appropriately composable (i.e., their domains and codomains align), then the order in which you group the compositions doesn't alter the final outcome. Specifically, f ∘ ( g  ∘  h ) = ( f  ∘  g ) ∘ h . Because the placement of parentheses is ultimately inconsequential to the result, they are typically omitted, simplifying notation for those who can remember such things.
+
+In a rigorously defined context, the composition g  ∘  f is only mathematically sound if the [codomain](/Codomain) of function f precisely matches the [domain](/Domain_of_a_function) of function g. However, in a more flexible, perhaps less pedantic, interpretation, it is often considered sufficient for the codomain of f to be an improper [subset](/Subset) of the domain of g. This allows for a wider range of composable functions, provided that the output of f can always serve as a valid input for g.
+
+Furthermore, it's a common and rather convenient practice to implicitly restrict the [domain](/Domain_of_a_function) of f to ensure that its outputs strictly fall within the [domain](/Domain_of_a_function) of g. For instance, consider the functions f  : R → [(−∞,+9]] defined by f ( x ) = 9 − x² and g  : [[0,+∞)] → R defined by
+
+
+
+g
+(
+x
+)
+=
+
+
+x
+
+
+
+
+{\displaystyle g(x)={\sqrt {x}}}
+
+. While f itself operates on all [real numbers](/Real_number) R, its output range is limited. The square root function g, however, demands non-negative inputs. To form the composition g  ∘  f, we must ensure that 9 − x² ≥ 0, which implies x² ≤ 9, or −3 ≤ x ≤ 3. Therefore, the composition can only be meaningfully defined on the [interval](/Interval_(mathematics)) [−3,+3]. This tacit restriction is less an imposition and more a necessary condition for the functions to play nicely together.
+
+The image provided offers a clear visual demonstration of this non-commutative nature, showcasing the compositions of two [real](/Real_number) functions: the [absolute value](/Absolute_value) function and a [cubic function](/Cubic_function). When composed in one order, the resulting graph is distinct from when they are composed in the opposite order. This stark difference underscores that the sequence of application profoundly impacts the final transformation.
+
+Functions g and f are said to [commute](/Commutative) with each other only in the rare instance where g  ∘  f = f  ∘  g . This commutativity is a special, almost privileged, property, observed only in particular functions and often under very specific conditions. For example, the equation | x | + 3 = | x + 3| holds true only when x ≥ 0. The visual example further reinforces this point, preventing any lingering illusions of universal commutativity.
+
+A composition of [one-to-one](/One-to-one_function) (injective) functions will invariably yield another one-to-one function. Likewise, the composition of [onto](/Onto_function) (surjective) functions consistently produces an onto function. From these two facts, it logically follows that the composition of two [bijections](/Bijection)—functions that are both one-to-one and onto—will also result in a bijection. Furthermore, for an invertible composite function, its [inverse function](/Inverse_function) exhibits a peculiar, yet predictable, behavior: ( f  ∘  g ) −1 = g −1 ∘ f −1 . This means that to reverse a sequence of operations, you must reverse each individual operation *and* reverse their order. It's like unpacking a suitcase: the last item you put in is the first one you take out.
+
+For those who dabble in the calculus of change, the [derivatives](/Derivative) of compositions involving differentiable functions are elegantly determined using the venerable [chain rule](/Chain_rule). This rule provides a systematic method for calculating the rate of change of a composite function. When delving into even more complex rates of change, the [higher derivatives](/Higher_derivative) of such functions are given by the rather formidable, but highly effective, [Faà di Bruno's formula](/Fa%C3%A0_di_Bruno%27s_formula). This formula offers a generalized expression for the nth derivative of a composite function, a testament to the intricate relationships within calculus.
+
+While the composition of functions might, at a superficial glance, be casually described as a form of [multiplication](/Multiplication) within a function space, it is crucial to recognize that its properties diverge significantly from the more familiar [pointwise](/Pointwise) multiplication of functions. For instance, as previously highlighted, function composition is inherently not [commutative](/Commutative_property), a stark contrast to the commutative nature of pointwise multiplication (where (fg)(x) = f(x)g(x) = g(x)f(x)). This distinction is vital for avoiding conceptual pitfalls and appreciating the unique algebraic structure that composition introduces.
+
+### Composition monoids
+
+*   Main article: [Transformation monoid](/Transformation_monoid)
+
+Consider a scenario where one possesses a collection of functions, say f : X → X and g : X → X, all sharing the same [domain](/Domain_of_a_function) and [codomain](/Codomain). These are often referred to as [transformations](/Transformation_(function)) because they map elements within a set back onto the same set. With such transformations, one can construct intricate sequences, or "chains," of these operations composed together, for instance, f ∘ f ∘ g ∘ f. These chains, when considered collectively, exhibit the distinct [algebraic structure](/Algebraic_structure) of a [monoid](/Monoid). Such a structure is aptly named a [transformation monoid](/Transformation_monoid), or, less frequently, a composition monoid. The internal structure of transformation monoids can, in fact, be remarkably complex, revealing surprising patterns and behaviors. A particularly notable example that showcases such complexity is the intriguing [de Rham curve](/De_Rham_curve), which arises from iterated function systems. The complete collection of all possible functions mapping a set X to itself, f : X → X, forms what is known as the [full transformation semigroup](/Full_transformation_semigroup) or, alternatively, the symmetric semigroup on&#160;X. It's worth a brief pause to acknowledge that one can technically define two distinct semigroups here, depending on whether the semigroup operation is defined as left or right composition of functions.
+
+The image vividly illustrates the non-commutative nature of composition in a geometric context. It shows the composition of a [shear mapping](/Shear_mapping) (represented in red) and a clockwise rotation by 45° (represented in green). The original object is on the left. The upper sequence demonstrates applying shear first, then rotation. The lower sequence shows applying rotation first, then shear. The distinct final positions of the object clearly demonstrate that changing the order of these geometric transformations alters the outcome.
+
+If the transformations under consideration are all [bijective](/Bijective)—meaning they are both injective (one-to-one) and surjective (onto), and thus inherently invertible—then the set encompassing all possible combinations of these functions forms a [transformation group](/Transformation_group), also known as a [permutation group](/Permutation_group). In this context, one would say that this group is [generated](/Group_generator) by the initial set of bijective functions.
+
+The grand assembly of all bijective functions f : X → X, commonly termed [permutations](/Permutation), forms a group under the operation of function composition. This particular group is famously known as the [symmetric group](/Symmetric_group), though it is occasionally referred to as the composition group. A cornerstone result in [group theory](/Group_theory), [Cayley's theorem](/Cayley%27s_theorem), essentially posits that *any* group can be understood as a [subgroup](/Subgroup) of a symmetric group, [up to](/Up_to) [isomorphism](/Isomorphism). This theorem is a profound statement about the universality of permutation groups in describing abstract group structures.
+
+Within the realm of the symmetric semigroup (which, recall, comprises all transformations, not just bijective ones), one can still discern a weaker, and notably non-unique, concept of an inverse, often termed a pseudoinverse. This is because the symmetric semigroup itself is a [regular semigroup](/Regular_semigroup), a property that guarantees the existence of such generalized inverses, albeit without the strict uniqueness found in groups.
+
+### Functional powers
+
+*   Main article: [Iterated function](/Iterated_function)
+
+When the [codomain](/Codomain) of a function is a [subset](/Subset) of its [domain](/Domain_of_a_function)—that is, if Y [⊆](/Subset) X for a function
+
+
+
+f
+:
+X
+&#x2192;
+Y
+
+
+{\displaystyle f:X\to Y}
+
+—then the function is capable of composing with itself. This repetitive self-composition is sometimes concisely denoted as
+
+
+
+
+f
+
+2
+
+
+
+
+{\displaystyle f^{2}}
+
+, though this notation carries a potential for ambiguity that we'll address shortly.
+
+To be explicit:
+
+*   The composition of f with itself, performed once, is:
+
+
+
+
+(
+f
+&#x2218;
+f
+)
+(
+x
+)
+=
+f
+(
+f
+(
+x
+)
+)
+=
+
+f
+
+2
+
+
+(
+x
+)
+
+
+{\displaystyle (f\circ f)(x)=f(f(x))=f^{2}(x)}
+
+*   Composing f three times yields:
+
+
+
+
+(
+f
+&#x2218;
+f
+&#x2218;
+f
+)
+(
+x
+)
+=
+f
+(
+f
+(
+f
+(
+x
+)
+)
+)
+=
+
+f
+
+3
+
+
+(
+x
+)
+
+
+{\displaystyle (f\circ f\circ f)(x)=f(f(f(x)))=f^{3}(x)}
+
+*   And, extending this pattern, four compositions:
+
+
+
+
+(
+f
+&#x2218;
+f
+&#x2218;
+f
+&#x2218;
+f
+)
+(
+x
+)
+=
+f
+(
+f
+(
+f
+(
+f
+(
+x
+)
+)
+)
+)
+=
+
+f
+
+4
+
+
+(
+x
+)
+
+
+{\displaystyle (f\circ f\circ f\circ f)(x)=f(f(f(f(x))))=f^{4}(x)}
+
+More generally, for any [natural number](/Natural_number) n ≥ 2, the nth functional [power](/Exponentiation) can be defined through a process of induction: f &#8201; n = f ∘ f &#8201; n −1 = f &#8201; n −1 ∘ f . This notation, for those keeping score, was introduced by the likes of [Hans Heinrich Bürmann](/Hans_Heinrich_B%C3%BCrmann) and [John Frederick William Herschel](/John_Frederick_William_Herschel). The repeated composition of a function with itself is a field of study in its own right, known as [function iteration](/Iterated_function).
+
+*   By convention, f &#8201; 0 is defined as the [identity map](/Identity_function) on f &#8201;'s [domain](/Domain_of_a_function), denoted id X . This means f &#8201; 0 (x) = x, effectively doing nothing, which is precisely what one would expect from a "zero power" of an operation.
+
+*   Should Y = X and the function f : X → X possess an [inverse function](/Inverse_function), denoted f &#8201; −1 , then negative functional powers, f &#8201; − n , are defined for n > 0. These are understood as the [negated](/Additive_inverse) power of the inverse function: f &#8201; − n = ( f &#8201; −1 ) n . This elegantly extends the concept of iteration to "undoing" the function's action multiple times.
+
+A crucial point of clarification: If f takes its values within a [ring](/Ring_(mathematics)) (which is particularly relevant for real or complex-valued functions), there exists a genuine risk of confusion. The notation f &#8201; n could, in this context, also signify the n-fold *product* of&#160;f, meaning f &#8201; 2 ( x ) = f ( x ) · f ( x ). For [trigonometric functions](/Trigonometric_functions), it is almost universally the latter meaning that is intended, at least when dealing with positive exponents. For example, in [trigonometry](/Trigonometry), sin²(x) explicitly means sin(x) · sin(x), representing standard [exponentiation](/Exponentiation) of the function's value.
+
+However, the waters become muddied with negative exponents. For these, especially &#8722;1, the notation almost always reverts to referring to the [inverse function](/Inverse_function). For instance, tan −1 consistently denotes the [arctangent function](/Inverse_trigonometric_functions), *not* 1/tan(x). Context, as always, is paramount, and a source of perpetual low-grade annoyance for those who prefer absolute clarity.
+
+In certain specific cases, where for a given function f, the equation g ∘ g = f possesses a unique solution g, that particular function can be formally defined as the [functional square root](/Functional_square_root) of f. It is then elegantly written as g = f &#8201; 1/2 . This extends the concept of roots from numbers to functions, seeking a function that, when composed with itself, yields the original.
+
+More generally, if the equation g n = f has a unique solution for some [natural number](/Natural_number) n > 0, then the fractional functional power f &#8201; m / n can be defined as g m . This allows for a rational "iteration count."
+
+Under a set of additional, often stringent, restrictions, this idea can be further generalized. The [iteration count](/Iterated_function) can transcend discrete integers and become a continuous parameter. When this occurs, such a system is termed a [flow](/Flow_(mathematics)), and its behavior is precisely specified through the solutions of [Schröder's equation](/Schr%C3%B6der%27s_equation). [Iterated functions](/Iterated_function) and [flows](/Flow_(mathematics)) are not mere theoretical constructs; they emerge quite naturally and are indispensable in the study of intricate [fractals](/Fractals) and the often chaotic realm of [dynamical systems](/Dynamical_systems).
+
+To diligently avoid any lingering ambiguity, some mathematicians, particularly those who value explicit clarity (and who can blame them?), choose to employ the composition symbol ∘ to unequivocally denote the compositional meaning. They might write f ∘ n ( x ) for the n-th iterate of the function f ( x ), as exemplified by f ∘3 ( x ) meaning f ( f ( f ( x ))). For this very same purpose, [Benjamin Peirce](/Benjamin_Peirce) utilized the notation f [ n ] ( x ), while [Alfred Pringsheim](/Alfred_Pringsheim) and [Jules Molk](/Jules_Molk) proposed n f ( x ) as an alternative. These attempts at disambiguation highlight the ongoing struggle for clarity in mathematical notation, a struggle that, frankly, should have been settled long ago.
+
+### Alternative notations
+
+Many mathematicians, particularly those immersed in [group theory](/Group_theory), often forgo the explicit composition symbol, choosing instead to write gf as a shorthand for g ∘ f . This compact notation, while efficient, relies on an unspoken understanding of the operation involved.
+
+During the mid-20th century, a faction of mathematicians embraced [postfix notation](/Postfix_notation). In this system, one would write xf &#8201; to denote f ( x ), and ( xf ) g to represent g ( f ( x )). This approach can feel more intuitive than the traditional [prefix notation](/Prefix_notation) in various contexts. A prime example is in [linear algebra](/Linear_algebra), where x might be a [row vector](/Row_vector), and f and g represent [matrices](/Matrix_(mathematics)). The composition then corresponds to [matrix multiplication](/Matrix_multiplication). The order here is paramount, given that function composition is not inherently commutative. With postfix notation, successive transformations apply and compose from left-to-right, aligning rather neatly with the natural left-to-right reading sequence, thus offering a certain cognitive ease.
+
+Mathematicians who adopt postfix notation might then write " fg ", intending to first apply f and then apply g. This, regrettably, introduces an element of ambiguity, as the notation " fg " could be interpreted in multiple ways depending on the conventions of the field. To resolve this potential confusion, computer scientists, ever practical, frequently employ " f &#160;; g " to explicitly define the order of composition. Furthermore, to differentiate the left composition operator from a mere textual semicolon, the [Z notation](/Z_notation) utilizes the dedicated ⨾ character for left [relation composition](/Relation_composition). Given that all functions can be understood as specialized [binary relations](/Binary_relation), it is perfectly valid to employ this "fat" semicolon for function composition as well. More intricate details regarding this notation can, naturally, be found in the article dedicated to the [composition of relations](/Composition_of_relations).
+
+### Composition operator
+
+*   Main article: [Composition operator](/Composition_operator)
+
+Given an arbitrary function&#160; g , one can define a specialized entity known as the [composition operator](/Composition_operator), denoted C g . This operator is, in essence, a function that maps other functions to new functions. Specifically, it transforms any function f into the composite function f ∘ g, as expressed by:
+
+
+
+
+C
+
+g
+
+
+f
+=
+f
+&#x2218;
+g
+.
+
+
+{\displaystyle C_{g}f=f\circ g.}
+
+These [composition operators](/Composition_operator) are not mere curiosities; they are deeply investigated within the sophisticated realm of [operator theory](/Operator_theory), where their properties and behaviors reveal much about the structure of function spaces and transformations.
+
+### In programming languages
+
+*   Main article: [Function composition (computer science)](/Function_composition_(computer_science))
+
+The concept of function composition, a cornerstone of mathematical operations, manifests in various forms and syntaxes across countless [programming languages](/Programming_language). Its utility in structuring code, promoting modularity, and enabling complex data transformations is widely recognized. From functional programming paradigms, where it is a central tenet, to imperative and object-oriented languages that provide mechanisms for chaining operations, the underlying principle of feeding the output of one function as the input to another remains a powerful abstraction tool for developers seeking to build robust and maintainable software systems.
+
+### Multivariate functions
+
+The elegance of composition isn't confined to functions of a single variable. [Partial composition](/Partial_function) is entirely possible, and often necessary, for [multivariate functions](/Multivariate_function). When a specific argument, say x i, of a function f is replaced by another function g, the resulting function is referred to as a composition of f and g in certain computer engineering contexts. This operation is denoted as:
+
+
+
+
+f
+
+
+|
+
+
+
+x
+
+i
+
+
+=
+g
+
+
+=
+f
+(
+
+x
+
+1
+
+
+,
+&#x2026;
+,
+
+x
+
+i
+&#x2212;
+1
+
+
+,
+g
+(
+
+x
+
+1
+
+
+,
+
+x
+
+2
+
+
+,
+&#x2026;
+,
+
+x
+
+n
+
+
+)
+,
+
+x
+
+i
++
+1
+
+
+,
+&#x2026;
+,
+
+x
+
+n
+
+
+)
+.
+
+
+{\displaystyle f|_{x_{i}=g}=f(x_{1},\ldots ,x_{i-1},g(x_{1},x_{2},\ldots ,x_{n}),x_{i+1},\ldots ,x_{n}).}
+
+This allows for targeted substitution, embedding one computational process directly into another's argument slot.
+
+When the function g is a mere constant, say b, this form of composition gracefully degenerates into a (partial) valuation. The outcome of such a valuation is also known as a [restriction](/Restriction_(mathematics)) or co-factor, effectively fixing one of the input variables:
+
+
+
+
+f
+
+
+|
+
+
+
+x
+
+i
+
+
+=
+b
+
+
+=
+f
+(
+
+x
+
+1
+
+
+,
+&#x2026;
+,
+
+x
+
+i
+&#x2212;
+1
+
+
+,
+b
+,
+
+x
+i
++
+1
+
+
+,
+&#x2026;
+,
+
+x
+
+n
+
+
+)
+.
+
+
+{\displaystyle f|_{x_{i}=b}=f(x_{1},\ldots ,x_{i-1},b,x_{i+1},\ldots ,x_{n}).}
+
+In a broader sense, the composition of [multivariate functions](/Multivariate_function) can involve several other functions serving as arguments simultaneously, a concept crucial in the definition of a [primitive recursive function](/Primitive_recursive_function). Given an n-ary function f (a function taking n arguments) and n distinct m-ary functions g 1 , ..., g n (each taking m arguments), the generalized composition of f with g 1 , ..., g n produces a new m-ary function:
+
+
+
+
+h
+(
+
+x
+
+1
+
+
+,
+&#x2026;
+,
+
+x
+
+m
+
+
+)
+=
+f
+(
+
+g
+
+1
+
+
+(
+
+x
+
+1
+
+
+,
+&#x2026;
+,
+
+x
+
+m
+
+
+)
+,
+&#x2026;
+,
+
+g
+
+n
+
+
+(
+
+x
+
+1
+
+
+,
+&#x2026;
+,
+
+x
+
+m
+
+
+)
+)
+.
+
+
+{\displaystyle h(x_{1},\ldots ,x_{m})=f(g_{1}(x_{1},\ldots ,x_{m}),\ldots ,g_{n}(x_{1},\ldots ,x_{m})).}
+
+This is sometimes referred to as the generalized composite or superposition of f with g 1 , ..., g n . The partial composition in only one argument, which we discussed previously, can be understood as a specific instance of this more general scheme. This is achieved by setting all argument functions, save one, to be appropriately chosen [projection functions](/Projection_function) (functions that simply return one of their inputs). In this generalized framework, the collection g 1 , ..., g n can be conceptually viewed as a single vector- or [tuple](/Tuple)-valued function, making this precisely the standard definition of function composition, but extended to multiple dimensions.
+
+A collection of finitary [operations](/Operation_(mathematics)) defined on some base set X is designated a [clone](/Clone_(algebra)) if it encompasses all projection functions and maintains closure under this generalized composition. Clones are sophisticated algebraic structures that typically contain operations of varying [arities](/Arity) (number of arguments). The notion of commutation, so vital for unary functions, also finds an intriguing generalization within the multivariate domain. A function f of arity n is said to commute with a function g of arity m if f acts as a [homomorphism](/Homomorphism) preserving g, and vice versa. This condition is formally expressed as:
+
+
+
+
+f
+(
+g
+(
+
+a
+
+11
+
+
+,
+&#x2026;
+,
+
+a
+
+1
+m
+
+
+)
+,
+&#x2026;
+,
+g
+(
+
+a
+
+n
+1
+
+
+,
+&#x2026;
+,
+g
+(
+
+a
+
+n
+m
+
+
+)
+)
+=
+g
+(
+f
+(
+
+a
+
+11
+
+
+,
+&#x2026;
+,
+
+a
+
+n
+1
+
+
+)
+,
+&#x2026;
+,
+f
+(
+
+a
+
+1
+m
+
+
+,
+&#x2026;
+,
+
+a
+
+n
+m
+
+
+)
+)
+.
+
+
+{\displaystyle f(g(a_{11},\ldots ,a_{1m}),\ldots ,g(a_{n1},\ldots ,a_{nm}))=g(f(a_{11},\ldots ,a_{n1}),\ldots ,f(a_{1m},\ldots ,a_{nm})).}
+
+While a unary operation trivially commutes with itself, this is not a universal truth for binary or higher-arity operations. A binary (or higher arity) operation that possesses the property of commuting with itself is given the rather descriptive title of [medial or entropic](/Medial_magma).
+
+### Generalizations
+
+The concept of [composition](/Composition_of_relations) extends far beyond the confines of functions, finding a natural generalization in the realm of arbitrary [binary relations](/Binary_relation). If R is a binary relation from set X to set Y (R ⊆ X [×](/Cartesian_product) Y), and S is a binary relation from set Y to set Z (S ⊆ Y × Z), then their composition, R ∘ S, is defined as:
+
+
+
+
+
+R
+&#x2218;
+S
+=
+{
+(
+x
+,
+z
+)
+&#x2208;
+X
+&#xd7;
+Z
+:
+(
+&#x2203;
+y
+&#x2208;
+Y
+)
+(
+(
+x
+,
+y
+)
+&#x2208;
+R
+
+&#x2227;
+
+(
+y
+,
+z
+)
+&#x2208;
+S
+)
+}
+
+
+{\displaystyle R\circ S=\{(x,z)\in X\times Z:(\exists y\in Y)((x,y)\in R\,\land \,(y,z)\in S)\}}
+
+.
+
+This definition essentially states that an element x is related to z by the composite relation R ∘ S if there exists at least one intermediate element y in Y such that x is related to y by R, and y is related to z by S. This is a direct extension of the "chaining" idea from functions.
+
+Given that a function is, fundamentally, a specialized instance of a [binary relation](/Binary_relation) (specifically, a [functional relation](/Binary_relation) where each input maps to exactly one output), it's no surprise that function composition fits perfectly within the broader definition for relation composition. The same small circle, R ∘ S, has been consistently employed for the [infix notation of composition of relations](/Composition_of_relations), just as it is for functions. However, when specifically representing the composition of functions,
+
+
+
+(
+g
+&#x2218;
+f
+)
+(
+x
+)
+&#xa0;
+=
+&#xa0;
+g
+(
+f
+(
+x
+)
+)
+
+
+{\displaystyle (g\circ f)(x)\ =\ g(f(x))}
+
+, the textual sequence of f and g is reversed relative to the composition symbol. This is a deliberate choice, intended to clearly illustrate the distinct operational sequence: f acts first, then g.
+
+The definition of composition extends seamlessly to [partial functions](/Partial_function), which are functions that may not be defined for every element in their [domain](/Domain_of_a_function). Furthermore, [Cayley's theorem](/Cayley%27s_theorem), which asserts that every group is isomorphic to a subgroup of a symmetric group, finds its relational analogue in the form of the [Wagner–Preston theorem](/Wagner%E2%80%93Preston_theorem), extending the profound connection between abstract algebraic structures and concrete transformations.
+
+The [category of sets](/Category_of_sets), with functions serving as its [morphisms](/Morphism), stands as the quintessential, prototypical example of a [category](/Category_(mathematics)). Indeed, the very axioms that define a category are, in fact, directly inspired by the fundamental properties (and, naturally, the definition itself) of function composition. This deep connection underscores the foundational role of composition in abstract algebra and higher mathematics. The structures elucidated by composition are meticulously axiomatized and generalized within [category theory](/Category_theory), where the concept of a [morphism](/Morphism) serves as the category-theoretical equivalent of functions. It's noteworthy that the reversed order of composition observed in the formula for an inverse, ( f  ∘  g ) −1 = ( g −1 ∘ f   −1 ), also applies to the [composition of relations](/Composition_of_relations) when utilizing [converse relations](/Converse_relation), and consequently, holds true in [group theory](/Group_theory). These intricate structures, where operations can be reversed and composed, form the basis of [dagger categories](/Dagger_category).
+
+The conventional "foundation" for mathematics typically begins with the bedrock concepts of [sets and their elements](/Set_theory). However, it is entirely possible, and indeed fruitful, to embark on a different foundational journey—one that axiomatizes not the elements within sets, but rather the functions *between* sets. This alternative perspective can be elegantly articulated using the language of categories and universal constructions.
+
+As [Saunders Mac Lane](/Saunders_Mac_Lane) so eloquently put it in his seminal work, [Mathematics: Form and Function](/Mathematics,_Form_and_Function):
+" . . . the membership relation for sets can often be replaced by the composition operation for functions. This leads to an alternative foundation for Mathematics upon categories -- specifically, on the category of all functions. Now much of Mathematics is dynamic, in that it deals with morphisms of an object into another object of the same kind. Such morphisms ( like functions ) form categories, and so the approach via categories fits well with the objective of organizing and understanding Mathematics. That, in truth, should be the goal of a proper philosophy of Mathematics." This quote highlights a profound shift in perspective, elevating composition to a foundational role, and, frankly, it's about time someone articulated it so clearly.
+
+### Typography
+
+The symbol employed for composition, ∘, is encoded in Unicode as U+2218&#x20;&#x2218; RING OPERATOR ( &#8901; &compfn;, &SmallCircle;). For those with a keen eye for detail, the [Degree symbol](/Degree_symbol) article provides a helpful comparison with other Unicode characters that bear a similar visual resemblance, ensuring no undue confusion arises. In the esteemed typesetting system [TeX](/TeX), this symbol is rendered using the command \circ.
+
+### See also
+
+*   [Cobweb plot](/Cobweb_plot) – a rather clever graphical technique specifically designed for visualizing functional composition, particularly [iterated functions](/Iterated_function).
+*   [Combinatory logic](/Combinatory_logic) – a notation system for mathematical logic that eliminates the need for variables by using a small set of combinators, which are essentially higher-order functions and rely heavily on composition.
+*   [Composition ring](/Composition_ring) – a formal algebraic structure that axiomatizes the composition operation, providing a framework for studying its properties in an abstract setting.
+*   [Flow (mathematics)](/Flow_(mathematics)) – a concept describing the continuous iteration of a function, often encountered in [dynamical systems](/Dynamical_systems) and differential equations.
+*   [Function composition (computer science)](/Function_composition_(computer_science)) – the application of function composition principles within the domain of computer programming, essential for building modular and reusable code.
+*   [Function of random variable](/Random_variable) – explores how the probability distribution of a random variable changes when a function is applied to it, a common scenario in probability and statistics.
+*   [Functional decomposition](/Functional_decomposition) – the process of breaking down a complex function into a series of simpler, composable functions, crucial for problem-solving and system design.
+*   [Functional equation](/Functional_equation) – an equation in which the unknowns are functions, and the equation relates values of the function at different points, often involving composition.
+*   [Functional square root](/Functional_square_root) – a function g such that g ∘ g = f, representing a "half-iteration" of function f.
+*   [Higher-order function](/Higher_order_function) – functions that take other functions as arguments or return functions as results, making composition a natural and powerful operation.
+*   [Infinite compositions of analytic functions](/Infinite_compositions_of_analytic_functions) – a specialized area of analysis dealing with the convergence and properties of functions formed by an endless sequence of compositions.
+*   [Iterated function](/Iterated_function) – the process of repeatedly applying a function to its own output, leading to sequences and [dynamical systems](/Dynamical_systems).
+*   [Lambda calculus](/Lambda_calculus) – a formal system in mathematical logic and computer science for expressing computation based on function abstraction and application, directly supporting composition.
+
+### Notes
+
+*   ^ The strict sense, where the [codomain](/Codomain) of f must precisely equal the [domain](/Domain_of_a_function) of g, is rigorously upheld, for instance, in [category theory](/Category_theory). Here, any instance of a [subset](/Subset) relation is not merely assumed but is explicitly modeled by an [inclusion function](/Inclusion_function), ensuring formal precision. It's a level of exactitude that, frankly, some find excessive.
+*   ^ It is imperative that [Alfred Pringsheim](/Alfred_Pringsheim)'s and [Jules Molk](/Jules_Molk)'s (1907) notation n f ( x ) for denoting function compositions is *not* conflated with [Rudolf von Bitter Rucker](/Rudolf_von_Bitter_Rucker)'s (1982) [notation](/Rudy_Rucker_notation) n x . The latter, introduced by Hans Maurer (1901) and [Reuben Louis Goodstein](/Reuben_Louis_Goodstein) (1947), specifically refers to [tetration](/Tetration). Similarly, it must also not be confused with [David Patterson Ellerman](/David_Patterson_Ellerman)'s (1995) n x pre-superscript notation, which is used to represent [roots](/Nth_root). The subtleties of notation are, it seems, a constant source of potential misinterpretation.
+
+#

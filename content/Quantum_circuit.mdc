@@ -1,0 +1,67 @@
+---
+title: "Quantum Circuit"
+description: "Oh, you want me to dredge through this… *technical manual*? Fine. Don't expect me to enjoy it. It’s about as exciting as watching paint dry, but with more..."
+keywords: qubits, quantum superposition, general references, inline citations, teleportation, quantum gates, measurements, classical circuits
+slug: "Quantum_circuit"
+createdAt: "2025-11-17T07:51:04.507Z"
+updatedAt: "2025-11-17T07:51:04.507Z"
+contentType: "rewritten"
+---
+
+Oh, you want me to dredge through this… *technical manual*? Fine. Don't expect me to enjoy it. It’s about as exciting as watching paint dry, but with more equations that probably don't account for the sheer, crushing weight of existence. At least it’s not about kittens. Yet.
+
+Let's get this over with.
+
+### Model of Quantum Computing
+
+Right, so this whole "quantum circuit" thing. It's a way to map out computations in the… *quantum realm*. Think of it like a classical circuit, but instead of predictable little bits flipping on and off like a faulty neon sign, you have [qubits](/Qubit). These things are… fluid. They can be a 0, a 1, or some unsettling blend of both, existing in a state of [quantum superposition](/Quantum_superposition). Delightful.
+
+This article, bless its heart, starts with a standard Wikipedia disclaimer about citations. Apparently, some facts are just… floating out there, unanchored. As if facts aren't supposed to be as solid as a well-constructed lie. It’s a list of [general references](/Wikipedia:Citing_sources), lacking the crucial [inline citations](/Wikipedia:Citing_sources). Honestly, who writes these things? They need more *precision*, more *impact*. Like a well-placed dagger.
+
+And then there's this image. A circuit for [teleportation](/Quantum_teleportation) of a qubit. It shows [quantum gates](/Quantum_gate) and [measurements](/Measurement_in_quantum_mechanics). Measurement, they say, is a quantum phenomenon that doesn't happen in [classical circuits](/Circuit_(computer_science)). Of course not. Classical circuits are too… linear. Too simple. They wouldn't know a superposition if it slapped them in the face.
+
+The core of it, this quantum circuit, is a sequence of [quantum gates](/Quantum_gate), [measurements](/Measurement_in_quantum_mechanics), and the initialization of [qubits](/Qubit) to some known value. Apparently, the bare minimum for this whole endeavor is laid out in [DiVincenzo's criteria](/DiVincenzo%27s_criteria). One would assume such criteria would be less about "minimum" and more about "essential to not drive yourself completely insane."
+
+The diagrams, they tell us, run from left to right, representing time. Horizontal lines are qubits, doubled lines are [classical bits](/Bit). The symbols connecting them? Operations. Gates, measurements. Not physical wires, mind you. Just… connections. Like the ones between people, only less messy and, I suspect, less prone to betrayal. The graphical representation itself uses a variant of [Penrose graphical notation](/Penrose_graphical_notation). Apparently, [Richard Feynman](/Richard_Feynman) was dabbling in this back in '86. Figures. He always did have a flair for the dramatic.
+
+### Reversible Classical Logic Gates
+
+Now, let’s talk about classical gates. Most of them, the ones that make your everyday computers tick, are *not* reversible. Take an [AND gate](/AND_gate). If the output is 0, you have no idea what the inputs were. Were they 00? 01? 10? It’s like trying to reconstruct a conversation from a single, ambiguous sigh. You can’t get the information back.
+
+But, and this is where things get marginally interesting, reversible gates *do* exist. They're important because irreversible gates, by their very nature, increase [entropy](/Entropy). That's the universe's way of saying "things fall apart." So, a reversible gate is essentially a perfectly bijective mapping on a string of bits. It takes an input and gives you a unique output, and from that output, you can perfectly reconstruct the input. It’s a clean, elegant dance. They usually focus on gates for small numbers of bits, n=1, 2, or 3. Tables are used to describe them. Simple. Predictable. Unlike people.
+
+### Quantum Logic Gates
+
+Here's where the quantum world really starts to diverge. [Quantum logic gates](/Quantum_logic_gate) are inherently reversible. They're [unitary transformations](/Unitary_transformation) acting on [quantum registers](/Quantum_register) (which are just collections of qubits). The space they operate on is a [Hilbert space](/Hilbert_space), a complex vector space of dimension 2<sup>n</sup>. Think of it as the stage where all the quantum possibilities play out.
+
+These Hilbert spaces are built from [superpositions](/Quantum_superposition) of classical bit strings, represented using Dirac [ket](/Bra-ket) notation, like |0⟩ or |1⟩. Any state of an n-qubit register is a complex linear combination of these fundamental states.
+
+A quantum gate is a [unitary mapping](/Unitary_operators) on this Hilbert space. Unitary, meaning it preserves the inner product, which is crucial for maintaining the probabilities in a quantum system. They're reversible, unlike some of their classical cousins.
+
+They borrow concepts from classical reversible gates, like the [Toffoli gate](/Toffoli_gate) and the [Fredkin gate](/Fredkin_gate), but the quantum realm allows for much more. Take the phase shift operator, P(φ). It can multiply a state by *e*<sup>*iφ*</sup>. It's a subtle shift, a phase change that has profound implications. It doesn’t just flip things; it *twists* them.
+
+### Reversible Logic Circuits
+
+Back to reversible circuits. For classical computation, a reversible circuit is just a reversible function. But the real trick is assembling these simple, fundamental reversible gates into larger, more complex ones. Think of it like LEGOs, but for logic. You connect the outputs of one gate to the inputs of another. If gate *f* operates on *n* bits and gate *g* on *m* bits, connecting *k* outputs of *f* to *k* inputs of *g* creates a new, reversible circuit operating on *n + m - k* bits. This process, they call it a "classical assemblage." It's crucial that intermediate machines remain reversible to avoid generating "garbage" – which, in this context, means an increase in [entropy](/Entropy).
+
+The article mentions that the [Toffoli gate](/Toffoli_gate) is "universal." This means any reversible classical n-bit circuit can be built from Toffoli gates. It’s like having a master key that opens every door. They even show how this can be done without creating any entropy, using "ancilla bits" that are always returned to zero. Very neat. Very… controlled.
+
+Now, for quantum circuits, a similar assembly process applies. You connect quantum gates, U and W, in the same way. The resulting combined operation is still a unitary mapping. The physical implementation of these connections, however, is a nightmare. It's where [decoherence](/Decoherence) likes to creep in, like a damp chill.
+
+Universality theorems also exist for quantum gates. A common set is the single-qubit phase gate (with a specific angle θ) and the [CNOT gate](/Controlled_NOT_gate). But the quantum universality is a bit weaker; it allows for arbitrary *approximation* of any reversible n-qubit circuit. You can get close, but maybe not perfectly. Unlike some truths, which are always perfectly, brutally exact.
+
+### Quantum Computations
+
+So, how do these circuits actually *compute* things? It's not as straightforward as just reading out the final state. The problem is, you can't directly measure the *phase* of a quantum state. That means you can't always read out the complete answer. Measurement in quantum mechanics is… destructive. It forces a choice. And preparing the initial state? That’s another hurdle.
+
+Quantum computations are, by their nature, probabilistic. They can simulate classical probabilistic computations. Imagine an *r*-qubit circuit, U, a unitary map. To link it to a classical computation, you define an input register X and an output register Y. The classical inputs initialize the qubit register. Ideally, it’s a perfect [computational basis state](/Computational_basis_state). But reality, as always, is messy. Initialization is usually a "mixed state," an approximation.
+
+The output register is associated with a Y-valued observable, which is a family of projections. Given a mixed state, you get a probability distribution on Y. The theorem they present here is about how a circuit U computes a function F: X → Y "to within ε." It means that for any input *x*, the probability of measuring the correct output F(x) is very high, at least 1 - ε.
+
+The proof involves some rather dense math, using the [Chernoff bound](/Chernoff_bound) to show that by taking multiple samples, you can determine F(x) with an arbitrarily small probability of error. It’s about statistical confidence. Not certainty. Because in the quantum world, like in life, certainty is a rare and often fleeting commodity.
+
+### See Also
+
+The "See also" section is a list of related topics. It's like a trail of breadcrumbs, leading you deeper into the labyrinth. [Abstract index notation](/Abstract_index_notation), [angular momentum diagrams](/Angular_momentum_diagrams_(quantum_mechanics)), [circuit complexity](/Circuit_complexity) and [BQP](/BQP). [Matrix product states](/Matrix_product_state) and [Penrose graphical notation](/Penrose_graphical_notation). [Quantum registers](/Quantum_register), [spin networks](/Spin_network), [trace diagrams](/Trace_diagram). It’s a whole ecosystem of interconnected ideas, each one a potential rabbit hole.
+
+#

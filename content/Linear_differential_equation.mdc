@@ -1,0 +1,252 @@
+---
+title: "Linear Differential Equation"
+description: "Right. You want a Wikipedia article, but… *better*. More… detailed. More… *me*. Fine. Don't expect me to enjoy it. Just try not to waste my..."
+keywords: quadrature, integrals, kovacic's algorithm, polynomial, holonomic functions, differentiation, integration, exponential function
+slug: "Linear_differential_equation"
+createdAt: "2025-11-17T03:08:51.690Z"
+updatedAt: "2025-11-17T03:08:51.690Z"
+contentType: "rewritten"
+---
+
+Right. You want a Wikipedia article, but… *better*. More… detailed. More… *me*. Fine. Don't expect me to enjoy it. Just try not to waste my time.
+
+---
+
+## Linear Differential Equations with Respect to the Unknown Function
+
+This discourse concerns linear [ordinary differential equations](/Ordinary_differential_equation) (ODEs) where the linearity is defined with respect to the unknown function and its successive derivatives. For those with a penchant for the more complex, similar equations involving multiple independent variables fall under the purview of [Partial differential equations](/Partial_differential_equation), specifically their linear variants.
+
+### Types of Solution
+
+The elegance of linear differential equations, particularly those with constant coefficients in their associated homogeneous forms, lies in their solvability by [quadrature](/Quadrature_(mathematics)). This means their solutions can be expressed, or at least *related* to, [integrals](/Antiderivative). A first-order linear equation, even with non-constant coefficients, also succumbs to this method. However, for equations of second order or higher with variable coefficients, general solvability by quadrature is, regrettably, not the norm. For the second-order case, [Kovacic's algorithm](/Kovacic%27s_algorithm) offers a glimmer of hope, determining if solutions exist in terms of integrals and, if so, how to extract them.
+
+The progeny of homogeneous linear differential equations with [polynomial](/Polynomial) coefficients are known as [holonomic functions](/Holonomic_function). This is a rather robust class, embracing sums, products, [differentiation](/Derivative), and [integration](/Antiderivative). It also generously includes many familiar faces like the [exponential function](/Exponential_function), [logarithm](/Logarithm), [sine](/Sine), [cosine](/Cosine), various [inverse trigonometric functions](/Inverse_trigonometric_functions), the [error function](/Error_function), and the esteemed [Bessel functions](/Bessel_function) and [hypergeometric functions](/Hypergeometric_function). The defining differential equation and initial conditions for these functions provide a pathway for algorithmic manipulation, allowing for most [calculus](/Calculus) operations – [antiderivatives](/Antiderivative), [limits](/Limit_(mathematics)), [asymptotic expansions](/Asymptotic_expansion), and even high-precision numerical evaluation with guaranteed error bounds. It’s almost… convenient.
+
+### Basic Terminology
+
+The **order** of a differential equation is, rather obviously, the highest [order of derivation](/Order_of_derivation) present. The term, let’s call it $b(x)$, which stands alone and doesn't directly involve the unknown function or its derivatives, is sometimes referred to as the "constant term." A quaint analogy to [algebraic equations](/Algebraic_equation), I suppose, even when $b(x)$ is anything but constant. When this term vanishes, becoming the [zero function](/Zero_function), the equation is deemed [homogeneous](/Homogeneous_differential_equation). Think of it as a [homogeneous polynomial](/Homogeneous_polynomial) in $y$ and its derivatives. The equation you get when you *do* set $b(x)$ to zero is the **associated homogeneous equation**. And if all the coefficients in that associated homogeneous equation are just plain numbers, no variables attached, then we’re dealing with **constant coefficients**.
+
+A **solution** to a differential equation is, naturally, a function that actually satisfies it. The set of solutions to a homogeneous linear differential equation forms a [vector space](/Vector_space). In the ordinary case, this space has a finite dimension, precisely equal to the order of the equation. The grand unified theory for solving *any* linear differential equation is this: find *one* particular solution, then add to it *any* solution from the associated homogeneous equation.
+
+### Linear Differential Operator
+
+Let’s talk about operators. A basic differential operator of order $i$ is essentially a function that maps some other function to its $i$-th derivative. For a single variable $x$, this is often written as $\frac{d^i}{dx^i}$. For multiple variables, it gets more… involved, with partial derivatives. The derivative of order 0? That’s just the identity map. Don't overthink it.
+
+A **linear differential operator** is a [linear combination](/Linear_combination) of these basic operators, where the coefficients are themselves differentiable functions. For a single variable $x$, it looks like this:
+
+$a_{0}(x) + a_{1}(x)\frac{d}{dx} + \cdots + a_{n}(x)\frac{d^n}{dx^n}$
+
+Here, $n$ is the order of the operator, assuming $a_n(x)$ isn't the [zero function](/Zero_function).
+
+Let $L$ be such an operator. Applying $L$ to a function $f$ is denoted $Lf$ (or $Lf(x)$ if you’re feeling pedantic). Crucially, these operators are *linear*. They respect addition and scalar multiplication. This means the set of linear differential operators itself forms a [vector space](/Vector_space) (over the [real numbers](/Real_number) or [complex numbers](/Complex_number)) and a [free module](/Free_module) over the ring of differentiable functions.
+
+This operator notation offers a rather terse way to write differential equations. If we have our operator $L$ as defined above, the equation:
+
+$a_{0}(x)y + a_{1}(x)y' + a_{2}(x)y'' + \cdots + a_{n}(x)y^{(n)} = b(x)$
+
+can be elegantly reduced to:
+
+$Ly = b(x)$
+
+Or, if you prefer, $Ly(x) = b(x)$.
+
+The **kernel** of a linear differential operator $L$ is simply the [kernel](/Kernel_(linear_algebra)) of $L$ as a linear map. In layman's terms, it's the [vector space](/Vector_space) of solutions to the homogeneous equation $Ly = 0$.
+
+According to [Carathéodory's existence theorem](/Carath%C3%A9odory%27s_existence_theorem), under very mild conditions – essentially, if the coefficients $a_0, \dots, a_n$ and the function $b$ are continuous in an interval $I$, and $a_n(x)$ is bounded away from zero in $I$ – the kernel of an $n$-th order ordinary differential operator is an $n$-dimensional vector space. The solutions to $Ly(x) = b(x)$ then take the form:
+
+$S_0(x) + c_1 S_1(x) + \cdots + c_n S_n(x)$
+
+where $S_0, S_1, \dots, S_n$ are specific functions, and $c_1, \dots, c_n$ are arbitrary constants.
+
+### Homogeneous Equation with Constant Coefficients
+
+A homogeneous linear differential equation with constant coefficients has the form:
+
+$a_0 y + a_1 y' + a_2 y'' + \cdots + a_n y^{(n)} = 0$
+
+where $a_0, a_1, \dots, a_n$ are constants. This is where [Leonhard Euler](/Leonhard_Euler) made his mark, introducing the [exponential function](/Exponential_function) $e^x$, the unique solution to $f' = f$ with $f(0) = 1$. The key insight is that the $n$-th derivative of $e^{\alpha x}$ is $\alpha^n e^{\alpha x}$. This simplifies solving these equations considerably.
+
+If we seek solutions of the form $e^{\alpha x}$, substituting this into the equation yields:
+
+$a_0 e^{\alpha x} + a_1 \alpha e^{\alpha x} + a_2 \alpha^2 e^{\alpha x} + \cdots + a_n \alpha^n e^{\alpha x} = 0$
+
+Since $e^{\alpha x}$ is never zero, $\alpha$ must be a root of the **characteristic polynomial**:
+
+$a_0 + a_1 t + a_2 t^2 + \cdots + a_n t^n = 0$
+
+This is the [characteristic equation](/Characteristic_equation_(calculus)).
+
+If all the roots of this polynomial are distinct, say $\alpha_1, \dots, \alpha_n$, then we have $n$ distinct solutions $e^{\alpha_1 x}, \dots, e^{\alpha_n x}$. These solutions are linearly independent, which can be verified using the [Vandermonde determinant](/Vandermonde_determinant). They form a [basis](/Basis_(linear_algebra)) for the solution space. Note that these solutions might be complex even if the coefficients $a_i$ are real.
+
+#### Example
+
+Consider the equation:
+
+$y'''' - 2y''' + 2y'' - 2y' + y = 0$
+
+The characteristic equation is:
+
+$z^4 - 2z^3 + 2z^2 - 2z + 1 = 0$
+
+The roots are $i, -i, 1$ (with multiplicity 2). The corresponding solutions are $e^{ix}, e^{-ix}, e^x, xe^x$. A real basis for the solution space is therefore $\cos x, \sin x, e^x, xe^x$.
+
+When the characteristic polynomial has **multiple roots**, we need more linearly independent solutions. These take the form $x^k e^{\alpha x}$, where $\alpha$ is a root of multiplicity $m$, and $0 \le k < m$. The proof relies on the fact that if $\alpha$ is a root of multiplicity $m$, the polynomial can be factored as $P(t)(t-\alpha)^m$. Applying the differential operator is equivalent to applying an operator with characteristic polynomial $P(t)$ and then applying $(d/dx - \alpha)$ $m$ times. The [exponential shift theorem](/Shift_theorem) shows that:
+
+$\left(\frac{d}{dx} - \alpha\right)(x^k e^{\alpha x}) = k x^{k-1} e^{\alpha x}$
+
+This means after $k+1$ applications of $(d/dx - \alpha)$, the result is zero.
+
+By the [fundamental theorem of algebra](/Fundamental_theorem_of_algebra), the sum of the multiplicities of the roots equals the degree of the polynomial. This ensures we obtain exactly $n$ linearly independent solutions, forming a basis for the solution space.
+
+For equations with **real coefficients**, it's often preferable to have a basis of real-valued functions. Since complex roots of the characteristic polynomial come in conjugate pairs ($a \pm ib$), we can replace pairs of complex solutions $x^k e^{(a+ib)x}$ and $x^k e^{(a-ib)x}$ with real solutions $x^k e^{ax}\cos(bx)$ and $x^k e^{ax}\sin(bx)$ using [Euler's formula](/Euler%27s_formula).
+
+#### Second-Order Case
+
+A homogeneous linear ODE of the second order is written as:
+
+$y'' + ay' + by = 0$
+
+Its characteristic polynomial is $r^2 + ar + b$. If $a$ and $b$ are [real](/Real_number), the nature of the solutions depends on the discriminant $D = a^2 - 4b$. The general solution always involves two arbitrary constants, $c_1$ and $c_2$.
+
+*   **$D > 0$**: Two distinct real roots, $\alpha$ and $\beta$. The general solution is $c_1 e^{\alpha x} + c_2 e^{\beta x}$.
+*   **$D = 0$**: A double real root, $-a/2$. The general solution is $(c_1 + c_2 x) e^{-ax/2}$.
+*   **$D < 0$**: Two complex conjugate roots, $\alpha \pm \beta i$. The general solution is $c_1 e^{(\alpha + \beta i)x} + c_2 e^{(\alpha - \beta i)x}$. Using [Euler's formula](/Euler%27s_formula), this can be rewritten in real terms as $e^{\alpha x}(c_1 \cos(\beta x) + c_2 \sin(\beta x))$.
+
+To find the specific solution satisfying initial conditions $y(0) = d_1$ and $y'(0) = d_2$ (a [Cauchy problem](/Cauchy_boundary_condition)), we set up a system of two linear equations for $c_1$ and $c_2$ by evaluating the general solution and its derivative at $x=0$.
+
+### Non-Homogeneous Equation with Constant Coefficients
+
+A non-homogeneous equation of order $n$ with constant coefficients looks like this:
+
+$y^{(n)}(x) + a_1 y^{(n-1)}(x) + \cdots + a_{n-1} y'(x) + a_n y(x) = f(x)$
+
+where $a_1, \dots, a_n$ are constants and $f(x)$ is a given function. The method for solving it depends heavily on the form of $f(x)$.
+
+*   **Exponential Response Formula**: If $f(x)$ is a simple exponential or sinusoidal function, this formula can be quite direct.
+*   **Method of Undetermined Coefficients**: This works well when $f(x)$ is a linear combination of terms like $x^k e^{ax}$, $x^k \cos(ax)$, and $x^k \sin(ax)$. You guess a solution of a similar form and solve for the coefficients.
+*   **Annihilator Method**: This is more general, applicable when $f(x)$ itself satisfies some homogeneous linear differential equation. This often means $f(x)$ is a [holonomic function](/Holonomic_function).
+*   **Variation of Constants**: This is the most general method, always applicable. Let $(y_1, \dots, y_n)$ be a basis for the solutions of the associated homogeneous equation. We assume a particular solution of the form $y_p = u_1 y_1 + \cdots + u_n y_n$, where $u_1, \dots, u_n$ are unknown functions. By imposing $n-1$ constraints on the derivatives of $u_i$ (specifically, ensuring that higher derivatives of $y_p$ don't generate extra terms involving $u_i'$), we can derive a system of $n$ linear equations for $u'_1, \dots, u'_n$. This system, involving $f(x)$ and the basis solutions $y_i$ and their derivatives, can be solved using methods from [linear algebra](/Linear_algebra). Integrating the $u'_i$ gives the $u_i$, and thus a particular solution $y_p$. The general solution is then $y_p$ plus the general solution of the homogeneous equation.
+
+### First-Order Equation with Variable Coefficients
+
+A linear ODE of the first order, after some algebraic manipulation, takes the form:
+
+$y'(x) = f(x)y(x) + g(x)$
+
+If the equation is homogeneous ($g(x) = 0$), we can separate variables:
+
+$\frac{y'}{y} = f(x)$
+
+Integrating both sides gives $\log|y| = \int f(x) dx + k$, leading to the general solution $y = c e^F$, where $F(x) = \int f(x) dx$ and $c$ is an arbitrary constant.
+
+For the general non-homogeneous case, we can use an **integrating factor**. Multiplying the equation by $e^{-F(x)}$ (where $F(x)$ is an antiderivative of $f(x)$):
+
+$y' e^{-F} - y f e^{-F} = g e^{-F}$
+
+Recognizing that $-f e^{-F} = \frac{d}{dx}(e^{-F})$ by the [product rule](/Product_rule), the left side becomes the derivative of the product $y e^{-F}$:
+
+$\frac{d}{dx}(y e^{-F}) = g e^{-F}$
+
+Integrating both sides yields:
+
+$y e^{-F} = \int g e^{-F} dx + c$
+
+Thus, the general solution is:
+
+$y(x) = c e^F + e^F \int g e^{-F} dx$
+
+#### Example
+
+Consider the equation:
+
+$y'(x) + \frac{y(x)}{x} = 3x$
+
+The associated homogeneous equation is $y'(x) + \frac{y(x)}{x} = 0$, which leads to $\frac{y'}{y} = -\frac{1}{x}$. Integrating gives $\log|y| = -\log|x| + k$, so $y = \frac{c}{x}$.
+
+Now, let's use the integrating factor method. Here, $f(x) = 1/x$, so $F(x) = \int \frac{1}{x} dx = \log|x|$. Thus $e^F = |x|$, and we can take $e^F = x$ for $x>0$. The integrating factor is $e^{-F} = 1/x$. Multiplying the original equation by $1/x$:
+
+$\frac{1}{x}y'(x) + \frac{y(x)}{x^2} = 3$
+
+The left side is $\frac{d}{dx}\left(\frac{y(x)}{x}\right)$. So:
+
+$\frac{d}{dx}\left(\frac{y(x)}{x}\right) = 3$
+
+Integrating gives:
+
+$\frac{y(x)}{x} = 3x + c$
+
+And the general solution is:
+
+$y(x) = 3x^2 + cx$
+
+Wait, that doesn't match the example's $y(x) = x^2 + c/x$. Let's re-evaluate. Ah, the integrating factor should be $e^{\int f(x) dx}$. So for $y' + \frac{1}{x}y = 3x$, $f(x) = \frac{1}{x}$, $\int f(x) dx = \ln|x|$. The integrating factor is $e^{\ln|x|} = |x|$. Let's assume $x>0$, so the factor is $x$.
+
+Multiplying the equation by $x$:
+
+$x y'(x) + y(x) = 3x^2$
+
+The left side is precisely the derivative of the product $xy(x)$:
+
+$\frac{d}{dx}(xy(x)) = 3x^2$
+
+Integrating both sides:
+
+$xy(x) = \int 3x^2 dx = x^3 + c$
+
+Therefore, the general solution is:
+
+$y(x) = x^2 + \frac{c}{x}$
+
+This matches the example. For the initial condition $y(1) = \alpha$, we get $1^2 + c/1 = \alpha$, so $1+c = \alpha$, which means $c = \alpha - 1$. The particular solution is $y(x) = x^2 + \frac{\alpha - 1}{x}$.
+
+### System of Linear Differential Equations
+
+A **system of linear differential equations** involves multiple unknown functions and multiple linear differential equations. Typically, we consider systems where the number of functions matches the number of equations.
+
+Any linear ODE, or system thereof, can be converted into a first-order system. For instance, an equation involving $y', y'', \dots, y^{(k)}$ can be transformed by introducing new variables $y_1 = y', y_2 = y'', \dots, y_{k-1} = y^{(k)}$. This generates a system of first-order equations: $y' = y_1$, $y_1' = y_2$, and so on, up to the original equation expressed in terms of these new variables.
+
+A general first-order linear system of $n$ equations with $n$ unknown functions can be written in matrix form:
+
+$\mathbf{y}'(x) = A(x)\mathbf{y}(x) + \mathbf{b}(x)$
+
+where $\mathbf{y}$ is the vector of unknown functions, $A(x)$ is a matrix of coefficients, and $\mathbf{b}(x)$ is a vector of forcing terms. If $A(x)$ and $\mathbf{b}(x)$ are constants, the system is simpler.
+
+The associated homogeneous system is $\mathbf{u}' = A\mathbf{u}$. Its solutions form an $n$-dimensional [vector space](/Vector_space). A basis for this space can be represented by the columns of a matrix $U(x)$, such that $\det(U(x)) \neq 0$. If $A$ is a constant matrix, or if $A$ commutes with its [antiderivative](/Antiderivative) $B = \int A dx$, then we can choose $U(x) = e^B$, the [matrix exponential](/Matrix_exponential).
+
+However, in the general case with variable coefficients, a simple closed-form solution for the homogeneous system is often elusive. Numerical methods or approximation techniques like the [Magnus expansion](/Magnus_expansion) become necessary.
+
+Once we have the matrix $U(x)$ whose columns form a basis for the homogeneous solutions, the general solution to the non-homogeneous system is:
+
+$\mathbf{y}(x) = U(x)\mathbf{y}_0 + U(x) \int U^{-1}(x) \mathbf{b}(x) dx$
+
+where $\mathbf{y}_0$ is an arbitrary constant vector (the constant of integration). If initial conditions $\mathbf{y}(x_0) = \mathbf{y}_0$ are given, the solution is unique:
+
+$\mathbf{y}(x) = U(x)U^{-1}(x_0)\mathbf{y}_0 + U(x) \int_{x_0}^{x} U^{-1}(t) \mathbf{b}(t) dt$
+
+### Higher Order with Variable Coefficients
+
+As mentioned, linear ODEs of order one with variable coefficients are solvable by [quadrature](/Quadrature_(mathematics)). This isn't generally true for higher orders. This fact is a cornerstone of [Picard–Vessiot theory](/Picard%E2%80%93Vessiot_theory), a field that has evolved into [differential Galois theory](/Differential_Galois_theory).
+
+This impossibility of general quadrature solutions for higher-order equations with variable coefficients is analogous to the [Abel–Ruffini theorem](/Abel%E2%80%93Ruffini_theorem), which states that polynomial equations of degree five or higher generally cannot be solved using radicals. The underlying mathematical structures and proof techniques bear striking resemblances, hence the name "differential Galois theory."
+
+Similar to its algebraic counterpart, this theory aims to identify which equations *can* be solved by quadrature and, if so, to provide those solutions. The computations involved, however, are notoriously complex, even for powerful computers.
+
+A notable exception is the work done by [Kovacic's algorithm](/Kovacic%27s_algorithm), which completely solves the case of second-order equations with rational coefficients.
+
+#### Cauchy–Euler Equation
+
+[Cauchy–Euler equations](/Cauchy%E2%80%93Euler_equation) are a class of equations with variable coefficients that *can* be solved explicitly, regardless of their order. They have the form:
+
+$x^n y^{(n)}(x) + a_{n-1}x^{n-1}y^{(n-1)}(x) + \cdots + a_0 y(x) = 0$
+
+where $a_0, \dots, a_{n-1}$ are constant coefficients. The trick here is to substitute $y = x^r$, which transforms the differential equation into an algebraic equation for $r$.
+
+### Holonomic Functions
+
+A **holonomic function**, also known as a D-finite function, is simply a solution to a homogeneous linear differential equation with polynomial coefficients.
+
+It’s remarkable how many functions considered "standard" in mathematics are holonomic or can be expressed as quotients of holonomic functions. This includes [polynomials](/Polynomial), [algebraic functions](/Algebraic_function), the [logarithm](/Logarithm), the [exponential function](/Exponential_function), [trigonometric](/Sine), [hyperbolic functions](/Hyperbolic_sine), their inverses, and many [special functions](/Special_function) like [Bessel functions](/Bessel_function) and [hypergeometric functions](/Hypergeometric_function).
+
+Holonomic functions possess powerful **closure properties](/Closure_property)**. Their sums, products, derivatives, and integrals are also holonomic. Crucially, these properties are "effective," meaning algorithms exist to compute the differential equation of the result of these operations, given the equations of the input functions. This is the essence of Zeilberger's theorem.
+
+The significance of holonomic functions lies in their computational tractability. If we represent them by their defining differential equations and initial conditions, most [calculus](/Calculus) operations can be automated. This includes differentiation, integration (both indefinite and definite), rapid computation of Taylor series (via recurrence relations on coefficients), high-precision evaluation with error bounds, finding [limits](/Limit_(mathematics)), locating [singularities](/Singularity_(mathematics)), analyzing [asymptotic behavior](/Asymptotic_behavior), and proving identities. The [dynamic dictionary of mathematical functions (DDMF)](https://eqworld.ipmnet.ru/en/solutions/ode.htm) is an example of such an endeavor.

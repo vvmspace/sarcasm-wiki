@@ -1,0 +1,196 @@
+---
+title: "Fast Fourier Transform"
+description: "Honestly, the sheer volume of information about this… *algorithm*. It’s almost as if people *wanted* to make things complicated. But fine. If you insist on..."
+keywords: fast fourier transform, discrete fourier transform, dft matrix, sparse, o(n²), o(n log n), round-off error, complex-number arithmetic, group theory, number theory
+slug: "Fast_Fourier_transform"
+createdAt: "2025-11-17T12:07:18.042Z"
+updatedAt: "2025-11-17T12:07:18.042Z"
+contentType: "rewritten"
+---
+
+Honestly, the sheer volume of information about this… *algorithm*. It’s almost as if people *wanted* to make things complicated. But fine. If you insist on delving into this labyrinth, at least try to keep up.
+
+## Fast Fourier Transform Algorithm
+
+A [fast Fourier transform](/Fourier_transform) (FFT) is, in essence, a clever algorithm—a shortcut, if you will—for computing the [discrete Fourier transform](/Discrete_Fourier_transform) (DFT) or its inverse (IDFT). Think of it as a translator, converting a signal from its familiar domain, be it time or space, into the ethereal realm of frequencies, and then back again. It’s a transformation that’s surprisingly useful across a bewildering array of fields.
+
+The DFT itself, at its core, dissects a sequence of values, breaking it down into its constituent frequencies. It’s a fundamental operation, but doing it the brute-force way, directly from its definition, is often painfully slow. That’s where the FFT steps in, like a well-dressed assassin in a room full of blundering oafs. It achieves its speed by cleverly factoring the [DFT matrix](/DFT_matrix) into a product of [sparse](/Sparse_matrix) matrices—matrices that are mostly filled with zeros. This factorization drastically reduces the computational burden. Instead of the lumbering [O(n²)](/Computational_complexity_theory) complexity of a direct DFT calculation, the FFT brings it down to a much more manageable [O(n log n)](/Computational_complexity_theory). The difference? It’s monumental, especially when you’re dealing with vast datasets, thousands or even millions of points. It’s the difference between watching paint dry and witnessing a supernova.
+
+It's crucial to understand that the FFT is not some rogue operation. It performs the *exact same mathematical transformation* as the DFT. It’s merely a more efficient *method* of arriving at the same destination. And contrary to what some might assume, many FFT algorithms are actually *more* accurate than a naive DFT evaluation, especially when dealing with the messy reality of [round-off error](/Round-off_error) in calculations. There’s a whole universe of FFT algorithms out there, drawing inspiration from everything from simple [complex-number arithmetic](/Complex_number) to the abstract elegance of [group theory](/Group_theory) and [number theory](/Number_theory). While the most common FFTs rely on the factorization of the data size, *n*, there are algorithms that can achieve that [O(n log n)](/Computational_complexity_theory) efficiency for *any* *n*, even prime numbers. This is possible because they leverage the properties of the nth [primitive root of unity](/Primitive_root_of_unity), allowing them to be applied to analogous transforms over [finite fields](/Finite_field), such as [number-theoretic transforms](/Number-theoretic_transform). And since the inverse DFT is essentially the same as the forward transform, just with a sign change and a scaling factor, any FFT algorithm can be easily adapted for it.
+
+The impact of the FFT is undeniable. It permeates engineering, music, science, and mathematics. While the core ideas were widely disseminated in 1965, the seeds of these fast algorithms were sown much earlier, as far back as 1805. It’s no exaggeration to say that it’s one of the most significant numerical algorithms of our time.
+
+### History
+
+The lineage of fast algorithms for computing the DFT traces back to the unpublished work of [Carl Friedrich Gauss](/Carl_Friedrich_Gauss) in 1805. He was grappling with interpolating the orbits of asteroids [Pallas](/2_Pallas) and [Juno](/3_Juno) from observational data. His approach, remarkably, bore a striking resemblance to the algorithm later published by [James Cooley](/James_Cooley) and [John Tukey](/John_Tukey) in 1965, the ones generally credited with popularizing the modern, generic FFT. While Gauss's work predated even [Joseph Fourier](/Joseph_Fourier)'s seminal contributions, he didn't analyze the computational complexity of his method, ultimately opting for other means to achieve his goals.
+
+Between Gauss's initial insights and the 1965 publication, variations of the FFT algorithm surfaced. In 1932, [Frank Yates](/Frank_Yates) presented his "interaction algorithm," a method that proved efficient for computing Hadamard and Walsh transforms—an algorithm still relevant in statistical design and analysis. Later, in 1942, [G. C. Danielson](/G._C._Danielson) and [Cornelius Lanczos](/Cornelius_Lanczos) published their version, specifically tailored for the computationally intensive demands of [x-ray crystallography](/X-ray_crystallography). While many prior methods focused on optimizing calculations for [O(n²)](/Computational_complexity_theory) by exploiting symmetries, Danielson and Lanczos recognized the power of periodicity and a "doubling trick" that, though not fully analyzed for its complexity implications at the time, hinted at greater efficiency. Then, in 1958, [I. J. Good](/I._J._Good) introduced the [prime-factor FFT algorithm](/Prime-factor_FFT_algorithm), applicable when the data size *n* could be factored into coprime integers.
+
+The true watershed moment, however, arrived in 1965. [James Cooley](/James_Cooley) and [John Tukey](/John_Tukey), working independently, rediscovered and unified these earlier ideas into a more general FFT algorithm. Their method, applicable when *n* is composite (not necessarily a power of two), also provided the crucial analysis demonstrating the [O(n log n)](/Computational_complexity_theory) scaling. The story goes that Tukey conceived of the algorithm during a meeting of [President Kennedy](/President_Kennedy)'s Science Advisory Committee, discussing methods to detect Soviet nuclear tests. The analysis of the sensor data would require an FFT. [Richard Garwin](/Richard_Garwin), present at the meeting, immediately saw the broader implications, not just for national security but also for scientific problems like analyzing spin orientations in Helium-3 crystals. Garwin shared Tukey's idea with Cooley, who was at [IBM's Watson labs](/Thomas_J._Watson_Research_Center). Within six months, Cooley and Tukey published their seminal paper. Because Tukey wasn't an IBM employee, the algorithm couldn't be patented, and it entered the public domain. This accessibility, coupled with the burgeoning digital revolution, cemented the FFT as an indispensable tool.
+
+### Definition
+
+Let's be precise. We're dealing with a sequence of complex numbers, denoted as $x_0, x_1, \ldots, x_{n-1}$. The [discrete Fourier transform](/Discrete_Fourier_transform) (DFT) of this sequence is defined as:
+
+$$ X_k = \sum_{m=0}^{n-1} x_m e^{-i 2\pi km/n} \quad k=0, \ldots, n-1 $$
+
+Here, $e^{i 2\pi /n}$ is a [primitive](/Primitive_root_of_unity) nth root of unity. Now, if you were to compute this definition directly, you'd be looking at approximately $n^2$ complex multiplications and $n(n-1)$ complex additions. That’s the brute-force approach, and it’s often far too slow. An FFT, on the other hand, is any algorithm that can compute these same results using significantly fewer operations, specifically in the realm of [O(n log n)](/Computational_complexity_theory). While no one has definitively proven that algorithms with lower complexity are impossible, all known FFTs operate within this [O(n log n)](/Computational_complexity_theory) bound.
+
+To put the savings into perspective: for $n=4096$ data points, a direct DFT computation would involve roughly 30 million operations. A radix-2 Cooley–Tukey algorithm, for $n$ being a power of two, can achieve the same result with approximately 30,000 operations. That's a thousand-fold improvement. In practice, actual performance on modern hardware is more nuanced, influenced by factors like [cache](/Cache_(computing)) and [CPU pipeline](/CPU_pipeline) architecture, but the fundamental advantage of moving from [O(n²)](/Computational_complexity_theory) to [O(n log n)](/Computational_complexity_theory) remains.
+
+### Algorithms
+
+#### Cooley–Tukey algorithm
+
+• Main article: [Cooley–Tukey FFT algorithm](/Cooley%E2%80%93Tukey_FFT_algorithm)
+
+The undisputed champion, the most widely employed FFT algorithm, is the Cooley–Tukey algorithm. It's a [divide-and-conquer](/Divide-and-conquer_algorithm) strategy that recursively breaks down a DFT of a [composite](/Composite_number) size $n = n_1 n_2$ into $n_1$ smaller DFTs of size $n_2$. This decomposition is accompanied by approximately $O(n)$ multiplications by complex [roots of unity](/Roots_of_unity), commonly referred to as [twiddle factors](/Twiddle_factor).
+
+As mentioned, this algorithm was popularized by Cooley and Tukey in 1965, though its roots trace back to Gauss. The most common implementation divides the transform into two halves at each step, hence its limitation to power-of-two sizes. However, the general principle allows for any factorization. These variations are known as radix-2 and mixed-radix cases. While the core idea is recursive, most practical implementations rearrange the computation to avoid explicit recursion. Furthermore, because the Cooley–Tukey algorithm decomposes the DFT into smaller DFTs, it can be combined with other DFT algorithms.
+
+#### Other FFT algorithms
+
+• Main articles: [Prime-factor FFT algorithm](/Prime-factor_FFT_algorithm), [Bruun's FFT algorithm](/Bruun%27s_FFT_algorithm), [Rader's FFT algorithm](/Rader%27s_FFT_algorithm), [Chirp Z-transform](/Chirp_Z-transform), and [hexagonal fast Fourier transform](/Hexagonal_fast_Fourier_transform)
+
+When $n = n_1 n_2$ where $n_1$ and $n_2$ are [coprime](/Coprime), the [prime-factor](/Prime-factor_FFT_algorithm) (Good–Thomas) algorithm (PFA), leveraging the [Chinese remainder theorem](/Chinese_remainder_theorem), can factorize the DFT without the need for twiddle factors. The Rader–Brenner algorithm, introduced in 1976, offers a Cooley–Tukey-like factorization but with purely imaginary twiddle factors. This reduces multiplications but increases additions and can impact [numerical stability](/Numerical_stability). It has largely been superseded by the [split-radix](/Split-radix) variant of Cooley–Tukey, which achieves similar multiplication counts with fewer additions and better accuracy.
+
+Algorithms that recursively decompose the DFT into operations other than DFTs include Bruun's and the QFT algorithms. Bruun's algorithm, specifically, interprets the FFT as a recursive factorization of the [polynomial](/Polynomial) $z^n - 1$.
+
+The Winograd FFT algorithm utilizes another polynomial perspective, factorizing $z^n - 1$ into [cyclotomic polynomials](/Cyclotomic_polynomial). These often have simple coefficients (1, 0, or -1), minimizing multiplications. Winograd's approach can lead to FFTs with the absolute minimum number of multiplications, a significant theoretical achievement, though it often comes at the cost of many more additions—a trade-off less favorable on modern hardware. Winograd also incorporates the PFA and Rader's algorithm for prime-sized FFTs.
+
+[Rader's algorithm](/Rader%27s_FFT_algorithm), exploiting the properties of the multiplicative [group](/Group_(mathematics)) modulo a prime *n*, expresses a prime-size DFT as a cyclic [convolution](/Convolution) of size $n-1$. This can then be computed using standard FFTs via the [convolution theorem](/Convolution_theorem). A similar approach, known as Bluestein's algorithm or the [chirp-z algorithm](/Chirp_z_algorithm), also reformulates the DFT as a convolution. This allows it to be computed using standard FFTs, often by zero-padding to a [power of two](/Power_of_two). The identity used is:
+
+$$ nk = - \frac{(k-n)^2}{2} + \frac{n^2}{2} + \frac{k^2}{2} $$
+
+The [hexagonal fast Fourier transform](/Hexagonal_fast_Fourier_transform) (HFFT) is designed for hexagonally sampled data, employing a novel addressing scheme called Array Set Addressing (ASA) for efficiency.
+
+#### FFT algorithms specialized for real or symmetric data
+
+When the input data for the DFT is purely real, the output exhibits a specific symmetry: $X_{n-k} = X_k^*$. Specialized FFT algorithms exploit this property, roughly halving the computation time and memory requirements. One common method involves taking a standard algorithm and removing the redundant calculations. Another approach expresses an even-length real-input DFT as a complex DFT of half the length, followed by $O(n)$ post-processing.
+
+It was once thought that the [discrete Hartley transform](/Discrete_Hartley_transform) (DHT) offered a more efficient alternative for real-valued data. However, it's generally accepted now that specialized real-input DFT algorithms (FFTs) are typically more efficient. Bruun's algorithm was also proposed for real inputs but hasn't gained widespread adoption.
+
+Further optimizations exist for real data exhibiting [even/odd](/Even_and_odd_functions) symmetry. In such cases, the computation can be further reduced, essentially leading to [discrete cosine](/Discrete_cosine_transform) or [sine transforms](/Discrete_sine_transform) (DCT/DST). These can be computed either by directly modifying FFT algorithms or by using standard real-input FFTs with additional pre- and post-processing.
+
+### Computational issues
+
+#### Bounds on complexity and operation counts
+
+This is where things get… theoretical. The question of the absolute lower bound on the complexity of FFT algorithms remains an open problem in computer science. Can we do better than [O(N log N)](/Computational_complexity_theory)? While no one has definitively answered this, no known algorithms achieve better asymptotic complexity. The focus here is typically on the number of arithmetic operations, although real-world performance is influenced by factors like [cache](/Cache_(computing)) and [CPU pipeline](/CPU_pipeline) efficiency.
+
+[Shmuel Winograd](/Shmuel_Winograd) established in 1978 that a tight [Θ(n)](/Computational_complexity_theory) lower bound exists for the number of *real multiplications* required by an FFT. For power-of-two lengths ($n=2^m$), it's proven that only $4n - 2\log_2^2(n) - 2\log_2(n) - 4$ irrational real multiplications are needed. Explicit algorithms achieving this exist, but they demand an exorbitant number of additions, making them impractical on modern processors.
+
+The number of additions required remains less precisely bounded. While theoretical arguments suggest [Ω(n log n)](/Computational_complexity_theory) additions for certain classes of algorithms, a definitive, universally applicable lower bound is elusive. The Cooley–Tukey algorithm, for instance, requires $n \log_2 n$ complex-number additions (or their equivalent).
+
+Minimizing the *total* number of real multiplications and additions (arithmetic complexity) is another area of study. While no tight lower bound is proven, the [split-radix FFT algorithm](/Split-radix_FFT_algorithm) has historically offered a near-optimal balance, requiring approximately $4n \log_2 n - 6n + 8$ real multiplications and additions for $n>1$. Recent research has pushed this slightly lower, but the trade-offs remain.
+
+Most research has concentrated on the standard complex-data FFT, as it forms the basis for algorithms dealing with real data, DCTs, and DHTs. Improvements in one area often translate to others.
+
+#### Approximations
+
+While most FFT algorithms aim for exact computation (ignoring finite-precision errors), some algorithms trade a small amount of accuracy for speed or other benefits. These *approximate* FFTs can be useful in specific scenarios. For instance, algorithms by Edelman et al. and Guo and Burrus leverage methods like the [fast multipole method](/Fast_multipole_method) or [wavelets](/Wavelet) to achieve speedups, particularly for parallel computing or when dealing with sparse data. Algorithms for approximate computation of specific DFT outputs also exist. Edelman's approach is effective for both sparse and non-sparse data by exploiting the properties of the Fourier matrix itself. For truly sparse data, where only a few coefficients are non-zero, specialized algorithms can drastically reduce complexity.
+
+#### Accuracy
+
+When using finite-precision floating-point arithmetic, FFT algorithms do incur errors, but they are generally quite small. The Cooley–Tukey algorithm, in particular, exhibits good numerical properties due to its [pairwise summation](/Pairwise_summation) structure. The upper bound on the [relative error](/Relative_error) is typically $O(\varepsilon \log n)$, where $\varepsilon$ is the machine precision, significantly better than the $O(\varepsilon n^{3/2})$ bound for the naive DFT. However, the accuracy is highly dependent on the precise calculation of the [twiddle factors](/Twiddle_factor) (values of [trigonometric functions](/Trigonometric_function)). Inaccurate implementations, especially those using suboptimal recurrence formulas for trigonometric values, can lead to much worse accuracy. Some FFT variants, like the Rader–Brenner algorithm, are inherently less stable.
+
+In [fixed-point arithmetic](/Fixed-point_arithmetic), the error accumulation is more pronounced, growing as $O(\sqrt{n})$ for Cooley–Tukey. Achieving reasonable accuracy in fixed-point requires careful scaling at each stage of the decomposition.
+
+To verify the correctness of an FFT implementation, a simple $O(n \log n)$ procedure exists that checks linearity, impulse-response, and time-shift properties using random inputs.
+
+### Multidimensional FFTs
+
+The multidimensional DFT, defined for arrays indexed by vectors, can be computed by applying a sequence of one-dimensional FFTs along each dimension. This "row-column" algorithm is the most common approach and maintains the overall [O(n log n)](/Computational_complexity_theory) complexity, where $n$ is the total number of data points. For instance, in two dimensions, you can perform FFTs on all rows, then on all columns of the resulting matrix.
+
+For higher dimensions, recursive grouping of dimensions can optimize for [cache](/Cache_(computing)) performance. While these variations are more complex, they still rely on a one-dimensional FFT as the base case and retain the [O(n log n)](/Computational_complexity_theory) complexity. Transposition between dimensions can also be crucial for memory access patterns, especially in [out-of-core](/Out-of-core) or distributed memory systems.
+
+Beyond the row-column method, other multidimensional FFT algorithms exist, such as the [vector-radix FFT algorithm](/Vector-radix_FFT_algorithm), which generalizes the Cooley–Tukey approach by dividing dimensions by a vector of radices. Polynomial transform algorithms, based on convolutions and polynomial products, are another class of multidimensional FFT methods.
+
+### Other generalizations
+
+Extensions of the FFT exist for more complex domains. For [spherical harmonics](/Spherical_harmonics) on the sphere $S^2$, algorithms with complexities ranging from $O(n^{5/2} \log n)$ to $O(n^2 \log n)$ have been developed. The [fast folding algorithm](/Fast_folding_algorithm) is analogous to the FFT but operates on binned waveforms, treating rotations as circular shifts.
+
+Algorithms for non-equispaced data, while not strictly computing the DFT (which requires uniform spacing), approximate related transforms, often referred to as non-uniform discrete Fourier transforms (NDFTs). These fall under the broader umbrella of [spectral estimation](/Spectral_estimation).
+
+### Applications
+
+The FFT is a cornerstone of modern signal processing, digital recording, and synthesis. Its ability to efficiently transform data into the [frequency domain](/Frequency_domain) has made frequency-based analysis and manipulation computationally feasible, on par with time- or space-domain operations. Key applications include:
+
+*   Fast algorithms for large-integer and polynomial multiplication.
+*   Efficient matrix-vector multiplication for structured matrices like [Toeplitz](/Toeplitz_matrix) and [circulant](/Circulant) matrices.
+*   Filtering algorithms, notably the [overlap–add](/Overlap%E2%80%93add_method) and [overlap–save](/Overlap%E2%80%93save_method) methods.
+*   Computation of [discrete cosine](/Discrete_cosine_transform) and [sine transforms](/Discrete_sine_transform) (DCT/DST), crucial for compression standards like [JPEG](/JPEG) and [MPEG](/MPEG)/[MP3](/MP3).
+*   Fast [Chebyshev approximation](/Chebyshev_approximation).
+*   Solving [difference equations](/Recurrence_relation).
+*   Calculating [isotopic distributions](/Mass_spectrometry).
+*   Modulation and demodulation in communication systems, particularly [orthogonal frequency-division multiplexing](/Orthogonal_frequency-division_multiplexing) (OFDM), prevalent in 5G, LTE, Wi-Fi, and DSL.
+
+### Alternatives
+
+The FFT is not universally the best tool. For signals with [non-stationary](/Non-stationary) frequency content – where frequencies change over time – the DFT's global frequency estimate can be a limitation. It assumes frequencies are constant throughout the signal, making it difficult to pinpoint transient features.
+
+In such cases, alternatives like the [short-time Fourier transform](/Short-time_Fourier_transform), [discrete wavelet transforms](/Discrete_wavelet_transform), or [discrete Hilbert transform](/Discrete_Hilbert_transform) are more appropriate. These methods offer localized frequency analysis, capturing both frequency and time information, making them suitable for analyzing dynamic signals.
+
+### Research areas
+
+#### Big FFTs
+
+The increasing scale of data in fields like astronomy has led to demands for FFTs of hundreds of thousands, even billions, of points. For projects like [WMAP](/WMAP) and [LIGO](/LIGO), handling such massive datasets that exceed main memory capacity necessitates the development of "out-of-core" FFTs, an active area of research.
+
+#### Approximate FFTs
+
+In applications like MRI, computing DFTs for non-uniformly spaced data is essential. Multipole-based approaches can provide approximate solutions efficiently, often with a manageable increase in runtime.
+
+#### [Group FFTs](/Fourier_transform_on_finite_groups)
+
+Leveraging [group representation theory](/Group_representation_theory), the FFT can be generalized to operate on functions defined on compact groups. Research is ongoing to find efficient algorithms for this change of basis, with potential applications in [spherical harmonic](/Spherical_harmonic) expansions, [Markov processes](/Markov_process), and robotics.
+
+#### [Quantum FFTs](/Quantum_Fourier_transform)
+
+Shor's algorithm for [integer factorization](/Integer_factorization) on a quantum computer utilizes a subroutine known as the quantum FFT. This algorithm, realized as a sequence of quantum gates, effectively implements a specific factorization of the Fourier matrix. Extensions and further exploration of these quantum algorithms are ongoing.
+
+### Language reference
+
+| Language          | Command/method     | Prerequisites                                |
+| :---------------- | :----------------- | :------------------------------------------- |
+| [R](/R_(programming_language))       | `stats::fft(x)`    | None                                         |
+| [Scilab](/Scilab)       | `fft(x)`           | None                                         |
+| [MATLAB](/MATLAB), [Octave](/GNU_Octave) | `fft(x)`           | None                                         |
+| [Python](/Python_(programming_language)) | `fft.fft(x)`       | [numpy](/Numpy) or [scipy](/Scipy)             |
+| [Mathematica](/Mathematica) | `Fourier[x]`       | None                                         |
+| [Fortran](/Fortran)     | `fftw_one(plan,in,out)` | [FFTW](/Fastest_Fourier_Transform_in_the_West) |
+| [Julia](/Julia_(programming_language)) | `fft(A [,dims])`   | [FFTW](/Fastest_Fourier_Transform_in_the_West) |
+| [Rust](/Rust_(programming_language))   | `fft.process(&mut x);` | rustfft                                      |
+| [Haskell](/Haskell)     | `dft x`            | fft                                          |
+
+### See also
+
+**FFT-related algorithms:**
+
+*   [Bit-reversal permutation](/Bit-reversal_permutation)
+*   [Goertzel algorithm](/Goertzel_algorithm) – computes individual terms of the discrete Fourier transform
+
+**FFT implementations:**
+
+*   FFTReal - a highly optimized C++ class by Dmitry Boldyrev.
+*   [ALGLIB](/ALGLIB) – a dual/GPL-licensed C++ and C# numerical analysis library.
+*   [FFTPACK](/FFTPACK) – a public domain Fortran FFT library.
+*   Architecture-specific libraries: Arm Performance Libraries, Intel Integrated Performance Primitives, Intel Math Kernel Library.
+*   PocketFFT for C++.
+
+**Other links:**
+
+*   [Odlyzko–Schönhage algorithm](/Odlyzko%E2%80%93Sch%C3%B6nhage_algorithm)
+*   [Schönhage–Strassen algorithm](/Sch%C3%B6nhage%E2%80%93Strassen_algorithm)
+*   [Butterfly diagram](/Butterfly_diagram)
+*   [Spectral music](/Spectral_music)
+*   [Spectrum analyzer](/Spectrum_analyzer)
+*   [Time series](/Time_series)
+*   [Fast Walsh–Hadamard transform](/Fast_Walsh%E2%80%93Hadamard_transform)
+*   [Generalized distributive law](/Generalized_distributive_law)
+*   [Least-squares spectral analysis](/Least-squares_spectral_analysis)
+*   [Multidimensional transform](/Multidimensional_transform)
+*   [Multidimensional discrete convolution](/Multidimensional_discrete_convolution)
+*   [Fast Fourier Transform Telescope](/Fast_Fourier_Transform_Telescope)
+
+#

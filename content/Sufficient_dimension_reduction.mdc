@@ -1,0 +1,489 @@
+---
+title: "Sufficient Dimension Reduction"
+description: "In statistics, sufficient dimension reduction (SDR) is a paradigm for analyzing data that combines the ideas of Dimension reduction with the concept of..."
+keywords: statistics, dimension reduction, sufficiency, regression analysis, scatterplot, computer program, matrix, rank, without loss of generality, space
+slug: "Sufficient_dimension_reduction"
+createdAt: "2025-12-29T07:23:20.490Z"
+updatedAt: "2025-12-29T07:23:20.490Z"
+contentType: "rewritten"
+aiProvider: "OpenRouter"
+aiModel: "nvidia/nemotron-3-nano-30b-a3b:free"
+previousArticleSlug: "Pontifical_university"
+previousArticleTitle: "Pontifical University"
+---
+
+# Sufficient dimension reduction
+
+In [statistics](/Statistics), sufficient dimension reduction (SDR) is a paradigm for analyzing data that combines the ideas of [Dimension reduction](/Dimension_reduction) with the concept of [sufficiency](/Sufficient_statistic).  The term was coined to capture the intuition that, when faced with a high‑dimensional vector of predictors **x**, one can often extract a much smaller collection of statistics that still preserves essentially all the information relevant to the response **y**.  In practice this means that the conditional distribution of **y** given the reduced statistics is identical to the conditional distribution of **y** given the full predictor vector.  In other words, the reduction is *sufficient* if no additional knowledge about **x** improves the prediction of **y** once the reduced representation is known.  
+
+The motivation for SDR is rooted in the observation that classical regression techniques become unwieldy — or even infeasible — when **p**, the dimension of **x**, grows large.  Early work in [regression analysis](/Regression_analysis) focused on estimating the conditional distribution of **y** given **x**, denoted **y | x**, and on summarizing that distribution in ways that are both interpretable and computationally tractable.  A *sufficient summary plot* is a graphical representation that contains exactly the same information as the full conditional distribution; when such a plot can be drawn in low dimensions, it provides a vivid visual intuition about the relationship between **y** and **x**.  
+
+## Graphical motivation
+
+In a regression setting, it is often useful to summarize the distribution of  
+
+\[
+y\mid {\textbf x}
+\]
+
+graphically.  For instance, one may consider a [scatterplot](/Scatterplot) of **y** versus one or more of the predictors or a linear combination of the predictors.  A scatterplot that contains all available regression information is called a sufficient summary plot.  
+
+When **x** is high‑dimensional, particularly when  
+
+\[
+p \ge 3
+\]
+
+, it becomes increasingly challenging to construct and visually interpret sufficiency summary plots without reducing the data.  Even three‑dimensional scatter plots must be viewed via a [computer program](/Computer_program), and the third dimension can only be visualized by rotating the coordinate axes.  However, if there exists a sufficient dimension reduction  
+
+\[
+R({\textbf x})
+\]
+
+with small enough dimension, a sufficient summary plot of **y** versus  
+
+\[
+R({\textbf x})
+\]
+
+may be constructed and visually interpreted with relative ease.  
+
+Hence sufficient dimension reduction allows for graphical intuition about the distribution of  
+
+\[
+y\mid {\textbf x}
+\]
+
+, which might not have otherwise been available for high‑dimensional data.  
+
+Most graphical methodology focuses primarily on dimension reduction involving linear combinations of **x**.  The rest of this article deals only with such reductions.  
+
+## Dimension reduction subspace
+
+Suppose  
+
+\[
+R({\textbf x}) = A^{T}{\textbf x}
+\]
+
+is a sufficient dimension reduction, where **A** is a  
+
+\[
+p \times k
+\]
+
+[matrix](/Matrix_(mathematics)) with [rank](/Rank_(linear_algebra))
+
+\[
+k \le p
+\]
+
+.  Then the regression information for  
+
+\[
+y\mid {\textbf x}
+\]
+
+can be inferred by studying the distribution of  
+
+\[
+y\mid A^{T}{\textbf x}
+\]
+
+, and the plot of **y** versus  
+
+\[
+A^{T}{\textbf x}
+\]
+
+is a sufficient summary plot.  
+
+[Without loss of generality](/Without_loss_of_generality), only the [space](/Vector_space) [spanned](/Linear_span) by the columns of **A** need be considered.  Let  
+
+\[
+\eta
+\]
+
+be a [basis](/Basis_(linear_algebra)) for the [column space](/Row_and_column_spaces) of **A**, and let the space spanned by  
+
+\[
+\eta
+\]
+
+be denoted by  
+
+\[
+\mathcal{S}(\eta)
+\].
+
+It follows from the definition of a sufficient dimension reduction that  
+
+\[
+F_{y\mid x}=F_{y\mid \eta^{T}x},
+\]
+
+where **F** denotes the appropriate [distribution function](/Cumulative_distribution_function).  Another way to express this property is  
+
+\[
+y \perp\!\!\!\perp {\textbf x}\mid \eta^{T}{\textbf x},
+\]
+
+or **y** is [conditionally independent](/Conditional_independence) of **x**, given  
+
+\[
+\eta^{T}{\textbf x}
+\].
+
+Then the subspace  
+
+\[
+\mathcal{S}(\eta)
+\]
+
+is defined to be a dimension reduction subspace (DRS) . [2]  
+
+## Structural dimensionality
+
+For a regression  
+
+\[
+y\mid {\textbf x}
+\]
+
+, the structural dimension ,  
+
+\[
+d
+\]
+
+, is the smallest number of distinct linear combinations of **x** necessary to preserve the conditional distribution of  
+
+\[
+y\mid {\textbf x}
+\].  
+
+In other words, the smallest dimension reduction that is still sufficient maps **x** to a subset of  
+
+\[
+\mathbb{R}^{d}
+\].  
+
+The corresponding DRS will be *d*‑dimensional. [2]  
+
+## Minimum dimension reduction subspace
+
+A subspace  
+
+\[
+\mathcal{S}
+\]
+
+is said to be a minimum DRS for  
+
+\[
+y\mid {\textbf x}
+\]
+
+if it is a DRS and its dimension is less than or equal to that of all other DRSs for  
+
+\[
+y\mid {\textbf x}
+\].  
+
+A minimum DRS  
+
+\[
+\mathcal{S}
+\]
+
+is not necessarily unique, but its dimension is equal to the structural dimension  
+
+\[
+d
+\]
+
+of  
+
+\[
+y\mid {\textbf x}
+\]
+
+, by definition. [2]  
+
+If  
+
+\[
+\mathcal{S}
+\]
+
+has basis  
+
+\[
+\eta
+\]
+
+and is a minimum DRS, then a plot of **y** versus  
+
+\[
+\eta^{T}{\textbf x}
+\]
+
+is a minimal sufficient summary plot , and it is (*d* + 1)‑dimensional.  
+
+## Central subspace
+
+If a subspace  
+
+\[
+\mathcal{S}
+\]
+
+is a DRS for  
+
+\[
+y\mid {\textbf x}
+\]
+
+, and if  
+
+\[
+\mathcal{S} \subset \mathcal{S}_{\text{drs}}
+\]
+
+for all other DRSs  
+
+\[
+\mathcal{S}_{\text{drs}}
+\],
+
+then it is a central dimension reduction subspace , or simply a central subspace , and it is denoted by  
+
+\[
+\mathcal{S}_{y\mid x}
+\].
+
+In other words, a central subspace for  
+
+\[
+y\mid {\textbf x}
+\]
+
+exists [if and only if](/If_and_only_if) the intersection  
+
+\[
+\bigcap \mathcal{S}_{\text{drs}}
+\]
+
+of all dimension reduction subspaces is also a dimension reduction subspace, and that intersection is the central subspace  
+
+\[
+\mathcal{S}_{y\mid x}
+\].  
+
+[2]  
+
+The central subspace  
+
+\[
+\mathcal{S}_{y\mid x}
+\]
+
+does not necessarily exist because the intersection  
+
+\[
+\bigcap \mathcal{S}_{\text{drs}}
+\]
+
+is not necessarily a DRS.  However, if  
+
+\[
+\mathcal{S}_{y\mid x}
+\]
+
+does exist, then it is also the unique minimum dimension reduction subspace.  
+
+## Existence of the central subspace
+
+While the existence of the central subspace  
+
+\[
+\mathcal{S}_{y\mid x}
+\]
+
+is not guaranteed in every regression situation, there are some rather broad conditions under which its existence follows directly.  For example, consider the following proposition from Cook (1998):
+
+Let  
+
+\[
+\mathcal{S}_{1}
+\]
+
+and  
+
+\[
+\mathcal{S}_{2}
+\]
+
+be dimension reduction subspaces for  
+
+\[
+y\mid {\textbf x}
+\].
+
+If **x** has [density](/Probability_density_function)
+
+\[
+f(a)>0
+\]
+
+for all  
+
+\[
+a\in\Omega_{x}
+\]
+
+and  
+
+\[
+f(a)=0
+\]
+
+everywhere else, where  
+
+\[
+\Omega_{x}
+\]
+
+is [convex](/Convex_set), then the intersection  
+
+\[
+\mathcal{S}_{1}\cap\mathcal{S}_{2}
+\]
+
+is also a dimension reduction subspace.
+
+It follows from this proposition that the central subspace  
+
+\[
+\mathcal{S}_{y\mid x}
+\]
+
+exists for such **x**. [2]  
+
+## Methods for dimension reduction
+
+There are many existing methods for dimension reduction, both graphical and numeric.  For example, [sliced inverse regression](/Sliced_inverse_regression) (SIR) and sliced average variance estimation (SAVE) were introduced in the 1990s and continue to be widely used. [3]  Although SIR was originally designed to estimate an effective dimension [reducing subspace] , it is now understood that it estimates only the central subspace, which is generally different.  
+
+More recent methods for dimension reduction include [likelihood](/Likelihood_function)-based sufficient dimension reduction, [4] estimating the central subspace based on the inverse third [moment](/Moment_(mathematics)) (or *k*‑th moment), [5] estimating the central solution space, [6] graphical regression, [2] envelope model, and the principal [support vector machine](/Support_vector_machine). [7]  For more details on these and other methods, consult the statistical literature.  
+
+[Principal components analysis](/Principal_components_analysis) (PCA) and similar methods for dimension reduction are not based on the sufficiency principle.  
+
+## Example: linear regression
+
+Consider the regression model  
+
+\[
+y = \alpha + \beta^{T}{\textbf x} + \varepsilon ,
+\]
+
+where  
+
+\[
+\varepsilon \perp\!\!\!\perp {\textbf x}.
+\]
+
+Note that the distribution of  
+
+\[
+y\mid {\textbf x}
+\]
+
+is the same as the distribution of  
+
+\[
+y\mid \beta^{T}{\textbf x}.
+\]
+
+Hence, the span of  
+
+\[
+\beta
+\]
+
+is a dimension reduction subspace.  Also,
+
+\[
+\beta^{T}{\textbf x}
+\]
+
+is 1‑dimensional (unless  
+
+\[
+\beta = 0
+\]),
+
+so the structural dimension of this regression is  
+
+\[
+d = 1.
+\]
+
+The [OLS](/Ordinary_least_squares) estimate  
+
+\[
+\hat{\beta}
+\]
+
+of  
+
+\[
+\beta
+\]
+
+is [consistent](/Consistent_estimator), and so the span of  
+
+\[
+\hat{\beta}
+\]
+
+is a consistent estimator of  
+
+\[
+\mathcal{S}_{y\mid x}.
+\]
+
+The plot of **y** versus  
+
+\[
+\hat{\beta}^{T}{\textbf x}
+\]
+
+is a sufficient summary plot for this regression.  
+
+## See also
+
+• [Dimension reduction](/Dimension_reduction)
+
+• [Sliced inverse regression](/Sliced_inverse_regression)
+
+• [Principal component analysis](/Principal_component_analysis)
+
+• [Linear discriminant analysis](/Linear_discriminant_analysis)
+
+• [Curse of dimensionality](/Curse_of_dimensionality)
+
+• [Multilinear subspace learning](/Multilinear_subspace_learning)
+
+## Notes
+
+• ^ a b Cook & Adragni (2009) Sufficient Dimension Reduction and Prediction in Regression In: Philosophical Transactions of the Royal Society A: Mathematical, Physical and Engineering Sciences , 367(1906): 4385–4405
+
+• ^ a b c d e f g Cook, R.D. (1998) Regression Graphics: Ideas for Studying Regressions Through Graphics , Wiley [ISBN](/ISBN_(identifier)) 0471193658
+
+• ^ Li, K‑C. (1991) Sliced Inverse Regression for Dimension Reduction In: [Journal of the American Statistical Association](/Journal_of_the_American_Statistical_Association) , 86(414): 316–327
+
+• ^ Cook, R.D. and [Forzani, L.](/Liliana_Forzani) (2009) "Likelihood‑Based Sufficient Dimension Reduction", [Journal of the American Statistical Association](/Journal_of_the_American_Statistical_Association) , 104(485): 197–208
+
+• ^ Yin, X. and Cook, R.D. (2003) Estimating Central Subspaces via Inverse Third Moments In: [Biometrika](/Biometrika) , 90(1): 113–125
+
+• ^ Li, Bing; Artemiou, Andreas; Li, Lexin (2011). "Principal support vector machines for linear and nonlinear sufficient dimension reduction". The Annals of Statistics . 39 (6): 3182–3210. [arXiv](/ArXiv_(identifier)):1203.2790. [doi](/Doi_(identifier)) 10.1214/11-AOS932. [S2CID](/S2CID_(identifier)) 88519106.

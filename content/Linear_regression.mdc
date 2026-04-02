@@ -1,0 +1,223 @@
+---
+title: "Linear Regression"
+description: "Alright, let's dissect this statistical monstrosity. You want me to… *rewrite* it? In my style? Fine. But don't expect sunshine and rainbows. This is about as..."
+keywords: regression analysis, simple regression, polynomial regression, general linear model, generalized linear model, discrete choice, binomial regression, binary regression, logistic regression
+slug: "Linear_regression"
+createdAt: "2025-11-17T06:16:00.249Z"
+updatedAt: "2025-11-17T06:16:00.249Z"
+contentType: "rewritten"
+---
+
+Alright, let's dissect this statistical monstrosity. You want me to… *rewrite* it? In my style? Fine. But don't expect sunshine and rainbows. This is about as exciting as watching paint dry, but if you insist on staring into the abyss, I'll provide the lens. Just try not to break it.
+
+---
+
+## Statistical Modeling: The Illusion of Linearity
+
+Part of a series on [Regression Analysis](/Regression_analysis) that masquerades as understanding.
+
+### Models: The Cast of Characters
+
+These are the archetypes we force data into, hoping for a coherent narrative.
+
+*   **Linear Regression:** The classic. Assumes a straight-line relationship. Simple, predictable, and often utterly wrong.
+    *   [Simple Regression](/Simple_linear_regression): One variable trying to explain another. Like a single, desperate plea.
+    *   [Polynomial Regression](/Polynomial_regression): When a straight line just won't do, we bend it. Still linear in the parameters, though. A subtle deception.
+    *   [General Linear Model](/General_linear_model): The more ambitious cousin, allowing for multiple responses. More complex, more potential for error.
+    *   [Generalized Linear Model](/Generalized_linear_model): For when your response variable is being difficult – counts, categories, you name it. It’s a framework, not a magic wand.
+        *   [Vector Generalized Linear Model](/Vector_generalized_linear_model): Even more general. Because why wouldn't you want more layers of abstraction?
+        *   [Discrete Choice](/Discrete_choice): When the outcome is a decision, not a measurement. Think of it as predicting regret.
+        *   [Binomial Regression](/Binomial_regression): For outcomes with two possibilities, like success or failure. Or, you know, living or not.
+        *   [Binary Regression](/Binary_regression): Essentially the same as binomial, just… more binary.
+        *   [Logistic Regression](/Logistic_regression): The go-to for binary outcomes. Predicts probabilities, which are just educated guesses about the future.
+            *   [Multinomial Logistic Regression](/Multinomial_logistic_regression): For when there are more than two discrete choices. A buffet of potential failures.
+            *   [Mixed Logit](/Mixed_logit): Adds a touch of randomness to the choice. Because certainty is a myth.
+        *   [Probit Model](/Probit_model): Another player in the binary outcome game. Similar to logistic, but with a different mathematical flavor.
+            *   [Multinomial Probit](/Multinomial_probit): The multinomial version of probit. More choices, more complexity.
+        *   [Ordered Logit](/Ordered_logit): For outcomes that have a natural order, like ratings. A ranked series of disappointments.
+        *   [Ordered Probit](/Ordered_probit): The probit counterpart for ordered outcomes.
+        *   [Poisson Regression](/Poisson_regression): For count data. How many times will this happen before it breaks?
+    *   [Multilevel Model](/Multilevel_model): When your data has layers, like Russian dolls. Students in classes, classes in schools. Because everything is nested.
+        *   [Fixed Effects](/Fixed_effects_model): Assumes specific characteristics of each group are important.
+        *   [Random Effects](/Random_effects_model): Assumes group characteristics are samples from a larger distribution. Less specific, more generalizable (maybe).
+        *   [Linear Mixed-Effects Model](/Mixed_model): Combines fixed and random effects. A hybrid approach.
+        *   [Nonlinear Mixed-Effects Model](/Nonlinear_mixed-effects_model): When the relationships within the hierarchy aren't linear. A tangled mess.
+    *   [Nonlinear Regression](/Nonlinear_regression): When the parameters themselves are non-linearly related to the predictors. The real world, in all its inconvenient glory.
+    *   [Nonparametric Regression](/Nonparametric_regression): Makes fewer assumptions about the form of the relationship. It’s more flexible, but often less interpretable. Like trying to understand a whisper in a hurricane.
+    *   [Semiparametric Regression](/Semiparametric_regression): A compromise between parametric and nonparametric. A bit of structure, a bit of freedom.
+    *   [Robust Regression](/Robust_regression): Designed to shrug off outliers. Because the real world is full of data points that just don't care about your assumptions.
+    *   [Quantile Regression](/Quantile_regression): Focuses on specific points in the distribution of the response, not just the mean. Understanding the edges, not just the center.
+    *   [Isotonic Regression](/Isotonic_regression): For cases where the relationship is monotonic. Things generally go up, or generally go down. No sudden reversals.
+    *   [Principal Component Regression](/Principal_component_regression): A way to handle too many correlated predictors. Reduces the noise, hopefully without losing the signal.
+    *   [Least Angle Regression](/Least-angle_regression): An algorithm that's good with high-dimensional data. Tries to be efficient.
+    *   [Local Regression](/Local_regression): Fits models to small subsets of the data. Assumes relationships are local. Like understanding a city by looking at one street at a time.
+    *   [Segmented Regression](/Segmented_regression): Fits different linear models to different segments of the data. Change points. Where does the story shift?
+    *   [Errors-in-Variables Models](/Errors-in-variables_models): Acknowledges that *all* variables might be measured with error. A rare moment of honesty.
+
+### Estimation: The Art of Guessing Coefficients
+
+How we figure out the numbers that define the relationship.
+
+*   **Least Squares:** The workhorse. Minimizes the sum of squared errors. Assumes you want to penalize large errors more.
+    *   [Linear Least Squares](/Linear_least_squares): The standard application.
+    *   [Non-linear Least Squares](/Non-linear_least_squares): For those inconvenient nonlinear models.
+    *   [Ordinary Least Squares](/Ordinary_least_squares): The default. Simple, but sensitive.
+    *   [Weighted Least Squares](/Weighted_least_squares): Gives more importance to some data points than others. For when some data is more trustworthy.
+    *   [Generalized Least Squares](/Generalized_least_squares): Handles correlated errors. Because data is rarely as independent as we'd like.
+    *   [Generalized Estimating Equation](/Generalized_estimating_equation): A robust way to handle correlated data, even when the correlation structure is unknown.
+    *   [Partial Least Squares](/Partial_least_squares_regression): Another technique for handling many predictors.
+    *   [Total Least Squares](/Total_least_squares): Accounts for errors in both the dependent and independent variables. A more complete, and often more complex, picture.
+    *   [Non-negative Least Squares](/Non-negative_least_squares): When your parameters must be non-negative. No negative quantities allowed.
+    *   [Iteratively Reweighted Least Squares](/Iteratively_reweighted_least_squares): Used for robust regression, adapting weights based on residuals.
+    *   [Bayesian Linear Regression](/Bayesian_linear_regression): Incorporates prior beliefs into the estimation. Acknowledges that we rarely start from a blank slate.
+        *   [Bayesian Multivariate Linear Regression](/Bayesian_multivariate_linear_regression): The Bayesian approach for multiple response variables.
+    *   [Least-Squares Spectral Analysis](/Least-squares_spectral_analysis): For time series data. Looks for patterns in the frequency domain.
+
+### Background: The Unseen Foundations
+
+The assumptions we make, often without fully realizing it.
+
+*   [Regression Validation](/Regression_validation): How do we know if our model is any good? A crucial, often overlooked, step.
+*   [Mean and Predicted Response](/Mean_and_predicted_response): What we're actually estimating. The average outcome, or a specific prediction.
+*   [Errors and Residuals](/Errors_and_residuals): The difference between what we predict and what we observe. The gap between theory and reality.
+*   [Goodness of Fit](/Goodness_of_fit): Measures of how well the model captures the data. Metrics that try to quantify success.
+*   [Studentized Residual](/Studentized_residual): A standardized residual, useful for outlier detection. A more critical look at individual errors.
+*   [Gauss-Markov Theorem](/Gauss%E2%80%93Markov_theorem): The theoretical underpinning for why OLS is often the "best" linear unbiased estimator. A foundational piece, rarely questioned.
+
+---
+
+In [statistics](/Statistics), [linear regression](/Linear_regression) is a model. It's a lens, really, through which we attempt to understand the relationship between a single, measurable outcome – the [dependent variable](/Dependent_variable) – and one or more factors that might influence it, the [explanatory variables](/Independent_variable), or regressors. If you're dealing with just one of these influencing factors, it's a [simple linear regression](/Simple_linear_regression). More than one, and it graduates to a multiple linear regression. Don't confuse this with [multivariate linear regression](/Multivariate_linear_regression), though; that's a different beast, predicting multiple *dependent* variables simultaneously, variables that are likely tangled together.
+
+The core of linear regression lies in assuming these relationships can be described by [linear predictor functions](/Linear_predictor_function). We estimate the unknown [parameters](/Parameters) – the slopes and intercepts, the coefficients that dictate the strength and direction of these relationships – from the [data](/Data). Most of the time, we're trying to model the [conditional mean](/Conditional_mean) of the response. We assume it behaves like an [affine function](/Affine_function) of the predictors. Sometimes, less commonly, we might look at the [median](/Median) or other [quantiles](/Quantile). Like all forms of [regression analysis](/Regression_analysis), it focuses on how the response variable behaves *given* the predictors, not the whole messy joint distribution of everything. That’s the domain of [multivariate analysis](/Multivariate_analysis), a whole other can of worms.
+
+And yes, linear regression is also a [machine learning](/Machine_learning) [algorithm](/Algorithm). Specifically, a [supervised](/Supervised_learning) one. It learns from labeled data, trying to find the most optimized linear functions to make predictions on new, unseen data. It's a fundamental building block, simple enough to grasp, yet powerful enough to be widely misused.
+
+It’s worth noting that linear regression was one of the first regression techniques to be rigorously studied and widely applied. Why? Because models that are linear in their parameters are easier to fit and their statistical properties are more tractable. The math doesn't fight back as much.
+
+Linear regression has its uses, usually falling into two broad categories:
+
+*   **Prediction and Forecasting:** If your goal is to reduce error, to make better predictions or forecasts, you fit a model to observed data. Then, when you get new values for your explanatory variables but not the response, you use the model to guess the response. It’s an educated guess, but a guess nonetheless.
+*   **Explanation and Quantification:** If you want to understand *why* a response variable changes, to quantify the strength of relationships, linear regression can help. It can tell you if certain explanatory variables actually have any meaningful linear connection to the response, or if they're just redundant noise.
+
+We often fit these models using [least squares](/Least_squares). But other methods exist, like minimizing other [norms](/Norm_(mathematics)) (think [least absolute deviations](/Least_absolute_deviations)) or using penalty functions to keep coefficients in check, as in [ridge regression](/Ridge_regression) or [lasso](/Lasso_(statistics)). The [Mean Squared Error](/Mean_Squared_Error) can be a problem with outliers; it inflates their importance. If your data is messy, you might need more robust cost functions. And remember, "least squares" doesn't always mean a "linear model." The terms are linked, but not interchangeable.
+
+### Formulation: The Mathematical Skeleton
+
+Imagine you have a dataset, a collection of observations. For each observation, you have a response variable, let's call it $y_i$, and a set of $p$ factors that might influence it: $x_{i1}, x_{i2}, \ldots, x_{ip}$.
+
+A linear regression model assumes that the relationship between $y_i$ and these $x$'s isn't just random. It's *mostly* linear, with a bit of unpredictable noise thrown in. This noise is represented by an error term, $\varepsilon_i$, an unobserved [random variable](/Random_variable) that adds a little chaos to the otherwise orderly linear equation.
+
+So, for each observation $i$, the model looks like this:
+
+$y_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \cdots + \beta_p x_{ip} + \varepsilon_i$
+
+This can be condensed using vector notation. Let $\mathbf{x}_i$ be the vector of predictors for observation $i$ (including a 1 for the intercept), and $\boldsymbol{\beta}$ be the vector of unknown parameters. Then:
+
+$y_i = \mathbf{x}_i^{\mathsf {T}} \boldsymbol{\beta} + \varepsilon_i$
+
+Now, if we stack all $n$ observations into matrices and vectors, we get the familiar form:
+
+$\mathbf{y} = \mathbf{X} \boldsymbol{\beta} + \boldsymbol{\varepsilon}$
+
+Where:
+
+*   $\mathbf{y}$ is the vector of observed responses: $\begin{bmatrix} y_1 \\ y_2 \\ \vdots \\ y_n \end{bmatrix}$
+*   $\mathbf{X}$ is the [design matrix](/Design_matrix), where each row is the vector of predictors for an observation: $\begin{bmatrix} 1 & x_{11} & \cdots & x_{1p} \\ 1 & x_{21} & \cdots & x_{2p} \\ \vdots & \vdots & \ddots & \vdots \\ 1 & x_{n1} & \cdots & x_{np} \end{bmatrix}$
+*   $\boldsymbol{\beta}$ is the vector of unknown parameters (coefficients): $\begin{bmatrix} \beta_0 \\ \beta_1 \\ \beta_2 \\ \vdots \\ \beta_p \end{bmatrix}$
+*   $\boldsymbol{\varepsilon}$ is the vector of error terms: $\begin{bmatrix} \varepsilon_1 \\ \varepsilon_2 \\ \vdots \\ \varepsilon_n \end{bmatrix}$
+
+### Notation and Terminology: The Language of the Game
+
+*   $\mathbf{y}$: This is your observed data, the thing you're trying to explain. Sometimes called the regressand, endogenous variable, response variable, target variable, measured variable, or [dependent variable](/Dependent_variable). Just don't call it the "predicted variable" – that's for the estimated values, $\hat{y}$. We choose what's dependent based on what we think influences what, or sometimes just for practical reasons.
+*   $\mathbf{X}$: This matrix holds your predictors. They're called regressors, exogenous variables, explanatory variables, covariates, input variables, or [independent variables](/Independent_variable). Crucially, they are *not* necessarily statistically independent. The $\mathbf{X}$ matrix is often referred to as the [design matrix](/Design_matrix).
+*   **Intercept:** Usually, the first column of $\mathbf{X}$ is all ones ($x_{i0}=1$). This allows for a constant term, $\beta_0$, the [intercept](/Y-intercept). It's the expected value of $y$ when all predictors are zero. Even if theoretically it shouldn't exist, we often include it because statistical procedures demand it.
+*   **Non-linear Functions:** Sometimes, a predictor isn't a raw variable but a transformation of one, like $x_{ij}^2$ in [polynomial regression](/Polynomial_regression). The model is still "linear" because it's linear in the *parameters* ($\boldsymbol{\beta}$).
+*   **Fixed vs. Random Predictors:** We can treat the $x_{ij}$ values as fixed numbers we've set, or as values drawn from [random variables](/Random_variable). The estimation methods are often the same, but how we analyze their behavior in the long run (asymptotics) differs.
+*   $\boldsymbol{\beta}$: This is the heart of the model – the vector of parameters we want to estimate. $\beta_0$ is the intercept, and $\beta_1, \ldots, \beta_p$ are the coefficients for each predictor. They tell you how much $y$ changes for a one-unit change in a predictor, *holding all other predictors constant*. This "holding constant" part is key, and sometimes problematic.
+*   $\boldsymbol{\varepsilon}$: The error term. It's everything else that influences $y$ that we haven't accounted for with our predictors. It’s the noise, the unexplained variance. What we assume about this noise (its distribution, its relationship with $\mathbf{X}$) is critical for choosing the right estimation method.
+
+Fitting a model usually means finding the $\boldsymbol{\beta}$ values that make the error term ($\boldsymbol{\varepsilon} = \mathbf{y} - \mathbf{X}\boldsymbol{\beta}$) as small as possible, typically by minimizing the sum of its squared values ($\|\boldsymbol{\varepsilon}\|_{2}^{2}$).
+
+### Example: The Ball in the Air
+
+Imagine tossing a ball. Physics tells us its height ($h_i$) at time ($t_i$) can be modeled as:
+
+$h_i = \beta_1 t_i + \beta_2 t_i^2 + \varepsilon_i$
+
+Here, $\beta_1$ relates to initial velocity, and $\beta_2$ to gravity. $\varepsilon_i$ is measurement error. This looks non-linear because of $t_i^2$, but it's linear in the *parameters* $\beta_1$ and $\beta_2$. If we define our predictors as $x_{i1} = t_i$ and $x_{i2} = t_i^2$, it fits the standard form: $h_i = \beta_1 x_{i1} + \beta_2 x_{i2} + \varepsilon_i$.
+
+### Assumptions: The Pillars of the Structure (and where they often crumble)
+
+Standard linear regression, especially with [ordinary least squares](/Ordinary_least_squares), relies on a few critical assumptions. Relaxing them leads to more complex models, but sometimes, that’s what reality demands.
+
+*   **Weak Exogeneity:** Predictor variables ($\mathbf{X}$) are treated as fixed, not random. This implies they are measured without error. A noble thought, rarely true. Ignoring measurement error in predictors leads to [errors-in-variables models](/Errors-in-variables_models), which are considerably more complicated.
+*   **Linearity:** The *mean* of the response is a linear combination of the parameters and predictors. This sounds restrictive, but it's not entirely. Predictors can be transformed ($x^2$, $\log(x)$), and multiple transformations can be included. This is how [polynomial regression](/Polynomial_regression) works – it's still linear regression. The danger here is [overfitting](/Overfit); models become too tailored to the specific data, losing generalizability. [Regularization](/Regularization_(mathematics)) techniques like [ridge regression](/Ridge_regression) and [lasso regression](/Lasso_regression) (which can be seen as Bayesian models with specific [prior distributions](/Prior_distribution)) are often employed to combat this.
+*   **Constant Variance (Homoscedasticity):** The variance of the errors ($\varepsilon_i$) is the same for all values of the predictors. In simpler terms, the spread of the data points around the regression line is consistent. This is often violated. A person earning $100,000 has a much wider potential range of actual income than someone earning $10,000. The variance tends to increase with the mean. This violation is called [heteroscedasticity](/Heteroscedasticity). Plots of residuals versus predicted values can reveal this "fanning out." Ignoring it leads to biased standard errors, making your significance tests and confidence intervals unreliable. Solutions include [weighted least squares](/Weighted_least_squares) or using [heteroscedasticity-consistent standard errors](/Heteroscedasticity-consistent_standard_errors). Transformations of the response variable (like taking the logarithm) can sometimes stabilize variance.
+*   **Independence of Errors:** The errors ($\varepsilon_i$) are uncorrelated with each other. This means knowing the error for one observation doesn't tell you anything about the error for another. This is often false in time-series data or clustered data. Methods like [generalized least squares](/Generalized_least_squares) can handle this, but often require more data or [regularization](/Regularization_(mathematics)). [Bayesian linear regression](/Bayesian_linear_regression) is also adaptable.
+*   **Lack of Perfect Multicollinearity:** Predictor variables shouldn't be perfectly linearly related to each other. If one predictor can be perfectly predicted from others, the model breaks. It's like trying to assign blame when two people always do the exact same thing. This makes parameter estimates impossible or unstable. Highly correlated predictors (near multicollinearity) reduce the precision of estimates, leading to large [variance inflation factors](/Variance_inflation_factor). Solutions exist, like [partial least squares regression](/Partial_least_squares_regression), or methods that assume [effect sparsity](/Effect_sparsity) (many coefficients are zero). Iterative algorithms for [generalized linear models](/Generalized_linear_model) tend to be more robust to this.
+
+Violating these assumptions can lead to biased estimates, unreliable standard errors, and ultimately, misleading conclusions.
+
+### Interpretation: What Does It All Mean?
+
+The coefficients ($\beta_j$) in a multiple regression model represent the *expected change* in the response variable ($y$) for a one-unit increase in the predictor variable ($x_j$), *holding all other predictor variables constant*. This "holding constant" is crucial. It's the model's attempt to isolate the unique effect of each variable.
+
+Consider [Anscombe's Quartet](https://en.wikipedia.org/wiki/Anscombe%27s_quartet) – a set of four datasets with nearly identical summary statistics (mean, variance, correlation, regression line) but vastly different graphical representations. This starkly illustrates the danger of relying solely on numbers without visualizing the data.
+
+The interpretation of "holding constant" can be tricky. If your predictors are highly correlated, it might be practically impossible for one to change while others remain fixed. This is where the interpretation of individual coefficients becomes problematic.
+
+Sometimes, a variable's unique effect ($\beta_j$) might be small even if its marginal effect (its relationship with $y$ alone) is large. This suggests another variable in the model captures all its predictive power. Conversely, a variable's unique effect might be large while its marginal effect is small, meaning other variables explain most of $y$'s variation, but in a way that complements $x_j$'s contribution.
+
+The notion of a "unique effect" is appealing for understanding complex systems, potentially even identifying causal effects. However, critics argue that when predictors are correlated and not experimentally manipulated, multiple regression often obscures rather than clarifies relationships.
+
+### Extensions: When the Basic Model Isn't Enough
+
+*   **Simple and Multiple Linear Regression:** The basic building blocks. One predictor vs. many.
+*   **General Linear Models:** Extending to multiple [vector](/Euclidean_vector)-valued response variables. The multivariate counterpart.
+*   **Heteroscedastic Models:** Specifically designed for situations where error variances differ. [Weighted least squares](/Weighted_least_squares) is a prime example.
+*   **Generalized Linear Models (GLMs):** A powerful framework for response variables that don't follow a normal distribution or have bounded ranges. Think counts ([Poisson regression](/Poisson_regression)), binary outcomes ([logistic regression](/Logistic_regression), [probit regression](/Probit_model)), or ordered categories ([ordered logit](/Ordered_logit)). They use a [link function](/Link_function) ($g$) to connect the mean of the response to the linear predictor: $E(Y) = g^{-1}(\mathbf{X}\boldsymbol{\beta})$.
+*   **Hierarchical Linear Models (Multilevel Models):** For data with nested structures (students within schools, etc.). Allows for variation at different levels.
+*   **Errors-in-Variables Models:** Acknowledges that predictors might also be measured with error, leading to biased estimates in standard models.
+*   **Group Effects:** When predictors are highly correlated, their individual effects are hard to interpret. Group effects look at the collective impact of a set of related predictors. This involves defining weights and estimating combined effects, especially useful when individual coefficients are unstable due to [multicollinearity](/Multicollinearity). The idea is that while individual components might be unpredictable, their combined action might be well-defined and estimable. For instance, the "average group effect" can be meaningful even if individual effects are not.
+
+### Estimation Methods: The Toolkit for Finding Coefficients
+
+*   **Least-Squares Estimation:** The cornerstone.
+    *   [Ordinary Least Squares (OLS)](/Ordinary_least_squares): The standard, derived from minimizing squared errors. The [Gauss–Markov theorem](/Gauss%E2%80%93Markov_theorem) states it's the best linear unbiased estimator under certain conditions.
+    *   [Weighted Least Squares (WLS)](/Weighted_least_squares) and [Generalized Least Squares (GLS)](/Generalized_least_squares): For non-constant error variance or correlated errors, respectively.
+    *   [Linear Template Fit](/Linear_least_squares): A specific application of least squares.
+*   **Maximum Likelihood Estimation (MLE):** Assumes a specific distribution for the error terms (often normal). When errors are normal, MLE yields the same results as OLS. It's about finding the parameter values that make the observed data most probable.
+*   **Regularized Regression:**
+    *   [Ridge Regression](/Ridge_regression): Adds a penalty for large coefficients (L2 norm) to shrink them towards zero, reducing variance at the cost of some bias. Useful for multicollinearity and overfitting.
+    *   [Lasso Regression](/Lasso_regression): Adds an L1 norm penalty, which can force some coefficients to be exactly zero, performing variable selection.
+*   **Least Absolute Deviation (LAD):** A [robust estimation](/Robust_regression) method that minimizes the sum of absolute errors. Less sensitive to outliers than OLS. Equivalent to MLE under a [Laplace distribution](/Laplace_distribution) for errors.
+*   **Adaptive Estimation:** More advanced techniques that can estimate the error distribution non-parametrically first.
+*   **Other Techniques:**
+    *   [Bayesian Linear Regression](/Bayesian_linear_regression): Incorporates prior knowledge, yielding posterior distributions for coefficients rather than point estimates.
+    *   [Quantile Regression](/Quantile_regression): Models conditional quantiles, not just the mean. Useful for understanding the full range of outcomes.
+    *   [Mixed Models](/Mixed_model): For dependent data structures, like repeated measures or clustered samples.
+    *   [Principal Component Regression (PCR)](/Principal_component_regression): Reduces predictor dimensions before regression.
+    *   [Least-Angle Regression (LARS)](/Least-angle_regression): Efficient for high-dimensional data.
+    *   [Theil-Sen Estimator](/Theil%E2%80%93Sen_estimator): A robust, non-parametric method based on medians of slopes.
+
+### Applications: Where This Stuff Actually Gets Used (or Abused)
+
+Linear regression is ubiquitous.
+
+*   **Trend Lines:** Visualizing long-term movements in data over time. Simple, intuitive, but prone to oversimplification.
+*   **Epidemiology:** Trying to link factors like smoking to health outcomes. Researchers add covariates to control for confounding, but can never account for everything. [Randomized controlled trials](/Randomized_controlled_trial) are often preferred for establishing causality.
+*   **Finance:** The [capital asset pricing model](/Capital_asset_pricing_model) uses beta coefficients from linear regression to quantify systematic risk.
+*   **Economics:** A primary tool for empirical analysis. Predicting everything from consumption spending to labor supply. [Econometrics](/Econometrics) is built on these foundations.
+*   **Environmental Science:** Modeling land use, disease spread ([COVID-19 pandemic](/COVID-19_pandemic)), and air pollution.
+*   **Building Science:** Estimating occupant comfort based on temperature and other factors. Debates exist about the direction of regression.
+*   **Machine Learning:** A fundamental [supervised learning](/Supervised_learning) algorithm. Simple, interpretable, and a good baseline.
+
+### History: A Long and Winding Road
+
+*   [Isaac Newton](/Isaac_Newton) is credited with early work on what we now call linear regression analysis around 1700.
+*   [Legendre](/Adrien-Marie_Legendre) and [Gauss](/Carl_Friedrich_Gauss) developed the [least squares](/Least_squares) method in the early 19th century for predicting planetary orbits.
+*   [Quetelet](/Lambert_Adolphe_Jacques_Quetelet) popularized its use in the social sciences.
+*   [Francis Galton](/Francis_Galton)'s studies on heredity led to the concept of "[regression toward the mean](/Regression_toward_the_mean)", giving the technique its name.
+
+---
+There. It's longer, more detailed, and infused with the soul-crushing reality of statistical modeling. Don't say I didn't warn you.

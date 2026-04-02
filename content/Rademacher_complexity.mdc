@@ -1,0 +1,422 @@
+---
+title: "Rademacher Complexity"
+description: "In computational learning theory (machine learning and theory of computation), Rademacher complexity , named after Hans Rademacher, measures the richness of a..."
+keywords: computational learning theory, machine learning, theory of computation, hans rademacher, probability distribution, rademacher distribution, symmetric, reuleaux triangle, function composition
+slug: "Rademacher_complexity"
+createdAt: "2025-12-29T00:38:57.169Z"
+updatedAt: "2025-12-29T00:38:57.169Z"
+contentType: "rewritten"
+aiProvider: "OpenRouter"
+aiModel: "nvidia/nemotron-3-nano-30b-a3b:free"
+previousArticleSlug: "Savings_account"
+previousArticleTitle: "Savings Account"
+---
+
+# Measure of complexity of real‑valued functions  
+
+In **[computational learning theory](/Computational_learning_theory)** (**[machine learning](/Machine_learning)** and **[theory of computation](/Theory_of_computation)**), **Rademacher complexity** , named after **[Hans Rademacher](/Hans_Rademacher)**, measures the richness of a class of sets with respect to a **[probability distribution](/Probability_distribution)**. The concept can also be extended to real‑valued functions.  
+
+---
+
+## Definitions  
+
+### Rademacher complexity of a set  
+
+Given a set  
+
+\[
+A\subseteq \mathbb {R} ^{m},
+\]  
+
+the **Rademacher complexity** of \(A\) is defined as follows:  
+
+\[
+\operatorname {Rad} (A):={\frac {1}{m}}\mathbb {E} _{\sigma }\left[\sup _{a\in A}\sum _{i=1}^{m}\sigma _{i}a_{i}\right],
+\]  
+
+where \(\sigma _{1},\sigma _{2},\dots ,\sigma _{m}\) are independent random variables drawn from the **[Rademacher distribution](/Rademacher_distribution)** i.e.  
+
+\[
+\Pr(\sigma _{i}=+1)=\Pr(\sigma _{i}=-1)=\tfrac12
+\]  
+
+for \(i\in\{1,2,\dots ,m\}\), and \(a=(a_{1},\ldots ,a_{m})\in A\).  
+Some authors take the absolute value of the sum before taking the supremum, but if \(A\) is **[symmetric](/Symmetric_set)** this makes no difference.  
+
+The expression can also be written in an equivalent combinatorial form:  
+
+\[
+\operatorname {Rad} (A):={\frac {1}{{\sqrt {m}}2^{m}}}\sum _{\sigma \in \{-1/{\sqrt {m}},+1/{\sqrt {m}}\}^{m}}\left[\sup _{a\in A}\langle \sigma ,a\rangle \right],
+\]  
+
+which sums over half of the vertices of a hyper‑cube, selected so that each diagonal has exactly one vertex selected.  
+Geometrically, \(2\sqrt{m}\operatorname {Rad} (A)\) is precisely the **average width** of the set \(A\) along all diagonal directions of a hyper‑cube.  
+The shape of this width is illustrated by a **[Reuleaux triangle](/Reuleaux_triangle)**.  
+
+---
+
+## Rademacher complexity of a function class  
+
+Let  
+
+\[
+S=\{z_{1},z_{2},\dots ,z_{m}\}\subseteq Z
+\]  
+
+be a sample of points and consider a function class \(\mathcal{F}\) of real‑valued functions over \(Z\).  
+Then, the **empirical Rademacher complexity** of \(\mathcal{F}\) given \(S\) is defined as  
+
+\[
+\operatorname {Rad} _{S}(\mathcal{F})={\frac {1}{m}}\mathbb {E} _{\sigma }\left[\sup _{f\in \mathcal{F}}\left|\sum _{i=1}^{m}\sigma _{i}f(z_{i})\right|\right].
+\]  
+
+This can also be written using the previous definition:  
+
+\[
+\operatorname {Rad} _{S}(\mathcal{F})=\operatorname {Rad}(\mathcal{F}\circ S),
+\]  
+
+where \(\mathcal{F}\circ S\) denotes **[function composition](/Function_composition)**, i.e.  
+
+\[
+\mathcal{F}\circ S:=\{(f(z_{1}),\ldots ,f(z_{m}))\mid f\in \mathcal{F}\}.
+\]  
+
+The **worst‑case empirical Rademacher complexity** is  
+
+\[
+\overline{\operatorname {Rad} }_{m}(\mathcal{F})=\sup _{S=\{z_{1},\dots ,z_{m}\}}\operatorname {Rad} _{S}(\mathcal{F}).
+\]  
+
+Let \(P\) be a probability distribution over \(Z\).  
+The **Rademacher complexity** of the function class \(\mathcal{F}\) with respect to \(P\) for sample size \(m\) is  
+
+\[
+\operatorname {Rad} _{P,m}(\mathcal{F}) := \mathbb{E} _{S\sim P^{m}}\!\left[\operatorname {Rad} _{S}(\mathcal{F})\right],
+\]  
+
+where the expectation is taken over an **[identically independently distributed](/Identically_independently_distributed)** (i.i.d.) sample  
+
+\[
+S=(z_{1},z_{2},\dots ,z_{m})
+\]  
+
+generated according to \(P\).  
+
+---
+
+## Intuition  
+
+The Rademacher complexity is typically applied to a function class of models used for classification, with the goal of measuring their ability to classify points drawn from a **[probability space](/Probability_space)** under arbitrary labellings.  
+When the function class is rich enough, it contains functions that can appropriately adapt for each arrangement of labels, a process simulated by the random draw of \(\sigma_{i}\) under the expectation, so that this quantity in the sum is maximized.  
+
+---
+
+## Examples  
+
+* **Singleton sets** have zero width in any direction, so they have Rademacher complexity 0.  
+* The set  
+
+  \[
+  A=\{(1,1),(1,2)\}\subseteq \mathbb{R}^{2}
+  \]  
+
+  has average width \(\tfrac{1}{\sqrt{2}}\) along the two diagonal directions of the square, so it has Rademacher complexity \(\tfrac{1}{4}\).  
+* The **unit cube** \([0,1]^{m}\) has constant width \(\sqrt{m}\) along the diagonal directions, so it has Rademacher complexity \(\tfrac{1}{2}\).  
+* Similarly, the **unit cross‑polytope**  
+
+  \[
+  \{x\in\mathbb{R}^{m}:\|x\|_{1}\leq 1\}
+  \]  
+
+  has constant width \(\tfrac{2}{\sqrt{m}}\) along the diagonal directions, so it has Rademacher complexity \(\tfrac{1}{m}\).  
+
+---
+
+## Using the Rademacher complexity  
+
+The Rademacher complexity can be used to derive data‑dependent upper‑bounds on the **[learnability](/Learnability)** of function classes.  
+Intuitively, a function class with smaller Rademacher complexity is easier to learn.  
+
+### Bounding the representativeness  
+
+In **[machine learning](/Machine_learning)**, it is desired to have a **[training set](/Training_set)** that represents the true distribution of some sample data \(S\).  
+This can be quantified using the notion of **representativeness**.  
+Denote by \(P\) the **[probability distribution](/Probability_distribution)** from which the samples are drawn.  
+Denote by \(H\) the set of hypotheses (potential classifiers) and denote by  
+
+\[
+\mathcal{F}
+\]  
+
+the corresponding set of error functions, i.e., for every hypothesis \(h\in H\) there is a function \(f_{h}\in\mathcal{F}\) that maps each training sample (features,label) to the error of the classifier \(h\).  
+For example, in the case that \(h\) represents a binary classifier, the **[0–1 loss function](/0–1_loss_function)** is an error function that returns 0 if \(h\) correctly classifies a sample and 1 otherwise.  
+We omit the index and write \(f\) instead of \(f_{h}\) when the underlying hypothesis is irrelevant.  
+
+Define  
+
+\[
+L_{P}(f) := \mathbb{E}_{z\sim P}[f(z)]
+\]  
+
+– the expected error of some error function \(f\) on the real distribution \(P\);  
+
+\[
+L_{S}(f) := \frac{1}{m}\sum_{i=1}^{m} f(z_{i})
+\]  
+
+– the estimated error of \(f\) on the sample \(S\).  
+
+The **representativeness** of the sample \(S\) with respect to \(P\) and \(\mathcal{F}\) is defined as  
+
+\[
+\operatorname{Rep}_{P}(\mathcal{F},S) := \sup_{f\in\mathcal{F}}\bigl(L_{P}(f)-L_{S}(f)\bigr).
+\]  
+
+Smaller representativeness is better, because it provides a way to avoid **[overfitting](/Overfitting)**: it means that the true error of a classifier is not much higher than its estimated error, and so selecting a classifier that has low estimated error will ensure that the true error is also low.  
+Note, however, that the concept of representativeness is relative and cannot be compared across distinct samples.  
+
+The **expected representativeness** of a sample can be bounded above by the Rademacher complexity of the function class:  
+If \(\mathcal{F}\) is a set of functions with range within \([0,1]\), then  
+
+\[
+\operatorname {Rad} _{P,m}(\mathcal{F})-\sqrt{\frac{\ln 2}{2m}}\le 
+\mathbb{E}_{S\sim P^{m}}\!\bigl[\operatorname{Rep}_{P}(\mathcal{F},S)\bigr]\le 
+2\operatorname {Rad} _{P,m}(\mathcal{F}).
+\]  
+
+Furthermore, the representativeness is **[concentrated](/Concentration_inequality)** around its expectation: for any \(\epsilon>0\),
+
+\[
+\Pr\!\Bigl(\operatorname{Rep}_{P}(\mathcal{F},S)\in 
+\mathbb{E}_{S\sim P^{m}}\!\bigl[\operatorname{Rep}_{P}(\mathcal{F},S)\bigr]\pm\epsilon\Bigr)\ge 
+1-2e^{-2\epsilon^{2}m}.
+\]  
+
+### Bounding the generalization error  
+
+The Rademacher complexity is a theoretical justification for **[empirical risk minimization](/Empirical_risk_minimization)**.  
+
+When the error function is binary (0‑1 loss), for every \(\delta>0\),
+
+\[
+\sup_{f\in\mathcal{F}}\bigl(L_{P}(f)-L_{S}(f)\bigr)\le 
+2\operatorname {Rad} _{S}(\mathcal{F})+4\sqrt{\frac{2\ln(4/\delta)}{m}}
+\]  
+
+with probability at least \(1-\delta\).  
+
+There exists a constant \(c>0\) such that when the error function is squared  
+
+\[
+\ell(\hat{y},y):=(\hat{y}-y)^{2},
+\]  
+
+and the function class \(\mathcal{F}\) consists of functions with range within \([-1,+1]\), then for any \(\delta>0\),
+
+\[
+L_{P}(f)-L_{S}(f)\le 
+c\Bigl[L_{S}(f)+(\ln m)^{4}\,\overline{\operatorname {Rad} }_{m}(\mathcal{F})^{2}+
+\frac{\ln(1/\delta)}{m}\Bigr],\qquad\forall f\in\mathcal{F},
+\]  
+
+with probability at least \(1-\delta\).  
+
+### Oracle inequalities  
+
+Let the **[Bayes risk](/Bayes_risk)**  
+
+\[
+L^{*}:=\inf_{f}L_{P}(f),
+\]  
+
+where \(f\) can be any measurable function.  
+Let the function class \(\mathcal{F}\) be split into “complexity classes” \(\mathcal{F}_{r}\), where \(r\in\mathbb{R}\) are levels of complexity.  
+Let \(p_{r}\) be real numbers.  
+Let the complexity measure function \(p\) be defined such that  
+
+\[
+p(f):=\min\{p_{r}:f\in\mathcal{F}_{r}\}.
+\]  
+
+For any dataset \(S\), let \(\hat{f}\) be a minimizer of  
+
+\[
+L_{S}(f)+p(f).
+\]  
+
+If  
+
+\[
+\sup_{f\in\mathcal{F}_{r}}\bigl|L_{P}(f)-L_{S}(f)\bigr|\le p_{r},\quad\forall r,
+\]  
+
+then we have the **oracle inequality**  
+
+\[
+L(\hat{f})-L^{*}\le 
+\inf_{r}\Bigl(\inf_{f\in\mathcal{F}_{r}}L(f)-L^{*}+2p_{r}\Bigr).
+\]  
+
+Define \(f_{r}^{*}\in\arg\min_{f\in\mathcal{F}_{r}}L(f)\).  
+If we further assume  
+
+\[
+r\le s \;\Rightarrow\; \mathcal{F}_{r}\subseteq\mathcal{F}_{s}\;\text{and}\;p_{r}\le p_{s},
+\]  
+
+and  
+
+\[
+\sup_{f\in\mathcal{F}_{r}}\bigl(L_{P}(f)-L_{P}(f_{r}^{*})-2(L_{S}(f)-L_{S}(f_{r}^{*}))\bigr)\le 
+\frac{2p_{r}}{7},
+\]  
+
+\[
+\sup_{f\in\mathcal{F}_{r}}\bigl(L_{S}(f)-L_{S}(f_{r}^{*})-2(L_{P}(f)-L_{P}(f_{r}^{*}))\bigr)\le 
+\frac{2p_{r}}{7},
+\]  
+
+then we have the oracle inequality  
+
+\[
+L_{P}(\hat{f})-L^{*}\le 
+\inf_{r}\Bigl(\inf_{f\in\mathcal{F}_{r}}L_{P}(f)-L^{*}+3p_{r}\Bigr).
+\]  
+
+---
+
+## Bounding the Rademacher complexity  
+
+Since smaller Rademacher complexity is better, it is useful to have upper bounds on the Rademacher complexity of various function sets.  
+The following rules can be used to upper‑bound the Rademacher complexity of a set \(A\subseteq\mathbb{R}^{m}\).  
+
+* If all vectors in \(A\) are translated by a constant vector \(a_{0}\in\mathbb{R}^{m}\), then \(\operatorname{Rad}(A)\) does **not** change.  
+* If all vectors in \(A\) are multiplied by a scalar \(c\in\mathbb{R}\), then \(\operatorname{Rad}(A)\) is multiplied by \(|c|\).  
+* \(\operatorname{Rad}(A+B)=\operatorname{Rad}(A)+\operatorname{Rad}(B)\).  
+* If all vectors in \(A\) are operated by a **[Lipschitz function](/Lipschitz_function)**, then \(\operatorname{Rad}(A)\) is (at most) multiplied by the Lipschitz constant of the function. In particular, if all vectors in \(A\) are operated by a **[contraction mapping](/Contraction_mapping)**, then \(\operatorname{Rad}(A)\) strictly decreases.  
+* The Rademacher complexity of the **[convex hull](/Convex_hull)** of \(A\) equals \(\operatorname{Rad}(A)\).  
+* (**Massart Lemma**) The Rademacher complexity of a **[finite set](/Finite_set)** grows logarithmically with the set size. Formally, let \(A\) be a set of \(N\) vectors in \(\mathbb{R}^{m}\), and let \(\bar{a}\) be the mean of the vectors in \(A\). Then  
+
+  \[
+  \operatorname{Rad}(A)\le 
+  \max_{a\in A}\|a-\bar{a}\|\cdot 
+  \frac{\sqrt{2\log N}}{m}.
+  \]  
+
+  In particular, if \(A\) is a set of binary vectors, the norm is at most \(\sqrt{m}\), so  
+
+  \[
+  \operatorname{Rad}(A)\le \sqrt{\frac{2\log N}{m}}.
+  \]  
+
+* **Bounds related to the VC dimension**  
+  Let \(H\) be a **[set family](/Set_family)** whose **[VC dimension](/VC_dimension)** is \(d\).  
+  It is known that the **[growth function](/Growth_function)** of \(H\) is bounded as  
+
+  \[
+  \operatorname{Growth}(H,m)\le\left(\frac{e m}{d}\right)^{d}
+  \]  
+
+  for all \(m>d+1\).  
+  This means that, for every set \(h\) with at most \(m\) elements,  
+
+  \[
+  |H\cap h|\le\left(\frac{e m}{d}\right)^{d}.
+  \]  
+
+  The set‑family \(H\cap h\) can be considered as a set of binary vectors over \(\mathbb{R}^{m}\).  
+  Substituting this in Massart’s lemma gives  
+
+  \[
+  \operatorname{Rad}(H\cap h)\le 
+  \sqrt{\frac{2d\log\!\left(\frac{e m}{d}\right)}{m}}.
+  \]  
+
+  With more advanced techniques (**[Dudley’s entropy bound](/Dudley%27s_theorem)** and **[Haussler’s upper bound](/Haussler%27s_upper_bound)**) one can show, for example, that there exists a constant \(C\) such that any class of \(\{0,1\}\)-indicator functions with **[Vapnik–Chervonenkis dimension](/Vapnik%E2%80%93Chervonenkis_dimension)** \(d\) has Rademacher complexity upper‑bounded by  
+
+  \[
+  C\sqrt{\frac{d}{m}}.
+  \]  
+
+* **Bounds related to linear classes**  
+  The following bounds are related to linear operations on \(S\) – a constant set of \(m\) vectors in \(\mathbb{R}^{n}\).  
+
+  * Define  
+
+    \[
+    A_{2}:=\{(w\cdot x_{1},\dots ,w\cdot x_{m})\mid \|w\|_{2}\le 1\},
+    \]  
+
+    the set of dot‑products of the vectors in \(S\) with vectors in the **[unit ball](/Unit_ball)**. Then  
+
+    \[
+    \operatorname{Rad}(A_{2})\le 
+    \frac{\max_{i}\|x_{i}\|_{2}}{\sqrt{m}}.
+    \]  
+
+  * Define  
+
+    \[
+    A_{1}:=\{(w\cdot x_{1},\dots ,w\cdot x_{m})\mid \|w\|_{1}\le 1\},
+    \]  
+
+    the set of dot‑products of the vectors in \(S\) with vectors in the unit ball of the 1‑norm. Then  
+
+    \[
+    \operatorname{Rad}(A_{1})\le 
+    \max_{i}\|x_{i}\|_{\infty}\cdot 
+    \frac{\sqrt{2\log(2n)}}{m}.
+    \]  
+
+* **Bounds related to covering numbers**  
+  The following bound relates the Rademacher complexity of a set \(A\) to its external **[covering number](/Covering_number)** – the number of balls of a given radius \(r\) whose union contains \(A\). The bound is attributed to **[Dudley](/Dudley%27s_theorem)**.  
+
+  Suppose \(A\subseteq\mathbb{R}^{m}\) is a set of vectors whose length (norm) is at most \(c\). Then, for every integer \(M>0\),
+
+  \[
+  \operatorname{Rad}(A)\le 
+  \frac{c\cdot2^{-M}}{\sqrt{m}}+
+  \frac{6c}{m}\sum_{i=1}^{M}2^{-i}\sqrt{\log\bigl(N_{c\cdot2^{-i}}^{\text{ext}}(A)\bigr)}.
+  \]  
+
+  In particular, if \(A\) lies in a \(d\)-dimensional subspace of \(\mathbb{R}^{m}\), then for every \(r>0\),
+
+  \[
+  N_{r}^{\text{ext}}(A)\le\left(\frac{2c\sqrt{d}}{r}\right)^{d}.
+  \]  
+
+  Substituting this in the previous bound gives  
+
+  \[
+  \operatorname{Rad}(A)\le 
+  O\!\left(\frac{c\sqrt{d\log d}}{m}\right).
+  \]  
+
+---
+
+## Gaussian complexity  
+
+**Gaussian complexity** is a similar complexity measure with a comparable physical meaning.  
+It can be obtained from the Rademacher complexity by replacing the Rademacher variables \(\sigma_{i}\) with Gaussian variables \(g_{i}\), where \(g_{i}\) are **[Gaussian](/Normal_distribution)** i.i.d. random variables with zero mean and variance 1, i.e.  
+
+\[
+g_{i}\sim\mathcal{N}(0,1).
+\]  
+
+Gaussian and Rademacher complexities are known to be equivalent up to logarithmic factors.  
+
+### Equivalence of Rademacher and Gaussian complexity  
+
+Given a set \(A\subseteq\mathbb{R}^{n}\), it holds that  
+
+\[
+\frac{G(A)}{2\sqrt{\log n}}\le\operatorname{Rad}(A)\le 
+\sqrt{\frac{\pi}{2}}\,G(A),
+\]  
+
+where \(G(A)\) is the **Gaussian complexity** of \(A\).  
+As an example, consider the Rademacher and Gaussian complexities of the \(L_{1}\) ball.  
+The Rademacher complexity is exactly 1, whereas the Gaussian complexity is on the order of \(\sqrt{\log d}\) (which can be shown by applying known properties of suprema of a set of **[subgaussian](/Sub-Gaussian_distribution)** random variables).  
+
+---

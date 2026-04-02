@@ -1,0 +1,186 @@
+---
+title: "Valuation (Algebra)"
+description: "Oh, you want me to rewrite *this*? A Wikipedia article? How… pedestrian. Fine. But don't expect me to hold your hand. This is what happens when you poke the..."
+keywords: valuation (geometry), general references, inline citations, improving, introducing, algebra, algebraic geometry, algebraic number theory, function
+slug: "Valuation_(algebra)"
+createdAt: "2025-11-17T18:26:58.437Z"
+updatedAt: "2025-11-17T18:26:58.437Z"
+contentType: "rewritten"
+---
+
+Oh, you want me to rewrite *this*? A Wikipedia article? How… pedestrian. Fine. But don't expect me to hold your hand. This is what happens when you poke the bear. Or, in this case, the woman in the leather jacket.
+
+***
+
+### Function in Algebra
+
+For the intricacies of its geometric applications, one might consult [Valuation (geometry)](/Valuation_(geometry)).
+
+This particular article, bless its meticulous heart, lists its [general references](/Wikipedia:Citing_sources). However, it’s rather anemic when it comes to corresponding [inline citations](/Wikipedia:Citing_sources). It seems to be suffering from a distinct lack of precision. Perhaps you could assist in [improving](/Wikipedia:WikiProject_Reliability) its adherence to facts by [introducing](/Wikipedia:When_to_cite) more specific attributions. (August 2025) ( [Learn how and when to remove this message](/Help:Maintenance_template_removal) )
+
+In the grand, often bewildering, landscape of [algebra](/Algebra)—specifically within the hallowed halls of [algebraic geometry](/Algebraic_geometry) or the intricate pathways of [algebraic number theory](/Algebraic_number_field)—a valuation operates as a rather discerning [function](/Function_(mathematics)) defined on a [field](/Field_(mathematics)). Its purpose is to quantify, to provide a measure of the magnitude or the inherent multiplicity of the elements that populate this field. Think of it as a universal yardstick, abstracting concepts that are more tangible in other domains. It’s an elegant generalization, a way to capture the essence of size.
+
+It extends the intuitive notion of magnitude found in [complex analysis](/Complex_analysis), where we consider the degree of a [pole](/Pole_(complex_analysis)) or the [multiplicity](/Multiplicity_(mathematics)) of a [zero](/Zero_(complex_analysis)). In the realm of [number theory](/Number_theory), it mirrors the divisibility characteristics of a number by a prime. And in the structured world of algebraic geometry, it even touches upon the geometrical concept of [contact](/Contact_(geometry)) between algebraic or analytic varieties. A field graced with such a function is then known, rather fittingly, as a valued field.
+
+#### Definition
+
+To embark on this journey, one must first assemble the necessary components:
+
+*   A [field](/Field_(mathematics)), let's call it K. Crucially, we also need its [multiplicative group](/Multiplicative_group), denoted K ×.
+*   An [abelian](/Abelian_group), completely ordered group, which we shall refer to as (Γ, +, ≥). This means it has a group structure, is commutative, and possesses a total order that respects the group operations.
+
+The ordering and the [group law](/Group_law) inherent in Γ are then extended to encompass the symbol ∞, forming the set Γ ∪ {∞}.[^a] This extension is governed by specific rules:
+
+*   Infinity reigns supreme: ∞ ≥ α for every element α within Γ.
+*   Infinity is absorbent: ∞ + α = α + ∞ = ∞ + ∞ = ∞ for any α in Γ.
+
+With these elements in place, a valuation of K is defined as any [map](/Map_(mathematics)), let’s call it v, that takes elements from K and maps them into the augmented set Γ ∪ {∞}. This map must satisfy the following stringent properties for any pair of elements, a and b, drawn from K:
+
+1.  **The Zero Condition:** v(a) = ∞ if and only if a is precisely 0. The only element that maps to infinity is zero itself.
+2.  **The Multiplicative Property:** v(ab) = v(a) + v(b). The valuation of a product is the sum of the valuations of its factors. This is where the group homomorphism nature becomes apparent.
+3.  **The Additive Property (Generalized Triangle Inequality):** v(a + b) ≥ min(v(a), v(b)). This inequality holds, with equality occurring *only* when v(a) ≠ v(b). This is the heart of the "size" comparison.
+
+A valuation is deemed **trivial** if v(a) = 0 for every non-zero element 'a' in K (i.e., for all a ∈ K ×). If it deviates from this, it's considered **non-trivial**.
+
+The second property is a clear indicator that any valuation acts as a [group homomorphism](/Group_homomorphism) when considering K ×. The third property, meanwhile, is a sophisticated adaptation of the [triangle inequality](/Triangle_inequality) we encounter in [metric spaces](/Metric_spaces), but generalized to the arbitrary ordered group Γ. (More on this under "Multiplicative notation").
+
+For those with a penchant for [geometric](/Analytic_geometry) applications, the first property carries a significant implication: any non-empty [germ](/Germ_(mathematics)) of an analytic variety in the vicinity of a point *must* contain that point.
+
+One can interpret the valuation as an indicator of the order of the [leading-order term](/Leading-order_term).[^b] The third property then elegantly reflects how the order of a sum is typically dictated by the larger of the two terms involved,[^c] unless, of course, those terms happen to possess the exact same order. In that specific scenario, they might engage in a form of cancellation, allowing the sum to manifest a greater order than anticipated.
+
+In numerous practical contexts, the group Γ is often a subgroup of the [real numbers](/Real_number) ℝ, structured additively. In such cases, ∞ can be conveniently thought of as +∞ within the framework of the [extended real numbers](/Extended_real_numbers). It's worth noting that for any real number 'a', min(a, +∞) = min(+∞, a) = a. This means +∞ acts as an identity element under the binary operation of minimum. When the real numbers (augmented by +∞) are equipped with the operations of minimum and addition, they form a [semiring](/Semiring), aptly named the min-tropical semiring.[^d] Within this structure, a valuation closely resembles a semiring homomorphism mapping from K to this tropical semiring, with the caveat that the homomorphism property might falter when two elements possessing the identical valuation are subjected to addition.
+
+#### Multiplicative Notation and Absolute Values
+
+The conceptual framework for valuations was notably advanced by [Emil Artin](/Emil_Artin) in his seminal work, *Geometric Algebra*. He proposed a formulation using [multiplicative notation](/Multiplicative_notation) for the group, denoted as (Γ, ·, ≥): [1]
+
+Instead of the symbol ∞, a formal symbol O is introduced and appended to Γ. The ordering and the group law are extended to this augmented set according to these rules:
+
+*   O ≤ α for all α ∈ Γ. The new symbol O is now the smallest element.
+*   O · α = α · O = O for all α ∈ Γ. O acts as an absorbing element under multiplication.
+
+With this setup, a valuation of K is defined as any map, conventionally denoted as | ⋅ |<sub>v</sub>, that sends elements of K into the set Γ ∪ {O}. This map must adhere to the following properties for any elements a, b ∈ K:
+
+1.  **The Zero Condition:** |a|<sub>v</sub> = O if and only if a = 0. Only zero maps to O.
+2.  **The Multiplicative Property:** |ab|<sub>v</sub> = |a|<sub>v</sub> · |b|<sub>v</sub>. The valuation of a product is the product of the valuations.
+3.  **The Ultrametric Property:** |a + b|<sub>v</sub> ≤ max(|a|<sub>v</sub>, |b|<sub>v</sub>). This inequality holds, with equality if |a|<sub>v</sub> ≠ |b|<sub>v</sub>. Observe that the direction of the inequality is reversed compared to the additive notation.
+
+If Γ happens to be a subgroup of the [positive real numbers](/Positive_real_numbers) under multiplication, the final condition transforms into the [ultrametric](/Ultrametric_space) inequality, a significantly more stringent version of the standard [triangle inequality](/Triangle_inequality), which would be |a + b|<sub>v</sub> ≤ |a|<sub>v</sub> + |b|<sub>v</sub>. In this specific scenario, | ⋅ |<sub>v</sub> is recognized as an [absolute value](/Absolute_value_(algebra)). It's possible to transition back to the additive notation by considering a related group Γ<sub>+</sub> ⊆ (ℝ, +) and defining v<sub>+</sub>(a) = -log |a|<sub>v</sub>.
+
+Furthermore, each valuation defined on K gives rise to a corresponding linear [preorder](/Preorder): we establish that a ≼ b if and only if |a|<sub>v</sub> ≤ |b|<sub>v</sub>. Conversely, if one starts with a preorder "≼" that satisfies the requisite properties, a valuation can be constructed. This valuation is defined as |a|<sub>v</sub> = {b : b ≼ a ∧ a ≼ b}, with the multiplication and ordering operations mirroring those of K and ≼.
+
+#### Terminology
+
+Throughout this exposition, we will consistently employ the terms as defined above, adhering to the additive notation. However, it is important to acknowledge that some authors adopt different nomenclature:
+
+*   What we term a "valuation" (the one satisfying the ultrametric inequality) might be referred to by others as an "exponential valuation," a "non-Archimedean absolute value," or an "ultrametric absolute value."
+*   Conversely, what we refer to as an "absolute value" (the one satisfying the standard triangle inequality) may be called a "valuation" or an "Archimedean absolute value" by different sources.
+
+#### Associated Objects
+
+From any given valuation v: K → Γ ∪ {∞}, several significant mathematical objects can be derived:
+
+*   **The Value Group (or Valuation Group):** This is denoted as Γ<sub>v</sub> and represents the image of K × under the valuation v, i.e., Γ<sub>v</sub> = v(K ×). It is inherently a subgroup of Γ. Although, often, v is assumed to be surjective, meaning Γ<sub>v</sub> is identical to Γ.
+*   **The Valuation Ring:** Designated as R<sub>v</sub>, this is the set of all elements a ∈ K for which v(a) ≥ 0.
+*   **The Prime Ideal:** Represented by m<sub>v</sub>, this consists of all elements a ∈ K such that v(a) > 0. It's crucial to note that m<sub>v</sub> is not just any ideal; it is, in fact, a [maximal ideal](/Maximal_ideal) within R<sub>v</sub>, and remarkably, it is the *only* maximal ideal of R<sub>v</sub>.
+*   **The Residue Field:** This is the field obtained by taking the quotient of the valuation ring by its maximal ideal, denoted as k<sub>v</sub> = R<sub>v</sub> / m<sub>v</sub>.
+*   **The Place:** Associated with the valuation v is what is known as a "place" of K. This is essentially an equivalence class of valuations, defined by a specific equivalence relation that we will touch upon later.
+
+#### Basic Properties
+
+##### Equivalence of Valuations
+
+Two valuations, v<sub>1</sub> and v<sub>2</sub>, defined on the same field K, are considered **equivalent** if there exists an order-preserving [group isomorphism](/Group_isomorphism), let's call it φ, mapping the valuation group Γ<sub>1</sub> of v<sub>1</sub> to the valuation group Γ<sub>2</sub> of v<sub>2</sub>, such that v<sub>2</sub>(a) = φ(v<sub>1</sub>(a)) for all non-zero elements a in K. This establishes an [equivalence relation](/Equivalence_relation) among valuations.
+
+A fundamental consequence of this definition is that two valuations of K are equivalent if and only if they give rise to the exact same valuation ring.
+
+An entire [equivalence class](/Equivalence_class) of valuations defined on a field is termed a **place**. [Ostrowski's theorem](/Ostrowski%27s_theorem) provides a complete and elegant classification of all places on the field of [rational numbers](/Rational_numbers) ℚ. It states that these places correspond precisely to the equivalence classes of valuations derived from the p-adic [completions](/Complete_space) of ℚ.
+
+##### Extension of Valuations
+
+Suppose we have a valuation v defined on a field K, and consider a [field extension](/Field_extension) L of K. An **extension of v** to L is simply another valuation, let's call it w, defined on L, such that when w is restricted to K, it yields the original valuation v. The intricate study of these extensions, particularly their structure and properties, falls under the domain of the [ramification theory of valuations](/Ramification_theory_of_valuations).
+
+When dealing with a [finite extension](/Finite_extension) L/K and an extension w of v to L, we can define two crucial quantities:
+
+*   **Reduced Ramification Index:** This is the index of the valuation group Γ<sub>v</sub> within the valuation group Γ<sub>w</sub>, denoted as e(w/v) = [Γ<sub>w</sub> : Γ<sub>v</sub>]. It represents how much the "scale" of the valuation group expands. A key inequality states that e(w/v) ≤ [L : K], the [degree](/Degree_of_a_field_extension) of the field extension L/K.
+*   **Relative Degree:** Defined as f(w/v) = [R<sub>w</sub> / m<sub>w</sub> : R<sub>v</sub> / k<sub>v</sub>], this is the degree of the extension of the residue fields. This, too, is bounded by the degree of L/K, i.e., f(w/v) ≤ [L : K].
+
+For extensions L/K that are [separable](/Separable_extension), the concept of the ramification index is further refined. It's defined as e(w/v)<sub>p<sup>i</sup></sub>, incorporating the [inseparable degree](/Inseparable_degree) of the extension of the residue fields.
+
+##### Complete Valued Fields
+
+Consider the specific case where the ordered abelian group Γ is precisely the additive group of the [integers](/Integers), ℤ. In this situation, the valuation is intimately linked to an absolute value, and consequently, it induces a [metric](/Metric_(mathematics)) on the field K. If K is [complete](/Complete_metric_space) with respect to this induced metric, it is then termed a **complete valued field**. If K is not already complete, the valuation provides the means to construct its [completion](/Completion_(algebra)), much like the examples that follow. It's important to realize that different valuations on the same field can lead to distinct completion fields.
+
+More generally, any valuation on K inherently defines a [uniform structure](/Uniform_space) on the field. A field K is designated as a **complete valued field** if it exhibits completeness as a uniform space. A related, though sometimes stronger, property is **spherical completeness**. This property is equivalent to completeness when Γ = ℤ, but it imposes a more stringent condition on the structure of the field when Γ is more general.
+
+#### Examples
+
+##### p-adic Valuation
+
+A cornerstone example is the [p-adic valuation](/P-adic_valuation), denoted ν<sub>p</sub>, associated with a prime integer *p*. When applied to the field of rational numbers K = ℚ, it involves the valuation ring R = ℤ<sub>(p)</sub>. Here, ℤ<sub>(p)</sub> represents the localization of the ring of integers ℤ at the prime ideal (p). The valuation group in this context is the additive group of integers, Γ = ℤ.
+
+For any integer *a* belonging to the ring R = ℤ, the value ν<sub>p</sub>(a) quantifies the extent to which *a* is divisible by powers of *p*:
+
+ν<sub>p</sub>(a) = max{e ∈ ℤ | p<sup>e</sup> divides a};
+
+For a rational number expressed as a fraction *a*/*b*, the valuation is calculated as ν<sub>p</sub>(a/b) = ν<sub>p</sub>(a) - ν<sub>p</sub>(b).
+
+If we choose to express this multiplicatively, we arrive at the [p-adic absolute value](/P-adic_absolute_value). Conventionally, the base for this absolute value is set to 1/p = p<sup>-1</sup>. Thus, the p-adic absolute value of *a* is defined as:
+
+|a|<sub>p</sub> := p<sup>-ν<sub>p</sub>(a)</sup>.
+
+The field obtained by [completing](/Completion_(algebra)) ℚ with respect to this p-adic valuation is none other than the field ℚ<sub>p</sub>, the field of [p-adic numbers](/P-adic_numbers).
+
+##### Order of Vanishing
+
+Consider the field K = F(x), comprising rational functions over an affine line X = F<sup>1</sup>. Let's focus on a specific point, *a*, on this line. For a polynomial f(x) expressed in its Taylor expansion around *a*:
+
+f(x) = a<sub>k</sub>(x - a)<sup>k</sup> + a<sub>k+1</sub>(x - a)<sup>k+1</sup> + ... + a<sub>n</sub>(x - a)<sup>n</sup>,
+
+where a<sub>k</sub> ≠ 0, we define v<sub>a</sub>(f) = k. This value *k* represents the order of vanishing of the polynomial f(x) at the point x = a. For a rational function f(x)/g(x), the valuation is v<sub>a</sub>(f/g) = v<sub>a</sub>(f) - v<sub>a</sub>(g).
+
+In this setting, the valuation ring R comprises all rational functions that do not have a pole at x = a. The completion of this field leads to the ring of [formal Laurent series](/Formal_Laurent_series) F((x - a)). This concept can be generalized further to encompass fields such as the field of [Puiseux series](/Puiseux_series) K{{t}} (which includes fractional powers of *t*), the [Levi-Civita field](/Levi-Civita_field) (its Cauchy completion), and the field of [Hahn series](/Hahn_series). In all these cases, the valuation returns the exponent of the smallest power of *t* present in the series expansion.
+
+##### π-adic Valuation
+
+We can generalize the preceding examples by considering R to be a [principal ideal domain](/Principal_ideal_domain), with K as its [field of fractions](/Field_of_fractions). Let π be an [irreducible element](/Irreducible_element) within R. Since every principal ideal domain is also a [unique factorization domain](/Unique_factorization_domain), any non-zero element *a* in R can be uniquely decomposed (up to associates) into the form:
+
+a = π<sup>e<sub>a</sub></sup> p<sub>1</sub><sup>e<sub>1</sub></sup> p<sub>2</sub><sup>e<sub>2</sub></sup> ... p<sub>n</sub><sup>e<sub>n</sub></sup>
+
+where the exponents e<sub>i</sub> are non-negative integers, and the p<sub>i</sub> are irreducible elements of R that are not associates of π. Critically, the exponent e<sub>a</sub> is uniquely determined by *a*.
+
+The π-adic valuation of K is then defined as follows:
+
+*   v<sub>π</sub>(0) = ∞
+*   v<sub>π</sub>(a/b) = e<sub>a</sub> - e<sub>b</sub>, for non-zero a, b ∈ R.
+
+It's important to note that if π' is another irreducible element of R such that the ideal generated by π' is the same as the ideal generated by π (i.e., (π') = (π)), then the π-adic valuation and the π'-adic valuation are identical. Consequently, the π-adic valuation can be more generally referred to as the P-adic valuation, where P = (π) represents the prime ideal generated by π.
+
+##### P-adic Valuation on a Dedekind Domain
+
+The preceding example can be extended to the more general setting of [Dedekind domains](/Dedekind_domains). Let R be a Dedekind domain, K its field of fractions, and let P be a non-zero prime ideal of R. The [localization](/Localization_of_a_ring) of R at P, denoted R<sub>P</sub>, possesses the property of being a principal ideal domain whose field of fractions is K. Applying the construction described in the previous section to the prime ideal PR<sub>P</sub> within R<sub>P</sub> yields the P-adic valuation of K.
+
+##### Vector Spaces over Valuation Fields
+
+Let's consider the case where Γ ∪ {0} represents the set of non-negative real numbers under multiplication. In this scenario, if the range of the valuation (the valuation group) is infinite, meaning it contains infinitely many distinct values and thus has an accumulation point at 0, we classify the valuation as **non-discrete**.
+
+Now, imagine X as a [vector space](/Vector_space) over a field K equipped with a valuation. Let A and B be subsets of X. We say that A **absorbs** B if there exists some element α ∈ K such that for any scalar λ ∈ K with |λ| ≥ |α|, it follows that B is entirely contained within λA (i.e., B ⊆ λA). A subset A is termed **radial** or **absorbing** if it absorbs every finite subset of X. A significant property of radial subsets is that their finite intersection is also radial. Furthermore, a set A is called **circled** if for any scalar λ ∈ K with |λ| ≥ |α|, it holds that λA ⊆ A. The collection of all circled subsets of X is invariant under arbitrary intersections. The **circled hull** of a set A is defined as the intersection of all circled subsets of X that contain A.
+
+Suppose X and Y are vector spaces over a non-discrete valuation field K. Let A be a subset of X, B a subset of Y, and let f: X → Y be a linear map. If B is either circled or radial, then its preimage under f, denoted f<sup>-1</sup>(B), will also possess the same property (circled or radial, respectively). If A is a circled subset of X, then its image under f, f(A), is also circled. However, if A is radial, f(A) will be radial only under the additional condition that the linear map f is surjective.
+
+#### See Also
+
+*   [Discrete valuation](/Discrete_valuation)
+*   [Euclidean valuation](/Euclidean_valuation)
+*   [Field norm](/Field_norm)
+*   [Absolute value (algebra)](/Absolute_value_(algebra))
+
+#### Notes
+
+*   [^a]: The symbol ∞ here is merely a placeholder, an element distinct from any in Γ, carrying no inherent meaning beyond what the defined [axioms](/Axiom) ascribe to it.
+*   [^b]: When employing the "min" convention, the valuation is more accurately interpreted as the negative of the order of the leading term. However, with the "max" convention, it directly corresponds to the order itself.
+*   [^c]: This inequality is reversed due to the use of the "min" convention.
+*   [^d]: Every [Archimedean group](/Archimedean_group) is structurally equivalent to a subgroup of the real numbers under addition. However, the existence of non-Archimedean ordered groups, such as the additive group of a [non-Archimedean ordered field](/Non-Archimedean_ordered_field), is also established.
+*   [^e]: Within the tropical semiring, the operations of minimum and addition applied to real numbers are referred to as tropical addition and tropical multiplication, respectively. These constitute the fundamental semiring operations.
+
+##

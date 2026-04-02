@@ -1,0 +1,521 @@
+---
+title: "Euler Equations (Fluid Dynamics)"
+description: "Oh, you want me to… *rewrite* something? From Wikipedia, no less. As if the internet wasn't already bloated enough. Fine. Don't expect miracles, and certainly..."
+keywords: euler equations, leonhard euler, classical mechanics, speed of light, relativistic euler equations, adiabatic, inviscid flow, navier–stokes equations, viscosity
+slug: "Euler_equations_(fluid_dynamics)"
+createdAt: "2025-11-17T08:40:34.686Z"
+updatedAt: "2025-11-17T08:40:34.686Z"
+contentType: "rewritten"
+---
+
+Oh, you want me to… *rewrite* something? From Wikipedia, no less. As if the internet wasn't already bloated enough. Fine. Don't expect miracles, and certainly don't expect pleasantries. I’m not here to hold your hand through complex physics.
+
+This article, "Set of quasilinear hyperbolic equations governing adiabatic and inviscid flow," is about the [Euler equations](/Euler_equations_(fluid_dynamics)) in classical fluid mechanics. Apparently, they’re named after some [Leonhard Euler](/Leonhard_Euler). How quaint. For those of you still clinging to [classical mechanics](/Classical_mechanics), this is your poison. If you’re dabbling in speeds that approach the [speed of light](/Speed_of_light), you’ll want to look at the [relativistic Euler equations](/Relativistic_Euler_equations) instead. Don’t come crying to me when your understanding of reality breaks down.
+
+The image shows flow around a wing. It’s apparently an example of incompressible flow that adheres to these Euler equations. Fascinating.
+
+At its core, the Euler equations are a set of [partial differential equations](/Partial_differential_equation) that describe [adiabatic](/Adiabatic_process) and [inviscid flow](/Inviscid_flow). Think of them as the [Navier–Stokes equations](/Navier%E2%80%93Stokes_equations) without the messy bits – zero [viscosity](/Viscosity) and zero [thermal conductivity](/Thermal_conductivity). A simplified, almost sterile, view of reality.
+
+These equations apply to both [incompressible](/Incompressible_flow) and [compressible flows](/Compressible_flow). For the incompressible kind, you get the [Cauchy equations](/Cauchy_momentum_equation) for mass conservation and momentum balance, plus the incompressibility condition that the [flow velocity](/Flow_velocity) is [divergence-free](/Solenoidal_field). For compressible flows, it’s mass conservation, momentum balance, and energy conservation, all tied together with a [constitutive equation](/Constitutive_equation) for the fluid's specific energy. Euler himself only bothered with momentum and continuity, leaving the energy equation for later. Typical. But they often refer to the whole compressible shebang as "the compressible Euler equations." Go figure.
+
+The mathematical nature of incompressible and compressible Euler equations is… different. Incompressible equations, with constant density, can be framed as a quasilinear [advection](/Advection) equation for velocity and an elliptic [Poisson's equation](/Poisson%27s_equation) for pressure. Compressible ones? A quasilinear [hyperbolic](/Hyperbolic_partial_differential_equation) system of [conservation equations](/Conservation_equation). Much more dramatic, I suppose.
+
+These equations can be expressed in a "convective form" (also called "[Lagrangian form](/Lagrangian_and_Eulerian_specification_of_the_flow_field)"), which tracks changes relative to the fluid itself, or a "conservation form" (or "[Eulerian form](/Lagrangian_and_Eulerian_specification_of_the_flow_field)"), which focuses on a fixed control volume. The latter is apparently more useful for numerical calculations. Because, of course, everything comes down to numbers in the end.
+
+### History
+
+Euler first laid this out in his 1757 paper, "Principes généraux du mouvement des fluides." Before that, the [Bernoulli family](/Bernoulli_family) and [Jean le Rond d'Alembert](/Jean_le_Rond_d%27Alembert) had their say. Euler’s initial equations were just momentum and continuity – underdetermined, unless the flow was incompressible. [Pierre-Simon Laplace](/Pierre-Simon_Laplace) tossed in the [adiabatic condition](/Adiabatic_process) in 1816 to fix that. Later, in the late 19th century, they realized the energy balance equation was crucial for compressible flows, and the adiabatic condition was just a consequence for smooth solutions. Then [special relativity](/Special_theory_of_relativity) came along and decided to unify things further with the [stress–energy tensor](/Stress%E2%80%93energy_tensor) and the [energy–momentum vector](/Four-momentum). Because why have simple concepts when you can have complicated ones?
+
+### Incompressible Euler equations with constant and uniform density
+
+When the density is constant and uniform, the incompressible Euler equations, in their convective form, look like this:
+
+```
+Du/Dt = -∇w + g
+∇ ⋅ u = 0
+```
+
+Where:
+
+*   `u` is the [flow velocity](/Flow_velocity) [vector field](/Vector_field). Components are `u1, u2, ..., uN`.
+*   `Du/Dt` is the [material derivative](/Material_derivative) of `u`, which is `∂u/∂t + u ⋅ ∇u`. It describes the fluid's acceleration.
+*   `g` represents [body accelerations](/Body_force) – forces per unit mass, like [gravity](/Gravity) or [electric fields](/Electric_fields).
+*   `∇w` is the [gradient](/Gradient) of the specific thermodynamic work. Apparently, it’s an internal [source term](/Linear_differential_equation).
+*   `∇ ⋅ u` is the [divergence](/Divergence) of the flow velocity field.
+
+The first equation is the [Euler momentum equation](/Cauchy_momentum_equation), simplified for uniform density. The second equation is the [incompressible constraint](/Incompressible_flow), stating the velocity field is [solenoidal](/Solenoidal_field). If density *wasn't* uniform, you'd need the [continuity equation](/Continuity_equation) too. But for this constant, uniform density case, it's just two simplified equations. A "toy model," they call it. Limited physical relevance, naturally.
+
+In N-dimensional space, with coordinates `(x1, ..., xN)`, the velocity and force vectors `u` and `g` have components `(u1, ..., uN)` and `(g1, ..., gN)`. The equations can be written using subscript notation:
+
+```
+∂ui/∂t + Σ[j=1 to N] ∂(uiuj + wδij)/∂xj = gi
+Σ[i=1 to N] ∂ui/∂xi = 0
+```
+
+Here, `i` and `j` are component indices, and `δij` is the [Kronecker delta](/Kroenecker_delta). Sometimes, [Einstein notation](/Einstein_notation) is used, where sums are implied by repeated indices.
+
+### Properties
+
+Despite Euler's work centuries ago, many fundamental questions about these equations remain open. In three dimensions, under certain conditions, the equations can lead to singularities. [7]
+
+For free equations (meaning `g=0`, no external forces), smooth solutions conserve specific kinetic energy:
+
+```
+∂/∂t (1/2 u²) + ∇ ⋅ (u²u + wu) = 0
+```
+
+In one dimension, without source terms, the momentum equation simplifies to the inviscid [Burgers' equation](/Burgers%27_equation):
+
+```
+∂u/∂t + u ∂u/∂x = 0
+```
+
+This simpler equation offers insights into the behavior of the Euler equations.
+
+### Nondimensionalisation
+
+To make the equations dimensionless, you need a characteristic length `r0` and a characteristic velocity `u0`. These are chosen so that the dimensionless variables are all of order one.
+
+```
+u* ≡ u/u0
+r* ≡ r/r0
+t* ≡ (u0/r0)t
+p* ≡ w/u0²
+∇* ≡ r0∇
+```
+
+And the unit vector for the field:
+
+```
+ĝ ≡ g/g
+```
+
+Plugging these back into the Euler equations, and defining the [Froude number](/Froude_number), you get the dimensionless form:
+
+```
+Du/Dt = -∇w + (1/Fr)ĝ
+∇ ⋅ u = 0
+```
+
+The "Froude limit" (high Froude numbers, meaning a weak external field) is particularly interesting and can be studied using [perturbation theory](/Perturbation_theory).
+
+### Conservation form
+
+This form emphasizes the mathematical properties, and the contracted version is often best for [computational fluid dynamics](/Computational_fluid_dynamics) simulations. Using conserved variables offers advantages for certain numerical methods. [1]
+
+The free Euler equations are considered "conservative" because they can be written as a conservation equation:
+
+```
+∂y/∂t + ∇ ⋅ F = 0
+```
+
+Or in [Einstein notation](/Einstein_notation):
+
+```
+∂yj/∂t + ∂fij/∂ri = 0i
+```
+
+Where `y` is a vector of conserved quantities and `F` is a [flux](/Flux) matrix.
+
+#### Demonstration of the conservation form
+
+Certain vector identities are key here:
+
+```
+∇ ⋅ (wI) = ∇w
+u ⋅ ∇ ⋅ u = ∇ ⋅ (u ⊗ u)
+```
+
+Where `I` is the identity matrix and `⊗` denotes the [outer product](/Outer_product). In [Einstein notation](/Einstein_notation):
+
+```
+∂i(wδij) = ∂j w
+uj ∂i ui = ∂i(uiuj)
+```
+
+Using these identities, the incompressible Euler equations (constant, uniform density, no external field) can be put into a "conservation" or "[Eulerian form](/Lagrangian_and_Eulerian_specification_of_the_flow_field)":
+
+```
+{ ∂u/∂t + ∇ ⋅ (u ⊗ u + wI) = 0
+  { ∂0/∂t + ∇ ⋅ u = 0 }
+```
+
+Or in Einstein notation:
+
+```
+{ ∂t uj + ∂i (uiuj + wδij) = 0
+  { ∂t 0 + ∂j uj = 0 }
+```
+
+The conserved variables `y` and flux `F` are then:
+
+```
+y = (u, 0)
+F = (u ⊗ u + wI, u)
+```
+
+In 3D, `y` has 4 components and `F` is a 4x3 matrix. Explicitly:
+
+```
+y = (u1, u2, u3, 0)
+F = ( (u1²+w, u1u2, u1u3), (u2u1, u2²+w, u2u3), (u3u1, u3u2, u3²+w), (u1, u2, u3) )
+```
+
+This leads to the final form of the incompressible Euler equation in conservation form:
+
+```
+∂/∂t (u, 0)ᵀ + ∇ ⋅ ( (u⊗u + wI), uᵀ )ᵀ = (g, 0)ᵀ
+```
+
+### Spatial dimensions
+
+For certain problems, like flow in a duct or symmetric flows, a one-dimensional approximation is useful. The [Riemann](/Riemann) [method of characteristics](/Method_of_characteristics) is often used to solve these equations, identifying curves where the partial differential equations (PDEs) simplify into [ordinary differential equations](/Ordinary_differential_equation) (ODEs). This method is crucial for [numerical solutions](/Numerical_analysis).
+
+### Incompressible Euler equations
+
+When density can vary in space (but still uniform in time), the convective form is:
+
+```
+Dρ/Dt = 0
+Du/Dt = -∇p/ρ + g
+∇ ⋅ u = 0
+```
+
+Here, `ρ` is the fluid [mass density](/Mass_density), and `p` is the [pressure](/Pressure). The first equation, `Dρ/Dt = 0`, is the incompressible [continuity equation](/Continuity_equation). The standard continuity equation is `∂ρ/∂t + u ⋅ ∇ρ + ρ ∇ ⋅ u = 0`, but the `ρ ∇ ⋅ u` term vanishes due to the incompressibility constraint `∇ ⋅ u = 0`.
+
+#### Conservation form
+
+In the Froude limit (meaning negligible external forces), the incompressible Euler equations become a single conservation equation:
+
+```
+y = (ρ, ρu, 0)ᵀ
+F = (ρu, ρu⊗u + pI, uᵀ)ᵀ
+```
+
+Here, `y` has `N+2` components and `F` is an `(N+2)xN` matrix. In 3D, `y` has 5 components, and `F` is 5x3.
+
+The general conservation form is:
+
+```
+∂/∂t (ρ, ρuᵀ, 0)ᵀ + ∇ ⋅ (ρu, ρu⊗u + pI, uᵀ)ᵀ = (0, ρgᵀ, 0)ᵀ
+```
+
+The conserved variables can be refined:
+
+```
+y = (ρ, jᵀ, 0)ᵀ
+F = (j, j⊗(1/ρ)j + pI, jᵀ/ρ)ᵀ
+```
+
+Where `j = ρu` is the [momentum](/Momentum) density. The force density `f = ρg` is also a conserved variable.
+
+The equation becomes:
+
+```
+∂/∂t (ρ, jᵀ, 0)ᵀ + ∇ ⋅ (j, j⊗(1/ρ)j + pI, jᵀ/ρ)ᵀ = (0, fᵀ, 0)ᵀ
+```
+
+### Euler equations
+
+The most general form, for compressible flow, in convective form:
+
+```
+Dρ/Dt = -ρ ∇ ⋅ u
+Du/Dt = -∇p/ρ + g
+De/Dt = -p/ρ ∇ ⋅ u
+```
+
+Where `e` is the specific [internal energy](/Internal_energy). These represent conservation of mass, momentum, and energy. The energy equation here is simplified; it's not the most straightforward form, but it links to the incompressible case. The variables `ρ`, `u`, and `p` are the "convective" or "physical" variables, while `ρ`, `ρu` (momentum density), and `ρe + 1/2 ρu²` (total energy density) are the "conserved" or "Eulerian" variables.
+
+Expanding the material derivative gives:
+
+```
+∂ρ/∂t + u ⋅ ∇ρ + ρ ∇ ⋅ u = 0
+∂u/∂t + u ⋅ ∇u + ∇p/ρ = g
+∂e/∂t + u ⋅ ∇e + (p/ρ) ∇ ⋅ u = 0
+```
+
+#### Incompressible constraint (revisited)
+
+It becomes clear now that the incompressible constraint isn't a simplification of the mass equation, but rather the energy equation. Specifically, it's `De/Dt = 0`. For incompressible, inviscid fluids, internal energy is constant along flow lines. Pressure acts like a Lagrange multiplier, not a thermodynamic variable. Thermodynamics is really a concern for compressible flows.
+
+Using mass conservation, this can be written as `∂(ρe)/∂t + ∇ ⋅ (ρeu) = 0`. This means internal energy is also conserved in an inviscid, nonconductive, incompressible flow.
+
+#### Enthalpy conservation
+
+The specific enthalpy is `h = e + p/ρ`. Substituting this and the momentum equation into the energy equation leads to:
+
+```
+Dh/Dt = (1/ρ) Dp/Dt
+```
+
+This means enthalpy changes directly with pressure in a reference frame moving with the fluid.
+
+#### Thermodynamics of ideal fluids
+
+In [thermodynamics](/Thermodynamics), the independent variables are specific volume (`v = 1/ρ`) and specific entropy (`s`). Specific energy `e` is a [function of state](/Function_of_state).
+
+Changing variables to specific volume `v`:
+
+```
+∂v/∂t + u ⋅ ∇v = v ∇ ⋅ u
+```
+
+This equation is invariant across different continuum models, including Navier-Stokes.
+
+Pressure `p` is related to internal energy `e` by `p(v,s) = -∂e(v,s)/∂v`. The pressure gradient in the momentum equation becomes:
+
+```
+-∇p(v,s) = e_vv ∇v + e_vs ∇s
+```
+
+Where `e_vv = ∂²e/∂v²` and `e_vs = ∂²e/∂v∂s`.
+
+The energy equation simplifies to `Ds/Dt = 0`, meaning specific entropy is constant along flow lines for an inviscid, nonconductive fluid. This can be written as `∂(ρs)/∂t + ∇ ⋅ (ρsu) = 0`, showing entropy density conservation.
+
+The fundamental equation of state `e = e(v,s)` dictates the fluid's thermodynamic properties.
+
+#### Conservation form
+
+For thermodynamic fluids, the Euler equations in conservation form are:
+
+```
+y = (ρ, jᵀ, S)ᵀ
+F = (j, j⊗(1/ρ)j + pI, S uᵀ/ρ)ᵀ
+```
+
+Where `j = ρu` is momentum density, and `S = ρs` is entropy density.
+
+The equation becomes:
+
+```
+∂/∂t (ρ, jᵀ, S)ᵀ + ∇ ⋅ (j, j⊗(1/ρ)j + pI, S uᵀ/ρ)ᵀ = (0, fᵀ, 0)ᵀ
+```
+
+Another useful form for the energy equation, especially for [isobaric](/Isobaric_process) flows, is:
+
+```
+∂Hᵗ/∂t + ∇ ⋅ (Hᵗ u) = u ⋅ f - ∂p/∂t
+```
+
+Where `Hᵗ = Eᵗ + p = ρe + p + 1/2 ρu²` is the total enthalpy density.
+
+### Quasilinear form and characteristic equations
+
+In smooth regions, the conservation form can be written as:
+
+```
+∂y/∂t + Aᵢ ∂y/∂rᵢ = 0
+```
+
+Where `Aᵢ(y) = ∂fᵢ(y)/∂y` are the flux Jacobians. These matrices don't exist at discontinuities like shocks.
+
+#### Characteristic equations
+
+The compressible Euler equations can be decoupled into `N+2` wave equations describing sound propagation if expressed in [characteristic variables](/Method_of_characteristics). The eigenvalues of the Jacobian matrix `A` represent wave speeds. If they are all real and distinct, the system is strictly hyperbolic. Diagonalizing the equations is easier with entropy.
+
+The characteristic variables `w` are found using eigenvectors `pᵢ` and eigenvalues `λᵢ` of `A`: `w = P⁻¹ y`. The characteristic equations become:
+
+```
+∂wᵢ/∂t + λⱼ ∂wᵢ/∂rⱼ = 0ᵢ
+```
+
+This decouples the system into `N+2` simple wave equations, each propagating at speed `λᵢ`. The solution `y(x,t)` is a linear combination of eigenvectors weighted by characteristic variables.
+
+#### Waves in 1D inviscid, nonconductive thermodynamic fluid
+
+For a 1D, inviscid, nonconductive thermodynamic fluid with `g=0`:
+
+```
+∂v/∂t + u ∂v/∂x - v ∂u/∂x = 0
+∂u/∂t + u ∂u/∂x - e_vv v ∂v/∂x - e_vs v ∂s/∂x = 0
+∂s/∂t + u ∂s/∂x = 0
+```
+
+With `y = (v, u, s)ᵀ`, the Jacobian matrix is:
+
+```
+A = ( (u, -v, 0), (-e_vv v, u, -e_vs v), (0, 0, u) )
+```
+
+The eigenvalues are found by solving `det(A - λI) = 0`. This yields:
+
+```
+(u - λ) ((u - λ)² - a²) = 0
+```
+
+Where `a² = e_vv v²`. This `a` parameter is related to the speed of sound. The three eigenvalues are `λ₁ = u - a`, `λ₂ = u`, and `λ₃ = u + a`. These are the wave speeds.
+
+The corresponding eigenvectors define the transformation to characteristic variables. The parameter `a` is the wave speed, and for an isentropic process, it becomes the sound speed `a_s`.
+
+### Compressibility and sound speed
+
+The sound speed `a_s` is defined for an isentropic process:
+
+```
+a_s(ρ, p) = sqrt( (∂p/∂ρ)_s )
+```
+
+For an ideal gas, sound speed depends only on temperature:
+
+```
+a_s(T) = sqrt(γ T/m)
+```
+
+#### Deduction of the form valid for ideal gases
+
+The [Poisson's law](/Poisson%27s_law) for an ideal gas (`d(pρ⁻γ)_s = 0`) leads to `(∂p/∂ρ)_s = γp/ρ`. Thus, `a_s = sqrt(γp/ρ)`. Using the ideal gas law (`p = nT = (ρ/m)T`), this becomes `a_s = sqrt(γT/m)`.
+
+For an ideal gas, enthalpy `h` is proportional to temperature. So, sound speed can also be expressed in terms of enthalpy: `a_s(h) = sqrt((γ - 1)h)`.
+
+### Bernoulli's theorem for steady inviscid flow
+
+This is a direct consequence of the Euler equations.
+
+#### Incompressible case and Lamb's form
+
+Using vector identities, the momentum equation can be written in [Lamb's form](/Cauchy_momentum_equation):
+
+```
+∂u/∂t + 1/2 ∇(u²) + (∇ × u) × u + ∇p/ρ = g
+```
+
+For steady flow (`∂u/∂t = 0`) with a conservative external field (`g = -∇φ`), this becomes:
+
+```
+∇(1/2 u² + φ + p/ρ) = -p/ρ² ∇ρ + u × (∇ × u)
+```
+
+If the flow is also incompressible (`∇ ⋅ u = 0`, implying `u ⋅ ∇ρ = 0`), then `∇ρ` is zero along streamlines. The equation simplifies to:
+
+```
+u ⋅ ∇(1/2 u² + φ + p/ρ) = 0
+```
+
+Defining the [total head](/Total_head) `b_l = 1/2 u² + φ + p/ρ`, we get `u ⋅ ∇b_l = 0`. This means the total head is constant along a streamline.
+
+#### Compressible case
+
+For steady compressible flow, the equation becomes:
+
+```
+u ⋅ ∇(e + p/ρ + 1/2 u² + φ) = 0
+```
+
+Defining total enthalpy `hᵗ = e + p/ρ + 1/2 u²`, the Bernoulli invariant is `b_g = hᵗ + φ`. So, `u ⋅ ∇b_g = 0`. The sum of total enthalpy and potential energy is constant along a streamline.
+
+### Friedmann form and Crocco form
+
+By substituting pressure gradients with entropy and enthalpy gradients, the momentum equation becomes:
+
+```
+Du/Dt = T ∇s - ∇h
+```
+
+This is the [Friedmann form](/Alexander_Friedmann). For steady flow, using entropy (`s`) and total enthalpy (`hᵗ`), the [Crocco–Vazsonyi form](/Crocco%27s_theorem) is:
+
+```
+{ u × ∇ × u + T ∇s - ∇hᵗ = g
+  { u ⋅ ∇s = 0
+  { u ⋅ ∇hᵗ = 0 }
+```
+
+If the flow is also isothermal, the equations further simplify.
+
+### Discontinuities
+
+The Euler equations are [quasilinear](/Differential_equation) and [hyperbolic](/Hyperbolic_partial_differential_equation), leading to wave solutions. Nonlinear effects can cause these waves to "break," forming [shock waves](/Shock_waves). This signifies a breakdown of the differential equation assumptions, requiring a move to integral forms and [weak solutions](/Weak_solution) using the [Rankine–Hugoniot equations](/Rankine%E2%80%93Hugoniot_equations). Viscosity and heat transfer smooth these discontinuities in real flows. Shock waves are studied in [aerodynamics](/Aerodynamics) and [rocket propulsion](/Rocket). Numerical computation of discontinuities often requires [finite volume methods](/Finite_volume_method).
+
+#### Rankine–Hugoniot equations
+
+These equations describe the state of a fluid across a shock wave. For a steady 1D conservation equation `∇ ⋅ F = 0`, the jump relation is `ΔF = 0`. For transient equations, `dx/dt Δu = ΔF`.
+
+For 1D Euler equations, the jump relations (Rankine–Hugoniot equations) are:
+
+```
+dx/dt Δ(1/v) = Δj
+dx/dt Δj = Δ(vj² + p)
+dx/dt ΔEᵗ = Δ(jv(Eᵗ + p))
+```
+
+Where `v` is specific volume, `j` is mass flux, `Eᵗ` is total energy density. In the steady 1D case, these simplify significantly, leading to `Δj = 0`, `Δ(vj² + p) = 0`, and `Δhᵗ = 0` (total enthalpy change is zero).
+
+These can be expressed in terms of convective variables (`u`, `e`, `p`, `v`):
+
+```
+Δj = 0
+Δ(u²/v + p) = 0
+Δ(e + 1/2 u² + pv) = 0
+```
+
+The energy equation here is essentially Bernoulli's equation for compressible flow. The Rayleigh equation `Δp/Δv = -u₀²/v₀` describes a line in the pressure-volume plane. The Hugoniot equation, derived from these, describes a curve relating pressure and volume across a shock, dependent on the material's equation of state.
+
+#### Finite volume form
+
+Integrating conservation equations over a fixed volume `V_m` and time interval leads to the finite volume method. Conserved quantities at nodes `y_{m,n}` are updated based on fluxes across boundaries.
+
+```
+y_{m,n+1} = y_{m,n} - (1/V_m) ∫[t_n to t_{n+1}] ∮[∂V_m] F ⋅ n̂ ds dt
+```
+
+For Euler equations, convective variables are then recovered. Explicit finite volume forms for density, velocity, and internal energy are derived from these integral fluxes.
+
+### Constraints
+
+Euler equations alone are insufficient; an [equation of state](/Equation_of_state) is needed.
+
+#### Ideal polytropic gas
+
+For an ideal polytropic gas, the fundamental equation of state is:
+
+```
+e(v,s) = e₀ exp((γ-1)m(s-s₀)) (v₀/v)^(γ-1)
+```
+
+This is consistent with thermodynamic definitions. Temperature `T` is proportional to `e`. This leads to the [ideal gas law](/Ideal_gas_law) `pv = mT` or `p = nT`. The heat capacity ratio `γ` is constant. This yields standard relations between heat capacities (`c_p/c_v = γ` and `c_p = c_v + 1`).
+
+The specific energy is `e(T) = mT/(γ-1) = c_v mT`, and enthalpy `h(T) = c_p mT`. The mechanical equation of state is `e(v,p) = pv/(γ-1)`.
+
+The Euler equations for an ideal polytropic gas in convective form are:
+
+```
+Dv/Dt = v ∇ ⋅ u
+Du/Dt = v ∇p + g
+Dp/Dt = -γ p ∇ ⋅ u
+```
+
+In 1D quasilinear form:
+
+```
+∂y/∂t + A ∂y/∂x = 0
+```
+
+With `y = (v, u, p)ᵀ` and Jacobian matrix:
+
+```
+A = ( (u, -v, 0), (0, u, v), (0, γp, u) )
+```
+
+### Steady flow in material coordinates
+
+For steady flow, using a [Frenet–Serret frame](/Frenet%E2%80%93Serret_frame) along a streamline simplifies the momentum equation. The convective derivative `u ⋅ ∇u` is expressed in terms of tangential and normal components.
+
+```
+u ∂u/∂s = -1/ρ ∂p/∂s
+u²/R = -1/ρ ∂p/∂n
+0 = -1/ρ ∂p/∂b
+```
+
+Where `s` is along the streamline, `n` normal, `b` binormal, and `R` is the [radius of curvature](/Radius_of_curvature_(mathematics)). The second equation shows that a curved streamline requires a pressure gradient perpendicular to it (for centripetal acceleration).
+
+#### Streamline curvature theorem
+
+This theorem states that the center of curvature of a streamline lies in the direction of decreasing radial pressure for inviscid, steady flow without external forces. It explains low pressures in vortex cores and lift generation by airfoils.
+
+### Exact solutions
+
+All [potential flow](/Potential_flow) solutions are also solutions to the Euler equations. Solutions with [vorticity](/Vorticity) include [parallel shear flows](/Shear_flow) and the [Arnold–Beltrami–Childress flow](/Arnold%E2%80%93Beltrami%E2%80%93Childress_flow). Some 3D solutions with [cylindrical symmetry](/Cylindrical_symmetry) have infinite energy and blow up in finite time.
+
+---
+
+There. That’s the dry, unvarnished truth about these equations. Don't expect me to elaborate further unless absolutely necessary. It's all there.

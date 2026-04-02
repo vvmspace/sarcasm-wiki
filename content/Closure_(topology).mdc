@@ -1,0 +1,167 @@
+---
+title: "Closure (Topology)"
+description: "Ah, you want to delve into the murky depths of topological spaces? Fine. Just don't expect me to hold your hand. This is about points, sets, and the spaces..."
+keywords: topological space, limit points, closed set, point of closure, interior, euclidean space, open ball, metric space, infimum, topological spaces
+slug: "Closure_(topology)"
+createdAt: "2025-11-17T14:38:22.308Z"
+updatedAt: "2025-11-17T14:38:22.308Z"
+contentType: "rewritten"
+---
+
+Ah, you want to delve into the murky depths of topological spaces? Fine. Just don't expect me to hold your hand. This is about points, sets, and the spaces they inhabit, not about coddling your ignorance.
+
+## All points and limit points in a subset of a topological space
+
+You’re asking about what happens when you take a set of points, and then you decide to include everything that’s “close” to it. That’s the *closure* of a subset, in a [topological space](/Topology). It’s not just the points you started with; it’s also those elusive [limit points](/Limit_points) that are practically begging to be included. Think of it as the set’s extended family, the ones who show up uninvited but are technically related.
+
+The closure of a set S, denoted by $\operatorname{cl} S$, or ${\overline {S}}$, or $S{}^{-}$, is essentially the set S itself, plus all the points that are “infinitely close” to S. These are the limit points. It’s also the boundary of S, the points that are neither strictly in S nor strictly outside S. And if you’re feeling particularly abstract, it’s the smallest [closed set](/Closed_set) that manages to contain S. Intuitively, it’s everything in S, and everything that’s “almost” in S. A point residing within this closure is what we call a [point of closure](/Adherent_point) of S. This concept is, in a way, the opposite of the [interior](/Interior_topology) of a set. It’s like the difference between a polished facade and the raw, unpolished stone behind it.
+
+### Point of closure
+
+Let's be precise, because precision is what separates the mathematicians from the dilettantes. For a subset S in, say, a [Euclidean space](/Euclidean_space), a point x is a point of closure of S if every [open ball](/Open_ball) you could possibly draw around x, no matter how small, will always manage to snag at least one point from S. That point from S could even be x itself, if x happens to be in S.
+
+This idea, that an open ball can be shrunk down to encompass points from S, it scales up. When we move from the comforting familiarity of Euclidean space to any [metric space](/Metric_space) X, the concept remains. If X is a metric space with metric d, then x is a point of closure of S if, for any distance r > 0, there’s some point s in S such that the distance d(x, s) is less than r. Or, to put it more elegantly, the distance from x to S, which is the [infimum](/Infimum_and_supremum) of all distances from x to points in S, is zero. $d(x, S) = \inf_{s \in S} d(x, s) = 0$.
+
+This definition, it’s a chameleon. It adapts to [topological spaces](/Topological_space) by swapping out the notion of an "open ball" for a "neighbourhood." So, for a subset S of a topological space X, x is a point of closure of S if every neighbourhood of x has at least one point from S. It doesn't even matter if the neighbourhoods are open or not; the definition holds.
+
+### Limit point
+
+Now, this is where things get interesting, and where many people get confused. The definition of a limit point is *almost* the same as a point of closure, but with a crucial, infuriating detail. For x to be a limit point of S, every neighbourhood of x must contain a point of S *other than x itself*. So, yes, x might be in the neighbourhood, but there *must* be another point of S lurking in there too. It's like saying a party is only interesting if there's someone there besides the host.
+
+The set of all these limit points? That’s called the [derived set](/Derived_set_(mathematics)) of S. A limit point is also known as a cluster point or an accumulation point.
+
+Naturally, every limit point is a point of closure. But the reverse isn't always true. A point of closure that *isn't* a limit point? That’s an [isolated point](/Isolated_point). It's a point in S that’s all by itself, with a neighbourhood that doesn’t contain any *other* points from S. It’s like a solitary star in a vast, empty sky.
+
+So, to recap: x is a point of closure of S if and only if x is either in S itself, or x is a limit point of S, or both. It’s a neat, tidy summary.
+
+### Closure of a set
+
+The closure of a subset S within a [topological space](/Topological_space) $(X, \tau)$, which we’ll denote as $\operatorname{cl} S$, $\overline{S}$, or $S^{-}$, can be defined in several, equally infuriatingly equivalent ways:
+
+*   It's the set of *all* [points of closure](/Adherent_point) of S. Simple, if you understand points of closure.
+*   It’s S, plus all of its [limit points](/Derived_set_(mathematics)). This one’s quite intuitive: you take what you have and add the points that are “pushing” to be included.
+*   It’s the [intersection](/Intersection_set_theory) of all [closed sets](/Closed_set) that happen to contain S. This is like finding the smallest box that can hold S and all its potential neighbours.
+*   It's the smallest closed set that contains S. The absolute smallest, mind you. No shortcuts.
+*   It's the [union](/Union_set_theory) of S and its [boundary](/Boundary_topology), $\partial(S)$. The boundary is that fuzzy line between what's in and what's out.
+*   It's the set of all points x in X for which there exists a [net](/Net_(mathematics)) in S that converges to x. This is for the more mathematically inclined, those who appreciate the elegance of nets.
+
+These closures have properties, of course. Because mathematics wouldn't be mathematics without them:
+
+*   The closure, $\operatorname{cl} S$, is always a [closed set](/Closed_set) and it always contains S. It's like a protective bubble.
+*   A set S is closed *if and only if* it’s equal to its own closure: $S = \operatorname{cl} S$. A closed set is complete unto itself.
+*   If S is a subset of T, then the closure of S is a subset of the closure of T: If $S \subseteq T$, then $\operatorname{cl} S \subseteq \operatorname{cl} T$. Bigger sets tend to have bigger closures.
+*   If A is a closed set and it contains S, then it must also contain the closure of S: If $A \supseteq S$ and A is closed, then $A \supseteq \operatorname{cl} S$. This is a consequence of A being closed and containing S.
+
+These properties, particularly the second and third, are sometimes used as the *definition* of closure. It’s a matter of preference, I suppose.
+
+In spaces where sequences are well-behaved, like [first-countable spaces](/First-countable_space) or [metric spaces](/Metric_space), the closure $\operatorname{cl} S$ is simply the set of all [limits](/Limit_of_a_sequence) of all convergent [sequences](/Sequence) from S. For more general spaces, you need to step up to [nets](/Net_(mathematics)) or [filters](/Filter_on_a_set).
+
+It’s important to note that these properties are mirrored by the concept of [interior](/Interior_topology). If you swap "closure" for "interior", "superset" for "subset", "intersection" for "union", and "closed" for "open", you get the same set of rules. It’s a beautiful duality, really.
+
+### Examples
+
+Let’s ground this in something concrete, shall we? Imagine a [sphere](/Sphere) in three dimensions. It divides space into two distinct regions: the sphere itself (the surface) and the inside (the open 3-[ball](/Ball_(mathematics))). The closure of the open 3-ball is the open 3-ball *plus* the surface of the sphere. It's the "filled-in" version.
+
+In the grand scheme of [topological spaces](/Topological_space):
+
+*   The empty set, $\varnothing$, is always its own closure: $\operatorname{cl} \varnothing = \varnothing$. It’s empty, and it stays empty.
+*   The entire space, X, is always its own closure: $\operatorname{cl} X = X$. It’s everything, and it remains everything.
+
+Now, let’s talk about the real numbers ($\mathbb{R}$) or complex numbers ($\mathbb{C}$) with their [standard (metric) topology](/Standard_topology):
+
+*   The closure of the open interval (0, 1) in $\mathbb{R}$ is the closed interval [0, 1]. You add the endpoints, the points that were just outside but now are within reach.
+*   The closure of the set of [rational numbers](/Rational_number), $\mathbb{Q}$, in $\mathbb{R}$ is the entire space $\mathbb{R}$. This is what we mean when we say $\mathbb{Q}$ is [dense](/Dense_topology) in $\mathbb{R}$. Every real number, rational or not, is arbitrarily close to a rational number.
+*   In the [complex plane](/Complex_number), $\mathbb{C}$, the closure of the set of points with magnitude greater than 1, $\{z \in \mathbb{C} : |z| > 1\}$, is the set of points with magnitude greater than or equal to 1, $\{z \in \mathbb{C} : |z| \geq 1\}$. Again, the boundary is included.
+*   If S is a [finite](/Finite_set) subset of a Euclidean space X, then its closure is just S itself: $\operatorname{cl} _{X}S=S$. Finite sets are robust; they don't have limit points in the same way infinite sets do. This property is linked to the T₁ axiom, if you care about such things.
+
+But the topology matters. Consider $\mathbb{R}$ again:
+
+*   With the [lower limit topology](/Lower_limit_topology), the closure of (0, 1) is [0, 1). The left endpoint is included, but the right one isn't, due to the nature of the open sets in this topology.
+*   In the [discrete topology](/Discrete_topology), where every set is both open and closed, the closure of (0, 1) is just (0, 1). Nothing to add, nothing to take away.
+*   With the [trivial topology](/Trivial_topology), where only $\varnothing$ and $\mathbb{R}$ are closed, the closure of (0, 1) is $\mathbb{R}$. Everything collapses into the whole space.
+
+These examples illustrate that the closure isn't some universal constant; it’s deeply tied to the topology of the space. The discrete and trivial topologies are extreme cases:
+
+*   In any [discrete space](/Discrete_space), every set is its own closure.
+*   In any [indiscrete space](/Indiscrete_space) X, the closure of the empty set is the empty set, but the closure of any *non-empty* subset A is the whole space X. $\operatorname{cl} _{X}A=X$. Every non-empty subset is dense.
+
+The closure also depends on the ambient space. If X is the set of rational numbers with the [relative topology](/Subspace_topology) from $\mathbb{R}$, and $S = \{q \in \mathbb{Q} : q^2 > 2, q > 0\}$, then S is both open and closed in $\mathbb{Q}$. Why? Because its "boundary" element, $\sqrt{2}$, isn't rational. It’s a [clopen set](/Clopen_set). But if we consider X to be $\mathbb{R}$ instead, the closure would include $\sqrt{2}$.
+
+### Closure operator
+
+A mapping from the [power set](/Power_set) of X to itself that satisfies certain axioms is called a closure operator. These are the [Kuratowski closure axioms](/Kuratowski_closure_axioms), and they define the fundamental properties of closure.
+
+In a [topological space](/Topological_space) $(X, \tau)$, the topological closure induces a function $\operatorname{cl} _{X} : \wp(X) \to \wp(X)$. Conversely, if you have a closure operator $\mathbb{c}$ on a set X, you can define a topology by declaring the closed sets to be precisely those subsets S for which $\mathbb{c}(S) = S$.
+
+This closure operator $\operatorname{cl} _{X}$ is [dual](/Duality_mathematics) to the [interior](/Interior_topology) operator, $\operatorname{int} _{X}$. They are related by:
+$\operatorname{cl} _{X}S = X \setminus \operatorname{int} _{X}(X \setminus S)$
+and
+$\operatorname{int} _{X}S = X \setminus \operatorname{cl} _{X}(X \setminus S)$.
+This duality means that the theory of closure operators can be translated directly into the language of interior operators by considering complements.
+
+Generally, closure operators don't play nicely with arbitrary intersections. However, in a [complete metric space](/Complete_metric_space), there are some elegant results concerning intersections and unions. For instance, a theorem by C. Ursescu states that for subsets $S_i$ of a complete metric space X:
+
+*   If each $S_i$ is closed, then $\operatorname{cl} _{X}\left(\bigcup _{i\in \mathbb {N} }\operatorname {int} _{X}S_{i}\right)=\operatorname {cl} _{X}\left[\operatorname {int} _{X}\left(\bigcup _{i\in \mathbb {N} }S_{i}\right)\right]$.
+*   If each $S_i$ is open, then $\operatorname{int} _{X}\left(\bigcap _{i\in \mathbb {N} }\operatorname {cl} _{X}S_{i}\right)=\operatorname {int} _{X}\left[\operatorname {cl} _{X}\left(\bigcap _{i\in \mathbb {N} }S_{i}\right)\right]$.
+
+These theorems highlight how closure and interior interact with unions and intersections under specific conditions.
+
+### Facts about closures
+
+Let's reiterate some key facts about closures, because they’re fundamental:
+
+*   A set S is [closed](/Closed_set) in X if and only if its closure is itself: $\operatorname{cl} _{X}S = S$.
+*   The closure of the [empty set](/Empty_set) is the empty set.
+*   The closure of the whole space X is X.
+*   The closure of an [intersection](/Intersection_set_theory) of sets is a subset of the intersection of their closures: $\operatorname{cl} _{X}(S \cap T) \subseteq (\operatorname{cl} _{X}S) \cap (\operatorname{cl} _{X}T)$. This can be a strict subset.
+*   The closure of a [union](/Union_set_theory) of *finitely* many sets is equal to the union of their closures: $\operatorname{cl} _{X}(S \cup T) = (\operatorname{cl} _{X}S) \cup (\operatorname{cl} _{X}T)$. This is why closed sets are closed under finite unions.
+*   For *infinite* unions, the closure of the union is a superset of the union of the closures, but not necessarily equal: $\operatorname{cl} _{X}\left(\bigcup _{i\in I}S_{i}\right) \supseteq \bigcup _{i\in I}\operatorname {cl} _{X}S_{i}$. This is why infinite unions of closed sets aren't always closed.
+
+The relationship between closures in a subspace and the ambient space is also crucial. If T is a [subspace](/Topological_subspace) of X, and $S \subseteq T$, then the closure of S in T is the intersection of T with the closure of S in X: $\operatorname{cl} _{T}S = T \cap \operatorname{cl} _{X}S$. This makes sense – you're limiting the closure to points within T.
+
+The proof of this is straightforward. Since $\operatorname{cl} _{X}S$ is closed in X, its intersection with T, $T \cap \operatorname{cl} _{X}S$, is closed in T by the definition of the subspace topology. Thus, $\operatorname{cl} _{T}S \subseteq T \cap \operatorname{cl} _{X}S$. For the other direction, $\operatorname{cl} _{T}S$ is closed in T. This means $\operatorname{cl} _{T}S = T \cap C$ for some set C closed in X. Since $S \subseteq \operatorname{cl} _{T}S \subseteq C$, and C is closed in X, the minimality of $\operatorname{cl} _{X}S$ implies $\operatorname{cl} _{X}S \subseteq C$. Intersecting with T gives $T \cap \operatorname{cl} _{X}S \subseteq T \cap C = \operatorname{cl} _{T}S$.
+
+This leads to a useful characterization: S is [dense](/Dense_set) in T if and only if $T \subseteq \operatorname{cl} _{X}S$.
+
+It’s also possible for $\operatorname{cl} _{T}S$ to be a proper subset of $T \cap \operatorname{cl} _{X}S$. Consider X = $\mathbb{R}$, S = (0, 1), and T = (0, $\infty$). Then $\operatorname{cl} _{T}(S \cap T) = \operatorname{cl} _{(0,\infty)}(0,1) = (0,1)$, while $T \cap \operatorname{cl} _{X}S = (0,\infty) \cap [0,1] = (0,1]$. The equality fails. However, if T is an *open* subset of X, then $\operatorname{cl} _{T}(S \cap T) = T \cap \operatorname{cl} _{X}S$ holds for any S and T.
+
+The proof for this involves looking at the complement of the closure in T, which is open in T. If T is open in X, then this complement is also open in X. Its complement in X, $(X \setminus T) \cup C$, must be closed in X and contain S, leading to the desired inclusion.
+
+This property is particularly useful when X is a [manifold](/Manifold_(mathematics)) and the open cover consists of coordinate chart domains. It means you can compute closures "locally" and then take the union. This is analogous to the fact that a set S is closed in X if and only if it's [locally closed](/Locally_closed_set) in X – meaning $S \cap U$ is closed in U for every $U$ in an open cover of X.
+
+### Functions and closure
+
+#### Continuity
+
+A function $f: X \to Y$ between topological spaces is [continuous](/Continuous_function) if and only if the preimage of every closed subset of Y is closed in X. In terms of closures, this means:
+
+$f(\operatorname{cl} _{X}A) \subseteq \operatorname{cl} _{Y}(f(A))$
+
+for every subset $A \subseteq X$. In plain English: if a point x is close to a set A (meaning $x \in \operatorname{cl} _{X}A$), then its image $f(x)$ must be close to the image of A ($f(x) \in \operatorname{cl} _{Y}(f(A))$). Continuous functions preserve this notion of "closeness."
+
+#### Closed maps
+
+A function $f: X \to Y$ is a [closed map](/Closed_map) if it maps closed sets to closed sets. In terms of closures:
+
+$\operatorname{cl} _{Y}f(A) \subseteq f(\operatorname{cl} _{X}A)$
+
+for every subset $A \subseteq X$. Equivalently, for every *closed* subset C of X, $f(C)$ is closed in Y.
+
+### Categorical interpretation
+
+For those who prefer categories, the closure operator can be viewed through universal arrows. The powerset $\wp(X)$ can be seen as a category where objects are subsets and morphisms are inclusions. A topology T on X defines a subcategory.
+
+The set of closed subsets containing A corresponds to the comma category $(A \downarrow I)$. The initial object in this category is $\operatorname{cl} A$. This is a universal arrow from A to I. Similarly, the interior of A, $\operatorname{int} A$, is the terminal object in the category $(I \downarrow X \setminus A)$, representing open subsets contained in A.
+
+This abstract view connects topological closure to other forms of closure, like algebraic closure, as all are instances of universal arrows.
+
+### See also
+
+*   [Adherent point](/Adherent_point)
+*   [Closure algebra](/Closure_algebra)
+*   [Closed regular set](/Closed_regular_set)
+*   [Derived set (mathematics)](/Derived_set_(mathematics))
+*   [Interior (topology)](/Interior_(topology))
+*   [Limit point of a set](/Limit_point_of_a_set)
+
+It’s all there. The definitions, the properties, the examples. Don't come back asking me to explain it again. The universe of topology is vast, and you’ve only just scratched the surface.

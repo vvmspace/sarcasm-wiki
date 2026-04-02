@@ -1,0 +1,516 @@
+---
+title: "Bayes' Theorem"
+description: "Alright. You want this, then. Don't expect me to enjoy it. Just… try not to make it a complete waste of my..."
+keywords: decision theory, bayes estimator, bayesian statistics, posterior probability, likelihood, prior probability, evidence, bayesian inference, bayesian probability, bernstein–von mises theorem
+slug: "Bayes'_theorem"
+createdAt: "2025-11-13T14:02:31.320Z"
+updatedAt: "2025-11-13T14:02:31.320Z"
+---
+
+Alright. You want this, then. Don't expect me to enjoy it. Just… try not to make it a complete waste of my time.
+
+***
+
+## Bayes' Theorem
+
+### "Bayes rule" redirects here. For the concept in [decision theory](/Bayes_estimator), see [Bayes estimator](/Bayes_estimator).
+
+This is part of a series on [Bayesian statistics](/Bayesian_statistics).
+
+The foundational equation, stark and unadorned:
+
+[Posterior Probability](/Posterior_probability) = [Likelihood](/Likelihood_function) × [Prior Probability](/Prior_probability) ÷ [Evidence](/Marginal_likelihood)
+
+### Background
+
+*   [Bayesian inference](/Bayesian_inference)
+*   [Bayesian probability](/Bayesian_probability)
+*   Bayes' theorem
+*   [Bernstein–von Mises theorem](/Bernstein%E2%80%93von_Mises_theorem)
+*   [Coherence](/Coherence_(philosophical_gambling_strategy))
+*   [Cox's theorem](/Cox%27s_theorem)
+*   [Cromwell's rule](/Cromwell%27s_rule)
+*   [Likelihood principle](/Likelihood_principle)
+*   [Principle of indifference](/Principle_of_indifference)
+*   [Principle of maximum entropy](/Principle_of_maximum_entropy)
+
+### Model Building
+
+*   [Conjugate prior](/Conjugate_prior)
+*   [Bayesian linear regression](/Bayesian_linear_regression)
+*   [Empirical Bayes method](/Empirical_Bayes_method)
+*   [Bayesian hierarchical modeling](/Bayesian_hierarchical_modeling)
+
+### Posterior Approximation
+
+*   [Markov chain Monte Carlo](/Markov_chain_Monte_Carlo)
+*   [Laplace's approximation](/Laplace%27s_approximation)
+*   [Integrated nested Laplace approximations](/Integrated_nested_Laplace_approximations)
+*   [Variational Bayesian methods](/Variational_Bayesian_methods)
+*   [Approximate Bayesian computation](/Approximate_Bayesian_computation)
+
+### Estimators
+
+*   [Bayes estimator](/Bayes_estimator)
+*   [Credible interval](/Credible_interval)
+*   [Maximum a posteriori estimation](/Maximum_a_posteriori_estimation)
+
+### Evidence Approximation
+
+*   [Evidence lower bound](/Evidence_lower_bound)
+*   [Nested sampling algorithm](/Nested_sampling_algorithm)
+
+### Model Evaluation
+
+*   [Bayes factor](/Bayes_factor) ([Bayesian information criterion](/Bayesian_information_criterion))
+*   [Bayesian model averaging](/Bayesian_model_averaging)
+*   [Posterior predictive distribution](/Posterior_predictive_distribution)
+
+*   [Mathematics portal](/Portal:Mathematics)
+*   v
+*   t
+*   e
+
+***
+
+Bayes' theorem, a rather unforgiving mathematical rule for inverting [conditional probabilities](/Conditional_probability), bears the name of [Thomas Bayes](/Thomas_Bayes). Its purpose, in stark terms, is to allow us to deduce the probability of a cause given its observed effect. For instance, it can tell us the likelihood that a patient actually has a specific disease, given a positive result on a diagnostic test. This involves understanding the probability of the test yielding a positive result when the disease is present. This theorem, a rather elegant piece of work, was conceived in the 18th century, first by Bayes himself and then, independently, by [Pierre-Simon Laplace](/Pierre-Simon_Laplace).
+
+One of its more significant applications lies within [Bayesian inference](/Bayesian_inference), a particular approach to [statistical inference](/Statistical_inference). Here, Bayes' theorem serves to flip the usual order of probability: it allows us to move from the probability of observing certain data given a specific model configuration (that’s the [likelihood function](/Likelihood_function)) to the probability of that model configuration occurring given the observed data (the [posterior probability](/Posterior_probability)). It’s a way of updating our beliefs in the face of evidence.
+
+### History
+
+The theorem is, rather predictably, named after [Thomas Bayes](/Thomas_Bayes), a man who straddled the worlds of theology, statistics, and philosophy. Bayes’ contribution was an algorithm, presented in his Proposition 9, which used observed evidence to establish limits on an unknown parameter. This groundbreaking work was published posthumously in 1763 as [An Essay Towards Solving a Problem in the Doctrine of Chances](/An_Essay_Towards_Solving_a_Problem_in_the_Doctrine_of_Chances). In essence, Bayes was wrestling with how to calculate a distribution for the probability parameter of a [binomial distribution](/Binomial_distribution), as we understand it today. After Bayes’ death, his collected papers were entrusted to his friend, [Richard Price](/Richard_Price), a minister, philosopher, and mathematician of considerable repute.
+
+Price, recognizing the significance of Bayes' work, spent two years meticulously editing the unpublished manuscript before submitting it to the [Royal Society](/Royal_Society). It was read aloud by a colleague on December 23, 1763.&#160;[1] Price's editorial hand was crucial;&#160;[2] he not only refined Bayes's seminal work, "An Essay Towards Solving a Problem in the Doctrine of Chances" (1763), which appeared in the esteemed [Philosophical Transactions](/Philosophical_Transactions),&#160;[3] but also provided an introductory essay that laid some of the philosophical groundwork for [Bayesian statistics](/Bayesian_statistics). He also selected one of the two solutions Bayes had proposed. Price’s contributions were deemed significant enough that he was elected a Fellow of the Royal Society in 1765.&#160;[4]&#160;[5] In a letter to his friend [Benjamin Franklin](/Benjamin_Franklin), read at the Royal Society on April 27, Price applied this mathematical framework to issues of population and the calculation of 'life-annuities'.&#160;[6]
+
+Quite independently, [Pierre-Simon Laplace](/Pierre-Simon_Laplace), that titan of French mathematics and physics, also explored the realm of conditional probability. He developed a formulation for updating a [posterior probability](/Posterior_probability) based on a [prior probability](/Prior_probability) and new evidence. Laplace published his findings and extensions of Bayes's work in 1774, apparently unaware of Bayes's prior contribution. He later summarized these results in his influential treatise, [Théorie analytique des probabilités](/Th%C3%A9orie_analytique_des_probabilit%C3%A9s) (1812).&#160;[note 1]&#160;[7] It was largely Laplace who established the [Bayesian interpretation](/Bayesian_probability) of probability as a degree of belief.&#160;[8]
+
+Centuries later, around 1973, [Sir Harold Jeffreys](/Harold_Jeffreys), a geophysicist and statistician, sought to place both Bayes's algorithm and Laplace's formulation on a more rigorous, [axiomatic](/Axiomatic_system) footing. He famously declared that Bayes' theorem was to probability theory what the [Pythagorean theorem](/Pythagorean_theorem) was to geometry.
+
+There's also a scholarly debate, spearheaded by [Stephen Stigler](/Stephen_Stigler), suggesting that Bayes' theorem might have been discovered earlier by [Nicholas Saunderson](/Nicholas_Saunderson), an English mathematician who happened to be blind.&#160;[10]&#160;[11] However, this claim remains contested.&#160;[12]
+
+Scholars like Martyn Hooper&#160;[13] and Sharon McGrayne&#160;[14] have argued forcefully for [Richard Price](/Richard_Price)'s substantial role in the theorem's recognition and dissemination:
+
+> By modern standards, we should refer to the Bayes–Price rule. Price discovered Bayes's work, recognized its importance, corrected it, contributed to the article, and found a use for it. The modern convention of employing Bayes's name alone is unfair but so entrenched that anything else makes little sense.&#160;[14]
+
+[F. Thomas Bruss](/F._Thomas_Bruss), in his review of Bayes's "An essay towards solving a problem in the doctrine of chances," as communicated by Price, acknowledges Stigler's points regarding historical precedence but maintains a different perspective on priority. Bruss emphasizes the intuitive elegance of Bayes's formula and offers independent arguments for Bayes's likely motivations. He concludes that, barring definitive proof to the contrary, the established nomenclature of "Bayes' Theorem" or "Bayes' formula" is justifiable.
+
+### Statement of Theorem
+
+Bayes' theorem, in its most fundamental mathematical expression, is as follows:
+
+$$P(A\vert B)={\frac {P(B\vert A)P(A)}{P(B)}}$$
+
+where A and B represent [events](/Event_(probability_theory)), and it is stipulated that $P(B) \neq 0$.
+
+*   $P(A\vert B)$ denotes the [conditional probability](https://en.wikipedia.org/wiki/Conditional_probability): the probability that event A will occur, given that event B has already occurred. This is often referred to as the [posterior probability](/Posterior_probability) of A, considering B.
+*   $P(B\vert A)$ also represents a [conditional probability](https://en.wikipedia.org/wiki/Conditional_probability): the probability that event B will occur, given that event A has already occurred. In many contexts, this is understood as the [likelihood](/Likelihood_function) of A, given a fixed B.
+*   $P(A)$ and $P(B)$ are the unconditional probabilities of observing events A and B, respectively. These are known as the [prior probability](/Prior_probability) and the [marginal probability](/Marginal_probability).
+
+### Proof
+
+A visual representation of Bayes' theorem can be found through proof by diagram.
+
+#### For Events
+
+Bayes' theorem can be derived directly from the definition of [conditional probability](/Conditional_probability):
+
+$$P(A\vert B)={\frac {P(A\cap B)}{P(B)}}, \quad \text{if } P(B)\neq 0$$
+
+Here, $P(A\cap B)$ signifies the probability that both events A and B occur. Similarly, we have:
+
+$$P(B\vert A)={\frac {P(A\cap B)}{P(A)}}, \quad \text{if } P(A)\neq 0$$
+
+By rearranging these equations to solve for $P(A\cap B)$ and substituting the result into the expression for $P(A\vert B)$, we arrive at Bayes' theorem:
+
+$$P(A\vert B)={\frac {P(B\vert A)P(A)}{P(B)}}, \quad \text{if } P(B)\neq 0$$
+
+#### For Continuous Random Variables
+
+For two continuous [random variables](/Random_variable), X and Y, Bayes' theorem can be derived in a similar fashion from the definition of [conditional density](/Conditional_density):
+
+$$f_{X\vert Y=y}(x)={\frac {f_{X,Y}(x,y)}{f_{Y}(y)}}$$
+
+$$f_{Y\vert X=x}(y)={\frac {f_{X,Y}(x,y)}{f_{X}(x)}}$$
+
+From these, we can derive:
+
+$$f_{X\vert Y=y}(x)={\frac {f_{Y\vert X=x}(y)f_{X}(x)}{f_{Y}(y)}}$$
+
+This formulation holds for values of x and y that lie within the [support](/Support_(mathematics)) of X and Y, where $f_{X}(x) > 0$ and $f_{Y}(y) > 0$.
+
+#### General Case
+
+Let $P_{Y}^{x}$ represent the conditional distribution of Y given X = x, and $P_{X}$ be the distribution of X. The joint distribution is then expressed as:
+
+$$P_{X,Y}(dx,dy)=P_{Y}^{x}(dy)P_{X}(dx)$$
+
+The conditional distribution $P_{X}^{y}$ of X given Y = y is determined by:
+
+$$P_{X}^{y}(A)=E(1_{A}(X)|Y=y)$$
+
+The existence and uniqueness of the requisite [conditional expectation](/Conditional_expectation) are guaranteed by the [Radon–Nikodym theorem](/Radon%E2%80%93Nikodym_theorem). This was a significant contribution formalized by [Andrey Kolmogorov](/Andrey_Kolmogorov) in 1933. Kolmogorov himself underscored the profound importance of conditional probability, stating, "I wish to call attention to ... the theory of conditional probabilities and conditional expectations." Bayes' theorem, in this general context, dictates the posterior distribution based on the prior distribution. Ensuring uniqueness, however, often necessitates certain continuity assumptions.&#160;[18] It's also worth noting that Bayes' theorem can be extended to accommodate improper prior distributions, such as the uniform distribution across the entire real line.&#160;[19] The advent of modern [Markov chain Monte Carlo](/Markov_chain_Monte_Carlo) methods has significantly amplified the utility of Bayes' theorem, even in scenarios involving improper priors.&#160;[20]
+
+### Examples
+
+*(This section is currently lacking citations. Improving it by adding references to reliable sources would be… appreciated. Otherwise, it risks being challenged and removed. Consider this a gentle nudge.)*
+
+#### Drug Testing
+
+Let’s consider a scenario involving drug testing. Suppose a test for cannabis use boasts a [sensitivity](/Sensitivity_(tests)) of 90%. This means it correctly identifies 90% of actual users (a [true positive rate](/True_positive_rate) of 0.90). However, its [specificity](/Specificity_(tests)) is 80%, meaning it correctly identifies 80% of non-users (a [true negative rate](/True_negative_rate) of 0.80). This implies a [false positive rate](/False_positive_rate) of 20% for non-users.
+
+Now, let's assume the [prevalence](/Prevalence) of cannabis use in the population is a mere 5%. What, then, is the probability that someone who tests positive is, in fact, a cannabis user?
+
+The [Positive Predictive Value](/Positive_predictive_value) (PPV), which is the proportion of true positives among all positive test results, can be calculated using Bayes' theorem. Let $P(\text{User}\vert \text{Positive})$ represent this probability. We can express it as:
+
+$$P(\text{User}\vert \text{Positive}) = \frac{P(\text{Positive}\vert \text{User})P(\text{User})}{P(\text{Positive})}$$
+
+$$= \frac{P(\text{Positive}\vert \text{User})P(\text{User})}{P(\text{Positive}\vert \text{User})P(\text{User})+P(\text{Positive}\vert \text{Non-user})P(\text{Non-user})}$$
+
+$$= \frac{0.90 \times 0.05}{0.90 \times 0.05 + 0.20 \times 0.95} = \frac{0.045}{0.045 + 0.19} \approx 19\%$$
+
+The denominator, $P(\text{Positive})$, is a direct application of the [Law of Total Probability](/Law_of_Total_Probability). It states that the overall probability of testing positive is the sum of probabilities of a user testing positive and a non-user testing positive. This holds because the categories 'user' and 'non-user' form a [partition of a set](/Partition_of_a_set) – in this case, everyone taking the test.
+
+So, what does this mean? If someone tests positive, the chance they are actually a cannabis user is only about 19%. This is primarily because the vast majority of positive results will be false positives originating from the 95% of the population who *don't* use the drug.
+
+To visualize this, imagine testing 1,000 people:
+
+*   950 are non-users. Of these, 190 will incorrectly test positive (0.20 × 950).
+*   50 are users. Of these, 45 will correctly test positive (0.90 × 50).
+
+In total, 235 people test positive out of the 1,000. Of those 235, only 45 are genuine positives, making the probability roughly 19%.
+
+The impact of [specificity](/Specificity_(tests)) is quite evident here. Even if we boosted sensitivity to 100% while keeping specificity at 80%, the probability would only rise to about 21%. However, if we maintained 90% sensitivity and improved specificity to 95%, the probability jumps to a much more significant 49%.
+
+Here are the frequency tables for clarity:
+
+| Test     | Actual | Positive | Negative | Total |
+| :------- | :----- | :------- | :------- | :---- |
+| **User** | 45     | 5        | 50       |       |
+| **Non-user** | 190    | 760      | 950      |       |
+| **Total**  | 235    | 765      | 1000     |       |
+
+*90% sensitive, 80% specific, PPV = 45/235 ≈ 19%*
+
+| Test     | Actual | Positive | Negative | Total |
+| :------- | :----- | :------- | :------- | :---- |
+| **User** | 50     | 0        | 50       |       |
+| **Non-user** | 190    | 760      | 950      |       |
+| **Total**  | 240    | 760      | 1000     |       |
+
+*100% sensitive, 80% specific, PPV = 50/240 ≈ 21%*
+
+| Test     | Actual | Positive | Negative | Total |
+| :------- | :----- | :------- | :------- | :---- |
+| **User** | 45     | 5        | 50       |       |
+| **Non-user** | 47     | 903      | 950      |       |
+| **Total**  | 92     | 908      | 1000     |       |
+
+*90% sensitive, 95% specific, PPV = 45/92 ≈ 49%*
+
+#### Cancer Rate
+
+Consider the case of pancreatic cancer. If every patient diagnosed with pancreatic cancer exhibits a particular symptom, it doesn't automatically mean that anyone displaying that symptom is guaranteed to have the cancer. Let's assume the incidence rate of pancreatic cancer is 1 in 100,000. Suppose, also, that 10 out of every 99,999 healthy individuals present with the same symptom. Using Bayes' theorem, the probability of having pancreatic cancer given the symptom is about 9.1%. The remaining 90.9% would then be considered "false positives" – individuals incorrectly identified as having cancer.
+
+Based on these incidence rates, here's a breakdown per 100,000 people:
+
+| Symptom | Cancer | Yes | No   | Total    |
+| :------ | :----- | :-- | :--- | :------- |
+| **Yes** |        | 1   | 0    | 1        |
+| **No**  |        | 10  | 99989| 99999    |
+| **Total** |      | 11  | 99989| 100000   |
+
+This leads to the probability calculation:
+
+$$P(\text{Cancer}\vert \text{Symptoms}) = \frac{P(\text{Symptoms}\vert \text{Cancer})P(\text{Cancer})}{P(\text{Symptoms})}$$
+
+$$= \frac{P(\text{Symptoms}\vert \text{Cancer})P(\text{Cancer})}{P(\text{Symptoms}\vert \text{Cancer})P(\text{Cancer})+P(\text{Symptoms}\vert \text{Non-Cancer})P(\text{Non-Cancer})}$$
+
+$$= \frac{1 \times 0.00001}{1 \times 0.00001 + (10/99999) \times 0.99999} = \frac{1}{11} \approx 9.1\%$$
+
+#### Defective Item Rate
+
+Imagine a factory utilizing three machines – A, B, and C – to produce items. Machine A accounts for 20% of the output, B for 30%, and C for 50%. The defect rates are: 5% for machine A, 3% for machine B, and 1% for machine C. If we randomly select a defective item, what is the probability it originated from machine C?
+
+We can approach this by considering a hypothetical batch of 1,000 items:
+
+*   Machine A produces 200 items, with 10 defective (5% of 200).
+*   Machine B produces 300 items, with 9 defective (3% of 300).
+*   Machine C produces 500 items, with 5 defective (1% of 500).
+
+This gives a total of 24 defective items out of 1,000 (a 2.4% defect rate). The probability that a randomly chosen defective item came from machine C is 5 out of 24 (approximately 20.83%).
+
+Applying Bayes' theorem: Let $X_i$ denote the event that an item was made by machine $i$ (where $i \in \{A, B, C\}$), and let Y be the event that an item is defective. We are given:
+
+$P(X_A)=0.2$, $P(X_B)=0.3$, $P(X_C)=0.5$.
+
+And the defect probabilities for each machine:
+
+$P(Y|X_A)=0.05$, $P(Y|X_B)=0.03$, $P(Y|X_C)=0.01$.
+
+First, we calculate the overall probability of an item being defective, $P(Y)$, using the [law of total probability](/Law_of_total_probability):
+
+$$P(Y)=\sum _{i}P(Y|X_{i})P(X_{i})=(0.05)(0.2)+(0.03)(0.3)+(0.01)(0.5)=0.024$$
+
+So, 2.4% of the factory's output is defective.
+
+Now, we want to find the probability that an item came from machine C, given that it is defective, $P(X_C|Y)$. Using Bayes' theorem:
+
+$$P(X_{C}|Y)=P(Y|X_{C})P(X_{C})P(Y) = \frac{0.01 \cdot 0.50}{0.024} = \frac{5}{24}$$
+
+Thus, if an item is found to be defective, the probability it was manufactured by machine C is 5/24. Although machine C produces half the total output, it contributes a significantly smaller fraction of the defective items. This knowledge updates our initial belief (prior probability $P(X_C) = 1/2$) to a revised belief (posterior probability $P(X_C|Y) = 5/24$).
+
+### Interpretations
+
+The way Bayes' theorem is interpreted hinges on how one understands probability itself. The two primary schools of thought are outlined below.
+
+#### Bayesian Interpretations
+
+In [Bayesian (or epistemological) interpretations](/Bayesian_probability), probability is seen as a measure of a "degree of belief."&#160;[21]&#160;[22] Bayes' theorem establishes a connection between our initial beliefs in a proposition and how those beliefs are altered by new evidence. For example, imagine a 50% belief that a coin is biased to land heads twice as often as tails. If the coin is flipped repeatedly, observing the outcomes will likely adjust that initial belief, perhaps increasing or decreasing it, though it might also remain unchanged depending on the results. For a proposition A and evidence B:
+
+*   $P(A)$ is the [prior probability](/Prior_probability), representing our initial degree of belief in A.
+*   $P(A|B)$ is the [posterior probability](/Posterior_probability), reflecting our updated degree of belief after considering evidence B.
+*   The ratio $P(B|A) / P(B)$ quantifies how much support evidence B provides for proposition A.
+
+For a deeper dive into Bayes' theorem under Bayesian interpretations, consult [Bayesian inference](/Bayesian_inference).
+
+#### Frequentist Interpretations
+
+In [frequentist interpretations](/Frequentist_interpretation_of_probability), probability is understood as a "proportion of outcomes" observed over many trials.&#160;[23] For instance, if an experiment is conducted a large number of times, $P(A)$ would represent the proportion of outcomes possessing characteristic A (the prior), and $P(B)$ the proportion with characteristic B. $P(B|A)$ would be the proportion of outcomes with characteristic B among those that also have characteristic A, while $P(A|B)$ would be the proportion of outcomes with A among those with B (the posterior).
+
+Bayes' theorem's role can be vividly illustrated using [tree diagrams](/Tree_diagram_(probability_theory)), which partition outcomes in different orders to reveal the inverse probabilities. Bayes' theorem elegantly bridges these different perspectives.
+
+**Example:**
+
+Consider an [entomologist](/Entomology) observing a [beetle](/Beetle) with a peculiar pattern on its back, suspecting it might be a rare [subspecies](/Subspecies). The pattern is present in 98% of the rare subspecies ($P(\text{Pattern}|\text{Rare}) = 0.98$), but only in 5% of the common subspecies ($P(\text{Pattern}|\text{Common}) = 0.05$). The rare subspecies constitutes only 0.1% of the beetle population ($P(\text{Rare}) = 0.001$). The question is: how likely is the beetle with the pattern to be from the rare subspecies? That is, what is $P(\text{Rare}|\text{Pattern})$?
+
+Using an extended form of Bayes' theorem (since any beetle is either rare or common), we calculate:
+
+$$P(\text{Rare}\vert \text{Pattern}) = \frac{P(\text{Pattern}\vert \text{Rare})\,P(\text{Rare})}{P(\text{Pattern})}$$
+
+$$= \frac{P(\text{Pattern}\vert \text{Rare})\,P(\text{Rare})}{P(\text{Pattern}\vert \text{Rare})\,P(\text{Rare})+P(\text{Pattern}\vert \text{Common})\,P(\text{Common})}$$
+
+$$= \frac{0.98 \times 0.001}{0.98 \times 0.001 + 0.05 \times 0.999} \approx 1.9\%$$
+
+So, despite the pattern being highly indicative of the rare subspecies, the sheer rarity of that subspecies means the beetle observed is still only about 1.9% likely to be from the rare group.
+
+### Forms
+
+#### Events
+
+##### Simple Form
+
+For events A and B, provided that $P(B) \neq 0$:
+
+$$P(A|B)=P(B|A)P(A)P(B)$$
+
+In many practical applications, especially within [Bayesian inference](/Bayesian_inference), event B is treated as fixed observed data. We are interested in how this evidence impacts our belief in various possible events A. In such cases, the denominator $P(B)$ is constant. Bayes' theorem reveals that the posterior probabilities are directly proportional to the numerator. This leads to the common formulation known as Bayes' rule:
+
+$$P(A|B) \propto P(A)\cdot P(B|A)$$
+
+In simpler terms: the posterior probability is proportional to the prior probability multiplied by the likelihood.
+
+If we have a set of mutually exclusive and exhaustive events, $A_1, A_2, \dots$ (meaning one of them must occur, but no two can occur simultaneously), we can determine the constant of proportionality by ensuring their probabilities sum to one.&#160;[citation needed] For instance, an event A and its complement $\neg A$ are mutually exclusive and exhaustive. Let $c$ be the constant of proportionality:
+
+$$P(A|B)=c\cdot P(A)\cdot P(B|A) \quad \text{and} \quad P(\neg A|B)=c\cdot P(\neg A)\cdot P(B|\neg A)$$
+
+Summing these gives:
+
+$$1 = c \cdot (P(B|A)\cdot P(A) + P(B|\neg A)\cdot P(\neg A))$$
+
+Which simplifies to:
+
+$$c = \frac{1}{P(B|A)\cdot P(A) + P(B|\neg A)\cdot P(\neg A)} = \frac{1}{P(B)}$$
+
+##### Alternative Form
+
+Consider a [contingency table](/Contingency_table) for two competing hypotheses, A and $\neg A$, and evidence B:
+
+|             | B                                                                  | $\neg B$                                                               | Total       |
+| :---------- | :----------------------------------------------------------------- | :--------------------------------------------------------------------- | :---------- |
+| A           | $P(B|A) \cdot P(A) = P(A|B) \cdot P(B)$                              | $P(\neg B|A) \cdot P(A) = P(A|\neg B) \cdot P(\neg B)$                  | $P(A)$      |
+| $\neg A$    | $P(B|\neg A) \cdot P(\neg A) = P(\neg A|B) \cdot P(B)$             | $P(\neg B|\neg A) \cdot P(\neg A) = P(\neg A|\neg B) \cdot P(\neg B)$ | $P(\neg A)$ |
+| **Total**   | $P(B)$                                                             | $P(\neg B) = 1 - P(B)$                                                 | 1           |
+
+Another form of Bayes' theorem, particularly useful when dealing with two competing hypotheses (like A and not-A), is:
+
+$$P(A|B)=P(B|A)P(A)P(B|A)P(A)+P(B|\neg A)P(\neg A)$$
+
+For an epistemological interpretation, where probability represents a degree of belief:
+
+*   $P(A)$ is the [prior probability](/Prior_probability), the initial belief in proposition A.
+*   $P(\neg A)$ is the corresponding initial belief that A is false, where $P(\neg A) = 1 - P(A)$.
+*   $P(B|A)$ is the [conditional probability](/Conditional_probability) or likelihood, representing the belief in B given that A is true.
+*   $P(B|\neg A)$ is the [conditional probability](/Conditional_probability) or likelihood, representing the belief in B given that A is false.
+*   $P(A|B)$ is the [posterior probability](/Posterior_probability), the updated belief in A after considering evidence B.
+
+##### Extended Form
+
+In situations where the sample space is partitioned by a set of events $\{A_j\}$, and we know $P(A_j)$ and $P(B|A_j)$ for each partition element, it becomes useful to calculate $P(B)$ using the [law of total probability](/Law_of_total_probability):
+
+$$P(B) = \sum _{j}P(B\cap A_{j})$$
+
+Or, using the multiplication rule for conditional probabilities:&#160;[26]
+
+$$P(B) = \sum _{j}P(B|A_{j})P(A_{j})$$
+
+This leads to the extended form of Bayes' theorem:
+
+$$\Rightarrow P(A_{i}|B)= \frac{P(B|A_{i})P(A_{i})}{\sum \limits _{j}P(B|A_{j})P(A_{j})}$$
+
+In the specific case where A is a [binary variable](/Binary_variable) (either true or false):
+
+$$P(A|B)= \frac{P(B|A)P(A)}{P(B|A)P(A)+P(B|\neg A)P(\neg A)}$$
+
+#### Random Variables
+
+Bayes' theorem extends to scenarios involving continuous random variables X and Y, where their probability distributions are known. The theorem essentially applies to each specific point within the [domain](/Domain_of_a_function) of these variables. In practice, these instances can be parameterized by expressing the probability densities as functions of x and y.
+
+Consider a [sample space](/Sample_space) Ω generated by two [random variables](/Random_variables), X and Y, with known probability distributions. Bayes' theorem can be applied to events like $A = \{ X = x \}$ and $B = \{ Y = y \}$:
+
+$$P(X{=}x|Y{=}y)=P(Y{=}y|X{=}x)P(X{=}x)P(Y{=}y)$$
+
+However, terms can become zero at points where a variable has a finite [probability density function](/Probability_density_function). To maintain utility, Bayes' theorem is often formulated using the relevant densities.&#160;[citation needed]
+
+##### Simple Form
+
+If X is continuous and Y is discrete:&#160;[citation needed]
+
+$$f_{X|Y{=}y}(x)=P(Y{=}y|X{=}x)f_{X}(x)P(Y{=}y)$$
+
+where $f$ denotes a density function.
+
+If X is discrete and Y is continuous:
+
+$$P(X{=}x|Y{=}y)=f_{Y|X{=}x}(y)P(X{=}x)f_{Y}(y)$$
+
+If both X and Y are continuous:
+
+$$f_{X|Y{=}y}(x)=f_{Y|X{=}x}(y)f_{X}(x)f_{Y}(y)$$
+
+##### Extended Form
+
+When dealing with continuous random variables, it's often helpful to conceptualize the event spaces and then use the [law of total probability](/Law_of_total_probability) to handle the denominator, $f_Y(y)$, which becomes an integral:&#160;[citation needed]
+
+$$f_{Y}(y)=\int _{-\infty }^{\infty }f_{Y|X=\xi }(y)f_{X}(\xi )\,d\xi$$
+
+#### Bayes' Rule in Odds Form
+
+Bayes' theorem can also be expressed in terms of [odds](/Odds):&#160;[citation needed]
+
+$$O(A_{1}:A_{2}\vert B)=O(A_{1}:A_{2})\cdot \Lambda (A_{1}:A_{2}\vert B)$$
+
+where:
+
+$$\Lambda (A_{1}:A_{2}\vert B)=P(B\vert A_{1})P(B\vert A_{2})$$
+
+This term, $\Lambda (A_{1}:A_{2}\vert B)$, is known as the [Bayes factor](/Bayes_factor) or [likelihood ratio](/Likelihood_ratio). The odds between two events are simply the ratio of their probabilities. Therefore:
+
+$$O(A_{1}:A_{2})=P(A_{1})P(A_{2})$$
+
+$$O(A_{1}:A_{2}\vert B)=P(A_{1}\vert B)P(A_{2}\vert B)$$
+
+The rule states that the posterior odds are equal to the prior odds multiplied by the Bayes factor. In essence, the posterior odds are proportional to the prior odds times the likelihood ratio.
+
+In the specific case where $A_1 = A$ and $A_2 = \neg A$, we use the notation $O(A) = O(A:\neg A) = P(A)/(1-P(A))$ for the odds on A, and similar abbreviations for the Bayes factor and conditional odds. Bayes' rule can then be concisely written as:
+
+$$O(A\vert B)=O(A)\cdot \Lambda (A\vert B)$$
+
+This means the posterior odds on A equal the prior odds on A multiplied by the likelihood ratio for A given information B. Simply put: posterior odds equal prior odds times the likelihood ratio.
+
+**Example:**&#160;[citation needed] Consider a medical test with 90% [sensitivity](/Sensitivity_and_specificity) and 91% [specificity](/Sensitivity_and_specificity). The positive Bayes factor is:
+
+$$\Lambda _{+}=P(\text{True Positive})/P(\text{False Positive})=90\%/(100\%-91\%)=10$$
+
+If the [prevalence](/Prevalence) of the disease is 9.09% (our prior probability), the prior odds are approximately 1:10. After a positive test result, the posterior odds become 1:1, translating to a posterior probability of 50%. If a second, similar test is performed and is also positive, the posterior odds increase to 10:1, yielding a posterior probability of about 90.91%. Conversely, the negative Bayes factor is 91%/(100%-90%)=9.1. If this second test is negative, the posterior odds of having the disease drop to 1:9.1, corresponding to a posterior probability of about 9.9%.
+
+This can be further illustrated with concrete numbers. Imagine a patient from a group of 1,000 people, where 91 have the disease (9.1% prevalence). If all 1,000 are tested:
+
+*   82 individuals with the disease receive a true positive result (90.1% sensitivity).
+*   9 individuals with the disease receive a false negative result (9.9% false negative rate).
+*   827 individuals without the disease receive a true negative result (91.0% specificity).
+*   82 individuals without the disease receive a false positive result (9.0% false positive rate).
+
+Before any testing, the patient's odds of having the disease are 91:909. After a positive result, the odds become:
+
+$${\frac {91}{909}}\times {\frac {90.1\%}{9.0\%}}={\frac {91\times 90.1\%}{909\times 9.0\%}}=1:1$$
+
+This aligns with the observation of 82 true positives and 82 false positives within the group.
+
+### Generalizations
+
+#### Bayes' Theorem for 3 Events
+
+Introducing a third event, C, with $P(C) > 0$, on which all probabilities are conditioned, leads to a generalized form of Bayes' theorem:
+
+$$P(A\vert B\cap C)=P(B\vert A\cap C)P(A\vert C)P(B\vert C)$$
+
+This can be derived using the [chain rule](/Chain_rule_(probability)):
+
+$$P(A\cap B\cap C)=P(A\vert B\cap C)P(B\vert C)P(C)$$
+
+And also:
+
+$$P(A\cap B\cap C)=P(B\cap A\cap C)=P(B\vert A\cap C)P(A\vert C)P(C)$$
+
+Equating these expressions and solving for $P(A\vert B\cap C)$ yields the desired result.
+
+### Applications
+
+#### Recreational Mathematics
+
+Bayes' rule and the computation of [conditional probabilities](/Conditional_probability) are instrumental in solving various popular puzzles, including the [Three Prisoners problem](/Three_Prisoners_problem), the [Monty Hall problem](/Monty_Hall_problem), the [Boy or Girl paradox](/Boy_or_Girl_paradox), and the [Two envelopes problem](/Two_envelopes_problem).&#160;[citation needed]
+
+#### Genetics
+
+In genetics, Bayes' rule is employed to estimate the probability of an individual possessing a specific genotype. People frequently seek to understand their risk of inheriting a genetic disease or their likelihood of being a carrier for a recessive gene. A Bayesian analysis, informed by family history or [genetic testing](/Genetic_testing), can predict an individual's risk of developing a disease or transmitting it to their offspring. This is particularly relevant for couples concerned about being carriers, especially within communities with limited genetic diversity.
+
+**Example:**
+
+Consider a scenario for assessing a female patient's risk for a genetic disease.
+
+| Hypothesis                | Hypothesis 1: Patient is a carrier | Hypothesis 2: Patient is not a carrier |
+| :------------------------ | :--------------------------------- | :------------------------------------- |
+| Prior Probability         | 1/2                                | 1/2                                    |
+| Conditional Probability of all four offspring being unaffected | (1/2)¹⁶ = 1/16                     | ~1                                     |
+| Joint Probability         | (1/2) × (1/16) = 1/32              | (1/2) × 1 = 1/2                        |
+| Posterior Probability     | (1/32) / (1/32 + 1/2) = 1/17       | (1/2) / (1/32 + 1/2) = 16/17           |
+
+This table illustrates a Bayesian analysis for a female patient's risk. Given her siblings have the disease, but her parents and four children do not, her initial likelihood of being a carrier versus not being one is equal (prior). The probability of her four sons being unaffected is 1/16 if she's a carrier and approximately 1 if she's not (conditional probability). The joint probabilities are calculated by multiplying these, and the posterior probabilities are derived by normalizing these joint probabilities.
+
+Parental genetic testing can identify about 90% of known disease alleles in parents that could affect their children. [Cystic fibrosis](/Cystic_fibrosis), an [autosomal recessive](/Dominance_(genetics)) disorder, is caused by mutations in the [CFTR](/Cystic_fibrosis_transmembrane_conductance_regulator) gene on [chromosome 7](/Chromosome_7).&#160;[30]&#160;[31]
+
+Let's analyze a female patient's risk for cystic fibrosis (CF). She is unaffected, meaning she is either homozygous for the wild-type allele or heterozygous. Based on the fact that neither parent was affected but could have been carriers, a [Punnett square](/Punnett_square) reveals three possible genotypes for her, two of which involve carrying the mutant allele. Thus, the prior probabilities are 2/3 for being a carrier and 1/3 for not being a carrier.
+
+If she then tests negative for CF (with a 90% detection rate for the mutation), the conditional probabilities of a negative test are 1/10 (if she's a carrier) and 1 (if she's not). Calculating the joint and posterior probabilities:
+
+| Hypothesis                | Hypothesis 1: Patient is a carrier | Hypothesis 2: Patient is not a carrier |
+| :------------------------ | :--------------------------------- | :------------------------------------- |
+| Prior Probability         | 2/3                                | 1/3                                    |
+| Conditional Probability of a negative test | 1/10                               | 1                                      |
+| Joint Probability         | 1/15                               | 1/3                                    |
+| Posterior Probability     | 1/6                                | 5/6                                    |
+
+After performing a similar analysis on her partner, who also tests negative, the probability of their child being affected is the product of their respective posterior probabilities of being carriers, multiplied by the chance (1/4) that two carriers produce an affected offspring.
+
+Bayesian analysis can incorporate phenotypic information associated with genetic conditions. When combined with genetic testing, this becomes significantly more complex. For instance, an echogenic bowel in a fetus, detected via ultrasound, can be an indicator of CF, though it can also occur in healthy fetuses. Parental genetic testing is crucial here; if the mother is a known CF carrier, the fetal posterior probability of having CF is high (0.64). However, if the father then tests negative for CF, this posterior probability drops considerably (to 0.16).&#160;[29]
+
+While risk factor calculation is a powerful tool in genetic counseling, it shouldn't be the sole consideration. Incomplete testing can lead to inflated carrier probabilities, and testing itself may be financially prohibitive or impractical if a parent is unavailable.
+
+### See Also
+
+*   [Wikifunctions](/Wikifunctions) has a function related to this topic.
+*   [Mathematics portal](/Portal:Mathematics)
+*   [Bayesian epistemology](/Bayesian_epistemology)
+*   [Inductive probability](/Inductive_probability)
+*   [Quantum Bayesianism](/Quantum_Bayesianism)
+*   [Why Most Published Research Findings Are False](/Why_Most_Published_Research_Findings_Are_False)
+*   [Regular conditional probability](/Regular_conditional_probability)
+*   [Bayesian persuasion](/Bayesian_persuasion)
+*   [Bayesian network](/Bayesian_network)
+
+### Notes
+
+*   ^ Laplace refined Bayes's theorem over several decades. His independent discovery was announced in: Laplace (1774) "Mémoire sur la probabilité des causes par les événements," *Mémoires de l'Académie royale des Sciences de MI (Savants étrangers)*, 4: 621–656. A refinement appeared in: Laplace (read: 1783 / published: 1785) "Mémoire sur les approximations des formules qui sont fonctions de très grands nombres," *Mémoires de l'Académie royale des Sciences de Paris*, 423–467. These were later collected in *Oeuvres complètes*. See also Laplace's *Essai philosophique sur les probabilités* (1814).
+
+#

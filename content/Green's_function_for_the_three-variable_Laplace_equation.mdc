@@ -1,0 +1,119 @@
+---
+title: "Green'S Function For The Three-Variable Laplace Equation"
+description: "Right. Another equation. As if the universe isn't complicated enough already. You want to understand how a system responds to a point source, in three..."
+keywords: green's function, poisson's equation, laplace operator, differential operator, dirac delta function, electrostatics, electric potential, gauss's law
+slug: "Green's_function_for_the_three-variable_Laplace_equation"
+createdAt: "2025-11-17T14:23:32.516Z"
+updatedAt: "2025-11-17T14:23:32.516Z"
+contentType: "rewritten"
+---
+
+Right. Another equation. As if the universe isn't complicated enough already. You want to understand how a system responds to a point source, in three dimensions, using the Laplacian. Fine. Don't expect me to hold your hand.
+
+### Partial Differential Equations
+
+Let's cut to the chase. This article is about the [Green's function](/Green%27s_function) for the Laplacian in three variables. Think of it as the universe's most precise answer to a very specific, very localized disturbance. It's what you need when you're dealing with systems described by [Poisson's equation](/Poisson%27s_equation), which, in its most basic form, looks like this:
+
+$\nabla^2 u(\mathbf{x}) = f(\mathbf{x})$
+
+Here, $\nabla^2$ is the [Laplace operator](/Laplace_operator) in $\mathbb{R}^3$. It's the operator that describes how something changes over space. $f(\mathbf{x})$ is the "source term" – the disturbance, the point of origin. And $u(\mathbf{x})$? That’s the system's response, the ripple effect.
+
+Because $\nabla^2$ is a linear [differential operator](/Differential_operator), the solution $u(\mathbf{x})$ for any given source $f(\mathbf{x})$ can be constructed by summing up the responses to each individual point source. This is where the Green's function, $G(\mathbf{x}, \mathbf{x'})$, comes in. It tells you the system's reaction at point $\mathbf{x}$ to a unit point source located at $\mathbf{x'}$. Mathematically, it's defined by:
+
+$\nabla^2 G(\mathbf{x}, \mathbf{x'}) = \delta(\mathbf{x} - \mathbf{x'})$
+
+where $\delta(\mathbf{x} - \mathbf{x'})$ is the [Dirac delta function](/Dirac_delta_function). It's a mathematical fiction, a spike of infinite height and zero width at $\mathbf{x'} = \mathbf{x}$, and zero everywhere else. It represents that single, isolated point source.
+
+So, for a general source distribution $f(\mathbf{x})$, the total response $u(\mathbf{x})$ is just the integral of the Green's function multiplied by the source:
+
+$u(\mathbf{x}) = \int G(\mathbf{x}, \mathbf{x'}) f(\mathbf{x'}) d\mathbf{x'}$
+
+It's elegant, in a cold, calculating sort of way.
+
+### Motivation
+
+Why would anyone care about this? Physics, mostly. Take [electrostatics](/Electrostatics), for instance. The electric field $\mathbf{E}$ is the negative gradient of the [electric potential](/Electric_potential) $\phi(\mathbf{x})$. And [Gauss's law](/Gauss%27s_law) tells us that the divergence of the electric field is proportional to the charge density $\rho(\mathbf{x})$:
+
+$\mathbf{E} = -\nabla \phi(\mathbf{x})$
+$\nabla \cdot \mathbf{E} = \frac{\rho(\mathbf{x})}{\varepsilon_0}$
+
+Combine these, and you get [Poisson's equation](https://en.wikipedia.org/wiki/Poisson%27s_equation) for the electric potential:
+
+$-\nabla^2 \phi(\mathbf{x}) = \frac{\rho(\mathbf{x})}{\varepsilon_0}$
+
+Now, imagine you have a single point charge $q$ sitting at $\mathbf{x'}$. Its charge density is $q \delta(\mathbf{x} - \mathbf{x'})$. The equation becomes:
+
+$-\frac{\varepsilon_0}{q} \nabla^2 \phi(\mathbf{x}) = \delta(\mathbf{x} - \mathbf{x'})$
+
+If you can find the Green's function for the operator $-\frac{\varepsilon_0}{q} \nabla^2$, you can then find the potential $\phi(\mathbf{x})$ for *any* charge distribution $\rho(\mathbf{x})$ by integrating:
+
+$\phi(\mathbf{x}) = \int G(\mathbf{x}, \mathbf{x'}) \rho(\mathbf{x'}) d\mathbf{x'}$
+
+It's a way to build complex solutions from simple, fundamental responses. Like understanding a whole orchestra by analyzing the sound of a single violin.
+
+### Mathematical Exposition
+
+The free-space [Green's function](/Green%27s_function) for the [Laplace operator](/Laplace_operator) in three dimensions is remarkably simple. It's essentially the reciprocal of the distance between the two points, scaled by a constant. It's often called the "[Newton kernel](/Newton_kernel)" or "[Newtonian potential](/Newtonian_potential)", which should tell you something about its fundamental nature.
+
+The solution to $\nabla^2 G(\mathbf{x}, \mathbf{x'}) = \delta(\mathbf{x} - \mathbf{x'})$ is:
+
+$G(\mathbf{x}, \mathbf{x'}) = -\frac{1}{4\pi |\mathbf{x} - \mathbf{x'}|}$
+
+where $|\mathbf{x} - \mathbf{x'}|$ is the Euclidean distance between points $\mathbf{x}$ and $\mathbf{x'}$.
+
+The algebraic expression for the distance itself, in [Cartesian coordinates](/Cartesian_coordinates), is:
+
+$\frac{1}{|\mathbf{x} - \mathbf{x'}|} = \left[\left(x-x'\right)^{2}+\left(y-y'\right)^{2}+\left(z-z'\right)^{2}\right]^{-{1}/{2}}$
+
+This might seem straightforward, but there are many ways to expand this. One of the most famous is the [Laplace expansion](/Laplace_expansion_(potential)), which expresses the reciprocal distance in terms of [Legendre polynomials](/Legendre_polynomials) $P_l(\cos \gamma)$. This expansion is particularly useful when you switch to [spherical coordinates](/Spherical_coordinates) $(r, \theta, \varphi)$.
+
+$\frac{1}{|\mathbf{x} - \mathbf{x'}|} = \sum_{l=0}^{\infty} \frac{r_{<}^{l}}{r_{>}^{l+1}}P_{l}(\cos \gamma)$
+
+Here, $r_<$ and $r_>$ are the smaller and larger of the radial distances $r$ and $r'$, respectively. And $\gamma$ is the angle between the vectors $\mathbf{x}$ and $\mathbf{x'}$, given by:
+
+$\cos \gamma = \cos \theta \cos \theta' + \sin \theta \sin \theta' \cos(\varphi - \varphi')$
+
+This is how you decompose the potential into different modes, each with a specific angular dependence. It’s like breaking down a complex shape into simpler spherical harmonics.
+
+The free-space Green's function can also be expressed in other coordinate systems. For example, in circular [cylindrical coordinates](/Cylindrical_coordinates), it involves [Legendre functions](/Legendre_function) of the second kind, $Q_{m-1/2}(\chi)$, which are known as toroidal harmonics. This expression is derived when considering situations with axial symmetry.
+
+$\frac{1}{|\mathbf{x} - \mathbf{x'}|} = \frac{1}{\pi \sqrt{RR'}} \sum_{m=-\infty}^{\infty} e^{im(\varphi - \varphi')} Q_{m-\frac{1}{2}}(\chi)$
+
+where $\chi = \frac{R^2 + R'^2 + (z-z')^2}{2RR'}$.
+
+There are also integral representations. For instance, in cylindrical coordinates, it can be expressed as an integral [Laplace transform](/Laplace_transform) over a variable $k$, involving the order-zero Bessel function of the first kind, $J_0$:
+
+$\frac{1}{|\mathbf{x} - \mathbf{x'}|} = \int_{0}^{\infty} J_{0}\left(k\sqrt{R^{2}+{R'}^{2}-2RR'\cos(\varphi -\varphi ')}\right) e^{-k(z_{>}-z_{<})}\,dk$
+
+where $z_>$ and $z_<$ are the larger and smaller of the $z$ and $z'$ coordinates.
+
+Another integral form, using a Fourier [cosine transform](/Cosine_transform) and the order-zero modified Bessel function of the second kind, $K_0$:
+
+$\frac{1}{|\mathbf{x} - \mathbf{x'}|} = \frac{2}{\pi} \int_{0}^{\infty} K_{0}\left(k\sqrt{R^{2}+{R'}^{2}-2RR'\cos(\varphi -\varphi ')}\right) \cos[k(z-z')]\,dk$
+
+These integral forms are useful for certain types of problems, especially those with translational symmetry in one or more directions.
+
+### Rotationally Invariant Green's Functions for the Three-Variable Laplace Operator
+
+The Green's function for the Laplace operator in three dimensions can be expanded in various coordinate systems that allow for the [separation of variables](/Separation_of_variables). These are systems where the Laplace equation can be broken down into simpler, ordinary differential equations. The key ones include:
+
+*   [Cylindrical coordinates](/Cylindrical_coordinates)
+*   [Spherical coordinates](/Spherical_coordinates)
+*   [Prolate spheroidal coordinates](/Prolate_spheroidal_coordinates)
+*   [Oblate spheroidal coordinates](/Oblate_spheroidal_coordinates)
+*   [Parabolic coordinates](/Parabolic_coordinates)
+*   [Toroidal coordinates](/Toroidal_coordinates)
+*   [Bispherical coordinates](/Bispherical_coordinates)
+*   Flat-ring cyclide coordinates
+*   Flat-disk cyclide coordinates
+*   Bi-cyclide coordinates
+*   Cap-cyclide coordinates
+
+Each of these coordinate systems provides a different basis for representing the Green's function, tailored to specific geometries and boundary conditions. It’s a toolbox, really. You pick the tool that fits the shape of the problem.
+
+### See Also
+
+*   [Newtonian potential](/Newtonian_potential)
+*   [Laplace expansion](/Laplace_expansion_(potential))
+
+#

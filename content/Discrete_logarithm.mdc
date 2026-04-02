@@ -1,0 +1,134 @@
+---
+title: "Discrete Logarithm"
+description: "The problem of inverting exponentiation in groups, commonly known as the discrete logarithm problem, is a cornerstone of modern cryptography. It’s the..."
+keywords: real numbers, logarithm, cyclic groups, integers, modular arithmetic, modular multiplication, generator, group
+slug: "Discrete_logarithm"
+createdAt: "2025-12-18T15:13:48.194Z"
+updatedAt: "2025-12-18T15:13:48.194Z"
+contentType: "rewritten"
+previousArticleSlug: "Archaic_Greece"
+previousArticleTitle: "Archaic Greece"
+---
+
+The problem of inverting exponentiation in groups, commonly known as the discrete logarithm problem, is a cornerstone of modern cryptography. It’s the mathematical equivalent of trying to figure out the secret handshake in a club where everyone’s already inside, and you only know the handshake *results*, not the steps. It’s a concept that allows us to build secure communication systems, but its computational difficulty is precisely what makes it so useful.
+
+### The Discrete Logarithm: A Generalization of Familiar Concepts
+
+In the realm of [real numbers](/Real_number), we’re quite familiar with the idea of a [logarithm](/Logarithm). If you have a base, say ‘b’, and you want to find out what power ‘x’ you need to raise it to in order to get another number ‘a’, you’re looking for the logarithm of ‘a’ to the base ‘b’. Mathematically, this is expressed as:
+
+`b^x = a`
+
+The discrete logarithm extends this idea to [cyclic groups](/Cyclic_group). Think of it as working with numbers in a finite, repeating cycle, rather than an infinite, continuous line. A straightforward example is the group of [integers](/Integer) under [modular arithmetic](/Modular_arithmetic), specifically modulo a prime number like 5. In this context, we’re interested in [modular multiplication](/Modular_multiplication) of the non-zero elements.
+
+Let's take the multiplicative group modulo 5. Its elements are {1, 2, 3, 4}. If we choose our base ‘b’ to be 2, we can examine its powers:
+
+*   `2^1 = 2`
+*   `2^2 = 4`
+*   `2^3 = 8`, which is congruent to 3 modulo 5. (`8 ≡ 3 (mod 5)`)
+*   `2^4 = 16`, which is congruent to 1 modulo 5. (`16 ≡ 1 (mod 5)`)
+
+Notice how the powers of 2 cycle through all the non-zero elements of the group: 2, 4, 3, 1. This is a key characteristic of a [generator](/Cyclic_group) in a cyclic group. Because 2 generates all the elements, we can find the discrete logarithm for each of them:
+
+*   `log₂ 1 = 4` (because `2^4 ≡ 1 (mod 5)`)
+*   `log₂ 2 = 1` (because `2^1 ≡ 2 (mod 5)`)
+*   `log₂ 3 = 3` (because `2^3 ≡ 3 (mod 5)`)
+*   `log₂ 4 = 2` (because `2^2 ≡ 4 (mod 5)`)
+
+This concept applies to any [group](/Group_(mathematics)) G. For any element ‘b’ in G, we can define its powers `b^k` for all [integers](/Integer) k. The discrete logarithm, `log_b(a)`, then becomes an integer ‘k’ such that `b^k = a`. In [modular arithmetic](/Modular_arithmetic) modulo an integer ‘m’, this is often referred to as the "index." If ‘b’ is a [primitive root](/Primitive_root_modulo_n) of ‘m’ and ‘a’ is coprime to ‘m’ (i.e., `gcd(a, m) = 1`), we can write `k = ind_b(a) (mod m)`, meaning ‘k’ is the index of ‘a’ to the base ‘b’ modulo ‘m’, satisfying `b^k ≡ a (mod m)`.
+
+### The Elusive Nature of Discrete Logarithms
+
+While discrete logarithms are easily computable in certain specific scenarios, finding them in general is a different story. No efficient method is currently known for computing them across all groups. This computational hurdle is precisely what makes them valuable in cryptography. The [Diffie–Hellman problem](/Diffie%E2%80%93Hellman_problem) was one of the first to leverage this difficulty. Many critical [algorithms](/Algorithm) in [public-key cryptography](/Public-key_cryptography), such as [ElGamal](/ElGamal_cryptosystem), rely on the [hardness assumption](/Computational_hardness_assumption) that the discrete logarithm problem (DLP) is computationally intractable for carefully chosen groups. In a general [black box](/Black_box) group, it's proven that there isn't even a [subexponential solution](/Subexponential_time).
+
+### Formalizing the Definition
+
+Let’s formalize this. Consider any group G, with its [group operation](/Group_operation) denoted by multiplication and its [identity element](/Identity_element) by 1. If we pick an element ‘b’ from G, we can define its powers for any positive integer ‘k’ as the product of ‘b’ with itself ‘k’ times:
+
+`b^k = b ⋅ b ⋅ ... ⋅ b` (k factors)
+
+For negative integers, `b⁻ᵏ` is the product of `b⁻¹` (the inverse of b) with itself ‘k’ times. And for k=0, any element raised to the power of zero is the identity element: `b⁰ = 1`.
+
+Now, if we have another element ‘a’ in the same group G, an integer ‘k’ that satisfies the equation `bᵏ = a` is called a discrete logarithm of ‘a’ to the base ‘b’. We denote this as `k = log_b a`.
+
+### Illustrative Examples: Beyond the Abstract
+
+**Powers of 10:** Consider the familiar sequence of powers of 10: ..., 0.001, 0.01, 0.1, 1, 10, 100, 1000, ... For any number ‘a’ in this sequence, we can readily find its base-10 logarithm. For instance, `log₁₀ 10000 = 4` and `log₁₀ 0.001 = -3`. These are indeed instances of the discrete logarithm problem. However, logarithms like `log₁₀ 53 ≈ 1.724276...` are *not* discrete logarithms in this context because they involve non-integer exponents. The concept of arbitrary real exponents requires more advanced mathematical machinery, like the [exponential function](/Exponential_function), which goes beyond the group-theoretic definition of discrete logarithms.
+
+In group-theoretic terms, the powers of 10 form a [cyclic group](/Cyclic_group) under multiplication. The number 10 acts as a [generator](/Cyclic_group) for this group, meaning every element can be reached by raising 10 to some integer power. The discrete logarithm `log₁₀ a` is defined for any element ‘a’ within this generated group.
+
+**Powers of a Fixed Real Number:** The same principle applies to any non-zero real number ‘b’. Its powers form a multiplicative [subgroup](/Subgroup) {..., b⁻², b⁻¹, 1, b¹, b², ...} of the non-zero real numbers. For any element ‘a’ in this subgroup, the discrete logarithm `log_b a` can be computed.
+
+**Modular Arithmetic:** As touched upon earlier, the group of integers modulo a prime ‘p’ under multiplication, denoted as Zₚ×, is a fundamental setting for discrete logarithms. The operation involves raising an element to a power and then reducing the result modulo ‘p’. This is known as [modular exponentiation](/Modular_exponentiation).
+
+For example, in Z₁₇×, let's compute `3⁴`. As integers, `3⁴ = 81`. Dividing 81 by 17 gives a remainder of 13. So, `3⁴ ≡ 13 (mod 17)`.
+
+The discrete logarithm is the inverse operation. If we want to solve `3ᵏ ≡ 13 (mod 17)`, we know from the previous calculation that `k=4` is a solution. However, due to the cyclic nature of modular arithmetic, it's not the only one. Fermat's Little Theorem tells us that `3¹⁶ ≡ 1 (mod 17)`. This means any exponent of the form `4 + 16n` (where ‘n’ is an integer) will also satisfy the congruence:
+
+`3⁴⁺¹⁶ⁿ ≡ 3⁴ ⋅ (3¹⁶)ⁿ ≡ 13 ⋅ 1ⁿ ≡ 13 (mod 17)`
+
+Therefore, the set of all solutions is `k ≡ 4 (mod 16)`. The number 16 here is the smallest positive integer ‘m’ such that `3ᵐ ≡ 1 (mod 17)`, which is the [order](/Order_of_a_group) of 3 in this group.
+
+**Powers of the Identity:** A trivial case arises when the base ‘b’ is the identity element ‘1’. If `b=1`, then `bᵏ = 1` for all integers ‘k’. Consequently, the discrete logarithm `log₁ 1` is undefined for any element ‘a’ not equal to 1. For `a=1`, any integer ‘k’ is a valid discrete logarithm.
+
+### Properties of Discrete Logarithms
+
+The powers of an element in a group follow the fundamental algebraic identity:
+
+`bᵏ⁺ˡ = bᵏ ⋅ bˡ`
+
+This means the function mapping an integer ‘k’ to `bᵏ` is a [group homomorphism](/Group_homomorphism) from the additive group of integers (ℤ) to the [subgroup](/Subgroup) H generated by ‘b’. The discrete logarithm `log_b a` exists if and only if ‘a’ belongs to this subgroup H.
+
+*   **Infinite Groups:** If the subgroup H is [infinite](/Infinite_group), the discrete logarithm `log_b a` is unique for each ‘a’ in H. In this scenario, the discrete logarithm acts as a [group isomorphism](/Group_isomorphism) between H and the additive group of integers ℤ: `log_b: H → ℤ`.
+
+*   **Finite Groups:** If H is [finite](/Finite_group) with [order](/Order_of_a_group) ‘n’, then `log_b a` is unique only up to [congruence modulo](/Modular_arithmetic) ‘n’. The discrete logarithm then establishes a group isomorphism between H and the additive group of integers modulo n, ℤₙ: `log_b: H → ℤₙ`.
+
+The familiar base change formula for ordinary logarithms also holds for discrete logarithms: if ‘c’ is another generator of H, then:
+
+`log_c a = log_c b ⋅ log_b a`
+
+### Algorithms: The Quest for Efficiency
+
+**The Unsolved Problem:** A major open question in computer science is whether the discrete logarithm can be computed in polynomial time on a classical computer. As of now, no such efficient algorithm is known for general groups.
+
+The most basic approach, often called trial multiplication, involves computing `b¹`, `b²`, `b³`, and so on, until the target element ‘a’ is found. This requires a number of operations proportional to the size of the group, making it an [exponential-time algorithm](/Exponential_time) and only practical for very small groups.
+
+More sophisticated algorithms exist, often drawing inspiration from methods for [integer factorization](/Integer_factorization). These algorithms offer improvements, with some running in time proportional to the square root of the group size (effectively halving the number of digits in the exponent), but they still fall short of polynomial time.
+
+Notable algorithms include:
+
+*   [Baby-step giant-step](/Baby-step_giant-step)
+*   [Function field sieve](/Function_field_sieve)
+*   [Index calculus algorithm](/Index_calculus_algorithm)
+*   [Number field sieve](/General_number_field_sieve)
+*   [Pohlig–Hellman algorithm](/Pohlig%E2%80%93Hellman_algorithm)
+*   [Pollard's rho algorithm for logarithms](/Pollard%27s_rho_algorithm_for_logarithms)
+*   [Pollard's kangaroo algorithm](/Pollard%27s_kangaroo_algorithm)
+
+On the other hand, [Peter Shor](/Peter_Shor) developed an efficient [quantum algorithm](/Shor%27s_algorithm) for this problem.
+
+There are also efficient classical algorithms for specific cases. For instance, in the additive group of integers modulo ‘p’, finding ‘k’ such that `b ⋅ k ≡ a (mod p)` can be quickly solved using the [extended Euclidean algorithm](/Extended_Euclidean_algorithm).
+
+In the context of [Diffie–Hellman key exchange](/Diffie%E2%80%93Hellman_key_exchange), which uses cyclic groups modulo a prime ‘p’, the [Pohlig–Hellman algorithm](/Pohlig%E2%80%93Hellman_algorithm) is efficient if the order of the group (`p-1`) is "smooth," meaning it has only small [prime factors](/Prime_factor).
+
+### Parallels with Integer Factorization
+
+While distinct problems, discrete logarithms and [integer factorization](/Integer_factorization) share intriguing similarities:
+
+*   Both are instances of the [hidden subgroup problem](/Hidden_subgroup_problem) in certain groups.
+*   Both are believed to be computationally difficult for classical computers.
+*   Efficient quantum algorithms exist for both.
+*   Algorithms developed for one problem are often adapted for the other.
+*   The difficulty of both problems underpins the security of various [cryptographic](/Cryptographic) systems.
+
+### Cryptographic Applications: The Foundation of Secure Communication
+
+Certain groups are known to possess groups for which computing discrete logarithms is demonstrably hard. In these cases, not only is there no known efficient algorithm for the worst-case scenario, but the [average-case complexity](/Average-case_complexity) is also shown to be similarly intractable, often through techniques like [random self-reducibility](/Random_self-reducibility).
+
+The inverse operation, discrete exponentiation, is computationally easy, typically solvable with algorithms like [exponentiation by squaring](/Exponentiation_by_squaring). This asymmetry, similar to the one between integer multiplication and factorization, is the bedrock of much modern cryptography.
+
+Commonly used groups for discrete logarithm cryptography (DLC) include:
+
+*   The multiplicative group of integers modulo a prime `Zₚ×` (used in [ElGamal encryption](/ElGamal_encryption), [Diffie–Hellman key exchange](/Diffie%E2%80%93Hellman_key_exchange), and the [Digital Signature Algorithm](/Digital_Signature_Algorithm)).
+*   Cyclic subgroups of [elliptic curves](/Elliptic_curve) over [finite fields](/Finite_field) (as used in [Elliptic curve cryptography](/Elliptic_curve_cryptography)).
+
+While general solutions remain elusive, a significant vulnerability emerged with the Logjam attack. This attack exploited the fact that many internet services relied on a limited set of commonly reused groups, often with orders of 1024 bits or less, such as those specified in RFC 2409. By [precomputing](/Precomputing) the computationally intensive initial steps of the [number field sieve](/General_number_field_sieve) for these specific groups, attackers could significantly reduce the effort needed to solve for a particular discrete logarithm. This was particularly effective against "export-grade" cryptography using 512-bit prime numbers. Researchers estimate that the precomputation for 1024-bit primes could be within the reach of well-funded national intelligence agencies, potentially explaining some claims about breaking current encryption standards found in leaked documents.

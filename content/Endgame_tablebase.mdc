@@ -1,0 +1,67 @@
+---
+title: "Endgame Tablebase"
+description: "In the realm of chess, the endgame tablebase, often simply referred to as the tablebase, represents a computerized database that houses precalculated..."
+keywords: chess, database, endgame, chess engines, pieces, white and black, draw, perfect play, oracle, complete state is known
+slug: "Endgame_tablebase"
+createdAt: "2025-12-28T13:38:38.170Z"
+updatedAt: "2025-12-28T13:38:38.170Z"
+contentType: "rewritten"
+aiProvider: "OpenRouter"
+aiModel: "mistralai/devstral-2512:free"
+previousArticleSlug: "Grammatical_number"
+previousArticleTitle: "Grammatical Number"
+---
+
+# Endgame Tablebase
+
+In the realm of [chess](/Chess), the endgame tablebase, often simply referred to as the tablebase, represents a computerized [database](/Database) that houses precalculated evaluations of [endgame](/Chess_endgame) positions. These tablebases are instrumental in analyzing completed games and are also utilized by [chess engines](/Chess_engines) to evaluate positions during gameplay. Typically exhaustive in nature, tablebases encompass every legal configuration of a specific selection of [pieces](/Chess_piece) on the board, considering both [White and Black](/White_and_Black_in_chess) to move. For each position, the tablebase records the ultimate outcome of the game—whether it be a win for White, a win for Black, or a [draw](/Draw_(chess))—along with the number of moves required to achieve that result, assuming [perfect play](/Perfect_play). Given that every legal move in a covered position leads to another covered position, the tablebase functions as an [oracle](/Oracle_machine) that invariably provides the optimal move.
+
+## Background
+
+The concept of solving games under the condition that the [complete state is known](/Perfect_information) and there is no [random chance](/Game_of_chance) is theoretically feasible, barring physical limitations of [computer hardware](/Computer_hardware). Strong solutions, which can produce perfect play from any position, are known for simpler games such as [Tic Tac Toe](/Tic_Tac_Toe) (a draw with perfect play) and [Connect Four](/Connect_Four) (first player wins). Weak solutions exist for more complex games like [checkers](/English_draughts), where perfect play on both sides results in a draw, but the perfect next move for every position created by less-than-perfect play is not always known. Games like chess and [Go](/Go_(game)) remain unsolved due to their vast [game complexity](/Game_complexity), which is too extensive for computers to evaluate all possible positions. To mitigate this complexity, researchers have modified these games by reducing the board size or the number of pieces.
+
+[Computer chess](/Computer_chess) is one of the oldest domains of [artificial intelligence](/Artificial_intelligence), dating back to the early 1930s. [Claude Shannon](/Claude_Shannon) proposed formal criteria for evaluating chess moves in 1949. In 1951, [Alan Turing](/Alan_Turing) designed a primitive chess-playing program that assigned values for material and [mobility](/Mobility_(chess)), with the program "playing" chess based on Turing's manual calculations. However, early chess programs exhibited significant weaknesses in playing the endgame. Programmers added specific [heuristics](/Heuristic) for the endgame, such as the [king](/King_(chess)) moving to the center of the board, but a more comprehensive solution was needed.
+
+In 1965, [Richard Bellman](/Richard_Bellman) proposed the creation of a database to solve chess and [checkers](/Checkers) endgames using [retrograde analysis](/Retrograde_analysis). Instead of analyzing forward from the current position, the database would analyze backward from positions where one player was [checkmated](/Checkmate) or [stalemated](/Stalemate). This approach would allow a chess computer to avoid analyzing endgame positions during the game, as they would have been solved beforehand, ensuring no mistakes due to the tablebase always yielding the best possible move.
+
+In 1970, Thomas Ströhlein published a doctoral thesis analyzing several classes of endgames, including KQK, KRK, KPK, KQKR, KRKB, and KRKN. In 1977, [Ken Thompson](/Ken_Thompson_(computer_programmer))'s KQKR tablebase was used in a match against [Grandmaster](/Grandmaster_(chess)) [Walter Browne](/Walter_Browne). Thompson and others extended tablebases to cover all four- and five-piece endgames, including KBBKN, KQPKQ, and KRPKR. Lewis Stiller published a thesis in 1991 with research on some six-piece tablebase endgames.
+
+Recent contributors to the field include [John Nunn](/John_Nunn), Eugene Nalimov (after whom the popular Nalimov tablebases are named), Eiko Bleicher (who adapted the tablebase concept to a program called "Freezer"), Guy Haworth (an academic at the [University of Reading](/University_of_Reading)), Marc Bourzutschky and Yakov Konoval (who analyzed endgames with seven pieces), Peter Karrer (who constructed a specialized seven-piece tablebase for the endgame of [Kasparov versus The World](/Kasparov_versus_The_World)), and Vladimir Makhnychev and Victor Zakharov (who completed the 4+3 DTM tablebases and 5+2 DTM-tablebases using the [supercomputer](/Supercomputer) Lomonosov). Ronald de Man and Bojun Guo generated the seven-man DTZ tablebase called the Syzygy tablebase in 2018, reducing the size of seven-man tablebases from 140 TB to 18.4 TB.
+
+## Current Status of Endgame Tablebases
+
+As of 2025, tablebases for all positions with up to seven pieces, including the two kings, have been created. Work is still underway to solve all eight-piece positions. The tablebases of all endgames with up to seven pieces are available for free download and can be queried using web interfaces. Research on creating an eight-piece tablebase started in 2021.
+
+## Generating Tablebases
+
+Before creating a tablebase, a programmer must choose a metric of optimality, defining at what point a player has "won" the game. Every position solved by the tablebase will either have a distance from this specific point or be classified as a draw. Three different metrics have been used: Depth to Mate (DTM), Depth to Conversion (DTC), and Depth to Zeroing (DTZ). DTZ is the only metric that supports the [fifty-move rule](/Fifty-move_rule), as it determines the distance to a "zeroing-move" (a move that resets the move count to zero under the fifty-move rule).
+
+The process of generating a tablebase involves several steps: generating all possible positions, evaluating positions using retrograde analysis, and verification. Retrograde analysis is necessary from checkmated positions, as every position that cannot be reached by moving backward from a checkmated position must be a draw. Each position is evaluated as a win or loss in a certain number of moves, with positions not designated as wins or losses being draws.
+
+## Applications
+
+Tablebases have various applications, including in [correspondence chess](/Correspondence_chess), where players may consult a chess computer for assistance. They are also used in [computer chess](/Computer_chess) to provide a tremendous advantage in the endgame, allowing computers to play perfectly and simplify to a winning tablebase position. However, there are practical drawbacks to using tablebases, such as ignoring the fifty-move rule and requiring significant memory to store trillions of positions.
+
+## Endgame Theory
+
+Tablebases have answered longstanding questions about whether certain combinations of material are wins or draws. For example, KBBKN was proven to be a general win with maximum DTC = 66 and maximum DTM = 78. KNNKP has a maximum DTC = DTM = 115 moves, and KNNNNKQ has the knights winning in 62.5 percent of positions with maximum DTM = 85 moves. KQRKQR, despite the equality of material, has the player to move winning in 67.74% of positions, with a maximum DTC of 92 and a maximum DTM of 117.
+
+## Endgame Studies
+
+Tablebases have been used to check the soundness of composed [endgame studies](/Endgame_studies), revealing that some studies are unsound because the composer's solution does not work or there is an equally effective alternative. They have also assisted in the creation of other studies by allowing composers to search for interesting positions, such as [zugzwang](/Zugzwang).
+
+## Nomenclature
+
+Originally, an endgame tablebase was called an "endgame data base" or "endgame database." The term "tablebase" was first used in connection with chess endgames in the [ICCA Journal](/ICCA_Journal) in 1995. The mainstream chess community has adopted "endgame tablebase" as the most common name.
+
+## Books
+
+[John Nunn](/John_Nunn) has written three books based on detailed analysis of endgame tablebases: "Secrets of [Minor-Piece](/Minor_piece) Endings," "Secrets of [Rook](/Rook_(chess)) Endings," and "Secrets of [Pawnless Endings](/Pawnless_chess_endgame)."
+
+## Tables
+
+The tables provide information on the number of positions, database names, metrics, completion dates, and sizes for endgames with five or fewer pieces, six pieces, seven pieces, and eight pieces.
+
+## Notes
+
+The notes section includes references to various sources and additional information on the development and application of endgame tablebases.

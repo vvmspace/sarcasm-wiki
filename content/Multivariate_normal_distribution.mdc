@@ -1,0 +1,737 @@
+---
+title: "Multivariate Normal Distribution"
+description: "Ah, the multivariate normal distribution. If you insist on delving into the intricacies of multiple random variables simultaneously, this is where you'll find..."
+keywords: random variables, normal distribution, dimensions, joint normal distribution, random vector, linear combination
+slug: "Multivariate_normal_distribution"
+createdAt: "2025-12-29T11:41:22.938Z"
+updatedAt: "2025-12-29T11:41:22.938Z"
+contentType: "rewritten"
+aiProvider: "Gemini"
+aiModel: "gemini-2.5-flash"
+previousArticleSlug: "Ivari_Padar"
+previousArticleTitle: "Ivari Padar"
+---
+
+Ah, the [multivariate normal distribution](/Multivariate_normal_distribution). If you insist on delving into the intricacies of multiple [random variables](/Random_variable) simultaneously, this is where you'll find yourself. It’s a concept that takes the perfectly manageable, one-dimensional notion of a [normal distribution](/Normal_distribution) and, with typical human ambition, drags it into higher [dimensions](/Dimension). One could argue it complicates matters unnecessarily, but then, most things worth knowing do.
+
+At its core, the [multivariate normal distribution](/Multivariate_normal_distribution) (often referred to as the [multivariate Gaussian distribution](/Multivariate_normal_distribution), or, for those who prefer more formal titles, the [joint normal distribution](/Multivariate_normal_distribution)) stands as a fundamental generalization. It extends the familiar bell-curve shape, which so neatly describes a single variable's tendencies, to scenarios involving *k* interacting components. A concise, if somewhat abstract, definition states that a [random vector](/Random_vector) is considered *k*-variate normally distributed if, and only if, any conceivable [linear combination](/Linear_combination) of its *k* constituent components yields a univariate normal distribution.
+
+Its profound importance isn't merely academic; it largely stems from the omnipresent [multivariate central limit theorem](/Central_limit_theorem). This theorem, a cornerstone of [probability theory](/Probability_theory) and [statistics](/Statistics), ensures that the sum of a large number of independent and identically distributed random vectors, under certain conditions, will converge towards a [multivariate normal distribution](/Multivariate_normal_distribution). Consequently, this distribution frequently serves as the go-to model, at least as an approximation, for describing any collection of real-valued [random variables](/Random_variable) that might be (and usually are) [correlated](/Correlation_(statistics)), and whose individual values tend to cluster predictably around their respective mean values. It's the statistical equivalent of herding cats, but with the comforting knowledge that, eventually, they'll form a somewhat predictable, if still irritatingly diffuse, cluster.
+
+### Definitions
+
+One must, of course, define the terms before one can truly appreciate their burden.
+
+#### Notation and parametrization
+
+When dealing with the [multivariate normal distribution](/Multivariate_normal_distribution) of a *k*-dimensional [random vector](/Random_vector) – let's call it **X**, because why complicate naming conventions? – represented as the column vector:
+
+$$
+\mathbf {X} =(X_{1},\ldots ,X_{k})^{\mathrm {T} }
+$$
+
+we typically employ a notation that is as succinct as it is informative:
+
+$$
+\mathbf {X} \ \sim \ {\mathcal {N}}({\boldsymbol {\mu }},\,{\boldsymbol {\Sigma }}),
+$$
+
+Or, if one feels the need to explicitly declare the dimensionality of **X** (as if it wasn't already implied), you might encounter:
+
+$$
+\mathbf {X} \ \sim \ {\mathcal {N}}_{k}({\boldsymbol {\mu }},\,{\boldsymbol {\Sigma }}),
+$$
+
+Here, the parameters are not merely single numbers, but rather vectors and matrices that capture the essence of the *k* dimensions:
+
+*   **µ** represents the *k*-dimensional [mean vector](/Mean_vector). It's the central tendency, the expected value, for each component of **X**, stacked neatly together:
+
+    $$
+    {\boldsymbol {\mu }}=\operatorname {E} [\mathbf {X} ]=(\operatorname {E} [X_{1}],\operatorname {E} [X_{2}],\ldots ,\operatorname {E} [X_{k}])^{\mathrm {T} },
+    $$
+
+    Essentially, it tells you where the center of this multi-dimensional cloud of probability resides.
+
+*   **Σ** is the *k* × *k* [covariance matrix](/Covariance_matrix). This is where the real action, and often the real complexity, lies. It not only contains the [variances](/Variance) of each individual component along its diagonal but, more importantly, the [covariances](/Covariance_matrix) between every pair of components off-diagonal. It describes how the variables move together, or, more accurately, how they fail to move independently.
+
+    $$
+    \Sigma _{i,j}=\operatorname {E} [(X_{i}-\mu _{i})(X_{j}-\mu _{j})]=\operatorname {Cov} [X_{i},X_{j}]
+    $$
+
+    This matrix holds true for all indices where $1\leq i\leq k$ and $1\leq j\leq k$. A critical characteristic of **Σ** is that it must be a [positive semi-definite matrix](/Positive_semi-definite_matrix), ensuring that variances are non-negative and the matrix properly defines a "spread" in all directions. If this matrix happens to be [invertible](/Matrix_inverse), which is the desirable "non-degenerate" case, its inverse is then given the rather grand title of the [precision matrix](/Precision_(statistics)), often denoted by **Q**:
+
+    $$
+    {\boldsymbol {Q}}={\boldsymbol {\Sigma }}^{-1}
+    $$
+
+    The [precision matrix](/Precision_(statistics)) quantifies the inverse of the covariance, effectively indicating the strength of the relationships between variables. High precision implies low variance and covariance, meaning variables are tightly clustered and their relationships are strong.
+
+#### Standard normal random vector
+
+A real [random vector](/Random_vector) **X**, again represented as $(X_{1},\ldots ,X_{k})^{\mathrm {T} }$, earns the distinction of being a *standard normal random vector* under very specific, almost idealized, conditions. This occurs if and only if all of its individual components, $X_{i}$, are not only [independent](/Statistical_independence) of one another but also each follow a [univariate normal distribution](/Normal_distribution) with a mean of zero and a variance of one. In simpler terms, each $X_{i}$ must be drawn from $\ {\mathcal {N}}(0,1)$ for every $i=1,\ldots ,k$. It's the pristine, unadulterated form of normality, a baseline against which all other, more complicated, normal vectors are measured.
+
+#### Centered normal random vector
+
+Stepping slightly away from the perfectly standardized ideal, a real [random vector](/Random_vector) **X** is termed a *centered normal random vector* if it can be expressed as a linear transformation of a standard normal random vector. Specifically, there must exist a $k \times \ell$ matrix **A** such that the distribution of $\mathbf {A}\mathbf {Z}$ is identical to the distribution of $\mathbf {X}$, where $\mathbf {Z}$ is a standard normal random vector comprising $\ell$ components. This implies that the mean of **X** is zero, as the transformation matrix **A** merely scales and rotates the independent standard normal variables without shifting their collective center. It's like taking a perfectly balanced collection of random variables and merely twisting and stretching them, without bothering to move their collective origin.
+
+#### Normal random vector
+
+The most general and frequently encountered form is the *normal random vector*. A real [random vector](/Random_vector) $\mathbf {X} = (X_{1},\ldots ,X_{k})^{\mathrm {T} }$ is designated as normal if it can be constructed through an [affine transformation](/Affine_transformation) of a standard normal random vector. That is, there must exist a *k*-vector $\boldsymbol {\mu}$ (the mean), a $k \times \ell$ matrix $\mathbf {A}$, and an $\ell$-vector $\mathbf {Z}$ (which is a standard normal random vector), such that:
+
+$$
+\mathbf {X} ={\boldsymbol {A}}\mathbf {Z} +{\boldsymbol {\mu }}
+$$
+
+Formally, this means:
+
+$$
+\mathbf {X} \ \sim \ {\mathcal {N}}_{k}({\boldsymbol {\mu }},{\boldsymbol {\Sigma }})\iff {\text{there exist }}{\boldsymbol {\mu }}\in \mathbb {R} ^{k},{\boldsymbol {A}}\in \mathbb {R} ^{k\times \ell }{\text{ such that }}\mathbf {X} ={\boldsymbol {A}}\mathbf {Z} +{\boldsymbol {\mu }}{\text{ and }}\forall n=1,\ldots ,\ell :Z_{n}\sim \ {\mathcal {N}}(0,1),{\text{i.i.d.}}}
+$$
+
+In this construction, the [covariance matrix](/Covariance_matrix) $\boldsymbol {\Sigma}$ is elegantly defined by $\boldsymbol {\Sigma }={\boldsymbol {A}}{\boldsymbol {A}}^{\mathrm {T} }$. This formulation reveals a crucial insight: the components $X_{i}$ are generally *not* [independent](/Statistical_independence) (unless **A** is a diagonal matrix, or the off-diagonal elements of $\boldsymbol {\Sigma}$ are zero). Instead, they are the result of applying a linear transformation (the matrix **A**) to a collection of truly independent Gaussian variables contained within $\mathbf {Z}$, followed by a translation by $\boldsymbol {\mu}$.
+
+It's worth noting the "degenerate" case here. If the [covariance matrix](/Covariance_matrix) $\boldsymbol {\Sigma}$ happens to be [singular](/Singular_matrix) (i.e., not full rank), then the distribution lacks a [probability density function](/Probability_density_function) in the conventional sense, residing instead on a lower-dimensional affine subspace. This is not some rare anomaly; it crops up rather frequently in practical [statistics](/Statistics), for instance, when examining the vector of [residuals](/Errors_and_residuals_in_statistics) in an [ordinary least squares](/Ordinary_least_squares) regression, where the residuals are constrained to sum to zero.
+
+#### Equivalent definitions
+
+The definition of a [multivariate normal distribution](/Multivariate_normal_distribution) can be approached from several angles, each offering a slightly different, yet equally valid, perspective on its properties. For a [random vector](/Random_vector) $\mathbf {X} = (X_{1},\ldots ,X_{k})^{\mathrm {T} }$, possessing a [multivariate normal distribution](/Multivariate_normal_distribution) is synonymous with satisfying any of these equivalent conditions:
+
+*   **Linear Combination Normality:** This is perhaps the most fundamental and, ironically, the most abstract. It asserts that *every single linear combination* of the components of $\mathbf {X}$ must itself be [normally distributed](/Normal_distribution). That is, for any constant vector $\mathbf {a} \in \mathbb {R} ^{k}$, the scalar [random variable](/Random_variable) $Y = \mathbf {a}^{\mathrm {T} }\mathbf {X}$ must follow a univariate normal distribution. This includes the rather dull case where the univariate normal distribution has zero variance, which effectively means it's a [point mass](/Dirac_delta_function) fixed precisely at its mean. This is a powerful condition, implying that the distribution's "normality" pervades all linear projections.
+
+*   **Characteristic Function Form:** The [characteristic function](/Characteristic_function_(probability_theory)) acts as a unique fingerprint for any probability distribution. For a [multivariate normal distribution](/Multivariate_normal_distribution), this function takes a very specific, elegant exponential form. There exists a *k*-vector $\boldsymbol {\mu}$ and a symmetric, [positive semidefinite](/Positive-definite_matrix) $k \times k$ matrix $\boldsymbol {\Sigma}$ such that the [characteristic function](/Characteristic_function_(probability_theory)) of $\mathbf {X}$ is given by:
+
+    $$
+    \varphi _{\mathbf {X} }(\mathbf {u} )=\exp {\Big (}i\mathbf {u} ^{\mathrm {T} }{\boldsymbol {\mu }}-{\tfrac {1}{2}}\mathbf {u} ^{\mathrm {T} }{\boldsymbol {\Sigma }}\mathbf {u} {\Big )}.
+    $$
+
+    This formula not only uniquely identifies the distribution but also highlights the central roles of the mean vector $\boldsymbol {\mu}$ and the [covariance matrix](/Covariance_matrix) $\boldsymbol {\Sigma}$ in shaping its properties.
+
+*   **Spherical Independence in Orthogonal Systems:** A rather specific, yet intriguing, characterization applies to the *spherical normal distribution*. This is the unique distribution where its components maintain their [independence](/Statistical_independence) regardless of which [orthogonal coordinate system](/Orthogonal_coordinates) one chooses to represent them in. It's a testament to its perfectly symmetric spread, where no direction is favored over another, a truly isotropic Gaussian.
+
+### Probability density function
+
+The [probability density function](/Probability_density_function) (PDF) is the mathematical expression that assigns relative likelihoods to different outcomes. For the [multivariate normal distribution](/Multivariate_normal_distribution), it describes the "shape" of the probability cloud in *k*-dimensional space.
+
+#### Many sample points from a multivariate normal distribution with $\boldsymbol {\mu }=\left[{\begin{smallmatrix}0\\0\end{smallmatrix}}\right]$ and $\boldsymbol {\Sigma }=\left[{\begin{smallmatrix}1&3/5\\3/5&2\end{smallmatrix}}\right]$, shown along with the 3-sigma ellipse, the two marginal distributions, and the two 1-d histograms.
+
+This illustration, if you bothered to look, provides a visual intuition for a 2-dimensional [multivariate normal distribution](/Multivariate_normal_distribution). The cluster of points represents individual observations, while the ellipse delineates a region of high probability (the 3-sigma contour, if you're keeping track). The accompanying histograms and marginal distributions show how each variable behaves on its own, providing a slice of the larger, more complex joint reality. It's a useful reminder that even complex distributions can often be broken down into simpler, if correlated, parts.
+
+#### Non-degenerate case
+
+The concept of "non-degenerate" here is crucial; it’s when the symmetric [covariance matrix](/Covariance_matrix) $\boldsymbol {\Sigma}$ is [positive definite](/Positive-definite_matrix). This condition means that the matrix is invertible, and thus the distribution is not confined to a lower-dimensional subspace. In this fortunate scenario, the distribution actually *has* a [density](/Probability_density_function) that can be explicitly written down:
+
+$$
+f_{\mathbf {X} }(x_{1},\ldots ,x_{k})={\frac {\exp \left(-{\frac {1}{2}}\left({\mathbf {x} }-{\boldsymbol {\mu }}\right)^{\mathrm {T} }{\boldsymbol {\Sigma }}^{-1}\left({\mathbf {x} }-{\boldsymbol {\mu }}\right)\right)}{\sqrt {(2\pi )^{k}|{\boldsymbol {\Sigma }}|}}}
+$$
+
+Here, $\mathbf {x}$ is a real *k*-dimensional column vector representing a point in space, and $|\boldsymbol {\Sigma }| \equiv \det {\boldsymbol {\Sigma }}$ is the [determinant](/Determinant) of $\boldsymbol {\Sigma}$. This determinant is also known, rather grandly, as the [generalized variance](/Generalized_variance), as it quantifies the overall "spread" or volume of the distribution in *k*-dimensional space. A larger determinant indicates a wider, more diffuse distribution.
+
+Should *k* equal 1, this formidable equation gracefully simplifies to the familiar [probability density function](/Probability_density_function) of the [univariate normal distribution](/Normal_distribution), a testament to its foundational role.
+
+It's worth noting, for those who dabble in the complex plane, that the circularly symmetric version of the [complex normal distribution](/Complex_normal_distribution) has a slightly different form, as reality often deviates when you add more dimensions and imaginary numbers.
+
+A striking geometric feature of this distribution is that each iso-density [locus](/Locus_(mathematics))—that is, the set of all points in *k*-dimensional space that yield the exact same specific value of the density—forms an [ellipse](/Ellipse) or its higher-dimensional generalization, an [ellipsoid](/Ellipsoid). This elegant property means that the [multivariate normal distribution](/Multivariate_normal_distribution) is a prime example of the broader class of [elliptical distributions](/Elliptical_distribution).
+
+The term in the exponential, $\sqrt {({\mathbf {x} }-{\boldsymbol {\mu }})^{\mathrm {T} }{\boldsymbol {\Sigma }}^{-1}({\mathbf {x} }-{\boldsymbol {\mu }})}$, is far more than just a component of a formula; it is famously known as the [Mahalanobis distance](/Mahalanobis_distance). This metric provides a standardized measure of the distance between a given test point, $\mathbf {x}$, and the mean vector $\boldsymbol {\mu}$. Crucially, it accounts for the correlations between variables and their respective scales, effectively measuring distance in terms of standard deviations from the mean, adjusted for the shape of the data cloud. The squared [Mahalanobis distance](/Mahalanobis_distance), $({\mathbf {x} }-{\boldsymbol {\mu }})^{\mathrm {T} }{\boldsymbol {\Sigma }}^{-1}({\mathbf {x} }-{\boldsymbol {\mu }})$, can be rather neatly decomposed into a sum of *k* terms, each being a product of three meaningful components, which, if you're truly invested, reveals further insights into the contribution of each variable and its interaction.
+
+When *k* is 1, this sophisticated [Mahalanobis distance](/Mahalanobis_distance) mercifully reduces to the absolute value of the [standard score](/Standard_score), a concept far more digestible for the casual observer. For more on how this relates to probability regions, see the "Interval" section below.
+
+#### Bivariate case
+
+Let's simplify to the 2-dimensional, non-singular scenario ($k = \operatorname{rank}(\Sigma) = 2$). Here, the [probability density function](/Probability_density_function) for a vector $\text{[XY]}\prime$ (don't ask why it's written like that, some things are just given) becomes:
+
+$$
+f(x,y)={\frac {1}{2\pi \sigma _{X}\sigma _{Y}{\sqrt {1-\rho ^{2}}}}}\exp \left(-{\frac {1}{2\left[1-\rho ^{2}\right]}}\left[\left({\frac {x-\mu _{X}}{\sigma _{X}}}\right)^{2}-2\rho \left({\frac {x-\mu _{X}}{\sigma _{X}}}\right)\left({\frac {y-\mu _{Y}}{\sigma _{Y}}}\right)+\left({\frac {y-\mu _{Y}}{\sigma _{Y}}}\right)^{2}\right]\right)
+$$
+
+This rather verbose expression features $\rho$, which is the [correlation](/Pearson_product-moment_correlation_coefficient) between $X$ and $Y$, along with $\sigma _{X}>0$ and $\sigma _{Y}>0$, representing the standard deviations of $X$ and $Y$ respectively. In this specific bivariate context, our mean vector and [covariance matrix](/Covariance_matrix) take on a more concrete, if still matrix-filled, appearance:
+
+$$
+{\boldsymbol {\mu }}={\begin{pmatrix}\mu _{X}\\\mu _{Y}\end{pmatrix}},\quad {\boldsymbol {\Sigma }}={\begin{pmatrix}\sigma _{X}^{2}&\rho \sigma _{X}\sigma _{Y}\\\rho \sigma _{X}\sigma _{Y}&\sigma _{Y}^{2}\end{pmatrix}}.
+$$
+
+Interestingly, in the bivariate case, one of the equivalent conditions for confirming [multivariate normality](/Multivariate_normal_distribution) can be relaxed slightly. Instead of requiring *every* linear combination to be normal, it's sufficient to demonstrate that a [countably infinite](/Countably_infinite) collection of distinct linear combinations of $X$ and $Y$ are normally distributed to conclude that the vector $\text{[XY]}\prime$ is, in fact, bivariate normal. It's a small concession to practicality in the face of infinite possibilities.
+
+The iso-density [loci](/Locus_(mathematics)) (those contours where the probability density is constant) in the $x,y$-plane are, predictably, [ellipses](/Ellipse). Their [principal axes](/Semi-major_and_semi-minor_axes) are precisely aligned with the [eigenvectors](/Eigenvectors) of the [covariance matrix](/Covariance_matrix) $\boldsymbol {\Sigma}$. The lengths of the major and minor [semidiameters](/Semidiameter) of these ellipses are given by the square roots of the corresponding [eigenvalues](/Eigenvalues). This provides a direct visual link between the algebraic properties of the [covariance matrix](/Covariance_matrix) and the geometric shape of the probability cloud.
+
+**Bivariate normal distribution centered at $(1,3)$ with a standard deviation of 3 in roughly the $(0.878,0.478)$ direction and of 1 in the orthogonal direction.**
+
+This image, if it were visible, would show how the orientation and elongation of the ellipses are determined by the underlying variances and covariance. A high positive correlation would tilt the ellipse upwards to the right, while a negative correlation would tilt it upwards to the left.
+
+As the absolute value of the [correlation parameter](/Pearson_product-moment_correlation_coefficient) $\rho$ approaches 1 (meaning the variables become more perfectly correlated, either positively or negatively), these elegant ellipses are increasingly "squeezed" and flattened, aligning themselves tightly along a specific line:
+
+$$
+y(x)=\operatorname {sgn}(\rho ){\frac {\sigma _{Y}}{\sigma _{X}}}(x-\mu _{X})+\mu _{Y}.
+$$
+
+This line represents the direction of perfect linear dependence. This phenomenon occurs because the expression, when $\operatorname {sgn}(\rho)$ (the [sign function](/Sign_function) of $\rho$) is replaced by $\rho$ itself, actually defines the [best linear unbiased prediction](/Best_linear_unbiased_prediction) of $Y$ given any observed value of $X$. It's a beautiful demonstration of how correlation dictates predictability.
+
+#### Degenerate case
+
+Now, for the less graceful scenario: what happens if the [covariance matrix](/Covariance_matrix) $\boldsymbol {\Sigma}$ is *not* full rank? This signifies a "degenerate" [multivariate normal distribution](/Multivariate_normal_distribution). In such a case, the distribution does not possess a [density](/Probability_density_function) in the conventional sense, specifically with respect to the *k*-dimensional [Lebesgue measure](/Lebesgue_measure)—the standard measure assumed in calculus-level probability courses. This is because the probability mass is concentrated on a lower-dimensional subspace, making its density "infinite" on that subspace and zero everywhere else, which isn't a proper density function.
+
+To speak meaningfully of densities in these singular situations, one must adjust the underlying measure. The solution involves invoking the [disintegration theorem](/Disintegration_theorem) to define a restriction of the [Lebesgue measure](/Lebesgue_measure) to the specific $\operatorname {rank}({\boldsymbol {\Sigma }})$-dimensional affine subspace within $\mathbb {R} ^{k}$ where the Gaussian distribution's probability mass actually resides. This subspace is precisely:
+
+$$
+\left\{{\boldsymbol {\mu }}+{\boldsymbol {\Sigma ^{1/2}}}\mathbf {v} :\mathbf {v} \in \mathbb {R} ^{k}\right\}
+$$
+
+With respect to this specialized measure, the distribution *does* have a density, albeit one with a slightly modified motif:
+
+$$
+f(\mathbf {x} )={\frac {\exp \left(-{\frac {1}{2}}\left(\mathbf {x} -{\boldsymbol {\mu }}\right)^{\mathrm {T} }{\boldsymbol {\Sigma }}^{+}\left(\mathbf {x} -{\boldsymbol {\mu }}\right)\right)}{\sqrt {\det \nolimits ^{*}(2\pi {\boldsymbol {\Sigma }})}}}
+$$
+
+Here, $\boldsymbol {\Sigma }^{+}$ denotes the [generalized inverse](/Generalized_inverse) (also known as the [Moore–Penrose inverse](/Moore–Penrose_inverse)) of $\boldsymbol {\Sigma}$, and $\det \nolimits ^{*}$ is the [pseudo-determinant](/Pseudo-determinant). The [generalized inverse](/Generalized_inverse) allows for calculations even when the standard inverse doesn't exist, effectively operating within the reduced-rank subspace. This formulation ensures that even in degenerate cases, we can still quantify the relative likelihood of points within the distribution's actual support. It’s a clever workaround for an inconvenient truth.
+
+### Cumulative distribution function
+
+The familiar concept of a [cumulative distribution function](/Cumulative_distribution_function) (CDF) from one dimension, which tells you the probability of a variable being less than or equal to a certain value, becomes a bit more multifaceted when extended to multiple dimensions. There are, predictably, two primary ways to generalize it, depending on whether one is interested in rectangular or ellipsoidal regions.
+
+The first, and perhaps most direct, extension defines the CDF, $F(\mathbf {x})$, of a [random vector](/Random_vector) $\mathbf {X}$ as the probability that *all* of its components are simultaneously less than or equal to their corresponding values in a given vector $\mathbf {x}$:
+
+$$
+F(\mathbf {x} )=\mathbb {P} (\mathbf {X} \leq \mathbf {x} ),\quad {\text{where }}\mathbf {X} \sim {\mathcal {N}}({\boldsymbol {\mu }},\,{\boldsymbol {\Sigma }}).
+$$
+
+This definition effectively calculates the probability mass within a *k*-dimensional hyper-rectangle extending from negative infinity up to the point $\mathbf {x}$. While this definition is straightforward conceptually, there is unfortunately no simple closed-form analytical expression for $F(\mathbf {x})$ in the general [multivariate normal case](/Multivariate_normal_distribution). This means you can't just plug numbers into a neat formula. Instead, a host of numerical algorithms have been developed to estimate these probabilities, often involving complex integration techniques.
+
+The second approach defines the CDF, $F(r)$, as the probability that a sample point falls *inside* the ellipsoid determined by its [Mahalanobis distance](/Mahalanobis_distance) $r$ from the Gaussian mean. This is a more direct generalization of the concept of "standard deviation" to multiple dimensions, as the [Mahalanobis distance](/Mahalanobis_distance) already accounts for the shape and orientation of the distribution. For this specific definition, unlike the first, closed analytic formulas *do* exist, which is a small mercy for those who prefer concrete calculations over numerical approximations.
+
+### Interval
+
+In the realm of [multivariate normal distributions](/Multivariate_normal_distribution), the concept of a [confidence interval](/Confidence_interval) or prediction interval extends to a multi-dimensional region. This region, often referred to as a [confidence region](/Confidence_region), consists of all vectors $\mathbf {x}$ that satisfy a specific condition related to the [Mahalanobis distance](/Mahalanobis_distance). Specifically, the interval encompasses those points where:
+
+$$
+({\mathbf {x} }-{\boldsymbol {\mu }})^{\mathrm {T} }{\boldsymbol {\Sigma }}^{-1}({\mathbf {x} }-{\boldsymbol {\mu }})\leq \chi _{k}^{2}(p).
+$$
+
+Here, $\mathbf {x}$ is a $k$-dimensional vector, $\boldsymbol {\mu}$ is the known $k$-dimensional mean vector, and $\boldsymbol {\Sigma}$ is the known [covariance matrix](/Covariance_matrix). The crucial term $\chi _{k}^{2}(p)$ represents the [quantile function](/Quantile_function) for a given probability $p$ of the [chi-squared distribution](/Chi-squared_distribution) with $k$ [degrees of freedom](/Degrees_of_freedom_(statistics)). This means that the squared [Mahalanobis distance](/Mahalanobis_distance) itself follows a [chi-squared distribution](/Chi-squared_distribution) with degrees of freedom equal to the dimensionality *k*.
+
+Consequently, the region defined by this inequality is an ellipsoid (or hyper-ellipsoid in higher dimensions) centered at $\boldsymbol {\mu}$. The value of $p$ determines the "size" of this ellipsoid; for example, setting $p = 0.95$ would define a region containing 95% of the probability mass. When $k=2$, this expression precisely describes the interior of an [ellipse](/Ellipse), and the [chi-squared distribution](/Chi-squared_distribution) simplifies to an [exponential distribution](/Exponential_distribution) with a mean of two (or a rate parameter of one-half), a rather neat simplification for a seemingly complex scenario.
+
+### Complementary cumulative distribution function (tail distribution)
+
+The [complementary cumulative distribution function](/Cumulative_distribution_function) (ccdf), often simply referred to as the tail distribution, quantifies the probability that at least one component of a [random vector](/Random_vector) exceeds a certain threshold. For a vector $\mathbf {X}$, it is defined as:
+
+$$
+{\overline {F}}(\mathbf {x} )=1-\mathbb {P} \left(\mathbf {X} \leq \mathbf {x} \right).
+$$
+
+When $\mathbf {X} \sim {\mathcal {N}}({\boldsymbol {\mu }},\,{\boldsymbol {\Sigma }})$, this ccdf can be quite elegantly re-expressed as the probability of the maximum of a set of dependent Gaussian variables. Specifically, it can be written as:
+
+$$
+{\overline {F}}(\mathbf {x} )=\mathbb {P} \left(\bigcup _{i}\{X_{i}\geq x_{i}\}\right)=\mathbb {P} \left(\max _{i}Y_{i}\geq 0\right),\quad {\text{where }}\mathbf {Y} \sim {\mathcal {N}}\left({\boldsymbol {\mu }}-\mathbf {x} ,\,{\boldsymbol {\Sigma }}\right).
+$$
+
+This reformulation is particularly useful because it transforms the problem of finding the probability of a hyper-rectangular region (or its complement) into a problem involving the maximum of a set of Gaussian variables. However, despite this conceptual simplification, a simple closed-form analytical solution for computing the ccdf in the [multivariate normal case](/Multivariate_normal_distribution) remains elusive. Consequently, accurate estimation of the maximum of dependent Gaussian variables, and thus the ccdf, often relies on sophisticated numerical techniques such as the [Monte Carlo method](/Monte_Carlo_method). This method involves generating a large number of random samples from the distribution and then estimating the desired probability based on the proportion of samples that fall within the specified region. It's not a precise calculation, but a reliable approximation for those who insist on numbers.
+
+### Properties
+
+The [multivariate normal distribution](/Multivariate_normal_distribution) isn't just a collection of formulas; it possesses a suite of inherent properties that make it both powerful and, at times, predictably rigid.
+
+#### Moments
+
+Understanding the [moments](/Moment_(mathematics)) of a distribution is akin to understanding its shape and behavior. For a [multivariate normal distribution](/Multivariate_normal_distribution), the *k*th-order moments of $\mathbf {x}$ are given by:
+
+$$
+\mu _{1,\ldots ,N}(\mathbf {x} )\mathrel {\stackrel {\mathrm {def} }{=}} \mu _{r_{1},\ldots ,r_{N}}(\mathbf {x} )\mathrel {\stackrel {\mathrm {def} }{=}} \operatorname {E} \left[\prod _{j=1}^{N}X_{j}^{r_{j}}\right]
+$$
+
+where the sum of the exponents $r_1 + r_2 + \cdots + r_N = k$. This essentially means we're looking at the expected value of products of the random variables, raised to various powers.
+
+The *k*th-order *central* moments (moments about the mean, so effectively assuming $\boldsymbol{\mu} = \mathbf{0}$ for simplicity) follow a rather elegant, if somewhat tedious, pattern:
+
+*   If *k* is odd, the central moment $\mu _{1, \ldots, N}(\mathbf{x} - \boldsymbol{\mu})$ is always 0. This is a direct consequence of the symmetry of the normal distribution around its mean. Any odd moment about the mean will cancel itself out.
+
+*   If *k* is even, say $k = 2\lambda$, then the central moment is expressed as a sum over products of covariances. This is a direct application of [Isserlis' theorem](/Isserlis%27_theorem), which provides a combinatorial way to calculate higher-order moments for Gaussian random variables. The formula for an even *k* is:
+
+    $$
+    \mu _{1,\dots ,2\lambda }(\mathbf {x} -{\boldsymbol {\mu }})=\sum \left(\sigma _{ij}\sigma _{k\ell }\cdots \sigma _{XZ}\right)
+    $$
+
+    The sum here is taken over all possible ways to partition the set of indices $\{1,\ldots,2\lambda\}$ into $\lambda$ distinct (unordered) pairs. Each term in the sum is then the product of the covariances corresponding to these pairs. For instance, consider a 6th-order central moment ($k=6$, so $\lambda=3$). Assuming the mean is 0 (for parsimony, as if this whole exercise isn't already verbose enough), the expectation of the product of six centered Gaussian variables is:
+
+    $$
+    {\begin{aligned}&\operatorname {E} [X_{1}X_{2}X_{3}X_{4}X_{5}X_{6}]\\[8pt]={}&\operatorname {E} [X_{1}X_{2}]\operatorname {E} [X_{3}X_{4}]\operatorname {E} [X_{5}X_{6}]+\operatorname {E} [X_{1}X_{2}]\operatorname {E} [X_{3}X_{5}]\operatorname {E} [X_{4}X_{6}]+\operatorname {E} [X_{1}X_{2}]\operatorname {E} [X_{3}X_{6}]\operatorname {E} [X_{4}X_{5}]\\[4pt]&{}+\operatorname {E} [X_{1}X_{3}]\operatorname {E} [X_{2}X_{4}]\operatorname {E} [X_{5}X_{6}]+\operatorname {E} [X_{1}X_{3}]\operatorname {E} [X_{2}X_{5}]\operatorname {E} [X_{4}X_{6}]+\operatorname {E} [X_{1}X_{3}]\operatorname {E} [X_{2}X_{6}]\operatorname {E} [X_{4}X_{5}]\\[4pt]&{}+\operatorname {E} [X_{1}X_{4}]\operatorname {E} [X_{2}X_{3}]\operatorname {E} [X_{5}X_{6}]+\operatorname {E} [X_{1}X_{4}]\operatorname {E} [X_{2}X_{5}]\operatorname {E} [X_{3}X_{6}]+\operatorname {E} [X_{1}X_{4}]\operatorname {E} [X_{2}X_{6}]\operatorname {E} [X_{3}X_{5}]\\[4pt]&{}+\operatorname {E} [X_{1}X_{5}]\operatorname {E} [X_{2}X_{3}]\operatorname {E} [X_{4}X_{6}]+\operatorname {E} [X_{1}X_{5}]\operatorname {E} [X_{2}X_{4}]\operatorname {E} [X_{3}X_{6}]+\operatorname {E} [X_{1}X_{5}]\operatorname {E} [X_{2}X_{6}]\operatorname {E} [X_{3}X_{4}]\\[4pt]&{}+\operatorname {E} [X_{1}X_{6}]\operatorname {E} [X_{2}X_{3}]\operatorname {E} [X_{4}X_{5}]+\operatorname {E} [X_{1}X_{6}]\operatorname {E} [X_{2}X_{4}]\operatorname {E} [X_{3}X_{5}]+\operatorname {E} [X_{1}X_{6}]\operatorname {E} [X_{2}X_{5}]\operatorname {E} [X_{3}X_{4}].\end{aligned}}}
+    $$
+
+    This exhaustive sum yields precisely $\frac {(2\lambda -1)!!}{1}$ (using the double factorial notation) or, equivalently, $\frac {(2\lambda -1)!}{2^{\lambda -1}(\lambda -1)!}$ terms in the sum (15 terms in the case above). Each term, as you can see, is a product of $\lambda$ (in this case, 3) covariances. For fourth-order moments (four variables), there are 3 terms. For sixth-order moments, it's $3 \times 5 = 15$ terms, and for eighth-order moments, a mind-numbing $3 \times 5 \times 7 = 105$ terms. The pattern is clear, if not exactly exhilarating.
+
+    The actual covariances are then determined by replacing the generic indices of the list $[1,\ldots,2\lambda]$ with the specific indices from the original variables. For example, if you have $r_1$ instances of $X_1$, $r_2$ instances of $X_2$, and so on, you would substitute these. To illustrate this, consider the 4th-order central moments:
+
+    $$
+    {\begin{aligned}\operatorname {E} \left[X_{i}^{4}\right]&=3\sigma _{ii}^{2}\\[4pt]\operatorname {E} \left[X_{i}^{3}X_{j}\right]&=3\sigma _{ii}\sigma _{ij}\\[4pt]\operatorname {E} \left[X_{i}^{2}X_{j}^{2}\right]&=\sigma _{ii}\sigma _{jj}+2\sigma _{ij}^{2}\\[4pt]\operatorname {E} \left[X_{i}^{2}X_{j}X_{k}\right]&=\sigma _{ii}\sigma _{jk}+2\sigma _{ij}\sigma _{ik}\\[4pt]\operatorname {E} \left[X_{i}X_{j}X_{k}X_{n}\right]&=\sigma _{ij}\sigma _{kn}+\sigma _{ik}\sigma _{jn}+\sigma _{in}\sigma _{jk}.\end{aligned}}}
+    $$
+
+    Here, $\sigma _{ij}$ represents the [covariance](/Covariance_matrix) between $X_i$ and $X_j$. The method involves first deriving the general case for a $k$th moment with $k$ *distinct* variables (e.g., $\operatorname {E} [X_{i}X_{j}X_{k}X_{n}]$), and then simplifying it by setting variables equal as needed. For instance, to find $\operatorname {E} [X_{i}^{2}X_{k}X_{n}]$, you'd start with the distinct-variable formula and then set $X_j = X_i$, remembering that $\sigma _{ii} = \sigma _{i}^{2}$ (the variance of $X_i$). It's a systematic approach, if one has the patience for it.
+
+#### Functions of a normal vector
+
+When a normal vector $\boldsymbol{x}$ is subjected to a mathematical transformation, the resulting variable often takes on a new, predictable distribution. For instance, a [quadratic form](/Quadratic_form) of a normal vector, expressed as $q({\boldsymbol {x}})={\boldsymbol {x}}'\mathbf {Q_{2}} {\boldsymbol {x}}+{\boldsymbol {q_{1}}}'{\boldsymbol {x}}+q_{0}$ (where $\mathbf {Q_{2}}$ is a matrix, $\boldsymbol {q_{1}}$ is a vector, and $q_{0}$ is a scalar), will follow a [generalized chi-squared variable](/Generalized_chi-squared_distribution). This is a distribution that, as its name suggests, is a more complex version of the familiar [chi-squared distribution](/Chi-squared_distribution), arising from sums of squared normal variables.
+
+Furthermore, if you're interested in just the direction of a normal vector, ignoring its magnitude, that direction adheres to a [projected normal distribution](/Projected_normal_distribution). This distribution specifically models outcomes on a sphere or hypersphere, capturing only the angular information.
+
+For any general scalar-valued function $f({\boldsymbol {x}})$ of a normal vector, determining its [probability density function](/Probability_density_function), [cumulative distribution function](/Cumulative_distribution_function), and [inverse cumulative distribution function](/Inverse_cumulative_distribution_function) typically moves beyond simple analytical expressions. Instead, one often resorts to numerical techniques, such as the ray-tracing method (which, for those interested, has readily available Matlab code). It's a reminder that not everything can be solved with a neat formula; sometimes you have to get your hands dirty with computation.
+
+#### Likelihood function
+
+The [likelihood function](/Likelihood_function) quantifies how probable observed data is, given a particular set of model parameters. For a [multivariate normal distribution](/Multivariate_normal_distribution) with known mean $\boldsymbol {\mu}$ and [covariance matrix](/Covariance_matrix) $\boldsymbol {\Sigma}$, the log likelihood of an observed vector $\boldsymbol {x}$ is simply the logarithm of its [probability density function](/Probability_density_function). This transformation from likelihood to log likelihood is a common trick, simplifying calculations by converting products into sums:
+
+$$
+\ln L({\boldsymbol {x}})=-{\frac {1}{2}}\left[\ln(|{\boldsymbol {\Sigma }}|\,)+({\boldsymbol {x}}-{\boldsymbol {\mu }})'{\boldsymbol {\Sigma }}^{-1}({\boldsymbol {x}}-{\boldsymbol {\mu }})+k\ln(2\pi )\right]
+$$
+
+For the circularly symmetric version of the noncentral complex case, where $\boldsymbol {z}$ is a vector of complex numbers, the log likelihood takes a slightly different, yet equally precise, form:
+
+$$
+\ln L({\boldsymbol {z}})=-\ln(|{\boldsymbol {\Sigma }}|\,)-({\boldsymbol {z}}-{\boldsymbol {\mu }})^{\dagger }{\boldsymbol {\Sigma }}^{-1}({\boldsymbol {z}}-{\boldsymbol {\mu }})-k\ln(\pi )
+$$
+
+Notice the use of the [conjugate transpose](/Conjugate_transpose) (indicated by $\dagger$) instead of the regular [transpose](/Transpose) (indicated by $\prime$). This distinction is necessary because the circularly symmetric version of the [complex normal distribution](/Complex_normal_distribution) has a subtly different [normalization constant](/Normalization_constant) in its density function compared to its real-valued counterpart, a detail that often trips up the unwary.
+
+This form of the likelihood function is also frequently encountered in the context of [multiple linear regression](/Multiple_linear_regression), where the errors are assumed to be multivariate normal.
+
+Since the log likelihood of a normal vector is inherently a [quadratic form](/Quadratic_form) of that vector, its distribution also follows a [generalized chi-squared](/Generalized_chi-squared_distribution) variable. It's almost as if everything eventually leads back to some form of chi-squared.
+
+#### Differential entropy
+
+[Information entropy](/Information_entropy) measures the unpredictability or uncertainty of a random variable. For a continuous distribution, we use [differential entropy](/Differential_entropy). The [differential entropy](/Differential_entropy) of the [multivariate normal distribution](/Multivariate_normal_distribution) is a concise expression that elegantly captures its information content:
+
+$$
+{\begin{aligned}h\left(f\right)&=-\int _{-\infty }^{\infty }\int _{-\infty }^{\infty }\cdots \int _{-\infty }^{\infty }f(\mathbf {x} )\ln f(\mathbf {x} )\,d\mathbf {x} \\[1ex]&={\frac {1}{2}}\ln \left|2\pi e{\boldsymbol {\Sigma }}\right|={\frac {k}{2}}\left(1+\ln 2\pi \right)+{\frac {1}{2}}\ln \left|{\boldsymbol {\Sigma }}\right|,\end{aligned}}}
+$$
+
+In this formula, the vertical bars denote the [matrix determinant](/Determinant) of $\boldsymbol {\Sigma}$, $k$ is the dimensionality of the vector space, and $e$ is [Euler's number](/E_(mathematical_constant)), the base of the [natural logarithm](/Natural_logarithm). The result of this calculation is typically measured in [nats](/Nat_(unit)), a unit of information derived from using the natural logarithm. This formula reveals that the entropy of a [multivariate normal distribution](/Multivariate_normal_distribution) depends directly on the dimensionality and the "volume" of its [covariance matrix](/Covariance_matrix) (as indicated by its determinant), meaning distributions that are more spread out (larger determinant) or have more dimensions naturally possess higher entropy.
+
+#### Kullback–Leibler divergence
+
+The [Kullback–Leibler divergence](/Kullback%E2%80%93Leibler_divergence) (KL divergence), sometimes called relative entropy, is a measure of how one probability distribution diverges from a second, expected probability distribution. It's not symmetric, so $D_{\text{KL}}(P \parallel Q)$ is not the same as $D_{\text{KL}}(Q \parallel P)$, which is a detail often overlooked by the casual observer.
+
+For two [multivariate normal distributions](/Multivariate_normal_distribution), say $\mathcal{N}_{0}({\boldsymbol {\mu }}_{0},{\boldsymbol {\Sigma }}_{0})$ and $\mathcal{N}_{1}({\boldsymbol {\mu }}_{1},{\boldsymbol {\Sigma }}_{1})$, where $\boldsymbol {\Sigma}_{1}$ and $\boldsymbol {\Sigma}_{0}$ are non-singular matrices (a necessary condition for the densities to exist in the usual sense), the KL divergence from $\mathcal{N}_{0}$ to $\mathcal{N}_{1}$ is given by:
+
+$$
+D_{\text{KL}}({\mathcal {N}}_{0}\parallel {\mathcal {N}}_{1})={1 \over 2}\left\{\operatorname {tr} \left({\boldsymbol {\Sigma }}_{1}^{-1}{\boldsymbol {\Sigma }}_{0}\right)+\left({\boldsymbol {\mu }}_{1}-{\boldsymbol {\mu }}_{0}\right)^{\rm {T}}{\boldsymbol {\Sigma }}_{1}^{-1}({\boldsymbol {\mu }}_{1}-{\boldsymbol {\mu }}_{0})-k+\ln {|{\boldsymbol {\Sigma }}_{1}| \over |{\boldsymbol {\Sigma }}_{0}|}\right\},
+$$
+
+Here, $|\cdot|$ denotes the [matrix determinant](/Determinant), $\operatorname{tr}(\cdot)$ is the [trace](/Trace_(linear_algebra)) of a matrix (the sum of its diagonal elements), $\ln(\cdot)$ is the [natural logarithm](/Natural_logarithm), and $k$ is the dimension of the vector space. This formula elegantly captures the divergence based on differences in both the means (the quadratic term involving $\boldsymbol {\mu}_{1} - \boldsymbol {\mu}_{0}$) and the shapes/orientations of the distributions (the terms involving the [covariance matrices](/Covariance_matrix)).
+
+It is imperative that the [logarithm](/Logarithm) be taken to base $e$ (the [natural logarithm](/Natural_logarithm)), as the terms within the curly brackets are themselves natural logarithms or derived from expressions that naturally arise from the density function. Consequently, the result is measured in [nats](/Nat_(unit)). If, for some reason, one desires the result in [bits](/Bit), the entire expression must be divided by $\log_e 2$.
+
+A common simplification occurs when the mean vectors are identical, i.e., ${\boldsymbol {\mu }}_{1}={\boldsymbol {\mu }}_{0}$. In this specific case, the formula for the KL divergence simplifies considerably, focusing solely on the differences in the [covariance matrices](/Covariance_matrix):
+
+$$
+D_{\text{KL}}({\mathcal {N}}_{0}\parallel {\mathcal {N}}_{1})={1 \over 2}\left\{\operatorname {tr} \left({\boldsymbol {\Sigma }}_{1}^{-1}{\boldsymbol {\Sigma }}_{0}\right)-k+\ln {|{\boldsymbol {\Sigma }}_{1}| \over |{\boldsymbol {\Sigma }}_{0}|}\right\}.
+$$
+
+This version highlights that even if two Gaussian distributions share the same center, they can still diverge significantly in terms of their spread and orientation.
+
+#### Mutual information
+
+[Mutual information](/Mutual_information) quantifies the amount of information obtained about one [random variable](/Random_variable) by observing another. It's a measure of the dependence between variables, essentially telling you how much knowing one variable reduces uncertainty about the other. For [multivariate normal distributions](/Multivariate_normal_distribution), it's a special, more interpretable case of the [Kullback–Leibler divergence](/Kullback%E2%80%93Leibler_divergence).
+
+Consider a full $k$-dimensional [multivariate normal distribution](/Multivariate_normal_distribution) $P$ of a vector $\mathbf{X}$ partitioned into two sub-vectors, $\mathbf{X}$ and $\mathbf{Y}$, with dimensions $k_1$ and $k_2$ respectively, such that $k_1 + k_2 = k$. Let $Q$ be the product of the marginal distributions of $\mathbf{X}$ and $\mathbf{Y}$. The [mutual information](/Mutual_information) between $\mathbf{X}$ and $\mathbf{Y}$ is then given by:
+
+$$
+I({\boldsymbol {X}},{\boldsymbol {Y}})={\frac {1}{2}}\ln \left({\frac {\det(\Sigma _{X})\det(\Sigma _{Y})}{\det(\Sigma )}}\right),
+$$
+
+where $\boldsymbol {\Sigma}$ is the partitioned [covariance matrix](/Covariance_matrix) of the full vector $(\mathbf{X}, \mathbf{Y})^{\mathrm{T}}$:
+
+$$
+\Sigma ={\begin{bmatrix}\Sigma _{X}&\Sigma _{XY}\\\Sigma _{XY}&\Sigma _{Y}\end{bmatrix}}.
+$$
+
+Here, $\boldsymbol {\Sigma}_{X}$ is the [covariance matrix](/Covariance_matrix) of $\mathbf{X}$, $\boldsymbol {\Sigma}_{Y}$ is the [covariance matrix](/Covariance_matrix) of $\mathbf{Y}$, and $\boldsymbol {\Sigma}_{XY}$ is the cross-covariance matrix between $\mathbf{X}$ and $\mathbf{Y}$. This formula clearly shows that the [mutual information](/Mutual_information) is zero if and only if $\det(\Sigma) = \det(\Sigma_X)\det(\Sigma_Y)$, which occurs when $\Sigma_{XY}$ is a zero matrix, indicating no correlation between $\mathbf{X}$ and $\mathbf{Y}$.
+
+If $Q$ represents the product of $k$ *one-dimensional* normal distributions (i.e., assuming all components are independent, which is a rather strong assumption if they're not), then in the notation of the [Kullback–Leibler divergence](/Kullback%E2%80%93Leibler_divergence) section, $\boldsymbol {\Sigma}_{1}$ would be a [diagonal matrix](/Diagonal_matrix) containing only the diagonal entries (variances) of $\boldsymbol {\Sigma}_{0}$, and the mean vectors would be identical (${\boldsymbol {\mu }}_{1}={\boldsymbol {\mu }}_{0}$). In this specific scenario, the formula for [mutual information](/Mutual_information) simplifies to:
+
+$$
+I({\boldsymbol {X}})=-{1 \over 2}\ln |{\boldsymbol {\rho }}_{0}|,
+$$
+
+where ${\boldsymbol {\rho }}_{0}$ is the [correlation matrix](/Covariance_matrix) constructed from $\boldsymbol {\Sigma}_{0}$. This version is particularly useful for understanding the overall dependence structure within a single [multivariate normal distribution](/Multivariate_normal_distribution).
+
+For the simplest case, the bivariate scenario with two variables $x$ and $y$, the expression for the [mutual information](/Mutual_information) is even more concise:
+
+$$
+I(x;y)=-{1 \over 2}\ln(1-\rho ^{2}).
+$$
+
+This formula directly relates the [mutual information](/Mutual_information) to the squared [correlation coefficient](/Pearson_product-moment_correlation_coefficient) $\rho^2$. As $\rho$ approaches $\pm 1$ (perfect correlation), $1-\rho^2$ approaches 0, and $\ln(1-\rho^2)$ approaches negative infinity, making $I(x;y)$ approach positive infinity, indicating maximal information sharing. Conversely, if $\rho = 0$ (no correlation), $I(x;y)=0$, meaning knowing one variable provides no information about the other. It's a neat little summary of how correlation translates to shared information.
+
+### Joint normality
+
+Understanding "joint normality" is crucial, as it's often confused with simply having individual normal components. The distinction is subtle but critical.
+
+#### Normally distributed and independent
+
+If two random variables, say $X$ and $Y$, are both [normally distributed](/Normal_distribution) *and* are [statistically independent](/Statistical_independence), then this immediately implies that they are "jointly normally distributed." In other words, the pair $(X,Y)$ *must* follow a [multivariate normal distribution](/Multivariate_normal_distribution). This is a strong condition: independence guarantees joint normality if marginals are normal.
+
+However, the converse is not true. A pair of jointly normally distributed variables does *not* necessarily have to be independent. They would only achieve independence if they were also *uncorrelated* (i.e., their [correlation coefficient](/Pearson_product-moment_correlation_coefficient) $\rho=0$). This means that while independence is a sufficient condition for joint normality (given marginal normality), it is not a necessary one.
+
+#### Two normally distributed random variables need not be jointly bivariate normal
+
+This is a point that often trips people up, so listen closely: the mere fact that two [random variables](/Random_variable) $X$ and $Y$ *individually* (or marginally) follow a [normal distribution](/Normal_distribution) *does not* mean that their joint distribution, the pair $(X,Y)$, is a [bivariate normal distribution](/Multivariate_normal_distribution). It's a common misconception, and frankly, a bit of a statistical trap.
+
+A simple counterexample illustrates this rather inconvenient truth. Imagine $X$ follows a [standard normal distribution](/Normal_distribution) (mean 0, variance 1). Now, define $Y$ in a somewhat peculiar way: $Y=X$ if $|X|>c$ (for some positive constant $c$), and $Y=-X$ if $|X|<c$. For a suitably chosen $c$, $Y$ will also be marginally normally distributed. However, the joint distribution of $(X,Y)$ will most certainly *not* be bivariate normal. This is because the relationship between $X$ and $Y$ is non-linear and conditional, preventing the joint distribution from taking on the characteristic elliptical contours of a true [bivariate normal](/Multivariate_normal_distribution). These kinds of scenarios often lead to what are known as [mixture models](/Mixture_model), where the overall distribution is a combination of simpler, sometimes normal, components. So, don't be fooled by individual normality; it doesn't guarantee joint normality.
+
+#### Correlations and independence
+
+In the broader universe of [random variables](/Random_variable), it's entirely possible for variables to be uncorrelated (meaning their [Pearson product-moment correlation coefficient](/Pearson_product-moment_correlation_coefficient) is zero) yet still be [statistically dependent](/Statistical_independence). Their relationship might be non-linear, for instance, so a linear measure like correlation misses it entirely.
+
+However, a rather special and powerful property emerges when a [random vector](/Random_vector) is known to have a [multivariate normal distribution](/Multivariate_normal_distribution). In this specific context, any two or more of its components that are *uncorrelated* are also, by definition, [independent](/Statistical_independence). This simplifies things considerably: for Gaussian variables, zero correlation is equivalent to independence. This also implies that if any two or more of its components are [pairwise independent](/Pairwise_independence) (meaning each pair is independent), then they are fully independent.
+
+But, and this is a crucial distinction, it is *not* true that two [random variables](/Random_variable) that are (separately, marginally) [normally distributed](/Normal_distribution) and uncorrelated are necessarily independent. As discussed just above, marginal normality and zero correlation do not automatically imply joint normality. Only when the *joint* distribution is known to be multivariate normal does the "uncorrelated implies independent" rule apply. It's a subtle but significant detail that often catches the unwary.
+
+### Conditional distributions
+
+One of the most powerful aspects of the [multivariate normal distribution](/Multivariate_normal_distribution) is the elegant simplicity of its [conditional distributions](/Conditional_probability_distribution). If you know the value of some components of a [multivariate normal vector](/Multivariate_normal_distribution), the distribution of the remaining components is still multivariate normal. It's a property that makes it exceptionally useful in fields like [regression analysis](/Regression_analysis) and [Bayesian inference](/Bayesian_inference).
+
+Let's assume we have an $N$-dimensional vector $\mathbf {x}$ that is partitioned into two sub-vectors, $\mathbf {x}_{1}$ and $\mathbf {x}_{2}$, with dimensions $q \times 1$ and $(N-q) \times 1$ respectively:
+
+$$
+\mathbf {x} ={\begin{bmatrix}\mathbf {x} _{1}\\\mathbf {x} _{2}\end{bmatrix}}{\text{ with sizes }}{\begin{bmatrix}q\times 1\\(N-q)\times 1\end{bmatrix}}
+$$
+
+Correspondingly, the mean vector $\boldsymbol {\mu}$ and the [covariance matrix](/Covariance_matrix) $\boldsymbol {\Sigma}$ are partitioned in a compatible manner:
+
+$$
+{\boldsymbol {\mu }}={\begin{bmatrix}{\boldsymbol {\mu }}_{1}\\{\boldsymbol {\mu }}_{2}\end{bmatrix}}{\text{ with sizes }}{\begin{bmatrix}q\times 1\\(N-q)\times 1\end{bmatrix}}
+$$
+
+$$
+{\boldsymbol {\Sigma }}={\begin{bmatrix}{\boldsymbol {\Sigma }}_{11}&{\boldsymbol {\Sigma }}_{12}\\{\boldsymbol {\Sigma }}_{21}&{\boldsymbol {\Sigma }}_{22}\end{bmatrix}}{\text{ with sizes }}{\begin{bmatrix}q\times q&q\times (N-q)\\(N-q)\times q&(N-q)\times (N-q)\end{bmatrix}}
+$$
+
+Here, $\boldsymbol {\Sigma}_{11}$ is the [covariance matrix](/Covariance_matrix) of $\mathbf {x}_{1}$, $\boldsymbol {\Sigma}_{22}$ is the [covariance matrix](/Covariance_matrix) of $\mathbf {x}_{2}$, and $\boldsymbol {\Sigma}_{12}$ (and its transpose $\boldsymbol {\Sigma}_{21}$) represents the cross-covariance between $\mathbf {x}_{1}$ and $\mathbf {x}_{2}$.
+
+Given this partitioning, the distribution of $\mathbf {x}_{1}$ *conditional* on $\mathbf {x}_{2} = \mathbf {a}$ (i.e., when $\mathbf {x}_{2}$ takes on a specific observed value $\mathbf {a}$) is also [multivariate normal](/Multivariate_normal_distribution). Its conditional mean, $\bar{\boldsymbol{\mu}}$, and conditional [covariance matrix](/Covariance_matrix), $\bar{\boldsymbol{\Sigma}}$, are given by:
+
+$$
+{\bar {\boldsymbol {\mu }}}={\boldsymbol {\mu }}_{1}+{\boldsymbol {\Sigma }}_{12}{\boldsymbol {\Sigma }}_{22}^{-1}\left(\mathbf {a} -{\boldsymbol {\mu }}_{2}\right)
+$$
+
+And the conditional covariance matrix:
+
+$$
+{\overline {\boldsymbol {\Sigma }}}={\boldsymbol {\Sigma }}_{11}-{\boldsymbol {\Sigma }}_{12}{\boldsymbol {\Sigma }}_{22}^{-1}{\boldsymbol {\Sigma }}_{21}.
+$$
+
+It's important to note that $\boldsymbol {\Sigma}_{22}^{-1}$ here can be the [generalized inverse](/Generalized_inverse) of $\boldsymbol {\Sigma}_{22}$ if it's singular, allowing for cases where $\mathbf {x}_{2}$ itself might be degenerate. The matrix $\overline {\boldsymbol {\Sigma}}$ is famously known as the [Schur complement](/Schur_complement) of $\boldsymbol {\Sigma}_{22}$ in $\boldsymbol {\Sigma}$. This is not just a mathematical curiosity; it means that the conditional covariance matrix can be found by inverting the full [covariance matrix](/Covariance_matrix), discarding the rows and columns corresponding to the conditioned variables, and then inverting the remaining submatrix. It’s a very elegant, if somewhat abstract, matrix operation.
+
+A crucial observation from these formulas is that knowing $\mathbf {x}_{2} = \mathbf {a}$ *alters* the variance of $\mathbf {x}_{1}$. However, somewhat surprisingly, this new conditional variance $\overline {\boldsymbol {\Sigma}}$ does *not* depend on the specific value of $\mathbf {a}$. The mean, on the other hand, *is* shifted by the term ${\boldsymbol {\Sigma }}_{12}{\boldsymbol {\Sigma }}_{22}^{-1}\left(\mathbf {a} -{\boldsymbol {\mu }}_{2}\right)$, reflecting the influence of the observed $\mathbf {a}$ on the expected value of $\mathbf {x}_{1}$. Compare this to the situation where the value of $\mathbf {a}$ is unknown; in that case, $\mathbf {x}_{1}$ would simply follow its marginal distribution $\mathcal{N}_{q}\left({\boldsymbol {\mu }}_{1},{\boldsymbol {\Sigma }}_{11}\right)$.
+
+An interesting fact, often used to prove these results, is that the random vector $\mathbf {x}_{2}$ and the "residual" vector $\mathbf {y}_{1}=\mathbf {x}_{1}-{\boldsymbol {\Sigma }}_{12}{\boldsymbol {\Sigma }}_{22}^{-1}\mathbf {x}_{2}$ are statistically [independent](/Statistical_independence). This effectively means that once the linear effect of $\mathbf {x}_{2}$ on $\mathbf {x}_{1}$ is accounted for, the remaining variation in $\mathbf {x}_{1}$ is independent of $\mathbf {x}_{2}$.
+
+The matrix ${\boldsymbol {\Sigma }}_{12}{\boldsymbol {\Sigma }}_{22}^{-1}$ is a critical component here; it is known as the matrix of [regression](/Regression_analysis) coefficients, as it quantifies how changes in $\mathbf {x}_{2}$ linearly predict changes in $\mathbf {x}_{1}$.
+
+#### Bivariate case
+
+Let's simplify again to the bivariate case, where our vector $\mathbf {x}$ is partitioned into just two scalar variables, $X_1$ and $X_2$. The conditional distribution of $X_1$ given that $X_2 = a$ is then:
+
+$$
+X_{1}\mid X_{2}=a\ \sim \ {\mathcal {N}}\left(\mu _{1}+{\frac {\sigma _{1}}{\sigma _{2}}}\rho (a-\mu _{2}),\,(1-\rho ^{2})\sigma _{1}^{2}\right)
+$$
+
+Here, $\rho ={\frac {\sigma _{12}}{\sigma _{1}\sigma _{2}}}$ is the [correlation coefficient](/Pearson_product-moment_correlation_coefficient) between $X_1$ and $X_2$. This formula clearly shows how the conditional mean of $X_1$ is shifted based on the observed value $a$ of $X_2$, and how the conditional variance of $X_1$ is reduced by a factor of $(1-\rho^2)$. The stronger the correlation ($\rho$ closer to $\pm 1$), the more the variance is reduced, indicating less uncertainty about $X_1$ once $X_2$ is known. If $\rho=0$, the conditional mean is just $\mu_1$ and the conditional variance is $\sigma_1^2$, meaning knowing $X_2$ provides no information about $X_1$, as expected.
+
+#### Bivariate conditional expectation
+
+Expanding on the bivariate case, let's consider the general situation where we have:
+
+$$
+{\begin{pmatrix}X_{1}\\X_{2}\end{pmatrix}}\sim {\mathcal {N}}\left({\begin{pmatrix}\mu _{1}\\\mu _{2}\end{pmatrix}},{\begin{pmatrix}\sigma _{1}^{2}&\rho \sigma _{1}\sigma _{2}\\\rho \sigma _{1}\sigma _{2}&\sigma _{2}^{2}\end{pmatrix}}\right)
+$$
+
+The conditional expectation of $X_1$ given that $X_2$ takes a specific value $x_2$ is a linear function of $x_2$:
+
+$$
+\operatorname {E} (X_{1}\mid X_{2}=x_{2})=\mu _{1}+\rho {\frac {\sigma _{1}}{\sigma _{2}}}(x_{2}-\mu _{2})
+$$
+
+This result is obtained directly by taking the expectation of the conditional distribution $X_1 \mid X_2$ derived above. It's the "best linear predictor" of $X_1$ based on $X_2$.
+
+In the simplified, centered case where both variables have zero mean and unit variance:
+
+$$
+{\begin{pmatrix}X_{1}\\X_{2}\end{pmatrix}}\sim {\mathcal {N}}\left({\begin{pmatrix}0\\0\end{pmatrix}},{\begin{pmatrix}1&\rho \\\rho &1\end{pmatrix}}\right)
+$$
+
+The conditional expectation of $X_1$ given $X_2=x_2$ becomes even simpler:
+
+$$
+\operatorname {E} (X_{1}\mid X_{2}=x_{2})=\rho x_{2}
+$$
+
+And, notably, the conditional variance remains constant, independent of $x_2$:
+
+$$
+\operatorname {var} (X_{1}\mid X_{2}=x_{2})=1-\rho ^{2};
+$$
+
+This highlights that for a bivariate normal distribution, the uncertainty about $X_1$ given $X_2$ is constant, regardless of the specific value $X_2$ takes.
+
+Furthermore, we can also calculate the conditional expectation of $X_1$ given that $X_2$ falls within a certain range (e.g., smaller or bigger than $z$). These results involve the standard normal [probability density function](/Probability_density_function) $\varphi(z)$ and [cumulative distribution function](/Cumulative_distribution_function) $\Phi(z)$:
+
+$$
+\operatorname {E} (X_{1}\mid X_{2}<z)=-\rho {\varphi (z) \over \Phi (z)},
+$$
+
+$$
+\operatorname {E} (X_{1}\mid X_{2}>z)=\rho {\varphi (z) \over (1-\Phi (z))},
+$$
+
+The final ratio in the second equation, $\frac {\varphi (z)}{(1-\Phi (z))}$, is known as the [inverse Mills ratio](/Inverse_Mills_ratio), a term that frequently appears in selection models and [truncated normal distributions](/Truncated_normal_distribution). These results are derived by leveraging the formula for $\operatorname {E} (X_{1}\mid X_{2}=x_{2})=\rho x_{2}$ and then integrating over the appropriate range of $X_2$, using the properties of the expectation of a [truncated normal distribution](/Truncated_normal_distribution). It's a testament to the versatility of the normal distribution in handling conditional probabilities.
+
+### Marginal distributions
+
+One of the more convenient aspects of the [multivariate normal distribution](/Multivariate_normal_distribution) is the straightforward process for obtaining its [marginal distributions](/Marginal_distribution). If you have a full [multivariate normal distribution](/Multivariate_normal_distribution) and you're interested in the distribution of only a subset of its variables, you don't need to perform any complex integrations or transformations. You simply "drop" the irrelevant variables—those you wish to marginalize out—from both the [mean vector](/Mean_vector) and the [covariance matrix](/Covariance_matrix). The proof for this elegant property follows directly from the fundamental definitions of [multivariate normal distributions](/Multivariate_normal_distribution) and basic [linear algebra](/Linear_algebra). It’s a small mercy in a field often filled with convoluted calculations.
+
+#### Example
+
+Consider a random vector $\mathbf{X} = [X_1, X_2, X_3]$ that follows a [multivariate normal distribution](/Multivariate_normal_distribution) with a [mean vector](/Mean_vector) $\boldsymbol{\mu} = [\mu_1, \mu_2, \mu_3]$ and a [covariance matrix](/Covariance_matrix) $\boldsymbol{\Sigma}$ (using the standard parametrization for [multivariate normal distributions](/Multivariate_normal_distribution)).
+
+If you are only interested in the joint distribution of a subset, say $\mathbf{X}' = [X_1, X_3]$, you simply extract the corresponding components from the original mean vector and [covariance matrix](/Covariance_matrix). The new mean vector, $\boldsymbol{\mu}'$, will be $[\mu_1, \mu_3]$. The new [covariance matrix](/Covariance_matrix), $\boldsymbol{\Sigma}'$, will consist of the elements from $\boldsymbol{\Sigma}$ that correspond to $X_1$ and $X_3$:
+
+$$
+{\boldsymbol {\Sigma }}'={\begin{bmatrix}{\boldsymbol {\Sigma }}_{11}&{\boldsymbol {\Sigma }}_{13}\\{\boldsymbol {\Sigma }}_{31}&{\boldsymbol {\Sigma }}_{33}\end{bmatrix}}
+$$
+
+Thus, the joint distribution of $\mathbf{X}' = [X_1, X_3]$ is also [multivariate normal](/Multivariate_normal_distribution), specifically $\mathcal{N}(\boldsymbol{\mu}', \boldsymbol{\Sigma}')$. This property is incredibly useful, as it means any sub-collection of normally distributed variables within a larger jointly normal set will itself be jointly normal.
+
+### Affine transformation
+
+One of the most useful and elegant properties of the [multivariate normal distribution](/Multivariate_normal_distribution) is its behavior under [affine transformations](/Affine_transformation). If you take a [multivariate normal random vector](/Multivariate_normal_distribution) and subject it to a linear transformation followed by a translation, the resulting vector will *also* be [multivariate normal](/Multivariate_normal_distribution). This property underpins many statistical applications.
+
+Specifically, if $\mathbf{X} \ \sim {\mathcal {N}}({\boldsymbol {\mu }},{\boldsymbol {\Sigma }})$ and we define a new vector $\mathbf{Y}$ as an [affine transformation](/Affine_transformation):
+
+$$
+\mathbf {Y} = \mathbf {c} + \mathbf {B} \mathbf {X}
+$$
+
+where $\mathbf {c}$ is an $M \times 1$ vector of constants and $\mathbf {B}$ is a constant $M \times N$ matrix, then $\mathbf{Y}$ will also follow a [multivariate normal distribution](/Multivariate_normal_distribution) with a new expected value and [covariance matrix](/Covariance_matrix):
+
+$$
+\mathbf {Y} \sim {\mathcal {N}}\left(\mathbf {c} +\mathbf {B} {\boldsymbol {\mu }},\mathbf {B} {\boldsymbol {\Sigma }}\mathbf {B} ^{\rm {T}}\right)
+$$
+
+This means that the mean of $\mathbf{Y}$ is simply the transformed mean of $\mathbf{X}$, and its [covariance matrix](/Covariance_matrix) is transformed by $\mathbf{B}$ and its [transpose](/Transpose).
+
+A particularly important corollary of this property is that any subset of the components $X_i$ from a [multivariate normal vector](/Multivariate_normal_distribution) will also have a [marginal distribution](/Marginal_distribution) that is [multivariate normal](/Multivariate_normal_distribution). This is how we justify the method for obtaining [marginal distributions](/Marginal_distribution) discussed earlier. To truly see this, consider the following example: if you want to extract the subset $(X_1, X_2, X_4)^{\mathrm{T}}$ from a larger vector, you can construct a suitable matrix $\mathbf{B}$:
+
+$$
+\mathbf {B} ={\begin{bmatrix}1&0&0&0&0&\ldots &0\\0&1&0&0&0&\ldots &0\\0&0&0&1&0&\ldots &0\end{bmatrix}}
+$$
+
+This matrix $\mathbf{B}$ effectively "selects" the desired elements, and applying the [affine transformation](/Affine_transformation) property directly yields the marginal distribution of that subset.
+
+Another significant consequence is that the distribution of a scalar variable $Z = \mathbf{b} \cdot \mathbf{X}$ (where $\mathbf{b}$ is a constant vector with the same number of elements as $\mathbf{X}$, and the dot indicates the [dot product](/Dot_product)) is a [univariate Gaussian](/Normal_distribution). Specifically:
+
+$$
+Z\sim {\mathcal {N}}\left(\mathbf {b} \cdot {\boldsymbol {\mu }},\mathbf {b} ^{\rm {T}}{\boldsymbol {\Sigma }}\mathbf {b} \right)
+$$
+
+This result is obtained by setting $\mathbf{B} = \mathbf{b}^{\mathrm{T}} = {\begin{bmatrix}b_{1}&b_{2}&\ldots &b_{n}\end{bmatrix}}$. Observe how the [positive-definiteness](/Positive_definite_matrix) of $\boldsymbol {\Sigma}$ ensures that the variance of this dot product, $\mathbf{b}^{\mathrm{T}}{\boldsymbol {\Sigma}}\mathbf{b}$, must always be positive (unless $\mathbf{b} = \mathbf{0}$), a comforting consistency.
+
+It's crucial to distinguish between an [affine transformation](/Affine_transformation) like $2\mathbf{X}$ and the [sum of two independent realizations](/Sum_of_normally_distributed_random_variables) of $\mathbf{X}$. While both might involve scaling, the former acts on a single random vector, while the latter combines two distinct, independent instances, leading to different [covariance matrices](/Covariance_matrix) in the result. Don't confuse the two; it's a common, and often costly, mistake.
+
+### Geometric interpretation
+
+The [multivariate normal distribution](/Multivariate_normal_distribution) isn't just a collection of numbers and formulas; it has a beautiful and intuitive geometric representation. The equidensity contours—those surfaces in *k*-dimensional space where the [probability density function](/Probability_density_function) takes a constant value—of a non-singular [multivariate normal distribution](/Multivariate_normal_distribution) are always [ellipsoids](/Ellipsoid). These are essentially stretched and rotated [hyperspheres](/Hypersphere), all perfectly centered at the mean vector $\boldsymbol {\mu}$. This characteristic is so fundamental that the [multivariate normal distribution](/Multivariate_normal_distribution) is considered a special instance of the broader class of [elliptical distributions](/Elliptical_distribution).
+
+The orientation of these ellipsoids is not arbitrary; it's intricately linked to the [covariance matrix](/Covariance_matrix) $\boldsymbol {\Sigma}$. Specifically, the directions of the [principal axes](/Semi-major_and_semi-minor_axes) of the ellipsoids are given by the [eigenvectors](/Eigenvectors) of $\boldsymbol {\Sigma}$. The squared relative lengths of these principal axes are, in turn, determined by the corresponding [eigenvalues](/Eigenvalues). A larger eigenvalue means a longer axis in that direction, indicating greater variance along that specific eigenvector.
+
+This relationship is made clear through the [eigendecomposition](/Eigendecomposition_of_a_matrix) of the [covariance matrix](/Covariance_matrix): $\boldsymbol {\Sigma} = \mathbf{U}\boldsymbol{\Lambda}\mathbf{U}^{\mathrm{T}}$. Here, the columns of $\mathbf{U}$ are the orthonormal unit [eigenvectors](/Eigenvectors), and $\boldsymbol{\Lambda}$ is a [diagonal matrix](/Diagonal_matrix) containing the [eigenvalues](/Eigenvalues). This decomposition allows us to understand the transformation from a standard, spherical normal distribution:
+
+$$
+\mathbf {X} \ \sim {\mathcal {N}}({\boldsymbol {\mu }},{\boldsymbol {\Sigma }})\iff \mathbf {X} \ \sim {\boldsymbol {\mu }}+\mathbf {U} {\boldsymbol {\Lambda }}^{1/2}{\mathcal {N}}(0,\mathbf {I} )\iff \mathbf {X} \ \sim {\boldsymbol {\mu }}+\mathbf {U} {\mathcal {N}}(0,{\boldsymbol {\Lambda }}).
+$$
+
+This equation reveals that a [multivariate normal vector](/Multivariate_normal_distribution) $\mathbf{X}$ can be viewed as originating from a [standard normal distribution](/Normal_distribution) $\mathcal{N}(0, \mathbf{I})$ (a spherical cloud), which is then scaled (stretched or compressed) by the square roots of the [eigenvalues](/Eigenvalues) (represented by $\boldsymbol{\Lambda}^{1/2}$), rotated by the matrix of [eigenvectors](/Eigenvectors) ($\mathbf{U}$), and finally translated by the mean vector $\boldsymbol {\mu}$. Furthermore, $\mathbf{U}$ can often be chosen to be a [rotation matrix](/Rotation_matrix), emphasizing the purely rotational aspect of the transformation.
+
+Conversely, any choice of a mean vector $\boldsymbol {\mu}$, a full-rank matrix $\mathbf{U}$, and positive diagonal entries $\Lambda_i$ for $\boldsymbol{\Lambda}$ will generate a non-singular [multivariate normal distribution](/Multivariate_normal_distribution). However, if any $\Lambda_i$ is zero (and $\mathbf{U}$ is square), the resulting [covariance matrix](/Covariance_matrix) $\mathbf{U}\boldsymbol{\Lambda}\mathbf{U}^{\mathrm{T}}$ becomes [singular](/Singular_matrix). Geometrically, this signifies the [degenerate case](/Degenerate_distribution): every contour ellipsoid becomes infinitely thin, possessing zero volume in the *n*-dimensional space, because at least one of its principal axes has a length of zero. It's a collapse into a lower dimension, a rather unceremonious end for a distribution.
+
+For those interested in specific components, "The radius around the true mean in a bivariate normal random variable, re-written in [polar coordinates](/Polar_coordinates) (radius and angle), follows a [Hoyt distribution](/Hoyt_distribution)." This is a specialized distribution that describes the magnitude of a 2D Gaussian vector when its components are correlated and centered.
+
+It's also important to grasp that the probability of finding a sample within a "standard deviation" region decreases as dimensionality increases. While in one dimension, the probability of a sample falling within the interval $\mu \pm \sigma$ is approximately 68.27%, this probability drops precipitously in higher dimensions for the corresponding standard deviation ellipse (or ellipsoid). This is because the volume of the space grows exponentially, making it less likely for a point to fall within a proportionally small region.
+
+| Dimensionality | Probability |
+| :------------: | :---------: |
+|       1        |   0.6827    |
+|       2        |   0.3935    |
+|       3        |   0.1987    |
+|       4        |   0.0902    |
+|       5        |   0.0374    |
+|       6        |   0.0144    |
+|       7        |   0.0052    |
+|       8        |   0.0018    |
+|       9        |   0.0006    |
+|       10       |   0.0002    |
+
+This table serves as a stark reminder that intuitions from one dimension often fail dramatically in higher-dimensional spaces. A region that feels "standard" in 1D becomes an increasingly rare occurrence in 10D.
+
+### Statistical inference
+
+When you're dealing with a [multivariate normal distribution](/Multivariate_normal_distribution) in the wild, its parameters—the mean vector $\boldsymbol {\mu}$ and the [covariance matrix](/Covariance_matrix) $\boldsymbol {\Sigma}$—are rarely known beforehand. This is where [statistical inference](/Statistical_inference) steps in, allowing us to estimate these parameters from observed data.
+
+#### Parameter estimation
+
+One of the most common approaches to parameter estimation is the [maximum-likelihood](/Maximum_likelihood) (ML) method, which seeks the parameters that make the observed data most probable. The derivation of the [maximum-likelihood estimator](/Maximum_likelihood) of the [covariance matrix](/Covariance_matrix) for a [multivariate normal distribution](/Multivariate_normal_distribution) is fairly straightforward, assuming you have a sample of $n$ observations.
+
+Recall that the [probability density function](/Probability_density_function) (pdf) of a [multivariate normal](/Multivariate_normal_distribution) is:
+
+$$
+f(\mathbf {x} )={\frac {1}{\sqrt {(2\pi )^{k}|{\boldsymbol {\Sigma }}|}}}\exp \left(-{1 \over 2}(\mathbf {x} -{\boldsymbol {\mu }})^{\rm {T}}{\boldsymbol {\Sigma }}^{-1}({\mathbf {x} }-{\boldsymbol {\mu }})\right)
+$$
+
+Given a sample of $n$ observations $\{\mathbf{x}_1, \ldots, \mathbf{x}_n\}$, the ML estimator for the mean vector $\boldsymbol{\mu}$ is simply the [sample mean](/Sample_mean) $\overline{\mathbf{x}} = \frac{1}{n}\sum_{i=1}^n \mathbf{x}_i$. For the [covariance matrix](/Covariance_matrix), the ML [estimator](/Estimator) is:
+
+$$
+{\widehat {\boldsymbol {\Sigma }}}={1 \over n}\sum _{i=1}^{n}({\mathbf {x} }_{i}-{\overline {\mathbf {x} }})({\mathbf {x} }_{i}-{\overline {\mathbf {x} }})^{\mathrm {T} }
+$$
+
+This is, quite simply, the [sample covariance matrix](/Sample_covariance_matrix). It's the most intuitive estimate, effectively averaging the outer products of the centered data points. However, this particular estimator is a [biased estimator](/Biased_estimator). Its expectation is actually:
+
+$$
+E\left[{\widehat {\boldsymbol {\Sigma }}}\right]={\frac {n-1}{n}}{\boldsymbol {\Sigma }}.
+$$
+
+This means, on average, the ML estimator slightly underestimates the true [covariance matrix](/Covariance_matrix). To obtain an *unbiased* [sample covariance matrix](/Sample_covariance_matrix), a common adjustment is made by dividing by $n-1$ instead of $n$:
+
+$$
+{\widehat {\boldsymbol {\Sigma }}}={\frac {1}{n-1}}\sum _{i=1}^{n}(\mathbf {x} _{i}-{\overline {\mathbf {x} }})(\mathbf {x} _{i}-{\overline {\mathbf {x} }})^{\rm {T}}={\frac {1}{n-1}}\left[X'\left(I-{\frac {1}{n}}\cdot J\right)X\right]
+$$
+
+In the matrix form, $I$ is the $K \times K$ [identity matrix](/Identity_matrix), and $J$ is a $K \times K$ matrix of ones. The term in parentheses, $I - \frac{1}{n}J$, is known as the [centering matrix](/Centering_matrix) and effectively subtracts the mean from each data point. This unbiased version is typically preferred in practice, as it provides a more accurate estimate of the population [covariance](/Covariance_matrix). For a comprehensive treatment, see [estimation of covariance matrices](/Estimation_of_covariance_matrices).
+
+Furthermore, the [Fisher information matrix](/Fisher_information_matrix) for estimating the parameters of a [multivariate normal distribution](/Multivariate_normal_distribution) has a known closed-form expression. This is a powerful tool, as it can be used, for example, to calculate the [Cramér–Rao bound](/Cram%C3%A9r%E2%80%93Rao_bound), which sets a lower limit on the variance of any unbiased estimator for these parameters. For those who enjoy the theoretical underpinnings, it's a testament to the distribution's well-behaved nature.
+
+#### Bayesian inference
+
+In the realm of [Bayesian statistics](/Bayesian_statistics), where prior beliefs are updated with observed data to form posterior beliefs, the [multivariate normal distribution](/Multivariate_normal_distribution) exhibits a desirable property: conjugacy. This means that if the prior distribution for the parameters is chosen from a specific family, the posterior distribution will also belong to that same family, simplifying calculations.
+
+For the mean vector $\boldsymbol {\mu}$ of a [multivariate normal distribution](/Multivariate_normal_distribution), the [conjugate prior](/Conjugate_prior) is another [multivariate normal distribution](/Multivariate_normal_distribution). For the [covariance matrix](/Covariance_matrix) $\boldsymbol {\Sigma}$, the [conjugate prior](/Conjugate_prior) is an [inverse-Wishart distribution](/Inverse-Wishart_distribution), denoted by $\mathcal{W}^{-1}$.
+
+Let's assume we have observed $n$ data points, $\mathbf{X} = \{\mathbf{x}_1,\dots,\mathbf{x}_n\}$, which are assumed to be drawn from $\mathbf{X} \sim {\mathcal {N}}({\boldsymbol {\mu }},{\boldsymbol {\Sigma }})$. Furthermore, suppose we've assigned a [conjugate prior](/Conjugate_prior) to the parameters $(\boldsymbol {\mu}, \boldsymbol {\Sigma})$ in a hierarchical fashion:
+
+$$
+p({\boldsymbol {\mu }},{\boldsymbol {\Sigma }})=p({\boldsymbol {\mu }}\mid {\boldsymbol {\Sigma }})\ p({\boldsymbol {\Sigma }}),
+$$
+
+where the conditional prior for the mean is:
+
+$$
+p({\boldsymbol {\mu }}\mid {\boldsymbol {\Sigma }})\sim {\mathcal {N}}({\boldsymbol {\mu }}_{0},m^{-1}{\boldsymbol {\Sigma }}),
+$$
+
+and the prior for the [covariance matrix](/Covariance_matrix) is:
+
+$$
+p({\boldsymbol {\Sigma }})\sim {\mathcal {W}}^{-1}({\boldsymbol {\Psi }},n_{0}).
+$$
+
+Here, $\boldsymbol {\mu}_{0}$ is the prior mean, $m$ is a scaling factor for the prior precision, $\boldsymbol {\Psi}$ is the scale matrix for the [inverse-Wishart](/Inverse-Wishart_distribution), and $n_0$ is its degrees of freedom. After observing the data $\mathbf{X}$, the posterior distributions for $\boldsymbol {\mu}$ and $\boldsymbol {\Sigma}$ are then updated as follows:
+
+$$
+{\begin{array}{rcl}p({\boldsymbol {\mu }}\mid {\boldsymbol {\Sigma }},\mathbf {X} )&\sim &{\mathcal {N}}\left({\frac {n{\bar {\mathbf {x} }}+m{\boldsymbol {\mu }}_{0}}{n+m}},{\frac {1}{n+m}}{\boldsymbol {\Sigma }}\right),\\p({\boldsymbol {\Sigma }}\mid \mathbf {X} )&\sim &{\mathcal {W}}^{-1}\left({\boldsymbol {\Psi }}+n\mathbf {S} +{\frac {nm}{n+m}}({\bar {\mathbf {x} }}-{\boldsymbol {\mu }}_{0})({\bar {\mathbf {x} }}-{\boldsymbol {\mu }}_{0})',n+n_{0}\right),\end{array}}
+$$
+
+where $\overline{\mathbf{x}}$ is the [sample mean](/Sample_mean) and $\mathbf{S}$ is the [sample covariance matrix](/Sample_covariance_matrix) (often taken as the unbiased version, though the exact form may vary slightly depending on convention):
+
+$$
+{\begin{aligned}{\bar {\mathbf {x} }}&={\frac {1}{n}}\sum _{i=1}^{n}\mathbf {x} _{i},\\\mathbf {S} &={\frac {1}{n}}\sum _{i=1}^{n}(\mathbf {x} _{i}-{\bar {\mathbf {x} }})(\mathbf {x} _{i}-{\bar {\mathbf {x} }})'.\end{aligned}}}
+$$
+
+These posterior distributions combine the information from the prior with the information from the observed data. The posterior mean for $\boldsymbol {\mu}$ is a weighted average of the prior mean $\boldsymbol {\mu}_{0}$ and the [sample mean](/Sample_mean) $\overline{\mathbf{x}}$. The posterior [covariance matrix](/Covariance_matrix) for $\boldsymbol {\Sigma}$ incorporates the prior scale matrix $\boldsymbol {\Psi}$, the observed sample covariance $\mathbf{S}$, and a term that quantifies the difference between the sample mean and the prior mean. This elegant framework allows for a systematic updating of beliefs as new evidence becomes available.
+
+### Multivariate normality tests
+
+Before you go applying models that *assume* [multivariate normality](/Multivariate_normal_distribution), it’s generally a good idea to check if your data actually *is* [multivariate normal](/Multivariate_normal_distribution). This is where [multivariate normality tests](/Multivariate_normality_tests) come into play. These statistical tests are designed to assess how closely a given [data set](/Data_set) resembles a [multivariate normal distribution](/Multivariate_normal_distribution). The standard approach is to set up a [null hypothesis](/Null_hypothesis) stating that the data *is* similar to the normal distribution. Consequently, if you get a sufficiently small *p*-value, it suggests that your data deviates significantly from normality, and you might need to rethink your assumptions or choose a different modeling approach.
+
+Among the various tests available, notable examples include the Cox–Small test and Smith and Jain's adaptation of the Friedman–Rafsky test, originally conceived by [Larry Rafsky](/Larry_rafsky) and [Jerome Friedman](/Jerome_H._Friedman). These tests each employ different strategies to probe for deviations from the characteristic patterns of a [multivariate normal distribution](/Multivariate_normal_distribution).
+
+#### Mardia's test
+
+One of the more prominent tests for [multivariate normality](/Multivariate_normal_distribution) is [Mardia's test](/Mardia%27s_test), which cleverly extends the familiar univariate concepts of [skewness](/Skewness) and [kurtosis](/Kurtosis) to multiple dimensions. For a sample of $n$ *k*-dimensional vectors, $\{\mathbf{x}_1, \ldots, \mathbf{x}_n\}$, the test involves computing several statistics. First, the [sample covariance matrix](/Sample_covariance_matrix) $\widehat{\boldsymbol{\Sigma}}$ is calculated:
+
+$$
+{\widehat {\boldsymbol {\Sigma }}}={1 \over n}\sum _{j=1}^{n}\left(\mathbf {x} _{j}-{\bar {\mathbf {x} }}\right)\left(\mathbf {x} _{j}-{\bar {\mathbf {x} }}\right)^{\mathrm {T} }
+$$
+
+Then, two key statistics are derived:
+
+*   **Mardia's multivariate skewness statistic (A):** This measures the asymmetry of the data distribution.
+
+    $$
+    A={1 \over 6n}\sum _{i=1}^{n}\sum _{j=1}^{n}\left[(\mathbf {x} _{i}-{\bar {\mathbf {x} }})^{\mathrm {T} }\;{\widehat {\boldsymbol {\Sigma }}}^{-1}(\mathbf {x} _{j}-{\bar {\mathbf {x} }})\right]^{3}
+    $$
+
+*   **Mardia's multivariate kurtosis statistic (B):** This assesses the "tailedness" or peakedness of the distribution compared to a normal distribution.
+
+    $$
+    B={\sqrt {\frac {n}{8k(k+2)}}}\left\{{1 \over n}\sum _{i=1}^{n}\left[(\mathbf {x} _{i}-{\bar {\mathbf {x} }})^{\mathrm {T} }\;{\widehat {\boldsymbol {\Sigma }}}^{-1}(\mathbf {x} _{i}-{\bar {\mathbf {x} }})\right]^{2}-k(k+2)\right\}
+    $$
+
+Under the [null hypothesis](/Null_hypothesis) that the data indeed comes from a [multivariate normal distribution](/Multivariate_normal_distribution), the statistic $A$ is asymptotically (for large $n$) distributed as a [chi-squared distribution](/Chi-squared_distribution) with $\frac{1}{6} \cdot k(k+1)(k+2)$ [degrees of freedom](/Degrees_of_freedom_(statistics)). The statistic $B$, on the other hand, is approximately [standard normal](/Standard_normal), following $\mathcal{N}(0,1)$.
+
+However, Mardia's kurtosis statistic is known to be skewed and converges rather slowly to its limiting normal distribution. For medium-sized samples ($50 \leq n < 400$), specific modifications to the parameters of the asymptotic distribution of the kurtosis statistic are recommended to improve accuracy. For smaller sample tests ($n < 50$), empirical critical values are often employed, as the asymptotic approximations are unreliable. Tables of these critical values for both statistics are available from sources like Rencher for specific dimensionalities ($k = 2, 3, 4$).
+
+While Mardia's tests are [affine invariant](/Affine_transformation) (meaning they don't change if the data is linearly transformed and shifted), they are not universally consistent. For example, the multivariate skewness test is not consistent against symmetric non-normal alternatives, meaning it might fail to detect non-normality if the deviation is symmetric rather than skewed. It's a useful tool, but not a panacea.
+
+#### BHEP test
+
+The BHEP test, another method for assessing [multivariate normality](/Multivariate_normality_tests), operates on a different principle altogether. It quantifies the discrepancy between the [empirical characteristic function](/Characteristic_function_(probability_theory)) of the observed data and the theoretical [characteristic function](/Characteristic_function_(probability_theory)) of a [normal distribution](/Normal_distribution). This comparison is performed by computing the norm of their difference within the $L_2(\mu)$ space of square-integrable functions, weighted by a Gaussian weighting function $\mu_{\beta}(\mathbf{t})=(2\pi \beta^{2})^{-k/2}e^{-|\mathbf{t}|^{2}/(2\beta^{2})}$.
+
+The test statistic, $T_{\beta}$, is a rather complex expression:
+
+$$
+{\begin{aligned}T_{\beta}&=\int _{\mathbb {R} ^{k}}\left|{1 \over n}\sum _{j=1}^{n}e^{i\mathbf {t} ^{\mathrm {T} }{\widehat {\boldsymbol {\Sigma }}}^{-1/2}(\mathbf {x} _{j}-{\bar {\mathbf {x} )}}}-e^{-|\mathbf {t} |^{2}/2}\right|^{2}\;{\boldsymbol {\mu }}_{\beta }(\mathbf {t} )\,d\mathbf {t} \\&={1 \over n^{2}}\sum _{i,j=1}^{n}e^{-{\beta ^{2} \over 2}(\mathbf {x} _{i}-\mathbf {x} _{j})^{\mathrm {T} }{\widehat {\boldsymbol {\Sigma }}}^{-1}(\mathbf {x} _{i}-\mathbf {x} _{j})}-{\frac {2}{n(1+\beta ^{2})^{k/2}}}\sum _{i=1}^{n}e^{-{\frac {\beta ^{2}}{2(1+\beta ^{2})}}(\mathbf {x} _{i}-{\bar {\mathbf {x} }})^{\mathrm {T} }{\widehat {\boldsymbol {\Sigma }}}^{-1}(\mathbf {x} _{i}-{\bar {\mathbf {x} }})}+{\frac {1}{(1+2\beta ^{2})^{k/2}}}\end{aligned}}}
+$$
+
+The limiting distribution of this test statistic is a weighted sum of [chi-squared random variables](/Chi-squared_distribution), which makes its critical values somewhat more involved to determine. Despite its complexity, it is known to be a consistent test, meaning it will eventually detect any deviation from [multivariate normality](/Multivariate_normal_distribution) given enough data.
+
+For those who crave exhaustive detail, a comprehensive survey covering these and numerous other test procedures for [multivariate normality](/Multivariate_normality_tests) is available in specialized literature.
+
+### Computational methods
+
+Beyond the theoretical elegance, practical applications of the [multivariate normal distribution](/Multivariate_normal_distribution) often require generating random values from it.
+
+#### Drawing values from the distribution
+
+A widely adopted and computationally efficient method for drawing (or sampling) a random vector $\mathbf{x}$ from an $N$-dimensional [multivariate normal distribution](/Multivariate_normal_distribution) with a given mean vector $\boldsymbol{\mu}$ and [covariance matrix](/Covariance_matrix) $\boldsymbol{\Sigma}$ proceeds in three distinct steps:
+
+1.  **Factorize the Covariance Matrix:** The first step involves finding any real matrix $\mathbf{A}$ such that $\mathbf{A}\mathbf{A}^{\mathrm{T}} = \boldsymbol{\Sigma}$. The choice of $\mathbf{A}$ depends on the properties of $\boldsymbol{\Sigma}$:
+    *   If $\boldsymbol{\Sigma}$ is [positive-definite](/Positive-definite_matrix) (the non-degenerate case), the [Cholesky decomposition](/Cholesky_decomposition) is the preferred method. It's widely available in numerical libraries, computationally efficient, and numerically stable. It yields a lower triangular matrix $\mathbf{A}$.
+    *   If $\boldsymbol{\Sigma}$ is [positive-semidefinite matrix](/Positive_semi-definite_matrix) (the degenerate case), a rank-revealing (pivoted) [Cholesky decomposition](/Cholesky_decomposition), such as LAPACK's `dpstrf()`, can be used. This handles cases where the distribution lies on a lower-dimensional subspace.
+    *   A more general, though typically slower, alternative suitable for any [positive-semidefinite matrix](/Positive_semi-definite_matrix) is to use the matrix $\mathbf{A} = \mathbf{U}\boldsymbol{\Lambda}^{1/2}$ derived from a [spectral decomposition](/Eigendecomposition_of_a_matrix) of $\boldsymbol{\Sigma} = \mathbf{U}\boldsymbol{\Lambda}\mathbf{U}^{-1}$. Here, $\mathbf{U}$ contains the [eigenvectors](/Eigenvectors) and $\boldsymbol{\Lambda}$ is a [diagonal matrix](/Diagonal_matrix) of [eigenvalues](/Eigenvalues).
+
+2.  **Generate Standard Normal Variates:** Next, construct a vector $\mathbf{z} = (z_1, \ldots, z_N)^{\mathrm{T}}$ whose components are $N$ [independent](/Statistical_independence) [standard normal](/Normal_distribution) variates. These can be generated using various algorithms; a common and well-known method is the [Box–Muller transform](/Box%E2%80%93Muller_transform), which converts uniformly distributed random numbers into standard normal ones.
+
+3.  **Apply Affine Transformation:** Finally, the desired random vector $\mathbf{x}$ is obtained by an [affine transformation](/Affine_transformation) of $\mathbf{z}$:
+
+    $$
+    \mathbf{x} = {\boldsymbol{\mu}} + \mathbf{A}\mathbf{z}
+    $$
+
+    This resulting vector $\mathbf{x}$ will have precisely the desired [multivariate normal distribution](/Multivariate_normal_distribution) with mean $\boldsymbol{\mu}$ and [covariance matrix](/Covariance_matrix) $\boldsymbol{\Sigma}$. This method works perfectly due to the [affine transformation property](/Affine_transformation) of [multivariate normal distributions](/Multivariate_normal_distribution), which guarantees that linear transformations of normal variables remain normal. It's an elegant and efficient way to simulate complex random processes.
+
+### See also
+
+If you've managed to digest all that, perhaps you're ready for more. Here are some related concepts that might pique your interest, or further deepen your existential dread:
+
+*   [Chi distribution](/Chi_distribution): This is the [probability density function](/Probability_density_function) of the [2-norm](/Norm_(mathematics)) (also known as the [Euclidean norm](/Euclidean_norm) or [vector length](/Vector_length)) of a [multivariate normally distributed vector](/Multivariate_normal_distribution), assuming its components are uncorrelated and centered at zero. It's the magnitude of a purely random, spherical Gaussian.
+*   [Rayleigh distribution](/Rayleigh_distribution): A special case of the [Chi distribution](/Chi_distribution), specifically the pdf of the vector length of a [bivariate normally distributed vector](/Multivariate_normal_distribution) where the components are uncorrelated and centered at zero. Think of it as the length of a random arrow in 2D.
+*   [Rice distribution](/Rice_distribution): This is the pdf of the vector length of a [bivariate normally distributed vector](/Multivariate_normal_distribution) where the components are uncorrelated but *not* centered at zero. So, the random arrow now originates from a fixed, non-zero point.
+*   [Hoyt distribution](/Hoyt_distribution): The pdf of the vector length of a [bivariate normally distributed vector](/Multivariate_normal_distribution) when its components *are* correlated and centered at zero. The shape of the random arrow's distribution is now influenced by their interdependence.
+*   [Complex normal distribution](/Complex_normal_distribution): An extension to the complex plane, which is essentially an application of the [bivariate normal distribution](/Multivariate_normal_distribution) to model complex-valued random variables. Because reality isn't complicated enough.
+*   [Gaussian copula](/Gaussian_copula): For the definition of the [Gaussian copula](/Gaussian_copula) model, which links [multivariate normal distributions](/Multivariate_normal_distribution) to other marginal distributions. It's a way to impose Gaussian-like dependence on non-Gaussian data.
+*   [Multivariate t-distribution](/Multivariate_t-distribution): Another widely used spherically symmetric [multivariate distribution](/Multivariate_t-distribution) that, unlike the normal, has heavier tails. Useful when your data has more extreme outliers than a Gaussian would predict.
+*   [Multivariate stable distribution](/Multivariate_stable_distribution): A broad class of distributions that extends the [multivariate normal distribution](/Multivariate_normal_distribution) to cases where the index (exponent in the [characteristic function](/Characteristic_function_(probability_theory))) is between zero and two. It allows for even heavier tails and skewness.
+*   [Mahalanobis distance](/Mahalanobis_distance): A critical measure of distance that accounts for covariance, effectively measuring how many standard deviations away a point is from the mean, adjusted for the shape of the data cloud.
+*   [Wishart distribution](/Wishart_distribution): This is the probability distribution of the [sample covariance matrix](/Sample_covariance_matrix) for a [multivariate normal distribution](/Multivariate_normal_distribution). It's the distribution of the "spread" itself.
+*   [Matrix normal distribution](/Matrix_normal_distribution): A generalization where the random variable is an entire matrix, with each element jointly normally distributed. Because sometimes, even vectors aren't enough.
+
+---
+
+#

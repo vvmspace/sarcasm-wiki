@@ -1,0 +1,394 @@
+---
+title: "Algebraic Number Field"
+description: "A finite degree (and hence algebraic) field extension of the field of rational..."
+keywords: algebraic structure, ring theory, rings, subrings, ideal, quotient ring, fractional ideal, total ring of fractions, product of rings
+slug: "Algebraic_number_field"
+createdAt: "2025-11-17T20:02:12.985Z"
+updatedAt: "2025-11-17T20:02:12.985Z"
+contentType: "rewritten"
+---
+
+A finite degree (and hence algebraic) field extension of the field of rational numbers.
+
+[Algebraic structure](/Algebraic_structure) → [Ring theory](/Ring_theory)
+
+**Basic concepts**
+
+[Rings](/Ring_(mathematics))
+• [Subrings](/Subring)
+• [Ideal](/Ideal_(ring_theory))
+• [Quotient ring](/Quotient_ring)
+• [Fractional ideal](/Fractional_ideal)
+• [Total ring of fractions](/Total_ring_of_fractions)
+• [Product of rings](/Product_of_rings)
+• [Free product of associative algebras](/Free_product_of_associative_algebras)
+• [Tensor product of algebras](/Tensor_product_of_algebras)
+
+[Ring homomorphisms](/Ring_homomorphism)
+• [Kernel](/Kernel_(algebra))
+• [Inner automorphism](/Inner_automorphism)
+• [Frobenius endomorphism](/Frobenius_endomorphism)
+
+[Algebraic structures](/Algebraic_structure)
+• [Module](/Module_(mathematics))
+• [Associative algebra](/Associative_algebra)
+• [Graded ring](/Graded_ring)
+• [Involutive ring](/Involutive_ring)
+• [Category of rings](/Category_of_rings)
+• [Initial ring](/Integer) Z {\displaystyle \mathbb {Z} }
+• [Terminal ring](/Zero_ring) 0 = Z / 1 Z {\displaystyle 0=\mathbb {Z} /1\mathbb {Z} }
+
+**Related structures**
+• [Field](/Field_(mathematics))
+• [Finite field](/Finite_field)
+• [Non-associative ring](/Non-associative_ring)
+• [Lie ring](/Lie_ring)
+• [Jordan ring](/Jordan_ring)
+• [Semiring](/Semiring)
+• [Semifield](/Semifield)
+
+[Commutative algebra](/Commutative_algebra)
+
+[Commutative rings](/Commutative_ring)
+• [Integral domain](/Integral_domain)
+• [Integrally closed domain](/Integrally_closed_domain)
+• [GCD domain](/GCD_domain)
+• [Unique factorization domain](/Unique_factorization_domain)
+• [Principal ideal domain](/Principal_ideal_domain)
+• [Euclidean domain](/Euclidean_domain)
+• [Field](/Field_(mathematics))
+• [Finite field](/Finite_field)
+• [Polynomial ring](/Polynomial_ring)
+• [Formal power series ring](/Formal_power_series_ring)
+
+[Algebraic number theory](/Algebraic_number_theory)
+• Algebraic number field
+• [Integers modulo n](/Integers_modulo_n)
+• [Ring of integers](/Ring_of_integers)
+• p -adic integers Z p {\displaystyle \mathbb {Z} _{p}}
+• p -adic numbers Q p {\displaystyle \mathbb {Q} _{p}}
+• Prüfer p -ring Z ( p ∞ ) {\displaystyle \mathbb {Z} (p^{\infty })}
+
+[Noncommutative algebra](/Noncommutative_algebra)
+
+[Noncommutative rings](/Noncommutative_ring)
+• [Division ring](/Division_ring)
+• [Semiprimitive ring](/Semiprimitive_ring)
+• [Simple ring](/Simple_ring)
+• [Commutator](/Commutator_(ring_theory))
+
+[Noncommutative algebraic geometry](/Noncommutative_algebraic_geometry)
+[Free algebra](/Free_algebra)
+[Clifford algebra](/Clifford_algebra)
+• [Geometric algebra](/Geometric_algebra)
+[Operator algebra](/Operator_algebra)
+
+• v • t • e
+
+---
+
+In the rarified air of [mathematics](/Mathematics), an **algebraic number field** (or, if you're in a hurry, a **number field**) is an [extension field](/Extension_field) K {\displaystyle K} of the familiar, workaday [field](/Field_(mathematics)) of [rational numbers](/Rational_number) Q {\displaystyle \mathbb {Q} }. The crucial constraint is that this extension, K / Q {\displaystyle K/\mathbb {Q} }, must have a [finite degree](/Degree_of_a_field_extension), which makes it an [algebraic](/Algebraic_extension) field extension. In plainer terms, K {\displaystyle K} is a field that contains all the rational numbers and, when viewed as a [vector space](/Vector_space) over Q {\displaystyle \mathbb {Q} }, possesses a finite [dimension](/Hamel_dimension).
+
+The study of these structures is the central obsession of [algebraic number theory](/Algebraic_number_theory). It seems you can't truly understand the rational numbers by just staring at them. You have to build these more elaborate, baroque worlds around them and see how they behave. It's about revealing the hidden architecture behind basic arithmetic using the relentless tools of algebra.
+
+### Definition
+
+#### Prerequisites
+
+Before we proceed, a few tedious but necessary preliminaries. The entire concept of an algebraic number field is built upon the idea of a [field](/Field_(mathematics)). A field is a [set](/Set_(mathematics)) of elements equipped with two operations, [addition](/Addition) and [multiplication](/Multiplication), that behave as you'd expect. They satisfy certain axioms, including [distributivity](/Distributivity), which essentially ensure that arithmetic works. Under addition, the elements form an abelian group; take away zero, and the remaining elements form another abelian group under multiplication. The most prominent, and frankly, foundational example is the field of [rational numbers](/Rational_number), denoted Q {\displaystyle \mathbb {Q} }, with its standard operations.
+
+The other concept you'll need to grasp is that of a [vector space](/Vector_space). For our purposes, you can think of a vector space as a collection of sequences (or [tuples](/Tuple)), like ( x 1 , x 2 , … ) {\displaystyle (x_{1},x_{2},\dots )}, where the entries are pulled from a fixed field, such as our friend Q {\displaystyle \mathbb {Q} }. You can add any two of these sequences by adding their corresponding entries, an operation known as [vector addition](/Vector_addition). You can also multiply every entry in a sequence by a single element from the base field, an operation called [scalar multiplication](/Scalar_multiplication). These operations must satisfy a list of properties that define vector spaces in the abstract. While vector spaces can be "[infinite-dimensional](/Infinite-dimensional)" (the sequences can be infinitely long), we are concerned with the finite case. If the vector space is composed of finite sequences ( x 1 , … , x n ) {\displaystyle (x_{1},\dots ,x_{n})}, it is said to have a finite [dimension](/Hamel_dimension), n {\displaystyle n}.
+
+#### Definition
+
+An **algebraic number field** (or simply a **number field**) is a [field extension](/Field_extension) of the field of rational numbers that has a finite-[degree](/Degree_of_a_field_extension). The "degree" here is precisely the dimension of the field when considered as a vector space over Q {\displaystyle \mathbb {Q} }. It’s a bigger pond, but not an infinite ocean.
+
+### Examples
+
+*   The smallest, most fundamental number field is, of course, the field Q {\displaystyle \mathbb {Q} } of rational numbers itself. It serves as the blueprint, and many properties of general number fields are modeled on it. However, do not be deceived. Many other properties of algebraic number fields are wildly different from those of the rationals. A particularly glaring example is that the [ring](/Ring_(mathematics)) of [algebraic integers](/Algebraic_integer) within a number field is often not a [principal ideal domain](/Principal_ideal_domain), and may not even be a [unique factorization domain](/Unique_factorization_domain). The comfortable rules of arithmetic you once knew can and will break.
+
+*   The [Gaussian rationals](/Gaussian_rational), denoted Q ( i ) {\displaystyle \mathbb {Q} (i)} (read as "Q {\displaystyle \mathbb {Q} } [adjoin](/Adjunction_(field_theory)) i {\displaystyle i}"), represent the first historically significant, non-trivial example of a number field. Its elements are of the form a + b i {\displaystyle a+bi}, where `a` and `b` are rational numbers and `i` is the [imaginary unit](/Imaginary_unit). These expressions can be added, subtracted, and multiplied using the standard rules of arithmetic, followed by the simplification i 2 = − 1 {\displaystyle i^{2}=-1}. To be explicit, for any rational numbers a , b , c , d {\displaystyle a,b,c,d}:
+
+    ( a + b i ) + ( c + d i ) = ( a + c ) + ( b + d ) i {\displaystyle {\begin{aligned}&(a+bi)+(c+di)=(a+c)+(b+d)i\\&(a+bi)\cdot (c+di)=(ac-bd)+(ad+bc)i\end{aligned}}}
+
+    Every non-zero Gaussian rational is [invertible](/Invertible), a fact made clear by the identity:
+
+    ( a + b i ) ( a a 2 + b 2 − b a 2 + b 2 i ) = ( a + b i ) ( a − b i ) a 2 + b 2 = 1. {\displaystyle (a+bi)\left({\frac {a}{a^{2}+b^{2}}}-{\frac {b}{a^{2}+b^{2}}}i\right)={\frac {(a+bi)(a-bi)}{a^{2}+b^{2}}}=1.}
+
+    From this, it follows that the Gaussian rationals constitute a number field that is two-dimensional as a vector space over Q {\displaystyle \mathbb {Q} }.
+
+*   More generally, for any [square-free](/Square-free) integer d {\displaystyle d}, the [quadratic field](/Quadratic_field) Q ( d ) {\displaystyle \mathbb {Q} ({\sqrt {d}})} is a number field created by adjoining the square root of d {\displaystyle d} to the rationals. The arithmetic in this field is defined analogously to the Gaussian rationals, which is just the case where d = − 1 {\displaystyle d=-1}.
+
+*   The [cyclotomic field](/Cyclotomic_field) Q ( ζ n ) , {\displaystyle \mathbb {Q} (\zeta _{n}),} where ζ n = exp ⁡ ( 2 π i / n ) {\displaystyle \zeta _{n}=\exp {(2\pi i/n)}}, is a number field obtained from Q {\displaystyle \mathbb {Q} } by adjoining a primitive n-th [root of unity](/Root_of_unity) ζ n {\displaystyle \zeta _{n}}. This field contains all complex n-th roots of unity, and its dimension over Q {\displaystyle \mathbb {Q} } is precisely φ ( n ) {\displaystyle \varphi (n)}, where φ {\displaystyle \varphi } is the [Euler totient function](/Euler_totient_function).
+
+#### Non-examples
+
+*   The [real numbers](/Real_number), R {\displaystyle \mathbb {R} }, and the [complex numbers](/Complex_number), C {\displaystyle \mathbb {C} }, are fields with infinite dimension as Q {\displaystyle \mathbb {Q} }-vector spaces. Consequently, they are not number fields. This is a direct consequence of the [uncountability](/Uncountable) of R {\displaystyle \mathbb {R} } and C {\displaystyle \mathbb {C} } as sets, whereas any number field is necessarily [countable](/Countable).
+*   The set Q 2 {\displaystyle \mathbb {Q} ^{2}} of [ordered pairs](/Ordered_pair) of rational numbers, under entry-wise addition and multiplication, forms a two-dimensional [commutative algebra](/Commutative_algebra_(structure)) over Q {\displaystyle \mathbb {Q} }. However, it is not a field because it contains [zero divisors](/Zero_divisor): ( 1 , 0 ) ⋅ ( 0 , 1 ) = ( 0 , 0 ) {\displaystyle (1,0)\cdot (0,1)=(0,0)}. A structure with zero divisors is not a field; it's a compromised system.
+
+### Algebraicity, and ring of integers
+
+In the abstract realm of [abstract algebra](/Abstract_algebra), a field extension K / L {\displaystyle K/L} is deemed [algebraic](/Algebraic_field_extension) if every element f {\displaystyle f} of the larger field K {\displaystyle K} is a zero of some non-zero [polynomial](/Polynomial) with coefficients e 0 , … , e m {\displaystyle e_{0},\ldots ,e_{m}} in L {\displaystyle L}:
+
+p ( f ) = e m f m + e m − 1 f m − 1 + ⋯ + e 1 f + e 0 = 0 {\displaystyle p(f)=e_{m}f^{m}+e_{m-1}f^{m-1}+\cdots +e_{1}f+e_{0}=0}
+
+Any field extension of finite degree is necessarily algebraic. (The proof is simple: for any x {\displaystyle x} in K {\displaystyle K}, the elements 1 , x , x 2 , x 3 , … {\displaystyle 1,x,x^{2},x^{3},\ldots } cannot all be linearly independent in a finite-dimensional space, so a linear dependence must exist—which is precisely a polynomial that x {\displaystyle x} satisfies.) This applies directly to algebraic number fields, meaning any element f {\displaystyle f} of a number field K {\displaystyle K} is a root of a polynomial with rational coefficients. Such elements are, fittingly, called [algebraic numbers](/Algebraic_numbers).
+
+Given a polynomial p {\displaystyle p} such that p ( f ) = 0 {\displaystyle p(f)=0}, one can always arrange for the leading coefficient e m {\displaystyle e_{m}} to be 1 by dividing all coefficients by it. A polynomial with this property is called a [monic polynomial](/Monic_polynomial). While it will generally have rational coefficients, a special case arises when the coefficients are all integers. If f {\displaystyle f} is a root of such a monic polynomial with integer coefficients, it is elevated to the status of an [algebraic integer](/Algebraic_integer).
+
+Any standard integer z ∈ Z {\displaystyle z\in \mathbb {Z} } is an algebraic integer, as it is the zero of the linear monic polynomial p ( t ) = t − z {\displaystyle p(t)=t-z}. It can also be shown that any algebraic integer that is also a rational number must be a plain integer, justifying the name.
+
+Using the machinery of abstract algebra, particularly the concept of a [finitely generated module](/Finitely_generated_module), one can prove that the sum and product of any two algebraic integers remain algebraic integers. This implies that the algebraic integers within a number field K {\displaystyle K} form a [ring](/Ring_(mathematics)), denoted O K {\displaystyle {\mathcal {O}}_{K}}, known as the **[ring of integers](/Ring_of_integers)** of K {\displaystyle K}. This is a [subring](/Subring) of K {\displaystyle K}. Since fields have no [zero divisors](/Zero_divisors), this property is inherited by their subrings, making O K {\displaystyle {\mathcal {O}}_{K}} an [integral domain](/Integral_domain). The field K {\displaystyle K} can be recovered as the [field of fractions](/Field_of_fractions) of O K {\displaystyle {\mathcal {O}}_{K}}. This establishes a fundamental duality between the algebraic number field K {\displaystyle K} and its ring of integers O K {\displaystyle {\mathcal {O}}_{K}}.
+
+Rings of algebraic integers possess three distinguishing properties:
+1.  O K {\displaystyle {\mathcal {O}}_{K}} is an integral domain that is [integrally closed](/Integrally_closed_domain) in its field of fractions K {\displaystyle K}.
+2.  O K {\displaystyle {\mathcal {O}}_{K}} is a [Noetherian ring](/Noetherian_ring).
+3.  Every nonzero [prime ideal](/Prime_ideal) of O K {\displaystyle {\mathcal {O}}_{K}} is a [maximal ideal](/Maximal_ideal). Equivalently, the [Krull dimension](/Krull_dimension) of this ring is one.
+
+An abstract commutative ring with these three properties is called a [Dedekind ring](/Dedekind_ring) (or Dedekind domain), named in honor of [Richard Dedekind](/Richard_Dedekind), who conducted a profound investigation into their structure.
+
+#### Unique factorization
+
+For general [Dedekind rings](/Dedekind_ring), and rings of integers in particular, the familiar concept of unique factorization of elements is replaced by a unique factorization of [ideals](/Ideal_(ring_theory)) into a product of [prime ideals](/Prime_ideal). For instance, the ideal ( 6 ) {\displaystyle (6)} in the ring Z [ − 5 ] {\displaystyle \mathbf {Z} [{\sqrt {-5}}]} of [quadratic integers](/Quadratic_integer) factors into prime ideals as:
+
+( 6 ) = ( 2 , 1 + − 5 ) ( 2 , 1 − − 5 ) ( 3 , 1 + − 5 ) ( 3 , 1 − − 5 ) {\displaystyle (6)=(2,1+{\sqrt {-5}})(2,1-{\sqrt {-5}})(3,1+{\sqrt {-5}})(3,1-{\sqrt {-5}})}
+
+However, unlike Z {\displaystyle \mathbf {Z} } (the ring of integers of Q {\displaystyle \mathbf {Q} }), the ring of integers of a larger number field does not necessarily permit [unique factorization](/Unique_factorization_domain) of *numbers* into a product of [prime elements](/Prime_element). This failure is not some obscure pathology; it occurs even for simple [quadratic integers](/Quadratic_integer). In O Q ( − 5 ) = Z [ − 5 ] {\displaystyle {\mathcal {O}}_{\mathbf {Q} ({\sqrt {-5}})}=\mathbf {Z} [{\sqrt {-5}}]}, the uniqueness of factorization collapses spectacularly:
+
+6 = 2 ⋅ 3 = ( 1 + − 5 ) ⋅ ( 1 − − 5 ) {\displaystyle 6=2\cdot 3=(1+{\sqrt {-5}})\cdot (1-{\sqrt {-5}})}
+
+Using the [field norm](/Field_norm), one can show these two factorizations are genuinely different, not just rearrangements differing by a [unit](/Unit_(ring_theory)) in O Q ( − 5 ) {\displaystyle {\mathcal {O}}_{\mathbf {Q} ({\sqrt {-5}})}}.
+Of course, some rings of integers are better behaved. [Euclidean domains](/Euclidean_domain) are unique factorization domains. For example, Z [ i ] {\displaystyle \mathbf {Z} [i]}, the ring of [Gaussian integers](/Gaussian_integer), and Z [ ω ] {\displaystyle \mathbf {Z} [\omega ]}, the ring of [Eisenstein integers](/Eisenstein_integer) (where ω {\displaystyle \omega } is a non-real cube root of unity), both retain this property. [1]
+
+### Analytic objects: ζ-functions, L-functions, and class number formula
+
+The degree to which unique factorization fails is measured by the [class number](/Class_number_(number_theory)), typically denoted `h`, which is the size of the [ideal class group](/Ideal_class_group). This group is always finite. The ring of integers O K {\displaystyle {\mathcal {O}}_{K}} has unique factorization if and only if it is a principal ideal domain, which is equivalent to K {\displaystyle K} having a [class number of 1](/List_of_number_fields_with_class_number_one). Computing the class number for a given number field is often a formidable task. The [class number problem](/Class_number_problem), which traces back to [Gauss](/Gauss), concerns the existence of imaginary quadratic number fields (i.e., Q ( − d ) , d ≥ 1 {\displaystyle \mathbf {Q} ({\sqrt {-d}}),d\geq 1}) with a specified class number.
+
+The [class number formula](/Class_number_formula) provides a profound connection between `h` and other fundamental invariants of K {\displaystyle K}. It involves the [Dedekind zeta function](/Dedekind_zeta_function) ζ K ( s ) {\displaystyle \zeta _{K}(s)}, a function of a complex variable s {\displaystyle s} defined by the product over all prime ideals:
+
+ζ K ( s ) := ∏ p 1 1 − N ( p ) − s . {\displaystyle \zeta _{K}(s):=\prod _{\mathfrak {p}}{\frac {1}{1-N({\mathfrak {p}})^{-s}}}.}
+
+Here, the product is over all prime ideals of O K {\displaystyle {\mathcal {O}}_{K}}, and N ( p ) {\displaystyle N({\mathfrak {p}})} is the norm of the prime ideal—the number of elements in the [residue field](/Residue_field) O K / p {\displaystyle {\mathcal {O}}_{K}/{\mathfrak {p}}}. This infinite product only converges for [Re](/Real_part)(s) > 1; defining the function for all `s` requires [analytic continuation](/Analytic_continuation) and a [functional equation](/Functional_equation). The Dedekind zeta-function is a generalization of the [Riemann zeta-function](/Riemann_zeta-function), as ζ Q ( s ) = ζ ( s ) {\displaystyle \zeta _{\mathbb {Q} }(s)=\zeta (s)}.
+
+The class number formula states that ζ K ( s ) {\displaystyle \zeta _{K}(s)} has a [simple pole](/Simple_pole) at s = 1, and the [residue](/Residue_(complex_analysis)) at this point is given by:
+
+2 r 1 ⋅ ( 2 π ) r 2 ⋅ h ⋅ Reg w ⋅ | D | . {\displaystyle {\frac {2^{r_{1}}\cdot (2\pi )^{r_{2}}\cdot h\cdot \operatorname {Reg} }{w\cdot {\sqrt {|D|}}}}.}
+
+Here, `r₁` and `r₂` are the number of [real embeddings](/Real_and_complex_embeddings) and pairs of [complex embeddings](/Real_and_complex_embeddings) of K {\displaystyle K}, respectively. Reg is the [regulator](/Regulator_(mathematics)) of K {\displaystyle K}, `w` is the number of [roots of unity](/Root_of_unity) in K {\displaystyle K}, and `D` is the discriminant of K {\displaystyle K}.
+
+[Dirichlet L-functions](/Dirichlet_L-function) L ( χ , s ) {\displaystyle L(\chi ,s)} are a more refined version of ζ ( s ) {\displaystyle \zeta (s)}. Both function types encode the arithmetic behavior of Q {\displaystyle \mathbb {Q} } and K {\displaystyle K}. For instance, [Dirichlet's theorem on arithmetic progressions](/Dirichlet%27s_theorem_on_arithmetic_progressions) asserts that in any [arithmetic progression](/Arithmetic_progression) a , a + m , a + 2 m , … {\displaystyle a,a+m,a+2m,\ldots } with [coprime](/Coprime) a {\displaystyle a} and m {\displaystyle m}, there are infinitely many prime numbers. This theorem is a consequence of the fact that the Dirichlet L {\displaystyle L}-function is non-zero at s = 1 {\displaystyle s=1}. Modern number theory, using far more advanced techniques like [algebraic K-theory](/Algebraic_K-theory) and [Tamagawa measures](/Tamagawa_measure), attempts to describe the values of more general [L-functions](/L-function), though much of this remains conjectural (see [Tamagawa number conjecture](/Tamagawa_number_conjecture)). [2]
+
+### Bases for number fields
+
+#### Integral basis
+
+An **[integral basis](/Integral_basis)** for a number field K {\displaystyle K} of degree n {\displaystyle n} is a set B = {b₁, ..., bₙ} of `n` algebraic integers in K {\displaystyle K} such that any element of the ring of integers O K {\displaystyle {\mathcal {O}}_{K}} can be written uniquely as a Z-linear combination of elements of `B`. That is, for any `x` in O K {\displaystyle {\mathcal {O}}_{K}}, we have:
+
+x = m₁b₁ + ⋯ + mₙbₙ,
+
+where the `mᵢ` are ordinary integers. It is also true that any element of K {\displaystyle K} can be uniquely written in this form, but with the `mᵢ` being rational numbers. The algebraic integers of K {\displaystyle K} are precisely those elements for which all `mᵢ` are integers.
+
+By working [locally](/Local_ring) and employing tools such as the [Frobenius map](/Frobenius_map), it is always possible to explicitly compute such a basis. It is now a standard feature for [computer algebra systems](/Computer_algebra_system) to have built-in programs for this task.
+
+#### Power basis
+
+Let K {\displaystyle K} be a number field of degree n {\displaystyle n}. Among all possible bases of K {\displaystyle K} (as a Q {\displaystyle \mathbb {Q} }-vector space), there are special ones known as **power bases**, which take the form:
+
+B x = { 1 , x , x 2 , … , x n − 1 } {\displaystyle B_{x}=\{1,x,x^{2},\ldots ,x^{n-1}\}}
+
+for some element x ∈ K {\displaystyle x\in K}. The [primitive element theorem](/Primitive_element_theorem) guarantees that such an x {\displaystyle x}, called a [primitive element](/Primitive_element_(field_theory)), always exists. If x {\displaystyle x} can be chosen from within O K {\displaystyle {\mathcal {O}}_{K}} such that B x {\displaystyle B_{x}} is also a basis for O K {\displaystyle {\mathcal {O}}_{K}} as a free Z-module, then B x {\displaystyle B_{x}} is called a **[power integral basis](/Power_integral_basis)**, and the field K {\displaystyle K} is termed a **[monogenic field](/Monogenic_field)**. Not all number fields are so simple. The first example of a non-monogenic field was provided by Dedekind. His example is the field generated by adjoining a root of the polynomial: [3]
+
+x 3 − x 2 − 2 x − 8. {\displaystyle x^{3}-x^{2}-2x-8.}
+
+### Regular representation, trace and discriminant
+
+Recall that any field extension K / Q {\displaystyle K/\mathbb {Q} } possesses a unique Q {\displaystyle \mathbb {Q} }-vector space structure. By using the multiplication within K {\displaystyle K}, any element x {\displaystyle x} of the field K {\displaystyle K} can be represented by an n × n {\displaystyle n\times n} [matrix](/Matrix_(math)) A = A ( x ) = ( a i j ) 1 ≤ i , j ≤ n {\displaystyle A=A(x)=(a_{ij})_{1\leq i,j\leq n}} by the requirement:
+
+x e i = ∑ j = 1 n a i j e j , a i j ∈ Q . {\displaystyle xe_{i}=\sum _{j=1}^{n}a_{ij}e_{j},\quad a_{ij}\in \mathbb {Q} .}
+
+Here, e 1 , … , e n {\displaystyle e_{1},\ldots ,e_{n}} is a fixed basis for K {\displaystyle K} as a Q {\displaystyle \mathbb {Q} }-vector space. The rational numbers a i j {\displaystyle a_{ij}} are uniquely determined by x {\displaystyle x} and the choice of basis. This method of associating a matrix to every element of K {\displaystyle K} is called the **[regular representation](/Regular_representation)**. The matrix A {\displaystyle A} represents the action of multiplication by x {\displaystyle x} in the given basis. If another element y {\displaystyle y} of K {\displaystyle K} is represented by a matrix B {\displaystyle B}, then the product x y {\displaystyle xy} is represented by the [matrix product](/Matrix_product) B A {\displaystyle BA}. [Invariants](/Invariant_(mathematics)) of matrices, such as the [trace](/Trace_(linear_algebra)), [determinant](/Determinant), and [characteristic polynomial](/Characteristic_polynomial), depend only on the field element x {\displaystyle x} itself, not on the basis chosen.
+
+Specifically, the trace of the matrix A ( x ) {\displaystyle A(x)} is called the **[trace](/Field_trace)** of the field element x {\displaystyle x}, denoted Tr ( x ) {\displaystyle {\text{Tr}}(x)}. The determinant is called the **[norm](/Field_norm)** of x, denoted N ( x ) {\displaystyle N(x)}.
+
+This can be generalized to an arbitrary field extension K / L {\displaystyle K/L} with an L {\displaystyle L}-basis for K {\displaystyle K}. This gives an associated matrix A K / L ( x ) {\displaystyle A_{K/L}(x)}, with a corresponding trace Tr K / L ( x ) {\displaystyle {\text{Tr}}_{K/L}(x)} and norm N K / L ( x ) {\displaystyle {\text{N}}_{K/L}(x)}.
+
+#### Example
+
+Consider the field extension Q ( θ ) {\displaystyle \mathbb {Q} (\theta )} where θ = ζ 3 2 3 {\displaystyle \theta =\zeta _{3}{\sqrt[{3}]{2}}}, and ζ 3 {\displaystyle \zeta _{3}} is the cube root of unity exp ⁡ ( 2 π i / 3 ) . {\displaystyle \exp(2\pi i/3).} A Q {\displaystyle \mathbb {Q} }-basis is given by { 1 , ζ 3 2 3 , ( ζ 3 2 3 ) 2 } {\displaystyle \{1,\zeta _{3}{\sqrt[{3}]{2}},(\zeta _{3}{\sqrt[{3}]{2}})^{2}\}}. Any x ∈ Q ( θ ) {\displaystyle x\in \mathbb {Q} (\theta )} can be written as a Q {\displaystyle \mathbb {Q} }-linear combination:
+
+x = a + b ζ 3 2 3 + c ( ζ 3 2 3 ) 2 = a + b θ + c θ 2 . {\displaystyle x=a+b\zeta _{3}{\sqrt[{3}]{2}}+c(\zeta _{3}{\sqrt[{3}]{2}})^{2}=a+b\theta +c\theta ^{2}.}
+
+To find the trace T ( x ) {\displaystyle T(x)} and norm N ( x ) {\displaystyle N(x)}, we consider the product x y {\displaystyle xy} for an arbitrary y = y 0 + y 1 θ + y 2 θ 2 {\displaystyle y=y_{0}+y_{1}\theta +y_{2}\theta ^{2}}:
+
+x y = a ( y 0 + y 1 θ + y 2 θ 2 ) + b ( 2 y 2 + y 0 θ + y 1 θ 2 ) + c ( 2 y 1 + 2 y 2 θ + y 0 θ 2 ) . {\displaystyle {\begin{aligned}xy=a(y_{0}+y_{1}\theta +y_{2}\theta ^{2})+\\b(2y_{2}+y_{0}\theta +y_{1}\theta ^{2})+\\c(2y_{1}+2y_{2}\theta +y_{0}\theta ^{2}).\end{aligned}}}
+
+The matrix A ( x ) {\displaystyle A(x)} such that x y = A ( x ) y {\displaystyle xy=A(x)y} is found by writing out the associated matrix equation:
+
+[ a 11 a 12 a 13 a 21 a 22 a 23 a 31 a 32 a 33 ] [ y 0 y 1 y 2 ] = [ a y 0 + 2 c y 1 + 2 b y 2 b y 0 + a y 1 + 2 c y 2 c y 0 + b y 1 + a y 2 ] {\displaystyle {\begin{bmatrix}a_{11}&a_{12}&a_{13}\\a_{21}&a_{22}&a_{23}\\a_{31}&a_{32}&a_{33}\end{bmatrix}}{\begin{bmatrix}y_{0}\\y_{1}\\y_{2}\end{bmatrix}}={\begin{bmatrix}ay_{0}+2cy_{1}+2by_{2}\\by_{0}+ay_{1}+2cy_{2}\\cy_{0}+by_{1}+ay_{2}\end{bmatrix}}}
+
+This shows that the matrix for multiplication by x {\displaystyle x} is:
+
+A ( x ) = [ a 2 c 2 b b a 2 c c b a ] {\displaystyle A(x)={\begin{bmatrix}a&2c&2b\\b&a&2c\\c&b&a\end{bmatrix}}}
+
+From this, the trace and determinant are easily computed: T ( x ) = 3 a {\displaystyle T(x)=3a}, and N ( x ) = a 3 + 2 b 3 + 4 c 3 − 6 a b c {\displaystyle N(x)=a^{3}+2b^{3}+4c^{3}-6abc}.
+
+#### Properties
+
+By definition, the standard properties of matrix traces and determinants carry over to Tr and N. The trace is a [linear function](/Linear_function): Tr(x + y) = Tr(x) + Tr(y) and Tr(λx) = λ Tr(x). The norm is a multiplicative [homogeneous function](/Homogeneous_function) of degree n: N(xy) = N(x)N(y) and N(λx) = λⁿN(x). Here, λ is a rational number, and x, y are elements of K {\displaystyle K}.
+
+The **[trace form](/Trace_form)** is a [bilinear form](/Bilinear_form) defined via the trace as Tr K / L : K ⊗ L K → L {\displaystyle Tr_{K/L}:K\otimes _{L}K\to L} by Tr K / L ( x ⊗ y ) = Tr K / L ( x ⋅ y ) {\displaystyle Tr_{K/L}(x\otimes y)=Tr_{K/L}(x\cdot y)}. The **integral trace form** is an integer-valued [symmetric matrix](/Symmetric_matrix) defined as t i j = Tr K / Q ( b i b j ) {\displaystyle t_{ij}={\text{Tr}}_{K/\mathbb {Q} }(b_{i}b_{j})}, where b₁, ..., bₙ is an integral basis for K {\displaystyle K}. The **discriminant** of K {\displaystyle K} is defined as det(t). It is an integer and a fundamental invariant of the field K {\displaystyle K}, independent of the choice of integral basis.
+
+The matrix associated with an element `x` also provides an equivalent definition of algebraic integers. An element `x` of K {\displaystyle K} is an algebraic integer if and only if the characteristic polynomial pₐ of its associated matrix `A` is a monic polynomial with integer coefficients. If the matrix `A` has integer entries in some basis, the [Cayley–Hamilton theorem](/Cayley%E2%80%93Hamilton_theorem) implies pₐ(A) = 0, which means pₐ(x) = 0, so `x` is an algebraic integer. Conversely, if `x` is an algebraic integer, it can be proven that its matrix `A` will be an [integer matrix](/Integer_matrix) in a suitable basis.
+
+#### Example with integral basis
+
+Consider K = Q ( x ) {\displaystyle K=\mathbb {Q} (x)}, where x satisfies x³ − 11x² + x + 1 = 0. An integral basis is [1, x, 1/2(x² + 1)], and the corresponding integral trace form is:
+
+[ 3 11 61 11 119 653 61 653 3589 ] . {\displaystyle {\begin{bmatrix}3&11&61\\11&119&653\\61&653&3589\end{bmatrix}}.}
+
+The "3" in the top-left corner is the trace of the matrix for the first basis element (1). This element induces the identity map on the 3-dimensional vector space K {\displaystyle K}, and the trace of a 3x3 identity matrix is 3.
+
+The determinant of this matrix is 1304 = 2³·163, which is the field discriminant. For comparison, the [root discriminant](/Discriminant) (the discriminant of the polynomial) is 5216 = 2⁵·163.
+
+### Places
+
+Nineteenth-century mathematicians operated under the assumption that algebraic numbers were simply a type of complex number. [4] [5] This cozy worldview was shattered by [Kurt Hensel](/Kurt_Hensel)'s discovery of [p-adic numbers](/P-adic_number) in 1897. Now, it is standard to consider all the various embeddings of a number field K {\displaystyle K} into its various topological [completions](/Completion_(ring_theory)) K p {\displaystyle K_{\mathfrak {p}}} simultaneously.
+
+A **[place](/Place_(mathematics))** of a number field K {\displaystyle K} is an equivalence class of [absolute values](/Absolute_value_(algebra)) on K {\displaystyle K}. [6] An absolute value is a function that measures the "size" of elements of K {\displaystyle K}. Two absolute values are considered equivalent if they induce the same topology, or notion of proximity. The equivalence relation | ⋅ | 0 ∼ | ⋅ | 1 {\displaystyle |\cdot |_{0}\sim |\cdot |_{1}} is given by | ⋅ | 0 = | ⋅ | 1 λ {\displaystyle |\cdot |_{0}=|\cdot |_{1}^{\lambda }} for some positive real number λ {\displaystyle \lambda \in \mathbb {R} _{>0}}.
+
+Places fall into three categories. First, the trivial absolute value, | |₀, which is 1 for all non-zero elements and is profoundly uninteresting. The other two classes are **Archimedean places** and **non-Archimedean (or ultrametric) places**. The completion of K {\displaystyle K} with respect to a place | ⋅ | p {\displaystyle |\cdot |_{\mathfrak {p}}} is constructed by taking [Cauchy sequences](/Cauchy_sequence) in K {\displaystyle K} and identifying them if their difference is a [null sequence](/Null_sequence)} (a sequence { x n } n ∈ N {\displaystyle \{x_{n}\}_{n\in \mathbb {N} }} such that | x n | p → 0 {\displaystyle |x_{n}|_{\mathfrak {p}}\to 0}). This process yields a complete field, denoted K p {\displaystyle K_{\mathfrak {p}}}.
+
+For K = Q {\displaystyle K=\mathbb {Q} }, [Ostrowski's theorem](/Ostrowski%27s_theorem) identifies all non-trivial norms:
+1.  The usual [absolute value](/Absolute_value), denoted | ⋅ | ∞ {\displaystyle |\cdot |_{\infty }}, whose completion gives the field of real numbers R {\displaystyle \mathbb {R} }.
+2.  For each prime number p {\displaystyle p}, the p-adic absolute value, defined by |q|ₚ = p⁻ⁿ, where q = pⁿ(a/b) and `a`, `b` are not divisible by `p`. Its completion gives the field of p {\displaystyle p}-adic numbers Q p {\displaystyle \mathbb {Q} _{p}}. The p-adic absolute value behaves strangely: multiplying by `p` makes numbers *smaller*.
+
+For a general number field K {\displaystyle K}, the situation is analogous. For each [prime ideal](/Prime_ideal_of_a_valuation) p ∈ Spec ( O K ) {\displaystyle {\mathfrak {p}}\in {\text{Spec}}({\mathcal {O}}_{K})}, there is a unique non-Archimedean place | ⋅ | p {\displaystyle |\cdot |_{\mathfrak {p}}}. Additionally, for each field embedding σ : K → C {\displaystyle \sigma :K\to \mathbb {C} }, there is an Archimedean place | ⋅ | σ {\displaystyle |\cdot |_{\sigma }}. This, too, is a version of [Ostrowski's theorem](/Ostrowski%27s_theorem).
+
+#### Examples
+
+The field K = Q [ x ] / ( x 6 − 2 ) = Q ( θ ) {\displaystyle K=\mathbb {Q} [x]/(x^{6}-2)=\mathbb {Q} (\theta )} for θ = ζ 2 6 {\displaystyle \theta =\zeta {\sqrt[{6}]{2}}} (where ζ {\displaystyle \zeta } is a fixed 6th root of unity) provides a rich context for constructing these places. [6]
+
+#### Archimedean places
+
+The standard notation uses r 1 {\displaystyle r_{1}} for the number of real embeddings and r 2 {\displaystyle r_{2}} for the number of pairs of complex conjugate embeddings.
+
+To find the Archimedean places of a number field K {\displaystyle K}, one takes a primitive element x {\displaystyle x} with minimal polynomial f {\displaystyle f} over Q {\displaystyle \mathbb {Q} }. Over R {\displaystyle \mathbb {R} }, f {\displaystyle f} will factor into irreducible polynomials of degree one or two. The roots of the linear factors are real, and each real root `r` defines an embedding of K {\displaystyle K} into R {\displaystyle \mathbb {R} } by sending `x` to `r`. The number of such embeddings equals the number of real roots of f {\displaystyle f}. Restricting the standard absolute value on R {\displaystyle \mathbb {R} } to K {\displaystyle K} defines an Archimedean absolute value, also called a **real place**.
+
+The roots of the quadratic factors come in [conjugate](/Complex_conjugate) complex pairs. Each pair allows for two conjugate embeddings into C {\displaystyle \mathbb {C} }. Both embeddings in a pair define the same absolute value on K {\displaystyle K}. This is called a **complex place**. [7] [8]
+
+If all roots of f {\displaystyle f} are real, K {\displaystyle K} is called [totally real](/Totally_real_number_field). If all roots are non-real, K {\displaystyle K} is called [totally complex](/Totally_complex_number_field). [9] [10]
+
+#### Non-Archimedean or ultrametric places
+
+To find the non-Archimedean places, we again consider the minimal polynomial f {\displaystyle f} of a primitive element x {\displaystyle x}. In Q p {\displaystyle \mathbb {Q} _{p}}, f {\displaystyle f} splits into factors of various degrees. For each p {\displaystyle p}-adically irreducible factor f i {\displaystyle f_{i}}, we can define an embedding of K {\displaystyle K} into a finite algebraic extension of Q p {\displaystyle \mathbb {Q} _{p}}. On this [local field](/Local_field), we can define a norm and trace mapping to Q p {\displaystyle \mathbb {Q} _{p}}. Using this p {\displaystyle p}-adic norm map N f i {\displaystyle N_{f_{i}}}, we define an absolute value corresponding to f i {\displaystyle f_{i}} (of degree m {\displaystyle m}) by:
+
+| y | f i = | N f i ( y ) | p 1 / m {\displaystyle |y|_{f_{i}}=|N_{f_{i}}(y)|_{p}^{1/m}}
+
+Such an absolute value is called an ultrametric, non-Archimedean, or p {\displaystyle p}-adic place of K {\displaystyle K}. For any such place `v`, we have |x|ᵥ ≤ 1 for any x in O K {\displaystyle {\mathcal {O}}_{K}}.
+
+#### Prime ideals in Oₖ
+
+For an ultrametric place `v`, the subset of O K {\displaystyle {\mathcal {O}}_{K}} defined by |x|ᵥ < 1 forms an [ideal](/Ideal_(ring_theory)) p {\displaystyle {\mathfrak {p}}} of O K {\displaystyle {\mathcal {O}}_{K}}. This relies on the ultrametric property: if x, y are in p {\displaystyle {\mathfrak {p}}}, then |x + y|ᵥ ≤ max(|x|ᵥ, |y|ᵥ) < 1. In fact, p {\displaystyle {\mathfrak {p}}} is a [prime ideal](/Prime_ideal).
+
+Conversely, given a prime ideal p {\displaystyle {\mathfrak {p}}} of O K {\displaystyle {\mathcal {O}}_{K}}, one can define a [discrete valuation](/Discrete_valuation) v p ( x ) = n {\displaystyle v_{\mathfrak {p}}(x)=n}, where `n` is the largest integer such that x ∈ p n {\displaystyle x\in {\mathfrak {p}}^{n}}. This valuation corresponds to an ultrametric place. This establishes a correspondence between equivalence classes of ultrametric places of K {\displaystyle K} and the prime ideals of O K {\displaystyle {\mathcal {O}}_{K}}.
+
+Another equivalent perspective is through [localizations](/Localization_of_a_ring). Given an ultrametric place `v`, the corresponding localization is the subring T {\displaystyle T} of K {\displaystyle K} consisting of all elements x {\displaystyle x} with |x|ᵥ ≤ 1. This T {\displaystyle T} is a [discrete valuation ring](/Discrete_valuation_ring), which is the localization of O K {\displaystyle {\mathcal {O}}_{K}} at the prime ideal p {\displaystyle {\mathfrak {p}}}, so T = O K , p {\displaystyle T={\mathcal {O}}_{K,{\mathfrak {p}}}}.
+
+In summary, there is a three-way equivalence between ultrametric absolute values, prime ideals, and localizations on a number field.
+
+#### Lying over theorem and places
+
+The [going up and going down theorems](/Going_up_and_going_down) describe how a prime ideal p ∈ Spec ( O K ) {\displaystyle {\mathfrak {p}}\in {\text{Spec}}({\mathcal {O}}_{K})} behaves when extended to an ideal in O L {\displaystyle {\mathcal {O}}_{L}} for a field extension L / K {\displaystyle L/K}. An ideal o ⊂ O L {\displaystyle {\mathfrak {o}}\subset {\mathcal {O}}_{L}} **lies over** p {\displaystyle {\mathfrak {p}}} if o ∩ O K = p {\displaystyle {\mathfrak {o}}\cap {\mathcal {O}}_{K}={\mathfrak {p}}}. The theorem guarantees that for any p {\displaystyle {\mathfrak {p}}}, there is always at least one prime ideal of O L {\displaystyle {\mathcal {O}}_{L}} lying over it. This induces a surjective map Spec ( O L ) → Spec ( O K ) {\displaystyle {\text{Spec}}({\mathcal {O}}_{L})\to {\text{Spec}}({\mathcal {O}}_{K})}.
+
+This is useful when considering the base change of K {\displaystyle K} to one of its completions Q p {\displaystyle \mathbb {Q} _{p}}. Writing K = Q [ X ] Q ( X ) {\displaystyle K={\frac {\mathbb {Q} [X]}{Q(X)}}}, the tensor product K ⊗ Q Q p {\displaystyle K\otimes _{\mathbb {Q} }\mathbb {Q} _{p}} decomposes according to the factorization of the polynomial Q(X) over Q p {\displaystyle \mathbb {Q} _{p}}. By [Hensel's lemma](/Hensel%27s_lemma), Q ( X ) = ∏ v | p Q v {\displaystyle Q(X)=\prod _{v|p}Q_{v}}, which leads to a decomposition: [11]
+
+K ⊗ Q Q p ≅ Q p [ X ] ∏ v | p Q v ( X ) ≅ ⨁ v | p K v {\displaystyle {\begin{aligned}K\otimes _{\mathbb {Q} }\mathbb {Q} _{p}&\cong {\frac {\mathbb {Q} _{p}[X]}{\prod _{v|p}Q_{v}(X)}}\\&\cong \bigoplus _{v|p}K_{v}\end{aligned}}}
+
+Here, K v = Q p ( θ v ) {\displaystyle K_{v}=\mathbb {Q} _{p}(\theta _{v})}, where θ v {\displaystyle \theta _{v}} is a root of Q v {\displaystyle Q_{v}}.
+
+### Ramification
+
+**[Ramification](/Ramification_(mathematics))** describes a phenomenon where the number of preimages in a finite-to-one map drops at special points. For example, the map C → C , z ↦ z n {\displaystyle \mathbb {C} \to \mathbb {C} ,z\mapsto z^{n}} has `n` points in the fiber over any non-zero `t`, but only one point (z=0) over t=0. The map is said to be "ramified" at zero. This is an example of a [branched covering](/Branched_covering) of [Riemann surfaces](/Riemann_surface).
+
+This geometric intuition applies to [ramification in algebraic number theory](/Splitting_of_prime_ideals_in_Galois_extensions). Given a finite extension of number fields K / L {\displaystyle K/L}, a prime ideal `p` of O L {\displaystyle {\mathcal {O}}_{L}} generates an ideal pOₖ in O K {\displaystyle {\mathcal {O}}_{K}}. This ideal factors into prime ideals of O K {\displaystyle {\mathcal {O}}_{K}}:
+
+pO K {\displaystyle K} = q₁ᵉ¹ q₂ᵉ² ⋯ qₘᵉᵐ
+
+with unique prime ideals qᵢ of O K {\displaystyle {\mathcal {O}}_{K}} and integers eᵢ called **ramification indices**. If any eᵢ is greater than 1, the prime `p` is said to **ramify** in K {\displaystyle K}.
+
+The connection to geometry is via the map of [spectra of rings](/Spectrum_of_a_ring), Spec O K → Spec O L {\displaystyle \mathrm {Spec} {\mathcal {O}}_{K}\to \mathrm {Spec} {\mathcal {O}}_{L}}. [Unramified morphisms](/Unramified_morphism) of [schemes](/Scheme_(mathematics)) in [algebraic geometry](/Algebraic_geometry) are a direct generalization of this concept. Ramification is a local property, and the [inertia group](/Inertia_group) measures the difference between local Galois groups and the Galois groups of the residue fields.
+
+#### An example
+
+To compute the ramification index of Q ( x ) {\displaystyle \mathbb {Q} (x)}, where f(x) = x³ − x − 1 = 0, at the prime 23, we consider the extension Q 23 ( x ) / Q 23 {\displaystyle \mathbb {Q} _{23}(x)/\mathbb {Q} _{23}}. Modulo 529 = 23², f(x) factors as:
+
+f(x) = (x + 181)(x² − 181x − 38) = gh.
+
+For the first factor `g`, the valuation is 1. For the second factor `h`, a substitution reveals that the valuation involves 161 = 7 × 23. The absolute value for the place defined by `h` is:
+
+| y | h = | 161 | 23 = 1 23 {\displaystyle \left\vert y\right\vert _{h}={\sqrt {\left\vert 161\right\vert }}_{23}={\frac {1}{\sqrt {23}}}}
+
+Since the values of this absolute value are integer powers of the square root of 23, not 23 itself, the ramification index of the field extension at 23 is two.
+
+#### Dedekind discriminant theorem
+
+The significance of the discriminant is that it tells you which primes are going to cause trouble. The ramified ultrametric places are precisely those arising from primes `p` that divide the discriminant. This is the **Dedekind discriminant theorem**. In the example above, the discriminant of Q ( x ) {\displaystyle \mathbb {Q} (x)} with x³ − x − 1 = 0 is −23. As we saw, the 23-adic place ramifies. The theorem tells us it is the *only* non-Archimedean place that does.
+
+### Galois groups and Galois cohomology
+
+Field extensions K/L can be studied by their symmetry group, the [Galois group](/Galois_group) Gal(K/L), which consists of automorphisms of K {\displaystyle K} that fix L {\displaystyle L}. For example, the Galois group Gal ( Q ( ζ n ) / Q ) {\displaystyle \mathrm {Gal} (\mathbb {Q} (\zeta _{n})/\mathbb {Q} )} of the n-th cyclotomic field is the group of invertible elements ( Z / n Z ) × {\displaystyle (\mathbb {Z} /n\mathbb {Z} )^{\times }}. This is a cornerstone of [Iwasawa theory](/Iwasawa_theory).
+
+To encompass all possible extensions, one often considers the infinite extension K / K {\displaystyle K/K} of the [algebraic closure](/Algebraic_closure), leading to the [absolute Galois group](/Absolute_Galois_group) G := Gal( K / K {\displaystyle K/K}). The [fundamental theorem of Galois theory](/Fundamental_theorem_of_Galois_theory) links intermediate fields to closed subgroups of this group. The [abelianization](/Abelianization) Gᵃᵇ corresponds to the maximal [abelian extension](/Abelian_extension) Kᵃᵇ. By the [Kronecker–Weber theorem](/Kronecker%E2%80%93Weber_theorem), the maximal abelian extension of Q {\displaystyle \mathbb {Q} } is the field generated by all [roots of unity](/Roots_of_unity). For general number fields, [class field theory](/Class_field_theory), via the [Artin reciprocity law](/Artin_reciprocity_law), describes Gᵃᵇ using the [idele class group](/Idele_class_group). The [Hilbert class field](/Hilbert_class_field) is the maximal abelian unramified extension of K {\displaystyle K}; its Galois group over K {\displaystyle K} is isomorphic to the ideal class group of K {\displaystyle K}.
+
+When a Galois group [acts](/Group_action_(mathematics)) on another object, like a group, it becomes a Galois module. This allows the use of [group cohomology](/Group_cohomology) for the Galois group, known as [Galois cohomology](/Galois_cohomology), which measures the failure of exactness and offers deeper insights. For instance, the [Brauer group](/Brauer_group) of K {\displaystyle K}, which classifies [division algebras](/Division_algebra) over K {\displaystyle K}, can be reformulated as the cohomology group H²(Gal(K, Kˣ)).
+
+### Local-global principle
+
+The "local to global" principle is the idea that a global problem can be solved by first tackling it at a local level, which is often simpler, and then assembling the local information into a global statement.
+
+#### Local and global fields
+
+Number fields are remarkably similar to another class of fields from [algebraic geometry]: [function fields of algebraic varieties](/Function_field_of_an_algebraic_variety) over [finite fields](/Finite_field). Both are called [global fields](/Global_field). In line with the local-global philosophy, they are studied by first examining their corresponding [local fields](/Local_field). For a number field K {\displaystyle K}, the local fields are its completions at all places (Archimedean and non-Archimedean).
+
+#### Hasse principle
+
+A classic global question is whether a polynomial equation has a solution in K {\displaystyle K}. If it does, it must also have a solution in all completions of K {\displaystyle K}. The [local-global principle](/Local-global_principle), or **Hasse principle**, asserts that for quadratic equations, the converse is true: if a solution exists in every completion, a global solution exists. This allows the use of analytic methods (like the [intermediate value theorem](/Intermediate_value_theorem) at Archimedean places and [p-adic analysis](/P-adic_analysis) at non-Archimedean places). This principle, however, fails for more general equations.
+
+#### Adeles and ideles
+
+To systematically assemble the local data from all local fields associated with K {\displaystyle K}, one constructs the [adele ring](/Adele_ring). Its multiplicative counterpart is the group of [ideles](/Idele). These structures are the technical foundation for modern treatments of the local-global principle and class field theory.
+
+### See also
+
+**Generalizations**
+
+*   [Algebraic function field](/Algebraic_function_field)
+
+**Algebraic number theory**
+
+*   [Dirichlet's unit theorem](/Dirichlet%27s_unit_theorem), [S-unit](/S-unit)
+*   [Kummer extension](/Kummer_extension)
+*   [Minkowski's theorem](/Minkowski%27s_theorem), [Geometry of numbers](/Geometry_of_numbers)
+*   [Chebotarev's density theorem](/Chebotarev%27s_density_theorem)
+
+**Class field theory**
+
+*   [Ray class group](/Ray_class_group)
+*   [Decomposition group](/Decomposition_group)
+*   [Genus field](/Genus_field)
+
+### Notes
+
+1.  **^** Ireland, Kenneth; [Rosen, Michael](/Michael_Rosen_(mathematician)) (1998), *A Classical Introduction to Modern Number Theory*, Berlin, New York: [Springer-Verlag](/Springer-Verlag), [ISBN](/ISBN_(identifier)) 978-0-387-97329-6, Ch. 1.4
+2.  **^** Bloch, Spencer; [Kato, Kazuya](/Kazuya_Kato) (1990), "L-functions and Tamagawa numbers of motives", *The Grothendieck Festschrift, Vol. I*, Progr. Math., vol. 86, Boston, MA: Birkhäuser Boston, pp. 333–400, [MR](/MR_(identifier)) 1086888
+3.  **^** Narkiewicz 2004, §2.2.6
+4.  **^** Kleiner, Israel (1999), "Field theory: from equations to axiomatization. I", [The American Mathematical Monthly](/The_American_Mathematical_Monthly), **106** (7): 677–684, [doi](/Doi_(identifier)):10.2307/2589500, [JSTOR](/JSTOR_(identifier)) 2589500, [MR](/MR_(identifier)) 1720431, To Dedekind, then, fields were subsets of the complex numbers.
+5.  **^** [Mac Lane, Saunders](/Saunders_Mac_Lane) (1981), "Mathematical models: a sketch for the philosophy of mathematics", *The American Mathematical Monthly*, **88** (7): 462–472, [doi](/Doi_(identifier)):10.2307/2321751, [JSTOR](/JSTOR_(identifier)) 2321751, [MR](/MR_(identifier)) 0628015, Empiricism sprang from the 19th-century view of mathematics as almost coterminal with theoretical physics.
+6.  **^ a b c** Gras, Georges (2003). *Class field theory : from theory to practice*. Berlin: Springer. [ISBN](/ISBN_(identifier)) 978-3-662-11323-3. [OCLC](/OCLC_(identifier)) 883382066.
+7.  **^** Cohn, Chapter 11 §C p. 108
+8.  **^** Conrad
+9.  **^** Cohn, Chapter 11 §C p. 108
+10. **^** Conrad
+11. **^** Neukirch, Jürgen (1999). *Algebraic Number Theory*. Berlin, Heidelberg: Springer Berlin Heidelberg. [ISBN](/ISBN_(identifier)) 978-3-662-03983-0. [OCLC](/OCLC_(identifier)) 851391469.
+
+#

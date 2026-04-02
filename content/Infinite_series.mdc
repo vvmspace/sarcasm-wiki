@@ -1,0 +1,67 @@
+---
+title: "Infinite Series"
+description: "In mathematics, an **infinite series** is the result of adding up the terms of an infinite sequence. I know, it sounds like a fool's errand, a task set for..."
+keywords: mathematics, sequence, calculus, physics, limit, linear, geometric series, zeno's paradox, harmonic series, nicole oresme
+slug: "Infinite_series"
+createdAt: "2025-11-19T08:42:30.569Z"
+updatedAt: "2025-11-19T08:42:30.569Z"
+contentType: "created"
+---
+
+# Infinite series
+
+In [mathematics](/mathematics), an **infinite series** is the result of adding up the terms of an infinite [sequence](/sequence). I know, it sounds like a fool's errand, a task set for someone with entirely too much time and a fundamental misunderstanding of the word "finish." And yet, here we are. This operation, this Sisyphean attempt to sum a list of numbers that never ends, is somehow a cornerstone of disciplines from [calculus](/calculus) to [physics](/physics).
+
+The "sum" of such a series is typically defined not by actually performing an infinite number of additions—because you can't, and if you think you can, we have more fundamental issues to discuss—but as the [limit](/limit_(mathematics)) of the sequence of its partial sums. A **partial sum** is the finite sum of the first *n* terms of the sequence. If this sequence of partial sums bothers to approach some finite value as *n* lurches towards infinity, the series is said to *converge*. Otherwise, it *diverges*, wandering off into the void like a bad argument.
+
+The notation for an infinite series is as elegant as it is intimidating:
+$$ \sum_{n=0}^{\infty} a_n $$
+This is just a compact way of writing $$a_0 + a_1 + a_2 + \cdots$$, a grim procession of terms marching one after another into eternity.
+
+## Basic properties
+
+Let's get the tedious but necessary rules out of the way. An infinite series is, at its heart, a [linear](/linear_map) operator. This means if you have two convergent series, $$ \sum a_n = A $$ and $$ \sum b_n = B $$, you can manipulate them in some depressingly predictable ways.
+
+*   **Term-by-term multiplication by a constant:** You can multiply the entire series by a constant, and it behaves exactly as you'd expect, which is a rare and fleeting comfort.
+    $$ \sum_{n=0}^{\infty} ca_n = c \sum_{n=0}^{\infty} a_n = cA $$
+*   **Term-by-term addition and subtraction:** You can add or subtract two convergent series, and the result is just the sum or difference of their respective limits. Shocking, I know.
+    $$ \sum_{n=0}^{\infty} (a_n \pm b_n) = \sum_{n=0}^{\infty} a_n \pm \sum_{n=0}^{\infty} b_n = A \pm B $$
+
+These properties only hold if the series actually converge. If you try this with divergent series, you're just adding two different flavors of infinity together, an exercise in futility that even most philosophers would find tiresome.
+
+## Examples of infinite series
+
+Some series are more interesting than others. Most are just noise. Here are a few that have managed to hold humanity's attention, for better or worse.
+
+### Geometric series
+The [geometric series](/geometric_series) is the poster child for well-behaved infinite sums. It's the one you're shown first to convince you this whole endeavor isn't a complete waste of time. Each term is obtained by multiplying the previous one by a fixed, non-zero constant called the common ratio, *r*.
+
+A classic example is:
+$$ \sum_{n=0}^{\infty} \frac{1}{2^n} = 1 + \frac{1}{2} + \frac{1}{4} + \frac{1}{8} + \cdots $$
+This series famously converges to 2. It's the mathematical equivalent of [Zeno's paradox](/Zenos_paradoxes) of the dichotomy, where you keep walking halfway to a wall. The good news is, in mathematics, you actually get there. The series converges if and only if the absolute value of the common ratio is less than one ($|r| < 1$). If it isn't, the terms either grow to infinity or oscillate, and the series diverges with theatrical flair.
+
+### Harmonic series
+Then there's the [harmonic series](/harmonic_series_(mathematics)), the archetypal cautionary tale.
+$$ \sum_{n=1}^{\infty} \frac{1}{n} = 1 + \frac{1}{2} + \frac{1}{3} + \frac{1}{4} + \cdots $$
+The terms get smaller and smaller, approaching zero. It *looks* like it should converge. It feels, intuitively, like it must settle on some number. It does not. The harmonic series diverges, slowly, stubbornly, but unequivocally. It's a perfect metaphor for misplaced optimism. Its divergence was proven by [Nicole Oresme](/Nicole_Oresme) in the 14th century, a fact that people have been rediscovering with palpable disappointment ever since.
+
+## Convergence and divergence
+
+This is the central question, the only one that really matters. Does the sum go somewhere, or does it just make a mess? To determine this, mathematicians, presumably after centuries of throwing things at the wall to see what stuck, developed a battery of so-called **convergence tests**.
+
+A fundamental prerequisite for convergence is that the terms of the series must approach zero. That is, $$ \lim_{n \to \infty} a_n = 0 $$. This is the **term test**. If the terms don't go to zero, the series has no chance. It's like trying to fill a bathtub with the faucet on full blast while the drain is open; if you're adding bigger and bigger numbers, you're not getting closer to anything. However, as the harmonic series so cruelly demonstrates, the terms going to zero is necessary, but not sufficient. It's the bare minimum requirement, and nature, as you may have noticed, rarely settles for the bare minimum.
+
+More sophisticated tests include:
+
+*   **The ratio test:** Examines the limit of the ratio between consecutive terms. Incredibly useful for series involving factorials or exponentials.
+*   **The root test:** Looks at the *n*-th root of the *n*-th term. Often works where the ratio test does, but can be a nightmare to compute.
+*   **The integral test:** Compares the sum to an improper integral. It’s a beautiful, if sometimes laborious, link between discrete sums and continuous [integration](/integral).
+
+There are others, each more specific and esoteric than the last. They exist because determining convergence is a dark art, and you need all the tools you can get.
+
+### Absolute and conditional convergence
+
+To add another layer of unnecessary complexity, we distinguish between two types of convergence.
+
+*   **Absolute convergence:** A series $$ \sum a_n $$ converges absolutely if the series of its absolute values, $$ \sum |a_n| $$, also converges. These are the sturdy, reliable series. They converge no matter how you rearrange their terms.
+*   **Conditional convergence:** A series converges, but not absolutely. The [alternating harmonic series](/alternating_harmonic_series), $$ 1 - \frac{1}{2} + \frac{1}{3} - \frac{1}{4} + \cdots $$, is a prime example. It converges (to the natural logarithm of 2, if you must know), but its absolute version—the regular harmonic series—diverges. These series are fragile. The [Riemann series theorem](/Riemann_series_theorem) states that you can rearrange the terms of a conditionally convergent series to make it converge to *any real number you want*, or even diverge. They're the chaotic neutrals of the mathematical world.

@@ -1,0 +1,113 @@
+---
+title: "Boolean-Valued Model"
+description: "Right. Let's get this over with. You want Wikipedia rewritten. In my style. Like I have nothing better to do than to polish your dry academic prose. Fine. Just..."
+keywords: mathematical logic, boolean-valued model, tarskian, structure, model theory, propositions, truth values, complete boolean algebra, dana scott, robert m. solovay
+slug: "Boolean-valued_model"
+createdAt: "2025-11-17T15:52:32.501Z"
+updatedAt: "2025-11-17T15:52:32.501Z"
+contentType: "rewritten"
+---
+
+Right. Let's get this over with. You want Wikipedia rewritten. In my style. Like I have nothing better to do than to polish your dry academic prose. Fine. Just don't expect sunshine and daisies. This is set theory, after all. Not a rom-com.
+
+***
+
+### Set Theory Concepts: A Boolean-Valued Perspective
+
+In the grim, unforgiving landscape of [mathematical logic](/Mathematical_logic), a [Boolean-valued model](/Boolean-valued_model) isn't just a rehash of the standard [Tarskian](/Alfred_Tarski) notion of a [structure](/Structure_(mathematical_logic)) from [model theory](/Model_theory). It’s a more… nuanced approach. Instead of trapping [propositions](/Proposition) in the dismal binary of "true" or "false," we allow their [truth values](/Truth_value) to wander within the confines of a chosen [complete Boolean algebra](/Complete_Boolean_algebra). It's like giving them a slightly larger cage, but a cage nonetheless.
+
+These Boolean-valued models, a rather bleak innovation by [Dana Scott](/Dana_Scott), [Robert M. Solovay](/Robert_M._Solovay), and [Petr Vopěnka](/Petr_Vop%C4%9Bnka) back in the '60s, were initially a tool to decipher [Paul Cohen](/Paul_Cohen_(mathematician))'s rather convoluted method of [forcing](/Forcing_(mathematics)). They also bear a disturbing resemblance to [Heyting algebra](/Heyting_algebra) semantics, which, if you must know, are linked to [intuitionistic logic](/Intuitionistic_logic). A logic that, frankly, feels about as useful as a screen door on a submarine.
+
+#### Definition: The Guts of the Operation
+
+Let's fix a complete Boolean algebra, B. And a [first-order language](/First-order_language) L, with its dreary collection of constant symbols, function symbols, and relation symbols. This is the skeleton we'll hang our bleak interpretations on.
+
+A Boolean-valued model for this language L will consist of a [universe](/Universe_(mathematics)), let's call it M. This M is just a set of elements, or "names" as they’re so quaintly called. And then we have the interpretations, the grim assignments for these symbols. For each constant symbol in L, we assign an element from M. For each n-ary function symbol *f* and each n-tuple of elements from M, say &#x27e8; a 0 ,..., a n -1 &#x27e9;, we assign *another* element of M to *f* ( a 0 ,..., a n -1 ). It’s all very deterministic, isn’t it?
+
+The interpretation of [atomic formulas](/Atomic_formula) is where things get a bit more… textured. To every pair of elements, *a* and *b*, from M, we assign a truth value &#x2016; a = b &#x2016; from our chosen Boolean algebra B. Similarly, for every n-ary relation symbol *R* and every n-tuple &#x27e8; a 0 ,..., a n -1 &#x27e9; of elements from M, we assign an element of B as the truth value &#x2016; R ( a 0 ,..., a n -1 )&#x2016;. It’s a spectrum of truth, not just the stark black and white.
+
+#### Interpretation of Other Formulas and Sentences: Expanding the Misery
+
+Once we have the truth values for the atomic formulas, we can meticulously reconstruct the truth values for more complex ones. It’s a grim, mechanical process, really. For propositional connectives, it’s straightforward: just apply the corresponding Boolean operators to the truth values of the subformulas. For example, if φ( x ) and ψ( y , z ) are formulas with free variables, and *a*, *b*, *c* are elements of M to be substituted for *x*, *y*, and *z* respectively, then the truth value of
+
+&#x3d5; ( a ) &#x2227; &#x3c8; ( b , c )
+
+{\displaystyle \phi (a)\land \psi (b,c)}
+
+is simply the result of applying the conjunction operator within the Boolean algebra:
+
+&#x2016; &#x3d5; ( a ) &#x2227; &#x3c8; ( b , c ) &#x2016; = &#x2016; &#x3d5; ( a ) &#x2016; &#xa0; &#x2227; &#xa0; &#x2016; &#x3c8; ( b , c ) &#x2016;
+
+{\displaystyle \|\phi (a)\land \psi (b,c)\|=\|\phi (a)\|\ \land \ \|\psi (b,c)\|}
+
+The real meat, and the reason we need a *complete* Boolean algebra, comes with quantified formulas. If φ( x ) is a formula with a free variable *x* (and possibly others we’re choosing to ignore, because why not?), then the truth value of the existential statement is defined as the [supremum](/Supremum) in B of the truth values of φ( a ) for all *a* in M:
+
+&#x2016; &#x2203; x φ( x ) &#x2016; = &#x22c1; a ∈ M &#x2016; φ( a ) &#x2016;
+
+{\displaystyle \|\exists x\phi (x)\|=\bigvee _{a\in M}\|\phi (a)\|}
+
+It’s a way of saying that if *any* element *a* makes φ( a ) have a non-zero truth value, then the existential statement has a truth value determined by the "highest" of those values. It’s a shades-of-grey kind of truth, entirely predictable. The truth value of any formula, in the end, is just some element of B. No surprises.
+
+#### Boolean-Valued Models of Set Theory: The Universe as a Spectrum
+
+Now, given a complete Boolean algebra B, we can construct a Boolean-valued model, V B, which is essentially the Boolean-valued echo of the [von Neumann universe](/Von_Neumann_universe) V. It's not a set, mind you, but a [proper class](/Proper_class). And V B itself is populated by what we can only describe as "Boolean-valued sets." Forget the simple dichotomy of membership; in V B, a set has a certain *degree* of membership in another.
+
+These elements of V B are themselves Boolean-valued sets, and their elements are also Boolean-valued sets, and so on, in a dizzying recursive fashion. To avoid falling into an endless, pointless loop, we define them inductively, mirroring the [cumulative hierarchy](/Cumulative_hierarchy). For every ordinal α in V, we define V B α as follows:
+
+*   V B 0 is the [empty set](/Empty_set). Utterly devoid of content, as expected.
+*   V B α +1 is the set of all functions from V B α to B. Think of these functions as representing [subsets](/Subset) of V B α, where the value of the function at any *x* ∈ V B α is its degree of membership in this Boolean-valued set.
+*   If α is a [limit ordinal](/Limit_ordinal), V B α is simply the union of all V B β for β < α. A collection of collections.
+
+The entire class V B is the union of all these V B α.
+
+We can also take an ordinary [transitive model](/Transitive_model) M of [ZF](/Zermelo%E2%80%93Fraenkel_set_theory) (or some fragment of it) and relativize this construction. The Boolean-valued model M B is built by performing the above construction *within* M. This restriction to transitive models isn't a serious limitation, thanks to the [Mostowski collapsing theorem](/Mostowski_collapse), which suggests that any "reasonable" model is just an isomorphic copy of a transitive one. If M isn't transitive, things become rather messy, with its interpretation of "function" or "ordinal" diverging from the external view.
+
+Once we've defined the elements of V B, we must define the B-valued relations of equality and membership. These aren't your standard relations; they're functions from V B × V B to B, denoted &#x2016; x = y &#x2016; and &#x2016; x ∈ y &#x2016;.
+
+*   &#x2016; x ∈ y &#x2016; is defined as the supremum of &#x2016; x = t &#x2016; ∧ y ( t ) over all *t* in the domain of *y*. Roughly, "x is in y if it's equal to something that is in y."
+*   &#x2016; x = y &#x2016; is defined as &#x2016; x ⊆ y &#x2016; ∧ &#x2016; y ⊆ x &#x2016;. "x equals y if they are subsets of each other." And
+*   &#x2016; x ⊆ y &#x2016; is defined as the infimum over all *t* in the domain of *x* of ( x ( t ) ⇒ &#x2016; t ∈ y &#x2016; ). "x is a subset of y if all of its elements are in y."
+
+The symbols Σ and Π here represent the least upper bound and greatest lower bound operations in our complete Boolean algebra B. It might look circular – &#x2016;∈&#x2016; depends on &#x2016;=&#x2016;, which relies on &#x2016;⊆&#x2016;, which in turn depends on &#x2016;∈&#x2016;. But a closer inspection reveals that the definition of &#x2016;∈&#x2016; only relies on elements of a smaller "rank," so &#x2016;∈&#x2016; and &#x2016;=&#x2016; are, in fact, well-defined functions from V B × V B to B. It's a closed, self-referential system, much like existence itself.
+
+It can be proven that these B-valued relations make V B a Boolean-valued model of set theory. Every sentence of first-order set theory without free variables gets a truth value in B. The axioms for equality and all the axioms of ZF, when written without free variables, must have a truth value of 1 (the most "true" element in B). This proof is tedious, involving the meticulous checking of numerous axioms.
+
+#### Relationship to Forcing: Adding Chaos to Order
+
+In the realm of set theory, [forcing](/Forcing_(mathematics)) is the weapon of choice for independence proofs and for constructing models with specific, often perverse, properties. [Paul Cohen](/Paul_Cohen_(mathematician)) pioneered it, and it's been twisted and expanded ever since. In essence, forcing "adds to the universe" a [generic](/Generic_filter) subset of a [poset](/Poset) – a partially ordered set chosen specifically to impose peculiar characteristics on this new object. The problem is, for many interesting posets, such a generic subset simply doesn't exist. This leads to three rather unappealing ways of proceeding:
+
+*   **Syntactic Forcing:** Here, we define a forcing relation, p &#x22a9; φ (read "p forces φ"), between elements *p* of the poset and formulas φ. This relation is purely syntactic, devoid of any actual semantics or models. It's a proof-theoretic game. We start by assuming that ZFC (or whatever axiomatization we're using) proves some statement, and then show that this assumption leads to a contradiction. The forcing happens "over V," meaning we don't need to begin with a countable transitive model. [Kunen (1980)](/Kenneth_Kunen) offers a rather bleak exposition of this.
+*   **Countable Transitive Models:** This approach involves starting with a [countable](/Countable_set) [transitive](/Transitive_set) model M of set theory, one that contains our poset. In this context, filters on the poset that are generic over M *do* exist. These are filters that intersect every dense open subset of the poset that happens to be an element of M.
+*   **Fictional Generic Objects:** This is the most common, and perhaps the most intellectually dishonest, method. Set theorists simply *pretend* that the poset has a generic subset over the entirety of V. This "generic object," in any non-trivial case, cannot actually be an element of V, and therefore, "does not really exist." Of course, the philosophical debate about what "really exists" is a whole other can of worms, best left unopened. Still, with practice, this method is surprisingly reliable, even if it leaves one feeling rather hollow.
+
+#### Boolean-Valued Models and Syntactic Forcing: Semantics for the Absurd
+
+Boolean-valued models can lend a semblance of semantics to syntactic forcing. The catch? The semantics aren't the usual "true or false." Instead, they assign truth values from a complete Boolean algebra. Given a forcing poset P, we can construct a corresponding complete Boolean algebra B. Often, this is done by taking the collection of [regular open subsets](/Regular_open_set) of P, where the [topology](/Topology) on P is defined by considering all [lower sets](/Lower_set) as open (and consequently, all [upper sets](/Upper_set) as closed). Other methods for constructing B exist, of course.
+
+The order relation on B (after stripping away the zero element) can then substitute for P in forcing arguments. The forcing relation itself can be interpreted semantically: for *p* in B and φ a formula, we say *p* forces φ if:
+
+p &#x22a9; φ &#x27fa; p ≤ ||φ||
+
+{\displaystyle p\Vdash \phi \iff p\leq ||\phi ||}
+
+Here, ||φ|| represents the truth value of φ in V B. This approach manages to assign semantics to forcing over V without resorting to the pretense of fictional generic objects. The downsides? The semantics are not binary, and the combinatorics of B are often more complex than those of the original poset P. It’s a trade-off, like most things in life.
+
+#### Boolean-Valued Models and Generic Objects Over Countable Transitive Models: Constructing Reality
+
+One interpretation of forcing begins with a countable transitive model M of ZF set theory, a poset P, and a "generic" subset G of P. From these, a new model of ZF is constructed. The conditions of being countable and transitive simplify certain technicalities, but they aren't strictly essential. Cohen's construction can be executed using Boolean-valued models in the following steps:
+
+1.  **Construct a Complete Boolean Algebra B:** This algebra is "generated by" the poset P.
+2.  **Construct an Ultrafilter U on B:** This is done by taking the generic subset G of P and deriving an ultrafilter on B. Equivalently, it's a homomorphism from B to the Boolean algebra {true, false}.
+3.  **Transform M B into an Ordinary Model:** Using the homomorphism from B to {true, false}, we convert the Boolean-valued model M B into a standard, ordinary model of ZF.
+
+Let's delve into these steps with slightly more detail. For any poset P, there exists a complete Boolean algebra B and a map *e* from P to the non-zero elements of B (B+). This map *e* is such that its image is dense, *e*(p) ≤ *e*(q) whenever p ≤ q, and *e*(p)*e*(q) = 0 whenever *p* and *q* are incompatible. This Boolean algebra is unique up to isomorphism. A common construction involves the algebra of regular open sets in the topological space associated with P. The map *e* from P to B is injective if and only if P satisfies a specific property: if every *r* ≤ *p* is compatible with *q*, then *p* ≤ *q*.
+
+An ultrafilter U on B is essentially the set of elements *b* in B that are greater than some element from the image of G. Given an ultrafilter U on a Boolean algebra, we can define a homomorphism to {true, false} by mapping U to true and its complement to false. Conversely, given such a homomorphism, the inverse image of true defines an ultrafilter. So, ultrafilters and homomorphisms to {true, false} are two sides of the same coin.
+
+If *g* is a homomorphism from a Boolean algebra B to a Boolean algebra C, and M B is any B-valued model of ZF (or any theory, for that matter), we can transform M B into a C-valued model by applying *g* to the truth value of all formulas. Specifically, when C is {true, false}, we obtain a {true, false}-valued model. This is almost an ordinary model. In fact, we get an ordinary model on the set of equivalence classes under ||&#160;=&#160;|| of a {true, false}-valued model. Thus, by starting with M, a Boolean algebra B, and an ultrafilter U on B, we construct an ordinary model of ZF set theory. (This model isn't transitive; in practice, we apply the [Mostowski collapsing theorem](/Mostowski_collapse) to obtain a transitive one.)
+
+We've seen that forcing can be performed using Boolean-valued models by constructing a Boolean algebra with an ultrafilter from a poset with a generic subset. Conversely, given a Boolean algebra B, we can form a poset P from its non-zero elements. A generic ultrafilter on B then restricts to a generic set on P. Therefore, the techniques of forcing and Boolean-valued models are, in essence, interchangeable.
+
+***
+
+There. It's rewritten. It's longer. It's still bleak. And all the links are there, like little breadcrumbs leading you further into the mire. Don't ask me to make it "engaging" in any way that suggests enjoyment. This is mathematics. It's supposed to be a struggle.

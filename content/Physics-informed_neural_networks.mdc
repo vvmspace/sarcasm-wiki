@@ -1,0 +1,103 @@
+---
+title: "Physics-Informed Neural Networks"
+description: "Alright, you want me to explain this. Fine. Don't expect sunshine and rainbows. It's about solving equations, not finding a lost..."
+keywords: physical neural network, spatial, time, neural fields, physical laws, dynamics of a system, navier–stokes equations, conservation laws, mass
+slug: "Physics-informed_neural_networks"
+createdAt: "2025-11-17T07:50:02.312Z"
+updatedAt: "2025-11-17T07:50:02.312Z"
+contentType: "rewritten"
+---
+
+Alright, you want me to explain this. Fine. Don't expect sunshine and rainbows. It's about solving equations, not finding a lost puppy.
+
+### Technique to solve partial differential equations
+
+So, there's this thing called [Physical neural network](/Physical_neural_network). It's like a brain, but for physics. And then there are these **Physics-informed neural networks**, or PINNs for short. They’re also known as Theory-Trained Neural Networks, which sounds a bit more pretentious, doesn't it?
+
+PINNs are these clever function approximators. They don't just guess; they *know* the physical laws governing the data. You know, the stuff described by [partial differential equations](/Partial_differential_equation). It’s a problem when you don't have much data, which happens a lot in biology and engineering. Conventional machine learning gets lost. But PINNs? They use the existing physical laws as a guide, a sort of… *restraint*. It’s like telling a painter, "Here are the colors, and here's the canvas. Don't go overboard." This regularization limits the possible solutions, making the approximation more reliable, even with sparse data. It’s about squeezing more meaning out of what little you have. They process continuous [spatial](/Space) and [time](/Time) data, spitting out continuous solutions to these equations. So, yeah, they're basically [neural fields](/Neural_field).
+
+#### Function approximation
+
+Most of the fundamental [physical laws](/Scientific_law) that dictate how a [dynamics of a system](/Dynamical_system) behaves can be written down as partial differential equations. Take the [Navier–Stokes equations](/Navier%E2%80%93Stokes_equations), for instance. They’re born from basic [conservation laws](/Conservation_law) – [mass](/Mass), [momentum](/Momentum), [energy](/Energy) – and they govern [fluid mechanics](/Fluid_mechanics). If you can solve these with the right starting points and [boundary conditions](/Boundary_value_problem), you can map out how fluids move. The catch? They’re usually impossible to solve perfectly. So, we resort to numerical methods like [finite differences](/Finite_difference_method), [finite elements](/Finite_element_method), or [finite volumes](/Finite_volume_method). These methods involve assumptions, simplifications, and discretizations. It’s never quite the real thing.
+
+But now, we've got [deep learning](/Deep_learning) stepping in to solve these governing equations. It’s a whole new area: scientific machine learning. The big idea comes from the [universal approximation theorem](/Universal_approximation_theorem). Deep neural networks, given enough data, can approximate pretty much any function. The problem is, they often ignore the underlying physics. Their accuracy is still tied to how well you define the geometry and conditions. Without that, you get a solution, but it might not be the *right* one.
+
+PINNs, on the other hand, weave the governing physical equations right into the training. They’re built to satisfy both the data you *have* and the equations that *should* be true. This means they don't need mountains of data. The physics acts as a compass. Even with sparse or incomplete data, a PINN can find a remarkably accurate solution. In some cases, you might not even need the boundary conditions. So, with a bit of physical insight and some data, PINNs can deliver high-fidelity results.
+
+These networks are becoming a new breed of numerical solvers for PDEs, offering a meshfree alternative to traditional methods like [CFD](/Computational_Fluid_Dynamics). They're also handy for figuring out models from data. The really neat part? Once trained, a PINN can predict values on grids of different resolutions without needing to be retrained. And because they're essentially [neural fields](/Neural_field), they can use [automatic differentiation](/Automatic_differentiation) (AD) to calculate the derivatives needed for the PDEs. AD is far superior to clunky [numerical](/Numerical_differentiation) or error-prone [symbolic differentiation](/Symbolic_differentiation).
+
+#### Modeling and computation
+
+Let's look at a typical nonlinear partial differential equation:
+
+$$ u_t + N[u; \lambda] = 0, \quad x \in \Omega, \quad t \in [0, T] $$
+
+Here, $u(t, x)$ is the solution we're after, $N[ \cdot ; \lambda]$ is some operator with parameters $\lambda$, and $\Omega$ is our domain in space. This general form covers a lot of ground – conservation laws, diffusion, advection, you name it. If we have some messy measurements of a system described by this, PINNs can tackle two main tasks:
+
+*   **Data-driven solution:** This is where we find the hidden state $u(t, x)$ using boundary data and measurements $z$, assuming the model parameters $\lambda$ are already known. We're solving:
+
+    $$ u_t + N[u] = 0, \quad x \in \Omega, \quad t \in [0, T] $$
+
+    We define the *residual*, $f(t, x)$, as $f := u_t + N[u]$. Then, we approximate $u(t, x)$ with a deep neural network. Automatic differentiation handles the derivatives. The parameters of the network and the residual $f$ are learned by minimizing a total loss function, $L_{tot}$:
+
+    $$ L_{tot} = L_u + L_f $$
+
+    $L_u = \|u - z\|_{\Gamma}$ measures how well the network's output $u(t, x)$ matches the known data $z$ at specific points $\Gamma$. $L_f = \|f\|_{\Gamma}$ is the mean-squared error of the residual. This second term forces the network to learn the physics encoded in the PDE. This approach has led to efficient surrogate models for forecasting, control, and multi-physics simulations. It's proven to converge to the actual PDE solution.
+
+*   **Data-driven discovery of partial differential equations:** Here, we're given noisy, incomplete measurements $z$, and we need to find both the unknown state $u(t, x)$ *and* the model parameters $\lambda$ that best fit the data. The equation is:
+
+    $$ u_t + N[u; \lambda] = 0, \quad x \in \Omega, \quad t \in [0, T] $$
+
+    Again, we define the residual $f(t, x)$ as $f := u_t + N[u; \lambda]$. An approximated $u(t, x)$ from a deep neural network forms the basis of the PINN. Automatic differentiation computes the necessary derivatives. The parameters of $u$, $f$, *and* the unknown $\lambda$ are learned by minimizing the total loss function $L_{tot}$:
+
+    $$ L_{tot} = L_u + L_f $$
+
+    $L_u = \|u - z\|_{\Gamma}$ is the discrepancy between the network's solution $u$ and the measurements $z$ at points $\Gamma$. $L_f = \|f\|_{\Gamma}$ is the residual error. This term ensures the PDE is satisfied. This strategy allows us to discover underlying dynamic models described by PDEs, creating models that are both efficient and differentiable. They're useful for prediction, control, and [data assimilation](/Data_assimilation).
+
+#### Physics-informed neural networks for piece-wise function approximation
+
+PINNs can struggle with PDEs that have strong non-linearities or sharp gradients, common in fluid flow problems. Piece-wise approximation, a classic technique, helps here. By breaking down the problem into smaller domains, PINNs can handle complex non-linearities more efficiently, boosting accuracy and reducing computational load. Distributed PINNs (DPINNs) and Distributed Physics-Informed Extreme Learning Machines (DPIELMs) are examples of this domain discretization for better approximation. DPIELM is particularly fast and lightweight.
+
+[XPINNs](/XPINNs) take this a step further, generalizing domain decomposition across space and time. They're more flexible than earlier methods like Conservative PINNs (cPINNs), which were specialized for conservation laws. XPINNs can handle any PDE and allow for arbitrary domain decomposition, enabling both space and time parallelization for significant training cost reduction. They shine in large-scale or high-dimensional problems where a single network falters. Error bounds for PINNs and XPINNs have even been proven for approximating the Navier–Stokes equations. However, some research suggests that matching residuals at domain interfaces, as done in DPINN, might not significantly improve optimization.
+
+#### Physics-informed neural networks and theory of functional connections
+
+In standard PINNs, initial and boundary conditions aren't automatically satisfied. They have to be crammed into the loss function, leading to a multi-objective optimization problem. This can create unbalanced gradients, making training difficult. The [Theory of functional connections](/Theory_of_functional_connections) (TFC) offers a solution. By using constrained expressions, frameworks like Deep-TFC reduce the search space for the solution to only those that analytically satisfy the constraints.
+
+The Extreme Theory of Functional Connections (X-TFC) is an even more advanced evolution. It uses a single-layer Neural Network and the [extreme learning machine](/Extreme_learning_machine) algorithm, significantly improving accuracy and performance over regular PINNs. Its robustness has been demonstrated in stiff problems, optimal control, and aerospace applications.
+
+#### Physics-informed PointNet (PIPN) for multiple sets of irregular geometries
+
+Regular PINNs are stuck solving problems for a single geometry. Any new shape means retraining. This is a massive computational headache for industrial designs where geometry is often varied. [Physics-informed PointNet (PIPN)](/Physics-informed_PointNet) combines PINN's loss function with PointNet, a network designed for deep learning on point sets. Instead of a standard fully connected network, PIPN uses PointNet to extract geometric features. This allows it to solve governing equations across multiple, irregularly shaped domains simultaneously. It’s shown promise for [incompressible flow](/Incompressible_flow), [heat transfer](/Heat_transfer), and [linear elasticity](/Linear_elasticity).
+
+#### Physics-informed neural networks (PINNs) for inverse computations
+
+PINNs have proven particularly adept at solving inverse problems involving differential equations. They're finding use across science, engineering, and even economics. Applications range from nano-optics to topology optimization, multiphase flow, and high-speed fluid dynamics. PINNs handle noisy and uncertain data well, and they're flexible with multi-fidelity datasets (data of varying quality and quantity). Uncertainty quantification can be done using ensemble or Bayesian methods.
+
+PINNs can also work with [symbolic regression](/Symbolic_regression) to discover unknown mathematical expressions or parameters. One example is studying the chemical aging of cellulose, where PINNs first find parameters for ordinary differential equations (ODEs) and then a function solution, which is subsequently refined using symbolic regression.
+
+#### Physics-informed neural networks for elasticity problems
+
+PINNs are being used for plane elasticity problems, with ensembles of networks approximating strain, stress, and displacement fields. A residual network handles the PDE and boundary condition residuals. This AI-driven approach can be extended to nonlinear elasticity and even problems like Kirchhoff plate bending or contact models with elastic foundations. A comparison with classical methods like the Least Squares Finite Element Method is available.
+
+#### Physics-informed neural networks (PINNs) with backward stochastic differential equation
+
+The [Deep backward stochastic differential equation method](/Deep_backward_stochastic_differential_equation_method) merges deep learning with [Backward stochastic differential equation](/Backward_stochastic_differential_equation) (BSDE) to tackle high-dimensional problems, particularly in finance. It circumvents the "curse of dimensionality" that plagues traditional methods. By using neural networks to approximate solutions to high-dimensional PDEs, deep BSDE reduces computational demands. Integrating PINNs further strengthens this by embedding physical laws, ensuring solutions align with governing stochastic differential equations for greater accuracy and reliability.
+
+#### Physics-informed neural networks for biology
+
+[Biologically-informed neural networks (BINNs)](/Biologically-informed_neural_networks) are an adaptation of PINNs for biological problems. They modify the standard PINN in two ways: (i) mechanistic terms in the PDE are replaced by neural networks, and (ii) the loss function $L_{tot}$ is augmented with $L_{constr}$, which incorporates domain-specific biological knowledge. This first adaptation allows for more flexibility, as the governing differential equation doesn't need to be explicitly known or specified from a library. It also avoids issues with misspecified regularization terms.
+
+Consider cell dynamics, governed by a reaction-diffusion equation with diffusion $D(u)$ and growth $G(u)$ functions:
+
+$$ u_t = \nabla \cdot (D(u)\nabla u) + G(u)u, \quad x \in \Omega, \quad t \in [0, T] $$
+
+Here, $L_{constr}$ could penalize diffusion values $D$ outside a biologically relevant range $[D_{min}, D_{max}]$. A BINN using [multilayer-perceptrons](/Multilayer_perceptron) would work like this: one MLP models the cell density $u_{MLP}(x, t)$. This output feeds into two more MLPs, $D_{MLP}(u_{MLP})$ and $G_{MLP}(u_{MLP})$, which model the diffusion and growth functions. Automatic differentiation then calculates the necessary derivatives to form the reaction-diffusion equation. Note that $u_{MLP}$ is an approximation, so the equation might not be perfectly satisfied everywhere. The reaction-diffusion equation might still need to be solved numerically, perhaps using a [method-of-lines approach](/Method_of_lines).
+
+#### Limitations
+
+PINNs tend to struggle with translations and discontinuous behavior. They can fail with PDEs that are advection-dominated, though variable scaling can sometimes help. This difficulty with advection-dominated PDEs is thought to be related to the Kolmogorov n–width of the solution.
+
+They also haven't been successful with systems of dynamical systems or chaotic equations. A key reason for regular PINNs' struggles is the "soft-constraint" approach to boundary conditions. This creates a multi-objective optimization problem where you have to manually weigh different loss terms.
+
+More broadly, framing PDE solutions as an optimization problem inherits all the pitfalls of optimization, chief among them getting stuck in local optima. Some of these local optima are even linked to unstable solutions of the PDE.

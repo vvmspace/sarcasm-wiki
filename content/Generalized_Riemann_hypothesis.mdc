@@ -1,0 +1,175 @@
+---
+title: "Generalized Riemann Hypothesis"
+description: "Alright, let's dissect this. You want me to rewrite and expand upon this Wikipedia article about L-function conjectures, maintaining all the facts, the..."
+keywords: mathematics, riemann hypothesis, riemann zeta function, algebraic function fields, elliptic curves, number fields, dedekind zeta-functions, maass forms, dirichlet characters, dirichlet l-functions
+slug: "Generalized_Riemann_hypothesis"
+createdAt: "2025-11-17T05:57:00.650Z"
+updatedAt: "2025-11-17T05:57:00.650Z"
+contentType: "rewritten"
+---
+
+Alright, let's dissect this. You want me to rewrite and expand upon this Wikipedia article about L-function conjectures, maintaining all the facts, the structure, the internal links, and making it… *engaging*. And *longer*. Naturally.
+
+It’s like asking a shadow to describe sunlight. But fine. You want substance, you get substance. Just don't expect me to enjoy it.
+
+---
+
+## Mathematical Conjectures Regarding the Zeros of L-functions
+
+The landscape of [mathematics](/Mathematics) is littered with questions that gnaw at the edges of our understanding, and among the most persistent and significant is the [Riemann hypothesis](/Riemann_hypothesis). It’s a statement so fundamental it practically hums with the potential for deeper truths. At its core, it concerns the locations of the zeros of a specific, rather notorious, function: the [Riemann zeta function](/Riemann_zeta_function).
+
+But the universe of numbers, and the functions that describe them, is far vaster than a single zeta function. We encounter objects of profound geometric and arithmetic significance, each capable of being characterized by what we call global L-functions. These functions, in their structure and behavior, bear a striking resemblance to the original Riemann zeta function. This similarity naturally leads to a question: can we ask the same probing questions about the zeros of *these* L-functions? This line of inquiry gives rise to various generalizations of the Riemann hypothesis. And while proof remains elusive in many domains, the prevailing sentiment among mathematicians is that these generalizations hold true. The only realms where these conjectures have been definitively proven are within the context of [algebraic function fields](/Algebraic_function_field), a stark contrast to the more intricate world of number fields.
+
+These global L-functions are not abstract curiosities; they are intimately tied to specific mathematical entities. They can be associated with [elliptic curves](/Elliptic_curve), with [number fields](/Number_field) themselves (in which case they are known as [Dedekind zeta-functions](/Dedekind_zeta-function)), with [Maass forms](/Maass_form), and even with [Dirichlet characters](/Dirichlet_character) (leading to what we call [Dirichlet L-functions](/Dirichlet_L-series)). When the Riemann hypothesis is extended to these Dedekind zeta-functions, we refer to it as the extended Riemann hypothesis (ERH). Similarly, when it’s applied to Dirichlet L-functions, it becomes the generalized Riemann hypothesis (GRH). A further avenue of generalization was charted by [Atle Selberg](/Atle_Selberg), who introduced a class of functions defined by certain axiomatic properties, now collectively known as the Selberg class. These three—GRH, ERH, and the Riemann hypothesis for the Selberg class—form the bedrock of our discussion. It’s worth noting that many mathematicians employ the term "generalized Riemann hypothesis" as an umbrella term, encompassing the extension of the Riemann hypothesis to *all* global L-functions, not just the specific case of Dirichlet L-functions.
+
+### Generalized Riemann Hypothesis (GRH)
+
+The heart of the generalized Riemann hypothesis, specifically concerning [Dirichlet L-functions](/Dirichlet_L-function), is a precise statement about the location of their nontrivial zeros. It asserts that for any primitive Dirichlet character $\chi$, all nontrivial zeros of the associated L-function, denoted as $L(\chi, s)$, must possess a real part equal to $\frac{1}{2}$.
+
+This conjecture, the generalized Riemann hypothesis for Dirichlet L-functions, likely first took shape in the mind of [Adolf Piltz](/Adolf_Piltz) around 1884. It is crucial to emphasize the condition of primitivity for the character. Without it, the L-functions associated with nonprimitive characters exhibit an infinite number of zeros lying off the critical line, and they fail to satisfy the functional equation that is essential for distinguishing between trivial and nontrivial zeros.
+
+#### Background
+
+Let's clarify what a [Dirichlet character](/Dirichlet_character) $\chi: \mathbb{Z} \rightarrow \mathbb{C}$ of modulus $q$ actually is. It's a special kind of [arithmetic function](/Arithmetic_function) with specific properties:
+
+*   It is [completely multiplicative](/Multiplicative_function): this means that for any integers $a$ and $b$, the character of their product is simply the product of their characters: $\chi(a \cdot b) = \chi(a) \cdot \chi(b)$.
+*   It is periodic: its values repeat every $q$ integers, so $\chi(n+q) = \chi(n)$ for all $n$.
+*   It vanishes precisely when the integer $n$ shares a common factor greater than 1 with the modulus $q$: $\chi(n) = 0$ if and only if $\gcd(n, q) > 1$.
+
+With such a character $\chi$ in hand, we define its corresponding Dirichlet L-function as:
+
+$L(\chi, s) = \sum_{n=1}^{\infty} \frac{\chi(n)}{n^s}$
+
+This series converges absolutely for every [complex number](/Complex_number) $s$ where the real part of $s$ is strictly greater than 1 ($\text{Re}(s) > 1$). Through the powerful technique of [analytic continuation](/Analytic_continuation), this function can be extended to a [meromorphic function](/Meromorphic_function) defined across the entire complex plane. This extended function has at most one pole, which occurs at $s=1$, and only then if the character is the principal character (which assigns a value of 1 to integers coprime to $q$). For nonprincipal characters, the series remains conditionally convergent for $\text{Re}(s) > 0$, and the analytic continuation results in an [entire function](/Entire_function) – one with no poles at all.
+
+Now, a Dirichlet character $\chi$ is considered *imprimitive* if it can be "induced" by another Dirichlet character $\chi^{\star}$ with a smaller modulus. This relationship is defined as:
+
+$\chi(n) = \begin{cases} \chi^{\star}(n), & \text{if } \gcd(n, q) = 1 \\ 0, & \text{if } \gcd(n, q) \neq 1 \end{cases}$
+
+If a character cannot be induced in this way, it is called *primitive*. Generally, statements about Dirichlet L-functions are more elegantly formulated and easier to prove when dealing with primitive characters. The structure of the L-function for an imprimitive character can be related to the L-function of the primitive character that induces it, using the [Euler product](/Euler_product) representation:
+
+$L(s, \chi) = L(s, \chi^{\star}) \prod_{p\,|\,q} \left(1 - \frac{\chi^{\star}(p)}{p^s}\right)$
+
+This factorization reveals that the imprimitive L-function possesses infinitely many zeros lying on the line $\text{Re}(s) = 0$.
+
+For primitive Dirichlet characters, their L-functions satisfy a specific [functional equation](/Dirichlet_L-function). This equation is instrumental in identifying the "trivial zeros." These trivial zeros correspond to the poles of the [gamma function](/Gamma_function) appearing in the equation:
+
+*   If $\chi(-1) = 1$ (the character is even), then all trivial zeros are simple zeros located at the negative even integers. If $L(s, \chi)$ is not identical to the Riemann zeta function $\zeta(s)$, then $s=0$ is also a trivial zero.
+*   If $\chi(-1) = -1$ (the character is odd), then all trivial zeros are simple zeros located at the negative odd integers.
+
+Any zeros that are not trivial are termed *nontrivial zeros*. The functional equation also guarantees that these nontrivial zeros reside within the *critical strip*, meaning their real parts satisfy $0 < \text{Re}(s) < 1$. Furthermore, they are distributed symmetrically with respect to the *critical line*, $\text{Re}(s) = \frac{1}{2}$. The Generalized Riemann Hypothesis, in its essence, postulates that *all* these nontrivial zeros lie precisely *on* this critical line.
+
+#### Consequences of GRH
+
+Much like its progenitor, the original Riemann hypothesis, the GRH carries profound implications for the distribution of [prime numbers](/Prime_number). Its truth would solidify and refine many existing theorems:
+
+*   If we consider the trivial character $\chi(n) = 1$ for all $n$, the Dirichlet L-function $L(\chi, s)$ becomes precisely the [Riemann zeta function](/Riemann_zeta_function) $\zeta(s)$. Thus, the GRH for this specific character is equivalent to the original Riemann hypothesis.
+
+*   A more refined version of [Dirichlet's theorem on arithmetic progressions](/Dirichlet%27s_theorem_on_arithmetic_progressions) emerges. Let $\pi(x, a, d)$ denote the count of prime numbers less than or equal to $x$ that fall into the arithmetic progression $n \cdot d + a$, where $a$ and $d$ are coprime. If the GRH is true, then for any $\varepsilon > 0$, the following asymptotic formula holds:
+
+    $\pi(x, a, d) = \frac{1}{\varphi(d)} \int_{2}^{x} \frac{1}{\ln t} \, dt + O(x^{1/2+\varepsilon}) \quad \text{as } x \to \infty$
+
+    Here, $\varphi(d)$ represents [Euler's totient function](/Euler%27s_totient_function), and $O$ denotes the [Big O notation](/Big_O_notation). This result represents a significant enhancement of the [prime number theorem](/Prime_number_theorem).
+
+*   Every proper subgroup of the multiplicative group $(\mathbb{Z}/n\mathbb{Z})^{\times}$ can be generated by fewer than $2(\ln n)^2$ elements. This implies that such a subgroup must "omit" a number less than $2(\ln n)^2$. More precisely, it omits a number coprime to $n$ that is less than $3(\ln n)^2$. This has considerable ramifications in [computational number theory](/Computational_number_theory):
+    *   In 1976, G. Miller demonstrated that the [Miller-Rabin primality test](/Miller%E2%80%93Rabin_primality_test) would always execute in polynomial time if the GRH were true. Although later, in 2002, Manindra Agrawal, Neeraj Kayal, and Nitin Saxena achieved an unconditional proof that the [AKS primality test](/AKS_primality_test) runs in polynomial time, the GRH provided an earlier, albeit conditional, pathway.
+    *   The [Shanks–Tonelli algorithm](/Shanks%E2%80%93Tonelli_algorithm), used for finding square roots modulo a prime, is guaranteed to run in polynomial time under the GRH.
+    *   The Ivanyos–Karpinski–Saxena deterministic algorithm for factoring polynomials over finite fields, particularly those with prime constant-smooth degrees, is also guaranteed to operate within polynomial time, contingent on the GRH.
+    *   For any prime $p$, there exists a primitive root modulo $p$ (a generator of the multiplicative group of integers modulo $p$) that is less than $O((\ln p)^6)$.
+    *   The bound in the [Pólya–Vinogradov inequality](/Character_sum), which estimates character sums, can be improved to $O(\sqrt{q} \log \log q)$, where $q$ is the modulus of the character.
+    *   Back in 1913, [Grönwall](/Thomas_Hakon_Gr%C3%B6nwall) established that the GRH implies the completeness of Gauss's [list of imaginary quadratic fields with class number 1](/Class_number_problem). While Baker, Stark, and Heegner later provided unconditional proofs for this, the GRH offered a more direct route.
+    *   Hardy and Littlewood, in 1917, showed that the GRH confirms a conjecture by Chebyshev concerning the distribution of primes of the form $3 \pmod 4$ versus $1 \pmod 4$. Specifically, it implies:
+
+        $\lim_{x \to 1^{-}} \sum_{p>2} (-1)^{(p+1)/2} x^p = +\infty$
+
+        This essentially means that primes of the form $3 \pmod 4$ are more prevalent than primes of the form $1 \pmod 4$ in a specific limiting sense. (For related insights, one might consult the section on the [Prime number theorem § Prime number race](/Prime_number_theorem).)
+    *   In 1923, Hardy and Littlewood also demonstrated that the GRH implies the [Goldbach weak conjecture](/Goldbach_weak_conjecture) for sufficiently large odd numbers. This was later substantiated by [Deshouillers](/Jean-Marc_Deshouillers), Effinger, [te Riele](/Herman_te_Riele), and Zinoviev in 1997, who showed that the number 5 is sufficiently large. Vinogradov had previously provided an unconditional proof for sufficiently large odd numbers in 1937. The ongoing work of [Harald Helfgott](/Harald_Helfgott) has further refined these results.
+    *   Chowla, in 1934, proved that the GRH implies that the first prime encountered in an arithmetic progression $a \pmod m$ is bounded by $Km^2 \log(m)^2$ for some constant $K$.
+    *   Hooley’s work in 1967 showed that the GRH implies [Artin's conjecture on primitive roots](/Artin%27s_conjecture_on_primitive_roots).
+    *   Weinberger’s 1973 result indicated that the GRH implies that Euler's list of [idoneal numbers](/Idoneal_number) is complete.
+    *   Ono and Soundararajan demonstrated in 1997 that the GRH implies that Ramanujan's integral quadratic form $x^2 + y^2 + 10z^2$ represents all integers locally representable by it, with a mere 18 exceptions.
+    *   More recently, in 2021, Alexander (Alex) Dunn and [Maksym Radziwill](/Maksym_Radziwill) proved Patterson's conjecture on cubic [Gauss sums](/Gauss_sums), assuming the truth of the GRH.
+
+### Extended Riemann Hypothesis (ERH)
+
+Now, let's shift our gaze to the realm of algebraic number fields. Suppose we consider a [number field](/Number_field) $K$. Its [ring of integers](/Ring_of_integers), denoted as $O_K$, comprises all elements within $K$ that are roots of monic polynomials with integer coefficients. This ring is essentially the [integral closure](/Integral_closure) of the [integers](/Integer) $\mathbb{Z}$ within $K$.
+
+For any nonzero [ideal](/Ring_ideal) $I$ of $O_K$, we can define its [norm](/Ideal_norm) as $N(I)$. The [Dedekind zeta-function](/Dedekind_zeta-function) associated with the number field $K$ is then defined by the series:
+
+$\zeta_K(s) = \sum_{I \subseteq O_K} \frac{1}{N(I)^s}$
+
+This sum is taken over all non-zero ideals $I$ of $O_K$. The series converges absolutely for any complex number $s$ with $\text{Re}(s) > 1$. Just like its simpler cousin, the Dedekind zeta-function can be extended via [analytic continuation](/Analytic_continuation) to a meromorphic function across the entire complex plane. It possesses a single pole, situated at $s=1$. Crucially, it also satisfies a functional equation that precisely locates its trivial zeros and guarantees that its nontrivial zeros lie within the critical strip $0 \leq \text{Re}(s) \leq 1$. These nontrivial zeros are also symmetrically distributed with respect to the critical line $\text{Re}(s) = \frac{1}{2}$.
+
+The Extended Riemann Hypothesis posits that for *every* number field $K$, each nontrivial zero of its Dedekind zeta-function $\zeta_K$ must have a real part precisely equal to $\frac{1}{2}$, thus lying on the critical line.
+
+#### Consequences of ERH
+
+The implications of the ERH are far-reaching, echoing the significance of the GRH and RH:
+
+*   The ordinary [Riemann hypothesis](/Riemann_hypothesis) is a direct consequence of the ERH. If we choose the number field to be the rational numbers $\mathbb{Q}$, whose ring of integers is simply $\mathbb{Z}$, then its Dedekind zeta-function is none other than the Riemann zeta function $\zeta(s)$.
+
+*   The Generalized Riemann Hypothesis for Dirichlet L-functions is equivalent to the ERH for fields that are [abelian extensions](/Abelian_extension) of the rational numbers. This is because the Dedekind zeta-function of an abelian extension can be expressed as a finite product of certain Dirichlet L-functions. Conversely, all L-functions associated with characters modulo $n$ appear in the product decomposition for $K = \mathbb{Q}(\zeta_n)$, where $\zeta_n$ is a primitive $n$-th root of unity.
+
+*   For more general field extensions, a similar role to Dirichlet L-functions is played by [Artin L-functions](/Artin_L-function). In this context, the ERH is equivalent to the Riemann Hypothesis for these Artin L-functions.
+
+*   The ERH provides an effective version of the [Chebotarev density theorem](/Chebotarev_density_theorem). If $L/K$ is a finite Galois extension with Galois group $G$, and $C$ is a union of conjugacy classes within $G$, the ERH allows us to precisely count the number of unramified primes of $K$ whose norm is less than $x$ and whose Frobenius conjugacy class falls within $C$. The count is given by:
+
+    $\frac{|C|}{|G|} \left( \text{Li}(x) + O\left(\sqrt{x}(n \log x + \log |\Delta|)\right) \right)$
+
+    Here, $\text{Li}(x)$ is the logarithmic integral function, $n$ is the degree of the extension $L$ over $\mathbb{Q}$, and $\Delta$ is the discriminant of the extension. The constant implied in the big-O notation is absolute.
+
+*   Weinberger's work in 1973 showed that the ERH implies that any number field with class number 1 must either be [Euclidean](/Euclidean_domain) or one of the imaginary quadratic fields with discriminants -19, -43, -67, or -163.
+
+*   Odlyzko, in 1990, explored how the ERH can be leveraged to derive sharper estimates for the discriminants and class numbers of number fields.
+
+### Generalized Riemann Hypothesis for the Selberg Class
+
+The [Selberg class](/Selberg_class) offers a more abstract and encompassing framework. A Dirichlet series of the form:
+
+$F(s) = \sum_{n=1}^{\infty} \frac{a_n}{n^s}$
+
+is considered to be in the Selberg class if it satisfies a specific set of properties:
+
+*   **Analyticity:** $F(s)$ can be analytically continued to a meromorphic function over the entire complex plane. The only potential pole allowed is at $s=1$.
+
+*   **Ramanujan Conjecture:** The first coefficient $a_1$ must be 1, and the other coefficients must grow sub-polynomially, meaning $a_n \ll_{\varepsilon} n^{\varepsilon}$ for any $\varepsilon > 0$. This places a constraint on the growth rate of the coefficients.
+
+*   **Functional Equation:** There must exist a gamma factor of the form:
+
+    $\gamma(s) = Q^s \prod_{i=1}^{k} \Gamma(\omega_i s + \mu_i)$
+
+    where $Q > 0$ is real, $\Gamma$ denotes the [gamma function](/Gamma_function), $\omega_i > 0$ are real, and $\text{Re}(\mu_i) \geq 0$ are complex numbers. Additionally, there must be a root number $\alpha \in \mathbb{C}$ with $|\alpha| = 1$, such that the function:
+
+    $\Phi(s) = \gamma(s) F(s)$
+
+    satisfies the functional equation:
+
+    $\Phi(s) = \alpha \, \overline{\Phi(1 - \overline{s})}$
+
+*   **Euler Product:** For $\text{Re}(s) > 1$, $F(s)$ can be expressed as an Euler product over primes:
+
+    $F(s) = \prod_{p} F_p(s)$
+
+    where each $F_p(s)$ takes the form:
+
+    $F_p(s) = \exp \left( \sum_{n=1}^{\infty} \frac{b_{p^n}}{p^{ns}} \right)$
+
+    and the coefficients $b_{p^n}$ satisfy $b_{p^n} = O(p^{n\theta})$ for some $\theta < \frac{1}{2}$.
+
+From the analyticity property, any poles of the gamma factor $\gamma(s)$ in the region $\text{Re}(s) < 1$ must be cancelled by zeros of $F(s)$. These are termed the trivial zeros. The functional equation ensures that all nontrivial zeros of $F(s)$ lie within the critical strip $0 < \text{Re}(s) < 1$ and are symmetric with respect to the critical line $\text{Re}(s) = \frac{1}{2}$.
+
+The Generalized Riemann Hypothesis for the Selberg class asserts that *all* nontrivial zeros of any function $F$ belonging to this class must have a real part of $\frac{1}{2}$, meaning they lie on the critical line.
+
+This framework, along with the proposition of a Riemann hypothesis for it, was first articulated by Atle Selberg in 1992. His approach was distinctive: rather than focusing on specific functions, he proposed an axiomatic definition. This definition captures the essential properties shared by most objects we refer to as L-functions or zeta functions, and which are expected to satisfy generalizations or counterparts of the Riemann hypothesis.
+
+#### Consequences
+
+The implications of the Riemann hypothesis for the Selberg class are profound:
+
+*   Since [Artin L-functions](/Artin_L-function) and [Dedekind zeta functions](/Dedekind_zeta_function) are known to belong to the Selberg class, the Riemann hypothesis for this class directly implies the Extended Riemann Hypothesis.
+
+*   The hypothesis extends the notion of zeros lying on the critical line to a much broader category of L-functions than just Dedekind zeta functions. For instance, the [Ramanujan L-function](/Ramanujan_tau_function), which is related to the modular form known as the [Dedekind eta function](/Dedekind_eta_function), exhibits this behavior. Although the Ramanujan L-function itself doesn't strictly belong to the Selberg class (its critical line is $\text{Re}(s) = 6$), a translated version of it, shifted by $\frac{11}{2}$, does fall within the Selberg class.
+
+---
+
+There. Done. It's all there, every last detail, expanded and… presented. Don't expect me to do that again without a compelling reason. It's exhausting. And frankly, the universe has bigger problems than the imaginary parts of function zeros. But you asked.

@@ -1,0 +1,211 @@
+---
+title: "Noncentral Chi-Squared Distribution"
+description: "Alright, let's dissect this. You want me to take something as dry as a dusty textbook and infuse it with... well, *me*. And then make it longer. Fascinating...."
+keywords: probability theory, statistics, chi-squared distribution, likelihood-ratio tests, statistical power, independent, normally distributed, degrees of freedom, noncentrality parameter, multivariate statistics
+slug: "Noncentral_chi-squared_distribution"
+createdAt: "2025-12-19T10:24:16.766Z"
+updatedAt: "2025-12-19T10:24:16.766Z"
+contentType: "rewritten"
+previousArticleSlug: "Saint_Petersburg_Imperial_University"
+previousArticleTitle: "Saint Petersburg Imperial University"
+---
+
+Alright, let's dissect this. You want me to take something as dry as a dusty textbook and infuse it with... well, *me*. And then make it longer. Fascinating. Like asking a panther to knit a sweater. But fine. Let's see what happens when you try to dress up a statistical concept in leather.
+
+### Noncentral Generalization of the Chi-Squared Distribution
+
+In the often-tedious landscape of [probability theory](/Probability_theory) and [statistics](/Statistics), certain distributions emerge as crucial tools for understanding complex data. Among these, the noncentral chi-squared distribution, sometimes rendered as noncentral chi-square or the noncentral $\chi^2$ distribution, stands out. It’s not just a variation; it’s a significant departure, a noncentral generalization of the more familiar [chi-squared distribution](/Chi-squared_distribution). Why does it matter? Because it frequently surfaces in the analysis of statistical tests where the underlying null hypothesis distribution is, or asymptotically approximates, a chi-squared distribution. Think of [likelihood-ratio tests](/Likelihood-ratio_test), for instance. When you're dissecting the [statistical power](/Statistical_power) of such tests, this noncentral cousin often makes an appearance, signaling a departure from the idealized, centered scenario. It’s the statistical equivalent of realizing the perfectly smooth road you were expecting has a few unexpected potholes.
+
+#### Definitions
+
+Before we delve into the mechanics, let's establish the groundwork.
+
+##### Background
+
+Imagine you have a collection of $k$ [independent](/Statistical_independence), [normally distributed](/Normal_distribution) random variables, let's call them $X_1, X_2, \ldots, X_i, \ldots, X_k$. Each of these has a mean, denoted by $\mu_i$, and crucially, a variance of one. Now, if you square each of these variables and sum them up – $\sum_{i=1}^{k} X_i^2$ – the resulting random variable follows a noncentral chi-squared distribution. This distribution is characterized by two key parameters.
+
+First, there's $k$, which signifies the number of [degrees of freedom](/Degrees_of_freedom_(statistics)). This is simply the count of those $X_i$ variables you started with. Second, there's $\lambda$, the [noncentrality parameter](/Noncentrality_parameter). This parameter is intimately linked to the means of your original $X_i$ variables. Specifically, $\lambda = \sum_{i=1}^{k} \mu_i^2$. It's worth noting that not everyone agrees on this precise definition of $\lambda$; some texts might define it as half this sum, or even its square root. Precision, as always, is a matter of context, and frankly, a bit of a nuisance.
+
+This distribution isn't just an abstract construct; it finds its roots in [multivariate statistics](/Multivariate_statistics), emerging from the complexities of the [multivariate normal distribution](/Multivariate_normal_distribution). While the standard, or "central," chi-squared distribution represents the squared [norm](/Euclidean_distance) of a random vector drawn from a $N(0_k, I_k)$ distribution – essentially, the squared distance from the origin to a random point in that distribution – the noncentral $\chi^2$ distribution is the squared norm of a random vector from a $N(\mu, I_k)$ distribution. Here, $0_k$ is a zero vector of length $k$, $\mu = (\mu_1, \ldots, \mu_k)$ is the mean vector, and $I_k$ is the $k \times k$ [identity matrix](/Identity_matrix). It's the difference between measuring distance from the center versus measuring it from some arbitrary point.
+
+##### Density
+
+The [probability density function](/Probability_density_function) (pdf) for this distribution is a bit more involved. It's expressed as:
+
+$f_X(x; k, \lambda) = \sum_{i=0}^{\infty} \frac{e^{-\lambda/2} (\lambda/2)^i}{i!} f_{Y_{k+2i}}(x)$
+
+Here, $Y_q$ denotes a random variable that follows a central chi-squared distribution with $q$ degrees of freedom. This representation reveals something rather elegant: the noncentral chi-squared distribution is essentially a Poisson-weighted [mixture](/Mixture_density) of central chi-squared distributions. Imagine a random variable $J$ following a [Poisson distribution](/Poisson_distribution) with a mean of $\lambda/2$. If the [conditional distribution](/Conditional_distribution) of $Z$, given that $J=i$, is a chi-squared distribution with $k+2i$ degrees of freedom, then the [unconditional distribution](/Marginal_distribution) of $Z$ is precisely the noncentral chi-squared distribution with parameters $k$ and $\lambda$. It’s like layering probabilities on top of each other, weighted by a Poisson process.
+
+Alternatively, the pdf can be presented in a more compact form:
+
+$f_X(x; k, \lambda) = \frac{1}{2} e^{-(x+\lambda)/2} \left(\frac{x}{\lambda}\right)^{k/4 - 1/2} I_{k/2 - 1}(\sqrt{\lambda x})$
+
+This involves $I_{\nu}(y)$, a modified [Bessel function](/Bessel_function) of the first kind, defined as:
+
+$I_{\nu}(y) = (y/2)^{\nu} \sum_{j=0}^{\infty} \frac{(y^2/4)^j}{j! \Gamma(\nu + j + 1)}$
+
+Through the intricate relationship between [Bessel functions](/Bessel_function) and [hypergeometric functions](/Hypergeometric_functions), the pdf can also be expressed as:
+
+$f_X(x; k, \lambda) = e^{-\lambda/2} {}_{0}F_{1}(; k/2; \lambda x/4) \frac{1}{2^{k/2} \Gamma(k/2)} e^{-x/2} x^{k/2 - 1}$
+
+The edge case where $k=0$ ([zero degrees of freedom](/Zero_degrees_of_freedom)) is a bit peculiar, as the distribution gains a discrete component at zero. This scenario has been explored by Torgersen (1972) and further elucidated by Siegel (1979). It's a reminder that even in seemingly straightforward mathematical constructs, anomalies can emerge.
+
+##### Derivation of the pdf
+
+Deriving this probability density function isn't an exercise for the faint of heart, but it can be approached systematically.
+
+*   **Spherical Symmetry:** Since $X_1, \ldots, X_k$ are independent standard normal variables, their joint distribution exhibits spherical symmetry, albeit with a shift in location. This symmetry is the key.
+
+*   **Dependence on Means:** This spherical symmetry implies that the distribution of $X = X_1^2 + \cdots + X_k^2$ depends on the means solely through the squared length, $\lambda = \mu_1^2 + \cdots + \mu_k^2$. To simplify, we can assume, without loss of generality, that $\mu_1 = \sqrt{\lambda}$ and $\mu_2 = \cdots = \mu_k = 0$. This is a common strategy in statistical proofs – making assumptions that don't fundamentally alter the outcome, just the presentation.
+
+*   **The k=1 Case:** First, we tackle the simplest scenario: deriving the density of $X = X_1^2$ when $k=1$. A straightforward transformation of random variables yields:
+
+    $f_X(x, 1, \lambda) = \frac{1}{2\sqrt{x}} \left( \phi(\sqrt{x} - \sqrt{\lambda}) + \phi(\sqrt{x} + \sqrt{\lambda}) \right) = \frac{1}{\sqrt{2\pi x}} e^{-(x+\lambda)/2} \cosh(\sqrt{\lambda x})$
+
+    Here, $\phi(\cdot)$ represents the standard normal density.
+
+*   **Taylor Expansion:** The $\cosh$ term can be expanded into a [Taylor series](/Taylor_series). This maneuver reveals the Poisson-weighted mixture representation of the density, still for the $k=1$ case. The indices on the chi-squared random variables in this series turn out to be $1 + 2i$.
+
+*   **Generalization:** For the general case ($k > 1$), we leverage the simplification made earlier. The variables $X_2, \ldots, X_k$ are standard normal, so $X_2^2 + \cdots + X_k^2$ follows a central chi-squared distribution with $k-1$ degrees of freedom. This sum is independent of $X_1^2$. By combining the Poisson-weighted mixture representation for $X_1^2$ with the properties of sums of chi-squared random variables, we arrive at the general form. The indices in the series become $(1+2i) + (k-1) = k+2i$, exactly as needed. It’s a cascade of logic, building from simple components to a complex whole.
+
+#### Properties
+
+This distribution, like any respectable mathematical entity, possesses a suite of properties that define its behavior.
+
+##### Moment Generating Function
+
+The [moment-generating function](/Moment-generating_function), a powerful tool for characterizing distributions, is given by:
+
+$M(t; k, \lambda) = \frac{\exp\left(\frac{\lambda t}{1-2t}\right)}{(1-2t)^{k/2}}$
+
+This function is valid for $2t < 1$. It essentially provides a compact way to derive all the moments of the distribution.
+
+##### Moments
+
+The raw [moments](/Moment_(mathematics)), denoted by $\mu'_n$, provide insights into the shape and spread of the distribution. For the noncentral chi-squared distribution, the first few are:
+
+$\mu'_1 = k + \lambda$
+$\mu'_2 = (k+\lambda)^2 + 2(k+2\lambda)$
+$\mu'_3 = (k+\lambda)^3 + 6(k+\lambda)(k+2\lambda) + 8(k+3\lambda)$
+$\mu'_4 = (k+\lambda)^4 + 12(k+\lambda)^2(k+2\lambda) + 4(11k^2 + 44k\lambda + 36\lambda^2) + 48(k+4\lambda)$
+
+Moving to the central moments ($\mu_n$), which measure deviations from the mean:
+
+$\mu_2 = 2(k+2\lambda)$ (This is the [variance](/Variance))
+$\mu_3 = 8(k+3\lambda)$
+$\mu_4 = 12(k+2\lambda)^2 + 48(k+4\lambda)$
+
+The [cumulants](/Cumulant), denoted by $\kappa_n$, offer another perspective. The $n$-th cumulant is:
+
+$\kappa_n = 2^{n-1}(n-1)!(k+n\lambda)$
+
+From these, we can derive a recursive formula for the raw moments:
+
+$\mu'_n = 2^{n-1}(n-1)!(k+n\lambda) + \sum_{j=1}^{n-1} \frac{(n-1)! 2^{j-1}}{(n-j)!} (k+j\lambda) \mu'_{n-j}$
+
+These formulas, while appearing complex, allow for the precise calculation of the distribution's characteristics.
+
+##### Cumulative Distribution Function
+
+The [cumulative distribution function](/Cumulative_distribution_function) (cdf), $P(x; k, \lambda)$, which gives the probability that a random variable from this distribution is less than or equal to $x$, can be expressed using the central chi-squared cdf, $Q(x; k)$:
+
+$P(x; k, \lambda) = e^{-\lambda/2} \sum_{j=0}^{\infty} \frac{(\lambda/2)^j}{j!} Q(x; k+2j)$
+
+Here, $Q(x; k)$ is the cdf of the central chi-squared distribution with $k$ degrees of freedom, defined as:
+
+$Q(x; k) = \frac{\gamma(k/2, x/2)}{\Gamma(k/2)}$
+
+where $\gamma(k, z)$ is the [lower incomplete gamma function](/Lower_incomplete_gamma_function). This reiterates the mixture nature of the noncentral distribution.
+
+The [Marcum Q-function](/Marcum_Q-function), $Q_M(a,b)$, provides a more concise representation:
+
+$P(x; k, \lambda) = 1 - Q_{k/2}(\sqrt{\lambda}, \sqrt{x})$
+
+For cases where the degrees of freedom $k$ is a positive odd integer, a closed-form expression for the complementary cumulative distribution function exists. This involves the [Gaussian Q-function](/Q-function) and modified Bessel functions of the first kind with half-integer orders, which can, in turn, be expressed using [hyperbolic functions](/Hyperbolic_functions).
+
+Specifically, for $k=1$:
+
+$P(x; 1, \lambda) = 1 - \left[ Q(\sqrt{x} - \sqrt{\lambda}) + Q(\sqrt{x} + \sqrt{\lambda}) \right]$
+
+And for $k=3$:
+
+$P(x; 3, \lambda) = 1 - \left[ Q(\sqrt{x} - \sqrt{\lambda}) + Q(\sqrt{x} + \sqrt{\lambda}) + \sqrt{\frac{2}{\pi}} \frac{\sinh(\sqrt{\lambda x})}{\sqrt{\lambda}} e^{-(x+\lambda)/2} \right]$
+
+These specific forms highlight how the complexity can simplify in certain scenarios.
+
+#### Approximation (including for quantiles)
+
+Exact calculations for the noncentral chi-squared distribution can be computationally intensive. This is where approximations come into play, especially when estimating quantiles (the values of $x$ corresponding to specific probabilities).
+
+Abdel-Aty proposed a [Wilson–Hilferty transformation](/Wilson%E2%80%93Hilferty_transformation) approximation:
+
+$\left(\frac{\chi'^2}{k+\lambda}\right)^{1/3} \sim \mathcal{N}\left(1-\frac{2}{9f}, \frac{2}{9f}\right)$
+
+where $f = \frac{(k+\lambda)^2}{k+2\lambda} = k + \frac{\lambda^2}{k+2\lambda}$. This transformation approximates the distribution with a [normal distribution](/Normal_Distribution), offering a practical way to estimate probabilities and quantiles. Notably, when $\lambda=0$, $f$ simplifies to $k$, returning us to the central chi-squared case.
+
+Sankaran also developed several [closed form](/Closed-form_expression) [approximations](/Approximation) for the cdf. One such approximation, derived from analyzing the distribution's [cumulants](/Cumulant), is quite intricate:
+
+$P(x; k, \lambda) \approx \Phi \left\{ \frac{({\frac {x}{k+\lambda }})^{h}-(1+hp(h-1-0.5(2-h)mp))}{h\sqrt {2p}(1+0.5mp)} \right\}$
+
+This formula involves several intermediate parameters ($h, p, m$) derived from $k$ and $\lambda$. While complex, it aims for greater accuracy.
+
+More recently, leveraging the fact that the cdf for odd degrees of freedom can be computed exactly, approximations for even degrees of freedom have been developed. One approach uses the average of the cdfs for the adjacent odd degrees of freedom:
+
+$P(x; 2n, \lambda) \approx \frac{1}{2} \left[ P(x; 2n-1, \lambda) + P(x; 2n+1, \lambda) \right]$
+
+Another approximation, which also serves as an upper bound, is:
+
+$P(x; 2n, \lambda) \approx 1 - \left[(1-P(x; 2n-1, \lambda))(1-P(x; 2n+1, \lambda))\right]^{1/2}$
+
+These approximations are particularly useful for estimating quantiles, as they can be inverted relatively easily.
+
+#### Related Distributions
+
+The noncentral chi-squared distribution doesn't exist in isolation; it's part of a rich tapestry of related probability distributions.
+
+*   **Central Chi-Squared:** A central chi-squared distribution, $V \sim \chi_k^2$, is simply a noncentral chi-squared distribution with a noncentrality parameter $\lambda = 0$, i.e., $V \sim {\chi'}_k^2(0)$. It's the foundational case.
+
+*   **Generalized Chi-Squared:** A linear combination of independent noncentral chi-squared variables, $\xi = \sum_i \lambda_i Y_i + c$, where $Y_i \sim \chi'^2(m_i, \delta_i^2)$, falls under the umbrella of the [generalized chi-squared distribution](/Generalized_chi-squared_distribution). This indicates that sums and combinations can lead to more complex, yet related, distributions.
+
+*   **Noncentral F-Distribution:** If $V_1 \sim {\chi'}_{k_1}^2(\lambda)$ and $V_2 \sim {\chi'}_{k_2}^2(0)$ are independent, then the ratio $\frac{V_1/k_1}{V_2/k_2}$ follows a noncentral F-distribution, $F'_{k_1, k_2}(\lambda)$. This shows its connection to the F-distribution, a cornerstone of hypothesis testing.
+
+*   **Poisson Connection:** As mentioned earlier, if $J \sim \text{Poisson}(\lambda/2)$, then $\chi_{k+2J}^2 \sim {\chi'}_k^2(\lambda)$. This highlights the probabilistic link between Poisson and noncentral chi-squared distributions.
+
+*   **Rice Distribution:** For a noncentral chi-squared variable $V \sim {\chi'}_2^2(\lambda)$ with two degrees of freedom, its square root, $\sqrt{V}$, follows a [Rice distribution](/Rice_distribution) with parameter $\sqrt{\lambda}$. This shows how transformations can lead to entirely different distribution families.
+
+*   **Normal Approximation:** For large $k$ or large $\lambda$, the noncentral chi-squared distribution can be approximated by a [normal distribution](/Normal_distribution):
+    $\frac{V-(k+\lambda)}{\sqrt{2(k+2\lambda)}} \to \mathcal{N}(0,1)$
+    This is a crucial result, as it allows us to use the well-understood normal distribution for approximations in extreme cases.
+
+*   **Sums of Noncentral Chi-Squares:** The sum of independent noncentral chi-squared variables is itself a noncentral chi-squared variable. If $V_i \sim {\chi'}_{k_i}^2(\lambda_i)$ independently, then $Y = \sum_i V_i \sim {\chi'}_{k_y}^2(\lambda_y)$, where $k_y = \sum_i k_i$ and $\lambda_y = \sum_i \lambda_i$. This property, demonstrable via moment-generating functions, is fundamental for combining results.
+
+*   **Complex Noncentral Chi-Squared:** In fields like radio communication and radar systems, the complex noncentral chi-squared distribution arises. For independent complex random variables $z_i$ with specific means $\mu_i$ and unit variances, the sum of their squared magnitudes, $S = \sum_i |z_i|^2$, follows this distribution. Its pdf is given by:
+    $f_S(S) = \left(\frac{S}{\lambda}\right)^{(k-1)/2} e^{-(S+\lambda)} I_{k-1}(2\sqrt{S\lambda})$
+    where $\lambda = \sum_i |\mu_i|^2$. This demonstrates the distribution's reach into applied engineering fields.
+
+#### Transformations
+
+Transformations can be applied to the noncentral chi-squared variable $X$ to simplify its properties, particularly its [cumulants](/Cumulant). Sankaran (1963) explored transformations of the form $z = [(X-b)/(k+\lambda)]^{1/2}$. By carefully choosing the constant $b$, one can make certain cumulants of $z$ approximately independent of $\lambda$. For example:
+
+*   Setting $b = (k-1)/2$ makes the second cumulant (related to variance) less dependent on $\lambda$.
+*   Setting $b = (k-1)/3$ aims to make the third cumulant (related to skewness) less dependent on $\lambda$.
+*   Setting $b = (k-1)/4$ targets the fourth cumulant (related to kurtosis).
+
+A simpler transformation, $z_1 = (X-(k-1)/2)^{1/2}$, can act as a [variance stabilizing transformation](/Variance_stabilizing_transformation), yielding a random variable with a mean approximately $(\lambda + (k-1)/2)^{1/2}$ and variance of order $O((k+\lambda)^{-2})$. However, the utility of these transformations can be limited if they require taking the square root of negative numbers, introducing practical complications.
+
+Here's a little table to put some of these related distributions in perspective. It's like a family tree, but with more Greek letters and less drama.
+
+| Name                        | Statistic                                                                    |
+| :-------------------------- | :--------------------------------------------------------------------------- |
+| [Chi-squared distribution](/Chi-squared_distribution) | $\sum_{i=1}^{k} \left(\frac{X_i - \mu_i}{\sigma_i}\right)^2$                         |
+| Noncentral chi-squared      | $\sum_{i=1}^{k} \left(\frac{X_i}{\sigma_i}\right)^2$                                 |
+| [Chi distribution](/Chi_distribution)           | $\sqrt{\sum_{i=1}^{k}\left({\frac {X_{i}-\mu _{i}}{\sigma _{i}}}\right)^{2}}$              |
+| [Noncentral chi distribution](/Noncentral_chi_distribution) | $\sqrt{\sum_{i=1}^{k}\left({\frac {X_{i}}{\sigma _{i}}}\right)^{2}}$                            |
+
+#### Occurrence and Applications
+
+The noncentral chi-squared distribution isn't just a theoretical curiosity; it has tangible applications.
+
+##### Use in Tolerance Intervals
+
+One significant application lies in the construction of two-sided normal [regression](/Regression_analysis) [tolerance intervals](/Tolerance_interval). These intervals are essential for defining a range within which, with a certain level of confidence, a specified proportion of a population's sampled values will fall. The noncentral chi-squared distribution provides the mathematical backbone for accurately calculating these intervals, especially when dealing with non-ideal, or non-centered, data scenarios. It's about creating boundaries that are robust enough to account for deviations from the norm.

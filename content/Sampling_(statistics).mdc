@@ -1,0 +1,992 @@
+---
+title: "Sampling (Statistics)"
+description: "Ah, statistics. The art of drawing conclusions from incomplete data. Fascinating, in a way. Like trying to predict the trajectory of a falling leaf by..."
+keywords: statistics, survey methodology, statistical population, survey sampling, stratified sampling, probability theory, statistical theory, acceptance sampling, specifications, bible
+slug: "Sampling_(statistics)"
+createdAt: "2025-11-19T11:09:08.862Z"
+updatedAt: "2025-11-19T11:09:08.862Z"
+contentType: "rewritten"
+---
+
+Ah, statistics. The art of drawing conclusions from incomplete data. Fascinating, in a way. Like trying to predict the trajectory of a falling leaf by observing only its initial flutter. You want me to elaborate on how one goes about selecting these… fragments of reality? Very well. But don't expect me to feign enthusiasm.
+
+### Selection of Data Points in Statistics
+
+In the grand, often messy, theater of [statistics](/Statistics), quality assurance, and the meticulous craft of [survey methodology](/Survey_methodology), sampling is the fundamental act of selecting a subset – a statistical sample, or simply a "sample" – from a larger [statistical population](/Population_(statistics)). The entire point, you see, is to infer the characteristics of that colossal whole by meticulously examining a mere sliver of it. This chosen fragment, this sample, is meant to mirror the population it represents. Statisticians, bless their meticulous hearts, strive to collect samples that aren't just random but are, in fact, *representative*.
+
+Why this obsession with samples? Because the alternative is often… inconvenient. Or, more accurately, impossible. Imagine trying to measure the exact size of every star in the observable universe. Absurd. Sampling, however, offers a more palatable approach. It dramatically slashes costs and accelerates the agonizingly slow process of data collection compared to trying to count every single grain of sand on a beach, or, in our celestial example, every single star. It allows us to glean insights, however imperfect, in situations where exhaustively measuring the entire population is simply not feasible.
+
+Each individual observation within this sample, mind you, is a measurement of one or more properties. Think of it as documenting the weight, the location, the color, or the sheer mass of independent objects or individuals. In the rather sterile realm of [survey sampling](/Survey_sampling), these data points might even be assigned weights. This isn't about making them heavier; it's about adjusting them to account for the intricacies of the sample design, particularly when employing techniques like [stratified sampling](/Stratified_sampling). &#91;1&#93; The entire endeavor is underpinned by the cold, hard logic of [probability theory](/Probability_theory) and [statistical theory](/Statistical_theory). Businesses and medical researchers, who are perpetually in need of information about populations, rely heavily on this practice. &#91;2&#93; And then there's [acceptance sampling](/Acceptance_sampling), a more pragmatic application, used to determine if a batch of manufactured goods actually meets the required [specifications](/Specification).
+
+#### History
+
+The concept of selecting items randomly, using methods akin to drawing lots, is ancient. It's even mentioned, rather surprisingly, in the [Bible](/Bible). Fast forward to 1786, and [Pierre Simon](/Laplace) Laplace, with a foresight that borders on the uncanny, estimated the population of France using a sample. He even employed a [ratio estimator](/Ratio_estimator) and, remarkably, calculated probabilistic estimates of the error. While not expressed in the modern language of [confidence intervals](/Confidence_interval), his approach anticipated the need to quantify uncertainty. He used [Bayes' theorem](/Bayes%27_theorem) with a uniform [prior probability](/Prior_probability), assuming his sample was, of course, random. In the vast expanse of [Imperial Russia](/Imperial_Russia), [Alexander Ivanovich Chuprov](/Alexander_Ivanovich_Chuprov) was introducing the concept of sample surveys in the 1870s. &#91;3&#93;
+
+Across the Atlantic, in the United States, the year 1936 proved to be a rather spectacular miscalculation. The [Literary Digest](/Literary_Digest) confidently predicted a Republican victory in the [presidential election](/U.S._presidential_election,_1936), a prediction that went spectacularly wrong. The study, which amassed over two million responses, obtained from magazine subscription lists and telephone directories, suffered from a critical flaw: bias. These lists were heavily skewed towards Republicans, resulting in a sample, despite its immense size, that was fundamentally unrepresentative. &#91;4&#93;&#91;5&#93;
+
+In a more contemporary context, [Elections in Singapore](/Elections_in_Singapore) have integrated this practice since the [2015 election](/2015_Singaporean_general_election). These "sample counts," as they're known, are intended to curb speculation and misinformation, acting as an initial check against official results. The [Elections Department](/Elections_Department_Singapore) (ELD) clarifies that while these sample counts offer a reasonably accurate indicative result (typically within a 4% [margin of error](/Margin_of_error) at a 95% [confidence interval](/Confidence_interval)), they are distinct from the official declarations made by the returning officer. &#91;6&#93;&#91;7&#93;
+
+#### Population Definition
+
+The bedrock of any successful statistical endeavor, including sampling, lies in a clearly defined problem. When it comes to sampling, this unequivocally means defining the "[population](/Statistical_population)" from which the sample is to be drawn. A population, in this context, encompasses all individuals or items possessing the characteristics one aims to understand. The inconvenient truth is that rarely do we possess the time or resources to gather information from every single entity within this population. Thus, the paramount objective becomes the identification and selection of a sample that is, in essence, a representative microcosm of the whole.
+
+At times, the definition of a population is remarkably straightforward. Consider a manufacturer tasked with assessing the quality of a batch of material fresh from [production](/Batch_production). The batch itself constitutes the population under scrutiny.
+
+While populations frequently consist of tangible objects, there are instances where sampling must extend across dimensions of time, space, or a combination thereof. For example, a study investigating supermarket staffing might focus on checkout line lengths at various points in time. Similarly, a study on endangered penguins might aim to map their hunting grounds over a period. For temporal sampling, the focus can be on discrete moments or continuous intervals.
+
+In other scenarios, the 'population' under examination can be far more abstract. Take, for instance, the work of [Joseph Jagger](/Joseph_Jagger), who meticulously studied the behavior of [roulette](/Roulette) wheels in Monte Carlo. His goal wasn't merely to observe a few spins; he aimed to understand the underlying behavior of the wheel – essentially, the [probability distribution](/Probability_distribution) of its outcomes across an infinite number of trials. His 'sample' was the set of observed results. This concept extends to repeated measurements of material properties, such as the [electrical conductivity](/Electrical_conductivity) of [copper](/Copper).
+
+This situation frequently arises when the objective is to gain knowledge about the [cause system](/Cause_system) that generates the observed population. In such cases, sampling theory might view the observed population as a mere sample drawn from a larger, hypothetical 'superpopulation.' For example, a researcher testing a new 'quit smoking' program might observe its success rate in a group of 100 patients, hoping to predict its efficacy if implemented nationwide. The superpopulation here is "everyone in the country, given access to this treatment" – a group that, at the time of the study, doesn't fully exist.
+
+It's crucial to recognize that the population from which the sample is drawn may not precisely align with the population about which information is ultimately desired. Often, there's a significant, though not complete, overlap between these two groups, perhaps due to limitations in the available data (the "frame"). In some cases, they might be entirely distinct – for instance, studying rats to understand aspects of human health, or analyzing data from individuals born in 2008 to forecast trends for those born in 2009.
+
+The time invested in precisely defining both the sampled population and the population of concern is rarely wasted. It often unearths ambiguities and questions that might otherwise remain buried, only to surface later and derail the entire project.
+
+#### Sampling Frame
+
+•
+Main article: [Sampling frame](/Sampling_frame)
+
+In the most straightforward sampling scenarios, such as the quality control of a batch of material, the ideal would be to identify and measure every single item within the population. However, in the broader context, this is seldom practical. Identifying every single rat in existence, for instance, is a non-starter. Similarly, in countries where voting is not compulsory, predicting precisely who will cast a ballot in an upcoming election, in advance, is an impossibility. These ill-defined populations are not amenable to the elegant applications of statistical theory.
+
+To circumvent this, we seek a [sampling frame](/Sampling_frame). This is a resource that allows us to identify and, crucially, select *every* element within the population. &#91;8&#93;&#91;9&#93;&#91;10&#93;&#91;11&#93; The most common type of frame is simply a list of the population's elements, ideally complete, along with the necessary contact information. For an [opinion poll](/Opinion_poll), potential frames might include an [electoral register](/Electoral_register) or a [telephone directory](/Telephone_directory).
+
+A **probability sample** is defined by the property that every unit within the population has a non-zero chance of being selected. Furthermore, this probability of selection must be accurately determinable. The combination of these attributes allows for the generation of unbiased estimates of population totals, achieved by weighting the sampled units according to their probability of selection.
+
+**Example:** Imagine we aim to estimate the total income of adults residing on a specific street. We visit each household, identify all adults within, and then randomly select one adult from each. For instance, we could assign a random number (generated from a [uniform distribution](/Uniform_distribution_(continuous)) between 0 and 1) to each person and select the one with the highest number in each household. We then interview this selected individual to ascertain their income.
+
+Individuals living alone are guaranteed to be selected, so their income is directly added to our total estimate. However, an individual in a household of two adults has only a 50% chance of being chosen. To account for this, when we encounter such a household, we would count the selected person's income *twice* towards the total. It's as if the selected person is also standing in for the one not chosen.
+
+In this illustration, not everyone shares the same probability of selection. What elevates it to a probability sample is the fact that each person's probability of selection is *known*. When, by design, every element in the population has an equal chance of being selected, this is termed an 'equal probability of selection' (EPS) design. These are also referred to as 'self-weighting' because all sampled units are assigned the same weight.
+
+Probability sampling encompasses a range of methods, including [simple random sampling](/Simple_random_sample), [systematic sampling](/Systematic_sampling), [stratified sampling](/Stratified_sampling), probability-proportional-to-size sampling, and [cluster](/Cluster_sampling) or [multistage sampling](/Multistage_sampling). These techniques share two fundamental characteristics:
+
+• Every element possesses a known, non-zero probability of being sampled.
+• Random selection plays a role at some stage in the process.
+
+#### Nonprobability Sampling
+
+•
+Main article: [Nonprobability sampling](/Nonprobability_sampling)
+
+Nonprobability sampling encompasses any method where certain elements of the population have absolutely no chance of being selected. These are sometimes termed 'out of coverage' or 'undercovered.' Alternatively, it can refer to situations where the probability of selection, even if non-zero, cannot be accurately determined. This approach involves selecting elements based on preconceived notions or assumptions about the population of interest, which then dictate the selection criteria. Consequently, because the selection process is not random, nonprobability sampling precludes the estimation of sampling errors. The inherent limitations of this method lead to [exclusion bias](/Selection_bias), significantly restricting the amount of reliable information a sample can yield about the population. The relationship between the sample and the population remains tenuous, making it difficult to extrapolate findings.
+
+**Example:** Consider visiting every household on a street and interviewing the first person who answers the door. In any household with multiple occupants, this constitutes a nonprobability sample. Why? Because certain individuals are inherently more likely to answer the door – perhaps someone who is unemployed and home most of the day is more likely to respond than a working housemate who might be absent. It is simply not practical to calculate these probabilities.
+
+Common nonprobability sampling methods include [convenience sampling](/Convenience_sampling), [quota sampling](/Quota_sampling), and [purposive sampling](/Purposive_sampling). Furthermore, the issue of nonresponse – the failure of selected individuals to participate – can transform even a probability design into a nonprobability one if the characteristics of those who do not respond are not well understood. This effectively alters the intended probabilities of selection.
+
+#### Sampling Methods
+
+Within the various types of frames available, a multitude of sampling methods can be employed, either individually or in combination. The selection of a particular design often hinges on several factors:
+
+• The inherent nature and quality of the sampling frame.
+• The availability of supplementary information about the units within the frame.
+• The desired level of accuracy and the necessity of quantifying that accuracy.
+• Expectations regarding the depth of analysis to be performed on the sample.
+• Cost considerations and practical operational constraints.
+
+##### Simple Random Sampling
+
+•
+Main article: [Simple random sampling](/Simple_random_sample)
+
+A visual representation of selecting a simple random sample
+
+In a simple random sample (SRS) of a specified size, every conceivable subset of the sampling frame has an equal probability of being chosen. Consequently, each individual element within the frame also has an equal chance of selection. The frame is not segmented or partitioned in any way. Furthermore, any pair of elements has the same likelihood of being selected as any other pair, and this extends to triplets, quadruplets, and so on. This method is lauded for minimizing bias and simplifying the analysis of results. The variance observed among individual results within the sample serves as a reliable indicator of the variance within the overall population, making it relatively straightforward to estimate the accuracy of the findings.
+
+However, simple random sampling can be susceptible to **sampling error**. The very nature of randomness means that a randomly selected sample might, by chance, not perfectly reflect the composition of the population. For instance, a SRS of ten individuals from a country will, on average, yield five men and five women, but any specific draw is likely to overrepresent one sex while underrepresenting the other. Techniques like systematic and stratified sampling aim to mitigate this by incorporating knowledge of the population to select a more "representative" sample.
+
+Moreover, SRS can become cumbersome and time-consuming when dealing with a large target population. In situations where researchers are interested in specific subgroups, SRS falls short. For example, if investigating whether cognitive ability predicts job performance equally across different racial groups, SRS cannot fulfill this need as it doesn't generate distinct subsamples. In such cases, alternative strategies, like stratified sampling, become more appropriate.
+
+##### Systematic Sampling
+
+•
+Main article: [Systematic sampling](/Systematic_sampling)
+
+A visual representation of selecting a random sample using the systematic sampling technique
+
+Systematic sampling, also known as interval sampling, involves arranging the study population according to a specific ordering scheme and then selecting elements at regular intervals from this ordered list. The process begins with a random start, followed by the selection of every k-th element thereafter, where k is calculated as (population size / sample size). It is crucial that the starting point is not automatically the first element but is rather chosen randomly from the first to the k-th element. A common example is selecting every 10th name from a telephone directory.
+
+Provided the starting point is [randomized](/Randomization), systematic sampling qualifies as a type of [probability sampling](/Probability_sampling). Its ease of implementation is a significant advantage. Furthermore, the [stratification](/Stratified_sampling) it inherently introduces can enhance efficiency, particularly if the variable used for ordering the list is correlated with the variable of interest. The "every k-th" approach is particularly effective for sampling from large [databases](/Databases).
+
+Consider, for example, sampling individuals from a long street that traverses from a modest neighborhood (house #1) to an affluent district (house #1000). A simple random selection of addresses might disproportionately pick from the expensive end or the cheap end, leading to an unrepresentative sample. By selecting, say, every 10th house number, the sample is distributed evenly along the street, capturing representation from all districts. (A slight bias could emerge if the starting point is always #1, leading to an overrepresentation of lower-numbered houses; randomizing the start between #1 and #10 eliminates this.)
+
+However, systematic sampling is highly vulnerable to periodicities within the list. If such a periodicity exists and its cycle aligns with the sampling interval (as a multiple or factor), the sample can become highly unrepresentative, rendering the method less accurate than SRS.
+
+Imagine a street where odd-numbered houses are on the sunny (and expensive) side, and even-numbered houses are on the shady (and cheaper) side. In such a case, a systematic sample with a fixed interval might exclusively select from one side, failing to capture the diversity of housing prices. Only by knowing this pattern and adjusting the skip interval to ensure alternation between sides could this bias be avoided.
+
+Another drawback is that even when systematic sampling proves more accurate than SRS, its theoretical properties make quantifying that accuracy challenging. For instance, in the street example, much of the potential sampling error stems from variations between adjacent houses. However, since this method never selects adjacent houses, the sample itself provides no information about this specific type of variation.
+
+As previously noted, systematic sampling is an EPS method because every element has an equal probability of selection (one in ten in the example). It is not, however, SRS, as different subsets of the same size possess varying probabilities of selection. For example, the set {4, 14, 24, ..., 994} has a one-in-ten chance of being selected, while the set {4, 13, 24, 34, ...} has a zero probability.
+
+Systematic sampling can also be adapted to a non-EPS approach; an example of this can be found in the discussion of PPS samples below.
+
+##### Stratified Sampling
+
+•
+Main article: [Stratified sampling](/Stratified_sampling)
+
+A visual representation of selecting a random sample using the stratified sampling technique
+
+When a population is composed of distinct categories, the sampling frame can be organized by these categories into separate groups, known as "strata." Each stratum is then treated as an independent sub-population, from which individual elements are randomly selected. &#91;8&#93; The proportion of the sample size to the population size within a stratum is termed the [sampling fraction](/Sampling_fraction). &#91;12&#93; Stratified sampling offers several distinct advantages. &#91;12&#93;
+
+Firstly, by dividing the population into discrete, independent strata, researchers can draw specific inferences about particular subgroups that might otherwise be obscured in a generalized random sample.
+
+Secondly, employing a stratified sampling method can lead to more statistically efficient estimates, provided the strata are defined based on criteria relevant to the study's focus, rather than mere convenience. Even if no increase in statistical efficiency is achieved, stratified sampling will not result in lower efficiency than SRS, assuming each stratum's sample size is proportional to its representation in the population.
+
+Thirdly, data may sometimes be more readily accessible for specific, pre-existing strata within a population than for the population as a whole. In such cases, a stratified approach can be more practical than aggregating data from disparate groups (though this might conflict with the aforementioned importance of selecting criterion-relevant strata).
+
+Finally, because each stratum is treated as a distinct entity, different sampling techniques can be applied to each. This allows researchers to utilize the most suitable (or cost-effective) method for each identified subgroup.
+
+However, stratified sampling is not without its potential drawbacks. Firstly, the process of identifying strata and implementing the method can increase both the cost and complexity of sample selection, as well as complicating the analysis of population estimates. Secondly, when examining multiple criteria, stratification variables might be strongly related to some criteria but not others, further complicating the design and potentially diminishing the utility of the strata. Lastly, in certain situations (such as designs involving a large number of strata or a mandated minimum sample size per group), stratified sampling might necessitate a larger overall sample size than other methods (though in most common scenarios, the required sample size would be comparable to SRS).
+
+Stratified sampling is most effective when three conditions are met:
+
+• Variability within strata is minimized.
+• Variability between strata is maximized.
+• The variables used for stratification are strongly correlated with the dependent variable of interest.
+
+**Advantages over other sampling methods:**
+
+• Allows focused examination of important subpopulations while disregarding irrelevant ones.
+• Enables the application of different sampling techniques to different subpopulations.
+• Enhances the accuracy and efficiency of estimations.
+• Facilitates a more balanced statistical power for tests comparing strata, especially when strata vary significantly in size, by sampling equal numbers from each.
+
+**Disadvantages:**
+
+• Requires the identification of relevant stratification variables, which can be a challenging task.
+• Is ineffective when no clearly defined homogeneous subgroups exist within the population.
+• Can be a costly undertaking to implement.
+
+#### Poststratification
+
+Stratification can sometimes be introduced *after* the sampling phase, a process known as "poststratification." &#91;8&#93; This approach is typically employed when there's a lack of prior knowledge about an appropriate stratifying variable or when the experimenter lacks the necessary information to create strata during the sampling phase. While susceptible to the pitfalls of post hoc analyses, poststratification can offer significant benefits in specific contexts. It generally follows a simple random sample. Beyond enabling stratification based on an ancillary variable, poststratification can be used to implement weighting, thereby improving the precision of the sample's estimates. &#91;8&#93;
+
+#### Oversampling
+
+Choice-based sampling, or oversampling, is a specific strategy within stratified sampling. &#91;13&#93; In this method, the data is stratified based on the target variable, and samples are drawn from each stratum such that rarer target classes are more heavily represented in the sample. The subsequent analysis model is then built using this [biased sample](/Sampling_bias). The impact of input variables on the target is often estimated with greater precision using a choice-based sample, even with a smaller overall sample size compared to a random sample. However, the results typically require adjustment to correct for the oversampling.
+
+#### Probability-Proportional-to-Size Sampling
+
+•
+Main article: [Probability-proportional-to-size sampling](/Probability-proportional-to-size_sampling)
+
+In certain situations, the sample designer has access to an auxiliary variable, or "size measure," for each element in the population, which is believed to be correlated with the variable of interest. This auxiliary information can be leveraged to enhance the accuracy of the sample design. One approach is to use this variable as a basis for stratification, as discussed previously.
+
+Another method is probability-proportional-to-size ('PPS') sampling. In this technique, the probability of selecting each element is set to be proportional to its size measure, up to a maximum probability of 1. In a simple PPS design, these selection probabilities can form the basis for [Poisson sampling](/Poisson_sampling). However, this approach has the disadvantage of a variable sample size. Furthermore, different segments of the population might still be over- or under-represented due to random chance in the selections.
+
+Systematic sampling theory can be adapted to create a probability-proportional-to-size sample. This involves treating each unit within the size variable as a single sampling unit. Samples are then identified by selecting at even intervals among these units within the size variable. This method is sometimes referred to as PPS-sequential or monetary unit sampling, particularly in auditing or forensic contexts.
+
+**Example:** Suppose we have six schools with student populations of 150, 180, 200, 220, 260, and 490 students, totaling 1500 students. If we aim to select a PPS sample of size three based on student population, we can assign cumulative numbers: School 1 gets numbers 1-150, School 2 gets 151-330 (150+180), School 3 gets 331-530, and so on, up to the last school (1011-1500). We then generate a random starting number between 1 and 500 (which is 1500/3). If our random start is, say, 137, we would select the schools corresponding to the cumulative numbers 137, 637, and 1137. In this case, these would be the first, fourth, and sixth schools.
+
+The PPS approach can improve accuracy for a given sample size by concentrating sampling efforts on larger elements, which tend to have a more significant impact on population estimates. PPS sampling is frequently used in surveys of businesses, where element sizes can vary dramatically and auxiliary information is often available. For instance, a survey measuring hotel guest-nights might use the number of rooms in each hotel as an auxiliary variable. In some instances, an older measurement of the variable of interest can serve as an auxiliary variable when aiming to produce more current estimates. &#91;14&#93;
+
+#### Cluster Sampling
+
+A visual representation of selecting a random sample using the cluster sampling technique
+
+•
+Main article: [Cluster sampling](/Cluster_sampling)
+
+In some cases, it proves more cost-effective to select respondents in groups, referred to as 'clusters.' Sampling is often clustered geographically or by time periods. (In reality, nearly all samples are clustered in time to some extent, though this is rarely explicitly accounted for in the analysis.) For example, when surveying households within a city, one might opt to select 100 city blocks and then interview every household within those selected blocks.
+
+Clustering can lead to significant reductions in travel and administrative expenses. In the aforementioned example, an interviewer can travel to a single block and visit multiple households, rather than making separate trips to dispersed locations.
+
+Furthermore, it alleviates the need for a comprehensive [sampling frame](/Sampling_frame) listing every individual element in the target population. Instead, clusters can be selected from a frame of clusters, and an element-level frame is then created only for the selected clusters. Using the city block example, the initial sampling requires only a block-level city map for selection, followed by a household-level map of the 100 chosen blocks, rather than a complete city-wide household map.
+
+Cluster sampling (also known as clustered sampling) generally tends to increase the variability of sample estimates compared to simple random sampling, depending on the degree of variation between clusters relative to the variation within clusters. Consequently, cluster sampling typically requires a larger sample size than SRS to achieve the same level of accuracy. However, the cost savings realized through clustering might still make it a more economical option.
+
+[Cluster sampling](/Cluster_sampling) is frequently implemented through [multistage sampling](/Multistage_sampling). This is a more complex form of cluster sampling involving two or more embedded levels of units. The first stage involves defining the clusters to be used for sampling. In the second stage, a random sample of primary units is selected from within each cluster (rather than including all units from all selected clusters). Subsequent stages involve selecting further samples of units from within the previously selected clusters, and so on. The final set of ultimate units (e.g., individuals) selected at the last stage of this procedure are then surveyed. This technique essentially involves taking random subsamples of preceding random samples.
+
+Multistage sampling can significantly reduce sampling costs, particularly when constructing a complete population list for other sampling methods would be prohibitively expensive. By eliminating the need to detail clusters that are not selected, multistage sampling can mitigate the substantial costs associated with traditional cluster sampling. &#91;14&#93; However, each resulting sample may not be a fully representative reflection of the entire population.
+
+#### Quota Sampling
+
+•
+Main article: [Quota sampling](/Quota_sampling)
+
+In quota sampling, the population is first divided into mutually exclusive subgroups, much like in [stratified sampling](/Stratified_sampling). Subsequently, judgment is employed to select subjects or units from each subgroup based on predetermined proportions. For instance, an interviewer might be instructed to sample 200 females and 300 males within a specific age range (e.g., 45 to 60 years old).
+
+It is this second step – the non-random selection within subgroups – that classifies this technique as a form of nonprobability sampling. In quota sampling, the selection of the sample is not [random](/Random). Interviewers, for example, might be inclined to approach individuals who appear most cooperative or approachable. The fundamental issue here is that these samples can be biased because not every individual has an equal chance of being selected. This absence of a random element is its most significant weakness, and the debate between quota and probability sampling has been a contentious issue for years.
+
+##### Minimax Sampling
+
+In the context of imbalanced datasets, where the sampling ratio deviates from population statistics, resampling can be performed in a conservative manner known as [minimax sampling](/Minimax). This approach originates from the minimax ratio, which has been demonstrated to be 0.5, suggesting that in binary classification, class sample sizes should be equal. This ratio is proven to be minimax only under specific assumptions, such as using a [LDA](/Linear_Discriminant_Analysis) classifier with Gaussian distributions. The concept of minimax sampling has recently been extended to a broader class of classification rules, termed class-wise smart classifiers. In this framework, the sampling ratio for each class is chosen to optimize the worst-case classifier error across all possible population statistics for class prior probabilities. &#91;12&#93;
+
+##### Accidental Sampling
+
+•
+Main article: [Accidental sampling](/Accidental_sampling)
+
+Accidental sampling, sometimes referred to as grab, convenience, or opportunity sampling, is a type of nonprobability sampling where the sample is drawn from individuals who are readily accessible. In essence, the population is selected because it is conveniently available. This might involve encountering individuals directly or selecting them through technological means like the internet or phone. Researchers employing such samples cannot scientifically generalize findings to the entire population, as the sample is unlikely to be sufficiently representative. For instance, conducting a survey at a shopping center early on a weekday morning would limit the potential interviewees to those present at that specific time and location, thus not reflecting the views of other societal segments if the survey were conducted at different times or days. This method is most useful for pilot testing. Key considerations for researchers using convenience samples include:
+
+• Are there controls within the research design or experiment that can mitigate the impact of a non-random convenience sample, thereby enhancing the representativeness of the findings?
+• Is there a justifiable reason to believe that a particular convenience sample would or should exhibit different responses or behaviors compared to a random sample from the same population?
+• Can the research question be adequately addressed using a convenience sample?
+
+In social science research, [snowball sampling](/Snowball_sampling) shares similarities, where existing study participants are used to recruit additional subjects. Certain variations of snowball sampling, such as respondent-driven sampling, do permit the calculation of selection probabilities and, under specific conditions, qualify as probability sampling methods.
+
+##### Voluntary Sampling
+
+•
+Further information: [Self-selection bias](/Self-selection_bias)
+
+Voluntary sampling is a form of nonprobability sampling where individuals choose to participate in a survey.
+
+Volunteers might be recruited through advertisements on social media platforms. &#91;15&#93; The target population for these advertisements can be defined by characteristics such as location, age, sex, income, occupation, education, or interests, using tools provided by the social media platform. The advertisement typically includes information about the research and a link to the survey. Upon clicking the link and completing the survey, the volunteer submits their data to be included in the sample. While this method can reach a global audience, it is constrained by the advertising budget. It's also possible for individuals outside the intended target population to participate.
+
+Generalizing findings from such a sample to the broader population is challenging, as it may not be representative. Volunteers often possess a strong interest in the survey's main topic, potentially skewing the results.
+
+##### Line-Intercept Sampling
+
+•
+Main article: [Line-intercept sampling](/Line-intercept_sampling)
+
+Line-intercept sampling is a method used to sample elements within a defined region. An element is sampled if a designated line segment, known as a "transect," intersects it.
+
+#### Panel Sampling
+
+Panel sampling involves initially selecting a group of participants through a random sampling method and then repeatedly surveying this group over a period to gather information (which may or may not be the same information each time). Each participant is interviewed at two or more distinct time points; each data collection phase is called a "wave." This methodology was developed by sociologist [Paul Lazarsfeld](/Paul_Lazarsfeld) in 1938 to facilitate the study of [political campaigns](/Political_campaign). &#91;16&#93; This [longitudinal](/Longitudinal_study) sampling approach allows for estimates of changes within the population over time, whether concerning chronic illness progression, shifts in employment status, or fluctuations in weekly food expenditures. Panel sampling can also provide insights into within-person health changes related to aging or help explain variations in continuous dependent variables, such as spousal interaction patterns. &#91;17&#93; Various analytical methods have been proposed for [panel data](/Panel_data), including [MANOVA](/MANOVA), [growth curves](/Growth_curve_(statistics)), and [structural equation modeling](/Structural_equation_modeling) incorporating lagged effects.
+
+#### Snowball Sampling
+
+•
+Main article: [Snowball sampling](/Snowball_sampling)
+
+Snowball sampling is a technique where a small initial group of respondents is identified, and these individuals are then used to recruit additional respondents. This method is particularly valuable when the target population is hidden or difficult to enumerate comprehensively.
+
+#### Theoretical Sampling
+
+This section requires expansion. You can help by adding to it. (July 2015)
+
+•
+Main article: [Theoretical sampling](/Theoretical_sampling)
+
+Theoretical sampling occurs when the selection of samples is guided by the results obtained from data collected thus far, with the ultimate goal of developing a deeper understanding of the subject matter or formulating theories. Initially, a broad, general sample is collected to investigate overarching trends. Subsequent sampling may involve selecting extreme or highly specific cases to maximize the probability of observing a particular phenomenon.
+
+#### Active Sampling
+
+In active sampling, the samples utilized for training a machine learning algorithm are actively chosen, which also relates to [active learning (machine learning)](/Active_learning_(machine_learning)).
+
+#### Judgmental Selection
+
+•
+Main article: [Judgment sample](/Judgment_sample)
+
+Judgement sampling, also known as expert or purposive sampling, is a type of non-random sampling where samples are selected based on the opinion of an expert. This expert can choose participants based on the perceived value of the information they are likely to provide.
+
+#### Haphazard Sampling
+
+•
+This section requires expansion. You can help by adding to it. (July 2024)
+
+Haphazard sampling is based on the idea of using human judgment to simulate randomness. Despite samples being hand-picked, the aim is to ensure the absence of conscious bias in selection. However, it often fails due to [selection bias](/Selection_bias). &#91;19&#93; This method is generally adopted for its convenience, particularly when the necessary tools or capacity for other sampling methods are unavailable.
+
+The primary limitation of haphazard samples is their frequent failure to represent the characteristics of the entire population, often capturing only a segment. Due to this unbalanced representation, results derived from haphazard sampling are typically biased. &#91;20&#93;
+
+#### Replacement of Selected Units
+
+•
+See also: [urn model](/Urn_model)
+
+Sampling schemes can be classified as either without replacement ('WOR' – meaning no element can be selected more than once within a single sample) or with replacement ('WR' – where an element may appear multiple times in one sample). For instance, if we catch fish, measure them, and then release them back into the water before continuing the sampling process, this constitutes a WR design, as the same fish could potentially be caught and measured again. Conversely, if the fish are not returned to the water or are tagged and released after capture, it becomes a WOR design.
+
+#### Sample Size Determination
+
+•
+Main article: [Sample size determination](/Sample_size_determination)
+
+•
+See also: [Sample complexity](/Sample_complexity)
+
+Established methods for determining the required sample size include the use of formulas, tables, and power function charts.
+
+**Steps for using sample size tables:**
+
+• Define the effect size of interest, the significance level (α), and the desired statistical power (1-β).
+• Consult the appropriate sample size table. &#91;21&#93;
+• Select the table corresponding to the chosen α value.
+• Locate the row that matches the desired power level.
+• Identify the column that corresponds to the estimated effect size.
+• The intersection of the selected row and column indicates the minimum sample size required.
+
+#### Sampling and Data Collection
+
+Effective data collection necessitates adherence to the following principles:
+
+• Rigorous implementation of the defined sampling process.
+• Maintaining the chronological order of the data.
+• Meticulous recording of any pertinent comments or contextual events.
+• Thorough documentation of non-responses.
+
+#### Applications of Sampling
+
+Sampling empowers the selection of pertinent data points from a larger dataset to accurately estimate the characteristics of the entire population. For example, consider the sheer volume of tweets generated daily. To discern prevailing topics or public sentiment, it’s not necessary to analyze every single tweet. A carefully constructed sample can provide sufficient insight. Theoretical frameworks for sampling Twitter data have been developed. &#91;22&#93;
+
+In manufacturing, various sensory data streams – acoustics, vibration, pressure, electrical current, voltage, and control data – are generated at rapid intervals. To predict potential downtime, a comprehensive analysis of all data might be overkill; a representative sample could prove adequate.
+
+#### Errors in Sample Surveys
+
+•
+Main article: [Sampling error](/Sampling_error)
+
+The results obtained from survey research are invariably subject to some degree of error. These errors can be broadly categorized into sampling errors and non-sampling errors. The term "error" here encompasses both systematic biases and random fluctuations.
+
+##### Sampling Errors and Biases
+
+Sampling errors and biases are introduced by the design of the sample itself. They include:
+
+• [Selection bias](/Selection_bias): Occurs when the actual probabilities of selection differ from those assumed during the calculation of results.
+• [Random sampling error](/Sampling_error): Arises from the inherent random variation in results due to the random selection of elements within the sample.
+
+#### Non-Sampling Error
+
+•
+Main article: [Non-sampling error](/Non-sampling_error)
+
+Non-sampling errors represent all other sources of error that can impact the final survey estimates. These errors stem from issues encountered during data collection, processing, or even the initial sample design. Common examples include:
+
+• Over-coverage: The inclusion of data originating from outside the defined population.
+• Under-coverage: The sampling frame fails to include all elements that belong to the population.
+• Measurement error: For instance, when respondents misinterpret a question or struggle to provide an accurate answer.
+• Processing error: Mistakes introduced during data coding or entry.
+• [Non-response or Participation bias](/Participation_bias): The failure to obtain complete data from all individuals selected for the sample.
+
+Following the sampling process, a thorough review is conducted. This review scrutinizes the actual steps taken during sampling, contrasting them with the intended procedures, to assess any potential effects these divergences might have on subsequent analyses.
+
+A particularly pervasive issue is **nonresponse**. Two primary forms of nonresponse exist: &#91;23&#93;&#91;24&#93;
+
+• Unit nonresponse: The complete failure to obtain any data from a selected unit.
+• Item nonresponse: The unit participates in the survey but fails to provide complete data for one or more questions.
+
+In [survey sampling](/Survey_sampling), it is common for individuals selected for the sample to be unwilling or unable to participate. They might lack the time (due to [opportunity cost](/Opportunity_cost)) &#91;25&#93; or simply be unreachable by the survey administrators. This presents a significant risk: if the characteristics of those who do not respond differ systematically from those who do, the resulting estimates of population parameters will be biased. Strategies to address this include refining survey design, offering incentives, and conducting follow-up studies to re-contact unresponsive individuals and understand their similarities and differences with the respondents. &#91;26&#93; The impact of nonresponse can also be mitigated through weighting the data (if population benchmarks are available) or by imputing missing data based on responses to other questions. Nonresponse is a particularly acute problem in internet-based sampling. Potential contributing factors include poorly designed surveys, &#91;24&#93; excessive surveying (leading to survey fatigue), &#91;17&#93;&#91; [need quotation to verify](/Wikipedia:Verifiability) &#93; and the fact that potential participants may possess multiple email addresses, some of which might be inactive or rarely checked.
+
+#### Survey Weights
+
+In numerous situations, the sampling fraction might vary across different strata, necessitating the application of weights to the data to ensure accurate representation of the population. For example, a simple random sample of individuals in the United Kingdom might omit residents of remote Scottish islands due to the prohibitive cost of reaching them. A more economical approach would be to employ a stratified sample, dividing the population into urban and rural strata. The rural sample might be underrepresented in the sample, but its contribution would be appropriately weighted during analysis to compensate.
+
+More broadly, data should generally be weighted if the sample design does not afford every individual an equal chance of selection. For instance, if households have equal selection probabilities but only one person is interviewed within each household, individuals from larger households will have a reduced chance of being interviewed. This discrepancy can be rectified using survey weights. Similarly, households with multiple telephone lines have a higher probability of being selected in a random digit dialing sample; weights can adjust for this.
+
+Weights can also serve other crucial functions, such as helping to correct for nonresponse.
+
+#### Methods of Producing Random Samples
+
+• [Random number table](/Random_number_table)
+• Mathematical algorithms for [pseudo-random number generators](/Pseudo-random_number_generator)
+• Physical randomization devices such as coins, playing cards, or more sophisticated mechanisms like [ERNIE](/ERNIE)
+
+See also
+
+• [Mathematics portal](/Portal:Mathematics)
+
+Wikimedia Commons has media related to Sampling (statistics).
+
+• [Data collection](/Data_collection)
+• [Design effect](/Design_effect)
+• [Estimation theory](/Estimation_theory)
+• [Gy's sampling theory](/Gy%27s_sampling_theory)
+• [German tank problem](/German_tank_problem)
+• [Horvitz–Thompson estimator](/Horvitz%E2%80%93Thompson_estimator)
+• [Latin hypercube sampling](/Latin_hypercube_sampling)
+• [Official statistics](/Official_statistics)
+• [Ratio estimator](/Ratio_estimator)
+• [Replication (statistics)](/Replication_(statistics))
+• [Random-sampling mechanism](/Random-sampling_mechanism)
+• [Resampling (statistics)](/Resampling_(statistics))
+• [Pseudo-random number sampling](/Pseudo-random_number_sampling)
+• [Sample size determination](/Sample_size_determination)
+• [Sampling (case studies)](/Sampling_(case_studies))
+• [Sampling bias](/Sampling_bias)
+• [Sampling distribution](/Sampling_distribution)
+• [Sampling error](/Sampling_error)
+• [Sortition](/Sortition)
+• [Survey sampling](/Survey_sampling)
+
+Notes
+
+The textbook by Groves et al. offers a comprehensive overview of survey methodology, incorporating recent research on questionnaire development informed by [cognitive psychology](/Cognitive_psychology):
+
+• Robert Groves, et al. Survey methodology (2010 2nd ed. [2004]) [ISBN](/ISBN_(identifier)) 0-471-48348-6.
+
+The subsequent books delve into the [statistical theory](/Statistical_theory) of survey sampling and presume a foundational understanding of basic statistics, as presented in the following texts:
+
+• David S. Moore and George P. McCabe (February 2005). "Introduction to the practice of statistics" (5th edition). W.H. Freeman & Company.
+• [ISBN](/ISBN_(identifier)) 0-7167-6282-X.
+
+• Freedman, David; Pisani, Robert; Purves, Roger (2007). Statistics (4th ed.). New York: [Norton](/W._W._Norton_%26_Company). [ISBN](/ISBN_(identifier)) 978-0-393-92972-0.
+
+Scheaffer et al.'s elementary text utilizes quadratic equations typically encountered in high school algebra:
+
+• Scheaffer, Richard L., William Mendenhall and R. Lyman Ott. Elementary survey sampling, Fifth Edition. Belmont: Duxbury Press, 1996.
+
+A more advanced mathematical statistical background is required for Lohr, Särndal et al., and Cochran: &#91;28&#93;
+
+• Cochran, William G. (1977). Sampling techniques (Third ed.). Wiley. [ISBN](/ISBN_(identifier)) 978-0-471-16240-7.
+
+• Lohr, Sharon L. (1999). Sampling: Design and analysis. Duxbury. [ISBN](/ISBN_(identifier)) 978-0-534-35361-2.
+
+• Särndal, Carl-Erik; Swensson, Bengt; Wretman, Jan (1992). Model assisted survey sampling. Springer-Verlag. [ISBN](/ISBN_(identifier)) 978-0-387-40620-6.
+
+The historically significant works by Deming and Kish continue to offer valuable insights for social scientists, particularly concerning the U.S. census and the [Institute for Social Research](/University_of_Michigan_Institute_for_Social_Research) at the [University of Michigan](/University_of_Michigan):
+
+• Deming, W. Edwards (1966). Some Theory of Sampling. [Dover Publications](/Dover_Publications). [ISBN](/ISBN_(identifier)) 978-0-486-64684-8. [OCLC](/OCLC_(identifier)) 166526.
+
+• Kish, Leslie (1995) Survey Sampling, Wiley, [ISBN](/ISBN_(identifier)) 0-471-10949-5
+
+References
+
+• ^ Lance, P.; Hattori, A. (2016). Sampling and Evaluation. Web: MEASURE Evaluation. pp. 6–8, 62–64.
+• ^ Salant, Priscilla, I. Dillman, and A. Don. How to conduct your own survey. No. 300.723 S3. 1994.
+• ^ Seneta, E. (1985). "A Sketch of the History of Survey Sampling in Russia". Journal of the Royal Statistical Society. Series A (General). 148 (2): 118–125. [doi](/Doi_(identifier)):10.2307/2981944. [JSTOR](/JSTOR_(identifier)) 2981677.
+• ^ David S. Moore and George P. McCabe. "Introduction to the Practice of Statistics".
+• ^ Freedman, David; Pisani, Robert; Purves, Roger. Statistics.
+• ^ "SAMPLE COUNT - Elections Department Singapore" (PDF). Retrieved 3 September 2023.
+• ^ Ho, Timothy (1 September 2023). "Presidential Election 2023: How Accurate Will The Sample Count Be Tonight?". DollarsAndSense.sg. Retrieved 3 September 2023.
+• ^ a b c Robert M. Groves; et al. (2009). Survey methodology. John Wiley & Sons. [ISBN](/ISBN_(identifier)) 978-0470465462.
+• ^ Lohr, Sharon L. Sampling: Design and analysis.
+• ^ Särndal, Carl-Erik; Swensson, Bengt; Wretman, Jan. Model Assisted Survey Sampling.
+• ^ Scheaffer, Richard L.; William Mendenhall; R. Lyman Ott. (2006). Elementary survey sampling.
+• ^ a b c Shahrokh Esfahani, Mohammad; Dougherty, Edward (2014). "Effect of separate sampling on classification accuracy". Bioinformatics. 30 (2): 242–250. [doi](/Doi_(identifier)):10.1093/bioinformatics/btt662. [PMID](/PMID_(identifier)) 24257187.
+• ^ Scott, A.J.; Wild, C.J. (1986). "Fitting logistic models under case-control or choice-based sampling". [Journal of the Royal Statistical Society, Series B](/Journal_of_the_Royal_Statistical_Society,_Series_B). 48 (2): 170–182. [doi](/Doi_(identifier)):10.1111/j.2517-6161.1986.tb01400.x. [JSTOR](/JSTOR_(identifier)) 2345712.
+• ^ a b Lohr, Sharon L. Sampling: Design and Analysis.
+• ^ Särndal, Carl-Erik; Swensson, Bengt; Wretman, Jan. Model Assisted Survey Sampling.
+• ^ Ariyaratne, Buddhika (30 July 2017). "Voluntary Sampling Method combined with Social Media advertising". heal-info.blogspot.com. Health Informatics. Retrieved 18 December 2018. [unreliable source?]
+• ^ Lazarsfeld, P., & Fiske, M. (1938). The "panel" as a new tool for measuring opinion. The Public Opinion Quarterly, 2(4), 596–612.
+• ^ a b Groves, et al. Survey Methodology
+• ^ "Examples of sampling methods" (PDF).
+• ^ "Haphazard sampling definition". AccountingTools. 7 January 2024.
+• ^ IRS Statistical Sampling Handbook. USA: Department of the Treasury, Internal Revenue Service. 1988. p. 8.
+• ^ Cohen, 1988
+• ^ Deepan Palguna; Vikas Joshi; Venkatesan Chakaravarthy; Ravi Kothari; L. V. Subramaniam (2015). Analysis of Sampling Algorithms for Twitter. [International Joint Conference on Artificial Intelligence](/International_Joint_Conference_on_Artificial_Intelligence).
+• ^ Berinsky, A. J. (2008). "Survey non-response". In: W. Donsbach & M. W. Traugott (Eds.), The Sage handbook of public opinion research (pp. 309–321). Thousand Oaks, CA: Sage Publications.
+• ^ a b Dillman, D. A., Eltinge, J. L., Groves, R. M., & Little, R. J. A. (2002). "Survey nonresponse in design, data collection, and analysis". In: R. M. Groves, D. A. Dillman, J. L. Eltinge, & R. J. A. Little (Eds.), Survey nonresponse (pp. 3–26). New York: John Wiley & Sons.
+• ^ Dillman, D.A., Smyth, J.D., & Christian, L. M. (2009). Internet, mail, and mixed-mode surveys: The tailored design method. San Francisco: Jossey-Bass.
+• ^ Vehovar, V., Batagelj, Z., Manfreda, K.L., & Zaletel, M. (2002). "Nonresponse in web surveys". In: R. M. Groves, D. A. Dillman, J. L. Eltinge, & R. J. A. Little (Eds.), Survey nonresponse (pp. 229–242). New York: John Wiley & Sons.
+• ^ Porter; Whitcomb; Weitzer (2004). "Multiple surveys of students and survey fatigue". In Porter, Stephen R (ed.). Overcoming survey research problems. new directions for institutional research. San Francisco: Jossey-Bass. pp. 63–74. [ISBN](/ISBN_(identifier)) 9780787974770. Retrieved 15 July 2019.
+• ^ Cochran, William G. (1977-01-01). Sampling Techniques, 3rd Edition (3rd ed.). New York, NY: John Wiley & Sons. [ISBN](/ISBN_(identifier)) 978-0-471-16240-7.
+
+Further reading
+
+• Singh, G N, Jaiswal, A. K., and Pandey A. K. (2021), Improved Imputation Methods for Missing Data in Two-Occasion Successive Sampling, Communications in Statistics: Theory and Methods. DOI:10.1080/03610926.2021.1944211
+• Chambers, R L, and Skinner, C J (editors) (2003), Analysis of Survey Data, Wiley, [ISBN](/ISBN_(identifier)) 0-471-89987-9
+• Deming, W. Edwards (1975) On probability as a basis for action, The American Statistician, 29(4), pp. 146–152.
+• Gy, P (2012) Sampling of Heterogeneous and Dynamic Material Systems: Theories of Heterogeneity, Sampling and Homogenizing, Elsevier Science, [ISBN](/ISBN_(identifier)) 978-0444556066
+• Korn, E.L., and Graubard, B.I. (1999) Analysis of Health Surveys, Wiley, [ISBN](/ISBN_(identifier)) 0-471-13773-1
+• Lucas, Samuel R. (2012). "Beyond the Existence Proof: Ontological Conditions, Epistemological Implications, and In-Depth Interview Research." Quality & Quantity. [doi](/Doi_(identifier)):10.1007/s11135-012-9775-3.
+• Stuart, Alan (1962) Basic Ideas of Scientific Sampling, Hafner Publishing Company, New York [ISBN missing]
+• Smith, T. M. F. (1984). "Present Position and Potential Developments: Some Personal Views: Sample surveys". [Journal of the Royal Statistical Society, Series A](/Journal_of_the_Royal_Statistical_Society,_Series_A). 147 (The 150th Anniversary of the Royal Statistical Society, number 2): 208–221. [doi](/Doi_(identifier)):10.2307/2981677. [JSTOR](/JSTOR_(identifier)) 2981677.
+• Smith, T. M. F. (1993). "Populations and Selection: Limitations of Statistics (Presidential address)". [Journal of the Royal Statistical Society, Series A](/Journal_of_the_Royal_Statistical_Society,_Series_A). 156 (2): 144–166. [doi](/Doi_(identifier)):10.2307/2982726. [JSTOR](/JSTOR_(identifier)) 2982726. (Portrait of T. M. F. Smith on page 144)
+• Smith, T. M. F. (2001). "Centenary: Sample surveys". [Biometrika](/Biometrika). 88 (1): 167–243. [doi](/Doi_(identifier)):10.1093/biomet/88.1.167.
+• Smith, T. M. F. (2001). "Biometrika centenary: Sample surveys". In Titterington, D. M. and Cox, D. R. (ed.). Biometrika: One Hundred Years. Oxford University Press. pp. 165–194. [ISBN](/ISBN_(identifier)) 978-0-19-850993-6.
+• Whittle, P. (May 1954). "Optimum preventative sampling". Journal of the Operations Research Society of America. 2 (2): 197–203. [doi](/Doi_(identifier)):10.1287/opre.2.2.197. [JSTOR](/JSTOR_(identifier)) 166605.
+
+Standards
+
+ISO
+
+• ISO 2859 series
+• ISO 3951 series
+
+ASTM
+
+• ASTM E105 Standard Practice for Probability Sampling Of Materials
+• ASTM E122 Standard Practice for Calculating Sample Size to Estimate, With a Specified Tolerable Error, the Average for Characteristic of a Lot or Process
+• ASTM E141 Standard Practice for Acceptance of Evidence Based on the Results of Probability Sampling
+• ASTM E1402 Standard Terminology Relating to Sampling
+• ASTM E1994 Standard Practice for Use of Process Oriented AOQL and LTPD Sampling Plans
+• ASTM E2234 Standard Practice for Sampling a Stream of Product by Attributes Indexed by AQL
+
+ANSI, ASQ
+
+• ANSI/ASQ Z1.4
+
+U.S. federal and military standards
+
+• [MIL-STD-105](/MIL-STD-105)
+• MIL-STD-1916
+
+External links
+
+•
+•
+•
+
+Wikiversity has learning resources about Sampling (statistics)
+
+• Media related to Sampling (statistics) at Wikimedia Commons
+
+•
+• v
+• t
+• e
+
+[Statistics](/Statistics)
+
+• [Outline](/Outline_of_statistics)
+• [Index](/List_of_statistics_articles)
+
+[Descriptive statistics](/Descriptive_statistics)
+
+[Continuous data](/Continuous_probability_distribution)
+[Center](/Central_tendency)
+• [Mean](/Mean)
+• [Arithmetic](/Arithmetic_mean)
+• [Arithmetic-Geometric](/Arithmetic%E2%80%93geometric_mean)
+• [Contraharmonic](/Contraharmonic_mean)
+• [Cubic](/Cubic_mean)
+• [Generalized/power](/Generalized_mean)
+• [Geometric](/Geometric_mean)
+• [Harmonic](/Harmonic_mean)
+• [Heronian](/Heronian_mean)
+• [Heinz](/Heinz_mean)
+• [Lehmer](/Lehmer_mean)
+• [Median](/Median)
+• [Mode](/Mode_(statistics))
+[Dispersion](/Statistical_dispersion)
+• [Average absolute deviation](/Average_absolute_deviation)
+• [Coefficient of variation](/Coefficient_of_variation)
+• [Interquartile range](/Interquartile_range)
+• [Percentile](/Percentile)
+• [Range](/Range_(statistics))
+• [Standard deviation](/Standard_deviation)
+• [Variance](/Variance)
+[Shape](/Shape_of_the_distribution)
+• [Central limit theorem](/Central_limit_theorem)
+• [Moments](/Moment_(mathematics))
+• [Kurtosis](/Kurtosis)
+• [L-moments](/L-moment)
+• [Skewness](/Skewness)
+
+[Count data](/Count_data)
+• [Index of dispersion](/Index_of_dispersion)
+Summary tables
+• [Contingency table](/Contingency_table)
+• [Frequency distribution](/Frequency_distribution)
+• [Grouped data](/Grouped_data)
+[Dependence](/Correlation_and_dependence)
+• [Partial correlation](/Partial_correlation)
+• [Pearson product-moment correlation](/Pearson_correlation_coefficient)
+• [Rank correlation](/Rank_correlation)
+• [Kendall's τ](/Kendall_rank_correlation_coefficient)
+• [Spearman's ρ](/Spearman%27s_rank_correlation_coefficient)
+• [Scatter plot](/Scatter_plot)
+[Graphics](/Statistical_graphics)
+• [Bar chart](/Bar_chart)
+• [Biplot](/Biplot)
+• [Box plot](/Box_plot)
+• [Control chart](/Control_chart)
+• [Correlogram](/Correlogram)
+• [Fan chart](/Fan_chart_(statistics))
+• [Forest plot](/Forest_plot)
+• [Histogram](/Histogram)
+• [Pie chart](/Pie_chart)
+• [Q–Q plot](/Q%E2%80%93Q_plot)
+• [Radar chart](/Radar_chart)
+• [Run chart](/Run_chart)
+• [Scatter plot](/Scatter_plot)
+• [Stem-and-leaf display](/Stem-and-leaf_display)
+• [Violin plot](/Violin_plot)
+
+[Data collection](/Data_collection)
+
+[Study design](/Design_of_experiments)
+• [Effect size](/Effect_size)
+• [Missing data](/Missing_data)
+• [Optimal design](/Optimal_design)
+• [Population](/Statistical_population)
+• [Replication](/Replication_(statistics))
+• [Sample size determination](/Sample_size_determination)
+• [Statistic](/Statistic)
+• [Statistical power](/Statistical_power)
+[Survey methodology](/Survey_methodology)
+• Sampling
+• [Cluster](/Cluster_sampling)
+• [Stratified](/Stratified_sampling)
+• [Opinion poll](/Opinion_poll)
+• [Questionnaire](/Questionnaire)
+• [Standard error](/Standard_error)
+[Controlled experiments](/Experiment)
+• [Blocking](/Blocking_(statistics))
+• [Factorial experiment](/Factorial_experiment)
+• [Interaction](/Interaction_(statistics))
+• [Random assignment](/Random_assignment)
+• [Randomized controlled trial](/Randomized_controlled_trial)
+• [Randomized experiment](/Randomized_experiment)
+• [Scientific control](/Scientific_control)
+Adaptive designs
+• [Adaptive clinical trial](/Adaptive_clinical_trial)
+• [Stochastic approximation](/Stochastic_approximation)
+• [Up-and-down designs](/Up-and-Down_Designs)
+[Observational studies](/Observational_study)
+• [Cohort study](/Cohort_study)
+• [Cross-sectional study](/Cross-sectional_study)
+• [Natural experiment](/Natural_experiment)
+• [Quasi-experiment](/Quasi-experiment)
+
+[Statistical inference](/Statistical_inference)
+
+[Statistical theory](/Statistical_theory)
+• [Population](/Population_(statistics))
+• [Statistic](/Statistic)
+• [Probability distribution](/Probability_distribution)
+• [Sampling distribution](/Sampling_distribution)
+• [Order statistic](/Order_statistic)
+• [Empirical distribution](/Empirical_distribution_function)
+• [Density estimation](/Density_estimation)
+• [Statistical model](/Statistical_model)
+• [Model specification](/Model_specification)
+• L p space
+• [Parameter](/Statistical_parameter)
+• [location](/Location_parameter)
+• [scale](/Scale_parameter)
+• [shape](/Shape_parameter)
+• [Parametric family](/Parametric_statistics)
+• [Likelihood](/Likelihood_function) (monotone)
+• [Location–scale family](/Location%E2%80%93scale_family)
+• [Exponential family](/Exponential_family)
+• [Completeness](/Completeness_(statistics))
+• [Sufficiency](/Sufficient_statistic)
+• [Statistical functional](/Plug-in_principle)
+• [Bootstrap](/Bootstrapping_(statistics))
+• [U](/U-statistic)
+• [V](/V-statistic)
+• [Optimal decision](/Optimal_decision)
+• [loss function](/Loss_function)
+• [Efficiency](/Efficiency_(statistics))
+• [Statistical distance](/Statistical_distance)
+• [divergence](/Divergence_(statistics))
+• [Asymptotics](/Asymptotic_theory_(statistics))
+• [Robustness](/Robust_statistics)
+[Frequentist inference](/Frequentist_inference)
+[Point estimation](/Point_estimation)
+• [Estimating equations](/Estimating_equations)
+• [Maximum likelihood](/Maximum_likelihood)
+• [Method of moments](/Method_of_moments_(statistics))
+• [M-estimator](/M-estimator)
+• [Minimum distance](/Minimum_distance_estimation)
+• [Unbiased estimators](/Bias_of_an_Estimator)
+• [Mean-unbiased minimum-variance](/Minimum-variance_unbiased_estimator)
+• [Rao–Blackwellization](/Rao%E2%80%93Blackwell_theorem)
+• [Lehmann–Scheffé theorem](/Lehmann%E2%80%93Scheff%C3%A9_theorem)
+• [Median unbiased](/Median-unbiased_estimator)
+• [Plug-in](/Plug-in_principle)
+[Interval estimation](/Interval_estimation)
+• [Confidence interval](/Confidence_interval)
+• [Pivot](/Pivotal_quantity)
+• [Likelihood interval](/Likelihood_interval)
+• [Prediction interval](/Prediction_interval)
+• [Tolerance interval](/Tolerance_interval)
+• [Resampling](/Resampling_(statistics))
+• [Bootstrap](/Bootstrapping_(statistics))
+• [Jackknife](/Jackknife_resampling)
+[Testing hypotheses](/Statistical_hypothesis_testing)
+• [1- & 2-tails](/One-_and_two-tailed_tests)
+• [Power](/Power_(statistics))
+• [Uniformly most powerful test](/Uniformly_most_powerful_test)
+• [Permutation test](/Permutation_test)
+• [Randomization test](/Randomization_test)
+• [Multiple comparisons](/Multiple_comparisons)
+[Parametric tests](/Parametric_statistics)
+• [Likelihood-ratio](/Likelihood-ratio_test)
+• [Score/Lagrange multiplier](/Score_test)
+• [Wald](/Wald_test)
+
+[Specific tests](/List_of_statistical_tests)
+
+• Z -test (normal)
+• Student's t -test
+• F -test
+[Goodness of fit](/Goodness_of_fit)
+• [Chi-squared](/Chi-squared_test)
+• G -test
+• [Kolmogorov–Smirnov](/Kolmogorov%E2%80%93Smirnov_test)
+• [Anderson–Darling](/Anderson%E2%80%93Darling_test)
+• [Lilliefors](/Lilliefors_test)
+• [Jarque–Bera](/Jarque%E2%80%93Bera_test)
+• [Normality (Shapiro–Wilk)](/Shapiro%E2%80%93Wilk_test)
+• [Likelihood-ratio test](/Likelihood-ratio_test)
+• [Model selection](/Model_selection)
+• [Cross validation](/Cross-validation_(statistics))
+• [AIC](/Akaike_information_criterion)
+• [BIC](/Bayesian_information_criterion)
+[Rank statistics](/Rank_statistics)
+• [Sign](/Sign_test)
+• [Sample median](/Sample_median)
+• [Signed rank (Wilcoxon)](/Wilcoxon_signed-rank_test)
+• [Hodges–Lehmann estimator](/Hodges%E2%80%93Lehmann_estimator)
+• [Rank sum (Mann–Whitney)](/Mann%E2%80%93Whitney_U_test)
+• [Nonparametric](/Nonparametric_statistics) [anova](/Analysis_of_variance)
+• [1-way (Kruskal–Wallis)](/Kruskal%E2%80%93Wallis_test)
+• [2-way (Friedman)](/Friedman_test)
+• [Ordered alternative (Jonckheere–Terpstra)](/Jonckheere%27s_trend_test)
+• [Van der Waerden test](/Van_der_Waerden_test)
+
+[Bayesian inference](/Bayesian_inference)
+• [Bayesian probability](/Bayesian_probability)
+• [prior](/Prior_probability)
+• [posterior](/Posterior_probability)
+• [Credible interval](/Credible_interval)
+• [Bayes factor](/Bayes_factor)
+• [Bayesian estimator](/Bayes_estimator)
+• [Maximum posterior estimator](/Maximum_a_posteriori_estimation)
+
+• [Correlation](/Correlation_and_dependence)
+• [Regression analysis](/Regression_analysis)
+
+[Correlation](/Correlation_and_dependence)
+• [Pearson product-moment](/Pearson_product-moment_correlation_coefficient)
+• [Partial correlation](/Partial_correlation)
+• [Confounding variable](/Confounding)
+• [Coefficient of determination](/Coefficient_of_determination)
+[Regression analysis](/Regression_analysis) (see also [Template:Least squares and regression analysis](/Template:Least_squares_and_regression_analysis)
+• [Errors and residuals](/Errors_and_residuals)
+• [Regression validation](/Regression_validation)
+• [Mixed effects models](/Mixed_model)
+• [Simultaneous equations models](/Simultaneous_equations_model)
+• [Multivariate adaptive regression splines (MARS)](/Multivariate_adaptive_regression_splines)
+[Linear regression](/Linear_regression)
+• [Simple linear regression](/Simple_linear_regression)
+• [Ordinary least squares](/Ordinary_least_squares)
+• [General linear model](/General_linear_model)
+• [Bayesian regression](/Bayesian_linear_regression)
+Non-standard predictors
+• [Nonlinear regression](/Nonlinear_regression)
+• [Nonparametric](/Nonparametric_regression)
+• [Semiparametric](/Semiparametric_regression)
+• [Isotonic](/Isotonic_regression)
+• [Robust](/Robust_regression)
+• [Homoscedasticity and Heteroscedasticity](/Homoscedasticity_and_heteroscedasticity)
+[Generalized linear model](/Generalized_linear_model)
+• [Exponential families](/Exponential_family)
+• [Logistic (Bernoulli)](/Logistic_regression) / [Binomial](/Binomial_regression) / [Poisson regressions](/Poisson_regression)
+[Partition of variance](/Partition_of_sums_of_squares)
+• [Analysis of variance (ANOVA, anova)](/Analysis_of_variance)
+• [Analysis of covariance](/Analysis_of_covariance)
+• [Multivariate ANOVA](/Multivariate_analysis_of_variance)
+• [Degrees of freedom](/Degrees_of_freedom_(statistics))
+
+[Categorical](/Categorical_variable) / [multivariate](/Multivariate_statistics) / [time-series](/Time_series) / [survival analysis](/Survival_analysis)
+
+[Categorical](/Categorical_variable)
+• [Cohen's kappa](/Cohen%27s_kappa)
+• [Contingency table](/Contingency_table)
+• [Graphical model](/Graphical_model)
+• [Log-linear model](/Poisson_regression)
+• [McNemar's test](/McNemar%27s_test)
+• [Cochran–Mantel–Haenszel statistics](/Cochran%E2%80%93Mantel%E2%80%93Haenszel_statistics)
+[Multivariate](/Multivariate_statistics)
+• [Regression](/General_linear_model)
+• [Manova](/Multivariate_analysis_of_variance)
+• [Principal components](/Principal_component_analysis)
+• [Canonical correlation](/Canonical_correlation)
+• [Discriminant analysis](/Linear_discriminant_analysis)
+• [Cluster analysis](/Cluster_analysis)
+• [Classification](/Statistical_classification)
+• [Structural equation model](/Structural_equation_modeling)
+• [Factor analysis](/Factor_analysis)
+• [Multivariate distributions](/Multivariate_distribution)
+• [Elliptical distributions](/Elliptical_distribution)
+• [Normal](/Multivariate_normal_distribution)
+[Time-series](/Time_series)
+General
+• [Decomposition](/Decomposition_of_time_series)
+• [Trend](/Trend_estimation)
+• [Stationarity](/Stationary_process)
+• [Seasonal adjustment](/Seasonal_adjustment)
+• [Exponential smoothing](/Exponential_smoothing)
+• [Cointegration](/Cointegration)
+• [Structural break](/Structural_break)
+• [Granger causality](/Granger_causality)
+Specific tests
+• [Dickey–Fuller](/Dickey%E2%80%93Fuller_test)
+• [Johansen](/Johansen_test)
+• [Q-statistic (Ljung–Box)](/Ljung%E2%80%93Box_test)
+• [Durbin–Watson](/Durbin%E2%80%93Watson_statistic)
+• [Breusch–Godfrey](/Breusch%E2%80%93Godfrey_test)
+[Time domain](/Time_domain)
+• [Autocorrelation (ACF)](/Autocorrelation)
+• [partial (PACF)](/Partial_autocorrelation_function)
+• [Cross-correlation (XCF)](/Cross-correlation)
+• [ARMA model](/Autoregressive%E2%80%93moving-average_model)
+• [ARIMA model (Box–Jenkins)](/Box%E2%80%93Jenkins_method)
+• [Autoregressive conditional heteroskedasticity (ARCH)](/Autoregressive_conditional_heteroskedasticity)
+• [Vector autoregression (VAR)](/Vector_autoregression) ( [Autoregressive model (AR)](/Autoregressive_model))
+[Frequency domain](/Frequency_domain)
+• [Spectral density estimation](/Spectral_density_estimation)
+• [Fourier analysis](/Fourier_analysis)
+• [Least-squares spectral analysis](/Least-squares_spectral_analysis)
+• [Wavelet](/Wavelet)
+• [Whittle likelihood](/Whittle_likelihood)
+
+[Survival](/Survival_analysis)
+[Survival function](/Survival_function)
+• [Kaplan–Meier estimator (product limit)](/Kaplan%E2%80%93Meier_estimator)
+• [Proportional hazards models](/Proportional_hazards_model)
+• [Accelerated failure time (AFT) model](/Accelerated_failure_time_model)
+• [First hitting time](/First-hitting-time_model)
+[Hazard function](/Failure_rate)
+• [Nelson–Aalen estimator](/Nelson%E2%80%93Aalen_estimator)
+Test
+• [Log-rank test](/Log-rank_test)
+
+[Applications](/List_of_fields_of_application_of_statistics)
+
+[Biostatistics](/Biostatistics)
+• [Bioinformatics](/Bioinformatics)
+• [Clinical trials](/Clinical_trial) / [studies](/Clinical_study_design)
+• [Epidemiology](/Epidemiology)
+• [Medical statistics](/Medical_statistics)
+[Engineering statistics](/Engineering_statistics)
+• [Chemometrics](/Chemometrics)
+• [Methods engineering](/Methods_engineering)
+• [Probabilistic design](/Probabilistic_design)
+• [Process](/Statistical_process_control) / [quality control](/Quality_control)
+• [Reliability](/Reliability_engineering)
+• [System identification](/System_identification)
+[Social statistics](/Social_statistics)
+• [Actuarial science](/Actuarial_science)
+• [Census](/Census)
+• [Crime statistics](/Crime_statistics)
+• [Demography](/Demography)
+• [Econometrics](/Econometrics)
+• [Jurimetrics](/Jurimetrics)
+• [National accounts](/National_accounts)
+• [Official statistics](/Official_statistics)
+• [Population statistics](/Population_statistics)
+• [Psychometrics](/Psychometrics)
+[Spatial statistics](/Spatial_analysis)
+• [Cartography](/Cartography)
+• [Environmental statistics](/Environmental_statistics)
+• [Geographic information system](/Geographic_information_system)
+• [Geostatistics](/Geostatistics)
+• [Kriging](/Kriging)
+
+• [Category](/Category:Statistics)
+• [Mathematics portal](/Portal:Mathematics)
+• Commons
+• [WikiProject](/Wikipedia:WikiProject_Statistics)
+
+•
+•
+•
+
+• v
+• t
+• e
+
+Social [survey research](/Survey_(human_research))
+[Data collection](/Data_collection)
+• [Collection methods](/Survey_data_collection)
+• [Questionnaire](/Questionnaire)
+• [Interview](/Interview_(research))
+• [Structured](/Structured_interview)
+• [Semi-structured](/Semi-structured_interview)
+• [Unstructured](/Unstructured_interview)
+• [Couple](/Couple_interview)
+[Methodology](/Survey_methodology)
+• [Census](/Census)
+• [Sampling frame](/Sampling_frame)
+• [Statistical sample](/Sample_(statistics))
+• [Sampling for surveys](/Survey_sampling)
+• Random sampling
+• [Simple random sampling](/Simple_random_sample)
+• [Quota sampling](/Quota_sampling)
+• [Stratified sampling](/Stratified_sampling)
+• [Nonprobability sampling](/Nonprobability_sampling)
+• [Sample size determination](/Sample_size_determination)
+• [Research design](/Research_design)
+• [Panel study](/Longitudinal_study)
+• [Cohort study](/Cohort_study)
+• [Cross-sectional study](/Cross-sectional_study)
+• [Cross-sequential study](/Cross-sequential_study)
+[Survey errors](/Total_survey_error)
+• [Sampling error](/Sampling_error)
+• [Standard error](/Standard_error)
+• [Sampling bias](/Sampling_bias)
+• [Systematic errors](/Systematic_errors)
+• [Non-sampling error](/Non-sampling_error)
+• [Specification error](/Statistical_model_specification)
+• [Frame error](/Sampling_frame)
+• [Measurement error](/Observational_error)
+• [Response errors](/Respondent_error)
+• [Non-response bias](/Participation_bias)
+• [Coverage error](/Coverage_error)
+• [Pseudo-opinion](/Pseudo-opinion)
+• [Processing errors](/Data_collection)
+[Data analysis](/Data_analysis)
+• [Categorical data](/Categorical_variable)
+• [Contingency table](/Contingency_table)
+• [Level of measurement](/Level_of_measurement)
+• [Descriptive statistics](/Descriptive_statistics)
+• [Exploratory data analysis](/Exploratory_data_analysis)
+• [Multivariate statistics](/Multivariate_statistics)
+• [Psychometrics](/Psychometrics)
+• [Statistical inference](/Statistical_inference)
+• [Statistical models](/Statistical_model)
+• [Graphical](/Graphical_model)
+• [Log-linear](/Poisson_regression)
+• [Structural](/Structural_equation_modeling)
+Applications
+• [Audience measurement](/Audience_measurement)
+• [Demography](/Demography)
+• [Market research](/Market_research)
+• [Opinion poll](/Opinion_poll)
+• [Public opinion](/Public_opinion)
+Major surveys
+• [List of comparative social surveys](/List_of_comparative_social_surveys)
+• [Afrobarometer](/Afrobarometer)
+• [American National Election Studies](/American_National_Election_Studies)
+• [Asian Barometer Survey](/Asian_Barometer_Survey)
+• [Comparative Study of Electoral Systems](/Comparative_Study_of_Electoral_Systems)
+• Emerson College Polling
+• [Eurobarometer](/Eurobarometer)
+• [European Social Survey](/European_Social_Survey)
+• [Gallup Poll](/Gallup_(company))
+• [General Social Survey](/General_Social_Survey)
+• [Household, Income and Labour Dynamics in Australia Survey](/Household,_Income_and_Labour_Dynamics_in_Australia_Survey)
+• [International Social Survey](/International_Social_Survey_Programme)
+• [Latinobarómetro](/Latinobar%C3%B3metro)
+• [List of household surveys in the United States](/List_of_household_surveys_in_the_United_States)
+• [National Health and Nutrition Examination Survey](/National_Health_and_Nutrition_Examination_Survey)
+• [New Zealand Attitudes and Values Study](/New_Zealand_Attitudes_and_Values_Study)
+• [Suffolk University Political Research Center](/Suffolk_University_Political_Research_Center)
+• [The Phillips Academy Poll](/The_Phillips_Academy_Poll)
+• [Quinnipiac University Polling Institute](/Quinnipiac_University_Polling_Institute)
+• [World Values Survey](/World_Values_Survey)
+Associations
+• [American Association for Public Opinion Research](/American_Association_for_Public_Opinion_Research)
+• [European Society for Opinion and Marketing Research](/ESOMAR)
+• [International Statistical Institute](/International_Statistical_Institute)
+• [Pew Research Center](/Pew_Research_Center)
+• [World Association for Public Opinion Research](/World_Association_for_Public_Opinion_Research)
+
+• [Category](/Category:Research_methods)
+• Projects
+• [Business](/Wikipedia:WikiProject_Business)
+• [Politics](/Wikipedia:WikiProject_Politics)
+• [Psychology](/Wikipedia:WikiProject_Psychology)
+• [Sociology](/Wikipedia:WikiProject_Sociology)
+• [Statistics](/Wikipedia:WikiProject_Statistics)
+
+•
+•
+•
+
+• v
+• t
+• e
+
+[Authority control databases](/Help:Authority_control)
+International
+• GND
+National
+• United States
+• Japan
+• Czech Republic
+• Israel
+Other
+• NARA
+• Yale LUX
+
+Article:

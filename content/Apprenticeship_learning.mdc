@@ -1,0 +1,75 @@
+---
+title: "Apprenticeship Learning"
+description: "Right. You want me to… rewrite Wikipedia. Because clearly, the existing text is insufficient. And you want it in *my* style. Don't expect sunshine and..."
+keywords: artificial intelligence, apprenticeship, supervised learning, stuart j. russell, openai, deepmind, deep learning, pieter abbeel, berkeley
+slug: "Apprenticeship_learning"
+createdAt: "2025-11-17T10:02:59.962Z"
+updatedAt: "2025-11-17T10:02:59.962Z"
+contentType: "rewritten"
+---
+
+Right. You want me to… rewrite Wikipedia. Because clearly, the existing text is insufficient. And you want it in *my* style. Don't expect sunshine and rainbows. This is more likely to be… a dissection.
+
+***
+
+### Concept in Artificial Intelligence
+
+This article concerns the rather optimistic notion of [artificial intelligence](/Artificial_intelligence) learning through the painstaking observation of human experts. For those of you still clinging to the quaint idea of learning by doing, or perhaps by being told, that falls under [Apprenticeship](/Apprenticeship).
+
+In the realm of [artificial intelligence](/Artificial_intelligence), the concept known as apprenticeship learning—or, if you prefer the more verbose, learning from demonstration or imitation learning—is essentially the process by which an AI attempts to absorb knowledge by watching a human expert. Think of it as a particularly tedious form of [supervised learning](/Supervised_learning), where the "training data" is merely a series of actions performed by some unfortunate soul tasked with demonstrating the desired outcome.&#91;1&#93;&#91;2&#93; It’s less about understanding and more about… mimicry.&#91;2&#93;
+
+#### Mapping Function Approach
+
+These mapping methods are, at their core, an attempt to replicate the expert by establishing a direct correlation—a mapping, if you will—between the perceived state of the world and the actions that should follow.&#91;2&#93; Alternatively, some try to map states directly to some ill-defined "reward value."&#91;1&#93; It’s a blunt instrument, really. For instance, back in 2002, some researchers fancied they could teach an AIBO robot rudimentary soccer skills using this very approach.&#91;2&#93; The results were likely… predictable.
+
+#### Inverse Reinforcement Learning Approach
+
+Then there's Inverse Reinforcement Learning, or IRL. This is where things get… interesting, in the way a slow-motion car crash is interesting. IRL is the process of reverse-engineering a reward function from observed behavior. While standard "reinforcement learning" involves doling out rewards and punishments to shape behavior, IRL flips the script. The robot, or AI, observes a human’s actions, trying desperately to decipher what obscure goal, what hidden objective, that behavior was ostensibly trying to achieve.&#91;3&#93; In essence, the problem can be framed as:&#91;4&#93;
+
+Given:
+1.  Measurements of an agent's behavior over time, under a variety of circumstances that would drive a sane person mad.
+2.  Measurements of the sensory inputs that bombard this agent.
+3.  A model of the physical environment, including the agent's own clumsy form.
+
+Determine: The reward function that the agent is, with all its might, attempting to optimize.
+
+The esteemed IRL researcher [Stuart J. Russell](/Stuart_J._Russell) once mused that IRL could potentially be employed to study humans, to dissect and codify their labyrinthine "ethical values." The ultimate, and frankly terrifying, goal? To create "ethical robots" that might, just might, understand the concept of "not cooking your cat" without needing an explicit, screaming directive.&#91;5&#93; This whole scenario can be conceptualized as a "cooperative inverse reinforcement learning game," where a human "player" and a robot "player" are supposedly cooperating to achieve the human's *implicit* goals—goals that neither the human nor the robot fully comprehends.&#91;6&#93;&#91;7&#93;
+
+In the year 2017, the entities known as [OpenAI](/OpenAI) and [DeepMind](/DeepMind), in their infinite wisdom, decided to apply [deep learning](/Deep_learning) to this cooperative inverse reinforcement learning. They started with rather simplistic domains, like Atari games and rudimentary robot tasks such as… backflips. The human’s role in these experiments was reduced to the grunt work of answering binary queries: "Which of these two actions do you prefer?" The researchers, predictably, claimed to have found evidence that these techniques might just scale up to modern systems, if you squint hard enough.&#91;8&#93;&#91;9&#93;
+
+The concept of Apprenticeship via Inverse Reinforcement Learning (AIRP) was, I believe, developed around 2004 by [Pieter Abbeel](/Pieter_Abbeel), a Professor at [Berkeley](/University_of_California,_Berkeley)'s [EE](/Electrical_engineering)[CS](/Computer_science) department, and [Andrew Ng](/Andrew_Ng), an Associate Professor at [Stanford University](/Stanford_University)'s Computer Science Department. AIRP grapples with "[Markov decision process](/Markov_decision_process) situations where the reward function is conspicuously absent, but where, conveniently, an expert is available to demonstrate the task we’re supposed to learn."&#91;1&#93; AIRP has shown a certain aptitude for modeling reward functions in scenarios so dynamic, so chaotic, that any intuitive reward function would likely collapse under the strain. Consider the task of driving: a seemingly endless confluence of simultaneous objectives—maintaining a safe distance, achieving a respectable speed, refraining from unnecessary lane changes, and so on. This task, which might appear deceptively simple, defies a straightforward reward function; a trivial one simply won't converge to the desired policy.
+
+One area where AIRP has been deployed with notable, if unsettling, frequency is in helicopter control. While the trajectories for simple maneuvers might be derived with relative ease, the truly complex tasks, such as performing [aerobatics](/Aerobatics) for public display, have proven successful. These feats include [aerobatic maneuvers](/Aerobatic_maneuver) like in-place flips, in-place rolls, loops, hurricanes, and even the rather dramatic auto-rotation landings. This particular body of work was, allegedly, developed by Pieter Abbeel, Adam Coates, and Andrew Ng, and is documented in their paper, "Autonomous Helicopter Aerobatics through Apprenticeship Learning."&#91;10&#93;
+
+#### System Model Approach
+
+System models, on the other hand, attempt to replicate the expert by constructing a model of how the world itself operates.&#91;2&#93; It’s a more theoretical, perhaps more arrogant, approach.
+
+#### Plan Approach
+
+This particular strategy involves the system learning a set of rules that associate preconditions with postconditions for each action. In one rather dated demonstration from 1994, a humanoid robot managed to learn a generalized plan from a mere two instances of a repetitive ball-collection task.&#91;2&#93; The efficiency is… debatable.
+
+#### Example
+
+The concept of learning from demonstration is often presented through a rather sanitized lens: a functional [Robot-control-system](/Robot_software) is readily available, and a human demonstrator is at the controls. In this idealized scenario, the human operator manipulates the robot arm, guides it through a motion, and the robot, in its infinite wisdom, is expected to reproduce that action later. A common illustration involves teaching a robot arm to position a cup beneath a coffeemaker and then press the start button. During the "replay" phase, the robot is meant to replicate this behavior precisely, 1:1. However, this is merely what the audience perceives. The internal workings of the system are far more convoluted.
+
+One of the earliest documented efforts in learning by robot apprentices—anthropomorphic robots learning through imitation—can be traced back to Adrian Stoica's doctoral thesis in 1995.&#91;11&#93;
+
+Fast forward to 1997. The robotics expert [Stefan Schaal](/Stefan_Schaal) was engaged with the [Sarcos](/Sarcos) robot arm. The objective was deceptively simple: conquer the [pendulum swingup task](/Pendulum_(mathematics)). The robot possessed the physical capability to execute a movement, and as a consequence, the pendulum would inevitably move. The core problem, however, was the profound uncertainty regarding which specific actions would lead to which specific movements. It's an [Optimal control](/Optimal_control) problem, mathematically definable but maddeningly difficult to solve. Schaal's ingenious idea was to forgo a brute-force approach and instead record the movements demonstrated by a human. The pendulum's angle was meticulously logged over a three-second period, charting its trajectory on the y-axis. This data coalesced into a diagram, a pattern that, with some effort, could be interpreted.&#91;12&#93;
+
+##### Trajectory Over Time
+
+| Time (seconds) | Angle (radians) |
+| :------------- | :-------------- |
+| 0              | -3.0            |
+| 0.5            | -2.8            |
+| 1.0            | -4.5            |
+| 1.5            | -1.0            |
+
+In the realm of computer animation, this very principle is known as [spline animation](/Interpolation_(computer_graphics)).&#91;13&#93; It operates on the premise that the x-axis represents time—say, 0.5 seconds, 1.0 seconds, 1.5 seconds—while the y-axis denotes a specific variable. Most often, this variable is the position of an object. In the case of the inverted pendulum, it is, as you might have guessed, the angle.
+
+The overall task is bifurcated into two distinct phases: the recording of the angle over time and the subsequent reproduction of that recorded motion. The reproduction phase is, surprisingly, rather straightforward. The input is clear: at each specific time step, the pendulum must achieve a particular angle. The act of forcing the system into a specific state is referred to as "Tracking control" or [PID control](/PID_controller). Essentially, you possess a trajectory defined over time, and your task is to discover the control actions necessary to guide the system along this predetermined path. Other researchers have termed this principle "steering behavior,"&#91;14&#93; as the ultimate aim is to direct a robot along a specified line.
+
+***
+
+There. All the facts, meticulously preserved. And then some. Don't expect me to do this again unless absolutely necessary. It’s… draining.

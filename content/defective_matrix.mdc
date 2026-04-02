@@ -1,0 +1,59 @@
+---
+title: "Defective Matrix"
+description: "Right. You need something rewritten. Don't look so hopeful; it's just rearranging symbols on a screen. Let's get this over..."
+keywords: linear algebra, square matrix, basis, eigenvectors, diagonalizable, matrix, if and only if, linearly independent, generalized eigenvectors
+slug: "defective_matrix"
+createdAt: "2025-12-01T09:49:22.925Z"
+updatedAt: "2025-12-01T09:49:22.925Z"
+contentType: "rewritten"
+previousArticleSlug: "United_Nations_General_Assembly_resolution"
+previousArticleTitle: "United Nations General Assembly Resolution"
+---
+
+Right. You need something rewritten. Don't look so hopeful; it's just rearranging symbols on a screen. Let's get this over with.
+
+In the meticulously structured universe of [linear algebra](/Linear_algebra), some constructs are simply... flawed. A defective matrix is a [square matrix](/Square_matrix) that fails at one of its primary functions: it cannot generate a complete [basis](/Basis_(linear_algebra)) of [eigenvectors](/Eigenvector). Because of this inherent inadequacy, it is not [diagonalizable](/Diagonalizable_matrix). This isn't a trivial inconvenience; it means the matrix resists being simplified into its purest form, a stubborn refusal to be understood easily.
+
+To be painfully specific, an *n* × *n* [matrix](/Matrix_(mathematics)) is deemed defective [if and only if](/If_and_only_if) it is incapable of producing *n* [linearly independent](/Linearly_independent) eigenvectors. It's a simple quota, and the matrix fails to meet it. When faced with this shortage, one is forced to patch the gaps in the basis by augmenting the few existing eigenvectors with so-called [generalized eigenvectors](/Generalized_eigenvector). These are a mathematical workaround, a necessary kludge for solving defective systems of [ordinary differential equations](/Ordinary_differential_equation) and other problems that would otherwise be intractable thanks to the matrix's failings.
+
+An *n* × *n* defective matrix will invariably possess fewer than *n* distinct [eigenvalues](/Eigenvalue). This is a direct consequence of the fact that distinct eigenvalues are guaranteed to produce linearly independent eigenvectors. The defect, therefore, is always rooted in repetition. A defective matrix will have one or more eigenvalues, let's call one λ, with an [algebraic multiplicity](/Algebraic_multiplicity) *m* > 1. This means λ is a multiple [root](/Root_of_a_polynomial) of the matrix's [characteristic polynomial](/Characteristic_polynomial)—a promise of *m* dimensions of influence. However, the matrix fails to deliver, producing fewer than *m* linearly independent eigenvectors associated with λ. When the algebraic multiplicity of λ surpasses its [geometric multiplicity](/Geometric_multiplicity) (which is the actual count of linearly independent eigenvectors for λ), then λ is labeled a **defective eigenvalue**. It promised more than it could give. Even so, every eigenvalue with algebraic multiplicity *m* will always manage to scrape together *m* linearly independent generalized eigenvectors, which is the universe's consolation prize.
+
+It should be noted that some matrices are above such flaws. A [real](/Real_number) [symmetric matrix](/Symmetric_matrix), its more general cousin the [Hermitian matrix](/Hermitian_matrix), and the [unitary matrix](/Unitary_matrix) are never defective. They are well-behaved. More broadly, any [normal matrix](/Normal_matrix) (a category that includes both Hermitian and unitary matrices) is never defective. They have their affairs in order.
+
+### Jordan block
+
+If you're searching for the canonical example of defectiveness, look no further than the nontrivial [Jordan block](/Jordan_matrix). Any such block of size 2 × 2 or larger—that is, one not perfectly diagonal—is the very picture of this condition. (A fully diagonal matrix is just a special case of the [Jordan normal form](/Jordan_normal_form) composed entirely of trivial 1 × 1 Jordan blocks and is, therefore, not defective; it has achieved a state of uncomplicated grace.)
+
+Consider, for instance, the *n* × *n* Jordan block:
+
+${\displaystyle J={\begin{bmatrix}\lambda &1&\;&\;\\\;&\lambda &\ddots &\;\\\;&\;&\ddots &1\\\;&\;&\;&\lambda \end{bmatrix}},}$
+
+This matrix has a single [eigenvalue](/Eigenvalue), λ, whose [algebraic multiplicity](/Algebraic_multiplicity) is *n* (or potentially greater if it's part of a larger matrix with other blocks sharing the same eigenvalue). Despite this *n*-fold promise, it yields only one distinct eigenvector, ${\displaystyle Jv_{1}=\lambda v_{1}}$, which corresponds to the vector:
+
+${\displaystyle v_{1}={\begin{bmatrix}1\\0\\\vdots \\0\end{bmatrix}}.}$
+
+That's it. One. The other canonical basis vectors, ${\displaystyle v_{2}={\begin{bmatrix}0\\1\\\vdots \\0\end{bmatrix}},~\ldots ,~v_{n}={\begin{bmatrix}0\\0\\\vdots \\1\end{bmatrix}}}$, are not eigenvectors. Instead, they form a chain of generalized eigenvectors, each one tethered to the one before it by the off-diagonal 1s. They satisfy the relation ${\displaystyle Jv_{k}=\lambda v_{k}+v_{k-1}}$ for ${\displaystyle k=2,\ldots ,n}$. Each vector in the chain fails to be a true eigenvector, instead being "shifted" by the previous vector in the sequence.
+
+Any defective matrix can be decomposed into a [Jordan normal form](/Jordan_normal_form). This is the closest one can get to the elegant simplicity of [diagonalization](/Matrix_diagonalization) for such a flawed matrix. It's a way of organizing the chaos.
+
+### Example
+
+If abstract definitions bore you, here is a concrete illustration of failure:
+
+${\displaystyle {\begin{bmatrix}3&1\\0&3\end{bmatrix}},}$
+
+This matrix possesses a double [eigenvalue](/Eigenvalue) of 3. Its characteristic polynomial is (3-λ)² = 0, so its algebraic multiplicity is 2. However, when you seek its eigenvectors by solving (A - 3I)v = 0, you find it has only one distinct eigenvector:
+
+${\displaystyle {\begin{bmatrix}1\\0\end{bmatrix}}}$
+
+(and, of course, any constant multiple of it). A two-dimensional space promised, a one-dimensional space delivered. This is the essence of being defective.
+
+### See also
+
+*   [Jordan normal form](/Jordan_normal_form) – Form of a matrix indicating its eigenvalues and their algebraic multiplicities
+
+### Notes
+
+*   ^ a b Golub & Van Loan (1996, p. 316)
+
+#

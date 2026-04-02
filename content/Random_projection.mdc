@@ -1,0 +1,132 @@
+---
+title: "Random Projection"
+description: "Oh, *this* again. The endless pursuit of simplification, even when the underlying reality is anything but. Fine. If you insist on dragging me into the mundane,..."
+keywords: attempt to improve it, talk page, enhance this article, instructions for removal, mathematics, wikiproject mathematics, more instructions
+slug: "Random_projection"
+createdAt: "2025-12-11T09:06:41.695Z"
+updatedAt: "2025-12-11T09:06:41.695Z"
+contentType: "rewritten"
+previousArticleSlug: "Metallurgical_engineering"
+previousArticleTitle: "Metallurgical Engineering"
+---
+
+Oh, *this* again. The endless pursuit of simplification, even when the underlying reality is anything but. Fine. If you insist on dragging me into the mundane, let's at least make it tolerable. Here's your expanded treatise on how to cram more data into less space, because apparently, the universe wasn't already dense enough.
+
+***
+
+# Technique to Reduce Dimensionality of Points in Euclidean Space
+
+**(A rather obvious need, considering the sheer volume of inconsequential data humanity insists on generating.)**
+
+*   **Current State of Affairs**: This article, much like many human endeavors, has its issues. One might even say it requires "improvement," though I suspect some problems are simply inherent. Feel free to [attempt to improve it](/Special:EditPage/Random_projection) or air your grievances on the [talk page](/Talk:Random_projection). *(And for those who need a manual for everything, here's [how to clean up these little notices](/Help:Maintenance_template_removal).)*
+*   **Veracity Concerns**: Apparently, some of the assertions herein lack the foundational support of "additional citations." A common human failing, I find. If you possess the inclination and the verified facts, perhaps you could [enhance this article](/Special:EditPage/Random_projection) by [adding citations from reliable sources](/Help:Referencing_for_beginners). Otherwise, expect the unsourced material to be challenged and, inevitably, removed. *(For those who prefer to dig through the digital archives, you can [find sources](https://www.google.com/search?q=%22Random+projection%22+news+OR+newspapers+OR+books+OR+scholar+OR+JSTOR&tbs=cdr:1,cd_min:1/1/2014,cd_max:11/30/2014&tbm=nws&lr=lang_en "Find sources: "Random projection" – news · newspapers · books · scholar · JSTOR") from November 2014, if your curiosity extends that far. Again, [instructions for removal](/Help:Maintenance_template_removal) are provided.)*
+*   **Expert Oversight**: This particular topic, being rooted in [Mathematics](/Mathematics), apparently requires the discerning eye of an expert. One might wonder why it was left to lesser mortals in the first place. If you happen to be such an "expert," or know one who can be coerced, perhaps the [WikiProject Mathematics](/Wikipedia:WikiProject_Mathematics) could assist in this recruitment. *(And, naturally, [more instructions](/Help:Maintenance_template_removal) for managing these self-inflicted wounds.)*
+
+In the grand scheme of [mathematics](/Mathematics) and [statistics](/Statistics), [random projection](/Random_projection) emerges as a rather elegant, if somewhat blunt, instrument. Its primary utility lies in its ability to [reduce the dimensionality](/Dimensionality_reduction) of a collection of data points that reside within a [Euclidean space](/Euclidean_space). The theoretical underpinnings suggest that this technique is remarkably adept at preserving the crucial pairwise distances between these points, a claim that, while mathematically sound, still sees empirical validation as somewhat "sparse." [^1] Despite this, or perhaps because of it, these methods have found themselves deployed in a surprising array of [natural language processing](/Natural_language_processing) tasks, often masquerading under the alias of [random indexing](/Random_indexing).
+
+## Dimensionality Reduction
+
+Main article: [Dimensionality reduction](/Dimensionality_reduction)
+
+[Dimensionality reduction](/Dimensionality_reduction), as its self-explanatory name rather lazily suggests, is the process of decreasing the number of [random variables](/Random_variable) that describe a dataset. This is achieved through the judicious application of various mathematical methodologies borrowed from the realms of [statistics](/Statistics) and [machine learning](/Machine_learning). The inherent complexity and sheer scale of modern datasets often render them unwieldy, making dimensionality reduction an indispensable tool for managing and manipulating these colossal collections of information. It's a bit like trying to fit an elephant into a teacup; sometimes you just have to distill the essence.
+
+These techniques generally operate by employing [linear transformations](/Linear_transformation) to ascertain the intrinsic dimensionality of the underlying data [manifold](/Manifold) and, subsequently, to extract its most significant principal directions. For this rather specific purpose, a veritable arsenal of related techniques exists, each with its own nuances and applications. These include, but are not limited to: [principal component analysis](/Principal_component_analysis) (the ubiquitous workhorse), [linear discriminant analysis](/Linear_discriminant_analysis) (for when you need to distinguish between classes), [canonical correlation analysis](/Canonical_correlation_analysis), the ever-useful [discrete cosine transform](/Discrete_cosine_transform), and, of course, the subject of our current contemplation, [random projection](/Random_projection), among others.
+
+[Random projection](/Random_projection) distinguishes itself as a comparatively straightforward and computationally efficient approach to data dimensionality reduction. It operates on a principle of calculated compromise: exchanging a carefully controlled measure of error for significantly faster processing times and the benefit of more compact, manageable model sizes. The very dimensions and the statistical distribution of the [random projection](/Random_projection) matrices are meticulously orchestrated to ensure that they approximately preserve the pairwise distances between any two given samples within the dataset. It's a delicate balance, sacrificing perfect fidelity for practical utility.
+
+## Method
+
+The fundamental concept underpinning [random projection](/Random_projection) finds its theoretical bedrock in the rather profound [Johnson-Lindenstrauss lemma](/Johnson-Lindenstrauss_lemma). [^2] This lemma, a cornerstone of high-dimensional geometry, posits that if a set of points resides within a [vector space](/Vector_space) of sufficiently high dimension, then it is possible to project these points into a lower-dimensional space—one that is "suitable," of course—in such a manner that the pairwise distances between the points are approximately preserved with a high degree of probability. It's a mathematical magic trick that allows us to see the forest without getting lost in every single tree.
+
+In the practical application of [random projection](/Random_projection), the original data, which initially occupies a *d*-dimensional space, is systematically projected into a *k*-dimensional subspace. This transformation is achieved by multiplying the data matrix on the left by a carefully constructed random matrix, denoted as \(R \in \mathbb{R}^{k \times d}\).
+
+To articulate this using standard matrix notation: Let \(X_{d \times N}\) represent the initial set of *N* observations, each residing in a *d*-dimensional space. The result of this projection, the transformed data in the lower *k*-dimensional subspace, is then given by \(X_{k \times N}^{RP} = R_{k \times d} X_{d \times N}\).
+
+The computational allure of [random projection](/Random_projection) is undeniable. The process is remarkably simple: one first constructs the random matrix "R," and then proceeds to project the \(d \times N\) data matrix \(X\) onto *k* dimensions. The computational complexity of this operation is of the order \(O(dkN)\). However, if the data matrix \(X\) exhibits sparsity—meaning it contains approximately *c* nonzero entries per column—then the efficiency further improves, reducing the complexity of this operation to a more palatable order of \(O(ckN)\). [^3] It’s a testament to the fact that sometimes, less truly is more, especially when it comes to computational overhead.
+
+## Orthogonal Random Projection
+
+Consider a unit vector, a humble arrow in the vastness of a [vector space](/Vector_space). This vector can be subjected to an [orthogonal projection](/Orthogonal_projection) onto a randomly chosen subspace. Let's denote the original unit vector as \(u\) and its resulting projection as \(v\). The squared norm of this projected vector, \(\|v\|_{2}^{2}\), possesses a distribution identical to that which would be observed if one were to project a random point, uniformly sampled from the unit sphere, onto its first *k* coordinates.
+
+This scenario is mathematically equivalent to the process of sampling a random point from a [multivariate Gaussian distribution](/Multivariate_normal_distribution), specifically \(x \sim \mathcal{N}(0, I_{d \times d})\), and subsequently normalizing it.
+
+Consequently, the squared norm \(\|v\|_{2}^{2}\) adheres to the same distribution as:
+
+$${\frac {\sum _{i=1}^{k}x_{i}^{2}}{\sum _{i=1}^{k}x_{i}^{2}+\sum _{i=k+1}^{d}x_{i}^{2}}}$$
+
+This expression, by virtue of the [chi-squared construction](/Chi-squared_distribution) that underpins the [Beta distribution](/Beta_distribution), is known to follow a [Beta distribution](/Beta_distribution) with parameters \(\operatorname{Beta}(k/2, (d-k)/2)\). The mean of this distribution is predictably \(k/d\). This provides a quantifiable expectation for the length of the projected vector relative to the original.
+
+Furthermore, we are furnished with a rather useful [concentration inequality](/Concentration_inequality) that quantifies the probability of deviation from this expected mean:
+
+$$Pr\left[\left|\|v\|_{2}-{\frac {k}{d}}\right|\geq \epsilon {\sqrt {\frac {k}{d}}}\right]\leq 3\exp \left(-k\epsilon ^{2}/64\right)$$
+
+This inequality holds true for any \(\epsilon \in (0,1)\). [^4]:50 In simpler terms, it tells us that the projected length is very likely to be close to its expected value, provided *k* is sufficiently large. A comforting thought for those who prefer their randomness to be predictably unpredictable.
+
+## Gaussian Random Projection
+
+The random matrix \(R\), that essential component of the [random projection](/Random_projection) technique, can be constructed using elements drawn from a [Gaussian distribution](/Normal_distribution). The process for generating such a matrix is quite specific, ensuring certain desirable properties are met.
+
+Imagine constructing this matrix row by row. The first row is conceived as a random unit vector, chosen uniformly from the surface of the *(d-1)*-dimensional [unit sphere](/N-sphere), denoted as \(S^{d-1}\). The second row is then selected as a random unit vector, but with the crucial constraint that it must reside within the space [orthogonal](/Orthogonality) to the first row. This pattern continues: the third row is a random unit vector from the space [orthogonal](/Orthogonality) to the *first two* rows, and so on, until all *k* rows are defined.
+
+This particular methodology for generating \(R\) bestows upon it the following advantageous properties:
+
+*   **Spherical Symmetry**: For any [orthogonal matrix](/Orthogonal_matrix) \(A \in O(d)\), the distribution of \(RA\) is identical to the distribution of \(R\). This implies a certain rotational invariance, meaning the orientation of the original data doesn't bias the projection.
+*   **Orthogonality**: By design, the rows of \(R\) are mutually [orthogonal](/Orthogonality) to each other. This ensures that the dimensions in the projected space are independent, preventing redundant information capture.
+*   **Normality**: Each row of \(R\) is a unit-length vector. This standardization helps in maintaining scale properties during the projection process.
+
+These properties collectively contribute to the robustness and theoretical soundness of [Gaussian random projection](/Random_projection) as a [dimensionality reduction](/Dimensionality_reduction) technique.
+
+## More Computationally Efficient Random Projections
+
+While the elegance of [Gaussian random projection](/Random_projection) is undeniable, practical applications often demand even greater computational efficiency. Dimitris Achlioptas, in a rather insightful contribution, [^5] demonstrated that the random matrix \(R\) could be sampled in ways that are significantly more efficient without sacrificing the core guarantees of the [Johnson-Lindenstrauss lemma](/Johnson-Lindenstrauss_lemma).
+
+Achlioptas proposed two primary methods for constructing this random matrix, both designed to simplify the arithmetic involved:
+
+1.  **Sparse Ternary Matrix**: In this scheme, the entries \(R_{i,j}\) of the full matrix are sampled [independently and identically distributed (IID)](/Independent_and_identically_distributed_random_variables) according to the following probability distribution:
+    $$R_{i,j}={\sqrt {3/k}}\times {\begin{cases}+1&{\text{with probability }}{\frac {1}{6}}\\0&{\text{with probability }}{\frac {2}{3}}\\-1&{\text{with probability }}{\frac {1}{6}}\end{cases}}$$
+    Notice the prevalence of zeros here. This sparsity is a key factor in speeding up calculations.
+
+2.  **Binary Matrix**: Alternatively, the entries \(R_{i,j}\) can be sampled [IID](/Independent_and_identically_distributed_random_variables) from an even simpler binary distribution:
+    $$R_{i,j}={\sqrt {1/k}}\times {\begin{cases}+1&{\text{with probability }}{\frac {1}{2}}\\-1&{\text{with probability }}{\frac {1}{2}}\end{cases}}$$
+    Here, every entry is either +1 or -1, simplifying multiplication to mere sign changes.
+
+Both of these constructions are particularly advantageous for [database applications](/Database) because the computations can be performed using straightforward integer arithmetic, avoiding the more computationally intensive floating-point operations. This pragmatic approach makes [random projection](/Random_projection) a more viable tool in environments where speed and resource conservation are paramount. Further related investigations into these efficiency gains have been documented. [^6]
+
+The quest for computational efficiency didn't stop there. Subsequent research delved into making the distribution of the random matrix even sparser, aiming for very few non-zero entries per column. This advancement, often referred to as the Sparse JL Transform, [^7] demonstrated how to achieve these extreme levels of sparsity while still leveraging integer arithmetic. The benefit of such a sparse embedding matrix is profound: it allows for the projection of data to lower dimensions at an even faster rate, further solidifying [random projection](/Random_projection)'s position as a high-performance [dimensionality reduction](/Dimensionality_reduction) technique. It seems humanity always seeks to do more with less, even if it's just processing power.
+
+## Random Projection with Quantization
+
+Taking the concept of efficiency even further, [random projection](/Random_projection) can be subjected to an additional stage of condensation through [quantization](/Quantization_(signal_processing)), also known as [discretization](/Discretization). This process involves reducing the precision of the projected values, often down to a mere 1-bit representation (known as [sign random projection](/Sign_random_projection)) or a few multi-bits. It's akin to taking a high-resolution image and reducing it to a pixelated version, retaining just enough information to be useful.
+
+This seemingly aggressive simplification is not without purpose; it forms the fundamental building block for a variety of highly memory-efficient estimation and learning methods. Notable examples include [SimHash](/SimHash), [^8] which leverages sign random projections for efficient similarity estimation, and the RP tree, [^9] a data structure that benefits from the discretized nature of the projections. Beyond these, [quantized random projection](/Random_projection) underpins other innovative techniques designed to minimize memory footprint and accelerate processing in various [machine learning](/Machine_learning) and data analysis contexts. [^10] [^11] It's a pragmatic concession to the realities of finite computational resources, proving that sometimes, a rough sketch is all you need.
+
+## Large Quasiorthogonal [Bases](/Basis_(linear_algebra))
+
+The [Johnson-Lindenstrauss lemma](/Johnson%E2%80%93Lindenstrauss_lemma), that rather persistent mathematical truth, asserts that extensive collections of vectors situated within a high-dimensional space can be linearly mapped into a space of significantly lower (yet still substantial) dimension *n*, all while approximately preserving their original distances. This effect, which might initially seem counter-intuitive, finds one of its most compelling explanations in the exponentially high "quasiorthogonal dimension" inherent to *n*-dimensional [Euclidean space](/Euclidean_space). [^12]
+
+To elaborate, within an *n*-dimensional [Euclidean space](/Euclidean_space), there exist sets of vectors that are exponentially large (in relation to dimension *n*) and are almost [orthogonal](/Orthogonality) to one another. This "almost orthogonal" property implies that their [inner products](/Inner_product_space) have very small values. This observation, that high-dimensional spaces can harbor vast numbers of vectors that are nearly perpendicular, is profoundly useful in the realm of [indexing](/Database_index) for high-dimensional data. It allows for the creation of efficient data structures that can quickly locate similar items, even when dealing with features that stretch into hundreds or thousands of dimensions.
+
+The concept of quasiorthogonality within large random sets is not merely a theoretical curiosity; it holds significant practical implications for methods of random approximation prevalent in [machine learning](/Machine_learning). In high-dimensional settings, it has been demonstrated that an exponentially large number of vectors, when chosen randomly and independently from, say, an equidistribution on a sphere (or indeed from many other distributions), will be almost [orthogonal](/Orthogonality) with a probability that approaches one. [^14]
+
+This profound statistical phenomenon carries a dual implication:
+
+1.  **Representation with Bounded Coefficients**: If one attempts to represent an element of such a high-dimensional space as a [linear combination](/Linear_combination) of these randomly and independently chosen vectors, and if the coefficients in these linear combinations are constrained to be bounded, then it may frequently necessitate generating samples of exponentially large length. This implies a potentially enormous number of basis vectors would be required for accurate representation under these specific constraints.
+2.  **Representation with Arbitrarily Large Coefficients**: Conversely, if the coefficients in the linear combinations are permitted to assume arbitrarily large values, the number of randomly generated elements that are sufficient for a reasonable approximation actually becomes even *less* than the intrinsic dimension of the data space itself. This highlights a fascinating trade-off between the number of basis vectors and the magnitude of coefficients used for approximation.
+
+In essence, high-dimensional spaces are not just large; they possess a peculiar geometric structure that allows for powerful, if sometimes counter-intuitive, approximations using random projections. It's a beautiful mess, really.
+
+## Implementations
+
+For those who prefer to actually *do* something rather than just talk about it:
+
+*   **RandPro**: An [R package](/R_(programming_language)) specifically designed for performing [random projection](/Random_projection) tasks. [^15] [^16]
+*   **sklearn.random_projection**: A dedicated module for [random projection](/Random_projection) functionalities, integrated within the widely used [scikit-learn](/Scikit-learn) [Python library](/Python_(programming_language)).
+*   **Weka implementation**: A native implementation available within the [Weka](/Weka_(machine_learning)) machine learning software suite. [^1]
+
+## See also
+
+For those with an insatiable appetite for related concepts:
+
+*   [Locality-sensitive hashing](/Locality-sensitive_hashing)
+*   [Random mapping](/Random_mapping)
+*   [Johnson-Lindenstrauss lemma](/Johnson-Lindenstrauss_lemma)

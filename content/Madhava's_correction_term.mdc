@@ -1,0 +1,157 @@
+---
+title: "Madhava'S Correction Term"
+description: "The expression known as Madhava's correction term, a contribution attributed to the pioneering mathematician Madhava of Sangamagrama (active roughly between..."
+keywords: madhava of sangamagrama, nilakantha somayaji, continued fraction, euclidean algorithm
+slug: "Madhava's_correction_term"
+createdAt: "2025-11-19T10:32:34.096Z"
+updatedAt: "2025-11-19T10:32:34.096Z"
+contentType: "rewritten"
+---
+
+### Madhava's Correction Term
+
+The expression known as Madhava's correction term, a contribution attributed to the pioneering mathematician [Madhava of Sangamagrama](/Madhava_of_Sangamagrama) (active roughly between 1340 and 1425 CE), represents a sophisticated refinement designed to yield a more accurate approximation of the mathematical constant [π](/Pi) than one might achieve by simply truncating the [Madhava–Leibniz infinite series](/Madhava_series) for π. This particular series, a cornerstone in the history of calculus, is presented as:
+
+$$ \frac{\pi}{4} = 1 - \frac{1}{3} + \frac{1}{5} - \frac{1}{7} + \cdots $$
+
+When we consider the partial sum of the first $n$ terms of this series, we obtain an approximation for $\frac{\pi}{4}$:
+
+$$ \frac{\pi}{4} \approx 1 - \frac{1}{3} + \frac{1}{5} - \frac{1}{7} + \cdots + (-1)^{n-1} \frac{1}{2n-1} $$
+
+Madhava's insight was to introduce a correction term, which we can denote as $F(n)$, to enhance this approximation. The refined formula then becomes:
+
+$$ \frac{\pi}{4} \approx 1 - \frac{1}{3} + \frac{1}{5} - \frac{1}{7} + \cdots + (-1)^{n-1} \frac{1}{2n-1} + (-1)^{n} F(n) $$
+
+Scholars have identified three distinct expressions for $F(n)$ that have been linked to Madhava:
+
+$$ F_1(n) = \frac{1}{4n} $$
+$$ F_2(n) = \frac{n}{4n^2 + 1} $$
+$$ F_3(n) = \frac{n^2 + 1}{4n^3 + 5n} $$
+
+While the surviving works of the [Kerala school of astronomy and mathematics](/Kerala_school_of_astronomy_and_mathematics) offer some clues regarding the derivation of $F_1(n)$ and $F_2(n)$, the provenance of $F_3(n)$ remains a subject of considerable scholarly speculation. The very existence of these correction terms suggests a level of mathematical sophistication that anticipated later developments in calculus by centuries.
+
+#### Correction Terms as Presented in Kerala Texts
+
+The expressions for $F_2(n)$ and $F_3(n)$ are explicitly documented in the *Yuktibhasha*, a seminal treatise on mathematics and astronomy authored by the astronomer Jyesthadeva of the Kerala school, dating to approximately 1530 CE. The expression for $F_1(n)$, while crucial, appears within the *Yuktibhasha* primarily as an intermediate step in the derivation of $F_2(n)$.
+
+Further insight into the $F_2(n)$ correction term can be found in the *Yuktidipika–Laghuvivrthi* commentary on the *Tantrasangraha*. This treatise, completed in 1501 by [Nilakantha Somayaji](/Nilakantha_Somayaji), an eminent astronomer and mathematician of the Kerala school, contains verses (Chapter 2, Verses 271–274) that describe the calculation of the circumference of a circle with remarkable detail.
+
+The English translation of these verses reads:
+
+> "To the diameter multiplied by 4 alternately add and subtract in order the diameter multiplied by 4 and divided separately by the odd numbers 3, 5, etc. That odd number at which this process ends, four times the diameter should be multiplied by the next even number, halved and [then] divided by one added to that [even] number squared. The result is to be added or subtracted according as the last term was subtracted or added. This gives the circumference more accurately than would be obtained by going on with that process."
+
+In contemporary mathematical notation, this passage can be interpreted as:
+
+$$ \text{Circumference} = 4d - \frac{4d}{3} + \frac{4d}{5} - \cdots \pm \frac{4d}{p} \mp \frac{4d(p+1)/2}{1+(p+1)^2} $$
+
+Here, $d$ represents the diameter of the circle, and $p$ is the last odd number used in the series. If we substitute $p = 2n - 1$, the final term on the right-hand side aligns precisely with $4d F_2(n)$.
+
+The same commentary also presents the $F_3(n)$ correction term in Chapter 2, Verses 295–296, with a translation of the verses stating:
+
+> "A subtler method, with another correction. [Retain] the first procedure involving division of four times the diameter by the odd numbers, 3, 5, etc. [But] then add or subtract it [four times the diameter] multiplied by one added to the next even number halved and squared, and divided by one added to four times the preceding multiplier [with this] multiplied by the even number halved."
+
+In modern notation, this translates to:
+
+$$ \text{Circumference} = 4d - \frac{4d}{3} + \frac{4d}{5} - \cdots \pm \frac{4d}{p} \mp \frac{4dm}{(1+4m)(p+1)/2} $$
+
+Where $m = 1 + \left(\frac{p+1}{2}\right)^2$. Again, setting $p = 2n - 1$ reveals that the final term corresponds to $4d F_3(n)$.
+
+#### Accuracy of the Correction Terms
+
+To evaluate the efficacy of these correction terms, let us define $s_i(n)$ as the approximation of $\frac{\pi}{4}$ using the Madhava correction term $F_i(n)$:
+
+$$ s_i(n) = 1 - \frac{1}{3} + \frac{1}{5} - \frac{1}{7} + \cdots + (-1)^{n-1} \frac{1}{2n-1} + (-1)^{n} F_i(n) $$
+
+With $p = 2n + 1$, the absolute errors, $\left| \frac{\pi}{4} - s_i(n) \right|$, are bounded as follows:
+
+$$ \frac{1}{p^3-p} - \frac{1}{(p+2)^3-(p+2)} < \left| \frac{\pi}{4} - s_1(n) \right| < \frac{1}{p^3-p} $$
+
+$$ \frac{4}{p^5+4p} - \frac{4}{(p+2)^5+4(p+2)} < \left| \frac{\pi}{4} - s_2(n) \right| < \frac{4}{p^5+4p} $$
+
+$$ \frac{36}{p^7+7p^5+28p^3-36p} - \frac{36}{(p+2)^7+7(p+2)^5+28(p+2)^3-36(p+2)} \cdots < \left| \frac{\pi}{4} - s_3(n) \right| < \frac{36}{p^7+7p^5+28p^3-36p} $$
+
+The accuracy of these approximations in computing the value of $\pi$ can be further examined by looking at the errors $E(n)$ (for the truncated series) and $E_i(n)$ (using the correction terms):
+
+$$ E(n) = \pi - 4\left(1 - \frac{1}{3} + \frac{1}{5} - \frac{1}{7} + \cdots + (-1)^{n-1} \frac{1}{2n-1}\right) $$
+$$ E_i(n) = E(n) - 4 \times (-1)^{n} F_i(n) $$
+
+The following table illustrates the magnitude of these errors for selected values of $n$:
+
+| $n$   | $E(n)$                | $E_1(n)$              | $E_2(n)$              | $E_3(n)$              |
+| :---- | :-------------------- | :-------------------- | :-------------------- | :-------------------- |
+| 11    | $-9.07 \times 10^{-2}$ | $1.86 \times 10^{-4}$ | $-1.51 \times 10^{-6}$ | $2.69 \times 10^{-8}$  |
+| 21    | $-4.76 \times 10^{-2}$ | $2.69 \times 10^{-5}$ | $-6.07 \times 10^{-8}$ | $3.06 \times 10^{-10}$ |
+| 51    | $-1.96 \times 10^{-2}$ | $1.88 \times 10^{-6}$ | $-7.24 \times 10^{-10}$| $6.24 \times 10^{-13}$ |
+| 101   | $-9.90 \times 10^{-3}$ | $2.43 \times 10^{-7}$ | $-2.38 \times 10^{-11}$| $5.33 \times 10^{-15}$ |
+| 151   | $-6.62 \times 10^{-3}$ | $7.26 \times 10^{-8}$ | $-3.18 \times 10^{-12}$| $\approx 1 \times 10^{-16}$ |
+
+As the table clearly demonstrates, the introduction of Madhava's correction terms leads to a dramatic increase in the accuracy of the approximation for $\pi$, with each subsequent term ($F_1$, $F_2$, $F_3$) offering a significantly better convergence rate.
+
+#### Continued Fraction Expressions for the Correction Terms
+
+An intriguing observation is that the correction terms $F_1(n)$, $F_2(n)$, and $F_3(n)$ correspond to the first three convergents of specific [continued fraction](/Continued_fraction) expansions.
+
+One such expansion is:
+
+$$ \frac{1}{4n + \frac{1}{n + \frac{1}{n + \cdots}}} $$
+
+Another, more complex, continued fraction is given by:
+
+$$ \frac{1}{4n + \frac{1^2}{n + \frac{2^2}{4n + \frac{3^2}{n + \frac{\cdots}{\cdots + \frac{r^2}{n[4-3(r \bmod 2)]+\cdots}}}}}} = \frac{1}{4n + \frac{2^2}{4n + \frac{4^2}{4n + \frac{6^2}{4n + \frac{8^2}{4n + \cdots}}}}} $$
+
+The function $f(n)$ that makes the equation
+
+$$ \frac{\pi}{4} = 1 - \frac{1}{3} + \frac{1}{5} - \cdots \pm \frac{1}{n} \mp f(n+1) $$
+
+exact can be expressed as:
+
+$$ f(n) = \frac{1}{2} \times \frac{1}{n + \frac{1^2}{n + \frac{2^2}{n + \frac{3^2}{n + \cdots}}}} $$
+
+The first three convergents of this infinite continued fraction are precisely Madhava's correction terms. Furthermore, this function $f(n)$ exhibits a remarkable property:
+
+$$ f(2n) = \frac{1}{4n + \frac{2^2}{4n + \frac{4^2}{4n + \frac{6^2}{4n + \frac{8^2}{4n + \cdots}}}}} $$
+
+This connection to continued fractions highlights the deep structural relationships within mathematical series and approximations.
+
+#### Speculative Derivation by Hayashi et al.
+
+In 1990, a team of Japanese researchers, T. Hayashi, T. Kusuba, and M. Yano, proposed a compelling hypothesis regarding Madhava's method for obtaining these correction terms. Their theory rests on two fundamental assumptions: that Madhava utilized the approximation $\pi \approx \frac{355}{113}$ and employed the principles of the [Euclidean algorithm](/Euclidean_algorithm) for division.
+
+They defined $S(n)$ as the absolute difference between the truncated Madhava–Leibniz series and $\frac{\pi}{4}$:
+
+$$ S(n) = \left|1 - \frac{1}{3} + \frac{1}{5} - \frac{1}{7} + \cdots + \frac{(-1)^{n-1}}{2n-1} - \frac{\pi}{4}\right| $$
+
+Using $\pi = \frac{355}{113}$, they computed values for $S(n)$, expressed them as fractions with a numerator of 1, and then, by discarding the fractional part of the denominator, derived approximations. This process, when applied iteratively, yielded results that closely matched Madhava's correction terms:
+
+For $n=1$:
+$$ S(1) = \frac{97}{452} = \frac{1}{4 + \frac{64}{97}} \approx \frac{1}{4} $$
+This aligns with $F_1(1) = \frac{1}{4(1)} = \frac{1}{4}$.
+
+Applying the process further to the remainder $\frac{64}{97}$:
+$$ \frac{64}{97} = \frac{1}{1 + \frac{33}{64}} \approx \frac{1}{1} $$
+$$ \frac{33}{64} = \frac{1}{1 + \frac{31}{33}} \approx \frac{1}{1} $$
+This iterative process, they suggested, could lead to the subsequent correction terms.
+
+For $n=2$:
+$$ S(2) = \frac{161}{1356} = \frac{1}{8 + \frac{68}{161}} \approx \frac{1}{8} $$
+This result, however, does not directly match $F_2(2) = \frac{2}{4(2^2)+1} = \frac{2}{17}$. The Hayashi et al. hypothesis suggests that the second approximation, derived from the continued fraction expansion of $S(n)$, corresponds to $F_2(n)$:
+
+$$ S(n) \approx \frac{1}{4n + \frac{1}{n}} = \frac{n}{4n^2 + 1} $$
+This precisely matches $F_2(n)$.
+
+And the third approximation yields $F_3(n)$:
+
+$$ S(n) \approx \frac{1}{4n + \frac{1}{n + \frac{1}{n}}} = \frac{n^2+1}{n(4n^2+5)} $$
+While the formula derived by Hayashi et al. for $F_3(n)$ is $\frac{n^2+1}{4n^3+5n}$, the denominator in their continued fraction expansion is $n(4n^2+5)$, which differs slightly. However, the core idea of iterative refinement through Euclidean-like division of remainders to generate increasingly accurate approximations is evident.
+
+The explicit steps shown for deriving the second and third approximations are:
+
+For $F_2(n)$:
+$$ \frac{68}{161} = \frac{1}{2 + \frac{25}{68}} \approx \frac{1}{2} $$
+$$ \frac{25}{68} = \frac{1}{2 + \frac{18}{25}} \approx \frac{1}{2} $$
+This leads to the approximation $F_2(n) = \frac{n}{4n^2+1}$.
+
+For $F_3(n)$:
+$$ \frac{168}{551} = \frac{1}{3 + \frac{47}{168}} \approx \frac{1}{3} $$
+$$ \frac{47}{168} = \frac{1}{3 + \frac{27}{47}} \approx \frac{1}{3} $$
+This iterative process, when applied consistently, suggests how Madhava might have arrived at the more complex correction terms, bridging the gap between arithmetic manipulation and the sophisticated analysis of infinite series. The speculative nature of this derivation only adds to the mystique and brilliance of Madhava's contributions.

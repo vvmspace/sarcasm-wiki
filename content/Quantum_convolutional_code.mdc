@@ -1,0 +1,98 @@
+---
+title: "Quantum Convolutional Code"
+description: "This article is a mess. It’s got the skeletal structure of information, but it’s riddled with the ghosts of citations past. It’s like a beautifully constructed..."
+keywords: quantum block codes, quantum computing, quantum communications, quantum convolutional, coding theory, qubits, stabilizer codes, classical counterparts, hilbert space, countably infinite
+slug: "Quantum_convolutional_code"
+createdAt: "2025-11-19T10:40:11.379Z"
+updatedAt: "2025-11-19T10:40:11.379Z"
+contentType: "rewritten"
+---
+
+This article is a mess. It’s got the skeletal structure of information, but it’s riddled with the ghosts of citations past. It’s like a beautifully constructed machine missing its power source. Honestly, the lack of inline citations is less an oversight and more a deliberate act of sabotage against clarity. September 2019, you say? A whole era ago in the rapid march of quantum understanding. This needs more than a gentle nudge; it requires a full overhaul. Let’s try to inject some life, some *precision*, into this theoretical construct.
+
+### Type of Code in Quantum Computing
+
+[Quantum block codes](/Stabilizer_code), those sturdy workhorses of error correction, are indeed indispensable for both [quantum computing](/Quantum_computing) and the delicate art of [quantum communications](/Quantum_communication). However, the encoding circuit for anything beyond a rudimentary block code tends to be a sprawling beast, a labyrinth of operations that can quickly become unwieldy. While modern codes have certainly streamlined the process, the inherent complexity remains a significant hurdle.
+
+Now, [quantum convolutional](/Quantum_convolutional_code) [coding theory](/Coding_theory) presents a different, arguably more elegant, approach to safeguarding quantum information. This paradigm shines particularly in scenarios where a sender is tasked with transmitting a continuous stream of [qubits](/Qubit) to a distant receiver. The beauty of the convolutional structure lies in its significantly reduced encoding circuit complexity compared to its block code cousins. Furthermore, its inherent repetitive nature allows for the reuse of physical devices or computational routines, a practical advantage when dealing with sequential data.
+
+Quantum convolutional [stabilizer codes](/Stabilizer_code) draw heavily from the established principles of their [classical counterparts](/Convolutional_code). The similarity is not superficial; like their classical ancestors, quantum convolutional codes incorporate feedback loops where certain qubits are fed back into a repeated encoding unitary operation. This imbues the code with a memory structure, a crucial characteristic that allows it to track and correct errors over time. A standout feature of these quantum codes is their capacity for online encoding and decoding of qubits. This continuous processing not only contributes to their low encoding and decoding complexity but also grants them the ability to combat a broader spectrum of errors than a block code of comparable parameters.
+
+#### Definition
+
+At its core, a quantum convolutional stabilizer code operates within a [Hilbert space](/Hilbert_space), denoted by $\mathcal{H}$. This space is not a simple, finite-dimensional construct; rather, it's a [countably infinite](/Countably_infinite) [tensor product](/Tensor_product) of two-dimensional [qubit](/Qubit) [Hilbert spaces](/Hilbert_space), each indexed by non-negative integers, $\mathbb{Z}^{+}$. We can represent this as:
+
+$$
+\mathcal{H} = \bigotimes_{i=0}^{\infty} \mathcal{H}_i
+$$
+
+Within this vast space, a sequence of [Pauli matrices](/Pauli_matrices), $\mathbf{A} = \{A_i\}_{i \in \mathbb{Z}^{+}}$, can act upon states. Each $A_i$ is a Pauli matrix, and the entire sequence $\mathbf{A}$ is a Pauli sequence. The *support* of a Pauli sequence $\mathbf{A}$, denoted $\text{supp}(\mathbf{A})$, is the set of indices $i$ for which $A_i$ is not the identity matrix. The *weight* of a sequence is simply the cardinality of its support, $|\text{supp}(\mathbf{A})|$. The *delay* of a sequence, $\text{del}(\mathbf{A})$, is the smallest index $i$ where $A_i$ deviates from the identity. Conversely, the *degree* of a sequence, $\deg(\mathbf{A})$, is the largest such index.
+
+Consider, for instance, the Pauli sequence:
+
+$$
+\begin{array}{cccccccc}
+I & X & I & Y & Z & I & I & \cdots
+\end{array}
+$$
+
+This sequence has a support of $\{1, 3, 4\}$, indicating that the non-identity matrices are at indices 1, 3, and 4. Its weight is therefore three. The delay is 1 (due to the $X$ at index 1), and the degree is 4 (due to the $Z$ at index 4). A sequence is defined as having *finite support* if its weight is finite. Let $F(\Pi^{\mathbb{Z}^{+}})$ represent the collection of all Pauli sequences possessing finite support. The definition of a quantum convolutional code hinges on this set.
+
+A rate $k/n$ convolutional stabilizer code, where $0 \leq k \leq n$, is characterized by a commuting set $\mathcal{G}$ of operators. This set is formed by applying all possible shifts to a basic generator set $\mathcal{G}_0$. This fundamental set $\mathcal{G}_0$ comprises $n-k$ Pauli sequences, each of finite support:
+
+$$
+\mathcal{G}_0 = \{\mathbf{G}_i \in F(\Pi^{\mathbb{Z}^{+}}) : 1 \leq i \leq n-k\}
+$$
+
+The *constraint length*, denoted by $\nu$, of such a code is determined by the maximum degree of any generator within the basic set $\mathcal{G}_0$. Each "frame" of the code consists of $n$ qubits.
+
+An equivalent, and often more tractable, definition of a quantum convolutional code can be formulated using the delay transform, or $D$-transform. This transform elegantly captures the shifting operations applied to the basic generator set $\mathcal{G}_0$. Let's define the $n$-qubit delay operator, $D$, which acts on any Pauli sequence $\mathbf{A} \in \Pi^{\mathbb{Z}^{+}}$ as follows:
+
+$$
+D(\mathbf{A}) = I^{\otimes n} \otimes \mathbf{A}
+$$
+
+Repeated applications of the delay operator, say $j$ times, can be represented as a power of $D$:
+
+$$
+D^j(\mathbf{A}) = I^{\otimes jn} \otimes \mathbf{A}
+$$
+
+If we denote $D^j(\mathcal{G}_0)$ as the set of all sequences obtained by shifting each element of $\mathcal{G}_0$ by $j$ positions, then the complete stabilizer set $\mathcal{G}$ for the convolutional stabilizer code is the union of these shifted sets over all integers $j$:
+
+$$
+\mathcal{G} = \bigcup_{j \in \mathbb{Z}^{+}} D^j(\mathcal{G}_0)
+$$
+
+#### Operation
+
+The operational flow of a convolutional stabilizer code is quite specific. The process commences with the sender employing an online encoding circuit, such as the one detailed by Grassl and Roetteler (2006). An encoding circuit is deemed "online" if it processes blocks of qubits sequentially, rather than requiring the entire data set upfront. The sender can then transmit a set of qubits as soon as the initial unitary operation on them is complete. Concurrently, the receiver diligently measures all the generators in the stabilizer set $\mathcal{G}$ as the encoded qubits arrive. This allows for immediate error detection and correction. The receiver then employs a decoding circuit to extract the error-free quantum information. The ultimate goal is for the qubits, once decoded, to be perfectly preserved and ready for subsequent quantum computation.
+
+A critical property is that a finite-depth circuit will map a Pauli sequence with finite weight to another sequence that also has finite weight (Ollivier and Tillich 2004). It will not, under normal circumstances, transform a finite-weight sequence into one of infinite weight. This is paramount because we absolutely do not want the decoding circuit to inadvertently propagate uncorrected errors into the stream of information qubits (Johannesson and Zigangirov 1999). Fortunately, a finite-depth decoding circuit that corresponds to the stabilizer set $\mathcal{G}$ is guaranteed to exist, a fact supported by the algorithm presented by Grassl and Roetteler (2006).
+
+#### Example
+
+An illustrative example of a rate-1/3 quantum convolutional code was presented by Forney et al. (2005), who adapted a specific classical quaternary convolutional code. Grassl and Roetteler (2006) subsequently devised a non-catastrophic encoding circuit for this code. The basic stabilizer and its first shift are depicted as follows:
+
+$$
+\cdots
+\begin{array}{|ccc|ccc|ccc|ccc|ccc|}
+\hline
+I & I & I & X & X & X & X & Z & Y & I & I & I & I & I & I \\
+I & I & I & Z & Z & Z & Z & Y & X & I & I & I & I & I & I \\
+I & I & I & I & I & I & X & X & X & X & Z & Y & I & I & I \\
+I & I & I & I & I & I & Z & Z & Z & Z & Y & X & I & I & I \\
+\hline
+\end{array}
+\cdots
+$$
+
+This code is constructed from all possible three-qubit shifts of these fundamental generators. The vertical lines are merely visual aids to demarcate these shifts. A remarkable capability of this code is its ability to correct any single-qubit error occurring in every other frame.
+
+#### Extensions
+
+The theoretical landscape of quantum convolutional codes has been significantly enriched by the integration of [entanglement-assisted stabilizer codes](/Entanglement-assisted_stabilizer_code) by Wilde and Brun (2007a, 2007b, 2008, 2009). This developed theory, known as entanglement-assisted quantum convolutional coding, operates under the premise that a sender and receiver share a supply of noiseless bipartite [entanglement](/Quantum_entanglement), which they can strategically leverage to protect a stream of quantum information.
+
+Further building upon the foundational work of Ollivier and Tillich (2004) and Grassl and Roetteler (2006), Wilde (2009) demonstrated how these codes could be implemented using quantum shift register circuits. This represents a natural and powerful extension of the principles governing classical [shift register](/Shift_register) circuits.
+
+#

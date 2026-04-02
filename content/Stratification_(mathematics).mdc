@@ -1,0 +1,70 @@
+---
+title: "Stratification (Mathematics)"
+description: "This article, quite frankly, is a mess. It needs more than just a few citations; it needs a complete overhaul, a transfusion of verifiable facts. Unsourced..."
+keywords: stratification, mathematics, mathematical logic, predicate, interpretation, clauses, horn clause, set theories, new foundations, theory of types
+slug: "Stratification_(mathematics)"
+createdAt: "2025-12-01T05:27:10.584Z"
+updatedAt: "2025-12-01T05:27:10.584Z"
+contentType: "rewritten"
+previousArticleSlug: "Open_world_assumption"
+previousArticleTitle: "Open World Assumption"
+---
+
+This article, quite frankly, is a mess. It needs more than just a few citations; it needs a complete overhaul, a transfusion of verifiable facts. Unsourced material is like a leaky faucet; it drips endlessly, and eventually, you just want to rip the whole thing out. If you can't back up your claims, what's the point? It’s November 2025, and this "stratification" is still floating around without a solid foundation. Don't expect me to wave a magic wand and fix it. You want reliable sources? Go find them yourself.
+
+### Stratification
+
+The term [stratification](/Stratification) carries a surprisingly diverse set of meanings across the vast landscape of [mathematics](/Mathematics). It’s not a single, monolithic concept, but rather a collection of ideas that, in their own peculiar ways, impose order, structure, or a hierarchy onto various mathematical objects. It’s like trying to organize a chaotic attic; you might label boxes, stack them neatly, or create designated zones, all in an attempt to make sense of the jumble.
+
+#### In Mathematical Logic
+
+Within the austere halls of [mathematical logic](/Mathematical_logic), stratification serves as a crucial mechanism for ensuring the well-definedness of logical theories. It's about assigning numerical "levels" or "strata" to [predicate](/Predicate_(logic)) symbols. Think of it as giving each predicate a rank, a position in a hierarchy. This assignment is not arbitrary; it must be consistent, a rigorous dance of numbers that guarantees a unique formal [interpretation](/Interpretation_(logic)) for the logical theory in question.
+
+Specifically, when dealing with a set of [clauses](/Clause_(logic))—these are essentially logical statements structured in a particular way—stratification comes into play. The general form of such a clause might look like this:
+
+$Q_{1} \wedge \dots \wedge Q_{n} \wedge \neg Q_{n+1} \wedge \dots \wedge \neg Q_{n+m} \rightarrow P$
+
+This reads as: "If $Q_1$ through $Q_n$ are true, and $Q_{n+1}$ through $Q_{n+m}$ are false, then $P$ must be true."
+
+For a set of these clauses to be considered "stratified," there must exist a stratification assignment, let's call it $S$. This assignment, $S$, maps each predicate symbol to a number. For the assignment to be valid, it must satisfy two fundamental conditions:
+
+*   **Positive Derivation:** If a predicate $P$ is "positively derived" from a predicate $Q$, meaning $P$ is the "head" of a rule (the conclusion) and $Q$ appears in the "body" of the same rule (the premises) in a positive, unnegated form, then the stratification number of $P$ must be greater than or equal to the stratification number of $Q$. In symbols: $S(P) \geq S(Q)$. This means $P$ can be at the same level or a higher level than $Q$. It's like saying a higher-level concept can be built upon or is equivalent to a lower-level one.
+
+*   **Negated Derivation:** If $P$ is derived from a predicate $Q$ that appears in a *negated* form (i.e., $\neg Q$) in the body of the rule, then the stratification number of $P$ must be strictly greater than the stratification number of $Q$. That is, $S(P) > S(Q)$. This implies a stricter hierarchy: if you're negating something, the resulting concept must be at a demonstrably higher stratum. It’s a way to prevent self-referential loops or paradoxes that can arise from direct negation.
+
+This concept of "stratified negation" is particularly powerful. It enables a very effective operational semantics for stratified programs. This semantics is built upon the idea of a "stratified least fixpoint." Essentially, you iteratively apply a fixpoint operator, but you do so stratum by stratum, starting from the lowest level and working your way up. This methodical progression prevents the kind of circular dependencies that can lead to logical inconsistencies. Stratification, therefore, is not just a theoretical nicety for ensuring unique interpretations of [Horn clause](/Horn_clause) theories; it's a practical tool for managing complexity and avoiding logical pitfalls.
+
+#### In a Specific Set Theory
+
+The notion of stratification also plays a pivotal role in certain [set theories](/Set_theory), most notably in [New Foundations](/New_Foundations) (NF) and its relatives. Here, stratification is a property of formulas, a way to determine if a formula is "well-behaved" with respect to the membership relation.
+
+A formula $\phi$ in the language of first-order logic, which includes equality and the membership relation ($\in$), is deemed "stratified" if one can assign a natural number (or even any integer, for that matter) to each variable appearing in $\phi$. Let's call this assignment function $\sigma$. For the formula to be stratified, this function $\sigma$ must satisfy specific conditions for every atomic formula within $\phi$:
+
+*   For any atomic formula of the form $x \in y$ (read as "$x$ is an element of $y$"), the assigned numbers must relate as follows: $\sigma(x) + 1 = \sigma(y)$. This is the core of the stratification principle in NF: membership is only allowed between sets of consecutive "types" or "levels." A set can only contain elements from the immediately preceding level.
+
+*   For any atomic formula of the form $x = y$ (equality), the assigned numbers must be the same: $\sigma(x) = \sigma(y)$. This makes intuitive sense; equal things should belong to the same stratum.
+
+It turns out that this condition doesn't need to be checked for *all* variables in a formula. It's sufficient to ensure these conditions hold when both variables in an atomic formula are "bound" within the context of a set abstract. A set abstract, denoted as $\{x \mid \phi\}$, represents the set of all $x$ such that the formula $\phi$ holds true. A formula satisfying this weaker condition is called "weakly stratified."
+
+The principles of stratification in NF can be elegantly extended to languages that feature more predicates and more complex term constructions. For each primitive predicate symbol, you'd need to specify the required "displacements" between the $\sigma$ values of its arguments in a (weakly) stratified formula. Similarly, in languages with term constructions, the terms themselves must be assigned values under $\sigma$. Defined term constructions, like the description operator $(\iota x. \phi)$ (which denotes "the $x$ such that $\phi$"), are handled by ensuring that the term is assigned the same $\sigma$ value as the variable $x$ it represents.
+
+Perhaps the most intuitive way to grasp stratification in NF is through its connection to type theory. A formula is stratified if and only if it's possible to assign types to all its variables such that the formula makes sense within a version of the [theory of types](/Type_theory) described in the NF article. This provides a clear, structural understanding of what stratification achieves.
+
+The very motivation behind introducing stratification in NF was to circumvent the devastating implications of [Russell's paradox](/Russell%27s_paradox). This paradox, famously detailed in [Frege](/Frege)'s foundational work [Grundgesetze der Arithmetik](/Grundgesetze_der_Arithmetik) (1902), demonstrated a fundamental inconsistency in naive set theory. By restricting formulas to be stratified, NF avoids the formation of paradoxical sets, thereby shoring up the foundations of the theory. As Willard Van Orman Quine noted in his 1963 work, *From a Logical Point of View*, stratification is a key mechanism for achieving consistency.
+
+The concept of stratification can even be extended to the [lambda calculus](/Lambda_calculus), as explored in the works of Randall Holmes, demonstrating its broad applicability.
+
+#### In Topology
+
+In the realm of [topology](/Topology), and specifically within [singularity theory](/Singularity_theory), "stratification" takes on an entirely different meaning. It refers to the decomposition of a [topological space](/Topological_space) $X$ into a collection of disjoint subsets, known as [strata](/Stratum). The crucial characteristic of these strata is that each one must be a [topological manifold](/Topological_manifold). In essence, a stratification provides a [partition](/Partition_of_a_set) of the space, where each part is a smooth, well-behaved manifold.
+
+However, this notion is only truly useful when the strata are not just arbitrary pieces. The power lies in how these strata are defined and how they relate to each other. When the strata are determined by some recognizable set of conditions—for instance, if they are [locally closed](/Locally_closed) sets—and when they fit together in a manageable way, this idea becomes a powerful tool in geometry.
+
+Pioneers like [Hassler Whitney](/Hassler_Whitney) and [René Thom](/Ren%C3%A9_Thom) were instrumental in formalizing the conditions that define a stratification. Their work led to concepts like [Whitney stratification](/Whitney_stratification) and the notion of a [topologically stratified space](/Topologically_stratified_space). These formal conditions ensure that the strata don't just randomly abut each other but exhibit a structured relationship, often related to the local behavior of the space near the boundaries between strata. Thom's 1969 paper, "Ensembles et morphismes stratifiés," published in the *Bulletin of the American Mathematical Society*, is a seminal work in this area.
+
+#### In Statistics
+
+For those who deal with data, the term [stratification](/Stratification) has a more pragmatic application, primarily in the context of [stratified sampling](/Stratified_sampling). This is a technique used to ensure that subgroups within a population are adequately represented in a sample. Instead of drawing a simple random sample from the entire population, the population is first divided into distinct subgroups, or strata, based on shared characteristics (e.g., age, income, geographical location). Then, a random sample is drawn from *each* stratum. This method can lead to more precise estimates for the overall population compared to simple random sampling, especially if the strata are homogeneous within themselves but heterogeneous between each other.
+
+---
+*This article requires further verification. If you have access to reliable sources, please contribute by adding citations to improve its accuracy. Unsourced material is subject to challenge and potential removal. As of November 2025, the article is still in need of robust sourcing.*

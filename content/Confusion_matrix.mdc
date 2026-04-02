@@ -1,0 +1,110 @@
+---
+title: "Confusion Matrix"
+description: "So, you want to understand the inner workings of a confusion matrix. Fine. Don't expect me to hold your hand through it, though. It’s a table, a way to..."
+keywords: supervised learning, unsupervised learning, contingency table, predictive analytics, accuracy, sensitivity, f1 score, informedness, true positive rate
+slug: "Confusion_matrix"
+createdAt: "2025-11-17T05:49:08.700Z"
+updatedAt: "2025-11-17T05:49:08.700Z"
+contentType: "rewritten"
+---
+
+So, you want to understand the inner workings of a confusion matrix. Fine. Don't expect me to hold your hand through it, though. It’s a table, a way to visualize how well some algorithm – usually one trying to learn from examples, a [supervised learning](/Supervised_learning) algorithm – is performing. In the realm of [unsupervised learning](/Unsupervised_learning), they call it a matching matrix, which is almost poetic in its bleakness.
+
+Think of it as a tally sheet for mistakes. Each row shows you the actual categories something belongs to, and each column shows you what the algorithm *thought* it belonged to. Or sometimes, it’s the other way around. The literature, bless its heart, can’t even agree on that. The important part, the *true* part, is the diagonal. That’s where all the correct predictions sit, smug and unbothered. The rest? That’s where the system gets confused, where it mixes things up like a drunk sorting laundry. Hence the name: confusion matrix. It’s a [contingency table](/Contingency_table), sure, but with a specific, dismal purpose.
+
+### Example
+
+Let's say we have a dozen individuals. Eight of them are harboring the delightful presence of cancer, and four are blessedly cancer-free. We’ll call cancer ‘class 1’ – the positive case, naturally – and no cancer ‘class 0’.
+
+Here’s the raw data:
+
+| Individual number | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 |
+| :---------------- | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: |
+| Actual classification | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 0 | 0 | 0 | 0 |
+
+Now, we run these poor souls through a classifier. This machine is supposed to tell us who has cancer and who doesn't. It gets it right nine times, which is… fine. But it stumbles on three. It mislabels two individuals with cancer as cancer-free (that’s samples 1 and 2), and one perfectly healthy person as having cancer (sample 9). A real triumph of modern science.
+
+| Individual number | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 |
+| :---------------- | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: |
+| Actual classification | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 0 | 0 | 0 | 0 |
+| Predicted classification | 0 | 0 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 0 | 0 | 0 |
+
+When you compare the actual classifications to the predicted ones, you get four possible outcomes for any given individual:
+
+1.  **True Positive (TP):** The actual classification is positive (cancer), and the predicted classification is positive (cancer). Correct. The system found the cancer.
+2.  **False Negative (FN):** The actual classification is positive (cancer), but the predicted classification is negative (no cancer). Incorrect. The system missed the cancer. A missed diagnosis.
+3.  **False Positive (FP):** The actual classification is negative (no cancer), but the predicted classification is positive (cancer). Incorrect. The system flagged a healthy person. An unnecessary alarm.
+4.  **True Negative (TN):** The actual classification is negative (no cancer), and the predicted classification is negative (no cancer). Correct. The system correctly identified the absence of cancer.
+
+Let’s add those results to our table, highlighting the correct ones in green because, frankly, they’re the only ones worth looking at.
+
+| Individual number | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 |
+| :---------------- | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: |
+| Actual classification | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 0 | 0 | 0 | 0 |
+| Predicted classification | 0 | 0 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 0 | 0 | 0 |
+| Result | FN | FN | TP | TP | TP | TP | TP | TP | FP | TN | TN | TN |
+
+Now, we can take these four outcomes and plug them into the standard 2x2 confusion matrix format. It’s a neat little box that summarizes all the chaos.
+
+|              | **Predicted condition** |             |
+| :----------- | :---------------------- | :---------- |
+|              | **Positive (PP)**       | **Negative (PN)** |
+| **Actual condition** | **Positive (P)**        | True positive (TP) | False negative (FN) |
+|              | **Negative (N)**        | False positive (FP) | True negative (TN)  |
+
+It’s crucial to remember the total population here: P (actual positives) + N (actual negatives).
+
+The colors in those tables were a deliberate choice, by the way, to match this standard layout. Makes it easier to see the forest for the trees, or the errors for the correct answers.
+
+Let’s fill in our numbers:
+
+|              | **Predicted condition** | Total |
+| :----------- | :---------------------- | :---- |
+|              | **Cancer**              | **Non-cancer** |
+| **Actual condition** | **Cancer**              | 6     | 2     |
+|              | **Non-cancer**          | 1     | 3     |
+
+So, out of the 8 people who actually had cancer, the system declared 2 of them cancer-free. And out of the 4 who were healthy, it insisted 1 of them was sick. The correct answers, the TP and TN, are sitting there on the diagonal. Everything else is… noise. Errors. The parts that make you question the whole endeavor. You can also quickly see the total actual positives (P = TP + FN) and negatives (N = FP + TN) from summing those rows.
+
+### Table of confusion
+
+In [predictive analytics](/Predictive_analytics), this "table of confusion" – same thing as a confusion matrix, just a different name to keep you on your toes – is more than just a count. It’s a way to dig deeper than simple [accuracy](/Accuracy_and_precision). Accuracy can be a liar, especially when your data is unbalanced. If you have 95 people with cancer and only 5 without, a classifier that just shouts "Cancer!" for everyone looks 95% accurate. Impressive, right? Except it’s got a 100% [sensitivity](/Sensitivity_(test)) for cancer (it never misses one) but a pathetic 0% for the non-cancerous. It’s blind to the healthy. Metrics like the [F1 score](/F1_score) can also get skewed in these situations, but [informedness](/Informedness) tries to be more honest about the probability of a truly informed decision, rather than just a lucky guess.
+
+Some sources, like Davide Chicco and Giuseppe Jurman, argue that the [Matthews correlation coefficient (MCC)](/Matthews_correlation_coefficient) is the most reliable way to interpret this whole mess. They have their reasons, I’m sure.
+
+There are a host of other metrics you can derive from this table, each with its own little niche.
+
+|              | **Predicted condition** |             |             |
+| :----------- | :---------------------- | :---------- | :---------- |
+|              |                         | **Predicted positive** | **Predicted negative** |
+| **Actual condition** | **Real Positive (P)**   | True positive (TP) | False negative (FN) |
+|              | **Real Negative (N)**   | False positive (FP) | True negative (TN)  |
+
+This little diagram here, it’s a whole taxonomy of performance measures. You’ve got your [True positive rate](/True_positive_rate) (TPR), also known as [recall](/Recall_(information_retrieval)) or [sensitivity](/Sensitivity_(tests)), which is TP/P. Then there’s the [False negative rate](/False_negative_rate) (FNR), or [Type II error](/Type_II_error), which is FN/P. On the other side, you have the [False positive rate](/False_positive_rate) (FPR), or [Type I error](/Type_I_error), which is FP/N, and its counterpart, the [True negative rate](/True_negative_rate) (TNR), or [specificity](/Specificity_(tests)), which is TN/N.
+
+Then there are values like [Positive predictive value](/Positive_predictive_value) (PPV), also called [precision](/Precision_(information_retrieval)), calculated as TP/(TP + FP). And its less cheerful cousin, the [False omission rate](/False_omission_rate) (FOR). You can also look at likelihood ratios, like the [Positive likelihood ratio](/Positive_likelihood_ratio) (LR+) and the [Negative likelihood ratio](/Negative_likelihood_ratio) (LR−).
+
+[Accuracy](/Accuracy_and_precision) (ACC) is simple enough: (TP + TN) / (P + N). But then you get into the [False discovery rate](/False_discovery_rate) (FDR), the [Negative predictive value](/Negative_predictive_value) (NPV), [Markedness](/Markedness_(statistics)), and [Balanced accuracy](/Balanced_accuracy) (BA). The F1 score, which tries to balance precision and recall, is also derived from this. And don’t forget the [Fowlkes–Mallows index](/Fowlkes%E2%80%93Mallows_index) and the [Matthews correlation coefficient (MCC)](/Matthews_correlation_coefficient), which is considered quite robust.
+
+### Confusion matrices with more than two categories
+
+This isn't just for binary problems, you know. It’s not always just "yes" or "no," "cancer" or "no cancer." You can use these matrices for multi-class classifiers too. Imagine trying to classify [whistled languages](/Whistled_language), for instance. You're not just dealing with two options; you have multiple sounds, multiple perceived vowels.
+
+| Perceived vowel | i | e | a | o | u |
+| :-------------- | :-: | :-: | :-: | :-: | :-: |
+| **Vowel produced** |   |   |   |   |   |
+| i               | 15 |   | 1 |   |   |
+| e               |   | 1 |   |   |   |
+| a               |   |   | 79 | 5 |   |
+| o               |   |   | 4 | 15 | 3 |
+| u               |   |   |   | 2 | 2 |
+
+This becomes a more complex grid, showing where the misclassifications happen across multiple categories. It’s a messier kind of confusion, but the principle is the same.
+
+### Confusion matrices in multi-label and soft-label classification
+
+And if you think that’s complicated, consider [multi-label classification](/Multi-label_classification), where an item can belong to several classes at once, or soft-label classification, where a class is only partially present. Standard confusion matrices can be stretched to accommodate these, but it gets… intricate.
+
+One approach is the Transport-based Confusion Matrix (TCM). It’s built on the idea of [optimal transport](/Transportation_theory_(mathematics)) and the [principle of maximum entropy](/Principle_of_maximum_entropy). It can handle single-label, multi-label, and soft-label scenarios, maintaining that familiar square matrix structure. Diagonal entries are still your correct predictions, off-diagonal entries are your confusions. If class A is predicted more than it should be, and class B less, TCM figures out how much A is being confused with B. It’s a more nuanced way to quantify the confusion, using complex mathematical principles to untangle the mess. It allows for a clearer comparison, even when things aren’t black and white.
+
+Some researchers, though, argue that the confusion matrix, and the metrics it spawns, don’t tell the whole story. They say it can’t reveal if correct predictions were made through genuine understanding or just dumb luck – a philosophical quandary known as epistemic luck. It also doesn’t account for when the evidence used for a prediction turns out to be flawed later on. So, while it’s a useful tool, don’t mistake it for the absolute truth. It measures performance, yes, but the model’s true reliability? That’s a murkier question.

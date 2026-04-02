@@ -1,0 +1,563 @@
+---
+title: "Statistical Model"
+description: "A statistical model is, in essence, a mathematical model that operates under a specific set of statistical assumptions. These assumptions are designed to..."
+keywords: mathematical model, statistical assumptions, sample data, population, data-generating process, probabilistic model, statistical hypothesis test, statistical estimator, statistical inference, random variables
+slug: "Statistical_model"
+createdAt: "2025-12-29T08:08:42.238Z"
+updatedAt: "2025-12-29T08:08:42.238Z"
+contentType: "rewritten"
+aiProvider: "Gemini"
+aiModel: "gemini-2.5-flash-lite"
+previousArticleSlug: "Transuranium_element"
+previousArticleTitle: "Transuranium Element"
+---
+
+A statistical model is, in essence, a [mathematical model](/Mathematical_model) that operates under a specific set of [statistical assumptions](/Statistical_assumptions). These assumptions are designed to reflect how [sample data](/Sample_(statistics)) (and, by extension, data from a larger [population](/Statistical_population)) might have been generated. Think of it as a simplified, often idealized, blueprint of the [data-generating process](/Data_generating_process). When the focus sharpens on the probabilistic aspects, the term [probabilistic model](/Probabilistic_model) comes into play. Every [statistical hypothesis test](/Statistical_hypothesis_testing) and every [statistical estimator](/Estimator) is built upon these foundational statistical models. They are, in a broader sense, cornerstones of [statistical inference](/Statistical_inference). Formally, a statistical model usually articulates a mathematical relationship, connecting one or more [random variables](/Random_variables) with other variables that are not subject to randomness. As [Herman Adèr](/Herman_J._Ad%C3%A8r), quoting [Kenneth Bollen](/Kenneth_A._Bollen), so succinctly put it, a statistical model is "a formal representation of a theory."
+
+### Introduction
+
+One way to grasp the concept of a statistical model is to consider it a [statistical assumption](/Statistical_assumption), or a collection thereof, possessing a particular characteristic: the ability to calculate the probability of any given [event](/Event_(probability_theory)). Let’s take the example of a pair of standard six-sided [dice](/Dice). We can examine two distinct statistical assumptions regarding their behavior.
+
+The first assumption posits that for each individual die, the probability of any face (1, 2, 3, 4, 5, or 6) appearing is precisely &#8288;1/6&#8288;. From this foundational assumption, we can readily deduce the probability of both dice landing on a 5: &#8201;
+• &#8288;1/6&#8288; ×
+• &#8288;1/6&#8288; =
+• &#8288;1/36&#8288;.&#8201; This principle extends to calculating the probability of any conceivable outcome, such as rolling a 1 and a 2, a 3 and a 3, or a 5 and a 6.
+
+Now, consider an alternative statistical assumption: that for each die, the probability of rolling a 5 is &#8288;1/8&#8288;, implying the dice are [weighted](/Dice). Under this assumption, the probability of both dice showing a 5 becomes:
+• &#8288;1/8&#8288; ×
+• &#8288;1/8&#8288; =
+• &#8288;1/64&#8288;.&#8201; However, with this single assumption, we are unable to determine the probabilities of any other outcomes. The probabilities for the remaining faces are simply unknown.
+
+It is the first statistical assumption that qualifies as a statistical model. Why? Because it equips us with the capability to calculate the probability of *any* event. The second assumption, while offering a specific probability for one outcome, leaves too much undefined. In our dice example, calculating probabilities is straightforward with the first assumption. However, in more complex scenarios, the calculation might be computationally intensive, potentially taking millennia. The crucial point is that for an assumption to be considered a statistical model, the calculation of probabilities for all events must be *theoretically possible*, regardless of practical feasibility.
+
+### Formal definition
+
+In the rigorous language of mathematics, a statistical model is defined as a pair (
+
+
+
+S
+,
+
+
+P
+
+
+
+
+{\displaystyle S,{\mathcal {P}}}
+
+), where
+
+
+
+S
+
+
+{\displaystyle S}
+
+represents the [sample space](/Sample_space)—the set of all possible observations—and
+
+
+
+
+
+P
+
+
+
+
+{\displaystyle {\mathcal {P}}}
+
+is a collection of [probability distributions](/Probability_distributions) defined over
+
+
+
+S
+
+
+{\displaystyle S}
+
+. &#91;3&#93; This set,
+
+
+
+
+
+P
+
+
+
+
+{\displaystyle {\mathcal {P}}}
+
+, encapsulates all the models that are considered plausible. Typically, this set is parameterized:
+
+
+
+
+
+P
+
+
+=
+{
+
+F
+
+&#x3b8;
+
+
+:
+&#x3b8;
+&#x2208;
+&#x398;
+}
+
+
+{\displaystyle {\mathcal {P}}=\{F_{\theta }:\theta \in \Theta \}}
+
+. Here, the set
+
+
+
+&#x398;
+
+
+{\displaystyle \Theta }
+
+serves as the space of [parameters](/Statistical_parameter) for the model. If the parameterization is such that unique parameter values correspond to unique distributions—meaning, if
+
+
+
+
+
+F
+
+
+&#x3b8;
+
+1
+
+
+
+
+=
+
+F
+
+
+&#x3b8;
+
+2
+
+
+
+
+&#x21d2;
+
+&#x3b8;
+
+1
+
+
+=
+
+&#x3b8;
+
+2
+
+
+
+
+{\displaystyle F_{\theta _{1}}=F_{\theta _{2}}\Rightarrow \theta _{1}=\theta _{2}}
+
+(to put it another way, the mapping is [injective](/Injective_function))—then the parameterization is said to be [identifiable](/Identifiability). &#91;3&#93;
+
+The complexity of a statistical model can sometimes extend beyond this basic definition.
+
+*   In the realm of [Bayesian statistics](/Bayesian_statistics), the model is augmented by introducing a probability distribution defined over the parameter space
+
+
+
+&#x398;
+
+
+{\displaystyle \Theta }
+
+.
+
+*   Occasionally, a statistical model might distinguish between two sets of probability distributions. The first set,
+
+
+
+
+
+Q
+
+
+=
+{
+
+F
+
+&#x3b8;
+
+
+:
+&#x3b8;
+&#x2208;
+&#x398;
+}
+
+
+{\displaystyle {\mathcal {Q}}=\{F_{\theta }:\theta \in \Theta \}}
+
+, comprises the models considered for the primary inference. The second set,
+
+
+
+
+
+P
+
+
+=
+{
+
+F
+
+&#x3bb;
+
+
+:
+&#x3bb;
+&#x2208;
+&#x39b;
+}
+
+
+{\displaystyle {\mathcal {P}}=\{F_{\lambda }:\lambda \in \Lambda \}}
+
+, is a much larger collection of models that could potentially have generated the observed data. Such models are particularly valuable when assessing the [robustness](/Robust_statistics) of a statistical procedure—that is, their ability to avoid catastrophic errors when the underlying assumptions about the data are, in fact, incorrect.
+
+### An example
+
+Imagine a population of children, where their ages are distributed according to a [uniform distribution](/Discrete_uniform_distribution). The height of each child would then be [stochastically](/Stochastic) related to their age; knowing a child is 7 years old, for instance, would influence the probability of them being 1.5 meters tall. We could formalize this relationship using a [linear regression](/Linear_regression) model:
+
+heightᵢ = β₀ + β₁ageᵢ + εᵢ
+
+Here, β₀ represents the intercept, β₁ is the parameter that scales age to predict height, εᵢ is the error term, and the subscript 'i' denotes the individual child. This equation essentially states that height is predicted by age, with a certain degree of error.
+
+For a model to be considered admissible, it must be consistent with all observed data points. A simple straight line (heightᵢ = β₀ + β₁ageᵢ) wouldn't suffice unless it perfectly matched every data point, meaning all points would have to lie precisely on that line. The inclusion of the error term, εᵢ, is therefore crucial for the model to accommodate all data. To engage in [statistical inference](/Statistical_inference), we would first need to make assumptions about the probability distributions of these εᵢ terms. A common assumption is that the εᵢ are independently and identically distributed (i.i.d.) according to a Gaussian distribution with a mean of zero. In this specific scenario, the model would possess three parameters: β₀, β₁, and the variance (σ²) of the Gaussian distribution. We can formally define this model as (
+
+
+
+S
+,
+
+
+P
+
+
+
+
+{\displaystyle S,{\mathcal {P}}}
+
+), where the sample space,
+
+
+
+S
+
+
+{\displaystyle S}
+
+, consists of all possible pairs of (age, height). Each distinct combination of parameters
+
+
+
+θ
+
+
+{\displaystyle \theta }
+
+= (β₀, β₁, σ²) defines a specific distribution on
+
+
+
+S
+
+
+{\displaystyle S}
+
+, denoted as
+
+
+
+F
+
+
+θ
+
+
+
+
+{\displaystyle F_{\theta }}
+
+. If
+
+
+
+Θ
+
+
+{\displaystyle \Theta }
+
+encompasses all possible values for
+
+
+
+θ
+
+
+{\displaystyle \theta }
+
+, then
+
+
+
+
+
+P
+
+
+=
+{
+
+F
+
+&#x3b8;
+
+
+:
+&#x3b8;
+&#x2208;
+&#x398;
+}
+
+
+{\displaystyle {\mathcal {P}}=\{F_{\theta }:\theta \in \Theta \}}
+
+. Checking for identifiability in this case is straightforward.
+
+In this particular example, the model is constructed by (1) defining the sample space
+
+
+
+S
+
+
+{\displaystyle S}
+
+and (2) establishing assumptions pertinent to
+
+
+
+
+
+P
+
+
+
+
+{\displaystyle {\mathcal {P}}}
+
+. These assumptions are: height can be reasonably approximated by a linear function of age, and the errors in this approximation follow an i.i.d. Gaussian distribution. These assumptions collectively serve to define
+
+
+
+
+
+P
+
+
+
+
+{\displaystyle {\mathcal {P}}}
+
+, as required.
+
+### General remarks
+
+A statistical model is a specific type of [mathematical model](/Mathematical_model). The defining characteristic that sets it apart from other mathematical models is its non-[deterministic](/Deterministic_system) nature. Within a statistical model expressed through equations, certain variables are not assigned fixed values; instead, they are governed by probability distributions, meaning they are [stochastic](/Random_variable). In our children's height example, ε is the stochastic variable; without it, the model would be deterministic. Statistical models are frequently employed even when the underlying process being modeled is, in theory, deterministic. Consider the act of [coin tossing](/Coin_tossing); while it's a deterministic physical process, it's conventionally modeled as stochastic, often using a [Bernoulli process](/Bernoulli_process). Selecting the most appropriate statistical model to represent a given data-generating process can be a formidable task, demanding thorough knowledge of both the process itself and the relevant statistical methodologies. As the eminent statistician [Sir David Cox](/David_Cox_(statistician)) observed, "How [the] translation from subject-matter problem to statistical model is done is often the most critical part of an analysis." &#91;4&#93;
+
+According to Konishi & Kitagawa,&#91;5&#93; statistical models serve three primary purposes:
+
+*   Predictions
+*   Extraction of information
+*   Description of stochastic structures
+
+These purposes largely align with the three functions highlighted by Friendly & Meyer: prediction, estimation, and description.&#91;6&#93;
+
+### Dimension of a model
+
+Let's consider a statistical model (
+
+
+
+S
+,
+
+
+P
+
+
+
+
+{\displaystyle S,{\mathcal {P}}}
+
+) where
+
+
+
+
+
+P
+
+
+=
+{
+
+F
+
+&#x3b8;
+
+
+:
+&#x3b8;
+&#x2208;
+&#x398;
+}
+
+
+{\displaystyle {\mathcal {P}}=\{F_{\theta }:\theta \in \Theta \}}
+
+. We can express this notationally as
+
+
+
+&#x398;
+&#x2286;
+
+
+R
+
+
+k
+
+
+
+
+{\displaystyle \Theta \subseteq \mathbb {R} ^{k}}
+
+, where k is a positive integer and
+
+
+
+R
+
+
+{\displaystyle \mathbb {R} }
+
+denotes the set of [real numbers](/Real_numbers) (though other sets could, in principle, be used). This integer, k, is referred to as the dimension of the model. If the dimension of
+
+
+
+&#x398;
+
+
+{\displaystyle \Theta }
+
+is finite, the model is classified as [parametric](/Parametric_model). &#91; [citation needed](/Wikipedia:Citation_needed) &#93; For instance, if we assume data originates from a univariate [Gaussian distribution](/Gaussian_distribution), the model is defined as:
+
+P = { F<sub>μ,σ</sub>(x) ≡ 1 / (√(2π)σ) * exp(-(x-μ)² / (2σ²)) : μ ∈ ℝ, σ > 0 }
+
+In this particular case, the dimension, k, is 2. As another illustration, consider data points (x, y) assumed to follow a straight line with i.i.d. Gaussian residuals (with a zero mean). This leads to the same statistical model as in the children's height example. The dimension of this statistical model is 3: encompassing the intercept of the line, the slope of the line, and the variance of the residual distribution. It's worth noting that while geometrically a line has dimension 1, the set of all possible lines involved here has a dimension of 2.
+
+Although formally,
+
+
+
+θ
+
+
+{\displaystyle \theta }
+
+is a single parameter within the set
+
+
+
+Θ
+
+
+{\displaystyle \Theta }
+
+of dimension k, it's often conceptually broken down into k individual parameters. For example, in the univariate Gaussian distribution,
+
+
+
+θ
+
+
+{\displaystyle \theta }
+
+is formally a 2-dimensional parameter, but it's commonly understood as representing two distinct parameters: the mean (μ) and the standard deviation (σ).
+
+A statistical model is termed [nonparametric](/Nonparametric_model) if the parameter set
+
+
+
+Θ
+
+
+{\displaystyle \Theta }
+
+has infinite dimension. A [semiparametric](/Semiparametric_model) model is one that incorporates both finite-dimensional and infinite-dimensional parameters. Formally, if k represents the dimension of
+
+
+
+Θ
+
+
+{\displaystyle \Theta }
+
+and n is the number of samples, both semiparametric and nonparametric models exhibit k → ∞ as n → ∞. The distinction lies in the rate of convergence: if k/n → 0 as n → ∞, the model is semiparametric; otherwise, it's nonparametric.
+
+Parametric models are overwhelmingly the most frequently utilized statistical models. Regarding semiparametric and nonparametric models, [Sir David Cox](/David_Cox_(statistician)) has commented that, "These typically involve fewer assumptions of structure and distributional form but usually contain strong assumptions about independencies." &#91;7&#93;
+
+### Nested models
+
+This section requires further substantiation with reliable sources to ensure its accuracy. Please assist in improving this article by incorporating citations to credible sources. Material lacking citations may be subject to challenge and removal. (November 2023)
+
+It's important not to confuse this concept with [Multilevel models](/Multilevel_models).
+
+Two statistical models are considered "nested" when one can be obtained from the other by imposing specific constraints on the parameters of the first model. For instance, the broad set of all Gaussian distributions contains, nested within it, the set of zero-mean Gaussian distributions. This is achieved by constraining the mean parameter to zero. As another example, consider a quadratic model:
+
+y = β₀ + β₁x + β₂x² + ε, ε ~ 𝒩(0, σ²)
+
+This quadratic model has, nested within it, the linear model:
+
+y = β₀ + β₁x + ε, ε ~ 𝒩(0, σ²)
+
+The transformation from the quadratic to the linear model is accomplished by setting the parameter β₂ to zero.
+
+In both these examples, the first model (the broader one) possesses a higher dimension than the second (the constrained one). This is often, but not universally, the case. Consider the set of positive-mean Gaussian distributions nested within the set of all Gaussian distributions. Both models have a dimension of 2, demonstrating that dimensionality isn't always strictly hierarchical in nesting.
+
+### Comparing models
+
+*   See also: [Statistical model selection](/Statistical_model_selection)
+
+The comparison of statistical models is a fundamental aspect of [statistical inference](/Statistical_inference). Konishi & Kitagawa (2008, p. 75) aptly state: "The majority of the problems in statistical inference can be considered to be problems related to statistical modeling. They are typically formulated as comparisons of several statistical models." Several common criteria are employed for comparing models, including R², [Bayes factor](/Bayes_factor), [Akaike information criterion](/Akaike_information_criterion), and the [likelihood-ratio test](/Likelihood-ratio_test) along with its generalized form, the [relative likelihood](/Relative_likelihood).
+
+An alternative method for comparing two statistical models involves the concept of [deficiency](/Deficiency_(statistics)), a notion introduced by [Lucien Le Cam](/Lucien_Le_Cam). &#91;8&#93;

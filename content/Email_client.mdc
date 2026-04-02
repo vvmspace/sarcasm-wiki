@@ -1,0 +1,207 @@
+---
+title: "Email Client"
+description: "Computer program used to access and manage a user's..."
+keywords: computer program, email, offline reader, mail transfer agent, mail delivery agent, e‑mail_mailbox, mbox, home_directory, post office protocol
+slug: "Email_client"
+createdAt: "2025-12-29T10:49:21.715Z"
+updatedAt: "2025-12-29T10:49:21.715Z"
+contentType: "rewritten"
+aiProvider: "OpenRouter"
+aiModel: "nvidia/nemotron-3-nano-30b-a3b:free"
+previousArticleSlug: "Symmetry"
+previousArticleTitle: "Symmetry"
+---
+
+**Computer program used to access and manage a user's email**
+
+An email client—sometimes flirted with the term *email reader* and, if you’re feeling scholarly, *message user agent* (MUA) or *mail user agent*—is essentially a **[computer program](/Computer_program)** whose only raison d’être is to fetch, organise, and generally boss around your **[email](/Email)** inboxes. For readers who prefer their mail served offline, see **[Offline reader](/Offline_reader)**.
+
+Emma would call this “the boring bit before the fun starts,” but the fun is that the program does the heavy lifting while you pretend you’re not watching it. It talks to remote servers, shuffles messages around, and generally makes sure you don’t have to stare at raw text files on a command line. In practice, it’s a polished front‑end that hides the guts of the underlying protocols, letting you click, drag, and occasionally curse at a UI that’s been through more redesigns than a fashion runway.
+
+---
+
+**Retrieving messages from a mailbox**
+
+Like most client programs, an email client is only active when a user runs it. The common arrangement is for an email user (the client) to make an arrangement with a remote **[Mail Transfer Agent](/Mail_Transfer_Agent)** (MTA) server for the receipt and storage of the client's emails. The MTA, using a suitable **[Mail delivery agent](/Mail_delivery_agent)** (MDA), adds email messages to a client's storage as they arrive. The remote mail storage is referred to as the user's **[E‑mail_Mailbox](/E-mail_Mailbox)**. The default setting on many Unix systems is for the mail server to store formatted messages in **[mbox](/Mbox)**, within the user's **[Home_directory](/Home_directory)**. Of course, users of the system can log‑in and run a mail client on the same computer that hosts their mailboxes; in which case, the server is not actually remote, other than in a generic sense.
+
+Emails are stored in the user's mailbox on the remote server until the user's email client requests them to be downloaded to the user's computer, or can otherwise access the user's mailbox on the possibly remote server. The email client can be set up to connect to multiple mailboxes at the same time and to request the download of emails either automatically, such as at pre‑set intervals, or the request can be manually initiated by the user.
+
+A user's mailbox can be accessed in two dedicated ways. The **[Post Office Protocol](/Post_Office_Protocol)** (POP) allows the user to download messages one at a time and only deletes them from the server after they have been successfully saved on local storage. It is possible to leave messages on the server to permit another client to access them. However, there is no provision for flagging a specific message as seen, answered, or forwarded, thus POP is not convenient for users who access the same mail from different machines.
+
+Alternatively, the **[Internet Message Access Protocol](/Internet_Message_Access_Protocol)** (IMAP) allows users to keep messages on the server, flagging them as appropriate. IMAP provides folders and sub‑folders, which can be shared among different users with possibly different access rights. Typically, the **Sent**, **Drafts**, and **Trash** folders are created by default. IMAP features an idle extension for real‑time updates, providing faster notification than polling, where long‑lasting connections are feasible. See also the remote messages section below.
+
+The **[JSON Meta Application Protocol](/JSON_Meta_Application_Protocol)** (JMAP) is implemented using JSON APIs over HTTP and has been developed as an alternative to IMAP/SMTP.
+
+In addition, the mailbox storage can be accessed directly by programs running on the server or via **[Clustered_file_system](/Clustered_file_system)**. Direct access can be more efficient but is less portable as it depends on the mailbox format; it is used by some email clients, including some webmail applications.
+
+---
+
+**Message composition**
+
+Email clients usually contain **[Graphical_user_interface](/Graphical_user_interface)** to display and edit text. Some applications permit the use of a program‑external editor.
+
+The email clients will perform formatting according to **[RFC](/RFC_(identifier))** 5322 for **[headers](/E-mail)** and **[body](/E-mail)**, and **[MIME](/MIME)** for non‑textual content and attachments. Headers include the destination fields, **To**, **Cc** (short for *Carbon copy*), and **Bcc** (Blind carbon copy), and the originator fields **From** which is the message's author(s), **Sender** in case there are more authors, and **Reply‑To** in case responses should be addressed to a different mailbox. To better assist the user with destination fields, many clients maintain one or more address books and/or are able to connect to an **[LDAP](/LDAP)** directory server. For originator fields, clients may support different identities.
+
+Client settings require the user's real name and email address for each user's identity, and possibly a list of LDAP servers.
+
+---
+
+**Submitting messages to a server**
+
+When a user wishes to create and send an email, the email client will handle the task. The email client is usually set up automatically to connect to the user's mail server, which is typically either a **[Mail submission agent](/Mail_submission_agent)** (MSA) or a **[Mail transfer agent](/Mail_transport_agent)** (MTA), two variations of the **[SMTP](/Simple_Mail_Transfer_Protocol)** protocol. The email client which uses the **[SMTP](/Simple_Mail_Transfer_Protocol)** protocol creates an authentication extension, which the mail server uses to authenticate the sender. This method eases modularity and nomadic computing. The older method was for the mail server to recognize the client's IP address, e.g. because the client is on the same machine and uses internal address **127.0.0.1**, or because the client's IP address is controlled by the same **[Internet service provider](/Internet_service_provider)** that provides both Internet access and mail services.
+
+Client settings require the name or IP address of the preferred outgoing mail server, the port number, and the user name and password for authentication, if any. The following ports are used for email submission:
+
+- **Port 465** – The officially designated port for mail submission using **[TLS](/Transport_Layer_Security)** from the start of the connection (Implicit TLS), as per RFC 8314. Since encryption is enforced from the beginning, it eliminates the risk of downgrade attacks or MITM (Man‑in‑the‑Middle) attacks that could strip away encryption.
+
+- **Port 587** – Commonly used for mail submission with support for **[STARTTLS](/STARTTLS)**, allowing the connection to be optionally upgraded to TLS. However, if a MITM attacker interferes with the STARTTLS command, the connection may remain unencrypted, making it less secure than implicit TLS on port 465.
+
+Port 25, originally intended for message relay between MTAs, is not for client message submission and is often blocked by ISPs to prevent spam.
+
+---
+
+**Encryption**
+
+With no encryption, much like for postcards, email activity is plainly visible by any occasional eavesdropper. **[Email encryption](/Email_encryption)** enables privacy to be safeguarded by encrypting the mail sessions, the body of the message, or both. Without it, anyone with network access and the right tools can monitor email and obtain login passwords. Examples of concern include the government **[censorship](/Censorship)** and **[surveillance](/Surveillance)** and fellow wireless network users such as at an **[Internet cafe](/Internet_cafe)**.
+
+All relevant email protocols have an option to encrypt the whole session, to prevent a user's name and password from being **[sniffed](/Packet_sniffer)**. They are strongly suggested for nomadic users and whenever the **[Internet access provider](/Internet_access_provider)** is not trusted. [1] When sending mail, users can only control encryption at the first hop from a client to its configured outgoing mail server. At any further hop, messages may be transmitted with or without encryption, depending solely on the general configuration of the transmitting server and the capabilities of the receiving one.
+
+Encrypted mail sessions deliver messages in their original format, i.e. plain text or encrypted body, on a user's local mailbox and on the destination server's. The latter server is operated by an **[email hosting service](/Email_hosting_service)** provider, possibly a different entity than the Internet access provider currently at hand.
+
+Encrypting an email retrieval session with, e.g., **[SSL](/SSL)**, can protect both parts (authentication, and message transfer) of the session. [2] [3] Alternatively, if the user has **[SSH](/Secure_Shell)** access to their mail server, they can use **[port forwarding](/Port_forwarding)** to create an encrypted tunnel over which to retrieve their emails. [4] 
+
+Encryption of the message body
+
+There are two main models for managing cryptographic keys. **[S/MIME](/S/MIME)** employs a model based on a trusted **[certificate authority](/Certificate_authority)** (CA) that signs users' public keys. **[OpenPGP](/OpenPGP)** employs a somewhat more flexible **[web of trust](/Web_of_trust)** mechanism that allows users to sign one another's public keys. OpenPGP is also more flexible in the format of the messages, in that it still supports plain message encryption and signing as they used to work before **[MIME](/MIME)** standardization.
+
+In both cases, only the message body is encrypted. Header fields, including originator, recipients, and often subject, remain in plain text.
+
+---
+
+**Webmail**
+
+•  
+**Main article: [Webmail](/Webmail)**
+
+In addition to email clients running on a desktop computer, there are those hosted remotely, either as part of a remote UNIX installation accessible by **[telnet](/Telnet)** (i.e. a **[Shell_account](/Shell_account)**), or hosted on the **[Web](/World_Wide_Web)**. Both of these approaches have several advantages: they share an ability to send and receive email away from the user's normal base using a **[Web_browser](/Web_browser)** or telnet client, thus eliminating the need to install a dedicated email client on the user's device.
+
+Some websites are dedicated to providing email services, and many **[Internet service providers](/Internet_service_provider)** provide webmail services as part of their Internet service package. The main limitations of webmail are that user interactions are subject to the website's operating system and the general inability to download email messages and compose or work on the messages offline, although there are software packages that can integrate parts of the webmail functionality into the OS (e.g. creating messages directly from third‑party applications via **[MAPI](/MAPI)**).
+
+Like IMAP and MAPI, webmail provides for email messages to remain on the mail server. See next section.
+
+---
+
+**Remote messages**
+
+POP3 has an option to leave messages on the server. By contrast, both IMAP and webmail keep messages on the server as their method of operating, albeit users can make local copies as they like. Keeping messages on the server has advantages and disadvantages. [5]
+
+**Advantages**
+
+- Messages can be accessed from various computers or mobile devices at different locations, using different clients.
+
+- Some kind of backup is usually provided by the server.
+
+**Disadvantages**
+
+- With limited bandwidth, access to long messages can be lengthy, unless the email client caches a local copy.
+
+- There may be privacy concerns since messages that stay on the server at all times have more chances to be casually accessed by IT personnel, unless **[end‑to‑end encryption](/End-to-end_encryption)** is used.
+
+---
+
+**Protocols**
+
+Popular protocols for retrieving mail include **[POP3](/POP3)** and **[IMAP4](/IMAP4)**. Sending mail is usually done using the **[SMTP](/SMTP)** protocol.
+
+Another important standard supported by most email clients is **[MIME](/MIME)**, which is used to send **[binary file](/Binary_file)** **[email attachment](/Email_attachment)**. Attachments are files that are not part of the email proper but are sent with the email.
+
+Most email clients use a **[header field](/Header_(computing))** [header field] to identify the software used to send the message. This header field is defined for Netnews, but not‑for e‑mail, and, as such, is non‑standard [7] in e‑mail headers.
+
+- **[RFC](/RFC_(identifier))** 6409, *Message Submission for Mail*, details the role of the **[Mail submission agent](/Mail_submission_agent)**.
+
+- **[RFC](/RFC_(identifier))** 5068, *Email Submission Operations: Access and Accountability Requirements*, provides a survey of the concepts of MTA, MSA, MDA, and MUA. It mentions that “Access Providers MUST NOT block users from accessing the external Internet using the SUBMISSION port 587” and that “MUAs SHOULD use the SUBMISSION port for message submission.”
+
+- **[RFC](/RFC_(identifier))** 5965, *An Extensible Format for Email Feedback Reports*, provides “an extensible format and MIME type that may be used by mail operators to report feedback about received email to other parties.”
+
+**Port numbers**
+
+Email servers and clients by convention use the **[TCP port numbers](/List_of_TCP_and_UDP_port_numbers)** in the following table. For MSA, IMAP and POP3, the table reports also the labels that a client can use to query the **[SRV records](/SRV_record)** and discover both the host name and the port number of the corresponding service. [8]
+
+| Protocol | Use | Plain text or encrypt sessions | Plain text sessions only | Encrypt sessions only |
+|----------|-----|------------------------------|--------------------------|-----------------------|
+| **[POP3](/Post_Office_Protocol)** | incoming mail | 110 /_pop3._tcp | 995 /_pop3s._tcp | |
+| **[IMAP4](/Internet_Message_Access_Protocol)** | incoming mail | 143 /_imap._tcp | 993 /_ims._tcp | |
+| **[SMTP](/Simple_Mail_Transfer_Protocol)** | outgoing mail | 25 | 587 | |
+| **[MSA](/Mail_submission_agent)** | outgoing mail | 587 /_submission._tcp | 465 [_submissions._tcp] [9] | |
+
+While webmail obeys the earlier HTTP disposition of having separate ports for encrypt and plain text sessions, mail protocols use the **[STARTTLS](/STARTTLS)** technique, thereby allowing encryption to start on an already established TCP connection. While
+
+- **[RFC](/RFC_(identifier))** 2595 used to discourage the use of the previously established ports 995 and 993,
+
+- **[RFC](/RFC_(identifier))** 8314 promotes the use of implicit **[TLS](/Transport_Layer_Security)** when available.
+
+---
+
+**Proprietary client protocols**
+
+**[Microsoft](/Microsoft)** mail systems use the **[proprietary](/Proprietary_software)** **[Messaging Application Programming Interface](/Messaging_Application_Programming_Interface)** (MAPI) in client applications, such as **[Microsoft Outlook](/Microsoft_Outlook)**, to access **[Microsoft Exchange](/Microsoft_Exchange_Server)** electronic mail servers.
+
+---
+
+**See also**
+
+- [Comparison of email clients](/Comparison_of_email_clients)
+
+- [Message submission agent](/Message_submission_agent) (MSA)
+
+- [Mailto](/Mailto)
+
+- [Message delivery agent](/Message_delivery_agent) (MDA)
+
+- [Message transfer agent](/Message_transfer_agent) (MTA)
+
+- [Simple Mail Transfer Protocol](/Simple_Mail_Transfer_Protocol)
+
+- [Text‑based email client](/Text_based_email_client)
+
+---
+
+**References**
+
+- ^  
+- C. Hutzler; D. Crocker; P. Resnick; E. Allman; T. Finch (November 2007). "Message Submission Authentication/Authorization Technologies". *Email Submission Operations: Access and Accountability Requirements*. [IETF](/IETF). sec. 5. [doi](/Doi_(identifier)):10.17487/RFC5068. BCP 134. [RFC](/Request_for_Comments) 5068. Retrieved 24 August 2011. This document does not provide recommendations on specific security implementations. It simply provides a warning that transmitting user credentials in clear text over insecure networks SHOULD be avoided in all scenarios as this could allow attackers to listen for this traffic and steal account data. In these cases, it is strongly suggested that an appropriate security technology MUST be used.
+
+- ^ Sill 2003, p. 353: “Like SMTP, POP3 is unencrypted. Unlike SMTP, however, it needs authentication: Users have to identify themselves and prove they're who they claim to be. Unfortunately, the authentication usually consists of presenting a username and a password known only to the user and the POP3 server. Because the POP3 dialogue is unencrypted, an eavesdropper can obtain a user's username and password and reuse them to access the user's mailbox. So, plain POP3 exposes the contents of the mail messages the user retrieves, and it exposes their username and password, which can then be reused by someone else. Wrapping the POP3 dialogue with transport‑layer security such as SSL solves both of these problems. Because SSL‑wrapped POP3 sessions are encrypted from beginning to end, no messages, usernames, or passwords are exposed in cleartext. The optional POP3 command, APOP, replaces the standard USER/PASS authentication with a challenge‑response authentication mechanism. This solves the problem of the disclosure of reusable passwords, but does nothing to prevent eavesdroppers from reading users' mail messages as they're being retrieved.”
+
+- ^ Updated Transport Layer Security (TLS) Server Identity Check Procedure for Email‑Related Protocols . [doi](/Doi_(identifier)):10.17487/RFC7817. [RFC](/Request_for_Comments) 7817.
+
+- ^ Flickenger, Rob (2003). *Linux Server Hacks: 100 Industrial‑Strength Tips & Tools*. [O'Reilly Media](/O%27Reilly_Media). p. 146. [ISBN](/ISBN_(identifier))  978-0596004613. In addition to providing remote shell access and command execution, OpenSSH can forward arbitrary TCP ports to the other end of your connection. This can be very handy for protecting email, web, or any other traffic you need to keep private (at least, all the way to the other end of the tunnel). ssh accomplishes local forwarding by binding to a local port, performing encryption, sending the encrypted data to the remote end of the ssh connection, then decrypting it and sending it to the remote host and port you specify. Start an ssh tunnel with the -L switch (short for Local): root@laptop:~# ssh -f -N -L110: mailhost :110 -l user mailhost Note that you will have to be root on the laptop for this example since you'll be binding to a privileged port (110, the POP port). You should also disable any locally running POP daemon (look in /etc/inetd.conf ) or it will get in the way. Now to encrypt all of your POP traffic, configure your mail client to connect to localhost port 110. It will happily talk to mailhost as if it were connected directly, except that the entire conversation will be encrypted.
+
+- ^ “Is IMAP Right for Me?”. IT Services . [Stanford University](/Stanford_University). 4 March 2010. Archived from the original on 30 April 2010. Retrieved 14 April 2013.
+
+- ^ “User‑Agent”. *Netnews Article Format*. [IETF](/IETF). November 2009. sec. 3.2.13. [doi](/Doi_(identifier)):10.17487/RFC5536. [RFC](/Request_for_Comments) 5536. Some of this information has previously been sent in non‑standardized header fields such as X‑Newsreader, X‑Mailer, X‑Posting‑Agent, X‑Http‑User‑Agent, and others
+
+- ^ Cyrus Daboo (March 2011). *Use of SRV Records for Locating Email Submission/Access Services*. [IETF](/IETF). [doi](/Doi_(identifier)):10.17487/RFC6186. [RFC](/Request_for_Comments) 6186. Retrieved 17 April 2013.
+
+- ^ Keith Moore; Chris Newman (January 2018). *Cleartext Considered Obsolete: Use of Transport Layer Security (TLS) for Email Submission and Access*. [IETF](/IETF). [doi](/Doi_(identifier)):10.17487/RFC8314. [RFC](/Request_for_Comments) 8314. Retrieved 12 February 2018.
+
+**Bibliography**
+
+- •  
+- Sill, Dave (2003). *The qmail Handbook*. [Apress](/Apress). [ISBN](/ISBN_(identifier))  9781430211341.
+
+- •  
+- Partridge, Craig (April–June 2008). “The Technical Development of Internet Email” (PDF). *IEEE Annals of the History of Computing*. 30 (2): 3–29. [Bibcode](/Bibcode_(identifier)):2008IAHC...30b...3P. [doi](/Doi_(identifier)):10.1109/mahc.2008.32. [ISSN](/ISSN_(identifier)) 1934-1547. [S2CID](/S2CID_(identifier)) 206442868. Archived from the original (PDF) on 2011-05-12.
+
+- •  
+- v • t • e
+
+**External links**
+
+- [Comparison of email clients](/Comparison_of_email_clients)  
+
+- [Category:Email_clients](/Category:Email_clients)  
+
+---  
+
+*Emma would finish with a dry smile and a warning: “If you think you’ve understood all of this, you’re probably wrong. But at least you’ve been entertained.”*

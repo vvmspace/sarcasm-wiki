@@ -1,0 +1,123 @@
+---
+title: "Image (Category Theory)"
+description: "Right. You want the Wikipedia article on the image of a morphism in category theory, but… *enhanced*. More detail, more… *flavor*. As if the original was some..."
+keywords: image of a morphism, category theory, mathematics, image, morphism, function, category
+slug: "Image_(category_theory)"
+createdAt: "2025-11-17T16:33:08.551Z"
+updatedAt: "2025-11-17T16:33:08.551Z"
+contentType: "rewritten"
+---
+
+Right. You want the Wikipedia article on the [image of a morphism](/Image_of_a_morphism) in [category theory](/Category_theory), but… *enhanced*. More detail, more… *flavor*. As if the original was some bland, beige sketch that needed a proper artist. Fine. Let’s see what we can scrape from the dust.
+
+### Image of a Morphism
+
+In the rather bleak landscape of [category theory](/Category_theory), a field of [mathematics](/Mathematics) that often feels like staring into a void, the concept of the [image](/Image_(mathematics)) of a [morphism](/Morphism) serves as a rather grim generalization of the [image](/Image_(mathematics)) of a [function](/Function_(mathematics)). It’s not about making things pretty; it’s about structure, about the inherent decomposition of a process.
+
+#### General Definition
+
+Let’s be precise, though precision can be a tedious affair. Consider a [category](/Category_(mathematics)), let’s call it `C`. Within this `C`, we have a [morphism](/Morphism), let’s denote it as `f`, which maps from an object `X` to an object `Y`. We write this as `f: X → Y`.
+
+The [image](/Image_(mathematics)) of this `f`, denoted by `Im f`, is essentially a [monomorphism](/Monomorphism) – a morphism that is injective in spirit, if not always in literal form. Let this monomorphism be `m: I → Y`. This `m` isn't just some arbitrary arrow; it’s defined by a rather stringent [universal property](/Universal_property).
+
+This property dictates two crucial conditions:
+
+1.  **Factorization:** There must exist a morphism, let’s call it `e`, that maps from `X` to `I`. This `e` must be such that when you compose it with `m`, you get back the original morphism `f`. In other words, `f = m ∘ e`. This tells us that `f` can be broken down, or factored, into two parts: first, this `e` that maps from the source of `f` to the image object `I`, and then `m` that maps from `I` to the target of `f`.
+
+2.  **Uniqueness and Universality:** Now, this is where the "universal property" really bites. Imagine you have *any* other way to factor `f` like this. Suppose there’s another object, `I'`, and a morphism `e': X → I'`, and a monomorphism `m': I' → Y`, such that `f = m' ∘ e'`. If this other factorization exists, then there *must* be a unique morphism, let’s call it `v`, mapping from our original image object `I` to this new object `I'`. This `v` must satisfy the condition that when you compose `m'` with `v`, you get back our original image monomorphism `m`. So, `m = m' ∘ v`.
+
+This is the grim elegance of it. The image `I` is the "most efficient" or "minimal" object in `Y` that `f` can factor through, in a way that preserves the essential structure of `f`’s mapping.
+
+**Remarks on the Grim Details:**
+
+*   This factorization, this `f = m ∘ e`, doesn’t always exist. Sometimes, the universe of the category is just too uncooperative.
+*   The morphism `e` itself, once `m` is fixed, *is* unique. This is a direct consequence of `m` being a [monomorphism](/Monomorphism). If `e` and `e''` both worked such that `f = m ∘ e` and `f = m ∘ e''`, then `m ∘ e = m ∘ e''`. Since `m` is monic, it’s “one-to-one” enough to imply `e = e''`.
+*   The relationships `m' ∘ e' = f = m ∘ e` and `m = m' ∘ v` are crucial. They lead to `e' = v ∘ e`. This is because `f = m' ∘ e'` and `f = m ∘ e = (m' ∘ v) ∘ e = m' ∘ (v ∘ e)`. Again, the monic nature of `m'` ensures that `e' = v ∘ e`.
+*   And yes, `v` itself is also a monomorphism. If `v ∘ x = v ∘ y`, then `m' ∘ v ∘ x = m' ∘ v ∘ y`, which means `m' ∘ x = m' ∘ y`. Since `m'` is monic, `x = y`.
+*   The uniqueness of `v` is already guaranteed by the condition `m = m' ∘ v`. If there were another `v''` such that `m = m' ∘ v''`, then `m' ∘ v = m' ∘ v''`. Because `m'` is monic, `v = v''`.
+
+The image of `f` is commonly referred to as `Im f` or `Im(f)`. It’s a mark left, a trace of the morphism’s journey.
+
+**A Proposition and its Unpleasant Proof:**
+
+If our [category](/Category_(mathematics)) `C` is generous enough to possess all [equalizers](/Equaliser_(mathematics)), then the morphism `e` in the factorization `f = m ∘ e` is actually an [epimorphism](/Epimorphism).
+
+*Proof:*
+Let’s assume we have two morphisms, `α` and `β`, such that `α ∘ e = β ∘ e`. Our goal, the grim objective, is to prove that `α = β`.
+Since the equalizer of `(α, β)` exists – remember, our category is blessedly equipped with them – `e` can be factored as `e = q ∘ e'`, where `q` is a monomorphism.
+Now, our original factorization becomes `f = m ∘ e = m ∘ (q ∘ e') = (m ∘ q) ∘ e'`. Notice that `m ∘ q` is also a monomorphism, as it’s a composition of monomorphisms.
+By the universal property of the image (the one we discussed earlier), there must exist a unique morphism, let’s call it `v`, mapping from `I` to the equalizer of `(α, β)`, denoted `Eq(α, β)`. This `v` must satisfy `m = (m ∘ q) ∘ v`. Since `m` is a monomorphism, this implies `id_I = q ∘ v`, where `id_I` is the identity morphism on `I`.
+Furthermore, we have `m ∘ q = (m ∘ q ∘ v) ∘ q`. Since `m ∘ q` is a monomorphism, we can cancel it out to get `id_Eq(α, β) = v ∘ q`.
+This establishes an equivalence, an isomorphism, between `I` and `Eq(α, β)`. Thus, `id_I = q ∘ v` effectively equalizes `(α, β)`. This means that `α` and `β` must be the same: `α = β`. It’s a rather convoluted way of saying that `e` “covers” everything it needs to for `α` and `β` to be identical.
+
+#### Second Definition
+
+Let’s consider a [category](/Category_(mathematics)) `C` that is particularly well-endowed, possessing all finite [limits](/Limit_(category_theory)) and [colimits](/Colimits). In such a category, the image of a morphism `f: X → Y` can be defined in a different, perhaps more constructivist, manner.
+
+It is defined as the [equalizer](/Equaliser_(mathematics)) of a specific pair of morphisms, often called a "cokernel pair." This pair arises from the [cocartesian](/Pushout_(category_theory)) square formed by taking the coproduct (or pushout) of `Y` with itself over `X`. More formally, it’s the equalizer `(Im, m)` of the morphisms `i_1` and `i_2` from `Y` to `Y ⊔_X Y`.
+
+The diagram looks something like this:
+
+```
+      f
+X --------> Y
+|           |
+|           | i_1
+|           |
+Y ⊔_X Y <----- Y
+      i_2
+```
+
+Here, `Y ⊔_X Y` is the pushout of `f` with itself. The morphisms `i_1` and `i_2` are the canonical inclusions into this pushout. The equalizer `(Im, m)` is the pair such that `i_1 ∘ m = i_2 ∘ m`, and `m: Im → Y` is the universal morphism with this property.
+
+**Remarks on the Second Definition:**
+
+*   If a category is [bicomplete](/Bicompleteness) (meaning it has all finite limits and colimits), then the pushouts and equalizers we need are guaranteed to exist. It’s a matter of having the right tools.
+*   This `(Im, m)` can be termed the "regular image" because `m` is a [regular monomorphism](/Regular_monomorphism). A regular monomorphism is, by definition, an equalizer of some pair of morphisms. And as a reminder, all equalizers are automatically monomorphisms.
+*   In an [abelian category](/Abelian_category), this cokernel pair condition takes on a slightly neater form. For a morphism `f`, the condition `i_1 ∘ f = i_2 ∘ f` is equivalent to `(i_1 - i_2) ∘ f = 0`. Similarly, for the equalizer `m`, `i_1 ∘ m = i_2 ∘ m` is equivalent to `(i_1 - i_2) ∘ m = 0`. In such categories, all monomorphisms are regular, which simplifies things considerably.
+
+**Theorem:** If every morphism `f` in a category can always be factored through [regular monomorphisms](/Regular_monomorphism), then the two definitions of the image – the one based on the universal property and this one based on equalizers – coincide. They become indistinguishable.
+
+*Proof:*
+
+*   **First Definition Implies the Second:**
+    Let’s assume the first definition holds, where `f = m ∘ e`, and `m` is a regular monomorphism.
+    *   **Equalization:** We need to show that `i_1 ∘ m = i_2 ∘ m`. Since `(i_1, i_2)` form the cokernel pair of `f`, we know that `i_1 ∘ f = i_2 ∘ f`. And from our earlier proposition (assuming the category has all equalizers), `e` must be an epimorphism. Therefore, `i_1 ∘ f = i_2 ∘ f` implies `i_1 ∘ m = i_2 ∘ m`.
+    *   **Universality:** In a category with all colimits (or at least all pushouts), `m` itself will have a cokernel pair, say `(Y ⊔_I Y, c_1, c_2)`. As a regular monomorphism, `(I, m)` is the equalizer of some pair `(b_1, b_2): Y → B`. We claim it’s also the equalizer of `(c_1, c_2): Y → Y ⊔_I Y`.
+        Because `b_1 ∘ m = b_2 ∘ m` (since `m` is the equalizer of `b_1, b_2`), the diagram for the cokernel pair of `m` provides a unique morphism `u': Y ⊔_I Y → B` such that `b_1 = u' ∘ c_1` and `b_2 = u' ∘ c_2`.
+        Now, consider any morphism `m': I' → Y` that equalizes `(c_1, c_2)`. This means `c_1 ∘ m' = c_2 ∘ m'`. Then, `b_1 ∘ m' = (u' ∘ c_1) ∘ m' = u' ∘ (c_1 ∘ m') = u' ∘ (c_2 ∘ m') = (u' ∘ c_2) ∘ m' = b_2 ∘ m'`.
+        Because `(I, m)` is the equalizer of `(b_1, b_2)`, there must be a unique morphism `h': I' → I` such that `m' = m ∘ h'`. This is precisely the universality condition for `(I, m)` being the equalizer of `(c_1, c_2)`.
+        Finally, we use the cokernel pair diagram of `f`. There exists a unique morphism `u: Y ⊔_X Y → Y ⊔_I Y` such that `c_1 = u ∘ i_1` and `c_2 = u ∘ i_2`. Therefore, any morphism `g` that equalizes `(i_1, i_2)` will also equalize `(c_1, c_2)` (because `c_1 ∘ g = u ∘ i_1 ∘ g` and `c_2 ∘ g = u ∘ i_2 ∘ g`, and if `i_1 ∘ g = i_2 ∘ g`, then `c_1 ∘ g = c_2 ∘ g`). This means `g` must factor uniquely through `m`, i.e., `g = m ∘ h'` for some `h'`. This confirms that `(I, m)` is indeed the equalizer of `(i_1, i_2)`.
+
+*   **Second Definition Implies the First:**
+    *   **Factorization:** If we take the second definition, `(Im, m)` is the equalizer of `(i_1, i_2)`. Let’s consider the original morphism `f: X → Y`. The diagram for the cokernel pair of `f` gives us `i_1 ∘ f = i_2 ∘ f`. Since `m` is the universal equalizer for `(i_1, i_2)`, there must be a unique morphism, let’s call it `h`, such that `f = m ∘ h`. This is our factorization.
+    *   **Universality:** Suppose we have another factorization of `f` where `m': I' → Y` is a regular monomorphism, so `f = m' ∘ e'`. Since `m'` is a regular monomorphism, it’s the equalizer of some pair `(d_1, d_2): Y → D`. This means `d_1 ∘ m' = d_2 ∘ m'`.
+        Now, `d_1 ∘ f = d_1 ∘ (m' ∘ e') = (d_1 ∘ m') ∘ e'`. Similarly, `d_2 ∘ f = (d_2 ∘ m') ∘ e'`. Since `d_1 ∘ m' = d_2 ∘ m'`, it follows that `d_1 ∘ f = d_2 ∘ f`.
+        Looking at the cokernel pair diagram of `f` again, `i_1 ∘ f = i_2 ∘ f`. If we also have `d_1 ∘ f = d_2 ∘ f`, then by the universality of the equalizer of `(d_1, d_2)` (applied to `f` instead of `m'`), there exists a unique morphism `u'': Y ⊔_X Y → D` such that `d_1 = u'' ∘ i_1` and `d_2 = u'' ∘ i_2`.
+        We know `i_1 ∘ m = i_2 ∘ m` because `m` is the equalizer of `(i_1, i_2)`. Applying `u''` to this, we get `u'' ∘ i_1 ∘ m = u'' ∘ i_2 ∘ m`, which simplifies to `d_1 ∘ m = d_2 ∘ m`.
+        Now, consider the fact that `m'` is the equalizer of `(d_1, d_2)`. Since `d_1 ∘ m = d_2 ∘ m`, by the universality property of the equalizer `m'`, there must exist a unique morphism `v: I → I'` such that `m = m' ∘ v`. This is precisely the condition required by the universal property of the first definition.
+
+#### Examples
+
+Let’s ground this in something less abstract, shall we?
+
+*   **Category of Sets:** In the most fundamental [category of sets](/Category_of_sets), the image of a morphism `f: X → Y` is the inclusion map from the actual set-theoretic [image](/Image_(mathematics)) `{f(x) | x ∈ X}` into `Y`. It’s the subset of `Y` containing precisely the elements that `f` actually maps to. Simple, direct.
+*   **Concrete Categories:** For many other [concrete categories](/Concrete_category) – think of [groups](/Category_of_groups), [abelian groups](/Category_of_abelian_groups), or [modules](/Module_(mathematics)) – the image of a morphism is defined analogously to the image in the category of sets. It’s the image of the underlying set-theoretic function, endowed with the structure of the category.
+*   **Normal Categories:** In any [normal category](/Normal_category) that has a [zero object](/Zero_object) and is equipped with [kernels](/Kernel_(category_theory)) and [cokernels](/Cokernel_(category_theory)) for every morphism, the image of a morphism `f` can be expressed with a certain brutal economy: `im f = ker(coker f)`. You take the cokernel, and then the kernel of that. It's a chain reaction of algebraic operations.
+*   **Abelian Categories:** If we're in an [abelian category](/Abelian_category) (which is a special kind of normal category), and `f` happens to be a monomorphism, then `f = ker(coker f)`, and consequently, `f = im f`. The image is the morphism itself. A neat, self-contained loop.
+
+#### Essential Image
+
+There’s a related, though somewhat more esoteric, notion called the "essential image." It’s less about direct factorization and more about encompassing subcategories.
+
+A subcategory `C` within a larger category `B` is called "replete" if, for any object `x` in `C`, and any isomorphism `ι: x → y` where `ι` and `y` are also within `B`, both `ι` and `y` *must* belong to `C`. It’s a requirement of completeness, of not leaving any isomorphic copies of your objects out in the cold.
+
+Given a functor `F: A → B` between categories, the "essential image" of `F` is the smallest replete subcategory of the target category `B` that contains the image of `A` under `F`. It’s the smallest possible "container" that includes all that `F` maps from `A` into `B`, while also adhering to the rules of repleteness. It's like a meticulously curated collection, ensuring that if you have something, you have all its equivalent forms too.
+
+#### See Also
+
+*   [Subobject](/Subobject) - A foundational concept for understanding how objects are embedded within others.
+*   [Coimage](/Coimage) - The dual concept to the image, dealing with quotients rather than subobjects.
+*   [Image (mathematics)](/Image_(mathematics)) - The set-theoretic precursor to the categorical image.
+
+##

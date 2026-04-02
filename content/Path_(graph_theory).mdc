@@ -1,0 +1,110 @@
+---
+title: "Path (Graph Theory)"
+description: "For those who insist on dissecting the very fabric of graph theory, a path) represents a fundamental, if somewhat pedestrian, concept. At its core, it is..."
+keywords: graph theory, path, sequence, edges, vertices, directed graph, diestel, reinhard, korte, bernhard, algorithmic
+slug: "Path_(graph_theory)"
+createdAt: "2025-11-17T22:31:51.841Z"
+updatedAt: "2025-11-17T22:31:51.841Z"
+contentType: "rewritten"
+---
+
+For those who insist on dissecting the very fabric of [graph theory](/Graph_theory), a [path](/Graph_(discrete_mathematics)) represents a fundamental, if somewhat pedestrian, concept. At its core, it is nothing more than a finite or, for the truly ambitious, an infinite [sequence](/Sequence) of interconnected [edges](/Edge_(graph_theory)) that meticulously links a corresponding sequence of [vertices](/Vertex_(graph_theory)). The crucial, and frankly, often overlooked, detail is that, by most widely accepted definitions, all vertices within this sequence must be distinct. And, as a logical consequence of distinct vertices, the edges traversed are also, by necessity, distinct. One might even call it a journey of unique steps.
+
+When we introduce the delightful complication of direction, we arrive at a *directed path* (sometimes rather inelegantly termed a *dipath* [1]). This variant, applicable within a [directed graph](/Directed_graph), similarly involves a finite or infinite sequence of edges connecting a sequence of distinct vertices. However, the universe, or at least the graph, dictates an additional, rather stringent, restriction: all edges must be traversed in precisely the same, predetermined direction. Because, one supposes, some journeys only go one way.
+
+Paths, in their various forms, are not merely academic curiosities. They are foundational elements, the very sinews of [graph theory](/Graph_theory), meticulously detailed in the introductory chapters of virtually every authoritative text on the subject. Should you feel the need to delve deeper into these elementary structures, works such as Bondy & Murty (1976), Gibbons (1985), or [Diestel, Reinhard](/Reinhard_Diestel) (2005) offer a comprehensive, if somewhat dry, initiation. For those with a more masochistic inclination towards the computational intricacies, [Korte, Bernhard](/Bernhard_Korte) et al. (1990) explore the more advanced [algorithmic](/Algorithm) challenges associated with uncovering and manipulating paths within graphs. It seems even the simplest concepts can become complicated when you let enough people near them.
+
+For the family of graphs specifically designed to *be* paths, one might consult the entry on a [Path graph](/Path_graph). And for a rather striking visual representation, consider a three-dimensional [hypercube graph](/Hypercube_graph), where one can observe the elegant, if somewhat overachieving, red line denoting a [Hamiltonian path](/Hamiltonian_path), starkly contrasted by the bold black lines tracing a [longest induced path](/Snake-in-the-box). It's almost artistic, if you squint.
+
+## Definitions
+
+To fully appreciate the nuanced landscape of graph traversal, one must first grapple with a hierarchy of terms, each subtly distinct, each designed to prevent any ambiguity for the diligent, and to confound the casual observer.
+
+### Walk, trail, and path
+
+One begins, naturally, with the most permissive form of traversal:
+
+*   A **walk** is defined as a finite or infinite [sequence](/Sequence) of [edges](/Edge_(graph_theory)) that ultimately joins a corresponding sequence of [vertices](/Vertex_(graph_theory)) [2]. It is, in essence, a casual stroll through the graph, with no particular regard for repeating edges or vertices. One might wander aimlessly, crisscrossing one's own tracks with abandon.
+
+Let us consider a graph, denoted by `G = (V, E, Φ)`, where `V` represents the set of [vertices](/Vertex_(graph_theory)), `E` the set of [edges](/Edge_(graph_theory)), and `Φ` the incidence function that maps each edge to its incident vertices. A finite walk, then, is precisely represented as a sequence of edges `(e₁, e₂, ..., e_{n−1})` for which there exists a corresponding sequence of vertices `(v₁, v₂, ..., v_n)` such that the incidence function `Φ(e_i)` yields the set of vertices `{v_i, v_{i+1}}` for each `i` from 1 to `n−1`. This `(v₁, v₂, ..., v_n)` is, rather predictably, dubbed the vertex sequence of the walk. A walk is deemed *closed* if its starting vertex `v₁` is identical to its ending vertex `v_n`, effectively forming a loop. Otherwise, it is an *open* walk, leading somewhere, or perhaps nowhere in particular. An *infinite walk* extends indefinitely, a sequence of edges with no discernible beginning or end, much like certain philosophical debates. A *semi-infinite walk*, often referred to as a [ray](/End_(graph_theory)), possesses a definite starting vertex but then continues into the topological abyss, never reaching a final destination.
+
+*   A **trail**, on the other hand, introduces a modicum of discipline. It is a walk where all traversed [edges](/Edge_(graph_theory)) are distinct [2]. One might revisit a vertex, perhaps to admire a particularly captivating node, but one does not re-tread the same segment of the journey. It's a more purposeful exploration, avoiding redundant paths.
+
+*   Finally, we arrive at the **path**, the most refined and constrained form of traversal. A path is a trail in which all [vertices](/Vertex_(graph_theory)) are distinct [2]. Consequently, because each vertex is unique, all edges within the path are also inherently distinct. This is the ideal, the unambiguous route, where every step leads to new territory.
+
+Should `w = (e₁, e₂, ..., e_{n−1})` constitute a finite walk with a vertex sequence `(v₁, v₂, ..., v_n)`, it is then logically designated as a walk *from* `v₁` *to* `v_n`. The same nomenclature applies with equal, if not greater, precision to a trail or a path. A rather convenient, if not entirely surprising, property of graphs is that if a finite walk exists between any two distinct vertices, then a finite trail and, indeed, a finite path must also exist between them. It seems even the most circuitous routes can be streamlined.
+
+It must be noted, with a sigh of weary resignation, that some authors, in their infinite wisdom, do not impose the distinct-vertex requirement for a "path." Instead, they reserve the term *simple path* to denote a path where all vertices are, in fact, distinct. One can only assume this semantic nitpicking serves some higher, inscrutable academic purpose.
+
+Furthermore, in the realm of practical applications, a [weighted graph](/Weighted_graph) is one where a numerical value, or *weight*, is assigned to each individual edge. This weight can represent myriad concepts: distance, time, cost, capacity, or even the sheer effort required to traverse that particular connection. The weight of a walk, trail, or path within such a graph is simply the cumulative sum of the weights of all the edges that have been traversed. While "weight" is the standard nomenclature, you might, on occasion, encounter the equally descriptive terms *cost* or *length* used interchangeably. Because, apparently, one word isn't enough for such a profound concept.
+
+### Directed walk, directed trail, and directed path
+
+The introduction of direction adds a layer of unyielding reality to our graph traversals. Because, darling, life isn't always a two-way street.
+
+*   A **directed walk** is, predictably, a finite or infinite [sequence](/Sequence) of [edges](/Edge_(graph_theory)), but with the critical caveat that these edges are all directed in the same, unwavering direction, joining a sequence of [vertices](/Vertex_(graph_theory)) [2]. It's a walk with a predetermined itinerary, no U-turns permitted.
+
+Consider a [directed graph](/Directed_graph), `G = (V, E, Φ)`, where `Φ` now maps each edge to an *ordered* pair of vertices, signifying the direction. A finite directed walk is a sequence of edges `(e₁, e₂, ..., e_{n−1})` for which there exists a sequence of vertices `(v₁, v₂, ..., v_n)` such that `Φ(e_i)` unequivocally equals `(v_i, v_{i+1})` for each `i` from 1 to `n−1`. This `(v₁, v₂, ..., v_n)` is, naturally, the vertex sequence of the directed walk. A directed walk is *closed* if `v₁ = v_n`, meaning it begins and ends at the same vertex, having followed a specific, directed circuit. Otherwise, it is *open*. An *infinite directed walk* extends endlessly in a specific direction, a journey without a final destination, much like the pursuit of true happiness. A *semi-infinite directed walk*, another variant of a [ray](/End_(graph_theory)), commences at a specific vertex but then continues its directed trajectory into perpetuity.
+
+*   A **directed trail** elevates this directional journey by requiring that all [edges](/Edge_(graph_theory)) within the directed walk are distinct [2]. One might visit the same vertex multiple times, but one never reuses the exact same directed connection. It's a more efficient, if still potentially looping, exploration of the directed landscape.
+
+*   And finally, the pinnacle of directed traversal: a **directed path**. This is a directed trail where all [vertices](/Vertex_(graph_theory)) are distinct [2]. The most stringent definition, ensuring a truly unique, forward-moving progression through the graph without revisiting any location. This is the untainted, unambiguous route, the only way to go, one might say.
+
+Much like its undirected counterpart, if `w = (e₁, e₂, ..., e_{n−1})` is a finite directed walk with vertex sequence `(v₁, v₂, ..., v_n)`, it is unequivocally defined as a directed walk *from* `v₁` *to* `v_n`. The same principle applies to directed trails and directed paths. And, with a similar lack of surprise, if a finite directed walk can be found between two distinct vertices, then a finite directed trail and, indeed, a finite directed path, must also exist between them. The universe, it seems, prefers efficiency, even in its directed meanderings.
+
+That rather redundant term, a "simple directed path," merely reiterates that all vertices are distinct. One wonders about the efficiency of terminology itself sometimes.
+
+In the context of a [weighted directed graph](/Weighted_graph), each directed edge carries a specific value, its *weight*. This weight, as before, can represent various attributes pertinent to the directed flow: the time taken to move from A to B, the cost of a one-way transaction, or the capacity of a directed pipeline. The weight of a directed walk, trail, or path is, predictably, the sum of these weights along the traversed directed edges. The terms *cost* or *length* are, once more, often used interchangeably with *weight*. Because, apparently, clarity can sometimes be sacrificed for variety.
+
+## Examples
+
+To truly grasp the utility of paths, one must observe them in their natural habitat, performing their various functions within the vast ecosystem of graphs.
+
+*   A graph is deemed [connected](/Connectivity_(graph_theory)) if, and only if, there exists at least one path between *every* possible pair of vertices within it. This is a fundamental property, indicating that the graph forms a single, unbroken piece, where information or influence can theoretically flow from any point to any other. Without connectivity, a graph fragments into isolated islands, rendering communication impossible.
+
+*   Extending this notion to the directed realm, a directed graph is classified as [strongly connected](/Strongly-connected_digraph) if, for every ordered pair of vertices, there exist *oppositely oriented* directed paths connecting them. This means that not only can one travel from vertex A to vertex B, but one can also return from B to A, albeit potentially via a different, directed route. It signifies a robust, bidirectional communication capability, despite the inherent one-way nature of its individual connections.
+
+*   An [induced path](/Induced_path) is a path with a particular elegance: it is a path such that no additional graph edges exist to connect any two nonconsecutive vertices of the path itself. In simpler terms, an induced path doesn't take any shortcuts; it doesn't allow for external edges to bypass segments of its journey. It maintains a certain linear purity, refusing to be corrupted by extraneous connections.
+
+*   A path that achieves the remarkable feat of visiting every single vertex of the graph exactly once, without any repeats, is known as a [Hamiltonian path](/Hamiltonian_path). This is the grand tour, the complete traversal, a testament to the graph's structure. The search for such paths, famously linked to Sir William Rowan Hamilton's Icosian Game, remains a challenging problem in graph theory, a puzzle that has vexed mathematicians for centuries.
+
+*   When considering multiple paths, distinctions arise. Two paths are termed *vertex-independent* (or, with rather more academic flair, *internally disjoint* or *internally vertex-disjoint*) if they share absolutely no internal vertices or edges. They are entirely separate journeys, except, perhaps, for their common start and end points. Similarly, two paths are designated *edge-independent* (or simply *edge-disjoint*) if they have no edges in common. It's a subtle but important difference: two internally disjoint paths are inherently edge-disjoint, as sharing a vertex would imply sharing incident edges. However, the converse, as is often the case in such matters, is not necessarily true. Two paths could share a vertex, yet still traverse entirely distinct edges. One must always be wary of assumptions.
+
+*   The [distance](/Distance_(graph_theory)) between two vertices in a graph is defined as the length of the *shortest* path connecting them, assuming such a path actually exists. If no path can be found, then the distance between them is, rather poetically, considered to be infinity. Some destinations, it seems, are simply unreachable, a harsh truth that applies equally to graphs and to life.
+
+*   Building upon the concept of distance, the diameter of a [connected](/Connectivity_(graph_theory)) graph is the maximum distance (as defined above) found between any pair of vertices within that graph. It represents the "longest shortest path," a measure of how spread out the graph is, or the maximum number of steps required to get from the most remote point to another most remote point. A large diameter suggests a widely distributed network, while a small diameter indicates a tightly knit structure.
+
+## Finding paths
+
+The quest to discover paths within graphs has given rise to numerous [algorithmic](/Algorithm) solutions, each tailored to specific requirements and constraints. It's almost as if humans can't stand not knowing the quickest way to get somewhere, or, conversely, the longest way to avoid it. There's an important, and often computationally brutal, distinction to be made: finding [shortest](/Shortest_path_problem) paths is generally a tractable problem, while locating [longest](/Longest_path_problem) paths, particularly in general graphs, tends to be significantly more challenging, often falling into the dreaded category of NP-complete problems. It seems that finding the most efficient route is often simpler than finding the most circuitous one.
+
+*   For graphs where edge weights are non-negative (or, indeed, absent), [Dijkstra's algorithm](/Dijkstra%27s_algorithm) stands as a venerable workhorse. It efficiently computes a list of shortest paths from a designated source vertex to every other accessible vertex, working equally well in both directed and undirected graphs. Its greedy approach, always extending the shortest known path, makes it remarkably effective for many real-world applications, from network routing to navigation systems.
+
+*   When negative edge weights enter the fray, [Dijkstra's algorithm](/Dijkstra%27s_algorithm) falters, requiring a more robust solution. The [Bellman–Ford algorithm](/Bellman%E2%80%93Ford_algorithm) steps in, capable of handling directed graphs with such negative weights. While generally slower than Dijkstra's, its ability to detect the presence of negative cycles (which would imply infinitely decreasing path lengths) makes it invaluable in scenarios where costs or gains can be negative.
+
+*   Should one require the shortest paths between *all* possible pairs of vertices within a weighted directed graph, the [Floyd–Warshall algorithm](/Floyd%E2%80%93Warshall_algorithm) offers a comprehensive, if computationally more intensive, solution. This dynamic programming approach systematically considers all intermediate vertices to find the optimal path between every source-destination pair. It's the "know everything about every route" algorithm, sparing no computational expense.
+
+The inherent difficulty in finding longest paths, as opposed to shortest paths, often stems from the fact that while shortest paths are typically unique or limited in number, longest paths can involve numerous complex traversals and often require exploring a vast combinatorial space, making exhaustive search impractical for larger graphs. This is why shortest path problems are often solvable in polynomial time, while longest path problems are, in their general form, NP-hard.
+
+## The path partition problem
+
+A particularly intriguing, and often complex, challenge within graph theory is the *k-path partition problem*. This problem tasks one with partitioning a given graph into the smallest possible collection of vertex-disjoint paths, with the additional constraint that each of these paths must have a length of at most `k` [3]. Essentially, it's about efficiently covering an entire graph with a minimum number of relatively short, non-overlapping routes. Such problems have significant implications in areas like resource allocation, task scheduling, and network design, where one might need to distribute tasks or resources along distinct, limited-length pathways to optimize performance or minimize congestion. Finding optimal solutions for this, particularly for larger graphs, often necessitates the use of approximation algorithms, as exact solutions can be computationally prohibitive.
+
+## See also
+
+*   [Glossary of graph theory](/Glossary_of_graph_theory)
+*   [Path graph](/Path_graph)
+*   [Polygonal chain](/Polygonal_chain)
+*   [Shortest path problem](/Shortest_path_problem)
+*   [Longest path problem](/Longest_path_problem)
+*   [Dijkstra's algorithm](/Dijkstra%27s_algorithm)
+*   [Bellman–Ford algorithm](/Bellman%E2%80%93Ford_algorithm)
+*   [Floyd–Warshall algorithm](/Floyd%E2%80%93Warshall_algorithm)
+*   [Self-avoiding walk](/Self-avoiding_walk)
+*   [Shortest-path graph](/Shortest-path_graph)
+
+## Notes
+
+*   ^ McCuaig 1992, p.&#160;205.
+*   ^ <sup>a</sup> <sup>b</sup> <sup>c</sup> <sup>d</sup> <sup>e</sup> <sup>f</sup> Bender & Williamson 2010, p.&#160;162.
+*   ^ Chen, Yong; Goebel, Randy; Lin, Guohui; Su, Bing; Xu, Yao; Zhang, An (2019-07-01). "An improved approximation algorithm for the minimum 3-path partition problem". *Journal of Combinatorial Optimization*. 38 (1): 150–164. [doi](/Doi_(identifier)):10.1007/s10878-018-00372-z. [ISSN](/ISSN_(identifier))&#160;1382-6905.

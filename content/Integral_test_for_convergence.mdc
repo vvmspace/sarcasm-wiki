@@ -1,0 +1,125 @@
+---
+title: "Integral Test For Convergence"
+description: "The integral test for convergence, a rather elegant piece of machinery in the realm of mathematics, is a method employed to ascertain the convergence of..."
+keywords: integral test, mathematics, convergence, series, monotonic, colin maclaurin, augustin-louis cauchy, integer, interval
+slug: "Integral_test_for_convergence"
+createdAt: "2025-12-23T10:54:32.007Z"
+updatedAt: "2025-12-23T10:54:32.007Z"
+contentType: "rewritten"
+aiProvider: "Gemini"
+aiModel: "gemini-2.5-flash-lite"
+previousArticleSlug: "Root_test"
+previousArticleTitle: "Root Test"
+---
+
+The [integral test](/Convergence_tests) for convergence, a rather elegant piece of machinery in the realm of [mathematics](/Mathematics), is a method employed to ascertain the [convergence](/Convergent_series) of infinite [series](/Series_(mathematics)) whose terms exhibit a [monotonic](/Monotonic_function) quality. It’s a technique polished and presented by the likes of [Colin Maclaurin](/Colin_Maclaurin) and [Augustin-Louis Cauchy](/Augustin-Louis_Cauchy), and as such, it occasionally bears their combined moniker, the Maclaurin–Cauchy test.
+
+### Statement of the Test
+
+Imagine, if you will, an [integer](/Integer) designated as N, and a function, let’s call it f, meticulously defined across the vast, unbounded [interval](/Interval_(mathematics)) stretching from N to infinity, denoted as [N, ∞). This function f is stipulated to be [monotone decreasing](/Monotone_decreasing) throughout this domain. Under these conditions, the infinite series:
+
+$$ \sum_{n=N}^{\infty} f(n) $$
+
+will converge to a finite [real number](/Real_number) if and only if its integral counterpart, the [improper integral](/Improper_integral):
+
+$$ \int_{N}^{\infty} f(x) \, dx $$
+
+also yields a finite value. Conversely, should this integral [diverge](/Divergent_series), meaning it doesn't settle on a finite number, then the corresponding infinite series is doomed to diverge as well. It’s a rather definitive relationship, wouldn’t you agree?
+
+### Remark
+
+The elegance of this test isn’t merely in its dichotomy of convergence or divergence. If the improper integral happens to be finite, the proof itself furnishes us with valuable [lower and upper bounds](/Upper_and_lower_bounds) for the sum of the infinite series:
+
+$$ \int_{N}^{\infty} f(x) \, dx \leq \sum_{n=N}^{\infty} f(n) \leq f(N) + \int_{N}^{\infty} f(x) \, dx $$
+
+This is quite handy, really. It gives you a tangible range for the series’ sum, should it converge.
+
+Now, a subtle point: if the function f(x) were found to be [increasing](/Monotone_increasing) rather than decreasing, one could simply consider its negative, -f(x). This transformed function would then be monotone decreasing, allowing the theorem to be applied without a hitch.
+
+Some textbooks might insist on f being strictly positive. While that’s often the case in introductory examples, it’s not a strictly necessary condition for the test's validity. If f is negative and decreasing, both the series $\sum f(n)$ and the integral $\int f(x) dx$ will diverge in tandem. It’s a bit like observing two ships sailing into the same storm; if one founders, the other is likely to follow.
+
+### Proof
+
+The foundation of this proof rests on the [comparison test](/Direct_comparison_test). We meticulously compare each term $f(n)$ of the series with the integral of the function f over specific intervals: either $[n-1, n)$ or $[n, n+1)$.
+
+First, we must establish that our monotone function $f$ is [continuous](/Continuous_function) "almost everywhere." This might sound like a lawyer’s loophole, but it’s a crucial technicality. For every point $x$ where $f$ might falter and exhibit discontinuity, we can find a [rational number](/Rational_number) $c(x)$ nestled within the range of values that $f$ approaches around $x$. This process, mapping each point of discontinuity to a unique rational number, demonstrates that the set of discontinuities, $D$, is [countable](/Countable_set). A function that is continuous almost everywhere is, for our purposes, [Riemann integrable](/Riemann_integrability).
+
+Given that $f$ is a monotone decreasing function, a couple of inequalities naturally arise for any integer $n \ge N$:
+
+$$ f(x) \leq f(n) \quad \text{for all} \ x \in [n, \infty) $$
+
+and
+
+$$ f(n) \leq f(x) \quad \text{for all} \ x \in [N, n] $$
+
+From these, we can derive the following crucial inequalities:
+
+For every integer $n \ge N$:
+
+$$ \int_{n}^{n+1} f(x) \, dx \leq \int_{n}^{n+1} f(n) \, dx = f(n) $$
+
+And for every integer $n \ge N+1$:
+
+$$ f(n) = \int_{n-1}^{n} f(n) \, dx \leq \int_{n-1}^{n} f(x) \, dx $$
+
+Now, if we sum these inequalities from $n=N$ up to some larger integer $M$, we start to see the structure emerge. From the first inequality, summing over $n$ from $N$ to $M$:
+
+$$ \int_{N}^{M+1} f(x) \, dx = \sum_{n=N}^{M} \int_{n}^{n+1} f(x) \, dx \leq \sum_{n=N}^{M} f(n) $$
+
+And from the second inequality, with a slight adjustment for the initial term $f(N)$:
+
+$$ \sum_{n=N}^{M} f(n) = f(N) + \sum_{n=N+1}^{M} f(n) \leq f(N) + \sum_{n=N+1}^{M} \int_{n-1}^{n} f(x) \, dx = f(N) + \int_{N}^{M} f(x) \, dx $$
+
+Combining these two results, we arrive at the bounds mentioned earlier:
+
+$$ \int_{N}^{M+1} f(x) \, dx \leq \sum_{n=N}^{M} f(n) \leq f(N) + \int_{N}^{M} f(x) \, dx $$
+
+As $M$ relentlessly marches towards infinity, these inequalities solidify into the core statement of the integral test. The convergence or divergence of the integral directly dictates the fate of the series.
+
+### Applications
+
+Consider the venerable [harmonic series](/Harmonic_series_(mathematics)):
+
+$$ \sum_{n=1}^{\infty} \frac{1}{n} $$
+
+This series, famously, diverges. We can see this by applying the integral test. The integral of $1/x$ from $1$ to $M$ is $\ln M$. As $M$ approaches infinity, $\ln M$ also approaches infinity.
+
+$$ \int_{1}^{M} \frac{1}{n} \, dn = \ln n \Big|_{1}^{M} = \ln M \to \infty \quad \text{for} \ M \to \infty $$
+
+Since the integral diverges, so too must the harmonic series.
+
+Now, let’s look at a related series, one involving the [Riemann zeta function](/Riemann_zeta_function):
+
+$$ \zeta(1+\varepsilon) = \sum_{n=1}^{\infty} \frac{1}{n^{1+\varepsilon}} $$
+
+This series converges for any $\varepsilon > 0$. Again, the integral test confirms this. The integral of $1/n^{1+\varepsilon}$ from $1$ to $M$ is finite:
+
+$$ \int_{1}^{M} \frac{1}{n^{1+\varepsilon}} \, dn = \left. -\frac{1}{\varepsilon n^{\varepsilon}} \right|_{1}^{M} = \frac{1}{\varepsilon} \left( 1 - \frac{1}{M^{\varepsilon}} \right) \leq \frac{1}{\varepsilon} < \infty \quad \text{for all} \ M \geq 1 $$
+
+The integral is bounded, so the series converges. Furthermore, the bounds derived from the test give us an upper estimate for the zeta function:
+
+$$ \zeta(1+\varepsilon) = \sum_{n=1}^{\infty} \frac{1}{n^{1+\varepsilon}} \leq \frac{1+\varepsilon}{\varepsilon} $$
+
+This provides a useful comparison point for understanding the behavior of the Riemann zeta function near its pole at $s=1$.
+
+### The Borderline Between Divergence and Convergence
+
+The examples of the harmonic series and the $\zeta(1+\varepsilon)$ series naturally lead to a fascinating question: are there sequences $f(n)$ that decrease to zero "slower" than $1/n^{1+\varepsilon}$ but "faster" than $1/n$? Specifically, sequences where:
+
+$$ \lim_{n\to \infty} \frac{f(n)}{1/n} = 0 \quad \text{and} \quad \lim_{n\to \infty} \frac{f(n)}{1/n^{1+\varepsilon}} = \infty $$
+
+for any $\varepsilon > 0$? And do the corresponding series $\sum f(n)$ still diverge? This line of inquiry allows us to probe the very edge, the "borderline," between divergence and convergence.
+
+Using the integral test, mathematicians have demonstrated that for any positive [natural number](/Natural_number) $k$, the series:
+
+$$ \sum_{n=N_{k}}^{\infty} \frac{1}{n\ln(n)\ln _{2}(n)\cdots \ln _{k-1}(n)\ln _{k}(n)} $$
+
+still diverges. (This is a generalization of the proof that the sum of the reciprocals of the primes diverges, which corresponds to $k=1$). However, the slightly modified series:
+
+$$ \sum_{n=N_{k}}^{\infty} \frac{1}{n\ln(n)\ln _{2}(n)\cdots \ln _{k-1}(n)(\ln _{k}(n))^{1+\varepsilon}} $$
+
+converges for every $\varepsilon > 0$. Here, $\ln_k(x)$ denotes the $k$-fold composition of the natural logarithm, defined recursively.
+
+To establish the divergence of the first series, we observe that the derivative of $\ln_{k+1}(x)$ is $\frac{1}{x\ln(x)\cdots \ln_{k}(x)}$. Therefore, the integral of this form from $N_k$ to infinity diverges to infinity.
+
+For the convergence of the second series, we utilize the [power rule](/Power_rule) and the chain rule. The derivative of $-\frac{1}{\varepsilon (\ln _{k}(x))^{\varepsilon}}$ is precisely the integrand of the second series. This means the integral of the second series' integrand from $N_k$ to infinity is finite, thus confirming its convergence by the integral test. These constructions reveal an astonishingly fine-grained hierarchy of divergence and convergence, a testament to the subtle nuances of infinite sums.

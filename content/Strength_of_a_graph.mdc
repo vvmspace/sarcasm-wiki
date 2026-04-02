@@ -1,0 +1,61 @@
+---
+title: "Strength Of A Graph"
+description: "The strength of a graph, denoted by $\sigma(G)$, is a fascinating parameter in graph theory that quantifies the minimum ratio of edges to components created..."
+keywords: graph theory, graph toughness, simple graph, partitions, linear programming, computational complexity, polynomial time, tutte-nash-williams theorem
+slug: "Strength_of_a_graph"
+createdAt: "2025-12-27T08:41:03.193Z"
+updatedAt: "2025-12-27T08:41:03.193Z"
+contentType: "rewritten"
+aiProvider: "Gemini"
+aiModel: "gemini-2.5-flash-lite"
+previousArticleSlug: "HMNB_Clyde"
+previousArticleTitle: "HMNB Clyde"
+---
+
+The strength of a graph, denoted by $\sigma(G)$, is a fascinating parameter in [graph theory](/Graph_theory) that quantifies the minimum ratio of edges to components created when a graph is decomposed. It’s a sophisticated way to identify dense regions within a network, providing insights analogous to [graph toughness](/Graph_toughness), which focuses on vertex removal. Think of it as measuring how much effort, in terms of edges, it takes to break a graph into more pieces. It’s not about brute force; it’s about efficiency in disruption.
+
+### Definitions
+
+The strength $\sigma(G)$ of an undirected [simple graph](/Simple_graph) $G = (V, E)$ can be defined in a few complementary ways, each offering a unique perspective on this connectivity measure.
+
+One perspective involves looking at all possible ways to partition the set of vertices, $V$. Let $\Pi$ be the set of all such [partitions](/Partition_of_a_set). For any partition $\pi \in \Pi$, we can count the number of edges that "cross over" between different sets within that partition. This set of crossing edges is denoted as $\partial \pi$. The strength is then the minimum ratio of the number of crossing edges, $|\partial \pi|$, to one less than the number of sets in the partition, $|\pi| - 1$, taken over all possible partitions:
+
+$$ \sigma(G) = \min_{\pi \in \Pi} \frac{|\partial \pi|}{|\pi| - 1} $$
+
+This definition highlights the core idea: find a partition that minimizes the edge disruption relative to the number of new components formed. It’s like finding the weakest link, but measured by how many connections you have to sever to create a certain number of isolated groups.
+
+Another, rather more abstract, definition relates to spanning trees. If $\mathcal{T}$ is the set of all spanning trees of $G$, the strength can be expressed as the maximum value obtainable from a set of non-negative weights, $\lambda_T$, assigned to each spanning tree $T \in \mathcal{T}$, subject to the constraint that for any edge $e \in E$, the sum of weights of all spanning trees containing $e$ does not exceed 1.
+
+$$ \sigma(G) = \max \left\{\sum_{T \in \mathcal{T}} \lambda_T : \forall T \in \mathcal{T} \ \lambda_T \geq 0 \text{ and } \forall e \in E \ \sum_{T \ni e} \lambda_T \leq 1 \right\} $$
+
+This formulation, while less intuitive at first glance, connects the strength to how well spanning trees can be "packed" or weighted within the graph, ensuring no single edge is overloaded by the chosen trees. It suggests a dual problem where we are trying to maximize some collective property of spanning trees under edge constraints.
+
+Finally, through the powerful lens of [linear programming](/Linear_programming) duality, the strength can be defined as the minimum value of a sum of non-negative edge weights, $y_e$, where for every spanning tree $T$, the sum of weights of its edges is at least 1.
+
+$$ \sigma(G) = \min \left\{\sum_{e \in E} y_e : \forall e \in E \ y_e \geq 0 \text{ and } \forall T \in \mathcal{T} \ \sum_{e \in E} y_e \geq 1 \right\} $$
+
+This provides a computational perspective, framing the strength as an optimization problem. It’s about finding the cheapest way to "cover" all spanning trees with edges, where each edge has a cost. The minimum total cost represents the graph's strength.
+
+### Complexity
+
+The question of how difficult it is to compute the strength of a graph is a significant one in [computational complexity](/Computational_complexity). Fortunately, it can be determined in [polynomial time](/Time_complexity). The initial breakthrough in this area came from Cunningham in 1985. Later, Trubin, in 1993, developed an algorithm with improved complexity, utilizing the flow decomposition techniques of Goldberg and Rao (1998). The most efficient known algorithm for exact computation runs in time:
+
+$$ O\left(\min\left(\sqrt{m},n^{2/3}\right)mn\log\left(\frac{n^{2}}{m}+2\right)\right) $$
+
+where $n$ is the number of vertices and $m$ is the number of edges. This complexity class indicates that while not trivial, computing the strength is computationally feasible for reasonably sized graphs.
+
+### Properties
+
+The strength of a graph exhibits several noteworthy properties that reveal its structural significance.
+
+One key property relates to how the strength behaves when we consider the components formed by a partition. If $\pi = \{V_1, V_2, \dots, V_k\}$ is a partition that maximizes the strength ratio (or, more generally, any partition), and $G_i = G/V_i$ represents the subgraph induced by the vertex set $V_i$, then the strength of these induced subgraphs is greater than or equal to the strength of the original graph:
+
+$$ \sigma(G_k) \geq \sigma(G) $$
+
+This suggests that concentrating on the denser parts of the graph (the subgraphs $G_i$) doesn't decrease the measure of connectivity; it can even increase it. It's like finding that smaller, tightly-knit communities within a larger network are inherently more robust or concentrated in their internal connections.
+
+The [Tutte-Nash-Williams theorem](/Nash-Williams_theorem) provides a profound connection between the strength and the existence of edge-disjoint spanning trees. It states that the floor of the strength, $\lfloor \sigma(G) \rfloor$, is precisely the maximum number of edge-disjoint spanning trees that can be found within the graph $G$. This is a powerful result, linking a ratio-based measure to a combinatorial count of structures. It implies that the strength directly dictates how many "skeletons" of the graph can be formed using distinct edges.
+
+It's also important to note a distinction from other graph partitioning problems. Unlike algorithms that aim for balanced partitions (where all subsets of vertices are roughly the same size), the partitions that arise from computing the strength are not necessarily balanced. The focus is on minimizing edge cuts relative to component counts, not on achieving equal distribution of vertices. This means a partition that yields the strength might create one very large component and several small ones, if that arrangement best satisfies the strength definition.
+
+#

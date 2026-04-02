@@ -1,0 +1,194 @@
+---
+title: "Quantum Stochastic Calculus"
+description: "Alright, let's dissect this. You want me to take this Wikipedia article and… *rearrange* it. Make it longer. Inject some of… *me* into it. Fine. Just don't..."
+keywords: quantum stochastic calculus, stochastic calculus, noncommuting, quantum trajectories, lindblad master equation, fokker–planck equation, langevin equations, heat bath, harmonic oscillators, hamiltonian
+slug: "Quantum_stochastic_calculus"
+createdAt: "2025-11-17T03:49:34.805Z"
+updatedAt: "2025-11-17T03:49:34.805Z"
+contentType: "rewritten"
+---
+
+Alright, let's dissect this. You want me to take this Wikipedia article and… *rearrange* it. Make it longer. Inject some of… *me* into it. Fine. Just don't expect sunshine and rainbows. This is about quantum mechanics, not a Hallmark movie.
+
+---
+
+## Form of Calculus
+
+[Quantum stochastic calculus](/Stochastic_calculus) is an extension, a rather unpleasant one, of [stochastic calculus](/Stochastic_calculus) into the murky territory of [noncommuting](/Commutative_property) variables. Think of it as trying to nail jelly to a wall, but the jelly is also actively trying to escape and the wall keeps shifting. The tools it offers are, unfortunately, quite useful for modeling the erratic, random evolution of systems that are being observed, probed, or measured – you know, like in [quantum trajectories](/Quantum_trajectory). It's a bit like trying to track a ghost with a faulty camera.
+
+The parallels are unavoidable. Just as the [Lindblad master equation](/Lindblad_equation) steps in to provide a quantum version of the [Fokker–Planck equation](/Fokker%E2%80%93Planck_equation), this quantum stochastic calculus allows us to derive these things called quantum stochastic differential equations (QSDEs). They’re the quantum cousins to the classical [Langevin equations](/Langevin_equation), equally chaotic, just with more existential dread.
+
+For the sake of clarity, and because frankly, the distinction is crucial, when I refer to "stochastic calculus" from here on, I'm talking about the *classical* version. The quantum stuff… well, it’s in a league of its own.
+
+### Heat Baths
+
+There's a particularly thorny physical situation where this quantum stochastic calculus becomes less of an option and more of a necessity: when a system is entangled with a [heat bath](/Thermal_reservoir). It’s a common scenario, and often, the heat bath is modeled as a vast collection of [harmonic oscillators](/Harmonic_oscillator_(quantum)). The way the system and the bath interact can be described, after some rather involved mathematical maneuvering and a canonical transformation, by the following [Hamiltonian](/Hamiltonian_(quantum_mechanics)):
+
+$$ H = H_{\mathrm {sys} }(\mathbf {Z} )+{\frac {1}{2}}\sum _{n}\left((p_{n}-\kappa _{n}X)^{2}+\omega _{n}^{2}q_{n}^{2}\right)\,, $$
+
+Here, $H_{\mathrm {sys} }$ is the Hamiltonian of the system itself, $\mathbf {Z}$ is a vector holding all the relevant system variables – a finite set of degrees of freedom, mind you. The index $n$ is just a label for the different modes within the bath. $\omega _{n}$ is the frequency of a specific bath mode, while $p_{n}$ and $q_{n}$ are the bath operators for that mode. $X$ is an operator acting on the system, and $\kappa _{n}$ is a measure of how strongly that particular bath mode is coupled to the system. It’s a delicate dance of energy and influence.
+
+When you start to look at the equation of motion for any arbitrary system operator, let’s call it $Y$, you end up with what’s known as the quantum Langevin equation. It looks like this, and frankly, it’s a bit of a mouthful:
+
+$$ {\dot {Y}}(t)={\frac {i}{\hbar }}[H_{\mathrm {sys} },Y(t)]-{\frac {i}{2\hbar }}\left[X,\left\{Y(t),\xi (t)-\int _{t_{0}}^{t}f(t-t_{0}){\dot {X}}(t^{\prime })\mathrm {d} t^{\prime }-f(t-t_{0})X(t_{0})\right\}\right]\,, $$
+
+The square brackets, $[\cdot, \cdot]$, denote the [commutator](/Commutator), a fundamental concept in quantum mechanics, while the curly braces, $\{\cdot, \cdot\}$, signify the [anticommutator](/Commutator). The function $f(t)$ is a memory function, defined as:
+
+$$ f(t)\equiv \sum _{n}\kappa _{n}^{2}\cos(\omega _{n}t)\,, $$
+
+And $\xi (t)$ is a time-dependent noise operator, a source of quantum randomness:
+
+$$ \xi (t)\equiv i\sum _{n}\kappa _{n}{\sqrt {\frac {\hbar \omega _{n}}{2}}}\left(-a_{n}(t_{0})e^{-i\omega _{n}(t-t_{0})}+a_{n}^{\dagger }(t_{0})e^{i\omega _{n}(t-t_{0})}\right)\,, $$
+
+where $a_{n}$ is the bath annihilation operator, defined by:
+
+$$ a_{n}\equiv {\frac {\omega _{n}q_{n}+ip_{n}}{\sqrt {2\hbar \omega _{n}}}}\,.$$
+
+This equation, while descriptive, is often more complex than strictly necessary. So, further approximations are usually made to tame its wildness.
+
+### White Noise Formalism
+
+For many practical purposes, it’s more convenient to simplify the nature of the heat bath. This allows us to adopt a [white noise](/White_noise) formalism. In this simplified model, the interaction is often represented by a Hamiltonian of the form:
+
+$$ H = H_{\mathrm {sys} } + H_B + H_{\mathrm {int} } $$
+
+where:
+
+$$ H_{B}=\hbar \int _{-\infty }^{\infty }\mathrm {d} \omega \,\omega b^{\dagger }(\omega )b(\omega ) $$
+
+and
+
+$$ H_{\mathrm {int} }=i\hbar \int _{-\infty }^{\infty }\mathrm {d} \omega \,\kappa (\omega )\left(b^{\dagger }(\omega )c-c^{\dagger }b(\omega )\right) $$
+
+Here, $b(\omega )$ represents the [annihilation operators](/Creation_and_annihilation_operators) for the bath, obeying the crucial commutation relation $[b(\omega ), b^{\dagger }(\omega ^{\prime })]=\delta (\omega -\omega ^{\prime })$. The operator $c$ acts on the system, and $\kappa (\omega )$ quantifies the strength of the coupling between the bath modes and the system. $H_{\mathrm {sys} }$ is, as before, the free system Hamiltonian. This model typically employs the [rotating wave approximation](/Rotating_wave_approximation) and extends the integration limit for $\omega$ to $-\infty$ to achieve a mathematically tractable white noise description. The coupling strengths are often assumed to be constant, a simplification known as the first Markov approximation:
+
+$$ \kappa (\omega )={\sqrt {\frac {\gamma }{2\pi }}}\,.$$
+
+Systems interacting with a bath of these harmonic oscillators can be visualized as being subjected to a noisy input and simultaneously emitting a noisy output. The input noise operator at time $t$ is defined as:
+
+$$ b_{\mathrm {in} }(t)={\frac {1}{\sqrt {2\pi }}}\int _{-\infty }^{\infty }\mathrm {d} \omega \,e^{-i\omega (t-t_{0})}b_{0}(\omega ) $$
+
+where $b_{0}(\omega )$ is the bath operator at the initial time $t_0$, expressed in the [Heisenberg picture](/Heisenberg_picture). The fact that this operator satisfies the commutation relation $[b_{\mathrm {in} }(t), b_{\mathrm {in} }^{\dagger }(t^{\prime })]=\delta (t-t^{\prime })$ is what allows this model to align with a strictly [Markovian](/Markov_property) master equation.
+
+In this white noise framework, the quantum Langevin equation for an arbitrary system operator $a$ simplifies considerably:
+
+$$ (\mathbf {I} )\,\mathrm {d} a=-{\frac {i}{\hbar }}[a,H_{\mathrm {sys} }]\mathrm {d} t-\sqrt {\gamma }\left([a,c^{\dagger }]\mathrm {d} B(t)-\mathrm {d} B^{\dagger }(t)[a,c]\right)\,, $$
+
+This equation is more properly understood as a quantum Itô integral, which we’ll get to.
+
+For the specific case that most closely mirrors classical white noise, the input to the system is characterized by a [density operator](/Density_operator), leading to the following [expectation value](/Expectation_value_(quantum_mechanics)):
+
+$$ \langle b_{\mathrm {in} }^{\dagger }(t)b_{\mathrm {in} }(t^{\prime })\rangle _{\rho _{\mathrm {in} }}=N\delta (t-t^{\prime })\,. $$
+
+### Quantum Wiener Process
+
+To properly define quantum stochastic integration, we first need to establish the concept of a quantum [Wiener process](/Wiener_process). It’s defined as:
+
+$$ B(t,t_{0})=\int _{t_{0}}^{t}b_{\mathrm {in} }(t^{\prime })\mathrm {d} t^{\prime }\,. $$
+
+This definition grants the quantum Wiener process the commutation relation $[B(t,t_{0}), B^{\dagger }(t,t_{0})]=t-t_{0}$. Based on the properties of the bath annihilation operators mentioned earlier, this quantum Wiener process exhibits an expectation value:
+
+$$ \langle B^{\dagger }(t,t_{0})B(t,t_{0})\rangle _{\rho (t,t_{0})}=N(t-t_{0})\,. $$
+
+These quantum Wiener processes are further defined such that their [quasiprobability distributions](/Quasiprobability_distribution) are [Gaussian](/Gaussian). This is achieved by specifying the density operator as:
+
+$$ \rho (t,t_{0})=(1-e^{-\kappa })\exp \left[-{\frac {\kappa B^{\dagger }(t,t_{0})B(t,t_{0})}{t-t_{0}}}\right]\,, $$
+
+where $N = 1/(e^{\kappa }-1)$.
+
+### Quantum Stochastic Integration
+
+The stochastic evolution of system operators can also be formulated directly in terms of stochastic integration of specific equations.
+
+#### Quantum Itô Integral
+
+The quantum [Itô integral](/It%C3%B4_calculus) of a system operator $g(t)$ is defined as:
+
+$$ (\mathbf {I} )\int _{t_{0}}^{t}g(t^{\prime })\mathrm {d} B(t^{\prime })=\lim _{n\to \infty }\sum _{i=1}^{n}g(t_{i})\left(B(t_{i+1},t_{0})-B(t_{i},t_{0})\right)\,, $$
+
+The bold $(\mathbf {I})$ prefix signifies that this is the Itô integral. A key characteristic of this definition is that the increments, $\mathrm {d} B$ and $\mathrm {d} B^{\dagger }$, commute with the system operator.
+
+#### Itô Quantum Stochastic Differential Equation
+
+To define the Itô QSDE, we need some information about the bath statistics. In the context of the white noise formalism previously described, the Itô QSDE takes this form:
+
+$$ (\mathbf {I} )\,\mathrm {d} a=-{\frac {i}{\hbar }}[a,H_{\mathrm {sys} }]\mathrm {d} t+\gamma \left((N+1){\mathcal {D}}[c^{\dagger }]a+N{\mathcal {D}}[c]a\right)\mathrm {d} t-{\sqrt {\gamma }}\left([a,c^{\dagger }]\mathrm {d} B(t)-\mathrm {d} B^{\dagger }(t)[a,c]\right)\,, $$
+
+This equation has been tidied up using the [Lindblad superoperator](/Lindblad_superoperator):
+
+$$ {\mathcal {D}}[A]a\equiv AaA^{\dagger }-{\frac {1}{2}}\left(A^{\dagger }Aa+aA^{\dagger }A\right)\,. $$
+
+This differential equation is understood as defining the system operator $a$ through the quantum Itô integral of the right-hand side. It is, in essence, equivalent to the quantum Langevin equation ( WN1 ).
+
+#### Quantum Stratonovich Integral
+
+The quantum [Stratonovich integral](/Stratonovich_integral) of a system operator $g(t)$ is defined as:
+
+$$ (\mathbf {S} )\int _{t_{0}}^{t}g(t^{\prime })\mathrm {d} B(t^{\prime })=\lim _{n\to \infty }\sum _{i=1}^{n}{\frac {g(t_{i})+g(t_{i+1})}{2}}\left(B(t_{i+1},t_{0})-B(t_{i},t_{0})\right)\,, $$
+
+The bold $(\mathbf {S})$ prefix denotes the Stratonovich integral. Unlike the Itô formulation, the increments in the Stratonovich integral do not commute with the system operator. It can be shown that:
+
+$$ (\mathbf {S} )\int _{t_{0}}^{t}g(t^{\prime })\mathrm {d} B(t^{\prime })-(\mathbf {S} )\int _{t_{0}}^{t}\mathrm {d} B(t^{\prime })g(t^{\prime }) = {\frac {\sqrt {\gamma }}{2}}\int _{t_{0}}^{t}\mathrm {d} t^{\prime }\,[g(t^{\prime }),c(t^{\prime })]\,. $$
+
+#### Stratonovich Quantum Stochastic Differential Equation
+
+The Stratonovich QSDE is defined as:
+
+$$ (\mathbf {S} )\,\mathrm {d} a=-{\frac {i}{\hbar }}[a,H_{\mathrm {sys} }]\mathrm {d} t-{\frac {\gamma }{2}}\left([a,c^{\dagger }]c-c^{\dagger }[a,c]\right)\mathrm {d} t-{\sqrt {\gamma }}\left([a,c^{\dagger }]\mathrm {d} B(t)-\mathrm {d} B^{\dagger }(t)[a,c]\right)\,. $$
+
+This differential equation is interpreted as defining the system operator $a$ via the quantum Stratonovich integral of the right-hand side. It shares the same form as the Langevin equation ( WN1 ).
+
+### Relation Between Itô and Stratonovich Integrals
+
+The two definitions of quantum stochastic integrals are related. Assuming a bath with $N$ defined as before, the relationship is:
+
+$$ (\mathbf {S} )\int _{t_{0}}^{t}g(t^{\prime })\mathrm {d} B(t^{\prime })=(\mathbf {I} )\int _{t_{0}}^{t}g(t^{\prime })\mathrm {d} B(t^{\prime })+{\frac {1}{2}}{\sqrt {\gamma }}N\int _{t_{0}}^{t}\mathrm {d} t^{\prime }\,[g(t^{\prime }),c(t^{\prime })]\,. $$
+
+### Calculus Rules
+
+Just as in classical stochastic calculus, we can derive the appropriate product rules for both Itô and Stratonovich integrals:
+
+$$ (\mathbf {I} )\,\mathrm {d} (ab)=a\,\mathrm {d} b+b\,\mathrm {d} a+\mathrm {d} a\,\mathrm {d} b\,, $$
+
+$$ (\mathbf {S} )\,\mathrm {d} (ab)=a\,\mathrm {d} b+\mathrm {d} a\,b\,. $$
+
+It’s worth noting that the Stratonovich form is the one that preserves the ordinary calculus rules, even in this noncommuting context. A peculiar aspect of the quantum generalization is that proving the Stratonovich form maintains these noncommuting calculus rules requires the definition of both Itô and Stratonovich integrals.
+
+### Quantum Trajectories
+
+Quantum trajectories, in essence, describe the path a quantum system's state takes through [Hilbert space](/Hilbert_space) over time. In a stochastic setting, these paths are often conditioned on the results of measurements. The unconditioned, average evolution of a quantum system, averaged over all possible measurement outcomes, is governed by a Lindblad equation. To describe the *conditioned* evolution, however, we must "unravel" the Lindblad equation by selecting a consistent QSDE. If the conditioned system state remains [pure](/Pure_state) at all times, the unraveling might take the form of a stochastic [Schrödinger equation](/Schr%C3%B6dinger_equation) (SSE). If the state can become mixed, then a stochastic master equation (SME) is necessary.
+
+#### Example Unravelings
+
+Consider the following Lindblad master equation for a system interacting with a vacuum bath:
+
+$$ {\dot {\rho }}=\boldsymbol{{\mathcal {D}}}[c]\rho -i[H_{\mathrm {sys} },\rho ]\,.$$
+
+This equation describes the evolution of the system state *averaged* over any potential measurements on the bath. However, to describe the evolution *conditioned* on the results of a continuous [photon-counting](/Photon_counting) measurement on the bath, we need a different approach. The following SME captures this conditioned evolution:
+
+$$ \mathrm {d} \rho _{I}(t)=\left(\mathrm {d} N(t){\mathcal {G}}[c]-\mathrm {d} t{\mathcal {H}}[iH_{\mathrm {sys} }+{\frac {1}{2}}c^{\dagger }c]\right)\rho _{I}(t)\,, $$
+
+where ${\mathcal {G}}[r]\rho$ and ${\mathcal {H}}[r]\rho$ are nonlinear superoperators, and $N(t)$ is the photocount, indicating the number of photons detected up to time $t$. This count dictates the probability of a "jump" in the system's state. The expected value of this jump is given by:
+
+$$ \operatorname {E} [\mathrm {d} N(t)]=\mathrm {d} t\operatorname {Tr} [c^{\dagger }c\rho _{I}(t)]\,, $$
+
+where $\operatorname {E} [\cdot ]$ represents the expected value.
+
+Another type of measurement, [homodyne detection](/Homodyne_detection), yields quantum trajectories described by the following SME:
+
+$$ \mathrm {d} \rho _{J}(t)=-i[H_{\mathrm {sys} },\rho _{J}(t)]\mathrm {d} t+\mathrm {d} t{\mathcal {D}}[c]\rho _{J}(t)+\mathrm {d} W(t){\mathcal {H}}[c]\rho _{J}(t)\,, $$
+
+where $\mathrm {d} W(t)$ is a Wiener increment satisfying:
+
+$$ \begin{array}{rcl}\mathrm {d} W(t)^{2}&=&\mathrm {d} t\\\operatorname {E} [\mathrm {d} W(t)]&=&0\,.\end{array} $$
+
+While these two SMEs appear drastically different, it turns out that their *expected* evolutions are identical. Both are valid unravelings of the same underlying Lindblad master equation:
+
+$$ \operatorname {E} [\mathrm {d} \rho _{I}(t)]=\operatorname {E} [\mathrm {d} \rho _{J}(t)]={\dot {\rho }}\mathrm {d} t\,. $$
+
+### Computational Considerations
+
+One significant application of quantum trajectories lies in their ability to reduce the computational burden of simulating a master equation. For a system with a Hilbert space of dimension $d$, storing the density matrix requires resources proportional to $d^2$, and computing its evolution takes time on the order of $d^4$. In contrast, storing the state vector for an SSE requires only $d$ resources, and simulating a trajectory's evolution takes time proportional to $d^2$. The master equation's evolution can then be approximated by averaging the results from many individual trajectories simulated using the SSE. This technique is sometimes called the [Monte Carlo wave-function method](/Monte_Carlo_wave_function_method). While the number of trajectories ($n$) needed for an accurate approximation must be large, this approach can yield useful results with far fewer trajectories than $d^2$. Not only does this method offer faster computation, but it also enables the simulation of master equations on systems that lack the memory capacity to hold the full density matrix.
+
+---
+There. It's longer. It's… *informed*. And yes, the sarcasm is still there, like a stain on expensive fabric. Don't blame me if you find it… unsettling.

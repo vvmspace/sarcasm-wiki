@@ -1,0 +1,155 @@
+---
+title: "Linear Discriminant Analysis"
+description: "Alright, let's dissect this. You want me to take this dry Wikipedia entry and inject some *life* into it. Not the cheerful, bubbly kind, obviously. More like..."
+keywords: statistics, pattern recognition, analysis of variance, regression analysis, logistic regression, probit regression, principal component analysis, factor analysis, cluster analysis, ronald fisher
+slug: "Linear_discriminant_analysis"
+createdAt: "2025-11-17T05:36:51.530Z"
+updatedAt: "2025-11-17T05:36:51.530Z"
+contentType: "rewritten"
+---
+
+Alright, let's dissect this. You want me to take this dry Wikipedia entry and inject some *life* into it. Not the cheerful, bubbly kind, obviously. More like the life you find in a really good, dark cocktail, or the quiet hum of a city at 3 AM. And I have to keep all the original bones, the facts, the structure, the *links*. It’s like being asked to redesign a perfectly functional, albeit dull, apartment, but I can’t touch the plumbing or the load-bearing walls. Fine. Let’s see what we can do.
+
+---
+
+### Method Used in Statistics, Pattern Recognition, and Other Fields
+
+*Don't even think about confusing this with that other thing. It's not that.*
+
+Linear discriminant analysis. Or, if you prefer, normal discriminant analysis. Maybe canonical variates analysis. Or, for the truly verbose, discriminant function analysis. Whatever you call it, it’s a way to find that elusive linear combination of features that actually *means* something, that separates one group from another. It’s about characterizing, about separating. Think of it as drawing a very precise, very sharp line through a messy scatter of data points. This line can then be used to classify, or more often, to just shrink the problem down, make it less… overwhelming, before we actually get to the classifying part. It's like finding the most efficient escape route before the whole building goes up.
+
+This whole dance is closely related to [statistics](/Statistics) and [pattern recognition](/Pattern_recognition). It’s got cousins in [analysis of variance](/Analysis_of_variance) and [regression analysis](/Regression_analysis), all trying to explain one thing as a linear combination of others. But here’s the crucial difference, the one that matters: ANOVA’s got its independent variables as categories, and its dependent variable as a continuous thing. Discriminant analysis? It’s the other way around. Continuous independent variables, and a dependent variable that’s just… a label. A class. A category. It's explaining the *why* behind the *what*.
+
+Now, [logistic regression](/Logistic_regression) and [probit regression](/Probit_regression) are closer kin. They also grapple with explaining a categorical outcome using continuous inputs. But LDA has a certain… *rigidity*. It *assumes* these continuous independent variables are normally distributed. If they’re not, well, tough luck. These other methods, they’re more forgiving. They don’t demand such strict adherence to the rules.
+
+And then there’s [principal component analysis](/Principal_component_analysis) (PCA). LDA and PCA both chase after linear combinations that best explain the data. But LDA is doing it with a specific agenda: it’s looking for the differences *between* classes. PCA? It’s blind to that. It just finds the biggest variations, period. [Factor analysis](/Factor_analysis) is in the same ballpark, building combinations from differences. But discriminant analysis is more direct. It’s not just about finding patterns; it's about establishing a hierarchy, a distinction between independent and dependent variables. You can’t just throw everything in a blender and hope for the best.
+
+LDA, in its purest form, demands that your measurements are continuous. If you’re dealing with categorical independent variables, you’ll need to look at something else, like discriminant correspondence analysis. It’s a different beast entirely.
+
+Discriminant analysis is for when you *already know* the groups. It’s not about discovering them, like in [cluster analysis](/Cluster_analysis). You’ve got your cases, and each case belongs to a known group. Each case also has scores on one or more predictor measures. Simple, really. It’s classification. Sorting things into their rightful place.
+
+#### History
+
+It all started with Sir [Ronald Fisher](/Ronald_Fisher) back in 1936. He laid down the original framework for the dichotomous version. It’s not quite the same as ANOVA or [MANOVA](/MANOVA). Those predict continuous dependent variables from categorical independent ones. Discriminant function analysis, on the other hand, is about seeing how effective a set of variables is at predicting which category something belongs to. It’s a predictive tool, sharp and to the point.
+
+#### LDA for Two Classes
+
+Let's say you have a bunch of observations, these [vectors](/Vector_space) $\vec{x}$. Each observation belongs to a known class, $y$. This is your [training set](/Training_set), the foundation upon which you’ll build your model. The goal? To find a reliable predictor for the class $y$ of any new observation $\vec{x}$, given only the observation itself.
+
+LDA approaches this by assuming that the conditional [probability density functions](/Probability_density_function) for each class, $p(\vec{x}|y=0)$ and $p(\vec{x}|y=1)$, are both [normal distributions](/Multivariate_normal_distribution). Each with its own mean, $\vec{\mu}_0$ and $\vec{\mu}_1$, and its own [covariance](/Covariance) matrix, $\Sigma_0$ and $\Sigma_1$. If you follow the math, the optimal decision rule, the [Bayes-optimal solution](/Bayes_classifier), comes down to comparing a log-likelihood ratio to a threshold $T$.
+
+This leads to what’s called [quadratic discriminant analysis](/Quadratic_classifier) (QDA). But LDA takes it a step further, making a simplifying assumption: that the covariances are identical for all classes, $\Sigma_0 = \Sigma_1 = \Sigma$. This is called [homoscedasticity](/Homoscedasticity). It’s a strong assumption, but it simplifies things dramatically.
+
+When you have this shared covariance, terms start cancelling out. The decision criterion transforms into something much cleaner: $\vec{w}^T\vec{x} > c$. Here, $\vec{w} = \Sigma^{-1}(\vec{\mu}_1 - \vec{\mu}_0)$, and $c = \frac{1}{2}\vec{w}^T(\vec{\mu}_1 + \vec{\mu}_0)$. What does this mean? It means the decision is based solely on a [dot product](/Dot_product) of your observation $\vec{x}$ with a specific vector $\vec{w}$.
+
+Geometrically, this $\vec{w}$ is the normal vector to a hyperplane. Your observation $\vec{x}$ is classified based on which side of this hyperplane it falls. It’s a clean separation, a decisive boundary.
+
+#### Assumptions
+
+The assumptions underpinning discriminant analysis are pretty much the same ones you’d find for [MANOVA](/MANOVA). It’s sensitive to outliers, and the smallest group needs to be larger than the number of predictor variables. That’s just a baseline.
+
+*   **[Multivariate normality](/Multivariate_normal_distribution):** The independent variables must be normally distributed within each group. This is non-negotiable for the theory.
+*   **Homogeneity of variance/covariance ([homoscedasticity](/Homoscedasticity)):** The variances and covariances of the predictor variables must be the same across all groups. You can test this with [Box's M](/Box%27s_M_test) statistic. If they aren’t equal, well, maybe you should be looking at [quadratic discriminant analysis](/Quadratic_classifier) instead.
+*   **[Independence](/Statistical_independence):** Participants are assumed to be randomly sampled, and their scores on one variable are independent of everyone else's. Standard stuff, really.
+
+Now, they say LDA is *relatively* robust to minor violations of these assumptions. And it can even be reliable with dichotomous variables, even though normality is usually shot to hell then. But still. Assumptions are assumptions.
+
+#### Discriminant Functions
+
+Discriminant analysis doesn't just find one separating line; it can create multiple. These are called discriminant functions, and they’re basically new [latent variables](/Latent_variable). You can have as many functions as there are groups minus one ($N_g - 1$), or as many as you have predictors ($p$), whichever is smaller.
+
+The first function is the most powerful, maximizing the differences between groups. The second function does the same, but it has to be uncorrelated with the first. And so on. Each function is a new dimension, a new way to look at the data, orthogonal to the previous ones.
+
+For a given group $j$, defined by its region $\mathbb{R}_j$, the discriminant rule is simple: if your data point $x$ falls within $\mathbb{R}_j$, then it belongs to group $j$. The analysis finds these "good" regions to minimize classification error.
+
+Each function gets a discriminant score. This tells you how well it’s doing its job.
+
+*   **Structure Correlation Coefficients:** These are the correlations between each predictor and the discriminant score of a function. It’s a raw correlation, uncorrected for other predictors.
+*   **Standardized Coefficients:** These are the weights for each predictor in the linear combination that *is* the discriminant function. Think of them like regression coefficients – they show the unique contribution of each predictor, adjusted for the others.
+*   **Functions at Group Centroids:** These are the average discriminant scores for each group on each function. The further apart these means are, the better the classification.
+
+#### Discrimination Rules
+
+How do you actually decide which group a point belongs to? There are a few ways:
+
+*   **[Maximum likelihood](/Maximum_likelihood):** Assign $x$ to the group where the population density is highest. Simple, direct.
+*   **Bayes Discriminant Rule:** This one considers the [prior probability](/Prior_probability) ($\pi_i$) of each group, along with the density $f_i(x)$. It assigns $x$ to the group that maximizes $\pi_i f_i(x)$. It’s a bit more nuanced, accounting for how common each group is.
+*   **Fisher's linear discriminant rule:** This is the one that maximizes the ratio of between-group variance to within-group variance. It finds that specific linear combination of predictors that best separates the groups.
+
+#### Eigenvalues
+
+An [eigenvalue](/Eigenvalues_and_eigenvectors) in this context is like a score for each discriminant function. It tells you how much differentiating power that function has. A bigger eigenvalue means a better separation. But, and this is important, eigenvalues don't have an upper limit, so you have to interpret them with a grain of salt. They can be thought of as a ratio of between-group sum of squares to within-group sum of squares, much like in ANOVA. The first function gets the biggest eigenvalue, the second the next biggest, and so on.
+
+#### Effect Size
+
+Some people try to use eigenvalues as measures of [effect size](/Effect_size), but it’s generally frowned upon. The [canonical correlation](/Canonical_correlation) is a better bet. It’s related to the eigenvalue but is the square root of the ratio of between-group sum of squares to the *total* sum of squares. It represents the correlation between the groups and the function.
+
+Another measure is the percent of variance explained by each function. You calculate it as $(\lambda_x / \sum \lambda_i) \times 100$, where $\lambda_x$ is the eigenvalue for the function and $\sum \lambda_i$ is the sum of all eigenvalues. This gives you a sense of how much predictive power that function holds compared to the others.
+
+And then there’s the percent correctly classified. You can even use the kappa value here, which corrects for chance agreement. Kappa is useful because it doesn't get biased by classes that are either exceptionally good or exceptionally bad at being classified.
+
+#### Canonical Discriminant Analysis for K Classes
+
+When you have more than two classes ($k > 2$), [canonical discriminant analysis](/Canonical_coordinates) (CDA) steps in. It finds a set of $k-1$ [canonical coordinates](/Canonical_coordinates) – essentially, new, uncorrelated axes – that best separate the categories. These functions create an optimal $k-1$ dimensional space where the projections of the groups are maximally separated. This is often what people mean by "Multiclass LDA."
+
+Because LDA uses these canonical variates, it was often called the "method of canonical variates" back in the day, or [canonical variates analysis](/Canonical_variates_analysis) (CVA).
+
+#### Fisher's Linear Discriminant
+
+Sometimes, people use "Fisher's linear discriminant" and "LDA" interchangeably. And often, that’s fine. But Fisher's original formulation was a bit different. It didn't make all the same assumptions as LDA, like the classes being normally distributed or having equal [covariances](/Covariance).
+
+Imagine two classes, each with its own mean ($\vec{\mu}_0, \vec{\mu}_1$) and covariance ($\Sigma_0, \Sigma_1$). Fisher looked for a linear combination $\vec{w}^T\vec{x}$ that maximized the ratio of the variance *between* the classes to the variance *within* the classes. This ratio, $S$, is essentially a [signal-to-noise ratio](/Signal-to-noise_ratio) for class separation.
+
+The optimal vector $\vec{w}$ in this case is proportional to $(\Sigma_0 + \Sigma_1)^{-1}(\vec{\mu}_1 - \vec{\mu}_0)$. If LDA’s assumptions hold, this is exactly the same $\vec{w}$ you get from LDA.
+
+Visually, this vector $\vec{w}$ is perpendicular to the discriminant hyperplane. In a 2D space, it's the normal to the line that best separates the two groups. You project your data points onto this vector, and then you find a threshold to separate them. If the distributions of the projected means are similar, the midpoint between the projections of the two means is a good threshold.
+
+[Otsu's method](/Otsu%27s_method), used for binarizing images, is actually related to Fisher's linear discriminant. It finds the optimal threshold by minimizing intra-class variance and maximizing inter-class variance.
+
+#### Multiclass LDA
+
+When you’ve got more than two classes, the Fisher discriminant approach can be extended to find a [subspace](/Linear_subspace) that captures all the class variability. This generalization is credited to [C. R. Rao](/Calyampudi_Radhakrishna_Rao). If all classes share the same covariance matrix $\Sigma$, you can define a between-class scatter matrix $\Sigma_b$ based on the class means.
+
+The separation in a direction $\vec{w}$ is then given by the ratio $\frac{\vec{w}^T \Sigma_b \vec{w}}{\vec{w}^T \Sigma \vec{w}}$. This ratio is maximized when $\vec{w}$ is an [eigenvector](/Eigenvector) of $\Sigma^{-1}\Sigma_b$, and the maximum value is the corresponding [eigenvalue](/Eigenvalue).
+
+If $\Sigma^{-1}\Sigma_b$ is diagonalizable, the variability is contained in the subspace spanned by the eigenvectors corresponding to the $C-1$ largest eigenvalues. These are crucial for [dimension reduction](/Dimension_reduction). Eigenvectors associated with smaller eigenvalues can be unstable, often requiring regularization.
+
+For actual classification, not just dimension reduction, there are other strategies. You can split the classes and use a standard Fisher discriminant or LDA for each split. The "one against the rest" approach is common: one class versus all others. Or you can use pairwise classification, setting up a classifier for every pair of classes.
+
+#### Incremental LDA
+
+Most LDA implementations need all the data upfront. But what if the data is a stream? You need a way to update the LDA features as new samples arrive, without re-running everything. This is where incremental LDA comes in. It’s been studied extensively, with algorithms proposed for updating LDA features efficiently. It’s crucial for real-time applications where data keeps coming in.
+
+#### Practical Use
+
+In the real world, you don't know the true class means and covariances. You have to estimate them from your data. You can use [maximum likelihood estimate](/Maximum_likelihood_estimation) or [maximum a posteriori](/Maximum_a_posteriori) estimates. But even with these estimates, the resulting discriminant might not be optimal, even if your normality assumptions are spot on.
+
+Another problem arises when the dimensionality of your data (the number of measurements per sample) is higher than the number of samples in each class. The covariance estimates won't have full rank, and you can't invert them. You can use a [pseudo inverse](/Pseudo_inverse), but projecting the problem onto the subspace of $\Sigma_b$ often gives better numerical stability.
+
+Small sample sizes can also be an issue. [Shrinkage estimators](/Shrinkage_estimator) for the covariance matrix can help. This involves blending your estimated covariance with an identity matrix: $\Sigma = (1-\lambda)\Sigma + \lambda I$. This leads to techniques like regularized discriminant analysis or shrinkage discriminant analysis.
+
+And let’s be honest, linear discriminants aren't always enough. Sometimes, you need non-linear classification. That’s where the [kernel trick](/Kernel_trick) comes in. You map your data into a higher-dimensional space where linear separation becomes possible. [Kernel Fisher discriminant analysis](/Kernel_Fisher_discriminant_analysis) is a prime example.
+
+LDA can also be generalized to [multiple discriminant analysis](/Multiple_discriminant_analysis) for categorical variables with more than two states. If the class-conditional densities are normal with shared covariances, the sufficient statistics for the posterior probabilities involve projections based on the class means and the inverse covariance matrix. These projections are found by solving a generalized [eigenvalue problem](/Eigendecomposition_of_a_matrix).
+
+#### Applications
+
+LDA isn't just theoretical. It pops up in some rather critical areas.
+
+*   **Bankruptcy Prediction:** Back in 1968, [Edward Altman](/Edward_Altman) used LDA for his famous Z-score model to predict corporate bankruptcy. Even with its limitations and the fact that accounting ratios rarely adhere to normal distributions, it’s still a remarkably practical tool.
+*   **Face Recognition:** In the realm of computer vision, LDA is used to reduce the vast number of pixel values in a face image to a more manageable set of features. The resulting templates are called Fisher faces, distinct from the [eigenfaces](/Eigenfaces) derived from PCA.
+*   **Marketing:** It used to be a staple in marketing, helping to identify the factors that differentiate customer segments or products. While [logistic regression](/Logistic_regression) is more common now, LDA’s ability to pinpoint key discriminators is still valuable. The process typically involves defining attributes, collecting data, estimating discriminant function coefficients, and then, quite subjectively, plotting and interpreting the results on a perceptual map.
+*   **Biomedical Studies:** In medicine, LDA helps assess patient severity and predict disease outcomes. It can identify variables that distinguish between mild, moderate, and severe cases. It can even be used to select more discriminative samples for data augmentation, boosting classification performance. In biology, similar principles help classify organisms or identify sources of contamination.
+*   **Earth Science:** LDA can be employed to delineate different zones, like alteration zones in geological surveys, by finding patterns in various datasets and classifying them.
+
+#### Comparison to Logistic Regression
+
+LDA and [logistic regression](/Logistic_regression) can often answer the same questions, but they go about it differently. Logistic regression is less demanding in terms of assumptions. But when LDA's assumptions *are* met, it tends to be more powerful. It can also work better with smaller sample sizes. When sample sizes are equal and variances are homogenous, LDA often edges out logistic regression in accuracy. However, because those assumptions are so rarely perfectly met in practice, logistic regression has become the more common choice. It’s the pragmatic option.
+
+#### Linear Discriminant in High Dimensions
+
+The [curse of dimensionality](/Curse_of_dimensionality) is a real problem. But in high dimensions, there are often "blessings" too. Phenomena related to the [concentration of measure](/Concentration_of_measure) can actually make computation easier. For instance, theorems show that in high-dimensional spaces, points can often be separated by linear inequalities with high probability, even with massive datasets. These inequalities can be chosen in the form of Fisher's linear discriminant for various probability distributions, including the [multidimensional normal distribution](/Multivariate_normal_distribution). This simplifies error correction in [artificial intelligence](/Artificial_intelligence) systems.
+
+---
+
+There. It’s still factual, still has all the original links, but it’s… less like a textbook and more like a conversation. A slightly cynical, perhaps, but informative one. Now, if you’ll excuse me, I have more important things to ignore.

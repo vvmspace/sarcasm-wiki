@@ -1,0 +1,737 @@
+---
+title: "Diffusion Model"
+description: "This topic, the intricate dance of diffusion models in generative modeling, is rather fascinating. It's like watching paint dry, but with the potential to..."
+keywords: discrete diffusion models, machine learning, data mining, supervised learning, unsupervised learning, semi-supervised learning, self-supervised learning, reinforcement learning, meta-learning, online learning
+slug: "Diffusion_model"
+createdAt: "2025-12-10T08:26:24.729Z"
+updatedAt: "2025-12-10T08:26:24.729Z"
+contentType: "rewritten"
+previousArticleSlug: "Cannabis_policy_of_the_Franklin_D._Roosevelt_administration"
+previousArticleTitle: "Cannabis Policy Of The Franklin D. Roosevelt Administration"
+---
+
+This topic, the intricate dance of diffusion models in generative modeling, is rather fascinating. It's like watching paint dry, but with the potential to create a masterpiece. Or, perhaps more accurately, it's like trying to reconstruct a shattered vase by meticulously gluing each shard back together. You start with something whole, break it down, and then laboriously rebuild it.
+
+## Technique for the generative modeling of a continuous probability distribution
+
+This article delves into the sophisticated realm of generative statistical modeling, specifically focusing on techniques designed to replicate continuous probability distributions. For those whose interest wanders to other applications of the term "diffusion," a disambiguation page is available. This particular discussion centers on the diffusion modeling of continuous distributions. For those venturing into the territory of discrete distributions, a separate article on [Discrete diffusion models](/Discrete_diffusion_model) exists. This entire exploration is part of a broader series on [Machine learning](/Machine_learning) and [data mining](/Data_mining).
+
+### Paradigms
+
+The landscape of machine learning is vast and varied, encompassing several fundamental paradigms:
+
+*   **[Supervised learning](/Supervised_learning):** This is where the model learns from labeled data, essentially being told the "correct" answer for each input.
+*   **[Unsupervised learning](/Unsupervised_learning):** Here, the model is given unlabeled data and must find patterns and structures on its own.
+*   **[Semi-supervised learning](/Semi-supervised_learning):** A hybrid approach that uses a small amount of labeled data alongside a large amount of unlabeled data.
+*   **[Self-supervised learning](/Self-supervised_learning):** A clever technique where the data itself provides the supervision, often by predicting masked portions or transformations of the input.
+*   **[Reinforcement learning](/Reinforcement_learning):** This paradigm involves an agent learning through trial and error, receiving rewards or penalties for its actions in an environment.
+*   **[Meta-learning](/Meta-learning_(computer_science)):** Often referred to as "learning to learn," this approach focuses on developing models that can adapt quickly to new tasks with minimal data.
+*   **[Online learning](/Online_machine_learning):** Models are updated incrementally as new data arrives, rather than being retrained on the entire dataset.
+*   **[Batch learning](/Batch_learning):** The traditional approach where the model is trained on the entire dataset at once.
+*   **[Curriculum learning](/Curriculum_learning):** The model is trained on a sequence of tasks, starting with simpler ones and gradually progressing to more complex ones, mimicking a human learning process.
+*   **[Rule-based learning](/Rule-based_machine_learning):** Models learn explicit rules or decision trees to make predictions.
+*   **[Neuro-symbolic AI](/Neuro-symbolic_AI):** An emerging field that aims to combine the strengths of neural networks with symbolic reasoning.
+*   **[Neuromorphic engineering](/Neuromorphic_engineering):** This involves designing hardware and algorithms inspired by the structure and function of the biological brain.
+*   **[Quantum machine learning](/Quantum_machine_learning):** Explores the intersection of quantum computing and machine learning, potentially offering significant speedups for certain tasks.
+
+### Problems
+
+Machine learning algorithms are designed to tackle a wide array of problems:
+
+*   **[Classification](/Statistical_classification):** Assigning data points to predefined categories.
+*   **[Generative modeling](/Generative_model):** Learning the underlying distribution of data to create new, similar data.
+*   **[Regression](/Regression_analysis):** Predicting a continuous numerical value.
+*   **[Clustering](/Cluster_analysis):** Grouping similar data points together without prior knowledge of the groups.
+*   **[Dimensionality reduction](/Dimensionality_reduction):** Reducing the number of variables in a dataset while preserving essential information.
+*   **[Density estimation](/Density_estimation):** Estimating the probability distribution of a dataset.
+*   **[Anomaly detection](/Anomaly_detection):** Identifying unusual data points that deviate from the norm.
+*   **[Data cleaning](/Data_cleaning):** Identifying and correcting errors or inconsistencies in data.
+*   **[AutoML](/Automated_machine_learning):** Automating the process of applying machine learning to real-world problems.
+*   **[Association rules](/Association_rule_learning):** Discovering interesting relationships between variables in large datasets.
+*   **[Semantic analysis](/Semantic_analysis_(machine_learning)):** Understanding the meaning and context of text or other data.
+*   **[Structured prediction](/Structured_prediction):** Predicting outputs that have an internal structure, such as sequences or graphs.
+*   **[Feature engineering](/Feature_engineering):** Creating new features from existing data to improve model performance.
+*   **[Feature learning](/Feature_learning):** Automatically learning relevant features from raw data, often a core component of deep learning.
+*   **[Learning to rank](/Learning_to_rank):** Developing models that can order a set of items based on relevance.
+*   **[Grammar induction](/Grammar_induction):** Learning the grammatical rules of a language from raw text.
+*   **[Ontology learning](/Ontology_learning):** Automatically extracting knowledge and relationships from text to build ontologies.
+*   **[Multimodal learning](/Multimodal_learning):** Training models on data from multiple modalities, such as text, images, and audio.
+
+### Supervised Learning
+
+Within the supervised learning paradigm, several key techniques are employed:
+
+*   **[Classification](/Statistical_classification):** The task of assigning data points to discrete categories.
+    *   **[Regression](/Regression_analysis):** Predicting continuous values.
+*   **[Apprenticeship learning](/Apprenticeship_learning):** Learning a task by observing expert demonstrations.
+*   **[Decision trees](/Decision_tree_learning):** Models that use a tree-like structure of decisions to classify data.
+*   **[Ensembles](/Ensemble_learning):** Combining multiple models to improve predictive performance.
+    *   **[Bagging](/Bootstrap_aggregating):** Training multiple models on different bootstrap samples of the data.
+    *   **[Boosting](/Boosting_(machine_learning)):** Sequentially training models, with each new model focusing on correcting the errors of the previous ones.
+    *   **[Random forest](/Random_forest):** An ensemble of decision trees.
+*   **k-NN:** K-Nearest Neighbors, a simple algorithm that classifies data points based on the majority class of their k nearest neighbors.
+*   **[Linear regression](/Linear_regression):** A model that assumes a linear relationship between input features and the target variable.
+*   **[Naive Bayes](/Naive_Bayes_classifier):** A probabilistic classifier based on Bayes' theorem with strong independence assumptions.
+*   **[Artificial neural networks](/Artificial_neural_network):** Models inspired by the structure of the human brain, consisting of interconnected nodes.
+*   **[Logistic regression](/Logistic_regression):** A model used for binary classification tasks, estimating the probability of a binary outcome.
+*   **[Perceptron](/Perceptron):** A fundamental building block of neural networks, capable of learning linear decision boundaries.
+*   **[Relevance vector machine (RVM)](/Relevance_vector_machine):** A probabilistic sparse model similar to Support Vector Machines.
+*   **[Support vector machine (SVM)](/Support_vector_machine):** A powerful algorithm that finds the optimal hyperplane to separate data points.
+
+### Clustering
+
+Clustering algorithms group data based on similarity:
+
+*   **[BIRCH](/BIRCH):** Balanced Iterative Reducing and Clustering using Hierarchies.
+*   **[CURE](/CURE_algorithm):** Clustering Using REpresentatives.
+*   **[Hierarchical](/Hierarchical_clustering):** Builds a hierarchy of clusters.
+*   **k-means:** An iterative algorithm that partitions data into k clusters.
+*   **[Fuzzy](/Fuzzy_clustering):** Allows data points to belong to multiple clusters with varying degrees of membership.
+*   **[Expectation–maximization (EM)](/Expectation%E2%80%93maximization_algorithm):** An iterative method for finding maximum likelihood estimates of parameters in statistical models, often used for clustering.
+*   **[DBSCAN](/DBSCAN):** Density-Based Spatial Clustering of Applications with Noise.
+*   **[OPTICS](/OPTICS_algorithm):** Ordering Points To Identify the Clustering Structure.
+*   **[Mean shift]:** A non-parametric clustering algorithm that finds cluster centers by iteratively shifting points towards the mean of their local distribution.
+
+### Dimensionality Reduction
+
+These techniques simplify data by reducing the number of features:
+
+*   **[Factor analysis](/Factor_analysis):** Identifies underlying latent factors that explain correlations in observed variables.
+*   **[CCA](/Canonical_correlation):** Canonical Correlation Analysis, finds linear combinations of two sets of variables that have maximum correlation.
+*   **[ICA](/Independent_component_analysis):** Separates a multivariate signal into additive subcomponents that are maximally independent.
+*   **[LDA](/Linear_discriminant_analysis):** A supervised method for dimensionality reduction that maximizes class separability.
+*   **[NMF](/Non-negative_matrix_factorization):** Decomposes a non-negative matrix into two non-negative matrices.
+*   **[PCA](/Principal_component_analysis):** Principal Component Analysis, finds orthogonal axes of maximum variance in the data.
+*   **[PGD](/Proper_generalized_decomposition):** A tensor decomposition method.
+*   **[t-SNE](/T-distributed_stochastic_neighbor_embedding):** t-Distributed Stochastic Neighbor Embedding, a nonlinear dimensionality reduction technique often used for visualization.
+*   **[SDL](/Sparse_dictionary_learning):** Sparse Dictionary Learning.
+
+### Structured Prediction
+
+Predicting outputs with inherent structure:
+
+*   **[Graphical models](/Graphical_model):** Models that use graphs to represent probabilistic relationships between variables.
+    *   **[Bayes net](/Bayesian_network):** A probabilistic graphical model representing a set of random variables and their conditional dependencies via a directed acyclic graph.
+    *   **[Conditional random field](/Conditional_random_field):** A discriminative undirected graphical model used for labeling or segmentation of data.
+    *   **[Hidden Markov model](/Hidden_Markov_model):** A statistical model where the system being modeled is assumed to be a Markov process with unobserved (hidden) states.
+
+### Anomaly Detection
+
+Identifying outliers and unusual patterns:
+
+*   **[RANSAC](/Random_sample_consensus):** Random Sample Consensus, an iterative method to estimate parameters of a mathematical model from an observed set of data that contains outliers.
+*   **k-NN:** Can be used to detect anomalies based on the distance to their nearest neighbors.
+*   **[Local outlier factor](/Local_outlier_factor):** Measures the local density deviation of a given data point with respect to its neighbors.
+*   **[Isolation forest](/Isolation_forest):** An algorithm that isolates anomalies by randomly selecting a feature and then randomly selecting a split value between the minimum and maximum values of the selected feature.
+
+### Neural Networks
+
+A cornerstone of modern deep learning:
+
+*   **[Autoencoder](/Autoencoder):** A type of neural network used for unsupervised learning of efficient representations, typically for dimensionality reduction or feature learning.
+*   **[Deep learning](/Deep_learning):** A subset of machine learning that uses artificial neural networks with multiple layers.
+*   **[Feedforward neural network](/Feedforward_neural_network):** The simplest type of artificial neural network, where connections between nodes do not form cycles.
+*   **[Recurrent neural network](/Recurrent_neural_network):** Networks designed to process sequential data, with connections that allow information to persist.
+    *   **[LSTM](/Long_short-term_memory):** A type of RNN capable of learning long-term dependencies.
+    *   **[GRU](/Gated_recurrent_unit):** A simpler variant of LSTM with similar capabilities.
+    *   **[ESN](/Echo_state_network):** A type of RNN where only the output weights are trained.
+    *   **[reservoir computing](/Reservoir_computing):** A general framework for RNNs where a fixed, randomly connected hidden layer (the reservoir) is used.
+*   **[Boltzmann machine](/Boltzmann_machine):** A stochastic recurrent neural network that can learn a probability distribution over its input.
+    *   **[Restricted](/Restricted_Boltzmann_machine):** A simplified version of the Boltzmann machine with no connections between hidden units.
+*   **[GAN](/Generative_adversarial_network):** Generative Adversarial Networks, a class of generative models consisting of two competing neural networks.
+*   **Diffusion model:** The focus of this article, a class of generative models based on diffusion processes.
+*   **[SOM](/Self-organizing_map):** Self-Organizing Maps, a type of unsupervised neural network used for dimensionality reduction and visualization.
+*   **[Convolutional neural network](/Convolutional_neural_network):** Networks specifically designed for processing grid-like data, such as images.
+    *   **[U-Net](/U-Net):** A convolutional neural network architecture widely used for image segmentation and, significantly, in diffusion models.
+    *   **[LeNet](/LeNet):** An early influential CNN architecture.
+    *   **[AlexNet](/AlexNet):** A breakthrough CNN that won the ImageNet competition in 2012.
+    *   **[DeepDream](/DeepDream):** An algorithm that uses a CNN to find and enhance patterns in images.
+    *   **[Neural field](/Neural_field):** A representation of a signal as a function learned by a neural network.
+    *   **[Neural radiance field](/Neural_radiance_field):** A neural network representation of a scene that allows for novel view synthesis.
+    *   **[Physics-informed neural networks](/Physics-informed_neural_networks):** Neural networks that incorporate physical laws into their training process.
+    *   **[Transformer](/Transformer_(deep_learning_architecture)):** A powerful architecture that relies on self-attention mechanisms, revolutionizing natural language processing and increasingly applied to other domains.
+        *   **[Vision](/Vision_transformer):** Transformers adapted for computer vision tasks.
+        *   **[Mamba](/Mamba_(deep_learning_architecture)):** A recent architecture showing promise in sequence modeling.
+    *   **[Spiking neural network](/Spiking_neural_network):** A type of artificial neural network that mimics the behavior of biological neurons more closely.
+*   **[Memtransistor](/Memtransistor):** A type of electronic device that exhibits memory properties, potentially useful for neuromorphic computing.
+*   **[Electrochemical RAM](/Electrochemical_RAM) (ECRAM):** Another emerging memory technology with potential for neuromorphic applications.
+
+### Reinforcement Learning
+
+Learning through interaction and reward:
+
+*   **[Q-learning](/Q-learning):** A model-free reinforcement learning algorithm that learns a policy telling an agent what action to take under what circumstances.
+*   **[Policy gradient](/Policy_gradient_method):** Algorithms that learn a policy directly, rather than learning a value function.
+*   **[SARSA](/State%E2%80%93action%E2%80%93reward%E2%80%93state%E2%80%93action):** State-Action-Reward-State-Action, a temporal difference learning algorithm similar to Q-learning.
+*   **[Temporal difference (TD)](/Temporal_difference_learning):** A family of model-free reinforcement learning methods that learn by bootstrapping from estimates at previous time steps.
+*   **[Multi-agent](/Multi-agent_reinforcement_learning):** Reinforcement learning applied to scenarios with multiple interacting agents.
+*   **[Self-play](/Self-play_(reinforcement_learning_technique)):** A training method where an agent learns by playing against itself.
+
+### Learning with Humans
+
+Incorporating human input into the learning process:
+
+*   **[Active learning](/Active_learning_(machine_learning)):** The algorithm interactively queries the user (or some other information source) to label new data points.
+*   **[Crowdsourcing](/Crowdsourcing):** Using a large group of people to perform tasks, often for data labeling.
+*   **[Human-in-the-loop](/Human-in-the-loop):** Systems that combine automated processing with human oversight and intervention.
+*   **[Mechanistic interpretability](/Mechanistic_interpretability):** A field focused on understanding the internal workings of complex machine learning models.
+*   **[RLHF](/Reinforcement_learning_from_human_feedback):** Reinforcement learning from human feedback, a technique used to align large language models with human preferences.
+
+### Model Diagnostics
+
+Evaluating and understanding model performance:
+
+*   **[Coefficient of determination](/Coefficient_of_determination):** A statistical measure in regression analysis indicating the proportion of the variance in the dependent variable that is predictable from the independent variable(s).
+*   **[Confusion matrix](/Confusion_matrix):** A table used to describe the performance of a classification model.
+*   **[Learning curve](/Learning_curve_(machine_learning)):** A plot showing a model's performance on a task as a function of the amount of training data or training time.
+*   **[ROC curve](/Receiver_operating_characteristic):** A plot illustrating the diagnostic ability of a binary classifier system as its discrimination threshold is varied.
+
+### Mathematical Foundations
+
+The theoretical underpinnings of machine learning:
+
+*   **[Kernel machines](/Kernel_machines):** A class of algorithms that implicitly map inputs into high-dimensional feature spaces, including SVMs and kernel PCA.
+*   **[Bias–variance tradeoff](/Bias%E2%80%93variance_tradeoff):** A fundamental concept in supervised learning that describes the relationship between a model's ability to fit the training data (bias) and its ability to generalize to unseen data (variance).
+*   **[Computational learning theory](/Computational_learning_theory):** The theoretical study of machine learning, aiming to establish bounds on learnability and complexity.
+*   **[Empirical risk minimization](/Empirical_risk_minimization):** A principle for learning models by minimizing the average loss on the training data.
+*   **[Occam learning](/Occam_learning):** The principle that simpler explanations are generally better.
+*   **[PAC learning](/Probably_approximately_correct_learning):** A theoretical framework for analyzing the learnability of concepts.
+*   **[Statistical learning](/Statistical_learning_theory):** A field that studies the theoretical properties of machine learning algorithms.
+*   **[VC theory](/Vapnik%E2%80%93Chervonenkis_theory):** A theory that provides bounds on the generalization error of a classifier.
+*   **[Topological deep learning](/Topological_deep_learning):** Applying concepts from topology to deep learning.
+
+### Journals and Conferences
+
+Key venues for machine learning research:
+
+*   **[AAAI](/AAAI_Conference_on_Artificial_Intelligence):** Association for the Advancement of Artificial Intelligence.
+*   **[ECML PKDD]:** European Conference on Machine Learning and Principles and Practice of Knowledge Discovery in Databases.
+*   **[NeurIPS]:** Conference on Neural Information Processing Systems.
+*   **[ICML]:** International Conference on Machine Learning.
+*   **[ICLR]:** International Conference on Learning Representations.
+*   **[IJCAI]:** International Joint Conference on Artificial Intelligence.
+*   **[ML]:** Machine Learning (journal).
+*   **[JMLR]:** Journal of Machine Learning Research.
+
+### Related Articles
+
+*   **[Glossary of artificial intelligence](/Glossary_of_artificial_intelligence):** A comprehensive list of AI terms.
+*   **[List of datasets for machine-learning research](/List_of_datasets_for_machine-learning_research):** A compilation of datasets used in ML research.
+*   **[List of datasets in computer vision and image processing](/List_of_datasets_in_computer_vision_and_image_processing):** Specific datasets for vision tasks.
+*   **[Outline of machine learning](/Outline_of_machine_learning):** A structured overview of the field.
+
+---
+
+In the field of [machine learning](/Machine_learning), diffusion models, often referred to as diffusion-based generative models or score-based generative models, represent a sophisticated class of [latent variable](/Latent_variable_model) [generative](/Generative_model) models. At their core, these models comprise two principal components: the forward diffusion process and the reverse sampling process. The fundamental objective of a diffusion model is to meticulously learn a [diffusion process](/Diffusion_process) that accurately captures the statistical properties of a given dataset. Once this process is learned, it can then be employed to generate new data instances that exhibit a similar underlying distribution to the original dataset. Essentially, a diffusion model conceptualizes data generation as a gradual process, akin to a [random walk with drift](/Wiener_process) through the vast space of all possible data points. The trained model can then be sampled in various ways, each offering a trade-off between efficiency and the quality of the generated output.
+
+There exist several equivalent formalisms for describing these models, including approaches based on [Markov chains](/Markov_chain), denoising diffusion probabilistic models, noise-conditioned score networks, and stochastic differential equations. &#91;2&#93; The training process typically relies on [variational inference](/Variational_Bayesian_methods). &#91;3&#93; The neural network responsible for the denoising operation, often referred to as the "backbone," can be of various architectures, though [U-nets](/U-Net) and [transformers](/Transformer_(deep_learning_architecture)) are particularly prevalent.
+
+As of 2024, diffusion models have found their most prominent applications in [computer vision](/Computer_vision) tasks. This includes areas such as [image denoising](/Image_denoising), [inpainting](/Inpainting) (filling in missing parts of an image), [super-resolution](/Super-resolution) (enhancing image detail), and the generation of entirely new images, including [text-to-image models](/Text-to-image_model), and even video generation. The underlying mechanism typically involves training a neural network to sequentially remove [Gaussian noise](/Gaussian_noise) that has been progressively added to an image. The model essentially learns to reverse this noise-adding process. After successful training, it can generate new images by starting with a canvas of pure random noise and iteratively applying the learned denoising network.
+
+The ability of diffusion-based image generators to produce highly realistic outputs has led to significant commercial interest, with notable examples including [Stable Diffusion](/Stable_Diffusion) and [DALL-E](/DALL-E). These sophisticated systems often integrate diffusion models with other components, such as text encoders and cross-attention modules, to enable text-conditioned generation, allowing users to guide the image creation process with descriptive prompts.
+
+Beyond the visual domain, diffusion models have also demonstrated considerable promise in other areas, including [natural language processing](/Natural_language_processing) &#91;6&#93; for tasks like [text generation](/Natural_language_generation) &#91;7&#93; and [summarization](/Automatic_summarization), &#91;8&#93; as well as in sound generation &#91;9&#93; and even aspects of reinforcement learning. &#91;10&#93; &#91;11&#93;
+
+## Denoising diffusion model
+
+The genesis of diffusion models can be traced back to the principles of [non-equilibrium thermodynamics](/Non-equilibrium_thermodynamics). In essence, they were conceived in 2015 as a method for training models capable of sampling from highly complex probability distributions. &#91;12&#93; The core idea draws inspiration from the physical phenomenon of [diffusion](/Diffusion).
+
+Imagine, for a moment, the task of modeling the distribution of all naturally occurring photographs. Each photograph can be viewed as a point in an incredibly high-dimensional space. The distribution of natural images forms a sort of intricate "cloud" within this space. By progressively adding noise to these images, this cloud gradually diffuses outwards, eventually becoming almost indistinguishable from a standard [Gaussian distribution](/Normal_distribution), specifically $\mathcal{N}(0,I)$. The power of a diffusion model lies in its ability to learn to *reverse* this diffusion process. By learning to undo the noise addition, the model can then effectively sample from the original, complex distribution of natural images. This process is studied within the framework of "non-equilibrium" thermodynamics because the initial distribution is far from equilibrium, while the final, noise-added distribution approaches equilibrium.
+
+The ultimate equilibrium distribution, $\mathcal{N}(0,I)$, is characterized by a probability density function (pdf) $\rho(x) \propto e^{-\frac{1}{2}\|x\|^{2}}$. This distribution is fundamentally equivalent to the [Maxwell–Boltzmann distribution](/Maxwell%E2%80%93Boltzmann_distribution) of particles in a potential well $V(x) = \frac{1}{2}\|x\|^{2}$ at a temperature of 1. The initial distribution, being significantly out of equilibrium, would naturally diffuse towards this equilibrium state. This diffusion is driven by biased random steps, which are a combination of pure randomness (akin to a [Brownian walker](/Brownian_motion)) and a gradient descent movement down the potential well. The inclusion of randomness is crucial; without it, particles undergoing only gradient descent would all collapse to the origin, effectively destroying the distribution's diversity.
+
+### Denoising Diffusion Probabilistic Model (DDPM)
+
+A significant advancement arrived in 2020 with the introduction of the Denoising Diffusion Probabilistic Model (DDPM) paper. This work refined the earlier diffusion model approach by incorporating [variational inference](/Variational_Bayesian_methods), leading to improved performance and training stability. &#91;3&#93; &#91;13&#93;
+
+#### Forward diffusion
+
+To articulate the DDPM framework, certain mathematical notations are essential:
+
+*   $\beta _{1},...,\beta _{T}\in (0,1)$: These are fixed constants that define the variance of the noise added at each step of the forward diffusion process. They are typically chosen to be small, increasing gradually over time.
+*   $\alpha _{t}:=1-\beta _{t}$: A related parameter that controls the scaling factor applied to the data at each step.
+*   $\bar{\alpha }_{t}:=\alpha _{1}\cdots \alpha _{t}$: The cumulative product of $\alpha$ values, representing the overall scaling factor after $t$ steps.
+*   $\sigma _{t}:=\sqrt {1-\bar {\alpha }_{t}}$: The standard deviation of the noise added at step $t$, directly related to the overall variance.
+*   $\tilde {\sigma }_{t}:={\frac {\sigma _{t-1}}{\sigma _{t}}}{\sqrt {\beta _{t}}}$: A specific scaling factor used in the reverse process.
+*   ${\tilde {\mu }}_{t}(x_{t},x_{0}):={\frac {{\sqrt {\alpha _{t}}}(1-{\bar {\alpha }}_{t-1})x_{t}+{\sqrt {{\bar {\alpha }}_{t-1}}}(1-\alpha _{t})x_{0}}{\sigma _{t}^{2}}}$: This formula defines the mean of the conditional distribution of $x_{t-1}$ given $x_t$ and $x_0$. It's a crucial component for the reverse process.
+*   $\mathcal {N}(\mu ,\Sigma )$: Represents a normal (Gaussian) distribution with mean $\mu$ and covariance matrix $\Sigma$.
+*   $\mathcal {N}(x|\mu ,\Sigma )$: Denotes the probability density at point $x$ for a normal distribution.
+*   A vertical bar (|) signifies [conditioning](/Conditioning_(probability)) in a probabilistic sense.
+
+The forward diffusion process begins with an initial data point $x_{0}$, sampled from the distribution $q$ that we aim to learn. This initial data point is then progressively corrupted by adding noise over a series of $T$ steps. At each step $t$, the data $x_{t-1}$ is transformed into $x_t$ according to the following equation:
+
+$x_{t}={\sqrt {1-\beta _{t}}}x_{t-1}+{\sqrt {\beta _{t}}}z_{t}$
+
+Here, $z_{1},...,z_{T}$ are independent and identically distributed (IID) samples drawn from a standard Gaussian distribution, $\mathcal{N}(0,I)$. The coefficients $\sqrt{1-\beta _{t}}$ and $\sqrt{\beta _{t}}$ are carefully chosen such that if the initial data $x_0$ has a variance of $I$, then the variance of $x_t$ also remains $I$. The values of $\beta _{t}$ are selected to ensure that for any starting distribution $q$ with a finite second moment, the distribution of $x_t$ converges to $\mathcal{N}(0,I)$ as $t$ approaches infinity ($\lim _{t\to \infty }x_{t}|x_{0} \sim \mathcal {N}(0,I)$).
+
+The entire forward diffusion process can be described by the joint distribution $q(x_{0:T}) = q(x_{0})q(x_{1}|x_{0})\cdots q(x_{T}|x_{T-1})$. Substituting the Gaussian transition probabilities, this becomes:
+
+$q(x_{0:T}) = q(x_{0})\mathcal {N}(x_{1}|{\sqrt {\alpha _{1}}}x_{0},\beta _{1}I)\cdots \mathcal {N}(x_{T}|{\sqrt {\alpha _{T}}}x_{T-1},\beta _{T}I)$
+
+Alternatively, in logarithmic form, often simplified by omitting normalization constants:
+
+$\ln q(x_{0:T})=\ln q(x_{0})-\sum _{t=1}^{T}{\frac {1}{2\beta _{t}}}\|x_{t}-{\sqrt {1-\beta _{t}}}x_{t-1}\|^{2}+C$
+
+A key observation is that the sequence $x_{1:T}$ conditioned on $x_{0}$ forms a [Gaussian process](/Gaussian_process). This property allows for significant flexibility through [reparameterization](/Reparameterization_trick). For instance, by manipulating Gaussian properties, we can derive the marginal distribution of $x_t$ given $x_0$:
+
+$x_{t}|x_{0}\sim \mathcal {N}\left({\sqrt {{\bar {\alpha }}_{t}}}x_{0},\sigma _{t}^{2}I\right)$
+
+Furthermore, the conditional distribution of $x_{t-1}$ given $x_t$ and $x_0$ can be expressed as:
+
+$x_{t-1}|x_{t},x_{0}\sim \mathcal {N}\left({\tilde {\mu }}_{t}(x_{t},x_{0}),{\tilde {\sigma }}_{t}^{2}I\right)$
+
+Crucially, for large values of $t$, the distribution $x_{t}|x_{0}\sim \mathcal {N}\left({\sqrt {{\bar {\alpha }}_{t}}}x_{0},\sigma _{t}^{2}I\right)$ converges towards $\mathcal {N}(0,I)$. This implies that after a sufficiently long diffusion process, the data point $x_T$ becomes essentially indistinguishable from random noise, effectively erasing all traces of the original data $x_0 \sim q$.
+
+This direct sampling from $x_t|x_0$ is a powerful consequence of the Gaussian nature of the process, allowing us to jump to any time step $t$ without iterating through all intermediate steps $x_1, x_2, \dots, x_{t-1}$.
+
+#### Derivation by reparameterization
+
+The process of reparameterization is key to understanding how we can sample from the diffusion process efficiently. We know that $x_{t-1}|x_{0}$ follows a Gaussian distribution, and $x_{t}|x_{t-1}$ also follows a Gaussian distribution. Furthermore, these transitions are independent. This allows us to express $x_{t-1}$ and $x_t$ in terms of $x_0$ and independent Gaussian noise variables:
+
+$x_{t-1}={\sqrt {{\bar {\alpha }}_{t-1}}}x_{0}+{\sqrt {1-{\bar {\alpha }}_{t-1}}}z$
+$x_{t}={\sqrt {\alpha _{t}}}x_{t-1}+{\sqrt {1-\alpha _{t}}}z'$
+
+where $z$ and $z'$ are IID Gaussian random variables. We have five variables ($x_0, x_{t-1}, x_t, z, z'$) and two linear equations relating them. The two sources of randomness, $z$ and $z'$, can be reparameterized into a single source of randomness because the IID Gaussian distribution is rotationally symmetric.
+
+By substituting the first equation into the second and performing algebraic manipulations, we can express $x_t$ in terms of $x_0$ and a single Gaussian noise variable $z''$:
+
+$x_{t}={\sqrt {{\bar {\alpha }}_{t}}}x_{0}+\underbrace {{\sqrt {\alpha _{t}-{\bar {\alpha }}_{t}}}z+{\sqrt {1-\alpha _{t}}}z'} _{=\sigma _{t}z''}$
+
+where $z''$ is a Gaussian variable with mean zero and variance one. This equation highlights how $x_t$ is a linear combination of the original data $x_0$ and scaled noise.
+
+To derive the second reparameterization (for $x_{t-1}$ in terms of $x_t$ and $x_0$), we can use properties of Gaussian distributions and rotations. The relationship between $z''$ and $z'$ can be expressed using a rotation matrix. By completing the rotation matrix and considering its inverse (which is its transpose for rotation matrices), we can derive the expression for $x_{t-1}$ in terms of $x_t$ and $x_0$:
+
+$x_{t-1}={\tilde {\mu }}_{t}(x_{t},x_{0})-{\tilde {\sigma }}_{t}z'''$
+
+where $z'''$ is another standard Gaussian noise variable. This equation is fundamental for the reverse diffusion process, as it allows us to estimate the previous state ($x_{t-1}$) given the current state ($x_t$) and the original data ($x_0$).
+
+#### Backward diffusion process
+
+The core innovation of DDPM lies in using a neural network, parameterized by $\theta$, to approximate the reverse diffusion process. This network takes the noisy data $x_t$ and the current time step $t$ as input. Its output is designed to estimate the parameters of the Gaussian distribution for the previous state, $x_{t-1}$. Specifically, the network aims to predict a mean $\mu_{\theta}(x_t, t)$ and a covariance matrix $\Sigma_{\theta}(x_t, t)$ such that:
+
+$x_{t-1}\sim \mathcal {N}(\mu _{\theta }(x_{t},t),\Sigma _{\theta }(x_{t},t))$
+
+This defines a learned backward diffusion process, denoted $p_{\theta}$, which starts from a sample $x_T$ from $\mathcal {N}(0,I)$ and iteratively denoises it:
+
+$p_{\theta}(x_{T})=\mathcal {N}(x_{T}|0,I)$
+$p_{\theta}(x_{t-1}|x_{t})=\mathcal {N}(x_{t-1}|\mu _{\theta }(x_{t},t),\Sigma _{\theta }(x_{t},t))$
+
+The ultimate goal is to train the network parameters $\theta$ such that the distribution of the generated data $p_{\theta}(x_0)$ closely matches the original data distribution $q(x_0)$. This is achieved through maximum likelihood estimation, guided by variational inference principles.
+
+##### Variational inference
+
+The Evidence Lower Bound (ELBO) inequality provides a theoretical foundation for training these models. It states that the log-likelihood of the observed data, $\ln p_{\theta}(x_0)$, is bounded below by an expectation involving the joint distribution of the forward process and the learned reverse process:
+
+$\ln p_{\theta}(x_{0})\geq E_{x_{1:T}\sim q(\cdot |x_{0})}[\ln p_{\theta }(x_{0:T})-\ln q(x_{1:T}|x_{0})]$
+
+By further taking the expectation over the original data distribution $q(x_0)$, we obtain a lower bound on the average log-likelihood:
+
+$E_{x_{0}\sim q}[\ln p_{\theta }(x_{0})]\geq E_{x_{0:T}\sim q}[\ln p_{\theta }(x_{0:T})-\ln q(x_{1:T}|x_{0})]$
+
+Maximizing this lower bound is equivalent to minimizing a corresponding loss function $L(\theta)$:
+
+$L(\theta ):=-E_{x_{0:T}\sim q}[\ln p_{\theta }(x_{0:T})-\ln q(x_{1:T}|x_{0})]$
+
+This loss function can be minimized using [stochastic gradient descent](/Stochastic_gradient_descent). The total loss can be decomposed into a sum of terms, each corresponding to a step in the diffusion process:
+
+$L(\theta )=\sum _{t=1}^{T}L_{t}$
+
+where $L_t$ is the loss associated with the $t$-th step. This decomposition simplifies the training objective significantly.
+
+##### Noise prediction network
+
+The structure of the backward conditional distribution $x_{t-1}|x_t, x_0$ suggests that the network should predict a quantity related to the original data $x_0$. Since $x_0$ is not available during the sampling phase, the network must learn to estimate it. Recall that $x_{t}$ is related to $x_0$ and noise $z$ by:
+
+$x_{t}={\sqrt {{\bar {\alpha }}_{t}}}x_{0}+{\sqrt {1-{\bar {\alpha }}_{t}}}\epsilon _{t}$
+
+Estimating $x_0$ is therefore equivalent to estimating the noise $\epsilon_t$. This leads to the idea of training a network $\epsilon_{\theta}(x_t, t)$ that directly predicts the noise added at step $t$. The mean of the reverse process can then be expressed in terms of this predicted noise:
+
+$\mu_{\theta}(x_t,t)={\frac {x_{t}-\epsilon _{\theta }(x_{t},t)\beta _{t}/\sigma _{t}}{\sqrt {\alpha _{t}}}}$
+
+The DDPM paper found that directly learning the covariance matrix $\Sigma_{\theta}(x_t,t)$ could lead to unstable training. Instead, they fixed it to a constant value, such as $\zeta_{t}^{2}I$, where $\zeta_{t}^{2}$ is either $\beta_{t}$ or ${\tilde {\sigma }}_{t}^{2}$, yielding comparable results.
+
+With this formulation, the loss function $L_t$ simplifies considerably. It can be shown that minimizing the original ELBO loss is equivalent to minimizing a noise prediction loss:
+
+$L_{simple,t}=E_{x_{0}\sim q;z\sim {\mathcal {N}}(0,I)}\left[\left\|\epsilon _{\theta }(x_{t},t)-z\right\|^{2}\right]$
+
+This loss function is intuitively appealing: it encourages the network to predict the actual noise $z$ that was added to generate $x_t$ from $x_0$. This simplified loss function was found to empirically lead to better models.
+
+##### Backward diffusion process
+
+Once the noise prediction network $\epsilon_{\theta}(x_t, t)$ is trained, it can be used to generate new data points. The process iteratively denoises a random noise sample $x_T \sim \mathcal{N}(0,I)$ back to $x_0$:
+
+1.  **Compute noise estimate:** Obtain the predicted noise $\epsilon \leftarrow \epsilon_{\theta}(x_t, t)$.
+2.  **Estimate original data:** Reconstruct an estimate of the original data $\tilde{x}_{0}$ using the predicted noise:
+    $\tilde{x}_{0}\leftarrow (x_{t}-\sigma _{t}\epsilon )/{\sqrt {{\bar {\alpha }}_{t}}}$
+3.  **Sample previous data:** Generate the denoised sample for the previous time step $x_{t-1}$ using the estimated original data and the learned reverse process mean and variance:
+    $x_{t-1}\sim \mathcal {N}({\tilde {\mu }}_{t}(x_{t},{\tilde {x}}_{0}),{\tilde {\sigma }}_{t}^{2}I)$
+4.  **Decrement time:** Move to the previous time step $t \leftarrow t-1$.
+
+This iterative process, starting from pure noise and progressively removing it, allows the model to generate samples that resemble the original training data.
+
+### Score-based generative model
+
+An alternative, yet equivalent, formulation of diffusion modeling is the score-based generative model, also known as noise conditional score network (NCSN) or score-matching with Langevin dynamics (SMLD). &#91;15&#93; &#91;16&#93; &#91;17&#93; &#91;18&#93; This approach focuses on learning the gradient of the log-probability density, known as the score function.
+
+#### Score matching
+
+The essence of score matching lies in understanding what information is truly needed to generate data.
+
+##### The idea of score functions
+
+Consider the problem of generating images. Let $x$ represent an image, and let $q(x)$ be the probability distribution over all possible images. If we knew $q(x)$ precisely, we could determine the likelihood of any given image. However, in most practical scenarios, this is computationally intractable.
+
+More often, we are not interested in the absolute probability of an image, but rather in comparing the likelihood of an image to its immediate neighbors. For instance, we might want to know how much more likely an image of a cat is compared to a slightly perturbed version of it, or a version with added Gaussian noise. This comparative understanding is captured by the gradient of the log-probability density, $\nabla _{x}\ln q(x)$, often referred to as the [score function](/Score_(statistics)).
+
+Working with the score function offers two significant advantages:
+
+*   **Normalization is unnecessary:** We can operate with any unnormalized density $\tilde{q}(x) = Cq(x)$, where $C$ is an unknown normalization constant. This constant is irrelevant when calculating gradients.
+*   **Local comparisons:** The score function directly informs us about how probability density changes in the immediate vicinity of a data point. The ratio $\frac{q(x)}{q(x+dx)} \approx e^{-\langle \nabla _{x}\ln q,dx\rangle }$ illustrates this local sensitivity.
+
+Let the score function be denoted as $s(x) := \nabla _{x}\ln q(x)$. This function allows us to sample from the distribution $q(x)$ using principles from thermodynamics. If we consider a potential energy function $U(x) = -\ln q(x)$, then the distribution of particles in thermodynamic equilibrium at temperature $T$ is given by the Boltzmann distribution:
+
+$q_{U}(x)\propto e^{-U(x)/k_{B}T} = q(x)^{1/k_{B}T}$
+
+When the temperature $k_{B}T = 1$, the Boltzmann distribution exactly matches $q(x)$. Therefore, to model $q(x)$, we can start with particles from an arbitrary initial distribution (e.g., a standard Gaussian) and simulate their movement according to the [Langevin equation](/Langevin_equation):
+
+$dx_{t}=-\nabla _{x_{t}}U(x_{t})dt+dW_{t}$
+
+The [Fokker-Planck equation](/Fokker%E2%80%93Planck_equation) demonstrates that the distribution of these particles converges to the Boltzmann distribution, which is $q(x)$ in our case, as time $t \to \infty$. This means that regardless of the initial distribution $x_0$, the distribution of $x_t$ eventually converges to $q$.
+
+##### Learning the score function
+
+Given a data distribution $q$, the goal is to learn an approximation of its score function, $f_{\theta} \approx \nabla \ln q$. This process is known as score matching. &#91;19&#93; The objective is to minimize the Fisher divergence function:
+
+$E_{q}[\|f_{\theta}(x)-\nabla \ln q(x)\|^{2}]$
+
+By expanding this expression and applying integration by parts, we arrive at a loss function that can be minimized using stochastic gradient descent:
+
+$E_{q}[\|f_{\theta}(x)-\nabla \ln q(x)\|^{2}] = E_{q}[\|f_{\theta}\|^{2}+2\nabla \cdot f_{\theta}]+C$
+
+This loss is sometimes referred to as the [Hyvärinen scoring rule](/Scoring_rule).
+
+##### Annealing the score function
+
+A challenge arises when the target distribution $q(x)$ is significantly different from a simple distribution like $\mathcal{N}(0,I)$. For example, if we are modeling images, many samples from $\mathcal{N}(0,I)$ might not resemble natural images, meaning $q(x_0) \approx 0$ for such samples. This lack of samples in certain regions makes it difficult to learn the score function accurately there. If the score function $\nabla _{x_{t}}\ln q(x_{t})$ is unknown at a particular point, we cannot accurately simulate the Langevin dynamics to generate samples.
+
+To overcome this, the technique of [annealing](/Simulated_annealing) is employed. If the target distribution $q$ is too complex, we progressively add noise until the distribution becomes indistinguishable from a simpler one, like white noise. This involves a forward diffusion process to add noise, followed by learning the score function of the noisy distribution, and then using this learned score function to perform a backward diffusion process, effectively removing the noise and reconstructing samples from the original distribution.
+
+### Continuous diffusion processes
+
+The discrete-time diffusion process can be extended to a continuous-time formulation, offering a more elegant theoretical framework.
+
+#### Forward diffusion process
+
+Revisiting the forward diffusion process described earlier, but now considering it in continuous time:
+
+$x_{t}={\sqrt {1-\beta _{t}}}x_{t-1}+{\sqrt {\beta _{t}}}z_{t}$
+
+By taking the limit where $\beta _{t} \to \beta (t)dt$ and $\sqrt{dt}z_{t} \to dW_{t}$, where $dW_t$ is an infinitesimal increment of a [Wiener process](/Wiener_process) (multidimensional Brownian motion), we obtain a continuous diffusion process described by a stochastic differential equation (SDE):
+
+$dx_{t}=-{\frac {1}{2}}\beta (t)x_{t}dt+{\sqrt {\beta (t)}}dW_{t}$
+
+This equation is a specific instance of the [overdamped Langevin equation](/Brownian_dynamics):
+
+$dx_{t}=-{\frac {D}{k_{B}T}}(\nabla _{x}U)dt+{\sqrt {2D}}dW_{t}$
+
+where $D$ is the diffusion tensor, $T$ is the temperature, and $U$ is the potential energy field. By setting $D = \frac{1}{2}\beta (t)I$, $k_{B}T=1$, and $U = \frac{1}{2}\|x\|^{2}$, we recover the continuous diffusion equation. This connection explains the use of the term "Langevin dynamics" in diffusion models.
+
+This SDE describes the stochastic motion of a single particle. If we consider a cloud of particles initially distributed according to $q$ at $t=0$, this cloud will eventually settle into the stable distribution $\mathcal{N}(0,I)$ over time. Let $\rho_t$ represent the density of this cloud at time $t$. We have $\rho_0 = q$, and as $t \to \infty$, $\rho_t \approx \mathcal{N}(0,I)$. The goal of diffusion models is to reverse this process, starting from the equilibrium distribution and diffusing backward to the original distribution.
+
+The evolution of the particle density $\rho_t$ is governed by the [Fokker-Planck equation](/Fokker%E2%80%93Planck_equation):
+
+$\partial _{t}\ln \rho _{t}={\frac {1}{2}}\beta (t)\left(n+(x+\nabla \ln \rho _{t})\cdot \nabla \ln \rho _{t}+\Delta \ln \rho _{t}\right)$
+
+where $n$ is the dimensionality of the space and $\Delta$ is the [Laplace operator](/Laplace_operator). An alternative form of this equation is:
+
+$\partial _{t}\rho _{t}={\frac {1}{2}}\beta (t)(\nabla \cdot (x\rho _{t})+\Delta \rho _{t})$
+
+#### Backward diffusion process
+
+If we have solved for the density $\rho_t$ across all times $t \in [0,T]$, we can precisely reverse the evolution of the particle cloud. Starting with a new cloud of particles with density $\nu_0 = \rho_T$, we can let these particles evolve according to a modified SDE:
+
+$dy_{t}={\frac {1}{2}}\beta (T-t)y_{t}dt+\beta (T-t)\underbrace {\nabla _{y_{t}}\ln \rho _{T-t}\left(y_{t}\right)} _{\text{score function }}dt+{\sqrt {\beta (T-t)}}dW_{t}$
+
+By substituting this into the Fokker-Planck equation, we find that $\partial _{t}\rho _{T-t}=\partial _{t}\nu _{t}$, confirming that this backward process reconstructs the original particle distribution. &#91;20&#93;
+
+##### Noise conditional score network (NCSN)
+
+In the continuous-time limit, the cumulative product $\bar{\alpha}_t$ can be expressed as:
+
+$\bar{\alpha}_{t}=e^{-\int _{0}^{t}\beta (t)dt}$
+
+This leads to the marginal distribution of $x_t$ given $x_0$:
+
+$x_{t}|x_{0}\sim \mathcal {N}\left(e^{-{\frac {1}{2}}\int _{0}^{t}\beta (t)dt}x_{0},\left(1-e^{-\int _{0}^{t}\beta (t)dt}\right)I\right)$
+
+This form again allows direct sampling of $x_t$ for any time $t$ without iterating through intermediate steps. By sampling $x_0 \sim q$ and $z \sim \mathcal{N}(0,I)$, we can directly compute $x_t$:
+
+$x_{t}=e^{-{\frac {1}{2}}\int _{0}^{t}\beta (t)dt}x_{0}+\left(1-e^{-\int _{0}^{t}\beta (t)dt}\right)z$
+
+This means we can efficiently sample $x_t \sim \rho_t$ for any $t \geq 0$.
+
+The core idea of NCSN is to train a neural network $f_{\theta}(x_t, t)$ to approximate the score function $\nabla \ln \rho_t$. The training objective is a score-matching loss function, defined as the expected Fisher divergence over a distribution $\gamma$ of time steps:
+
+$L(\theta )=E_{t\sim \gamma ,x_{t}\sim \rho _{t}}[\|f_{\theta }(x_{t},t)\|^{2}+2\nabla \cdot f_{\theta }(x_{t},t)]$
+
+After training, $f_{\theta}(x_t, t)$ approximates $\nabla \ln \rho_t$. The backward diffusion process can then be simulated by integrating the SDE from $t=T$ to $t=0$, starting with $x_T \sim \mathcal{N}(0,I)$:
+
+$x_{t-dt}=x_{t}+{\frac {1}{2}}\beta (t)x_{t}dt+\beta (t)f_{\theta }(x_{t},t)dt+{\sqrt {\beta (t)}}dW_{t}$
+
+This integration can be performed using standard numerical methods for SDEs, such as the [Euler–Maruyama method](/Euler%E2%80%93Maruyama_method).
+
+The name "noise conditional score network" reflects its components:
+
+*   **Network:** The score function approximation $f_{\theta}$ is implemented as a neural network.
+*   **Score:** The network's output is interpreted as the score function $\nabla \ln \rho_t$.
+*   **Noise conditional:** The score function depends on the noise level at time $t$, as $\rho_t$ is the original distribution blurred by an increasing amount of Gaussian noise over time.
+
+#### Their equivalence
+
+DDPM and score-based generative models are mathematically equivalent. &#91;16&#93; &#91;1&#93; &#91;21&#93; This means a network trained using the DDPM objective can function as a NCSN, and vice versa.
+
+Using [Tweedie's formula](/Maurice_Tweedie), the score function can be related to the expected value of the original data given the noisy data:
+
+$\nabla _{x_{t}}\ln q(x_{t})={\frac {1}{\sigma _{t}^{2}}}(-x_{t}+{\sqrt {{\bar {\alpha }}_{t}}}E_{q}[x_{0}|x_{t}])$
+
+The DDPM loss, specifically the simplified version $L_{simple,t}$, can be rewritten as:
+
+$L_{simple,t}=E_{x_{0}\sim q;z\sim {\mathcal {N}}(0,I)}\left[\left\|\epsilon _{\theta }(x_{t},t)-z\right\|^{2}\right]$
+
+where $x_{t}={\sqrt {{\bar {\alpha }}_{t}}}x_{0}+{\sigma _{t}}z$. By changing variables and considering the conditional expectation $E_{q}[x_{0}|x_{t}]$, this loss can be shown to be equivalent to minimizing the difference between the predicted noise $\epsilon_{\theta}(x_t, t)$ and the scaled difference between $x_t$ and its expectation under the posterior:
+
+$\epsilon_{\theta}(x_{t},t) \approx \frac{x_{t}-{\sqrt {{\bar {\alpha }}_{t}}}E_{q}[x_{0}|x_{t}]}{\sigma _{t}}$
+
+If the network perfectly minimizes this loss, then the predicted noise is directly proportional to the negative score function:
+
+$\epsilon _{\theta }(x_{t},t)=-\sigma _{t}\nabla _{x_{t}}\ln q(x_{t})$
+
+This demonstrates that a well-trained denoising network implicitly learns the score function.
+
+Conversely, considering the continuous-time limit of the backward DDPM process reveals its equivalence to score-based diffusion. The discrete backward step:
+
+$x_{t-1}={\frac {x_{t}}{\sqrt {\alpha _{t}}}}-{\frac {\beta _{t}}{\sigma _{t}{\sqrt {\alpha _{t}}}}}\epsilon _{\theta }(x_{t},t)+{\sqrt {\beta _{t}}}z_{t};\quad z_{t}\sim {\mathcal {N}}(0,I)$
+
+in the infinitesimal limit corresponds to the score-based diffusion equation:
+
+$x_{t-dt}=x_{t}(1+\beta (t)dt/2)+\beta (t)\nabla _{x_{t}}\ln q(x_{t})dt+{\sqrt {\beta (t)}}dW_{t}$
+
+Thus, at infinitesimal time steps, a denoising diffusion model effectively performs score-based diffusion.
+
+### Main variants
+
+The flexibility of diffusion models allows for numerous variations, primarily concerning the noise schedule, sampling process, and architectural choices.
+
+#### Noise schedule
+
+The sequence of noise levels added during the forward diffusion process is crucial. In DDPM, this is defined by the noise schedule, typically represented by the sequence $\beta _{1}, \dots, \beta _{T}$, where $0 < \beta_t < 1$. A more general representation uses a strictly increasing monotonic function $\sigma$ that maps real numbers to $(0,1)$, defining the noise levels $\sigma_t = \sigma(\lambda_t)$ for a sequence $\lambda_1 < \lambda_2 < \dots < \lambda_T$. The $\beta_t$ values are then derived from $\sigma_t$ and $\sigma_{t-1}$ as:
+
+$\beta _{t}=1-{\frac {1-\sigma _{t}^{2}}{1-\sigma _{t-1}^{2}}}$
+
+When using arbitrary noise schedules, the noise prediction model is trained to take the noise level $\sigma_t$ as an input, i.e., $\epsilon_{\theta}(x_t, \sigma_t)$, rather than just the time step $t$. Similarly, for score-based models, the network learns $f_{\theta}(x_t, \sigma_t)$.
+
+#### Denoising Diffusion Implicit Model (DDIM)
+
+The standard DDPM sampling process, which involves iterating through all $T$ diffusion steps, can be computationally expensive, especially when $T$ is large (e.g., 1000 steps). While the forward diffusion process allows skipping steps because $x_t|x_0$ is Gaussian for all $t$, the backward Markovian process of DDPM does not easily permit step skipping. DDIM &#91;22&#93; addresses this by introducing a non-Markovian backward process that allows for skipping steps, albeit with a potential trade-off in sample quality.
+
+The core idea of DDIM is to modify the reverse process to be deterministic or have controllable variance. Given a trained DDPM model, DDIM allows sampling by using fewer steps. The DDIM sampling process works as follows:
+
+1.  Estimate the original data $x_0'$ from the noisy sample $x_t$ and the predicted noise $\epsilon_{\theta}(x_t, t)$:
+    $x_{0}' = {\frac {x_{t}-\sigma _{t}\epsilon _{\theta }(x_{t},t)}{\sqrt {{\bar {\alpha }}_{t}}}}$
+2.  Jump to any earlier time step $s < t$ ($0 \leq s < t$) and generate the denoised sample $x_s$ using the estimated $x_0'$:
+    $x_{s}={\sqrt {{\bar {\alpha }}_{s}}}x_{0}'+{\sqrt {\sigma _{s}^{2}-(\sigma '_{s})^{2}}}\epsilon _{\theta }(x_{t},t)+\sigma _{s}'\epsilon$
+    where $\sigma_{s}'$ is an arbitrary real number in $[0, \sigma_s]$, and $\epsilon \sim \mathcal{N}(0,I)$ is new Gaussian noise.
+
+If $\sigma_{s}' = 0$ for all steps, the backward process becomes deterministic, which is the essence of DDIM. The original DDPM corresponds to $\eta=1$ in the DDIM formulation, while deterministic DDIM is $\eta=0$. The DDIM paper noted that using only 20 steps with $\eta=0$ could yield samples comparable to 1000 steps of DDPM.
+
+The parameter $\eta$ controls the amount of noise introduced during sampling, interpolating between the fully noisy DDPM ($\eta=1$) and the deterministic DDIM ($\eta=0$). This formulation also applies to score-based diffusion models due to their equivalence.
+
+#### Latent diffusion model (LDM)
+
+The general nature of diffusion models allows them to model any probability distribution. For high-dimensional data like images, it can be computationally intensive to perform diffusion directly in the pixel space. Latent diffusion models (LDMs) address this by first encoding the data into a lower-dimensional latent space using an encoder, then applying the diffusion process in this latent space. A decoder then reconstructs the data from the generated latent representation. &#91;23&#93;
+
+The encoder-decoder pair is often a [variational autoencoder](/Variational_autoencoder) (VAE). This approach significantly reduces computational requirements, making it feasible to train diffusion models on large, high-resolution images.
+
+### Architectural improvements
+
+Several architectural enhancements have been proposed to improve the performance and efficiency of diffusion models. &#91;24&#93; These include:
+
+*   **Log-space interpolation during backward sampling:** Instead of linear interpolation between noise levels, using a logarithmic scale can sometimes yield better results. This involves sampling from a modified Gaussian distribution:
+    $\mathcal {N}({\tilde {\mu }}_{t}(x_{t},{\tilde {x}}_{0}),(\sigma _{t}^{v}{\tilde {\sigma }}_{t}^{1-v})^{2}I)$
+    for a learned parameter $v$.
+*   **v-prediction formalism:** This parameterization reformulates the standard diffusion process using an angle $\phi_t$ related to the noise level. The network is trained to predict a "velocity" $\hat{v}_{\theta}$, which simplifies the denoising process:
+    $x_{\phi _{t}-\delta }=\cos(\delta )\;x_{\phi _{t}}-\sin(\delta ){\hat {v}}_{\theta }\;(x_{\phi _{t}})$
+    This approach can be more stable as it allows the model to learn to reach total noise ($\phi_t = 90^{\circ}$) and then reverse the process, whereas the standard parameterization always maintains some residual signal because $\sqrt{\bar{\alpha}_t} > 0$. &#91;25&#93; &#91;26&#93;
+
+#### Classifier guidance
+
+Classifier guidance, introduced in 2021, enhances class-conditional generation by leveraging a classifier. &#91;27&#93; The idea is to guide the diffusion process towards generating samples that belong to a specific class, defined by a description $y$. This is achieved by modifying the score function during the backward diffusion process:
+
+$\nabla _{x_{t}}\ln p(x_{t}|y,t)=\nabla _{x_{t}}\ln p(x_{t}|t)+\nabla _{x_{t}}\ln p(y|x_{t},t)$
+
+Here, $\nabla _{x_{t}}\ln p(x_{t}|t)$ is the score of the unconditional diffusion model, and $\nabla _{x_{t}}\ln p(y|x_{t},t)$ is the gradient from a classifier trained to predict the class $y$ given the noisy image $x_t$. This gradient effectively steers the generation process towards samples that are more likely to belong to the target class.
+
+For denoising models, this translates to a modification of the noise prediction:
+
+$\epsilon _{\theta }(x_{t},y,t)=\epsilon _{\theta }(x_{t},t)-\sigma _{t}\nabla _{x_{t}}\ln p(y|x_{t},t)$
+
+The term $\sigma_{t}\nabla _{x_{t}}\ln p(y|x_{t},t)$ represents the "classifier guidance."
+
+##### With temperature
+
+The classifier guidance tends to concentrate samples around the maximum a posteriori (MAP) estimate. To control this concentration and potentially move towards the maximum likelihood estimate, a "guidance scale" $\gamma > 0$ is introduced, analogous to inverse temperature in thermodynamics:
+
+$\nabla _{x}\ln p_{\gamma }(x|y)=\nabla _{x}\ln p(x)+\gamma \nabla _{x}\ln p(y|x)$
+
+A higher $\gamma$ value pushes the generation more strongly towards satisfying the conditional distribution $p(y|x)$. This can sometimes improve the quality and coherence of generated samples. For denoising models, this modifies the noise prediction as:
+
+$\epsilon _{\theta }(x_{t},y,t)=\epsilon _{\theta }(x_{t},t)-\gamma \sigma _{t}\nabla _{x_{t}}\ln p(y|x_{t},t)$
+
+#### Classifier-free guidance (CFG)
+
+Classifier-free guidance (CFG) &#91;28&#93; offers a way to achieve conditional generation without relying on a separate classifier. Instead, the diffusion model itself is trained to be conditional. This is typically done by training the model on both conditional inputs (e.g., text prompts) and unconditional inputs (e.g., null prompts). During sampling, the model's output for the conditional input is combined with its output for the unconditional input, using a guidance scale $\gamma$:
+
+$\epsilon _{\theta }(x_{t},y,t,\gamma )=\epsilon _{\theta }(x_{t},t)+\gamma (\epsilon _{\theta }(x_{t},y,t)-\epsilon _{\theta }(x_{t},t))$
+
+Here, $\epsilon_{\theta}(x_t, t)$ is the noise prediction for the unconditional case, and $\epsilon_{\theta}(x_t, y, t)$ is the prediction for the conditional case. The term $(\epsilon_{\theta}(x_t, y, t) - \epsilon_{\theta}(x_t, t))$ represents the "direction" towards the condition $y$. Multiplying this by $\gamma$ and adding it to the unconditional prediction effectively amplifies the conditioning.
+
+CFG can be implemented using DDIM sampling by drawing both unconditional and conditional noise predictions and interpolating between them. A variation of CFG, known as negative prompting, involves using an "anti-prompt" $c'$ to push the generation away from certain characteristics.
+
+### Samplers
+
+The process of generating samples from a trained diffusion model involves navigating the learned diffusion process, either in discrete or continuous time. The choice of sampler and the associated "noise schedule" ($\beta_t$ or $\sigma_t$) significantly impact the quality and speed of generation.
+
+*   **DDPM sampler:** The original method, which uses the learned denoising network to iteratively denoise a random noise sample through all $T$ steps. This provides high-quality samples but can be slow.
+*   **DDIM sampler:** Offers a faster alternative by allowing for skipped steps. It introduces a controllable amount of noise during sampling, controlled by the parameter $\eta$. $\eta=0$ results in a deterministic process, while $\eta=1$ approximates DDPM. Intermediate values allow for a trade-off between speed and quality.
+*   **SDE solvers:** For continuous-time diffusion models (score-based models), various numerical integration methods for SDEs can be used, such as the [Euler–Maruyama method](/Euler%E2%80%93Maruyama_method) or [Heun's method](/Heun's_method). These methods can also incorporate adjustable noise levels.
+
+The choice of noise schedule itself is important. A common approach is to use schedules that are either linear or cosine-based, aiming to balance the noise addition across the diffusion steps.
+
+### Other examples
+
+Beyond the core DDPM and score-based models, numerous variants have emerged, each introducing novel concepts or improving upon existing ones. These include:
+
+*   **Poisson flow generative model:** &#91;35&#93; Leverages Poisson processes for generative modeling.
+*   **Consistency model:** &#91;36&#93; Aims to achieve consistency between different time steps in the diffusion process for faster sampling.
+*   **Critically damped Langevin diffusion:** &#91;37&#93; Introduces damping to the Langevin dynamics for improved stability and efficiency.
+*   **GenPhys:** &#91;38&#93; Connects diffusion models to physical processes.
+*   **Cold diffusion:** &#91;39&#93; A technique for inverting arbitrary image transforms without explicit noise.
+
+### Flow-based diffusion model
+
+Abstractly, diffusion models operate by transforming an unknown probability distribution (e.g., natural images) into a known, simpler distribution (e.g., Gaussian noise) through a series of gradual steps. This transformation is achieved by learning a probability path, implicitly defined by the score function $\nabla \ln p_t$.
+
+In denoising diffusion models, this path involves adding noise (forward) and removing noise (backward). While the forward process can often be computed in closed-form, the backward process requires iterative integration of an SDE, which can be computationally intensive.
+
+Flow-based diffusion models offer an alternative by defining a *deterministic* probability path. Both the forward and backward processes are governed by ordinary differential equations (ODEs) derived from a time-dependent vector field $v_t(x)$. This deterministic nature allows for exact integration using ODE solvers, potentially leading to faster and more stable sampling.
+
+Given two distributions, $\pi_0$ and $\pi_1$, a flow-based model learns a velocity field $v_t(x)$ such that starting a particle at $x \sim \pi_0$ and evolving it according to $\frac{d}{dt}\phi_t(x) = v_t(\phi_t(x))$ for $t \in [0,1]$ results in $\phi_1(x) \sim \pi_1$. This defines a probability path $p_t = [\phi_t]_{\#}\pi_0$ governed by the continuity equation:
+
+$\partial _{t}p_{t}+\nabla \cdot (v_{t}p_{t})=0$
+
+To construct such a path, conditional probability paths $p_t(x|z)$ and corresponding velocity fields $v_t(x|z)$ are often learned, conditioned on some latent variable $z \sim q(z)$. A common choice is a Gaussian conditional path $p_{t}(x|z) = \mathcal{N}(m_t(z), \zeta_t^2 I)$, leading to a specific form for the conditional velocity field.
+
+#### Optimal transport flow
+
+Optimal transport flow &#91;41&#93; aims to construct a probability path that minimizes the [Wasserstein metric](/Wasserstein_metric) between the source and target distributions. This involves learning an approximation of the optimal transport plan between $\pi_0$ and $\pi_1$. The latent variable $z$ is then a pair $(x_0, x_1)$ sampled from this transport plan. If the batch size is small, the computed transport plan might deviate significantly from the true optimal one.
+
+#### Rectified flow
+
+Rectified flow &#91;42&#93; &#91;43&#93; is a technique designed to learn ODE vector fields that are "straighter." This straightness allows for more efficient sampling using ODE solvers, as fewer integration steps are required. The core idea is to start with an initial flow and iteratively "reflow" it to straighten the trajectories, effectively minimizing transport costs.
+
+The process involves generating a series of rectified flows $\phi^0, \phi^1, \dots$, where each subsequent flow is straighter than the previous one. The learning objective minimizes the difference between the direction of linear interpolation between source and target points and the learned velocity field $v_t(x_t)$. This ensures that the generated trajectories are causal and closely follow the density map of the data.
+
+The reflow process can be visualized as repeatedly straightening paths:
+
+*   **Linear interpolation:** The simplest case, where paths are straight lines.
+*   **Rectified Flow:** Paths are straightened iteratively.
+*   **Straightened Rectified Flow:** Paths are made maximally straight.
+
+The general learning objective for rectified flow is:
+
+$\min _{\theta }\int _{0}^{1}\mathbb {E} _{\pi _{0},\pi _{1},p_{t}}\left[\lVert {(x_{1}-x_{0})-v_{t}(x_{t})}\rVert ^{2}\right]\,\mathrm {d} t.$
+
+This objective encourages the velocity field $v_t(x_t)$ to align with the direction from a source point $x_0$ to a target point $x_1$. The data pairs $(x_0, x_1)$ are typically sampled independently from $\pi_0 \times \pi_1$.
+
+This framework encompasses DDIM and probability flow ODEs as special cases. However, if the initial paths are not straight, the reflow process may not guarantee further straightening or cost reduction.
+
+### Choice of architecture
+
+The architecture of the neural network used as the "backbone" of a diffusion model is crucial for its performance.
+
+#### Diffusion model
+
+For image generation using DDPM, the core component is a neural network that takes a noisy image $x_t$ and its corresponding time step $t$, and predicts the noise $\epsilon_{\theta}(x_t, t)$. Architectures adept at image denoising are naturally well-suited for this task. The [U-Net](/U-Net) architecture, with its skip connections that preserve spatial information across different resolutions, has proven highly effective for denoising diffusion models. &#91;44&#93;
+
+While U-Nets are common, the backbone is not strictly limited to them. Diffusion Transformers (DiTs) replace the U-Net with a [Transformer](/Transformer_(deep_learning_architecture)) architecture, leveraging self-attention mechanisms for noise prediction. &#91;45&#93; These models can also incorporate [Mixture of Experts](/Mixture_of_experts) for enhanced capacity. &#91;46&#93;
+
+Diffusion models are versatile and can model distributions beyond images. For instance, Human Motion Diffusion models use [Transformers](/Transformer_(deep_learning_architecture)) to generate less noisy human motion trajectories from noisy inputs. &#91;47&#93;
+
+#### Conditioning
+
+Standard diffusion models generate unconditional samples, drawing from the entire data distribution. To achieve conditional generation (e.g., generating images of a specific class or described by text), the model needs to incorporate conditioning information. This is typically done by converting the conditioning into a vector representation and feeding it into the diffusion model's backbone.
+
+*   **Cross-attention:** In models like Stable Diffusion, conditioning vectors (e.g., text embeddings) are integrated via a [cross-attention mechanism](/Attention_(machine_learning)). The U-Net's intermediate representations act as queries, while the conditioning vectors serve as keys and values. This allows for flexible conditioning, including fine-tuning for specific tasks (e.g., ControlNet &#91;48&#93;).
+*   **Image Inpainting:** A straightforward example of conditioning involves using a reference image $\tilde{x}$ and a mask $m$. Noisy versions of the reference image are generated, and these are blended with the current noisy sample $x_t$ based on the mask.
+*   **Prompt-to-Prompt Editing:** Cross-attention also enables advanced image editing by manipulating the attention maps derived from text prompts. &#91;50&#93;
+
+Conditional diffusion models can extend beyond image generation to other modalities, such as generating human motion conditioned on audio or video inputs. &#91;47&#93;
+
+#### Upscaling
+
+Generating high-resolution images directly with diffusion models can be computationally prohibitive. A common strategy is to first generate a lower-resolution image and then upscale it. Upscaling can be performed by various methods, including GANs, Transformers, or signal processing techniques.
+
+Diffusion models themselves can also be used for upscaling. Cascaded diffusion models employ a series of diffusion models, where each model progressively increases the resolution of the image. &#91;44&#93;
+
+The training of a diffusion upscaler involves:
+
+1.  Sampling a high-resolution image $x_0$, its low-resolution counterpart $z_0$, and conditioning information $c$.
+2.  Adding noise to both $x_0$ and $z_0$ at different time steps $t_x$ and $t_z$ to obtain noisy versions $x_{t_x}$ and $z_{t_z}$.
+3.  Training the denoising network to predict the noise added to the high-resolution image ($\epsilon_x$) given the noisy high-resolution image, the noisy low-resolution image, their respective time steps, and the conditioning information. The loss is typically an L2 loss on the predicted noise.
+
+### Examples
+
+This section highlights notable diffusion models and their architectural characteristics.
+
+#### OpenAI
+
+*   **DALL-E Series:** OpenAI's DALL-E models are text-conditional diffusion models for image synthesis.
+    *   The original DALL-E (2021) was not a diffusion model but an autoregressive Transformer.
+    *   GLIDE (2022) is a large diffusion model that demonstrated impressive text-to-image capabilities. &#91;5&#93;
+    *   DALL-E 2 (2022) introduced the "unCLIP" method, which uses a cascaded diffusion model and a CLIP image prior to generate images from text embeddings. &#91;55&#93;
+*   **Sora (2024):** A diffusion Transformer model designed for text-to-video generation.
+
+#### Stability AI
+
+*   **Stable Diffusion:** Released in 2022, Stable Diffusion is a prominent latent diffusion model. It combines a U-Net-based denoising network with a VAE and a text encoder, utilizing cross-attention for conditioning. &#91;56&#93; &#91;23&#93;
+*   **Stable Diffusion 3 (2024):** Features a Transformer backbone and employs rectified flow for improved generation. &#91;57&#93;
+*   **Stable Video 4D (2024):** A latent diffusion model for generating videos of 3D objects.
+
+#### Google
+
+*   **Imagen (2022):** A cascaded diffusion model that uses a powerful T5 language model for text encoding. It comprises multiple U-Net-based diffusion models for progressively upscaling images. &#91;59&#93; &#91;60&#93;
+*   **Muse (2023):** Not a diffusion model, but a masked Transformer for image token prediction.
+*   **Imagen 2 (2023) & Imagen 3 (2024):** Diffusion-based models capable of multimodal (text and image) input.
+*   **Veo (2024):** A latent diffusion model for video generation, conditioned on both text and image prompts. &#91;64&#93;
+
+#### Meta
+
+*   **Make-A-Video (2022):** A text-to-video diffusion model. &#91;65&#93; &#91;66&#93;
+*   **CM3leon (2023):** A Transformer-based model, not a diffusion model.
+*   **Transfusion (2024):** Combines autoregressive text generation with diffusion for image generation. &#91;69&#93;
+*   **Movie Gen (2024):** Uses Diffusion Transformers operating in latent space with flow matching. &#91;70&#93;
+
+### See also
+
+*   [Diffusion process](/Diffusion_process)
+*   [Markov chain](/Markov_chain)
+*   [Variational inference](/Variational_inference)
+*   [Variational autoencoder](/Variational_autoencoder)
+
+### Further reading
+
+*   **Review papers:** Comprehensive surveys on diffusion models provide detailed insights into methods and applications. &#91;2, 51, 52, 53&#93;
+*   **Mathematical details:** Resources offering deeper mathematical explanations of diffusion models.
+*   **Tutorials:** Step-by-step guides to understanding and implementing diffusion models. &#91;34&#93;
+
+#

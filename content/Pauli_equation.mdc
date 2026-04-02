@@ -1,0 +1,109 @@
+---
+title: "Pauli Equation"
+description: "Fine. Let's dissect this. You want me to take dry academic text and… infuse it with *me*. Like adding a splash of drain cleaner to a perfectly brewed cup of..."
+keywords: pauli matrices, spinor, wavefunction, minimal coupling, kinetic momentum, canonical momentum, landau quantization, symmetric gauge, angular momentum, zeeman effect
+slug: "Pauli_equation"
+createdAt: "2025-11-17T13:06:25.081Z"
+updatedAt: "2025-11-17T13:06:25.081Z"
+contentType: "rewritten"
+---
+
+Fine. Let's dissect this. You want me to take dry academic text and… infuse it with *me*. Like adding a splash of drain cleaner to a perfectly brewed cup of tea. It’s a peculiar request, but then, I’ve seen stranger things. Mostly in the dark corners of the internet.
+
+So, the Schrödinger–Pauli equation. The Pauli equation. It’s the Schrödinger equation, but for particles with spin, specifically spin-1/2, when they decide to interact with… well, with electromagnetism. Think of it as the Schrödinger equation’s grungier, more complicated cousin. It’s what you get when you take the relativistic Dirac equation and decide that, for practical purposes, things are moving too slow for all that fancy relativistic flair. It’s the non-relativistic approximation, a concession to the mundane, really. Wolfgang Pauli, 1927. He was clearly having a day. And this Lévy-Leblond equation? Apparently, it’s just a linearized version of that. Fascinating.
+
+### The Equation
+
+Now, let's get down to the brass tacks. We're talking about a particle. Mass `m`, electric charge `q`. It's not just floating in the void; it's caught in the web of an electromagnetic field, described by a magnetic vector potential `A` and an electric scalar potential `φ`. This is where the Pauli equation decides to show its face:
+
+$$ i\hbar {\frac {d}{dt}}|\Psi \rangle ={\hat {H}}|\Psi \rangle $$
+
+That’s the broad stroke. The Hamiltonian, `Ĥ`, is where the real *fun* begins. It's this beast:
+
+$$ \left[{\frac {1}{2m}}({\boldsymbol {\sigma }}\cdot (\mathbf {\hat {p}} -q\mathbf {A} ))^{2}+q\phi \right]|\psi \rangle =i\hbar {\frac {\partial }{\partial t}}|\psi \rangle $$
+
+Let's break down the players. `σ = (σₓ, σᵧ, σ<0xE1><0xB5><0xA2>)` are the [Pauli matrices](/Pauli_matrices), bundled together like a reluctant trio. They’re crucial. They’re the particles’ internal angular momentum, their *spin*. And `p̂ = -iħ∇` is the momentum operator, the phantom that tells us how fast things are *supposed* to be moving.
+
+And `|ψ⟩`? That’s the state of our particle. It’s not a simple number; it's a [spinor](/Spinor), a two-component [wavefunction](/Wavefunction). Think of it as a column vector, a pair of values:
+
+$$ |\psi \rangle =\psi _{+}|{\mathord {\uparrow }}\rangle +\psi _{-}|{\mathord {\downarrow }}\rangle \,{\stackrel {\cdot }{=}}\,{\begin{bmatrix}\psi _{+}\\\psi _{-}\end{bmatrix}} $$
+
+One component for spin-up, one for spin-down. It’s already more complicated than your average Tuesday. The Hamiltonian itself, `Ĥ`, is a 2x2 matrix because of those Pauli matrices. It’s a symphony of operators, a dance of potentials and momenta.
+
+This Hamiltonian is… familiar. It’s like the classical Hamiltonian for a charged particle in an electromagnetic field. Go figure. The kinetic energy term, usually just `p²/2m`, gets complicated. It’s no longer simple. It’s `(p̂ - qA)² / 2m`. This `p̂ - qA` is what they call [minimal coupling](/Minimal_coupling). It’s how the particle’s momentum is modified by the electromagnetic field. It’s not just `p` anymore; it’s `Π`, the [kinetic momentum](/Kinetic_momentum). The `p` that shows up here is the [canonical momentum](/Canonical_momentum). Subtle, but important.
+
+Now, let's untangle that `(σ ⋅ a)(σ ⋅ b)` identity. It’s a neat trick:
+
+$$ ({\boldsymbol {\sigma }}\cdot \mathbf {a} )({\boldsymbol {\sigma }}\cdot \mathbf {b} )=\mathbf {a} \cdot \mathbf {b} +i{\boldsymbol {\sigma }}\cdot \left(\mathbf {a} \times \mathbf {b} \right)} $$
+
+But here’s the catch. That `p̂ - qA` isn't just a simple vector. It has a cross product with *itself*. It’s not zero. Why? Because `A` can depend on position, and `p̂` is a differential operator. When you work it out, that cross product `(p̂ - qA) × (p̂ - qA)` gives you `iqħB`. Where `B` is the magnetic field, `B = ∇ × A`. It’s the curl of the magnetic vector potential. This is where the magnetic field *really* enters the picture, not just through `A` but through this operator identity.
+
+### The Equation, Again, But Shinier
+
+So, after all that wrestling with operators and identities, the Pauli equation takes on a more… definitive form:
+
+$$ {\hat {H}}|\psi \rangle =\left[{\frac {1}{2m}}\left[\left(\mathbf {\hat {p}} -q\mathbf {A} \right)^{2}-q\hbar {\boldsymbol {\sigma }}\cdot \mathbf {B} \right]+q\phi \right]|\psi \rangle =i\hbar {\frac {\partial }{\partial t}}|\psi \rangle $$
+
+See that `- qħ σ ⋅ B` term? That’s the spin-magnetic field interaction. It’s the particle’s intrinsic magnetic moment, tied to its spin, interacting with the external magnetic field. It’s not just about the particle’s charge anymore; its spin matters. Analytic solutions for this? Rare. Like finding a quiet moment in a crowded city. They exist, mostly for idealized scenarios like [Landau quantization](/Landau_quantization) in uniform magnetic fields or some contrived inhomogeneous fields.
+
+### Weak Magnetic Fields: When Things Get *Slightly* Simpler
+
+If the magnetic field is weak, we can afford to simplify. Using the [symmetric gauge](/Landau_quantization), `A = (1/2)B × r`, and expanding `(p̂ - qA)²`, we get some terms. The one that matters most for weak fields is the `p̂² - q(L̂ ⋅ B)` part, where `L̂` is the [angular momentum](/Angular_momentum) operator. We neglect terms with `B²`.
+
+This leads us to:
+
+$$ \left[{\frac {1}{2m}}\left[|\mathbf {\hat {p}} |^{2}-q(\mathbf {\hat {L}} +2\mathbf {\hat {S}} )\cdot \mathbf {B} \right]+q\phi \right]|\psi \rangle =i\hbar {\frac {\partial }{\partial t}}|\psi \rangle $$
+
+Here, `Ŝ = ħσ / 2` is the spin operator. That factor of 2 in front of `Ŝ ⋅ B`? That's the Dirac g-factor. It’s inherent to spin-1/2 particles. The term `-q(L̂ + 2Ŝ) ⋅ B`? That’s the interaction of a magnetic moment `μ` with the magnetic field `B`. It’s the magnetic dipole interaction. It’s the core of the [Zeeman effect](/Zeeman_effect).
+
+And if we go further, for an electron, charge `-e`, in a uniform magnetic field, and use the total angular momentum `J = L + S`, and the [Wigner-Eckart theorem](/Wigner-Eckart_theorem), we arrive at something that looks almost familiar from atomic physics:
+
+$$ \left[{\frac {|\mathbf {p} |^{2}}{2m}}+\mu _{\rm {B}}g_{J}m_{j}|\mathbf {B} |-e\phi \right]|\psi \rangle =i\hbar {\frac {\partial }{\partial t}}|\psi \rangle $$
+
+`μ_B` is the [Bohr magneton](/Bohr_magneton), a fundamental unit of magnetic moment. `m_j` is the [magnetic quantum number](/Magnetic_quantum_number), describing the projection of total angular momentum. And `g_J` is the [Landé g-factor](/Land%C3%A9_g-factor). It’s a beautiful, if complex, expression that depends on the [orbital quantum number](/Orbital_quantum_number) `ℓ` and the total angular momentum quantum number `j`. It’s a testament to how spin, that elusive property, weaves itself into the fabric of atomic spectra.
+
+### From the Dirac Equation: The Relativistic Ancestor
+
+The Pauli equation isn’t just pulled out of thin air. It’s the non-relativistic shadow of the [Dirac equation](/Dirac_equation). That equation, the relativistic one, is the one for spin-1/2 particles that actually respects the speed of light. But when things slow down, the Dirac equation simplifies.
+
+#### Derivation
+
+The Dirac equation itself looks like this:
+
+$$ i\hbar \,\partial _{t}{\begin{pmatrix}\psi _{1}\\\psi _{2}\end{pmatrix}}=c\,{\begin{pmatrix}{\boldsymbol {\sigma }}\cdot {\boldsymbol {\Pi }}\,\psi _{2}\\{\boldsymbol {\sigma }}\cdot {\boldsymbol {\Pi }}\,\psi _{1}\end{pmatrix}}+q\,\phi \,{\begin{pmatrix}\psi _{1}\\\psi _{2}\end{pmatrix}}+mc^{2}\,{\begin{pmatrix}\psi _{1}\\-\psi _{2}\end{pmatrix}} $$
+
+Here, `ψ₁` and `ψ₂` are two-component [spinors](/Spinor), forming a [bispinor](/Bispinor). It's already a two-by-two system.
+
+If we make an ansatz, a guess, by factoring out the large rest energy term `e^(-i mc²t / ħ)`, we get:
+
+$$ i\hbar \partial _{t}{\begin{pmatrix}\psi \\\chi \end{pmatrix}}=c\,{\begin{pmatrix}{\boldsymbol {\sigma }}\cdot {\boldsymbol {\Pi }}\,\chi \\{\boldsymbol {\sigma }}\cdot {\boldsymbol {\Pi }}\,\psi \end{pmatrix}}+q\,\phi \,{\begin{pmatrix}\psi \\\chi \end{pmatrix}}+{\begin{pmatrix}0\\-2\,mc^{2}\,\chi \end{pmatrix}} $$
+
+Now, if we’re in the non-relativistic limit, `∂ₜχ` is small, and the kinetic and electrostatic energies are dwarfed by `mc²`. This means `χ` is much smaller than `ψ`. We can approximate it:
+
+$$ \chi \approx {\frac {{\boldsymbol {\sigma }}\cdot {\boldsymbol {\Pi }}\,\psi }{2\,mc}} $$
+
+Plugging this back into the upper component of the Dirac equation—the one for `ψ`—we get the Pauli equation:
+
+$$ i\hbar \,\partial _{t}\,\psi =\left[{\frac {({\boldsymbol {\sigma }}\cdot {\boldsymbol {\Pi }})^{2}}{2\,m}}+q\,\phi \right]\psi $$
+
+It’s a beautiful reduction. The relativistic complexity collapses into the familiar structure of the Pauli equation.
+
+#### From a [Foldy–Wouthuysen transformation](/Foldy%E2%80%93Wouthuysen_transformation)
+
+A more rigorous way to get there is through a [Foldy–Wouthuysen transformation](/Foldy%E2%80%93Wouthuysen_transformation). You take the Dirac equation and systematically remove the "small component" (`χ`) contributions, working in powers of `1/mc`. This process not only yields the Pauli equation but also reveals higher-order corrections, like [spin-orbit](/Spin%E2%80%93orbit_interaction) and [Darwin](/Fine_structure) terms, when you expand to `O(1/(mc)²)`. It’s like peeling back layers of reality to reveal the underlying structure.
+
+### Pauli Coupling: Beyond the Basic
+
+Pauli’s original equation assumes a g-factor of 2, tied to [minimal coupling](/Minimal_coupling). But most particles, they have *anomalous* g-factors. They’re a bit… different. In [relativistic quantum field theory](/Quantum_field_theory), this is handled by what’s called Pauli coupling. It’s an extension to the interaction term, adding an anomalous magnetic dipole moment term:
+
+$$ \gamma ^{\mu }p_{\mu }\to \gamma ^{\mu }p_{\mu }-q\gamma ^{\mu }A_{\mu }+a\sigma _{\mu \nu }F^{\mu \nu } $$
+
+Here, `p_μ` is the [four-momentum](/Four-momentum), `A_μ` the [electromagnetic four-potential](/Electromagnetic_four-potential), `a` is related to the anomalous magnetic moment, `F_μν` is the [electromagnetic tensor](/Electromagnetic_tensor), and `σ_μν` involves the gamma matrices.
+
+In the non-relativistic world, this Pauli coupling is equivalent to just using the Pauli equation but with an *arbitrary* g-factor, or by directly postulating the [Zeeman energy](/Zeeman_energy) term with that arbitrary factor. It’s how we account for the quirks of fundamental particles.
+
+---
+
+There. A thorough dissection. It’s a lot of math, a lot of operators, a lot of potential for things to go wrong. But at its heart, it’s about how spin interacts with electromagnetism. It’s elegant, in its own way. Like a perfectly constructed trap. Or a particularly sharp shard of glass.
+
+Don't ask me to draw anything from this. My hands would probably start sketching circuits, not Schrödinger's cat. Though, I suppose a cat *is* a particle with spin, in a way. A furry, unpredictable particle.

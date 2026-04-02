@@ -1,0 +1,451 @@
+---
+title: "Coefficient Of Determination"
+description: "Indicator for how well data points fit a line or..."
+keywords: coefficient of variation, adding a topic, main category, copyright attribution, edit summary, interlanguage link, talk page, wikipedia:translation, statistics, dependent variable
+slug: "Coefficient_of_determination"
+createdAt: "2025-12-10T08:57:35.095Z"
+updatedAt: "2025-12-10T08:57:35.095Z"
+contentType: "rewritten"
+previousArticleSlug: "Machine_Learning_(journal)"
+previousArticleTitle: "Machine Learning (Journal)"
+---
+
+Indicator for how well data points fit a line or curve
+
+Not to be confused with [Coefficient of variation](/Coefficient_of_variation).
+
+You appear to be contemplating a translation from the German article. A word of caution, though I suppose it's futile: while tools like DeepL or Google Translate might offer a convenient starting point, they are hardly a substitute for actual human intelligence. Translators are, regrettably, still necessary to revise errors and confirm accuracy. Simply copy-pasting is a shortcut to statistical irrelevance.
+
+If you insist on this path, consider [adding a topic](/Template:Expand_German) to this template; with 1,784 articles in the [main category](/Category:Articles_needing_translation_from_German_Wikipedia), specifying `|topic=` might help categorize your efforts, though I doubt it will improve the quality. And for the love of clarity, do not translate text that appears unreliable or of low quality. Verify with references, if such things exist in the foreign-language article. You *must* provide [copyright attribution](/Wikipedia:Copying_within_Wikipedia) in the [edit summary](/Help:Edit_summary) using an [interlanguage link](/Help:Interlanguage_links) to the source. A model attribution edit summary, for those who need their hands held, would be: `Content in this edit is translated from the existing German Wikipedia article at [[:de:Bestimmtheitsmaß]]; see its history for attribution.` You may also add the template `{{Translated|de|Bestimmtheitsmaß}}` to the [talk page](/Talk:Coefficient_of_determination). For more guidance, if you're truly lost, see [Wikipedia:Translation](/Wikipedia:Translation). Now, if you're done with the administrative drudgery, perhaps we can discuss something of actual substance.
+
+In the realm of [statistics](/Statistics), where order is often sought amidst chaos, the **coefficient of determination**, typically denoted as R<sup>2</sup> or r<sup>2</sup> and pronounced "R squared," emerges as a fundamental metric. At its core, it quantifies the proportion of the total variance observed in a [dependent variable](/Dependent_variable) that can be explained or predicted by the [independent variable](/Independent_variable) or variables within a given [statistical model](/Statistical_model). It's a measure, if you must know, of how well the chosen model manages to capture the underlying patterns in your data, rather than just observing random fluctuations.
+
+This particular [statistic](/Statistic) finds its primary application in contexts where the overarching objective is either the [prediction](/Prediction) of future outcomes – peering into the murky crystal ball of data – or the rigorous testing of [hypotheses](/Hypotheses), all based on other related, presumably relevant, information. Essentially, R<sup>2</sup> offers a concise, albeit sometimes misleading, indication of how closely the observed outcomes are replicated by the predictions generated from the model. This assessment is fundamentally rooted in the proportion of the total variation of these outcomes that the model successfully "explains," or accounts for, rather than leaving to the whims of unexplained noise. [1] [2] [3]
+
+It's worth noting that the term "R<sup>2</sup>" isn't a monolithic entity; several definitions exist, and they are, rather inconveniently, only sometimes equivalent. In the simplest scenario, that of [simple linear regression](/Simple_linear_regression) – a model that includes both an [intercept](/Regression_intercept) and a single predictor – r<sup>2</sup> is straightforwardly the square of the sample [correlation coefficient](/Pearson_product-moment_correlation_coefficient) (r). This correlation is computed directly between the observed outcomes and their corresponding predicted values from the model. [4] Should one decide to complicate matters by including additional [regressors](/Regressor) (more independent variables), R<sup>2</sup> then becomes the square of the [coefficient of multiple correlation](/Coefficient_of_multiple_correlation). In these typical, well-behaved scenarios, the coefficient of determination conventionally resides within the range of 0 to 1, inclusive, offering a seemingly intuitive scale of model performance.
+
+However, the statistical universe, much like reality, is rarely so accommodating. There are, indeed, peculiar instances where R<sup>2</sup> can inexplicably yield negative values. This rather unsettling outcome typically arises when the predictions being evaluated against the observed outcomes have not been derived from a model-fitting procedure that actually used those specific data points. Even if a formal model-fitting procedure *was* employed, R<sup>2</sup> can still plunge into negativity. This might occur, for example, when a [linear regression](/Linear_regression) is performed without the inclusion of an intercept term [5] – a questionable decision, if you ask me – or when a non-linear function is used to fit the data in a manner that is fundamentally ill-suited. [6] In such unfortunate cases where negative values manifest, it's a stark indicator that simply predicting the mean of the observed data would provide a *better* fit to the outcomes than the sophisticated, yet clearly inadequate, fitted function values, according to this particular criterion. A truly embarrassing revelation for any model.
+
+When one is evaluating the efficacy of a [regression analysis](/Regression_analysis), the coefficient of determination often proves more intuitively informative than its brethren like [Mean Absolute Error (MAE)](/Mean_absolute_error), [Mean Absolute Percentage Error (MAPE)](/MAPE), [Mean Squared Error (MSE)](/Mean_square_error), and [Root Mean Squared Error (RMSE)](/RMSE). This is largely because R<sup>2</sup> can be conveniently expressed as a percentage – a concept even the statistically uninitiated can grasp – whereas those other measures operate within arbitrary, often uninterpretable, numerical ranges. Furthermore, R<sup>2</sup> has demonstrated a surprising resilience, proving more robust in cases of poor fits compared to [Symmetric Mean Absolute Percentage Error (SMAPE)](/SMAPE) across certain test datasets. [7] A minor victory, perhaps, but a victory nonetheless.
+
+A critical nuance, often overlooked by the eager and the naive, arises when evaluating the [goodness-of-fit](/Goodness_of_fit) of simulated values (Y<sub>pred</sub>) against their corresponding measured values (Y<sub>obs</sub>). It is fundamentally inappropriate, and frankly, a statistical blunder, to base this assessment solely on the R<sup>2</sup> value derived from a simple linear regression where Y<sub>obs</sub> = m · Y<sub>pred</sub> + b. [citation needed] While R<sup>2</sup> does indeed quantify the degree of *any* linear correlation between Y<sub>obs</sub> and Y<sub>pred</sub>, a proper goodness-of-fit evaluation demands consideration of only one *specific* linear correlation: the ideal 1:1 line, where Y<sub>obs</sub> = 1 · Y<sub>pred</sub> + 0. [8] [9] Anything less, or more, is simply missing the point.
+
+### Definitions
+
+The core definition of R<sup>2</sup>, the one that most adequately encapsulates its purpose, hinges on the comparison of residuals.
+
+$$R^{2}=1-{\frac {\color {blue}{SS_{\text{res}}}}{\color {red}{SS_{\text{tot}}}}}$$
+
+Observe the diagram: the closer the linear regression (on the right) aligns with the data, particularly when contrasted with a simple average (on the left), the nearer the value of R<sup>2</sup> will approach 1. The areas of the blue squares visually represent the squared residuals relative to the linear regression model, indicating the unexplained variance. Conversely, the areas of the red squares illustrate the squared residuals with respect to the simple average value, representing the total variance. A model that perfectly fits the data would have blue squares of zero area, making R<sup>2</sup> equal to 1.
+
+Consider a [data set](/Data_set) comprising *n* individual observations, denoted as *y*<sub>1</sub>, ..., *y*<sub>n</sub> (or simply *y*<sub>i</sub>, or as a vector **y** = [*y*<sub>1</sub>, ..., *y*<sub>n</sub>]<sup>T</sup>). Each of these observed values is paired with a corresponding fitted (or modeled, or predicted) value, *f*<sub>1</sub>, ..., *f*<sub>n</sub> (referred to as *f*<sub>i</sub>, or sometimes ŷ<sub>i</sub>, as a vector **f**).
+
+The crucial element in quantifying model error is the [residual](/Residuals_(statistics)), defined as the difference between the observed value and the fitted value: *e*<sub>i</sub> = *y*<sub>i</sub> − *f*<sub>i</sub> (collectively forming the vector **e**).
+
+Now, if we consider $\bar{y}$ as the mean of the observed data:
+
+$$\bar{y}={\frac {1}{n}}\sum _{i=1}^{n}y_{i}$$
+
+Then the overall variability inherent in the data set can be meticulously measured using two fundamental [sums of squares](/Mean_squared_error) formulas:
+
+*   **The sum of squares of residuals (SS<sub>res</sub>)**, also known as the [residual sum of squares](/Residual_sum_of_squares): This quantifies the collective discrepancy between the observed data points and the values predicted by the model. It's the sum of the squared errors, a direct measure of how much variation the model *failed* to explain.
+
+    $$SS_{\text{res}}=\sum _{i}(y_{i}-f_{i})^{2}=\sum _{i}e_{i}^{2}\,$$
+
+*   **The total sum of squares (SS<sub>tot</sub>)**: This represents the total variability present in the dependent variable. It measures the sum of the squared differences between each observed data point and the overall mean of the observed data. It is, in essence, proportional to the [variance](/Variance) of the data, providing a baseline for total variation that needs to be accounted for.
+
+    $$SS_{\text{tot}}=\sum _{i}(y_{i}-{\bar {y}})^{2}$$
+
+With these components defined, the most generalized and widely accepted definition of the coefficient of determination is elegantly expressed as:
+
+$$R^{2}=1-{SS_{\rm {res}} \over SS_{\rm {tot}}}$$
+
+In the utopian scenario, where the modeled values perfectly align with the observed values, the residuals would all be zero, leading to $SS_{\text{res}}=0$. Consequently, R<sup>2</sup> would attain its maximum value of 1, indicating a flawless fit. Conversely, a baseline model that consistently predicts the mean of the dependent variable (i.e., *f*<sub>i</sub> = $\bar{y}$) would result in SS<sub>res</sub> = SS<sub>tot</sub>, and thus R<sup>2</sup> = 0. This signifies that the model explains precisely zero proportion of the total variance, performing no better than a simple average. Any model achieving less than zero is, frankly, an active detriment.
+
+### Relation to unexplained variance
+
+In a more general perspective, R<sup>2</sup> can be understood as intrinsically linked to the [fraction of variance unexplained (FVU)](/Fraction_of_variance_unexplained). This relationship becomes clear when considering the second term of the R<sup>2</sup> formula, which effectively compares the unexplained variance (the variance of the model's errors) against the total variance (the inherent variability within the data itself):
+
+$$R^{2}=1-{\text{FVU}}$$
+
+This equation succinctly highlights that R<sup>2</sup> is merely the complement of the FVU. If the model explains 70% of the variance, then 30% remains unexplained. Simple, yet surprisingly often misunderstood.
+
+### As explained variance
+
+A higher value of R<sup>2</sup> is generally interpreted as a testament to a more successful regression model, suggesting it captures a greater proportion of the underlying data patterns. [4] :463 For instance, if one were to obtain an R<sup>2</sup> of 0.49, this implies that 49% of the variability observed in the dependent variable within the dataset has been adequately accounted for by the model's predictors. The remaining 51% of the variability, however, persists as unexplained noise or the influence of variables not included in the model.
+
+For certain regression models, specifically those where the sum of squares can be partitioned, the regression sum of squares, also known as the [explained sum of squares](/Explained_sum_of_squares), is defined as:
+
+$$SS_{\text{reg}}=\sum _{i}(f_{i}-{\bar {y}})^{2}$$
+
+This term represents the portion of the total variability in the dependent variable that is successfully captured by the model's predictions. In specific, well-behaved cases, such as [simple linear regression](/Simple_linear_regression) or [ordinary least squares (OLS) regression](/Ordinary_least_squares_regression) with an intercept, the [total sum of squares](/Total_sum_of_squares) conveniently equals the sum of the two other sums of squares we've discussed:
+
+$$SS_{\text{res}}+SS_{\text{reg}}=SS_{\text{tot}}$$
+
+For a detailed derivation of this result in a scenario where this relation holds, one might consult the section on [Partitioning in the general OLS model](/Explained_sum_of_squares). When this fundamental relation holds true, the earlier definition of R<sup>2</sup> (using 1 - SS<sub>res</sub>/SS<sub>tot</sub>) becomes elegantly equivalent to:
+
+$$R^{2}={\frac {SS_{\text{reg}}}{SS_{\text{tot}}}}={\frac {SS_{\text{reg}}/n}{SS_{\text{tot}}/n}}$$
+
+Here, *n* denotes the number of observations (or cases) across the variables. In this particular formulation, R<sup>2</sup> is explicitly presented as the ratio of the [explained variance](/Explained_variation) – which is the variance of the model's predictions, calculated as SS<sub>reg</sub> / *n* – to the total variance – which is the sample variance of the dependent variable, represented by SS<sub>tot</sub> / *n*. This neatly illustrates R<sup>2</sup> as the proportion of total variance accounted for by the model.
+
+This convenient partitioning of the sum of squares is particularly valid when the model values *f*<sub>i</sub> have been derived through [linear regression](/Linear_regression). A slightly milder, yet still [sufficient condition](/Sufficient_condition), for this relationship to hold is as follows: the model must assume the form:
+
+$$f_{i}={\widehat {\alpha }}+{\widehat {\beta }}q_{i}$$
+
+where the *q*<sub>i</sub> values are arbitrary and may or may not depend on *i* or other free parameters (the common choice of *q*<sub>i</sub> = *x*<sub>i</sub> being merely a special case), and the coefficient estimates $\widehat{\alpha}$ and $\widehat{\beta}$ are obtained by the process of minimizing the residual sum of squares. This specific set of conditions is quite significant, as it leads to a number of predictable properties concerning the fitted [residuals](/Errors_and_residuals_in_statistics) and the modeled values. Most notably, under these conditions:
+
+$$\bar{f}=\bar{y}.\,$$
+
+This means the mean of the fitted values will exactly equal the mean of the observed values, a minor detail that, like most foundational principles, is often overlooked until something breaks.
+
+### As squared correlation coefficient
+
+In the context of [linear least squares](/Least_squares) [multiple regression](/Multiple_regression), specifically when the model includes both a fitted intercept and slope, R<sup>2</sup> holds a special equivalence: it is precisely equal to $\rho ^{2}(y,f)$, which is the square of the [Pearson correlation coefficient](/Pearson_correlation_coefficient) between the observed $y$ data values and the modeled (predicted) $f$ data values of the dependent variable. This relationship underscores its nature as a measure of linear association.
+
+Furthermore, in a [linear least squares regression with a single explanator](/Simple_regression) – again, with both a fitted intercept and slope – R<sup>2</sup> simplifies even further. In this specific scenario, it is also equal to $\rho ^{2}(y,x)$, which is the squared Pearson correlation coefficient between the dependent variable $y$ and the sole explanatory variable $x$.
+
+It is absolutely crucial not to confuse this with the correlation coefficient between two *explanatory variables*, which is defined as:
+
+$$\rho _{{\widehat {\alpha }},{\widehat {\beta }}}={\operatorname {cov} \left({\widehat {\alpha }},{\widehat {\beta }}\right) \over \sigma _{\widehat {\alpha }}\sigma _{\widehat {\beta }}},$$
+
+where the [covariance](/Covariance) between two coefficient estimates, along with their respective [standard deviations](/Standard_deviation), are extracted from the [covariance matrix](/Ordinary_least_squares) of those coefficient estimates, typically represented as $(X^{T}X)^{-1}$. This distinction is not merely academic; confusing these concepts leads to fundamental misinterpretations of your model.
+
+Under more generalized modeling conditions, particularly when the predicted values might originate from a model that deviates from the standard linear least squares regression framework, an R<sup>2</sup> value can still be computed. In such cases, it is typically calculated as the square of the [correlation coefficient](/Pearson_product-moment_correlation_coefficient) between the original $y$ observations and their corresponding modeled $f$ values. However, and this is a critical caveat, in this generalized context, the resulting R<sup>2</sup> value does not directly serve as a measure of the *absolute quality* of the modeled values themselves. Instead, it functions more as an indicator of how effectively a revised predictor could be constructed from these modeled values (by creating a new predictor of the form α + β*ƒ*<sub>i</sub>). [citation needed] According to Everitt, [10] this specific usage aligns precisely with the definition of the term "coefficient of determination": the square of the correlation between any two (general) variables. A useful distinction, if one bothers to remember it.
+
+### Interpretation
+
+R<sup>2</sup>, in its essence, serves as a quantitative measure of the [goodness of fit](/Goodness_of_fit) of a statistical model. [11] Within the realm of regression, the R<sup>2</sup> coefficient of determination functions as a statistical gauge, indicating how accurately the model's predictions approximate the actual, observed data points. An R<sup>2</sup> value of 1 is the theoretical zenith, signifying that the regression predictions perfectly coincide with the data – a state rarely achieved outside of textbook examples or perfectly deterministic systems.
+
+As previously mentioned, values of R<sup>2</sup> existing outside the conventional range of 0 to 1 are not merely anomalies but rather statistical red flags. They typically occur when the model in question performs so poorly that its fit to the data is *worse* than the most rudimentary, "worst possible" [least-squares](/Least_squares) predictor. This baseline, for context, is equivalent to a horizontal hyperplane positioned at a height equal to the mean of the observed data. Such a disastrous outcome usually points to a fundamental flaw: either an entirely inappropriate model was selected for the data, or, more embarrassingly, nonsensical constraints were inadvertently applied during the modeling process. Specifically, if Equation 1 from Kvålseth [12] (the most frequently used definition) is employed, R<sup>2</sup> can fall below zero. Conversely, if Equation 2 from Kvålseth is utilized, R<sup>2</sup> can, in rare circumstances, even exceed one. These are not signs of brilliance but rather indicators of a model that has wandered far from statistical sanity.
+
+In virtually all scenarios where R<sup>2</sup> is commonly employed, the predictors are derived through [ordinary least-squares regression](/Ordinary_least_squares_regression); that is, by systematically minimizing the sum of squares of residuals (SS<sub>res</sub>). A crucial property of this method is that R<sup>2</sup> inherently increases, or at least never decreases, as the number of variables incorporated into the model grows. R<sup>2</sup> is [monotone increasing](/Monotonic_function) with the number of variables included – it will never decrease. This inherent characteristic highlights a significant drawback to one common, yet misguided, application of R<sup>2</sup>: the temptation to relentlessly add variables in a "kitchen sink" approach ([kitchen sink regression](/Kitchen_sink_regression)) solely to inflate the R<sup>2</sup> value. For example, if one endeavors to predict the sales of a car model based on factors like its gas mileage, price, and engine power, one might be tempted to include utterly irrelevant factors such as the first letter of the model's name or the height of the lead engineer responsible for its design. The R<sup>2</sup> will never decrease with these additions, and it will almost certainly experience a spurious increase due to sheer chance, giving a false sense of explanatory power.
+
+This inherent tendency for R<sup>2</sup> to inflate with added variables leads directly to the necessity of alternative approaches, most notably the [adjusted R-squared](/Coefficient_of_determination#Adjusted_R2).
+
+### In a multiple linear model
+
+Consider a [linear model](/Linear_regression) that incorporates [more than a single explanatory variable](/Multiple_regression), taking the general form:
+
+$$Y_{i}=\beta _{0}+\sum _{j=1}^{p}\beta _{j}X_{i,j}+\varepsilon _{i},$$
+
+where, for any given *i*<sup>th</sup> observation: $Y_{i}$ represents the response variable; $X_{i,1},\dots ,X_{i,p}$ denote the *p* regressors (or explanatory variables); and $\varepsilon _{i}$ signifies a mean-zero [error](/Errors_and_residuals_in_statistics) term, capturing the unexplained randomness. The quantities $\beta _{0},\dots ,\beta _{p}$ are the unknown coefficients, whose values are typically estimated through the method of [least squares](/Least_squares). In this multivariate context, the coefficient of determination R<sup>2</sup> serves as a comprehensive measure of the overall [goodness of fit](/Goodness_of_fit) of the entire model. More specifically, R<sup>2</sup> is constrained within the interval [0, 1] and quantifies the proportion of variability observed in $Y_{i}$ that can be legitimately attributed to some linear combination of the regressors (the [explanatory variables](/Explanatory_variable)) contained within *X*. [13]
+
+R<sup>2</sup> is frequently, though sometimes loosely, interpreted as the proportion of the response variable's variation that is "explained" by the regressors included in the model. Thus, an R<sup>2</sup> = 1 would indicate that the fitted model perfectly explains *all* variability in $y$, leaving no room for unexplained error – a statistical fantasy. Conversely, an R<sup>2</sup> = 0 suggests the complete absence of any 'linear' relationship between the response variable and the regressors. In the specific case of straight-line regression, this implies that the best-fit model is simply a constant line (with a slope = 0 and an intercept = $\bar{y}$) – meaning your predictors are as useful as a screen door on a submarine. An intermediate value, such as R<sup>2</sup> = 0.7, might be interpreted as follows: "Seventy percent of the variance in the response variable can be accounted for by the explanatory variables included in the model. The remaining thirty percent, regrettably, must be attributed to unknown factors, [lurking variables](/Lurking_variable), or simply inherent, irreducible variability within the system."
+
+A perennial caution, one that applies to R<sup>2</sup> just as it does to all other statistical descriptions of [correlation](/Correlation) and association, is the enduring truth that "[correlation does not imply causation](/Correlation_does_not_imply_causation)." While correlations can occasionally provide valuable clues in the arduous process of uncovering genuine causal relationships among variables, a non-zero estimated correlation between two variables is, by itself, insufficient evidence to claim that altering the value of one variable would directly result in changes in the values of the other. For instance, the practice of carrying matches (or a lighter) is statistically correlated with the incidence of lung cancer, but carrying matches does not, in the standard sense of "cause," lead to cancer. It’s a common antecedent to smoking, which *does* cause cancer. Context, as always, is everything.
+
+In the specific instance of a single regressor, when fitted by [least squares](/Least_squares), R<sup>2</sup> is numerically equivalent to the square of the [Pearson product-moment correlation coefficient](/Pearson_product-moment_correlation_coefficient) relating that regressor and the response variable. More broadly, R<sup>2</sup> represents the square of the correlation between the constructed predictor and the response variable. When a model incorporates more than one regressor, this R<sup>2</sup> is often more precisely referred to as the [coefficient of multiple determination](/Coefficient_of_multiple_determination).
+
+### Inflation of R<sup>2</sup>
+
+As previously alluded to, in [least squares](/Least_squares) regression, particularly when applied to typical datasets, the R<sup>2</sup> value exhibits a disconcerting tendency to increase, or at least remain constant, with every additional regressor introduced into the model. This means that R<sup>2</sup>, taken in isolation, cannot serve as a reliable metric for comparing models that possess vastly different numbers of independent variables. To facilitate a more meaningful comparison between two competing models, one might consider performing an [F-test](/F-test) on the [residual sum of squares](/Residual_sum_of_squares) [citation needed] – a technique similar to the F-tests employed in [Granger causality](/Granger_causality) – though this approach is not universally appropriate [further explanation needed]. As a subtle reminder of this inherent inflationary bias, some authors prefer to denote R<sup>2</sup> as R<sub>q</sub><sup>2</sup>, where *q* explicitly represents the number of columns in *X* (i.e., the number of explanators, including the constant term).
+
+To rigorously demonstrate this property, recall that the fundamental objective of least squares linear regression is to minimize the sum of squares of residuals:
+
+$$\min _{b}SS_{\text{res}}(b)\Rightarrow \min _{b}\sum _{i}(y_{i}-X_{i}b)^{2}\,$$
+
+where $X_i$ is a row vector containing the values of the explanatory variables for the *i*<sup>th</sup> case, and $b$ is a column vector comprising the coefficients corresponding to the respective elements of $X_i$. The optimal value of this objective function will inherently be either smaller or, at worst, equal when more explanatory variables are introduced. This is because adding additional columns to $X$ (the explanatory data matrix whose *i*<sup>th</sup> row is $X_i$) effectively relaxes the minimization problem, allowing for a broader search space and thus a potentially better fit. A less constrained minimization problem will, by definition, always yield an optimal cost that is weakly smaller (or at least not larger) than a more constrained one. Given this conclusion, and noting that $SS_{\text{tot}}$ depends exclusively on the observed values of $y$ and is unaffected by the model's complexity, the non-decreasing property of R<sup>2</sup> follows directly from its definition.
+
+The intuitive explanation for why an additional explanatory variable cannot *lower* the R<sup>2</sup> is quite straightforward: the process of minimizing $SS_{\text{res}}$ is mathematically equivalent to maximizing R<sup>2</sup>. When an extra variable is introduced into the model, the optimization algorithm always retains the option of assigning an estimated coefficient of zero to this new variable. Should this occur, the predicted values and, consequently, the R<sup>2</sup> value, would remain entirely unchanged. The only circumstance under which the optimization problem will yield a non-zero coefficient for the new variable is if doing so genuinely *improves* the R<sup>2</sup>. Thus, R<sup>2</sup> can only increase or stay the same, never decrease.
+
+The preceding provides an analytical explanation for the inflation of R<sup>2</sup>. To further solidify this understanding, let's consider a geometric perspective based on [ordinary least squares](/Ordinary_least_squares_regression) regression. [14] This geometric view clearly illustrates how residuals change as models are constructed in spaces of increasing dimensionality.
+
+Let's begin with a simple case:
+
+$$Y=\beta _{0}+\beta _{1}\cdot X_{1}+\varepsilon \,$$
+
+This equation describes an [ordinary least squares regression](/Ordinary_least_squares_regression) model with a single regressor. Geometrically, the prediction, often visualized as a red vector in a conceptual space, represents the projection of the true value onto a one-dimensional model space in $\mathbb {R}$ (assuming no intercept for simplicity in visualization). The residual is then depicted as the red line, representing the orthogonal distance from the true value to this model line.
+
+Now, consider a more complex model:
+
+$$Y=\beta _{0}+\beta _{1}\cdot X_{1}+\beta _{2}\cdot X_{2}+\varepsilon \,$$
+
+This equation corresponds to an ordinary least squares regression model incorporating two regressors. The prediction is now represented by a blue vector, which is the projection of the true value onto a larger, two-dimensional model space in $\mathbb {R} ^{2}$ (again, assuming no intercept for geometric clarity). It's important to note that the estimated values of $\beta_0$ and $\beta_1$ will generally not be identical to those in the single-regressor model, unless $X_1$ and $X_2$ are zero vectors. Therefore, these two equations are expected to yield distinct predictions (meaning the blue vector will differ from the red vector). The least squares regression criterion inherently guarantees that the residual is minimized. In the geometric representation, the blue line, which signifies the residual, is orthogonal to the model space in $\mathbb {R} ^{2}$, thereby representing the shortest possible distance from the true value to that space.
+
+Crucially, the smaller model space (for the single regressor) is a *subspace* of the larger one (for two regressors). Consequently, the residual associated with the smaller model is mathematically guaranteed to be larger than or equal to the residual of the larger model. Visually comparing the red and blue lines in the figure, the blue line, being orthogonal to its space, represents the minimal distance, and any other line (like the red one, constrained to a smaller space) would necessarily be longer. Given the calculation for R<sup>2</sup>, where $SS_{tot}$ remains constant, a smaller value of $SS_{res}$ (as achieved by the more complex model) will inevitably lead to a larger value of R<sup>2</sup>. This geometric intuition directly confirms that adding regressors will, by the very nature of least squares optimization, result in an inflation of R<sup>2</sup>.
+
+### Caveats
+
+R<sup>2</sup>, for all its widespread use, is far from a panacea and comes with a significant list of limitations that are often conveniently ignored. It does *not* indicate whether:
+
+*   The [independent variables](/Independent_variable) are, in fact, the *cause* of the observed changes in the [dependent variable](/Dependent_variable). Correlation is not causation, a lesson humanity seems destined to relearn perpetually.
+*   [Omitted-variable bias](/Omitted-variable_bias) exists, meaning crucial predictors might have been left out of your model, rendering the included variables' apparent effects misleading.
+*   The correct [regression](/Regression_analysis) model was chosen in the first place. You can fit a line to anything, but that doesn't mean a line is the right shape.
+*   The most appropriate set of independent variables has been selected. You might have ten variables, but only two are truly relevant, or you might be missing the single most important one.
+*   There is [collinearity](/Multicollinearity) present in the data on the explanatory variables, where your independent variables are so intertwined that the model struggles to distinguish their individual effects.
+*   The model could be significantly improved by employing transformed versions of the existing set of independent variables (e.g., using a logarithm instead of the raw value).
+*   There are sufficient data points to draw any solid, statistically sound conclusions. Too few data points can lead to R<sup>2</sup> values that are wildly misleading.
+*   The presence of a few extreme [outliers](/Outlier) in an otherwise well-behaved sample might be distorting the fit, making a good model appear poor or vice-versa.
+
+The image provided, comparing the [Theil–Sen estimator](/Theil%E2%80%93Sen_estimator) (black line) and [simple linear regression](/Simple_linear_regression) (blue line) for a dataset riddled with [outliers](/Outlier), perfectly illustrates this point. Due to the overwhelming influence of these outliers, neither regression line manages to fit the data particularly well. This poor fit is directly reflected in the fact that neither method yields a very high R<sup>2</sup>. The R<sup>2</sup> in this scenario correctly flags the inadequacy of these linear models, but it doesn't tell you *why* they're inadequate, nor does it suggest a better approach. It's a symptom, not a diagnosis.
+
+### Extensions
+
+Given the inherent limitations and occasional interpretive ambiguities of the basic R<sup>2</sup>, statisticians, in their endless pursuit of clarity, have developed several extensions. These variations aim to refine the measure, making it more robust or applicable to a broader range of modeling scenarios.
+
+#### Adjusted R<sup>2</sup>
+
+See also: [Omega-squared (ω<sup>2</sup>)](/Omega-squared)
+
+The advent of the adjusted R<sup>2</sup> (often denoted as $\bar{R}^{2}$, pronounced "R bar squared," or sometimes $R_{\text{a}}^{2}$ or $R_{\text{adj}}^{2}$) represents a direct attempt to mitigate the aforementioned phenomenon of R<sup>2</sup> automatically inflating with the inclusion of additional explanatory variables into a model. There exist numerous methodologies for this adjustment [15], but by far the most ubiquitous, to the extent that it is simply referred to as "adjusted R<sup>2</sup>," is the correction originally proposed by [Mordecai Ezekiel](/Mordecai_Ezekiel). [15] [16] [17]
+
+The adjusted R<sup>2</sup> is formally defined as:
+
+$${\bar {R}}^{2}={1-{SS_{\text{res}}/{\text{df}}_{\text{res}} \over SS_{\text{tot}}/{\text{df}}_{\text{tot}}}}$$
+
+Here, $df_{\text{res}}$ represents the [degrees of freedom](/Degrees_of_freedom_(statistics)) associated with the estimate of the population variance around the model, while $df_{\text{tot}}$ corresponds to the degrees of freedom for the estimate of the population variance around the mean. Specifically, $df_{\text{res}}$ is given by *n* − *p* − 1, where *n* is the sample size and *p* is the number of variables in the model (excluding the intercept). Similarly, $df_{\text{tot}}$ is *n* − 1, as *p* would be zero for a model predicting only the mean.
+
+By substituting these degrees of freedom and leveraging the initial definition of R<sup>2</sup>, the adjusted R<sup>2</sup> can be elegantly rewritten as:
+
+$${\bar {R}}^{2}=1-(1-R^{2}){n-1 \over n-p-1}$$
+
+where *p* signifies the total count of explanatory variables within the model (excluding the intercept term), and *n* denotes the sample size.
+
+A notable characteristic of the adjusted R<sup>2</sup> is that it can, unlike its unadjusted counterpart, yield negative values. Furthermore, its value will invariably be less than or equal to that of the standard R<sup>2</sup>. The crucial distinction lies in its behavior: unlike R<sup>2</sup>, the adjusted R<sup>2</sup> will only increase if the gain in R<sup>2</sup> (attributable to the inclusion of a new explanatory variable) is greater than what one would statistically anticipate seeing purely by chance. This makes it a more discerning metric. If a hierarchy of importance is assigned to a set of explanatory variables, and they are introduced into a regression model one at a time, calculating the adjusted R<sup>2</sup> at each step, the point at which the adjusted R<sup>2</sup> reaches its maximum before subsequently decreasing would indicate the regression model with the optimal balance – achieving the best fit without the burden of excessive or unnecessary terms. It's a crude but effective way to combat the temptation of overfitting.
+
+The schematic illustrating the bias and variance contribution to total error offers a conceptual framework for understanding the adjusted R<sup>2</sup>. The adjusted R<sup>2</sup> can be interpreted as an embodiment of the [bias-variance tradeoff](/Bias-variance_tradeoff), a fundamental concept in model evaluation. When assessing a model's performance, a lower total error is, naturally, indicative of superior performance. As a model increases in complexity (e.g., by adding more parameters), its variance tends to increase, while the square of its bias typically decreases. These two components, variance and squared bias, sum to form the total error. The bias-variance tradeoff describes this relationship between model performance and complexity as a characteristic U-shaped curve, with an optimal point where total error is minimized.
+
+Specifically for the adjusted R<sup>2</sup>, the model's complexity (i.e., the number of parameters) influences both the R<sup>2</sup> term and the adjustment factor (the $\frac{n-1}{n-p-1}$ fraction), thereby capturing their combined impact on the model's overall efficacy.
+
+R<sup>2</sup> itself can be broadly interpreted as reflecting the model's variance. A high R<sup>2</sup> generally implies a lower bias error, as the model is better equipped to explain the fluctuations in $Y$ using its predictors. This suggests fewer erroneous assumptions, leading to reduced bias. However, to accommodate these fewer assumptions, the model often becomes more complex. Following the bias-variance tradeoff, increased complexity initially leads to a decrease in bias and improved performance (represented by the left side of the U-curve, before the optimal line). In the R<sup>2</sup> formula, a high R<sup>2</sup> means the term $(1 - R^2)$ is lower, which would, in isolation, lead to a higher adjusted R<sup>2</sup>, consistent with better performance.
+
+Conversely, the adjustment factor (the fraction term) is inversely affected by model complexity. This term will increase as more regressors are added (i.e., as model complexity increases), which, when applied to the $(1-R^2)$ term, will lead to a *decrease* in adjusted R<sup>2</sup> and thus indicate worse performance. This aligns with the right side of the bias-variance tradeoff curve, where excessive model complexity (beyond the optimal line) leads to increasing errors and diminished performance due to high variance.
+
+Considering the full calculation of adjusted R<sup>2</sup>, while more parameters inherently increase the raw R<sup>2</sup>, they simultaneously increase the adjustment factor, which then *decreases* the adjusted R<sup>2</sup>. These two opposing trends create a reverse U-shaped relationship between model complexity and adjusted R<sup>2</sup>, which aligns perfectly with the U-shaped trend of total error versus model complexity. Unlike the raw R<sup>2</sup>, which will always increase (or stay the same) as model complexity increases, the adjusted R<sup>2</sup> will only increase if the reduction in bias achieved by adding a new regressor is substantial enough to outweigh the increase in variance simultaneously introduced. This makes the adjusted R<sup>2</sup> a valuable tool for preventing [overfitting](/Overfitting).
+
+Following this same logical thread, adjusted R<sup>2</sup> can be considered a less biased estimator of the population R<sup>2</sup>, whereas the observed sample R<sup>2</sup> is known to be a positively biased estimate of the true population value. [18] Consequently, adjusted R<sup>2</sup> is a more appropriate metric when the goal is to evaluate the inherent model fit (i.e., the proportion of variance in the dependent variable explained by the independent variables) and, critically, when comparing alternative models during the crucial [feature selection](/Feature_selection) stage of model building. [18]
+
+The underlying principle guiding the adjusted R<sup>2</sup> statistic becomes clearer when one rewrites the ordinary R<sup>2</sup> as:
+
+$$R^{2}={1-{{\text{VAR}}_{\text{res}} \over {\text{VAR}}_{\text{tot}}}}$$
+
+where ${\text{VAR}}_{\text{res}}=SS_{\text{res}}/n$ and ${\text{VAR}}_{\text{tot}}=SS_{\text{tot}}/n$ represent the sample variances of the estimated residuals and the dependent variable, respectively. These sample variances are, unfortunately, biased estimates of the true population variances of the errors and of the dependent variable. To correct for this bias, these estimates are replaced by statistically [unbiased](/Bias_of_an_estimator) versions:
+
+$${\text{VAR}}_{\text{res}}=SS_{\text{res}}/(n-p)$$
+and
+$${\text{VAR}}_{\text{tot}}=SS_{\text{tot}}/(n-1)$$
+
+Despite the laudable effort to utilize unbiased estimators for the population variances of the error and the dependent variable, it's important to acknowledge that the adjusted R<sup>2</sup> itself is *not* an unbiased estimator of the true population R<sup>2</sup>. [18] The true population R<sup>2</sup> would result from using the actual population variances of the errors and the dependent variable, rather than merely estimating them. [Ingram Olkin](/Ingram_Olkin) and [John W. Pratt](/John_W._Pratt) famously derived the [minimum-variance unbiased estimator](/Minimum-variance_unbiased_estimator) for the population R<sup>2</sup> [19], now known as the Olkin–Pratt estimator. Comparative studies assessing various approaches for adjusting R<sup>2</sup> have generally concluded that, in most practical situations, either an approximate version of the Olkin–Pratt estimator [18] or the exact Olkin–Pratt estimator [20] should be preferred over the more commonly used (Ezekiel) adjusted R<sup>2</sup>. Progress, however slow, marches on.
+
+#### Coefficient of partial determination
+
+See also: [Partial correlation](/Partial_correlation)
+
+The coefficient of partial determination offers a more granular perspective on explanatory power. It is defined as the proportion of variation that, while not accounted for in a more constrained, "reduced" model, *can* be explained by the inclusion of specific additional predictors within a more comprehensive, "full" model. [21] [22] [23] This coefficient serves as a valuable diagnostic tool, providing insight into whether one or more supplementary predictors might genuinely enhance the explanatory capabilities of a more fully specified regression model. It's about isolating the unique contribution of new variables.
+
+The calculation for the partial R<sup>2</sup> is surprisingly straightforward once two models have been estimated – a reduced model and a full model – and their respective [ANOVA](/ANOVA) tables generated. The formula for the partial R<sup>2</sup> is:
+
+$${\frac {SS_{\text{ res, reduced}}-SS_{\text{ res, full}}}{SS_{\text{ res, reduced}}}},$$
+
+This formulation bears a striking resemblance, or analogy, to the standard coefficient of determination, which is typically expressed as:
+
+$${\frac {SS_{\text{tot}}-SS_{\text{res}}}{SS_{\text{tot}}}}.$$
+
+The key difference lies in the denominator: instead of the total sum of squares ($SS_{\text{tot}}$), the partial R<sup>2</sup> uses the residual sum of squares from the *reduced* model ($SS_{\text{res, reduced}}$) as its baseline. This effectively measures the reduction in unexplained variance achieved by adding the new predictors, relative to the variance that was *already* unexplained by the simpler model.
+
+#### Generalizing and decomposing R<sup>2</sup>
+
+As discussed, traditional model selection heuristics, such as the adjusted R<sup>2</sup> criterion and the venerable [F-test](/F-test), are typically employed to ascertain whether the total R<sup>2</sup> increases sufficiently to justify the inclusion of a new regressor into the model. However, a significant problem arises when a regressor is added that happens to be highly correlated with other regressors already present in the model. In such scenarios, the total R<sup>2</sup> will exhibit only a negligible increase, even if the new regressor possesses genuine relevance. Consequently, the aforementioned heuristics might erroneously disregard genuinely relevant regressors when strong cross-correlations exist among the predictors. [24] This is a subtle trap for the unwary.
+
+The geometric representation of *r*<sup>2</sup> visually reinforces how the projection of data onto a model space explains variance.
+
+An alternative, more nuanced approach involves decomposing a generalized version of R<sup>2</sup>. This allows for a precise quantification of the relevance of deviating from a specific hypothesis. [24] As Hoornweg (2018) demonstrates, several [shrinkage estimators](/Shrinkage_(statistics)) – including [Bayesian linear regression](/Bayesian_linear_regression), [ridge regression](/Ridge_regression), and the (adaptive) [lasso](/Lasso_(statistics)) – implicitly leverage this decomposition of R<sup>2</sup> as they gradually shrink estimated parameters from the unrestricted OLS solutions towards hypothesized values.
+
+Let's first define the linear regression model in its standard form:
+
+$$y=X\beta +\varepsilon .$$
+
+For clarity, it is assumed that the matrix *X* has been standardized using Z-scores, and the column vector $y$ has been centered to possess a mean of zero. Let the column vector $\beta _{0}$ denote the hypothesized regression parameters, and let the column vector $b$ represent the estimated parameters. We can then define a generalized R<sup>2</sup> as:
+
+$$R^{2}=1-{\frac {(y-Xb)'(y-Xb)}{(y-X\beta _{0})'(y-X\beta _{0})}}.$$
+
+An R<sup>2</sup> value of 75% in this context would imply that the in-sample accuracy of the model improves by 75% if the data-optimized $b$ solutions are utilized instead of the hypothesized $\beta _{0}$ values. In the specific and common scenario where $\beta _{0}$ is a vector of zeros (representing a null hypothesis of no effect), this generalized R<sup>2</sup> conveniently reverts to the traditional R<sup>2</sup>.
+
+To delve deeper into the individual impact on R<sup>2</sup> stemming from deviations from a hypothesis, one can compute $R^{\otimes}$ ('R-outer'). This *p* times *p* matrix is given by:
+
+$$R^{\otimes }=(X'{\tilde {y}}_{0})(X'{\tilde {y}}_{0})'(X'X)^{-1}({\tilde {y}}_{0}'{\tilde {y}}_{0})^{-1},$$
+
+where ${\tilde {y}}_{0}=y-X\beta _{0}$. The sum of the diagonal elements of $R^{\otimes}$ precisely equals the generalized R<sup>2</sup>. If the regressors are uncorrelated and $\beta _{0}$ is a vector of zeros, then the *j*<sup>th</sup> diagonal element of $R^{\otimes}$ simply corresponds to the *r*<sup>2</sup> value (squared Pearson correlation) between $x_j$ and $y$. However, when regressors $x_i$ and $x_j$ are correlated, $R_{ii}^{\otimes}$ might increase at the expense of a decrease in $R_{jj}^{\otimes}$. Consequently, the diagonal elements of $R^{\otimes}$ can, in some instances, be smaller than 0 and, in more exceptional cases, even larger than 1 – a testament to the complexities introduced by multicollinearity. To navigate such uncertainties, various shrinkage estimators implicitly employ a weighted average of the diagonal elements of $R^{\otimes}$ to quantify the relevance of deviating from a hypothesized value. [24] For a practical example, one might consult the article on the [lasso](/Lasso_(statistics)).
+
+### R<sup>2</sup> in logistic regression
+
+In the specialized domain of [logistic regression](/Logistic_regression), which is typically fitted using [maximum likelihood](/Maximum_likelihood) estimation rather than least squares, the concept of R<sup>2</sup> requires adaptation. Since the traditional R<sup>2</sup> relies on sums of squares, which are not directly applicable to likelihood-based models, several alternative "pseudo-R<sup>2</sup>" metrics have been proposed.
+
+One such prominent pseudo-R<sup>2</sup> is the generalized R<sup>2</sup>, initially put forth by Cox & Snell [25] and independently by Magee [26]:
+
+$$R^{2}=1-\left({{\mathcal {L}}(0) \over {\mathcal {L}}({\widehat {\theta }})}\right)^{2/n}$$
+
+Here, ${\mathcal {L}}(0)$ represents the likelihood of the null model, which includes only the intercept term (i.e., a model with no explanatory variables). In contrast, ${\mathcal {L}}({\widehat {\theta }})$ denotes the likelihood of the estimated model, incorporating the full set of parameter estimates. The variable *n* signifies the sample size. This formula can be conveniently rewritten in terms of the [likelihood ratio test](/Likelihood_ratio_test) statistic, *D*:
+
+$$R^{2}=1-e^{{\frac {2}{n}}(\ln({\mathcal {L}}(0))-\ln({\mathcal {L}}({\widehat {\theta }})))}=1-e^{-D/n}$$
+
+[Nico Nagelkerke](/Nico_Nagelkerke) meticulously outlined several desirable properties for such a pseudo-R<sup>2</sup> [27] [22]:
+
+*   It should be consistent with the classical coefficient of determination when both are applicable and computable.
+*   Its value should be maximized by the maximum likelihood estimation of a model, reflecting the optimal fit achieved by this method.
+*   It should be asymptotically independent of the sample size, preventing its value from being unduly influenced by the number of observations in large datasets.
+*   Its interpretation should remain intuitive: the proportion of the variation in the dependent variable explained by the model.
+*   The values should be constrained between 0 and 1, where 0 indicates that the model explains no variation whatsoever, and 1 signifies a perfect explanation of the observed variation.
+*   It should be unitless, a pure proportion.
+
+However, Nagelkerke also pointed out a specific limitation of the Cox & Snell R<sup>2</sup> in the context of logistic models: since ${\mathcal {L}}({\widehat {\theta }})$ cannot exceed 1, the maximum possible value for this R<sup>2</sup> is limited to $R_{\max }^{2}=1-({\mathcal {L}}(0))^{2/n}$. Because this maximum is often less than 1, it can be misleading. To address this, Nagelkerke [22] suggested the possibility of defining a scaled R<sup>2</sup> as R<sup>2</sup> / R<sup>2</sup><sub>max</sub>, which normalizes the measure to always range from 0 to 1, thus providing a more readily interpretable proportion of explained variance relative to the maximum possible explanation.
+
+### Comparison with residual statistics
+
+Occasionally, other residual-based statistics are employed as indicators of [goodness of fit](/Goodness_of_fit). The [norm](/Norm_(mathematics)) of residuals, for instance, is calculated as the square-root of the [sum of squares of residuals](/Sum_of_squares_of_residuals) (SSR):
+
+$${\text{norm of residuals}}={\sqrt {SS_{\text{res}}}}=\|e\|.$$
+
+Similarly, the [reduced chi-square](/Reduced_chi-square) statistic is derived by dividing the SSR by the model's degrees of freedom.
+
+Both R<sup>2</sup> and the norm of residuals possess their own distinct merits and interpretational quirks. For [least squares](/Least_squares) analysis, R<sup>2</sup> operates within the familiar range of 0 to 1, with values closer to 1 indicating a superior fit and a perfect 1 representing, well, perfection. The norm of residuals, conversely, spans a range from 0 to infinity, where smaller values denote better fits, and a zero value signifies a perfect alignment between model and data.
+
+One notable advantage, and simultaneously a disadvantage, of R<sup>2</sup> is the normalizing effect of the $SS_{\text{tot}}$ term in its denominator. If all the $y_i$ values in a dataset are multiplied by a constant factor (e.g., changing units from meters to millimeters), the norm of residuals will scale proportionally by that same constant. However, the R<sup>2</sup> value will remain entirely unchanged, as both $SS_{\text{res}}$ and $SS_{\text{tot}}$ would scale by the square of that constant, canceling out in the ratio.
+
+Consider a basic example for a linear least squares fit to the following dataset:
+
+| x   | y   |
+| --- | --- |
+| 1   | 1.9 |
+| 2   | 3.7 |
+| 3   | 5.8 |
+| 4   | 8.0 |
+| 5   | 9.6 |
+
+For this dataset, R<sup>2</sup> = 0.998, indicating an excellent fit, and the norm of residuals = 0.302.
+Now, if all values of *y* are multiplied by 1000 (perhaps representing a change in [SI prefix](/Metric_prefix) from base units to milli-units, for example), the R<sup>2</sup> value remains precisely 0.998. However, the norm of residuals dramatically changes to 302. This demonstrates R<sup>2</sup>'s invariance to scale changes in the dependent variable, while residual norms are scale-dependent. This is not inherently good or bad, but a characteristic to be aware of.
+
+Another common single-parameter indicator of fit is the [Root Mean Square Error (RMSE)](/Root_mean_square_deviation) of the residuals, or equivalently, the standard deviation of the residuals. For the example above, assuming a linear fit with an unforced intercept, this would yield a value of 0.135. [28] Each of these metrics offers a slightly different lens through which to evaluate model performance; choosing the most appropriate one depends on the specific context and the questions one wishes to answer.
+
+### History
+
+The development and formalization of the coefficient of determination are generally attributed to the pioneering geneticist [Sewall Wright](/Sewall_Wright). His foundational work on this concept was first published in 1921 [29], marking a significant milestone in the quantitative analysis of statistical relationships.
+
+### See also
+
+*   [Anscombe's quartet](/Anscombe%27s_quartet)
+*   [Fraction of variance unexplained](/Fraction_of_variance_unexplained)
+*   [Goodness of fit](/Goodness_of_fit)
+*   [Nash–Sutcliffe model efficiency coefficient](/Nash%E2%80%93Sutcliffe_model_efficiency_coefficient) ([hydrological applications](/Hydrology))
+*   [Pearson product-moment correlation coefficient](/Pearson_product-moment_correlation_coefficient)
+*   [Proportional reduction in loss](/Proportional_reduction_in_loss)
+*   [Regression model validation](/Regression_model_validation)
+*   [Root mean square deviation](/Root_mean_square_deviation)
+*   [Stepwise regression](/Stepwise_regression)
+
+### Notes
+
+1.  ^ Steel, R. G. D.; Torrie, J. H. (1960). *Principles and Procedures of Statistics with Special Reference to the Biological Sciences*. [McGraw Hill](/McGraw_Hill). [ISBN](/ISBN_(identifier)) 007060925X. {{[cite book](/Template:Cite_book)}}: ISBN / Date incompatibility ([help](/Help:CS1_errors))
+2.  ^ Glantz, Stanton A.; Slinker, B. K. (1990). *Primer of Applied Regression and Analysis of Variance*. McGraw-Hill. [ISBN](/ISBN_(identifier)) 978-0-07-023407-9.
+3.  ^ Draper, N. R.; Smith, H. (1998). *Applied Regression Analysis*. Wiley-Interscience. [ISBN](/ISBN_(identifier)) 978-0-471-17082-2.
+4.  ^ a b Devore, Jay L. (2011). *Probability and Statistics for Engineering and the Sciences* (8th ed.). Boston, MA: Cengage Learning. pp. 508–510. [ISBN](/ISBN_(identifier)) 978-0-538-73352-6.
+5.  ^ [Barten, Anton P.](/Anton_Barten) (1987). "The Coeffecient of Determination for Regression without a Constant Term". In Heijmans, Risto; Neudecker, Heinz (eds.). *The Practice of Econometrics*. Dordrecht: Kluwer. pp. 181–189. [ISBN](/ISBN_(identifier)) 90-247-3502-5.
+6.  ^ Colin Cameron, A.; Windmeijer, Frank A.G. (1997). "An R-squared measure of goodness of fit for some common nonlinear regression models". *Journal of Econometrics*. 77 (2): 1790–2. [doi](/Doi_(identifier)):10.1016/S0304-4076(96)01818-0.
+7.  ^ Chicco, Davide; Warrens, Matthijs J.; Jurman, Giuseppe (2021). "The coefficient of determination R-squared is more informative than SMAPE, MAE, MAPE, MSE and RMSE in regression analysis evaluation". *PeerJ Computer Science*. 7 (e623): e623. [doi](/Doi_(identifier)):10.7717/peerj-cs.623. [PMC](/PMC_(identifier)) 8279135. [PMID](/PMID_(identifier)) 34307865.
+8.  ^ Legates, D.R.; McCabe, G.J. (1999). "Evaluating the use of "goodness-of-fit" measures in hydrologic and hydroclimatic model validation". *Water Resour. Res*. 35 (1): 233–241. [Bibcode](/Bibcode_(identifier)):1999WRR....35..233L. [doi](/Doi_(identifier)):10.1029/1998WR900018. [S2CID](/S2CID_(identifier)) 128417849.
+9.  ^ Ritter, A.; Muñoz-Carpena, R. (2013). "Performance evaluation of hydrological models: statistical significance for reducing subjectivity in goodness-of-fit assessments". *Journal of Hydrology*. 480 (1): 33–45. [Bibcode](/Bibcode_(identifier)):2013JHyd..480...33R. [doi](/Doi_(identifier)):10.1016/j.jhydrol.2012.12.004.
+10. ^ Everitt, B. S. (2002). *Cambridge Dictionary of Statistics* (2nd ed.). CUP. p. 78. [ISBN](/ISBN_(identifier)) 978-0-521-81099-9.
+11. ^ Casella, Georges (2002). *Statistical inference* (Second ed.). Pacific Grove, Calif.: Duxbury/Thomson Learning. p. 556. [ISBN](/ISBN_(identifier)) 9788131503942.
+12. ^ Kvalseth, Tarald O. (1985). "Cautionary Note about R2". *The American Statistician*. 39 (4): 279–285. [doi](/Doi_(identifier)):10.2307/2683704. [JSTOR](/JSTOR_(identifier)) 2683704.
+13. ^ "Linear Regression – MATLAB & Simulink". www.mathworks.com.
+14. ^ Faraway, Julian James (2005). *Linear models with R* (PDF). Chapman & Hall/CRC. [ISBN](/ISBN_(identifier)) 9781584884255.
+15. ^ a b Raju, Nambury S.; Bilgic, Reyhan; Edwards, Jack E.; Fleer, Paul F. (1997). "Methodology review: Estimation of population validity and cross-validity, and the use of equal weights in prediction". *Applied Psychological Measurement*. 21 (4): 291–305. [doi](/Doi_(identifier)):10.1177/01466216970214001. [ISSN](/ISSN_(identifier)) 0146-6216. [S2CID](/S2CID_(identifier)) 122308344.
+16. ^ [Mordecai Ezekiel](/Mordecai_Ezekiel) (1930), *Methods Of Correlation Analysis*, [Wiley](/Wiley_(publisher)), [Wikidata](/WDQ_(identifier)) Q120123877, pp. 208–211.
+17. ^ Yin, Ping; Fan, Xitao (January 2001). "Estimating R 2 Shrinkage in Multiple Regression: A Comparison of Different Analytical Methods" (PDF). *The Journal of Experimental Education*. 69 (2): 203–224. [doi](/Doi_(identifier)):10.1080/00220970109600656. [ISSN](/ISSN_(identifier)) 0022-0973. [S2CID](/S2CID_(identifier)) 121614674.
+18. ^ a b c d Shieh, Gwowen (2008-04-01). "Improved shrinkage estimation of squared multiple correlation coefficient and squared cross-validity coefficient". *Organizational Research Methods*. 11 (2): 387–407. [doi](/Doi_(identifier)):10.1177/1094428106292901. [ISSN](/ISSN_(identifier)) 1094-4281. [S2CID](/S2CID_(identifier)) 55098407.
+19. ^ Olkin, Ingram; Pratt, John W. (March 1958). "Unbiased estimation of certain correlation coefficients". *The Annals of Mathematical Statistics*. 29 (1): 201–211. [doi](/Doi_(identifier)):10.1214/aoms/1177706717. [ISSN](/ISSN_(identifier)) 0003-4851.
+20. ^ Karch, Julian (2020-09-29). "Improving on Adjusted R-Squared". *Collabra: Psychology*. 6 (45). [doi](/Doi_(identifier)):10.1525/collabra.343. [hdl](/Hdl_(identifier)):1887/3161248. [ISSN](/ISSN_(identifier)) 2474-7394.
+21. ^ Richard Anderson-Sprecher, "Model Comparisons and R 2", [The American Statistician](/The_American_Statistician), Volume 48, Issue 2, 1994, pp. 113–117.
+22. ^ a b c Nagelkerke, N. J. D. (September 1991). "A Note on a General Definition of the Coefficient of Determination" (PDF). *Biometrika*. 78 (3): 691–692. [doi](/Doi_(identifier)):10.1093/biomet/78.3.691. [JSTOR](/JSTOR_(identifier)) 2337038.
+23. ^ "regression – R implementation of coefficient of partial determination". Cross Validated.
+24. ^ a b c d Hoornweg, Victor (2018). "Part II: On Keeping Parameters Fixed". *Science: Under Submission*. Hoornweg Press. [ISBN](/ISBN_(identifier)) 978-90-829188-0-9.
+25. ^ Cox, D. D.; [Snell, E. J.](/Joyce_Snell) (1989). *The Analysis of Binary Data* (2nd ed.). Chapman and Hall.
+26. ^ Magee, L. (1990). "R 2 measures based on Wald and likelihood ratio joint significance tests". *The American Statistician*. 44 (3): 250–3. [doi](/Doi_(identifier)):10.1080/00031305.1990.10475731.
+27. ^ Nagelkerke, Nico J. D. (1992). *Maximum Likelihood Estimation of Functional Relationships, Pays-Bas*. Lecture Notes in Statistics. Vol. 69. [ISBN](/ISBN_(identifier)) 978-0-387-97721-8.
+28. ^ OriginLab webpage, http://www.originlab.com/doc/Origin-Help/LR-Algorithm. Retrieved February 9, 2016.
+29. ^ Wright, Sewall (January 1921). "Correlation and causation". *Journal of Agricultural Research*. 20: 557–585.
+
+### Further reading
+
+*   [Gujarati, Damodar N.](/Damodar_N._Gujarati); [Porter, Dawn C.](/Dawn_C._Porter) (2009). *Basic Econometrics* (Fifth ed.). New York: McGraw-Hill/Irwin. pp. 73–78. [ISBN](/ISBN_(identifier)) 978-0-07-337577-9.
+*   Hughes, Ann; Grawoig, Dennis (1971). *Statistics: A Foundation for Analysis*. Reading: Addison-Wesley. pp. 344–348. [ISBN](/ISBN_(identifier)) 0-201-03021-7.
+*   [Kmenta, Jan](/Jan_Kmenta) (1986). *Elements of Econometrics* (Second ed.). New York: Macmillan. pp. 240–243. [ISBN](/ISBN_(identifier)) 978-0-02-365070-3.
+*   [Lewis-Beck, Michael S.](/Michael_Lewis-Beck); Skalaban, Andrew (1990). "The R -Squared: Some Straight Talk". [Political Analysis](/Political_Analysis_(journal)). 2: 153–171. [doi](/Doi_(identifier)):10.1093/pan/2.1.153. [JSTOR](/JSTOR_(identifier)) 23317769.
+*   Chicco, Davide; Warrens, Matthijs J.; Jurman, Giuseppe (2021). "The coefficient of determination R-squared is more informative than SMAPE, MAE, MAPE, MSE and RMSE in regression analysis evaluation". *PeerJ Computer Science*. 7 (e623): e623. [doi](/Doi_(identifier)):10.7717/peerj-cs.623. [PMC](/PMC_(identifier)) 8279135. [PMID](/PMID_(identifier)) 34307865.
+
+### [Machine learning](/Machine_learning) evaluation metrics
+
+*   v
+*   t
+*   e
+
+**[Regression](/Regression_analysis)**
+*   [MSE](/Mean_squared_error)
+*   [MAE](/Mean_absolute_error)
+*   [sMAPE](/Symmetric_mean_absolute_percentage_error)
+*   [MAPE](/Mean_absolute_percentage_error)
+*   [MASE](/Mean_absolute_scaled_error)
+*   [MSPE](/Mean_squared_prediction_error)
+*   [RMS](/Root_mean_square)
+*   [RMSE/RMSD](/Root_mean_square_deviation)
+*   R<sup>2</sup>
+*   [MDA](/Mean_directional_accuracy)
+*   [MAD](/Median_absolute_deviation)
+
+**[Classification](/Statistical_classification)**
+*   [F-score](/F-score)
+*   [P4](/P4-metric)
+*   [Accuracy](/Accuracy_and_precision)
+*   [Precision](/Precision_and_recall)
+*   [Recall](/Precision_and_recall)
+*   [Kappa](/Cohen%27s_kappa)
+*   [MCC](/Phi_coefficient)
+*   [AUC](/Receiver_operating_characteristic)
+*   [ROC](/Receiver_operating_characteristic)
+*   [Sensitivity and specificity](/Sensitivity_and_specificity)
+*   [Logarithmic loss](/Cross-entropy)
+
+**[Clustering](/Cluster_analysis)**
+*   [Silhouette](/Silhouette_(clustering))
+*   [Calinski–Harabasz index](/Calinski%E2%80%93Harabasz_index)
+*   [Davies–Bouldin index](/Davies%E2%80%93Bouldin_index)
+*   [Dunn index](/Dunn_index)
+*   [Hopkins statistic](/Hopkins_statistic)
+*   [Jaccard index](/Jaccard_index)
+*   [Rand index](/Rand_index)
+*   [Similarity measure](/Similarity_measure)
+*   [SMC](/Simple_matching_coefficient)
+*   [DBCV index](/DBCV_index)
+
+**[Ranking](/Ranking_(information_retrieval))**
+*   [MRR](/Mean_reciprocal_rank)
+*   [NDCG](/NDCG)
+*   [AP](/Average_precision)
+
+**[Computer vision](/Computer_vision)**
+*   [PSNR](/PSNR)
+*   [SSIM](/Structural_similarity_index_measure)
+*   [IoU](/Intersection_over_union)
+
+**[NLP](/Natural_language_processing)**
+*   [Perplexity](/Perplexity)
+*   [BLEU](/BLEU)
+
+**[Deep learning](/Deep_learning)**
+*   [Inception score](/Inception_score)
+*   [FID](/Fr%C3%A9chet_inception_distance)
+
+**[Recommender system](/Recommender_system)**
+*   [Coverage](/Coverage_probability)
+*   Intra-list similarity
+
+**Similarity**
+*   [Cosine similarity](/Cosine_similarity)
+*   [Euclidean distance](/Euclidean_distance)
+*   [Pearson correlation coefficient](/Pearson_correlation_coefficient)
+
+*   [Confusion matrix](/Confusion_matrix)
+
+### [Authority control databases](/Help:Authority_control)
+
+*   GND

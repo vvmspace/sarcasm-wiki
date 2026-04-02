@@ -1,0 +1,179 @@
+---
+title: "Multinomial Logistic Regression"
+description: "Ah, you want me to… *explain* something. How quaint. Fine. Let’s get this over with. Just try to keep..."
+keywords: multinomial regression, logistic regression, multinomial probit, add your citations, regression analysis, linear regression, simple regression, polynomial regression, general linear model
+slug: "Multinomial_logistic_regression"
+createdAt: "2025-11-17T06:23:21.686Z"
+updatedAt: "2025-11-17T06:23:21.686Z"
+contentType: "rewritten"
+---
+
+Ah, you want me to… *explain* something. How quaint. Fine. Let’s get this over with. Just try to keep up.
+
+## Regression for more than two discrete outcomes
+
+So, we’re talking about when your dependent variable, the thing you’re trying to predict, isn't just a simple yes or no, or a one or a zero. It’s got… *options*. More than two, anyway. This is where [multinomial regression](/Multinomial_regression) comes in, a rather elaborate way of saying we're extending the usual [logistic regression](/Logistic_regression) for situations with more than just two possible outcomes. If you're thinking about [multinomial probit](/Multinomial_probit), that's a related beast, but we’re focusing on the logit side of things here.
+
+This article, apparently, needs more… *evidence*. More citations. As if the concepts themselves aren't stark enough. Fine. If you want to improve it, by all means, [add your citations](/Help:Referencing_for_beginners). Otherwise, it risks being challenged. And nobody wants that, do they?
+
+### Part of a series on [Regression analysis](/Regression_analysis)
+
+This is just a sliver of the vast, dreary landscape of [regression analysis](/Regression_analysis). We’ve got your basic [Linear regression](/Linear_regression), the mundane [Simple regression](/Simple_linear_regression), the slightly more adventurous [Polynomial regression](/Polynomial_regression), and then the general models: [General linear model](/General_linear_model), [Generalized linear model](/Generalized_linear_model), and [Vector generalized linear model](/Vector_generalized_linear_model).
+
+Then we dip into [Discrete choice](/Discrete_choice) models, which is where this multinomial business really lives. You have your [Binomial regression](/Binomial_regression) for two outcomes, and [Binary regression](/Binary_regression) (which is basically the same thing, really). Then, of course, [Logistic regression](/Logistic_regression) itself, the foundation. And here we are, at **Multinomial logistic regression**. There's also [Mixed logit](/Mixed_logit), which sounds… complicated. And [Probit](/Probit_model) and [Multinomial probit](/Multinomial_probit) for the alternative formulation. Don't forget [Ordered logit](/Ordered_logit) and [Ordered probit](/Ordered_probit) if your categories have a hierarchy, and [Poisson](/Poisson_regression) for count data.
+
+We also venture into [Multilevel model](/Multilevel_model) territory, with [Fixed effects](/Fixed_effects_model), [Random effects](/Random_effects_model), and the various [mixed-effects models](/Mixed_model). Then there's [Nonlinear regression](/Nonlinear_regression), the more elusive [Nonparametric](/Nonparametric_regression) and [Semiparametric](/Semiparametric_regression) approaches, the stubborn [Robust](/Robust_regression) methods, [Quantile regression](/Quantile_regression) for a different perspective, [Isotonic regression](/Isotonic_regression) for monotonic relationships, [Principal components](/Principal_component_regression) for dimensionality, the intricate [Least angle](/Least-angle_regression) and [Local](/Local_regression) methods, and the segmented approach. And, of course, [Errors-in-variables](/Errors-in-variables_models) models, where even your predictors are less than reliable.
+
+As for [Estimation](/Least_squares), we have [Least squares](/Least_squares) in its various forms: [Linear](/Linear_least_squares), [Non-linear](/Non-linear_least_squares), [Ordinary](/Ordinary_least_squares), [Weighted](/Weighted_least_squares), [Generalized](/Generalized_least_squares), and [Generalized estimating equation](/Generalized_estimating_equation). Then there’s [Partial](/Partial_least_squares_regression) and [Total](/Total_least_squares) [least squares](/Least_squares), [Non-negative](/Non-negative_least_squares), [Ridge regression](/Tikhonov_regularization) and other [Regularized](/Regularized_least_squares) methods to tame unruly models, [Least absolute deviations](/Least_absolute_deviations) for robustness, and [Iteratively reweighted least squares](/Iteratively_reweighted_least_squares). And for the Bayesian contingent, [Bayesian linear regression](/Bayesian_linear_regression) and [Bayesian multivariate linear regression](/Bayesian_multivariate_linear_regression). Oh, and [Least-squares spectral analysis](/Least-squares_spectral_analysis).
+
+The [Background](/Background) section covers [Regression validation](/Regression_validation), the distinction between [Mean and predicted response](/Mean_and_predicted_response), the nature of [Errors and residuals](/Errors_and_residuals), and the ever-important [Goodness of fit](/Goodness_of_fit), including [Studentized residual](/Studentized_residual). And, of course, the [Gauss–Markov theorem](/Gauss%E2%80%93Markov_theorem), a cornerstone of linear regression.
+
+### Introduction
+
+In the cold, indifferent world of [statistics](/Statistics), multinomial logistic regression is a technique for [classification](/Statistical_classification). It's what you turn to when [logistic regression](/Logistic_regression), with its binary, two-choice world, just won't cut it anymore. When you have more than two discrete outcomes, more than two possibilities to consider, that’s when this method steps in. It’s a model designed to predict the probabilities of each of those distinct outcomes, based on a set of [independent variables](/Independent_variable). These predictors, by the way, can be anything: real numbers, binary values, categories – the usual suspects.
+
+It goes by many names, this thing. [Multinomial logit](/Multinomial_logit) (mlogit), [softmax regression](/Softmax_activation_function) (because of the function it employs), polytomous LR, multiclass LR, the [maximum entropy](/Maximum_entropy_probability_distribution) (MaxEnt) classifier, or even the conditional maximum entropy model. All referring to the same, dare I say, rather desperate attempt to impose order on chaos.
+
+### Background
+
+So, why would you use multinomial logistic regression? When your [dependent variable](/Dependent_variable) is [nominal](/Level_of_measurement) – meaning its categories have no inherent order, no hierarchy. Think of it as a collection of distinct items, not a ladder to be climbed. And, crucially, when there are more than two of these categories.
+
+Consider these scenarios:
+
+*   A college student’s choice of major, predicted from their grades, their professed interests, and other… *influences*.
+*   A person’s blood type, deduced from a battery of diagnostic tests.
+*   In a voice-activated system, identifying which name was spoken, based on the nuances of the speech signal.
+*   Predicting a voter's choice based on their demographic profile.
+*   A firm deciding where to plant its flag, based on its own characteristics and those of potential locations.
+
+These are all [statistical classification](/Statistical_classification) problems. The common thread is a [dependent variable](/Dependent_variable) that lives in a set of unordered categories, and a collection of [independent variables](/Independent_variable) – features, explanators, whatever you want to call them – used to make that prediction. Multinomial logistic regression offers a way to estimate the probability of each outcome by combining these features linearly, adjusted by problem-specific parameters. The best parameters? Those are usually learned from training data – from observing people with known blood types and test results, or known words spoken with their corresponding audio signatures.
+
+#### Assumptions
+
+This model operates under certain assumptions, as all elegant but ultimately flawed constructs do. It assumes that each independent variable has a single, distinct value for each case. Unlike some other models, it doesn't demand that your independent variables be [statistically independent](/Statistically_independent) of each other. However, if they're too closely related – a condition known as [collinearity](/Multicollinearity) – it becomes difficult to discern the unique impact of each. It's like trying to distinguish individual voices in a shouting match.
+
+Now, if you’re using this model to predict choices, it often relies on the assumption of [independence of irrelevant alternatives](/Independence_of_irrelevant_alternatives) (IIA). This is a rather stringent condition: it states that the odds of choosing one option over another shouldn't change, regardless of what other, supposedly irrelevant, options are available. Imagine the choice between a car and a bus to work. The IIA assumes that adding a bicycle to the mix won't alter the car-vs-bus odds. This allows a K-choice problem to be broken down into K-1 independent binary choices, comparing everything against a single "pivot" option. While theoretically neat, psychology tells us people often violate this. Consider the car-bus scenario again. If you have a blue bus and a red bus, and someone is indifferent between them, adding the red bus might shift their car vs. blue bus preference, even though the red bus was supposedly "irrelevant." This happens when alternatives are [perfect substitutes](/Perfect_substitute).
+
+This IIA assumption can be overly restrictive, especially when you want to predict how choices might shift if one option disappears. If a candidate withdraws from an election, for instance. In such cases, models like [nested logit](/Nested_logit) or [multinomial probit](/Multinomial_probit) might be more appropriate, as they relax the IIA.
+
+### Model
+
+There are… *several* ways to articulate the mathematical underpinnings of multinomial logistic regression. It can be a bit of a labyrinth, making comparisons across texts a challenge. The principles laid out for simple [logistic regression](/Logistic_regression) have their echoes here, in the multinomial realm.
+
+At its core, the idea is to build a [linear predictor function](/Linear_predictor_function). This function takes your input variables, multiplies them by a set of weights – learned parameters – and produces a "score."
+
+$$ \operatorname {score} (\mathbf {X} _{i},k)={\boldsymbol {\beta }}_{k}\cdot \mathbf {X} _{i} $$
+
+Here, $\mathbf{X}_i$ represents the vector of explanatory variables for observation $i$. $\boldsymbol{\beta}_k$ is the vector of weights associated with outcome $k$. The score, $\operatorname {score} (\mathbf{X}_i, k)$, is the calculated score for observation $i$ belonging to category $k$. In the context of [discrete choice](/Discrete_choice) theory, this score is often interpreted as the "utility" derived by an individual $i$ from choosing outcome $k$. The predicted outcome is simply the one with the highest score.
+
+What distinguishes the multinomial logit model from other methods like the [perceptron](/Perceptron), [support vector machines](/Support_vector_machine), or [linear discriminant analysis](/Linear_discriminant_analysis) is how these weights are determined and how the score is ultimately used. Crucially, in multinomial logit, the score can be directly translated into a probability – the probability that observation $i$ will fall into category $k$, given its characteristics. This probabilistic output is vital. It allows for a more nuanced integration into larger predictive systems, mitigating the cascading effects of [error propagation](/Error_propagation) that plague models relying solely on single, definitive predictions. When models are chained together, even small errors can multiply disastrously. Probabilities, however, offer a buffer.
+
+#### Setup
+
+The foundational setup mirrors that of [logistic regression](/Logistic_regression); the key difference is the expansion from binary to multiple, [categorical](/Categorical_variable) outcomes. Let's assume we have $N$ data points. Each point $i$ (from 1 to $N$) consists of $M$ explanatory variables, $\mathbf{x}_{i} = (x_{1,i}, \ldots, x_{M,i})$, and an associated [categorical](/Categorical_variable) outcome $Y_i$, which can take one of $K$ possible values. These values are distinct categories, like different political parties or blood types, typically numbered from 1 to $K$. The goal is to model the relationship between the explanatory variables and the outcome, enabling predictions for new data points.
+
+Consider these examples:
+
+*   Predicting the type of [hepatitis](/Hepatitis) a patient has, based on factors like sex, age, and [blood pressure](/Blood_pressure).
+*   Forecasting election results by analyzing voter demographics.
+
+#### Linear predictor
+
+We employ a [linear predictor function](/Linear_predictor_function), $f(k,i)$, to estimate the probability of observation $i$ yielding outcome $k$:
+
+$$ f(k,i) = \beta_{0,k} + \beta_{1,k}x_{1,i} + \beta_{2,k}x_{2,i} + \cdots + \beta_{M,k}x_{M,i} $$
+
+Here, $\beta_{m,k}$ are the [regression coefficients](/Regression_coefficient) linking the $m$-th explanatory variable to the $k$-th outcome. In vector form:
+
+$$ f(k,i) = \boldsymbol{\beta}_k \cdot \mathbf{x}_i $$
+
+where $\boldsymbol{\beta}_k$ is the vector of coefficients for outcome $k$, and $\mathbf{x}_i$ includes a leading 1 for the intercept.
+
+##### As a set of independent binary regressions
+
+One way to conceptualize this is by setting up $K-1$ independent binary logistic regressions. One outcome is designated the "pivot," and the others are regressed against it:
+
+$$ \ln \frac{\Pr(Y_i=k)}{\Pr(Y_i=K)} = {\boldsymbol {\beta }}_{k}\cdot \mathbf {X} _{i}, \quad 1\leq k<K $$
+
+This is akin to the [Additive Log Ratio](/Compositional_data) transform, sometimes called "relative risk." Exponentiating and solving for probabilities yields:
+
+$$ \Pr(Y_i=k) = \Pr(Y_i=K) e^{{\boldsymbol {\beta }}_{k}\cdot \mathbf {X} _{i}}, \quad 1\leq k<K $$
+
+Ensuring the probabilities sum to one leads to:
+
+$$ \Pr(Y_i=K) = \frac{1}{1+\sum_{j=1}^{K-1}e^{{\boldsymbol {\beta }}_{j}\cdot \mathbf {X} _{i}}} $$
+
+And subsequently:
+
+$$ \Pr(Y_i=k) = \frac{e^{{\boldsymbol {\beta }}_{k}\cdot \mathbf {X} _{i}}}{1+\sum_{j=1}^{K-1}e^{{\boldsymbol {\beta }}_{j}\cdot \mathbf {X} _{i}}}, \quad 1\leq k<K $$
+
+This formulation highlights the reliance on the [independence of irrelevant alternatives](/Independence_of_irrelevant_alternatives) assumption.
+
+##### Estimating the coefficients
+
+The parameters ($\beta$ coefficients) are typically estimated using [maximum a posteriori](/Maximum_a_posteriori) (MAP) estimation, which often involves [regularization](/Regularization_(mathematics)) to prevent overfitting. Iterative methods like [generalized iterative scaling](/Generalized_iterative_scaling), [iteratively reweighted least squares](/Iteratively_reweighted_least_squares) (IRLS), or [gradient-based optimization](/Gradient-based_optimization) algorithms such as [L-BFGS](/L-BFGS) are commonly employed. Specialized [coordinate descent](/Coordinate_descent) algorithms also exist.
+
+##### As a log-linear model
+
+Extending the [log-linear model](/Logistic_regression) formulation for binary cases, we model the logarithm of the probability:
+
+$$ \ln \Pr(Y_i=k) = {\boldsymbol {\beta }}_{k}\cdot \mathbf {X} _{i} - \ln Z, \quad 1\leq k\leq K $$
+
+where $Z$ is a [normalization factor](/Normalization_factor), the [partition function](/Partition_function_(mathematics)), ensuring probabilities sum to one. Exponentiating gives the [Gibbs measure](/Gibbs_measure):
+
+$$ \Pr(Y_i=k) = \frac{1}{Z}e^{{\boldsymbol {\beta }}_{k}\cdot \mathbf {X} _{i}}, \quad 1\leq k\leq K $$
+
+The partition function $Z$ is calculated as:
+
+$$ Z=\sum _{k=1}^{K}e^{{\boldsymbol {\beta }}_{k}\cdot \mathbf {X} _{i}} $$
+
+The function:
+
+$$ \operatorname {softmax} (k,s_{1},\ldots ,s_{K})={\frac {e^{s_{k}}}{\sum _{j=1}^{K}e^{s_{j}}}} $$
+
+is known as the [softmax function](/Softmax_function). It smooths the probability distribution, approximating an [indicator function](/Indicator_function) for the maximum score. Thus, the probabilities can be written as:
+
+$$ \Pr(Y_i=k)=\operatorname {softmax} (k,{\boldsymbol {\beta }}_{1}\cdot \mathbf {X} _{i},\ldots ,{\boldsymbol {\beta }}_{K}\cdot \mathbf {X} _{i}) $$
+
+A key point is [identifiability](/Identifiability). Since the probabilities sum to one, only $K-1$ coefficient vectors are truly independent. Adding a constant vector $\mathbf{C}$ to all $\boldsymbol{\beta}_k$ leaves the probabilities unchanged:
+
+$$ \frac{e^{({\boldsymbol {\beta }}_{k}+\mathbf {C} )\cdot \mathbf {X} _{i}}}{\sum _{j=1}^{K}e^{({\boldsymbol {\beta }}_{j}+\mathbf {C} )\cdot \mathbf {X} _{i}}} = \frac{e^{{\boldsymbol {\beta }}_{k}\cdot \mathbf {X} _{i}}}{\sum _{j=1}^{K}e^{{\boldsymbol {\beta }}_{j}\cdot \mathbf {X} _{i}}} $$
+
+To resolve this, one vector is often set to zero, effectively "pivoting" around one outcome.
+
+##### As a latent-variable model
+
+This formulation, common in [discrete choice](/Discrete_choice) theory, views multinomial logit as a latent variable model. For each observation $i$ and outcome $k$, there's a continuous latent variable $Y_{i,k}^*$:
+
+$$ Y_{i,k}^{\ast }={\boldsymbol {\beta }}_{k}\cdot \mathbf {X} _{i}+\varepsilon _{k}\;\;\;\;,\;\;k\leq K $$
+
+where $\varepsilon_{k}$ are independent and identically distributed [extreme value distribution](/Extreme_value_distribution) variables (specifically, type-1 EV with location 0 and scale 1). The observed outcome $Y_i$ is the category with the highest latent utility:
+
+$$ \Pr(Y_{i}=k)\;=\;\Pr(\max(Y_{i,1}^{\ast },Y_{i,2}^{\ast },\ldots ,Y_{i,K}^{\ast })=Y_{i,k}^{\ast })\;\;\;\;,\;\;k\leq K $$
+
+This leads to probabilities involving the [logistic distribution](/Logistic_distribution), as the difference between two EV-distributed variables follows a logistic distribution. The scale parameter of the distribution is absorbed into the coefficients, ensuring [nonidentifiability](/Nonidentifiable) unless constraints are imposed.
+
+#### Estimation of intercept
+
+When applying multinomial logistic regression, a reference category is chosen. [Odds ratios](/Odds_ratio) are then calculated for each independent variable relative to this reference category. The exponentiated coefficient ($\beta$) indicates how the odds of belonging to a specific category change with a one-unit increase in the predictor, compared to the reference.
+
+#### Likelihood function
+
+Assuming independent observations $y_i$ from a [categorically distributed](/Categorical_distribution) variable $Y_i$, the [likelihood function](/Likelihood_function) is:
+
+$$ L=\prod _{i=1}^{n}P(Y_{i}=y_{i})=\prod _{i=1}^{n}\prod _{j=1}^{K}P(Y_{i}=j)^{\delta _{j,y_{i}}} $$
+
+where $\delta_{j,y_i}$ is the [Kronecker delta](/Kronecker_delta). The negative log-likelihood, often termed cross-entropy, is:
+
+$$ -\log L=-\sum _{i=1}^{n}\sum _{j=1}^{K}\delta _{j,y_{i}}\log(P(Y_{i}=j)) $$
+
+### Application in natural language processing
+
+In [natural language processing](/Natural_language_processing), multinomial logistic regression classifiers are often favored over [naive Bayes classifiers](/Naive_Bayes_classifier) because they don't assume [statistical independence](/Statistical_independence) among predictor variables (features). However, training these models is slower, especially with a large number of classes. Unlike naive Bayes, which involves simple counting, multinomial logistic regression requires iterative optimization, often using [maximum a posteriori](/Maximum_a_posteriori) (MAP) estimation, to determine the weights.
+
+### See also
+
+*   [Logistic regression](/Logistic_regression)
+*   [Multinomial probit](/Multinomial_probit)
+
+#

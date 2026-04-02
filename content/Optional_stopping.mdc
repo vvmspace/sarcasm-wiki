@@ -1,0 +1,51 @@
+---
+title: "Optional Stopping"
+description: "Look, if you must know about **optional stopping**, let's get this over with. It’s a particularly tedious form of self-deception that researchers use,..."
+keywords: bias, p-hacking, frequentist statistics, p-value, type i error, null hypothesis, random walk, replication crisis
+slug: "Optional_stopping"
+createdAt: "2025-11-19T08:52:41.994Z"
+updatedAt: "2025-11-19T08:52:41.994Z"
+contentType: "created"
+---
+
+Look, if you must know about **optional stopping**, let's get this over with. It’s a particularly tedious form of self-deception that researchers use, consciously or not, to torture data until it confesses to something interesting. In the grand, disappointing theater of statistics, this is the part where the actor keeps peeking at the audience for applause before the scene is over.
+
+Optional stopping is a type of [bias](/bias_(statistics)) that arises from the practice of repeatedly checking data as it accumulates and terminating the experiment or study as soon as a statistically significant result is achieved. It’s an egregious form of `[p-hacking](/p-hacking)` and a cardinal sin in traditional `[frequentist statistics](/frequentist_inference)`. By allowing the stopping rule to be influenced by the results, you fundamentally corrupt the very logic underpinning your `[p-value](/p-value)`, inflating the `[Type I error](/Type_I_and_Type_II_errors)` rate to a degree that would be comical if it weren't so destructive to the scientific record. In short, it’s how you guarantee you’ll find something, even if you’re just looking at noise.
+
+## The Mechanism of Deceit
+
+The problem lies in a fundamental misunderstanding—or, more cynically, a willful ignorance—of what a `[p-value](/p-value)` actually represents. When you set your significance level, say `alpha = 0.05`, you are accepting a 5% chance of rejecting the `[null hypothesis](/null_hypothesis)` when it is, in fact, true. This 5% error rate is predicated on the assumption that you decided on your sample size *in advance* and stuck to it. You get one, and only one, look at the p-value when the experiment is complete.
+
+Optional stopping throws that discipline out the window. Instead of one chance to be wrong 5% of the time, you give yourself multiple chances. Imagine you're flipping a coin and testing the null hypothesis that it's fair. You decide to check your p-value after every 10 flips. The first 10 flips aren't significant. Neither are the next 10. But after 50 flips, you finally get a sequence that dips below p < .05. You declare the coin biased and publish your groundbreaking findings.
+
+What you've done is run a gauntlet of random chance. During a `[random walk](/random_walk)`, a value will fluctuate, and by sheer dumb luck, it is virtually guaranteed to eventually cross any arbitrary threshold you set. By stopping the moment it does, you aren’t capturing a true effect; you’re just capturing a moment of extreme randomness and calling it a discovery. The true `[Type I error](/Type_I_and_Type_II_errors)` rate is no longer 5%. After just a few "peeks" at the data, it can easily balloon to 20%, 30%, or higher, depending on how patient and shameless you are. This is a core issue contributing to the `[replication crisis](/replication_crisis)` that plagues fields from psychology to medicine.
+
+## A Simple, Painful Example
+
+Let's make this painfully clear, since subtlety seems to be in short supply.
+
+Suppose two researchers, let’s call them Dr. Honest and Dr. Hopeful, are testing a new drug. The `[null hypothesis](/null_hypothesis)` is that the drug has no effect. Both decide to recruit 100 participants.
+
+*   **Dr. Honest** pre-registers her plan. She will recruit all 100 participants, run the experiment, and then analyze the data a single time. Her methodology is sound. If she finds a significant result, it has a certain amount of credibility.
+
+*   **Dr. Hopeful**, on the other hand, is impatient. He decides to analyze the data after every 10 participants. After the first 10, p = 0.58. Nothing. After 20, p = 0.21. Still nothing. After 30, p = 0.09. Getting warmer. After 40 participants, voilà, p = 0.04. He immediately stops the study, fires off a press release, and publishes his "significant" findings, conveniently omitting the 3 failed analyses that came before.
+
+Even if the drug is completely useless, Dr. Hopeful has given himself multiple opportunities to be fooled by randomness. The probability of getting at least one p-value below .05 over a series of tests is much higher than 5%. He hasn't discovered a cure; he's just demonstrated a profound talent for statistical malpractice and exploited what are known as `[researcher degrees of freedom](/researcher_degrees_of_freedom)`.
+
+## Consequences and Why You Should Care
+
+The consequences of this are not academic. They are a corrosive acid on the foundation of science. Optional stopping contributes to a body of published literature filled with false positives—effects that aren't real and cannot be replicated. Other researchers then waste time, funding, and resources trying to build upon these phantom discoveries. In medicine, this could lead to useless treatments being pursued for years. In `[social psychology](/social_psychology)`, it leads to headlines about fascinating human behaviors that are, in reality, nothing more than statistical artifacts.
+
+This practice, along with other forms of `[p-hacking](/p-hacking)`, is a primary driver of the `[replication crisis](/replication_crisis)`. It erodes public trust in science because it creates a system that rewards flashy, positive results over slow, careful, and often null findings. The pressure to "publish or perish" in academia creates a perverse incentive to engage in exactly this kind of behavior.
+
+## How to Avoid Being Part of the Problem
+
+If you're determined to analyze data as it comes in, there are ways to do it without cheating. These methods were designed by statisticians who, unlike Dr. Hopeful, actually thought things through.
+
+1.  **[Sequential analysis](/sequential_analysis)**: This is a statistical framework explicitly designed for situations where data is analyzed sequentially. Developed by figures like `[Abraham Wald](/Abraham_Wald)`, it involves setting pre-specified stopping rules and adjusting significance thresholds to account for the multiple looks at the data. Methods like the Sequential Probability Ratio Test (SPRT) or group-sequential designs for `[clinical trials](/clinical_trial)` maintain the nominal `[Type I error](/Type_I_and_Type_II_errors)` rate. It's the grown-up way to do what optional stopping pretends to do.
+
+2.  **[Bayesian statistics](/Bayesian_statistics)**: The `[Bayesian inference](/Bayesian_inference)` framework is inherently less vulnerable to the problem of optional stopping. Instead of a binary "significant/not significant" outcome, Bayesian analysis updates the probability of a hypothesis (`[Bayes factor](/Bayes_factor)`) as evidence accumulates. The interpretation of the evidence doesn't depend on the stopping rule. You can stop whenever you want—when you run out of money, when you're bored, or when the evidence is overwhelmingly conclusive—and the validity of your inference holds. Of course, this requires you to understand and embrace a different epistemological framework, which seems to be a significant hurdle for many.
+
+3.  **Preregistration**: The simplest, most effective procedural fix is `[preregistration](/registered_report)`. Before collecting any data, you publicly declare your hypothesis, your sample size, and your analysis plan. This locks you into a single course of action, removing the temptation to stop early or engage in other questionable research practices. It's a commitment to intellectual honesty.
+
+So, there you have it. Optional stopping is a cheap trick for generating seemingly significant results from noise. It's a symptom of a broken system and a failure of rigor. Now you know. Try not to make it a habit.

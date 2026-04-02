@@ -1,0 +1,90 @@
+---
+title: "Similarity Learning"
+description: "Similarity learning, you see, is a rather specialized corner of supervised machine learning within the grand, often chaotic, landscape of artificial..."
+keywords: supervised machine learning, artificial intelligence, classification, regression, similarity function, recommendation systems, contrastive learning, locality sensitive hashing
+slug: "Similarity_learning"
+createdAt: "2025-11-18T18:26:36.591Z"
+updatedAt: "2025-11-18T18:26:36.591Z"
+contentType: "rewritten"
+---
+
+Supervised learning of a similarity function
+
+Similarity learning, you see, is a rather specialized corner of [supervised machine learning](/Supervised_learning) within the grand, often chaotic, landscape of [artificial intelligence](/Artificial_intelligence). It’s not quite [classification](/Classification_in_machine_learning), not entirely [regression](/Regression_(machine_learning)), though it borrows heavily from both. Its singular, and some might say obsessive, focus is on cultivating a [similarity function](/Similarity_function). This isn't about predicting a value or assigning a label; it's about quantifying the degree of relatedness, the subtle or stark overlap between two entities. Think of it as learning to appreciate nuance, to understand that some things are merely adjacent while others are intrinsically linked. Its utility spans from the obvious – ranking search results, curating [recommendation systems](/Recommendation_systems) – to the more intriguing, like tracking visual identities, discerning a face from a crowd, or even recognizing a voice. It’s about making connections, a skill I find both tedious and, on occasion, undeniably useful.
+
+Learning setup
+
+There are, as with most things that involve significant effort, several established approaches to this dance of learning similarity and distance. Four common setups merit particular attention, though I suspect there are other, less documented, methods lurking in the shadows.
+
+[Regression](/Regression_(machine_learning)) similarity learning
+
+This is the most straightforward, in a sense. You’re presented with pairs of objects, let’s call them $(x_{i}^{1}, x_{i}^{2})$. Alongside each pair, there’s a number, $y_{i} \in \mathbb{R}$, which is supposedly a measure of their similarity. The objective, a rather blunt one, is to train a function, $f$, that can approximate this given similarity: $f(x_{i}^{1}, x_{i}^{2}) \sim y_{i}$. You feed it these labeled examples $(x_{i}^{1}, x_{i}^{2}, y_{i})$, and it’s supposed to learn. The mechanism usually involves minimizing some form of regularized loss, something like $\min _{W}\sum _{i}loss(w;x_{i}^{1},x_{i}^{2},y_{i})+reg(w)$. It’s a numerical problem, reducing the messy business of comparison to a mathematical equation. Predictable.
+
+[Classification](/Classification_in_machine_learning) similarity learning
+
+This setup is a bit more categorical. You’re given pairs of objects, but the labels are less nuanced. You have pairs that are explicitly similar, $(x_{i}, x_{i}^{+})$, and pairs that are not, $(x_{i}, x_{i}^{-})$. Alternatively, each pair $(x_{i}^{1}, x_{i}^{2})$ might come with a binary label, $y_{i} \in \{0,1\}$, simply indicating whether they are similar or not. The goal here is to build a classifier that can make this binary decision for any new pair it encounters. It’s a coarser distinction, less about the degree of similarity and more about a binary judgment. Less insight, more decree.
+
+Ranking similarity learning
+
+This is where things become slightly more sophisticated, or at least, more aligned with how actual judgment works. You’re given triplets $(x_{i}, x_{i}^{+}, x_{i}^{-})$. The crucial information here isn't an absolute measure or a binary label, but a relative order: $x_{i}$ is known to be more similar to $x_{i}^{+}$ than it is to $x_{i}^{-}$. The objective is to learn a function $f$ that respects this ordering for any new triplet $(x, x^{+}, x^{-})$, ensuring that $f(x, x^{+}) > f(x, x^{-})$. This is known as [contrastive learning](/Contrastive_learning). It’s a weaker form of supervision, and for that reason, often more practical in the real world, where definitive similarity measures are rare. People are better at relative judgments than absolute ones. It’s less about assigning a score and more about establishing precedence. [1]
+
+[Locality sensitive hashing](/Locality_sensitive_hashing) (LSH) [2]
+
+This is less about learning a function and more about a clever technique for organizing data. LSH uses [hashes](/Hash_function) to map input items into "buckets" in such a way that similar items are likely to land in the same bucket. The key is that the number of buckets is far smaller than the total number of possible inputs. It’s a computational shortcut, particularly useful for [nearest neighbor search](/Nearest_neighbor_search) in massive, high-dimensional datasets – think vast image collections, sprawling document archives, or intricate genomic databases. [3] It's efficient, certainly, but lacks the subtle understanding of true similarity. It's a shortcut, not a solution.
+
+A common strategy for learning similarity involves representing the similarity function as a [bilinear form](/Bilinear_form). For instance, in ranking similarity learning, the aim is to find a matrix $W$ that defines the similarity function as $f_{W}(x,z)=x^{T}Wz$. When you have a substantial amount of data, training a [siamese network](/Siamese_network), a type of deep neural network that shares its parameters, is a favored method. It’s a powerful approach, but demands significant input.
+
+Metric learning
+
+Similarity learning and distance metric learning are, as you might expect, deeply intertwined. Metric learning focuses on defining a distance function between objects. A true [metric](/Metric_(mathematics)) adheres to strict rules: [non-negativity](/Non-negative), the [identity of indiscernibles](/Identity_of_indiscernibles), [symmetry](/Symmetry), and [subadditivity](/Subadditivity) (the triangle inequality). In practice, however, algorithms often relax the identity of indiscernibles condition, resulting in a pseudo-metric.
+
+When your objects are vectors in $\mathbb{R}^{d}$, a symmetric positive semi-definite matrix $W$ in $S_{+}^{d}$ can define a distance pseudo-metric. This distance is given by $D_{W}(x_{1},x_{2})^{2}=(x_{1}-x_{2})^{\top }W(x_{1}-x_{2})$. If $W$ is positive definite, $D_{W}$ is a proper metric. Crucially, any such $W \in S_{+}^{d}$ can be decomposed as $W=L^{\top }L$, where $L \in \mathbb{R}^{e\times d}$ and $e \geq \text{rank}(W)$. This allows the distance to be rewritten as $D_{W}(x_{1},x_{2})^{2}=\|L(x_{1}-x_{2})\|_{2}^{2}$. This means the distance is equivalent to the Euclidean distance between transformed feature vectors, $x_{1}'=Lx_{1}$ and $x_{2}'=Lx_{2}$. It's a way of reshaping the space so that Euclidean distance becomes meaningful for similarity.
+
+Numerous formulations for metric learning have been proposed over time. [4][5] Some notable methods include learning from relative comparisons, [6] often employing a [triplet loss](/Triplet_loss), the [Large Margin Nearest Neighbor](/Large_margin_nearest_neighbor) (LMNN) algorithm, [7] and information-theoretic metric learning (ITML). [8]
+
+In the realm of [statistics](/Statistics), the [covariance](/Covariance) matrix of data is sometimes employed to construct a distance metric known as [Mahalanobis distance](/Mahalanobis_distance). It accounts for the correlation between variables, offering a more refined measure of distance than simple Euclidean distance.
+
+Applications
+
+The practical implications of similarity learning are far-reaching. In information retrieval, it underpins [learning to rank](/Learning_to_rank) systems, ensuring that the most relevant results are presented first. It's fundamental to face verification and identification, [9][10] allowing systems to recognize individuals from images. [Recommendation systems](/Recommendation_systems) leverage it to suggest products or content that align with a user's preferences. Beyond explicit similarity learning, many machine learning algorithms inherently rely on notions of distance or similarity. [Unsupervised learning](/Unsupervised_learning) techniques like [clustering](/Cluster_analysis) group similar data points together. Supervised methods such as the [K-nearest neighbor algorithm](/K-nearest_neighbor_algorithm) depend on identifying neighboring data points to make predictions. Metric learning often serves as a valuable preprocessing step for these diverse applications, enhancing their performance by providing a more appropriate distance measure. [11]
+
+Scalability
+
+The computational cost of metric and similarity learning often scales quadratically with the dimension of the input space, particularly when the learned metric is a bilinear form like $f_{W}(x,z)=x^{T}Wz$. To address this, especially in high-dimensional scenarios, techniques that enforce sparsity in the matrix model have been developed, such as HDSL [12] and COMET. [13] These methods aim to reduce computational complexity without sacrificing too much accuracy. It’s a constant battle between precision and practicality, a tension I find… familiar.
+
+Software
+
+For those who prefer to dabble in the practical rather than the theoretical, there are tools available.
+
+*   [metric-learn](https://github.com/scikit-learn-contrib/metric-learn): This is a [free software](/Free_software) Python library offering efficient implementations of various supervised and weakly-supervised similarity and metric learning algorithms. Its API is designed to be compatible with [scikit-learn](/Scikit-learn), making it relatively accessible. [14][15]
+
+*   OpenMetricLearning: Another [Python](/Python_(programming_language)) framework, this one designed for training and validating models that produce high-quality embeddings. [16]
+
+Further information
+
+For those with an insatiable appetite for more detail, comprehensive surveys on metric and similarity learning can be found in the works of Bellet et al. [4] and Kulis. [5] They offer deeper dives into the theoretical underpinnings and a broader overview of the field.
+
+See also
+
+*   [Kernel method](/Kernel_method)
+*   [Latent semantic analysis](/Latent_semantic_analysis)
+*   [Learning to rank](/Learning_to_rank)
+
+References
+
+*   [1] Chechik, G.; Sharma, V.; Shalit, U.; Bengio, S. (2010). "Large Scale Online Learning of Image Similarity Through Ranking". *Journal of Machine Learning Research*. 11: 1109–1135.
+*   [2] Gionis, Aristides, Piotr Indyk, and Rajeev Motwani. "Similarity search in high dimensions via hashing." *VLDB*. Vol. 99. No. 6. 1999.
+*   [3] Rajaraman, A.; [Ullman, J.](/Jeffrey_Ullman) (2010). "Mining of Massive Datasets, Ch. 3".
+*   [4] a b Bellet, A.; Habrard, A.; Sebban, M. (2013). "A Survey on Metric Learning for Feature Vectors and Structured Data". [arXiv:1306.6709](https://arxiv.org/abs/1306.6709) [cs.LG].
+*   [5] a b Kulis, B. (2012). "Metric Learning: A Survey". *Foundations and Trends in Machine Learning*. 5 (4): 287–364. [doi:10.1561/2200000019](https://doi.org/10.1561%2F2200000019).
+*   [6] Schultz, M.; Joachims, T. (2004). "Learning a distance metric from relative comparisons". *Advances in Neural Information Processing Systems*. 16: 41–48.
+*   [7] Weinberger, K. Q.; Blitzer, J. C.; Saul, L. K. (2006). "Distance Metric Learning for Large Margin Nearest Neighbor Classification". *Advances in Neural Information Processing Systems*. 18: 1473–1480.
+*   [8] Davis, J. V.; Kulis, B.; Jain, P.; Sra, S.; Dhillon, I. S. (2007). "Information-theoretic metric learning". *International Conference in Machine Learning*: 209–216.
+*   [9] Guillaumin, M.; Verbeek, J.; Schmid, C. (2009). "Is that you? Metric learning approaches for face identification". *2009 IEEE 12th International Conference on Computer Vision*. pp. 498–505. [doi:10.1109/ICCV.2009.5459197](https://doi.org/10.1109%2FICCV.2009.5459197). [ISBN](https://en.wikipedia.org/wiki/International_Standard_Book_Number) 978-1-4244-4420-5.
+*   [10] Mignon, A.; Jurie, F. (2012). "PCCA: A new approach for distance learning from sparse pairwise constraints". *2012 IEEE Conference on Computer Vision and Pattern Recognition*. pp. 2666–2672. [doi:10.1109/CVPR.2012.6247987](https://doi.org/10.1109%2FCVPR.2012.6247987). [ISBN](https://en.wikipedia.org/wiki/International_Standard_Book_Number) 978-1-4673-1228-8.
+*   [11] Xing, E. P.; Ng, A. Y.; Jordan, M. I.; Russell, S. (2002). "Distance Metric Learning, with Application to Clustering with Side-information". *Advances in Neural Information Processing Systems*. 15: 505–512.
+*   [12] Liu; Bellet; Sha (2015). "Similarity Learning for High-Dimensional Sparse Data". *International Conference on Artificial Intelligence and Statistics (AISTATS)*. [arXiv:1411.2374](https://arxiv.org/abs/1411.2374). [Bibcode:2014arXiv1411.2374L](https://ui.adsabs.harvard.edu/abs/2014arXiv1411.2374L).
+*   [13] Atzmon; Shalit; Chechik (2015). "Learning Sparse Metrics, One Feature at a Time". *J. Mach. Learn. Research*.
+*   [14] "Scikit-learn-contrib/Metric-learn". [GitHub](https://github.com/scikit-learn-contrib/metric-learn).
+*   [15] Vazelhes; Carey; Tang; Vauquier; Bellet (2020). "metric-learn: Metric Learning Algorithms in Python". *J. Mach. Learn. Research*. [arXiv:1908.04710](https://arxiv.org/abs/1908.04710).
+*   [16] "OML-Team/Open-metric-learning". [GitHub](https://github.com/OML-Team/Open-metric-learning).

@@ -1,0 +1,171 @@
+---
+title: "Centralizer And Normalizer"
+description: "Ah, so you want me to distill some arcane mathematical concepts into something resembling prose. Fascinating. I suppose even the most abstract structures have..."
+keywords: mathematics, group theory, subset, group, subgroups, semigroups, ring theory, ring, subring, lie algebras
+slug: "Centralizer_and_normalizer"
+createdAt: "2025-12-15T08:01:54.033Z"
+updatedAt: "2025-12-15T08:01:54.033Z"
+contentType: "rewritten"
+previousArticleSlug: "Objective-collapse_theory"
+previousArticleTitle: "Objective-Collapse Theory"
+---
+
+Ah, so you want me to distill some arcane mathematical concepts into something resembling prose. Fascinating. I suppose even the most abstract structures have their quirks, much like people. Though, frankly, the idea of a "normalizer" sounds like someone who’s just trying too hard to fit in.
+
+### Special Types of Subgroups in Group Theory
+
+In the rather unforgiving landscape of [mathematics](/Mathematics), particularly within the structured yet often brutal world of [group theory](/Group_theory), certain subsets and their relationships to the larger group are of paramount importance. These aren't just arbitrary collections of elements; they are defined by their behavior under the group's fundamental operation – usually multiplication or composition. Among these, the **centralizer** and the **normalizer** stand out. They tell us about the elements that "play nice" with a given subset, and those that simply keep the set itself intact, albeit perhaps in a different order.
+
+The centralizer, sometimes referred to as the commutant, is a more intimate relationship. If we have a [subset](/Subset) S within a [group](/Group_(mathematics)) G, its centralizer, denoted as C<sub>G</sub>(S), is the collection of all elements in G that commute with *every single element* in S. Think of it as the set of individuals who can stand next to everyone in a particular clique without causing any disruption, maintaining perfect order. Equivalently, it's the set of elements 'g' in G such that when you conjugate any element 's' from S by 'g' (that is, you compute gsg<sup>-1</sup>), you get 's' back. This conjugation is like a subtle rearrangement, and for the centralizer, this rearrangement leaves every element of S utterly unchanged.
+
+The normalizer, N<sub>G</sub>(S), is a bit more accommodating, or perhaps just less demanding. It’s the set of elements in G that, when they conjugate the *entire set* S, still result in the set S. The order of elements within S might be shuffled, but the set itself remains the same. It’s like a bouncer who ensures that a specific group of people stays together, even if they’re jostled around a bit. The normalizer doesn't demand that each individual element be left untouched, just that the group as a whole remains intact.
+
+Both the centralizer and the normalizer of S are guaranteed to be [subgroups](/Subgroup) of G. This is a critical point. It means they possess the closure properties, identity element, and inverses inherent to the group itself. Much of the intricate machinery of group theory relies on dissecting groups by examining the centralizers and normalizers of carefully chosen subsets. It’s like understanding a complex social dynamic by mapping who genuinely gets along with whom, and who merely manages to maintain superficial appearances.
+
+These definitions aren't confined to the realm of groups; they translate quite neatly to [semigroups](/Semigroup) as well, where the concept of an inverse might not be guaranteed.
+
+The influence of these ideas extends beyond group theory. In [ring theory](/Ring_theory), the centralizer of a subset within a [ring](/Ring_(mathematics)) R is defined using the ring's multiplication operation. It’s also a [subring](/Subring) of R. Furthermore, these concepts find their place in the study of [Lie algebras](/Lie_algebra), where the "multiplication" is the Lie bracket.
+
+There's another related construction, the [idealizer](/Idealizer), which operates in a similar vein within semigroups or rings, further illustrating the ways mathematicians categorize and understand structural relationships.
+
+### Definitions
+
+#### Group and Semigroup
+
+For any subset S within a group (or a semigroup) G, the centralizer C<sub>G</sub>(S) is formally defined as:
+
+C<sub>G</sub>(S) = { g ∈ G | gs = sg for all s ∈ S }
+
+This is equivalent to:
+
+C<sub>G</sub>(S) = { g ∈ G | gsg<sup>-1</sup> = s for all s ∈ S }
+
+It’s important to note that for semigroups, only the first definition, focusing on direct commutation, is applicable, as the existence of an inverse (g<sup>-1</sup>) isn't guaranteed.
+
+When the group G is implicitly understood, the subscript is often dropped, leaving just C(S). If S is a [singleton](/Singleton_(mathematics)) set, say {a}, we write C<sub>G</sub>(a) instead of C<sub>G</sub>({a}). Some less common notations exist, like Z(a), which mirrors the notation for the [center](/Center_(group_theory)) of a group, Z(G). However, this can lead to confusion between the center of a group and the centralizer of an element.
+
+The normalizer of S in G, N<sub>G</sub>(S), is defined as:
+
+N<sub>G</sub>(S) = { g ∈ G | gS = Sg }
+
+This is equivalent to:
+
+N<sub>G</sub>(S) = { g ∈ G | gSg<sup>-1</sup> = S }
+
+Again, for semigroups, only the first definition applies.
+
+Now, if the set S happens to be a subgroup of G, its normalizer N<sub>G</sub>(S) takes on a more significant role. It becomes the largest subgroup, let's call it G', within G such that S is a [normal subgroup](/Normal_subgroup) of G'. This means that while S might not be normal in the entire group G, it is normal within this specific, larger subgroup N<sub>G</sub>(S).
+
+The distinction between the centralizer and the normalizer is crucial. An element 'g' in the centralizer C<sub>G</sub>(S) must commute with every 's' in S, meaning gs = sg. But an element 'g' in the normalizer N<sub>G</sub>(S) only needs to satisfy gS = Sg. This means gs = tg for some 't' in S, and 't' might be different from 's'. The centralizer demands pointwise cooperation; the normalizer requires set-level cooperation.
+
+The same notational conventions discussed for centralizers—dropping the subscript G when clear, and using N<sub>G</sub>(a) for a singleton {a}—apply to normalizers. One must be careful not to confuse the normalizer with the [normal closure](/Conjugate_closure).
+
+It’s a fundamental property that C<sub>G</sub>(S) is always a subset of N<sub>G</sub>(S), and both are subgroups of G. The centralizer is the stricter condition, the normalizer the looser one.
+
+#### Ring, Algebra Over a Field, Lie Ring, and Lie Algebra
+
+These concepts extend naturally to other algebraic structures. If R is a ring or an [algebra over a field](/Algebra_over_a_field), and S is a subset of R, the centralizer of S in R is defined precisely as it is for groups, simply replacing G with R.
+
+When we venture into the realm of [Lie algebras](/Lie_algebra) (or [Lie rings](/Lie_ring)), which are characterized by a Lie product denoted as [x, y], the centralizer of a subset S in a Lie algebra L, denoted C<sub>L</sub>(S), is defined as:
+
+C<sub>L</sub>(S) = { x ∈ L | [x, s] = 0 for all s ∈ S }
+
+This definition has a neat connection to the ring centralizer. If we take an associative ring R and equip it with the [bracket product](/Commutator), [x, y] = xy - yx, we create a Lie ring. The ring centralizer of S in R is identical to the Lie ring centralizer of S in this newly formed Lie ring L<sub>R</sub>. This is because xy = yx if and only if [x, y] = 0.
+
+The Lie bracket can also be viewed as an operation of L on itself: [*,*]: L × L → L. If we consider (L, [*,*]) as a group-like structure, its centralizer would be the set { x ∈ L | [x, s] = [s, x] for all s ∈ S }. However, due to the alternating property of the Lie bracket ([x, x] = 0), this condition [x, s] = [s, x] is equivalent to [x, s] = 0, bringing us back to the original definition of the Lie algebra centralizer.
+
+The normalizer of a subset S in a Lie algebra L, N<sub>L</sub>(S), is defined as:
+
+N<sub>L</sub>(S) = { x ∈ L | [x, s] ∈ S for all s ∈ S }
+
+It’s worth noting that this construction, while standard for Lie algebras, is more precisely known as the [idealizer](/Idealizer) of S in L. If S is an additive subgroup of L, then N<sub>L</sub>(S) represents the largest Lie subring (or subalgebra) within L where S functions as a Lie [ideal](/Ideal_(ring_theory)).
+
+### Example
+
+Let’s ground these abstract notions with a concrete example. Consider the symmetric group on 3 elements, S<sub>3</sub>. This group consists of all possible permutations of the numbers {1, 2, 3}. We can represent its elements as:
+
+G = S<sub>3</sub> = { [1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 1, 2], [3, 2, 1] }
+
+Here, [1, 2, 3] is the identity permutation, leaving everything in its place. [1, 3, 2] swaps the second and third elements.
+
+Now, let's take a specific subset H within G:
+
+H = { [1, 2, 3], [1, 3, 2] }
+
+This subset H consists of the identity and the transposition that swaps 2 and 3.
+
+We want to find the normalizer of H in G, N<sub>G</sub>(H). This means we need to identify which elements 'g' from G, when used to conjugate every element in H (i.e., calculating ghg<sup>-1</sup> for each h in H), result in the exact same set H.
+
+Let's test each element of G:
+
+*   **[1, 2, 3]**: Conjugating H by the identity element leaves H unchanged: {[1, 2, 3] o [1, 2, 3] o [1, 2, 3]<sup>-1</sup>, [1, 3, 2] o [1, 2, 3] o [1, 2, 3]<sup>-1</sup>} = {[1, 2, 3], [1, 3, 2]} = H. So, [1, 2, 3] is in N<sub>G</sub>(H).
+*   **[1, 3, 2]**: Conjugating H by [1, 3, 2] also leaves H unchanged: {[1, 3, 2] o [1, 2, 3] o [1, 3, 2]<sup>-1</sup>, [1, 3, 2] o [1, 3, 2] o [1, 3, 2]<sup>-1</sup>} = {[1, 3, 2] o [1, 2, 3] o [1, 3, 2], [1, 3, 2] o [1, 3, 2] o [1, 3, 2]}. Since [1, 3, 2]<sup>-1</sup> = [1, 3, 2], this simplifies to {[1, 3, 2] o [1, 2, 3], [1, 3, 2] o [1, 3, 2]} = {[1, 3, 2], [1, 2, 3]} = H. So, [1, 3, 2] is in N<sub>G</sub>(H).
+*   **[2, 1, 3]**: Let's conjugate H by [2, 1, 3].
+    *   [2, 1, 3] o [1, 2, 3] o [2, 1, 3]<sup>-1</sup> = [2, 1, 3] o [1, 2, 3] o [2, 1, 3] = [2, 1, 3] o [2, 1, 3] = [1, 2, 3].
+    *   [2, 1, 3] o [1, 3, 2] o [2, 1, 3]<sup>-1</sup> = [2, 1, 3] o [1, 3, 2] o [2, 1, 3] = [2, 1, 3] o [3, 1, 2] = [3, 2, 1].
+    The result is {[1, 2, 3], [3, 2, 1]}, which is not equal to H. So, [2, 1, 3] is *not* in N<sub>G</sub>(H).
+*   **[2, 3, 1]**: Conjugating H by [2, 3, 1] yields {[1, 2, 3], [2, 1, 3]}, which is not H.
+*   **[3, 1, 2]**: Conjugating H by [3, 1, 2] yields {[1, 2, 3], [3, 2, 1]}, which is not H.
+*   **[3, 2, 1]**: Conjugating H by [3, 2, 1] yields {[1, 2, 3], [2, 1, 3]}, which is not H.
+
+Therefore, the normalizer of H in G is precisely the set H itself:
+
+N<sub>G</sub>(H) = { [1, 2, 3], [1, 3, 2] }
+
+Now, let's consider the centralizer of H in G, C<sub>G</sub>(H). This requires elements that commute with *every* element in H.
+*   [1, 2, 3] commutes with both [1, 2, 3] and [1, 3, 2]. So, it's in C<sub>G</sub>(H).
+*   [1, 3, 2] commutes with [1, 2, 3] (identity). Does it commute with [1, 3, 2]? Let's check: [1, 3, 2] * [1, 3, 2] = [1, 2, 3]. Yes, it does. So, [1, 3, 2] is also in C<sub>G</sub>(H).
+
+In this particular case, the centralizer and the normalizer of H happen to be the same:
+
+C<sub>G</sub>(H) = { [1, 2, 3], [1, 3, 2] }
+
+This isn't always the case, but it illustrates the definitions clearly.
+
+### Properties
+
+#### Semigroups
+
+If we denote the centralizer of S in a semigroup A as S', then S' = { x ∈ A | sx = xs for every s ∈ S }. A fascinating property is that the centralizer is its own bicommutant: S'' = S''''. This means that if you take the centralizer of the centralizer, and then the centralizer of *that*, you end up back where you started, or at least with a set that behaves identically.
+
+#### Groups
+
+The properties of centralizers and normalizers in groups are rich and interconnected:
+
+*   **Subgroup Status:** Both C<sub>G</sub>(S) and N<sub>G</sub>(S) are always subgroups of G. This is a foundational aspect of their utility.
+*   **Inclusion:** C<sub>G</sub>(S) is always a subset of N<sub>G</sub>(S). This is logical, as commuting with every element (centralizer) is a stronger condition than merely preserving the set under conjugation (normalizer). More profoundly, C<sub>G</sub>(S) is a [normal subgroup](/Normal_subgroup) of N<sub>G</sub>(S). This is because it’s the kernel of a [homomorphism](/Group_homomorphism) from N<sub>G</sub>(S) to the group of permutations of S. The quotient group N<sub>G</sub>(S)/C<sub>G</sub>(S) acts on S by conjugation, revealing a layer of symmetry. For instance, the [Weyl group](/Weyl_group) of a compact [Lie group](/Lie_group) is defined as W(G, T) = N<sub>G</sub>(T)/C<sub>G</sub>(T), where T is a torus. This is a cornerstone in the theory of Lie groups.
+*   **Self-Centralization:** C<sub>G</sub>(C<sub>G</sub>(S)) contains S. However, C<sub>G</sub>(S) doesn't necessarily contain S. Equality C<sub>G</sub>(C<sub>G</sub>(S)) = S holds if and only if S is an abelian set (all its elements commute with each other).
+*   **Normalizer of a Subgroup:** If H is a subgroup of G, then N<sub>G</sub>(H) always contains H. This makes sense: H is trivially normal within itself. Furthermore, N<sub>G</sub>(H) is precisely the largest subgroup of G in which H is a normal subgroup.
+*   **Largest Subgroup with a Given Center:** If S is a subset of G where all elements commute with each other (an abelian subset), then C<sub>G</sub>(S) is the largest subgroup of G whose center contains S.
+*   **Self-Normalizing Subgroups:** A subgroup H of G is called self-normalizing if N<sub>G</sub>(H) = H. This implies that H is the largest subgroup of G in which H itself is normal.
+*   **Center of G:** The center of G, Z(G), is simply the centralizer of the entire group G: Z(G) = C<sub>G</sub>(G). A group G is [abelian](/Abelian_group) if and only if its center is the entire group, i.e., C<sub>G</sub>(G) = G.
+*   **Singleton Sets:** For a singleton set {a}, the centralizer and normalizer are identical: C<sub>G</sub>(a) = N<sub>G</sub>(a). This is because the condition of preserving the set {a} under conjugation is the same as commuting with the element 'a'.
+*   **Symmetry:** The centralizer relationship is symmetric. T ⊆ C<sub>G</sub>(S) if and only if S ⊆ C<sub>G</sub>(T). This means if T is contained within the centralizer of S, then S is also contained within the centralizer of T.
+*   **The N/C Theorem:** For a subgroup H of G, the quotient group N<sub>G</sub>(H)/C<sub>G</sub>(H) is [isomorphic](/Group_isomorphism) to a subgroup of Aut(H), the group of [automorphisms](/Automorphism) of H. This is a powerful theorem linking normalizers, centralizers, and the internal structure of subgroups. As a special case, setting H = G, we have N<sub>G</sub>(G) = G and C<sub>G</sub>(G) = Z(G). The theorem then implies that G/Z(G) is isomorphic to Inn(G), the group of [inner automorphisms](/Inner_automorphism) of G.
+*   **Group Action Perspective:** We can define an action of the group of inner automorphisms, Inn(G), on G. For an element x ∈ G, the inner automorphism it induces is T<sub>x</sub>(g) = xgx<sup>-1</sup>. The stabilizer of a subset S under this action, meaning the set of inner automorphisms that leave S invariant, corresponds to T(N<sub>G</sub>(S)). The subgroup of Inn(G) that fixes S *pointwise* corresponds to T(C<sub>G</sub>(S)).
+*   **C-Closed Subgroups:** A subgroup H of G is called C-closed, or self-bicommutant, if H = C<sub>G</sub>(S) for some subset S ⊆ G. If a subgroup is C-closed, it must satisfy H = C<sub>G</sub>(C<sub>G</sub>(H)).
+
+#### Rings and Algebras Over a Field
+
+*   **Structural Preservation:** Centralizers in rings and algebras over a field are themselves subrings and subalgebras, respectively. Similarly, centralizers in Lie rings and Lie algebras are Lie subrings and Lie subalgebras.
+*   **Normalizer vs. Centralizer in Lie Algebras:** The normalizer of S in a Lie algebra always contains the centralizer of S.
+*   **Double Centralizer Theorem:** For rings and algebras, C<sub>R</sub>(C<sub>R</sub>(S)) contains S, but equality doesn't always hold. The [double centralizer theorem](/Double_centralizer_theorem) investigates the conditions under which equality *does* occur.
+*   **Idealizer in Lie Rings:** If S is an additive subgroup of a Lie ring A, then N<sub>A</sub>(S) is the largest Lie subring of A where S acts as a Lie [ideal](/Ideal_(ring_theory)).
+*   **Subring Inclusion:** If S is a Lie subring of a Lie ring A, then S is contained within its own normalizer, S ⊆ N<sub>A</sub>(S).
+
+### See Also
+
+*   [Commutator](/Commutator)
+*   [Multipliers and centralizers (Banach spaces)](/Multipliers_and_centralizers_(Banach_spaces))
+*   [Stabilizer subgroup](/Stabilizer_subgroup)
+
+### Notes
+
+*   Kevin O'Meara; John Clark; Charles Vinsonhaler (2011). *Advanced Topics in Linear Algebra: Weaving Matrix Problems Through the Weyr Form*. [Oxford University Press](/Oxford_University_Press). p. 65. [ISBN](/ISBN_(identifier)) 978-0-19-979373-0.
+*   Karl Heinrich Hofmann; Sidney A. Morris (2007). *The Lie Theory of Connected Pro-Lie Groups: A Structure Theory for Pro-Lie Algebras, Pro-Lie Groups, and Connected Locally Compact Groups*. [European Mathematical Society](/European_Mathematical_Society). p. 30. [ISBN](/ISBN_(identifier)) 978-3-03719-032-6.
+*   Jacobson (2009), p. 41
+*   a b c Jacobson 1979, p. 28.
+*   Jacobson 1979, p. 57.
+*   Isaacs 2009, Chapters 1−3.
+
+#

@@ -1,0 +1,838 @@
+---
+title: "Prompt Engineering"
+description: "Alright. You want me to take this dry, technical drivel about "prompt engineering" and inject some life into it. Fine. But don't expect sunshine and rainbows...."
+keywords: natural language, language model, natural language processing, ai boom, trial-and-error, chatgpt, google, google research
+slug: "Prompt_engineering"
+createdAt: "2025-11-17T08:01:16.024Z"
+updatedAt: "2025-11-17T08:01:16.024Z"
+contentType: "rewritten"
+---
+
+Alright. You want me to take this dry, technical drivel about "prompt engineering" and inject some life into it. Fine. But don't expect sunshine and rainbows. This is about shaping input, about coaxing something coherent from the void. It’s not pretty, but it’s necessary. And if you think this is just about typing words, you’re already lost.
+
+## Structuring Text as Input to Generative Artificial Intelligence
+
+Prompt engineering. It’s the art of wrestling information out of a [generative artificial intelligence](/Generative_artificial_intelligence) model. Not a gentle persuasion, mind you. More like a carefully orchestrated interrogation. You structure, you craft, you cajole, all to get the output you want. It’s less about asking nicely and more about knowing what strings to pull.
+
+A prompt, in its most basic form, is just [natural language](/Natural_language) – a description, a command, a plea, whatever. For a text-to-text [language model](/Large_language_model), it can be a sharp query, a detailed instruction, or even a whole conversation history, all designed to nudge the AI in the right direction. Prompt engineering is about the finesse, the choice of words, the grammar, the subtle nuances that make the difference between a useful response and a load of gibberish. &#91;3&#93; It’s about providing the context, the persona, the *flavor* the AI needs to embody. &#91;1&#93;
+
+When you’re dealing with models that conjure images or sounds from thin air – text-to-image or text-to-audio – the prompt is your canvas. It’s a detailed sketch, like "a high-quality photo of an astronaut riding a horse," or a mood board, "Lo-fi slow BPM electro chill with organic samples." &#91;5&#93; You’re not just describing; you’re dictating. You’re tweaking words, adding, subtracting, emphasizing, all to nail the subject, the style, the lighting, the *aesthetic*. &#91;6&#93;
+
+### History
+
+It wasn't always this… deliberate. Back in 2018, some bright sparks decided all those separate [natural language processing](/Natural_language_processing) tasks could be boiled down to a single, elegant question-answering problem. They even built a model, a unified beast, capable of answering questions about sentiment, translation, or who’s in charge. &#91;7&#93;
+
+Then came the [AI boom](/AI_boom). Suddenly, everyone was scrambling to figure out how to *prompt* these things effectively, how to avoid the nonsensical outputs, the dreaded [hallucination (artificial intelligence)](/Hallucination_(artificial_intelligence)). It became a process of relentless [trial-and-error](/Trial_and_error). &#91;8&#93; And when [ChatGPT](/ChatGPT) dropped in 2022, prompt engineering went from a niche curiosity to a supposed "essential business skill." Though, as always, the economic future of such things remains as stable as a house of cards in a hurricane. &#91;1&#93; What was surprising was seeing seasoned engineers, the ones who should know better, diving headfirst into optimizing their roles. This led to a flurry of platforms and companies offering training. &#91;13&#93;
+
+By February 2022, someone had already cataloged over 2,000 public prompts across about 170 datasets. &#91;9&#93; Then, in 2022, [Google](/Google) researchers introduced "chain-of-thought" prompting. &#91;10&#93; &#91;11&#93; And in 2023, the floodgates opened, with databases of text-to-text and text-to-image prompts becoming readily available. &#91;12&#93; &#91;13&#93; Even a categorized dataset of generated image-text pairs, the Personalized Image-Prompt (PIP) dataset, surfaced in 2024. &#91;14&#93;
+
+### Text-to-Text
+
+There are more ways to engineer a prompt than there are ways to fail at simple arithmetic. Let's just say that.
+
+#### Chain-of-Thought
+
+This is where things get interesting. [Google Research](/Google_Brain) proposed chain-of-thought (CoT) prompting. It's a technique that forces [large language models](/Large_language_models) (LLMs) to break down a problem, to show their work, before spitting out an answer. It’s like making them think aloud. &#91;10&#93; The idea is to improve their [reasoning](/Automated_reasoning) by mimicking a human's mental process, a natural [train of thought](/Train_of_thought). &#91;15&#93; This is particularly useful for multi-step problems – the kind that involve [arithmetic](/Arithmetic) or basic [commonsense reasoning](/Commonsense_reasoning). &#91;16&#93; &#91;17&#93;
+
+Imagine this: "Q: The cafeteria had 23 apples. If they used 20 to make lunch and bought 6 more, how many apples do they have?"
+
+A standard LLM might just give you a number. A CoT-prompted one? It'll go: "A: The cafeteria started with 23 apples. They used 20, leaving 23 - 20 = 3. Then they bought 6 more, so 3 + 6 = 9. The final answer is 9." &#91;10&#93;
+
+When applied to PaLM, a colossal 540 billion parameter [language model](/Language_model), Google claims CoT prompting made a significant difference. It allowed PaLM to compete with models specifically trained for certain tasks, even achieving [state-of-the-art](/State_of_the_art) on the GSM8K [mathematical reasoning](/Mathematical_reasoning) [benchmark](/Benchmark_(computing)) at the time. &#91;10&#93; You can even fine-tune models on CoT data to boost this capability and, perhaps, make them a bit more transparent. &#91;18&#93; &#91;19&#93;
+
+Originally, Google's CoT prompts came with examples – "exemplars" – to show the model what was expected. This made it a "few-shot" technique. But later, researchers found that simply tacking on "Let's think step-by-step" &#91;20&#93; was often enough. This turned it into a zero-shot technique, which is, frankly, more efficient.
+
+Here’s the structure for few-shot CoT: &#91;21&#93;
+
+Q: {example question 1}
+A: {example answer 1}
+...
+Q: {example question n }
+A: {example answer n }
+
+Q: {your actual question}
+A: {LLM's step-by-step response}
+
+And for the lazy, zero-shot: &#91;20&#93;
+
+Q: {your actual question}. Let's think step by step.
+A: {LLM's response}
+
+#### In-Context Learning
+
+This refers to the model's ability to learn *temporarily* from the prompt. It’s like giving it a quick cram session. You might throw in a few examples, like " maison → house, chat → cat, chien →" (expecting "dog"), and it just… gets it. This is called few-shot learning. &#91;22&#93; &#91;23&#93;
+
+It’s an [emergent ability](/Large_language_model_emergent_abilities) of LLMs, meaning it pops up unexpectedly as the models get bigger. &#91;24&#93; It’s not a permanent change, unlike actual training or [fine-tuning](/Fine-tuning_(deep_learning)). It’s fleeting. &#91;26&#93; Teaching models to do this is essentially [meta-learning](/Meta-learning_(computer_science)) – "learning to learn." &#91;27&#93;
+
+#### Self-Consistency
+
+This technique runs multiple chain-of-thought processes. Then, it picks the answer that comes up most often. It’s like polling a jury of its own thoughts. &#91;28&#93; &#91;29&#93;
+
+#### Tree-of-Thought
+
+Imagine CoT, but instead of a single line of reasoning, it branches out. It generates multiple paths, can backtrack, and explore different options. Think of it as using [tree search algorithms](/Tree_search_algorithm) like [breadth-first](/Breadth-first_search) or [depth-first](/Depth-first_search) search. &#91;29&#93; &#91;30&#93;
+
+### Prompting to Estimate Model Sensitivity
+
+These models are sensitive. Like a diva on opening night. Small changes in prompt wording, structure, even grammar, can swing accuracy by as much as 76 points. &#91;31&#93; Linguistic features matter – morphology, syntax, the very choice of words. &#91;3&#93; &#91;32&#93; Even something as basic as clausal syntax can tighten up their responses. &#91;33&#93; And this fragility doesn't disappear with bigger models or more examples.
+
+To combat this, researchers are developing methods to make prompts more robust. FormatSpread, for instance, tests a range of formats to map out the performance landscape. &#91;31&#93; PromptEval does something similar, estimating performance distributions to find reliable metrics. &#91;34&#93;
+
+### Automatic Prompt Generation
+
+#### Retrieval-Augmented Generation
+
+• Main article: [Retrieval-augmented generation](/Retrieval-augmented_generation)
+
+This is about giving the AI access to fresh information. It’s a way to augment its responses by pulling from specific documents or databases before it even starts generating. This is crucial for domain-specific knowledge or just keeping things current. &#91;35&#93;
+
+RAG essentially injects an information retrieval step before generation. Instead of relying solely on its pre-trained, potentially stale, knowledge, the AI can consult external sources. This helps curb those infuriating [AI hallucinations](/AI_hallucinations) – the made-up policies, the non-existent legal cases. &#91;36&#93; It’s about grounding the AI in facts, without needing constant retraining.
+
+#### Graph Retrieval-Augmented Generation
+
+This is RAG, but with a twist. GraphRAG uses knowledge graphs to connect disparate pieces of information, helping the model synthesize insights across vast datasets. &#91;37&#93; &#91;38&#93; It can handle unstructured, structured, and mixed data, offering a more holistic understanding.
+
+There’s prior work on using [knowledge graphs](/Knowledge_graph) for question answering, linking text to queries. &#91;39&#93; Combining these allows for searches across different data types, enriching the context and improving relevance.
+
+#### Context Engineering
+
+This isn't about the prompt itself, but everything *around* it. System instructions, retrieved knowledge, tool definitions, conversation history, metadata – all carefully curated and governed. It’s about making LLM systems more reliable, traceable, and efficient with tokens. &#91;40&#93; &#91;41&#93;
+
+It involves operational rigor: managing token budgets, tracking provenance, versioning context artifacts, logging what context was used, and setting up regression tests. A 2025 survey formalized this, breaking it down into context retrieval/generation, processing, and management. The idea is to treat the context window as a managed engineering surface, not just a passive dumping ground for documents. &#91;42&#93;
+
+### Using Language Models to Generate Prompts
+
+Why use a human to write prompts when another AI can do it? LLMs can generate prompts for other LLMs. &#91;43&#93; The "automatic prompt engineer" algorithm uses one LLM to [beam search](/Beam_search) for the best prompts for another. &#91;44&#93; &#91;45&#93;
+
+Here’s the gist:
+*   You have two LLMs: the target and the prompter.
+*   The prompter gets examples of input-output pairs and is asked to create instructions that would yield those outputs from the inputs.
+*   These generated instructions are then used to prompt the target LLM. The log-probabilities of the outputs are calculated – that’s the instruction’s score.
+*   The highest-scoring instructions are fed back to the prompter for refinement.
+*   Repeat until you’re satisfied.
+
+LLMs can even generate CoT examples themselves. The "auto-CoT" method clusters questions, picks representative ones, and then uses an LLM to generate zero-shot CoT answers for them. These question-answer pairs become demonstrations for few-shot learning. &#91;46&#93;
+
+#### Automatic Prompt Optimization
+
+These techniques refine prompts using test data and metrics. MiPRO (Minimum Perturbation Prompt Optimization) makes tiny edits, &#91;47&#93; while GEPA (Gradient-based Prompt Augmentation) uses gradient signals. &#91;48&#93; Frameworks like DSPy &#91;49&#93; and Opik &#91;50&#93; offer open-source implementations.
+
+### Text-to-Image
+
+• See also: [Artificial intelligence visual art § Prompt engineering and sharing](/Artificial_intelligence_visual_art), and [Artificial intelligence visual art](/Artificial_intelligence_visual_art)
+
+2022 was the year models like [DALL-E 2](/DALL-E_2), [Stable Diffusion](/Stable_Diffusion), and [Midjourney](/Midjourney) hit the mainstream. &#91;51&#93; &#91;6&#93; They take your words and spin them into images.
+
+*(Image demonstrating the effect of negative prompts on images generated with [Stable Diffusion](/Stable_Diffusion))*
+*   Top: No negative prompt.
+*   Center: "green trees" (as a negative prompt).
+*   Bottom: "round stones, round rocks" (as negative prompts).
+
+#### Prompt Formats
+
+These image models aren't quite as sophisticated with language as LLMs. Negation, grammar, sentence structure – they can be tricky. A prompt like "a party with no cake" might still yield a cake. &#91;52&#93; The workaround? Negative prompts. You tell it what *not* to include in a separate input. &#91;53&#93; Some methods even automate generating these negative prompts by framing the main prompt as a [sequence-to-sequence](/Seq2seq) problem. &#91;54&#93;
+
+A typical text-to-image prompt includes the subject, desired medium (digital painting, photography), style (hyperrealistic, pop-art), lighting (rim lighting, crepuscular rays), color, and texture. &#91;55&#93; Word order matters, too. What comes first often gets more emphasis. &#91;56&#93;
+
+[Midjourney](/Midjourney) suggests keeping it concise. Instead of a verbose description, try something like: "Bright orange California poppies drawn with colored pencils." &#91;52&#93;
+
+#### Artist Styles
+
+You can even ask these models to mimic specific artists. "In the style of Greg Rutkowski" is a common one for Stable Diffusion and Midjourney. &#91;57&#93; Artists like [Vincent van Gogh](/Vincent_van_Gogh) and [Salvador Dalí](/Salvador_Dal%C3%AD) are also popular for stylistic exploration. &#91;58&#93;
+
+#### Non-Text Prompts
+
+Some techniques go beyond just text.
+
+##### Textual Inversion and Embeddings
+
+This process creates new "word embeddings" based on example images. These embeddings act like unique keywords, allowing you to inject specific concepts or styles into your prompts. &#91;59&#93;
+
+##### Image Prompting
+
+In 2023, [Meta](/Meta_Platforms) released Segment Anything, a [computer vision](/Computer_vision) model that uses prompts other than text. It can accept bounding boxes, masks, or points to perform [image segmentation](/Image_segmentation). &#91;60&#93;
+
+### Using Gradient Descent to Search for Prompts
+
+This is where it gets mathematical. "Prefix-tuning," "prompt tuning," or "soft prompting" involve using [gradient descent](/Gradient_descent) to optimize vectors of floating-point numbers.
+
+Formally, let
+E
+=
+{
+e
+1
+,
+…
+,
+e
+k
+}
+{\displaystyle \mathbf {E} =\{\mathbf {e_{1}} ,\dots ,\mathbf {e_{k}} \}}
+be a set of soft prompt tokens (tunable embeddings). Let
+X
+=
+{
+x
+1
+,
+…
+,
+x
+m
+}
+{\displaystyle \mathbf {X} =\{\mathbf {x_{1}} ,\dots ,\mathbf {x_{m}} \}}
+and
+Y
+=
+{
+y
+1
+,
+…
+,
+y
+n
+}
+{\displaystyle \mathbf {Y} =\{\mathbf {y_{1}} ,\dots ,\mathbf {y_{n}} \}}
+be the token embeddings of the input and output. During training, the sequence
+concat
+(
+E
+;
+X
+;
+Y
+)
+{\displaystyle {\text{concat}}(\mathbf {E} ;\mathbf {X} ;\mathbf {Y} )}
+is fed to the LLM. Losses are calculated over
+Y
+{\displaystyle \mathbf {Y} }
+tokens, and gradients are backpropagated to the prompt-specific parameters. In prefix-tuning, these are parameters associated with prompt tokens at each layer; in prompt tuning, they're soft tokens added to the vocabulary. &#91; [citation needed](/Wikipedia:Citation_needed) &#93;
+
+More formally, this is prompt tuning. If an LLM is represented as
+LLM
+(
+X
+)
+=
+F
+(
+E
+(
+X
+)
+)
+{\displaystyle LLM(X)=F(E(X))}
+, where
+X
+{\displaystyle X}
+is a sequence of linguistic tokens,
+E
+{\displaystyle E}
+is the token-to-vector function, and
+F
+{\displaystyle F}
+is the rest of the model. In prefix-tuning, you provide input-output pairs
+{
+(
+X
+i
+,
+Y
+i
+)
+}
+i
+{\displaystyle \{(X^{i},Y^{i})\}_{i}}
+and optimize for
+arg
+&#x2061;
+max
+Z
+~
+∑
+i
+log
+&#x2061;
+P
+r
+[
+Y
+i
+|
+Z
+~
+∗
+E
+(
+X
+i
+)
+]
+{\displaystyle \arg \max _{\tilde {Z}}\sum _{i}\log Pr[Y^{i}|{\tilde {Z}}\ast E(X^{i})]}
+. This means maximizing the log-likelihood of outputting
+Y
+i
+{\displaystyle Y^{i}}
+when the model first encodes
+X
+i
+{\displaystyle X^{i}}
+into
+E
+(
+X
+i
+)
+{\displaystyle E(X^{i})}
+, prepends the vector
+Z
+~
+{\displaystyle {\tilde {Z}}}
+, and then applies
+F
+{\displaystyle F}
+. Prefix tuning is similar, but the "prefix vector"
+Z
+~
+{\displaystyle {\tilde {Z}}}
+is prepended to the hidden states in every layer.
+
+An earlier approach used gradient descent but operated on token sequences rather than numerical vectors, specifically for masked language models like BERT. It searches for
+arg
+&#x2061;
+max
+X
+~
+∑
+i
+log
+&#x2061;
+P
+r
+[
+Y
+i
+|
+X
+~
+∗
+X
+i
+]
+{\displaystyle \arg \max _{\tilde {X}}\sum _{i}\log Pr[Y^{i}|{\tilde {X}}\ast X^{i}]}
+, where
+X
+~
+{\displaystyle {\tilde {X}}}
+ranges over token sequences of a set length. &#91;64&#93;
+
+### Limitations
+
+Prompt engineering is a bit like engineering itself – you learn principles, but they're often specific to the model you're working with. They're also volatile; a minor tweak can change everything. &#91;65&#93; &#91;66&#93; By 2025, the "hottest job" of prompt engineer in 2023 was reportedly becoming obsolete, as models got better at intuiting intent and companies started training their own people. &#91;67&#93;
+
+#### Prompt Injection
+
+• Main article: [Prompt injection](/Prompt_injection)
+• See also: [SQL injection](/SQL_injection), [Cross-site scripting](/Cross-site_scripting), and [Social engineering (security)](/Social_engineering_(security))
+
+This is a cybersecurity nightmare. Prompt injection is when an attacker crafts inputs that look harmless but are designed to make the AI misbehave. &#91;68&#93; &#91;69&#93; It exploits the AI's inability to distinguish between its intended instructions and user input, allowing it to bypass safeguards and execute malicious commands. It’s like tricking a guard into letting an intruder in by disguising the intruder as a delivery person.
+
+---
+
+References
+
+*   ^ a b c Dina Genkina, "AI Prompt Engineering is Dead: Long live AI prompt engineering". [IEEE Spectrum](/IEEE_Spectrum). March 6, 2024.
+*   ^ a b c d e f Alec Radford, Jeffrey Wu, Rewon Child, David Luan, [Dario Amodei](/Dario_Amodei), [Ilya Sutskever](/Ilya_Sutskever), "Language Models are Unsupervised Multitask Learners" (PDF). OpenAI. 2019.
+*   ^ a b Jan Philip Wahle, Terry Ruas, Yang Xu, Bela Gipp, "Paraphrase Types Elicit Prompt Engineering Capabilities". *Proceedings of the 2024 Conference on Empirical Methods in Natural Language Processing*. Association for Computational Linguistics. 2024. [arXiv](/ArXiv_(identifier)):2406.19898. [doi](/Doi_(identifier)):10.18653/v1/2024.emnlp-main.617.
+*   ^ Will Douglas Heaven, "This horse-riding astronaut is a milestone on AI's long road towards understanding". *MIT Technology Review*. April 6, 2022.
+*   ^ Kyle Wiggers, "Meta open sources an AI-powered music generator". TechCrunch. June 12, 2023.
+*   ^ a b Aayush Mittal, "Mastering AI Art: A Concise Guide to Midjourney and Prompt Engineering". Unite.AI. July 27, 2023.
+*   ^ Bryan McCann, Nitish Keskar, Caiming Xiong, Richard Socher, "The Natural Language Decathlon: Multitask Learning as Question Answering". ICLR. 2018. [arXiv](/ArXiv_(identifier)):1806.08730.
+*   ^ Nils Knoth, Antonia Tolzin, Andreas Janson, Jan Marco Leimeister, "AI literacy and its implications for prompt engineering strategies". *Computers and Education: Artificial Intelligence*. 2024. [doi](/Doi_(identifier)):10.1016/j.caeai.2024.100225. [ISSN](/ISSN_(identifier)) 2666-920X.
+*   ^ PromptSource: An Integrated Development Environment and Repository for Natural Language Prompts. Association for Computational Linguistics. 2022.
+*   ^ a b c d e f Jason Wei, Xuezhi Wang, Dale Schuurmans, Maarten Bosma, Brian Ichter, Fei Xia, Ed H. Chi, Quoc V. Le, Denny Zhou, "Chain-of-Thought Prompting Elicits Reasoning in Large Language Models". *Advances in Neural Information Processing Systems* (NeurIPS 2022). Vol. 35. [arXiv](/ArXiv_(identifier)):2201.11903.
+*   ^ Ben Brubaker, "How Chain-of-Thought Reasoning Helps Neural Networks Compute". *Quanta Magazine*. March 21, 2024.
+*   ^ Brian X. Chen, "How to Turn Your Chatbot Into a Life Coach". *The New York Times*. June 23, 2023.
+*   ^ a b Brian X. Chen, "Get the Best From ChatGPT With These Golden Prompts". *The New York Times*. May 25, 2023. [ISSN](/ISSN_(identifier)) 0362-4331.
+*   ^ a b Zijie Chen, Lichao Zhang, Fangsheng Weng, Lili Pan, Zhenzhong Lan, "Tailored Visions: Enhancing Text-to-Image Generation with Personalized Prompt Rewriting". *2024 IEEE/CVF Conference on Computer Vision and Pattern Recognition* (CVPR). IEEE. 2024. [arXiv](/ArXiv_(identifier)):2310.08129. [doi](/Doi_(identifier)):10.1109/cvpr52733.2024.00738. [ISBN](/ISBN_(identifier)) 979-8-3503-5300-6.
+*   ^ Narang, Sharan; Chowdhery, Aakanksha (April 4, 2022). "Pathways Language Model (PaLM): Scaling to 540 Billion Parameters for Breakthrough Performance". ai.googleblog.com.
+*   ^ Ekta Dang, "Harnessing the power of GPT-3 in scientific research". VentureBeat. February 8, 2023.
+*   ^ Roger Montti, "Google's Chain of Thought Prompting Can Boost Today's Best Algorithms". Search Engine Journal. May 13, 2022.
+*   ^ "Scaling Instruction-Finetuned Language Models". *Journal of Machine Learning Research*. 2024.
+*   ^ a b Jason Wei, Yi Tay, "Better Language Models Without Massive Compute". ai.googleblog.com. November 29, 2022.
+*   ^ a b Takeshi Kojima, Shixiang Shane Gu, Machel Reid, Yutaka Matsuo, Yusuke Iwasawa, "Large Language Models are Zero-Shot Reasoners". NeurIPS. 2022. [arXiv](/ArXiv_(identifier)):2205.11916.
+*   ^ weipaper
+*   ^ a b Shivam Garg, Dimitris Tsipras, Percy Liang, Gregory Valiant, "What Can Transformers Learn In-Context? A Case Study of Simple Function Classes". NeurIPS. 2022. [arXiv](/ArXiv_(identifier)):2208.01066.
+*   ^ a b Tom Brown, Benjamin Mann, Nick Ryder, Melanie Subbiah, Jared D. Kaplan, Prafulla Dhariwal, Arvind Neelakantan, "Language models are few-shot learners". *Advances in Neural Information Processing Systems*. 2020. [arXiv](/ArXiv_(identifier)):2005.14165.
+*   ^ a b Jason Wei, Yi Tay, Rishi Bommasani, Colin Raffel, Barret Zoph, Sebastian Borgeaud, Dani Yogatama, Maarten Bosma, Denny Zhou, Donald Metzler, Ed H. Chi, Tatsunori Hashimoto, Oriol Vinyals, Percy Liang, Jeff Dean, William Fedus, "Emergent Abilities of Large Language Models". *Transactions on Machine Learning Research*. October 2022. [arXiv](/ArXiv_(identifier)):2206.07682.
+*   ^ Ethan Caballero, Kshitij Gupta, Irina Rish, David Krueger, "Broken Neural Scaling Laws". ICLR. 2023. [arXiv](/ArXiv_(identifier)):2210.14891.
+*   ^ George Musser, "How AI Knows Things No One Told It". *Scientific American*.
+*   ^ a b Shivam Garg, Dimitris Tsipras, Percy Liang, Gregory Valiant, "What Can Transformers Learn In-Context? A Case Study of Simple Function Classes". NeurIPS. 2022. [arXiv](/ArXiv_(identifier)):2208.01066.
+*   ^ Self-Consistency Improves Chain of Thought Reasoning in Language Models. ICLR. 2023. [arXiv](/ArXiv_(identifier)):2203.11171.
+*   ^ a b Aayush Mittal, "Latest Modern Advances in Prompt Engineering: A Comprehensive Guide". Unite.AI. May 27, 2024.
+*   ^ Tree of Thoughts: Deliberate Problem Solving with Large Language Models. NeurIPS. 2023. [arXiv](/ArXiv_(identifier)):2305.10601.
+*   ^ a b Quantifying Language Models' Sensitivity to Spurious Features in Prompt Design or: How I learned to start worrying about prompt formatting. ICLR. 2024. [arXiv](/ArXiv_(identifier)):2310.11324.
+*   ^ Alina Leidinger, Robert van Rooij, Ekaterina Shutova, "The language of prompting: What linguistic properties make a prompt successful?". *Findings of the Association for Computational Linguistics: EMNLP 2023*. Association for Computational Linguistics. 2023. [arXiv](/ArXiv_(identifier)):2311.01967. [doi](/Doi_(identifier)):10.18653/v1/2023.findings-emnlp.618.
+*   ^ Stephan Linzbach, Dimitar Dimitrov, Laura Kallmeyer, Kilian Evang, Hajira Jabeen, Stefan Dietze, "Dissecting Paraphrases: The Impact of Prompt Syntax and supplementary Information on Knowledge Retrieval from Pretrained Language Models". *Proceedings of the 2024 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies* (Volume 1: Long Papers). Association for Computational Linguistics. 2024. [arXiv](/ArXiv_(identifier)):2404.01992. [doi](/Doi_(identifier)):10.18653/v1/2024.naacl-long.201.
+*   ^ Efficient multi-prompt evaluation of LLMs. NeurIPS. 2024. [arXiv](/ArXiv_(identifier)):2405.17202.
+*   ^ "Why Google's AI Overviews gets things wrong". *MIT Technology Review*. May 31, 2024.
+*   ^ "Can a technology called RAG keep AI models from making stuff up?". *Ars Technica*. June 6, 2024.
+*   ^ Jonathan Larson, Steven Truitt, "GraphRAG: Unlocking LLM discovery on narrative private data". Microsoft. February 13, 2024.
+*   ^ "An Introduction to Graph RAG". KDnuggets.
+*   ^ Juan Sequeda, Dean Allemang, Bryon Jacob, "A Benchmark to Understand the Role of Knowledge Graphs on Large Language Model's Accuracy for Question Answering on Enterprise SQL Databases". Grades-Nda. 2023. [arXiv](/ArXiv_(identifier)):2311.07509.
+*   ^ a b Matt M. Casey, "Context Engineering: The Discipline Behind Reliable LLM Applications & Agents". Comet. November 5, 2025.
+*   ^ "Context Engineering". LangChain. July 2, 2025.
+*   ^ a b Lingrui Mei, "A Survey of Context Engineering for Large Language Models". arXiv. July 17, 2025.
+*   ^ Explaining Patterns in Data with Language Models via Interpretable Autoprompting (PDF). BlackboxNLP Workshop. 2023. [arXiv](/ArXiv_(identifier)):2210.01848.
+*   ^ Large Language Models are Human-Level Prompt Engineers. ICLR. 2023. [arXiv](/ArXiv_(identifier)):2211.01910.
+*   ^ Reid Pryzant, Dan Iter, Jerry Li, Yin Tat Lee, Chenguang Zhu, Michael Zeng, "Automatic Prompt Optimization with "Gradient Descent" and Beam Search". *Conference on Empirical Methods in Natural Language Processing*. 2023. [arXiv](/ArXiv_(identifier)):2305.03495. [doi](/Doi_(identifier)):10.18653/v1/2023.emnlp-main.494.
+*   ^ Automatic Chain of Thought Prompting in Large Language Models. ICLR. 2023. [arXiv](/ArXiv_(identifier)):2210.03493.
+*   ^ Optimizing Instructions and Demonstrations for Multi-Stage Language Model Programs. ACL. 2023. [arXiv](/ArXiv_(identifier)):2406.11695.
+*   ^ GEPA: Reflective Prompt Evolution Can Outperform Reinforcement Learning. NeurIPS. 2023. [arXiv](/ArXiv_(identifier)):2507.19457.
+*   ^ DSPy: Compiling Declarative Language Model Calls into Self-Improving Pipelines. NeurIPS. 2023. [arXiv](/ArXiv_(identifier)):2310.03714.
+*   ^ "Introducing Opik: Prompt Optimization by Evaluation". comet.com. 2024.
+*   ^ Sharon Goldman, "Two years after DALL-E debut, its inventor is "surprised" by impact". VentureBeat. January 5, 2023.
+*   ^ a b "Prompts". docs.midjourney.com.
+*   ^ "Why Does This Horrifying Woman Keep Appearing in AI-Generated Images?". VICE. September 7, 2022.
+*   ^ Goldblum, R.; Pillarisetty, R.; Dauphinee, M. J.; Talal, N. (1975). "Acceleration of autoimmunity in NZB/NZW F1 mice by graft-versus-host disease". *Clinical and Experimental Immunology*. 19 (2): 377–385. [ISSN](/ISSN_(identifier)) 0009-9104. [PMC](/PMC_(identifier)) 1538084. [PMID](/PMID_(identifier)) 2403.
+*   ^ "Stable Diffusion prompt: a definitive guide". May 14, 2023.
+*   ^ a b Mohamad Diab, Julian Herrera, Bob Chernow, "Stable Diffusion Prompt Book" (PDF). August 7, 2023.
+*   ^ Melissa Heikkilä, "This Artist Is Dominating AI-Generated Art and He's Not Happy About It". *MIT Technology Review*. September 16, 2022.
+*   ^ Tessa Solomon, "The AI-Powered Ask Dalí and Hello Vincent Installations Raise Uncomfortable Questions about Ventriloquizing the Dead". ARTnews.com. August 28, 2024.
+*   ^ a b Rinon Gal, Yuval Alaluf, Yuval Atzmon, Or Patashnik, Amit H. Bermano, Gal Chechik, Daniel Cohen-Or, "An Image is Worth One Word: Personalizing Text-to-Image Generation using Textual Inversion". ICLR. 2023. [arXiv](/ArXiv_(identifier)):2208.01618.
+*   ^ Segment Anything (PDF). ICCV. 2023.
+*   ^ a b Xiang Lisa Li, Percy Liang, "Prefix-Tuning: Optimizing Continuous Prompts for Generation". *Proceedings of the 59th Annual Meeting of the Association for Computational Linguistics and the 11th International Joint Conference on Natural Language Processing* (Volume 1: Long Papers). 2021. [doi](/Doi_(identifier)):10.18653/V1/2021.ACL-LONG.353. [S2CID](/S2CID_(identifier)) 230433941.
+*   ^ a b Brian Lester, Rami Al-Rfou, Noah Constant, "The Power of Scale for Parameter-Efficient Prompt Tuning". *Proceedings of the 2021 Conference on Empirical Methods in Natural Language Processing*. 2021. [arXiv](/ArXiv_(identifier)):2104.08691. [doi](/Doi_(identifier)):10.18653/V1/2021.EMNLP-MAIN.243. [S2CID](/S2CID_(identifier)) 233296808.
+*   ^ How Does In-Context Learning Help Prompt Tuning?. EACL. 2024. [arXiv](/ArXiv_(identifier)):2302.11521.
+*   ^ Taylor Shin, Yasaman Razeghi, Robert L. Logan IV, Eric Wallace, Sameer Singh, "AutoPrompt: Eliciting Knowledge from Language Models with Automatically Generated Prompts". *Proceedings of the 2020 Conference on Empirical Methods in Natural Language Processing* (EMNLP). Association for Computational Linguistics. 2020. [doi](/Doi_(identifier)):10.18653/v1/2020.emnlp-main.346. [S2CID](/S2CID_(identifier)) 226222232.
+*   ^ Lennart Meincke, Ethan R. Mollick, Lilach Mollick, Dan Shapiro, "Prompting Science Report 1: Prompt Engineering is Complicated and Contingent". March 04, 2025.
+*   ^ "'AI is already eating its own': Prompt engineering is quickly going extinct". *Fast Company*. May 6, 2025.
+*   ^ Isabelle Bousquette, "The Hottest AI Job of 2023 Is Already Obsolete". *Wall Street Journal*. April 25, 2025. [ISSN](/ISSN_(identifier)) 0099-9660.
+*   ^ a b Brandon Vigliarolo, "GPT-3 'prompt injection' attack causes bot bad manners". [The Register](/The_Register). September 19, 2022.
+*   ^ "What is a prompt injection attack?". IBM. March 26, 2024.
+
+---
+
+Scholia has a topic profile for [Prompt engineering](/Prompt_engineering).
+
+• v • t • e
+
+[Generative AI](/Generative_artificial_intelligence)
+Concepts
+• [Autoencoder](/Autoencoder)
+• [Deep learning](/Deep_learning)
+• [Fine-tuning](/Fine-tuning_(deep_learning))
+• [Foundation model](/Foundation_model)
+• [Generative adversarial network](/Generative_adversarial_network)
+• [Generative pre-trained transformer](/Generative_pre-trained_transformer)
+• [Large language model](/Large_language_model)
+• [Model Context Protocol](/Model_Context_Protocol)
+• [Neural network](/Neural_network_(machine_learning))
+• Prompt engineering
+• [Reinforcement learning from human feedback](/Reinforcement_learning_from_human_feedback)
+• [Retrieval-augmented generation](/Retrieval-augmented_generation)
+• [Self-supervised learning](/Self-supervised_learning)
+• [Stochastic parrot](/Stochastic_parrot)
+• [Synthetic data](/Synthetic_data)
+• [Top-p sampling](/Top-p_sampling)
+• [Transformer](/Transformer_(deep_learning_architecture))
+• [Variational autoencoder](/Variational_autoencoder)
+• [Vibe coding](/Vibe_coding)
+• [Vision transformer](/Vision_transformer)
+• [Waluigi effect](/Waluigi_effect)
+• [Word embedding](/Word_embedding)
+
+Models
+Text
+• [Character.ai](/Character.ai)
+• [ChatGPT](/ChatGPT)
+• [Command A](/Cohere)
+• [Claude](/Claude_(language_model))
+• [DeepSeek](/DeepSeek_(chatbot))
+• [Ernie](/Ernie_Bot)
+• [Gemini](/Google_Gemini)
+• [Gemma](/Gemma_(language_model))
+• [GLM](/Z.ai)
+• [GPT](/Generative_pre-trained_transformer)
+• [1](/GPT-1)
+• [2](/GPT-2)
+• [3](/GPT-3)
+• [J](/GPT-J)
+• [3.5](/GPT-3.5)
+• [4](/GPT-4)
+• [4o](/GPT-4o)
+• [o1](/OpenAI_o1)
+• [o3](/OpenAI_o3)
+• [4.5](/GPT-4.5)
+• [4.1](/GPT-4.1)
+• [o4-mini](/OpenAI_o4-mini)
+• [OSS](/GPT-OSS)
+• [5](/GPT-5)
+• [5.1](/GPT-5.1)
+• [Grok](/Grok_(chatbot))
+• [Hunyuan T1](/Tencent)
+• [Kimi](/Kimi_(chatbot))
+• [Llama](/Llama_(language_model))
+• [Microsoft Copilot](/Microsoft_Copilot)
+• [MiniMax M2](/MiniMax_(company))
+• [Mistral Medium](/Mistral_AI)
+• [Qwen](/Qwen)
+• [Velvet](/Velvet_AI)
+• [Solar Pro](/Upstage_(company))
+
+Coding
+• [Base44](/Base44)
+• [Claude Code](/Anthropic)
+• [Cursor](/Cursor_(code_editor))
+• [Devstral](/Mistral_AI)
+• [GitHub Copilot](/GitHub_Copilot)
+• [Grok Code Fast 1](/Grok_(chatbot))
+• [Kimi-Dev](/Moonshot_AI)
+• [Qwen3-Coder](/Qwen)
+• [Replit](/Replit)
+
+Image
+• [Aurora](/Aurora_(text-to-image_model))
+• [Firefly](/Adobe_Firefly)
+• [Flux](/Flux_(text-to-image_model))
+• [GPT Image 1](/GPT-4o)
+• [Ideogram](/Ideogram_(text-to-image_model))
+• [Imagen](/Imagen_(text-to-image_model))
+• [Leonardo](/Canva)
+• [Midjourney](/Midjourney)
+• [Nano Banana](/Nano_Banana)
+• [Qwen-Image](/Qwen)
+• [Recraft](/Recraft)
+• [Seedream](/Seedream)
+• [Stable Diffusion](/Stable_Diffusion)
+
+Video
+• [Dream Machine](/Dream_Machine_(text-to-video_model))
+• [Hailuo AI](/MiniMax_(company))
+• [Kling](/Kling_(text-to-video_model))
+• [Luma Ray](/Luma_Labs)
+• [Runway Gen](/Runway_(company))
+• [Seedance](/ByteDance)
+• [Sora](/Sora_(text-to-video_model))
+• [Veo](/Veo_(text-to-video_model))
+• [Wan](/Alibaba_Group)
+
+Speech
+• [15.ai](/15.ai)
+• [Eleven](/ElevenLabs)
+• [Gemini Speech](/Gemini_(language_model))
+• [GPT-4o mini TTS](/GPT-4o_mini)
+• [MiniMax Speech](/MiniMax_(company))
+• [Speechify](/Speechify)
+
+Music
+• [Eleven Music](/ElevenLabs)
+• [Endel](/Endel_(app))
+• [Lyria](/Google_DeepMind)
+• [MiniMax Music](/MiniMax_(company))
+• [Riffusion](/Riffusion)
+• [Stable Audio](/Stability_AI)
+• [Suno](/Suno_(platform))
+• [Udio](/Udio)
+
+Agents
+• [Agentforce](/Salesforce)
+• [AutoGLM](/Zhipu_AI)
+• [AutoGPT](/AutoGPT)
+• [ChatGPT Agent](/ChatGPT)
+• [Devin AI](/Devin_AI)
+• [Manus](/Manus_(AI_agent))
+• [MiniMax Agent](/MiniMax_(company))
+• [OpenAI Codex](/OpenAI_Codex)
+• [Operator](/OpenAI_Operator)
+• [Replit Agent](/Replit)
+
+Companies
+• [Adobe](/Adobe_Inc.)
+• [Aleph Alpha](/Aleph_Alpha)
+• [Anthropic](/Anthropic)
+• [Anysphere](/Anysphere)
+• [Baichuan](/Baichuan)
+• [Canva](/Canva)
+• [Cognition AI](/Cognition_AI)
+• [Cohere](/Cohere)
+• [Contextual AI](/Contextual_AI)
+• [DeepSeek](/DeepSeek)
+• [DeepL](/DeepL_Translator)
+• [EleutherAI](/EleutherAI)
+• [ElevenLabs](/ElevenLabs)
+• [Google DeepMind](/Google_DeepMind)
+• [HeyGen](/HeyGen)
+• [Hugging Face](/Hugging_Face)
+• [Inflection AI](/Inflection_AI)
+• [Krikey AI](/Krikey_AI)
+• [Kuaishou](/Kuaishou)
+• [Luma Labs](/Luma_Labs)
+• [Meta AI](/Meta_AI)
+• [MiniMax](/MiniMax_(company))
+• [Mistral AI](/Mistral_AI)
+• [Moonshot AI](/Moonshot_AI)
+• [OpenAI](/OpenAI)
+• [Perplexity AI](/Perplexity_AI)
+• [Runway](/Runway_(company))
+• [Safe Superintelligence](/Safe_Superintelligence_Inc.)
+• [Salesforce](/Salesforce)
+• [Scale AI](/Scale_AI)
+• [ServiceNow](/ServiceNow)
+• [SoundHound](/SoundHound)
+• [Stability AI](/Stability_AI)
+• [Synthesia](/Synthesia_(company))
+• [Thinking Machines Lab](/Thinking_Machines_Lab)
+• [Upstage](/Upstage_(company))
+• [xAI](/XAI_(company))
+• [Z.ai](/Z.ai)
+
+Controversies
+• [Deepfake pornography](/Deepfake_pornography)
+• [Generative AI pornography](/Generative_AI_pornography)
+• [Taylor Swift deepfake pornography controversy](/Taylor_Swift_deepfake_pornography_controversy)
+• [Google Gemini image generation controversy](/Google_Gemini_image_generation_controversy)
+• [Pause Giant AI Experiments](/Pause_Giant_AI_Experiments:_An_Open_Letter)
+• [Removal of Sam Altman from OpenAI](/Removal_of_Sam_Altman_from_OpenAI)
+• [Statement on AI Risk](/Statement_on_AI_Risk)
+• [Tay (chatbot)](/Tay_(chatbot))
+• [Théâtre D'opéra Spatial](/Th%C3%A9%C3%A2tre_D%27op%C3%A9ra_Spatial)
+• [Voiceverse NFT plagiarism scandal](/Voiceverse_NFT_plagiarism_scandal)
+
+• [Category](/Category:Generative_artificial_intelligence)
+
+• • •
+
+• v • t • e
+
+[Artificial intelligence](/Artificial_intelligence) (AI)
+History
+• [History](/History_of_artificial_intelligence)
+• [timeline](/Timeline_of_artificial_intelligence)
+• [Glossary](/Glossary_of_artificial_intelligence)
+• [Companies](/List_of_artificial_intelligence_companies)
+• [Projects](/List_of_artificial_intelligence_projects)
+
+Concepts
+• [Parameter](/Parameter)
+• [Hyperparameter](/Hyperparameter_(machine_learning))
+• [Loss functions](/Loss_functions_for_classification)
+• [Regression](/Regression_analysis)
+• [Bias–variance tradeoff](/Bias%E2%80%93variance_tradeoff)
+• [Double descent](/Double_descent)
+• [Overfitting](/Overfitting)
+• [Clustering](/Cluster_analysis)
+• [Gradient descent](/Gradient_descent)
+• [SGD](/Stochastic_gradient_descent)
+• [Quasi-Newton method](/Quasi-Newton_method)
+• [Conjugate gradient method](/Conjugate_gradient_method)
+• [Backpropagation](/Backpropagation)
+• [Attention](/Attention_(machine_learning))
+• [Convolution](/Convolution)
+• [Normalization](/Normalization_(machine_learning))
+• [Batchnorm](/Batch_normalization)
+• [Activation](/Activation_function)
+• [Softmax](/Softmax_function)
+• [Sigmoid](/Sigmoid_function)
+• [Rectifier](/Rectifier_(neural_networks))
+• [Gating](/Gating_mechanism)
+• [Weight initialization](/Weight_initialization)
+• [Regularization](/Regularization_(mathematics))
+• [Datasets](/Training,_validation,_and_test_data_sets)
+• [Augmentation](/Data_augmentation)
+• Prompt engineering
+• [Reinforcement learning](/Reinforcement_learning)
+• [Q-learning](/Q-learning)
+• [SARSA](/State%E2%80%93action%E2%80%93reward%E2%80%93state%E2%80%93action)
+• [Imitation](/Imitation_learning)
+• [Policy gradient](/Policy_gradient_method)
+• [Diffusion](/Diffusion_process)
+• [Latent diffusion model](/Latent_diffusion_model)
+• [Autoregression](/Autoregressive_model)
+• [Adversary](/Adversarial_machine_learning)
+• [RAG](/Retrieval-augmented_generation)
+• [Uncanny valley](/Uncanny_valley)
+• [RLHF](/Reinforcement_learning_from_human_feedback)
+• [Self-supervised learning](/Self-supervised_learning)
+• [Reflection](/Reflection_(artificial_intelligence))
+• [Recursive self-improvement](/Recursive_self-improvement)
+• [Hallucination](/Hallucination_(artificial_intelligence))
+• [Word embedding](/Word_embedding)
+• [Vibe coding](/Vibe_coding)
+• [Safety](/AI_safety) ([Alignment](/AI_alignment))
+
+Applications
+• [Machine learning](/Machine_learning)
+• In-context learning
+• [Artificial neural network](/Neural_network_(machine_learning))
+• [Deep learning](/Deep_learning)
+• [Language model](/Language_model)
+• [Large](/Large_language_model)
+• [NMT](/Neural_machine_translation)
+• [Reasoning](/Reasoning_model)
+• [Model Context Protocol](/Model_Context_Protocol)
+• [Intelligent agent](/Intelligent_agent)
+• [Artificial human companion](/Artificial_human_companion)
+• [Humanity's Last Exam](/Humanity%27s_Last_Exam)
+• [Artificial general intelligence (AGI)](/Artificial_general_intelligence)
+
+Implementations
+Audio–visual
+• [AlexNet](/AlexNet)
+• [WaveNet](/WaveNet)
+• [Human image synthesis](/Human_image_synthesis)
+• [HWR](/Handwriting_recognition)
+• [OCR](/Optical_character_recognition)
+• [Computer vision](/Computer_vision)
+• [Speech synthesis](/Deep_learning_speech_synthesis)
+• [15.ai](/15.ai)
+• [ElevenLabs](/ElevenLabs)
+• [Speech recognition](/Speech_recognition)
+• [Whisper](/Whisper_(speech_recognition_system))
+• [Facial recognition](/Facial_recognition_system)
+• [AlphaFold](/AlphaFold)
+• [Text-to-image models](/Text-to-image_model)
+• [Aurora](/Aurora_(text-to-image_model))
+• [DALL-E](/DALL-E)
+• [Firefly](/Adobe_Firefly)
+• [Flux](/Flux_(text-to-image_model))
+• [Ideogram](/Ideogram_(text-to-image_model))
+• [Imagen](/Imagen_(text-to-image_model))
+• [Midjourney](/Midjourney)
+• [Recraft](/Recraft)
+• [Stable Diffusion](/Stable_Diffusion)
+• [Text-to-video models](/Text-to-video_model)
+• [Dream Machine](/Dream_Machine_(text-to-video_model))
+• [Runway Gen](/Runway_(company))
+• [Hailuo AI](/MiniMax_(company))
+• [Kling](/Kling_AI_(company))
+• [Sora](/Sora_(text-to-video_model))
+• [Veo](/Veo_(text-to-video_model))
+• [Music generation](/Music_and_artificial_intelligence)
+• [Riffusion](/Riffusion)
+• [Suno AI](/Suno_AI)
+• [Udio](/Udio)
+
+Text
+• [Word2vec](/Word2vec)
+• [Seq2seq](/Seq2seq)
+• [GloVe](/GloVe)
+• [BERT](/BERT_(language_model))
+• [T5](/T5_(language_model))
+• [Llama](/Llama_(language_model))
+• [Chinchilla AI](/Chinchilla_(language_model))
+• [PaLM](/PaLM)
+• [GPT](/Generative_pre-trained_transformer)
+• [1](/GPT-1)
+• [2](/GPT-2)
+• [3](/GPT-3)
+• [J](/GPT-J)
+• [ChatGPT](/ChatGPT)
+• [4](/GPT-4)
+• [4o](/GPT-4o)
+• [o1](/OpenAI_o1)
+• [o3](/OpenAI_o3)
+• [4.5](/GPT-4.5)
+• [4.1](/GPT-4.1)
+• [o4-mini](/OpenAI_o4-mini)
+• [5](/GPT-5)
+• [5.1](/GPT-5.1)
+• [Claude](/Claude_(language_model))
+• [Gemini](/Gemini_(chatbot))
+• [Gemini (language model)](/Gemini_(language_model))
+• [Gemma](/Gemma_(language_model))
+• [Grok](/Grok_(chatbot))
+• [LaMDA](/LaMDA)
+• [BLOOM](/BLOOM_(language_model))
+• [DBRX](/DBRX)
+• [Project Debater](/Project_Debater)
+• [IBM Watson](/IBM_Watson)
+• [IBM Watsonx](/IBM_Watsonx)
+• [Granite](/IBM_Granite)
+• [PanGu-Σ](/Huawei_PanGu)
+• [DeepSeek](/DeepSeek_(chatbot))
+• [Qwen](/Qwen)
+
+Decisional
+• [AlphaGo](/AlphaGo)
+• [AlphaZero](/AlphaZero)
+• [OpenAI Five](/OpenAI_Five)
+• [Self-driving car](/Self-driving_car)
+• [MuZero](/MuZero)
+• [Action selection](/Action_selection)
+• [AutoGPT](/AutoGPT)
+• [Robot control](/Robot_control)
+
+People
+• [Alan Turing](/Alan_Turing)
+• [Warren Sturgis McCulloch](/Warren_Sturgis_McCulloch)
+• [Walter Pitts](/Walter_Pitts)
+• [John von Neumann](/John_von_Neumann)
+• [Christopher D. Manning](/Christopher_D._Manning)
+• [Claude Shannon](/Claude_Shannon)
+• [Shun'ichi Amari](/Shun%27ichi_Amari)
+• [Kunihiko Fukushima](/Kunihiko_Fukushima)
+• [Takeo Kanade](/Takeo_Kanade)
+• [Marvin Minsky](/Marvin_Minsky)
+• [John McCarthy](/John_McCarthy_(computer_scientist))
+• [Nathaniel Rochester](/Nathaniel_Rochester_(computer_scientist))
+• [Allen Newell](/Allen_Newell)
+• [Cliff Shaw](/Cliff_Shaw)
+• [Herbert A. Simon](/Herbert_A._Simon)
+• [Oliver Selfridge](/Oliver_Selfridge)
+• [Frank Rosenblatt](/Frank_Rosenblatt)
+• [Bernard Widrow](/Bernard_Widrow)
+• [Joseph Weizenbaum](/Joseph_Weizenbaum)
+• [Seymour Papert](/Seymour_Papert)
+• [Seppo Linnainmaa](/Seppo_Linnainmaa)
+• [Paul Werbos](/Paul_Werbos)
+• [Geoffrey Hinton](/Geoffrey_Hinton)
+• [John Hopfield](/John_Hopfield)
+• [Jürgen Schmidhuber](/J%C3%BCrgen_Schmidhuber)
+• [Yann LeCun](/Yann_LeCun)
+• [Yoshua Bengio](/Yoshua_Bengio)
+• [Lotfi A. Zadeh](/Lotfi_A._Zadeh)
+• [Stephen Grossberg](/Stephen_Grossberg)
+• [Alex Graves](/Alex_Graves_(computer_scientist))
+• [James Goodnight](/James_Goodnight)
+• [Andrew Ng](/Andrew_Ng)
+• [Fei-Fei_Li](/Fei-Fei_Li)
+• [Alex Krizhevsky](/Alex_Krizhevsky)
+• [Ilya Sutskever](/Ilya_Sutskever)
+• [Oriol Vinyals](/Oriol_Vinyals)
+• [Quoc V. Le](/Quoc_V._Le)
+• [Ian Goodfellow](/Ian_Goodfellow)
+• [Demis Hassabis](/Demis_Hassabis)
+• [David Silver](/David_Silver_(computer_scientist))
+• [Andrej Karpathy](/Andrej_Karpathy)
+• [Ashish Vaswani](/Ashish_Vaswani)
+• [Noam Shazeer](/Noam_Shazeer)
+• [Aidan Gomez](/Aidan_Gomez)
+• [John Schulman](/John_Schulman)
+• [Mustafa Suleyman](/Mustafa_Suleyman)
+• [Jan Leike](/Jan_Leike)
+• [Daniel Kokotajlo](/Daniel_Kokotajlo_(researcher))
+• [François Chollet](/Fran%C3%A7ois_Chollet)
+
+Architectures
+• [Neural Turing machine](/Neural_Turing_machine)
+• [Differentiable neural computer](/Differentiable_neural_computer)
+• [Transformer](/Transformer_(deep_learning_architecture))
+• [Vision transformer (ViT)](/Vision_transformer)
+• [Recurrent neural network (RNN)](/Recurrent_neural_network)
+• [Long short-term memory (LSTM)](/Long_short-term_memory)
+• [Gated recurrent unit (GRU)](/Gated_recurrent_unit)
+• [Echo state network](/Echo_state_network)
+• [Multilayer perceptron (MLP)](/Multilayer_perceptron)
+• [Convolutional neural network (CNN)](/Convolutional_neural_network)
+• [Residual neural network (RNN)](/Residual_neural_network)
+• [Highway network](/Highway_network)
+• [Mamba](/Mamba_(deep_learning_architecture))
+• [Autoencoder](/Autoencoder)
+• [Variational autoencoder (VAE)](/Variational_autoencoder)
+• [Generative adversarial network (GAN)](/Generative_adversarial_network)
+• [Graph neural network (GNN)](/Graph_neural_network)
+
+• [Category](/Category:Artificial_intelligence)

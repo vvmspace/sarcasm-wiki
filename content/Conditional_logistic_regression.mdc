@@ -1,0 +1,120 @@
+---
+title: "Conditional Logistic Regression"
+description: "Alright. You needed this. Don't ask why I'm providing it. Just read it, try to keep up, and don't make me repeat..."
+keywords: logistic regression, stratification, matching, observational studies, epidemiology, norman breslow, nicholas day, katherine halvorsen, ross l. prentice, confounding
+slug: "Conditional_logistic_regression"
+createdAt: "2025-11-18T09:32:33.588Z"
+updatedAt: "2025-11-18T09:32:33.588Z"
+contentType: "rewritten"
+---
+
+Alright. You needed this. Don't ask why I'm providing it. Just read it, try to keep up, and don't make me repeat myself.
+
+### Statistical technique
+
+Conditional logistic regression is what you turn to when a standard [logistic regression](/Logistic_regression) proves itself to be the blunt instrument you should have known it was. It is an extension of that basic model, engineered to handle the inconvenient realities of [stratification](/Stratification_(clinical_trials)) and [matching](/Matching_(statistics)). You don't get to ignore the structure of your data just because it's difficult. This technique forces you to confront it.
+
+Its primary hunting ground is in the messy world of [observational studies](/Observational_studies), particularly within the grim calculus of [epidemiology](/Epidemiology), where you can't just lock subjects in a lab. It was conceived in 1978, a moment of clarity from [Norman Breslow](/Norman_Breslow), [Nicholas Day](/Nick_Day_(statistician)), [Katherine Halvorsen](/Katherine_Halvorsen), [Ross L. Prentice](/Ross_L._Prentice), and C. Sabai. They evidently grew tired of watching people draw flawed conclusions from matched data. The result is arguably the most flexible and surgically precise procedure for analyzing data that has been deliberately paired or grouped.
+
+### Background
+
+In observational studies, you're not the master of the universe. You can't randomly assign exposures, so you're left with the tangled mess of reality. To even begin to control for the universe of variables you aren't interested in—a phenomenon we call [confounding](/Confounding)—you use tools like [stratification](/Stratification_(clinical_trials)) or [matching](/Matching_(statistics)). You try to make your groups comparable, a noble but often clumsy effort.
+
+A standard [logistic regression](/Logistic_regression) can be coaxed into acknowledging this structure. It does so by incorporating a different intercept, or [constant term](/Constant_term), for each and every stratum. Let's walk through this, and do try to pay attention.
+
+We denote the outcome for the ℓ-th individual in the *i*-th stratum as 
+${\displaystyle Y_{i\ell }\in \{0,1\}}$
+. This is your binary result—case or control, alive or dead, interesting or not. The corresponding predictors, the variables you think actually matter, are captured in the vector 
+${\displaystyle X_{i\ell }\in \mathbb {R} ^{p}}$
+. The model then posits that the probability of a positive outcome is given by this equation:
+
+${\displaystyle \mathbb {P} (Y_{i\ell }=1|X_{i\ell })={\frac {\exp(\alpha _{i}+{\boldsymbol {\beta }}^{\top }X_{i\ell })}{1+\exp(\alpha _{i}+{\boldsymbol {\beta }}^{\top }X_{i\ell })}}}$
+
+Here, the term 
+${\displaystyle \alpha _{i}}$
+ is the nuisance. It's the specific intercept for the *i*-th stratum, representing the baseline risk shared by everyone in that group. The vector 
+${\displaystyle {\boldsymbol {\beta }}}$
+ is what you're actually after; it represents the effect of your predictors, which is assumed to be consistent across all strata. You would then typically throw [maximum likelihood estimation](/Maximum_likelihood_estimation) at this model to get your parameter estimates.
+
+Let’s use an example, since you seem to need them. Imagine you're trying to prove that exercise prevents cardiovascular disease. A naive approach would be to regress disease incidence on minutes of exercise. You'd find a stunningly strong effect and congratulate yourself. You would also be wrong. People who exercise more are often younger, wealthier, and live in areas with better healthcare. They are fundamentally different. Your model is polluted by confounding.
+
+To fix this, you could stratify. You group people by age, location, and income. Each of these groups is a stratum, ℓ. Within each group, you have individuals, *i*. The vector 
+${\displaystyle X_{i\ell }}$
+ would contain the exercise data for individual *i* in stratum ℓ. The 
+${\displaystyle \alpha _{i}}$
+ term absorbs the baseline risk for that entire demographic group. And 
+${\displaystyle {\boldsymbol {\beta }}}$
+—the parameter you actually care about—is the isolated effect of exercise on heart disease, now hopefully scrubbed clean of those other factors. You can, of course, add other control variables into the 
+${\displaystyle X_{i\ell }}$
+ vector if you have the foresight.
+
+### Motivation
+
+The approach I just described—a stratified logistic regression with dummy variables for each stratum—works. It works just fine, provided your number of strata is small and your dataset is large. In a world where you have a few, well-populated groups, the estimates for your 
+${\displaystyle \alpha _{i}}$
+ and your precious 
+${\displaystyle {\boldsymbol {\beta }}}$
+ will, with enough data, eventually converge to their true values.
+
+However, reality is rarely so accommodating. A pathological, deeply flawed behavior emerges when you have a multitude of small strata. This is common in case-control studies where you might have one case matched to a handful of controls, creating a vast number of tiny strata. In such a scenario, the number of parameters you have to estimate explodes. If every stratum contains just two data points (one case, one control), then for a dataset of size *N*, you are estimating *N*/2 stratum-specific intercepts (the 
+${\displaystyle \alpha _{i}}$
+ parameters) plus your *p* predictors of interest. The number of parameters, *N*/2 + *p*, grows at the same rate as your data.
+
+When this happens, the foundational asymptotic theory that underpins [maximum likelihood estimation](/Maximum_likelihood_estimation) crumbles. It was never meant for a situation where the parameters are as numerous as the data points. The resulting estimates are not just noisy; they are fundamentally biased. In fact, it has been shown with painful clarity that for matched pair data, an unconditional analysis yields an estimate for the [odds ratio](/Odds_ratio) that is precisely the *square* of the correct, conditional estimate. You wouldn't just be wrong; you'd be exponentially wrong.
+
+Before conditional logistic regression arrived to clean up this mess, other tests existed. But they were primitive. They couldn't handle continuous predictors or arbitrary stratum sizes with the same elegance. They lacked the flexibility to properly control for additional covariates. They were insufficient.
+
+### Conditional likelihood
+
+Conditional logistic regression sidesteps the entire pathological mess by employing a conditional likelihood approach. Instead of trying to estimate the swarm of 
+${\displaystyle \alpha _{i}}$
+ parameters, it eliminates them from the equation entirely. It achieves this by conditioning on the number of cases within each stratum. By focusing only on the probability of observing the actual distribution of cases and controls *given* their total number in the stratum, the nuisance parameters, which are constant within a stratum, mathematically cancel out. It's a neat, almost surgical, trick.
+
+Let's look at the simplest case: pairs, where the first observation is a case (*Y* = 1) and the second is a control (*Y* = 0). The conditional likelihood is the probability of this specific arrangement, given that we know there is exactly one case and one control in the pair. The derivation looks like this:
+
+${\displaystyle {\begin{aligned}&\mathbb {P} (Y_{i1}=1,Y_{i2}=0|X_{i1},X_{i2},Y_{i1}+Y_{i2}=1)\\&={\frac {\mathbb {P} (Y_{i1}=1|X_{i1})\mathbb {P} (Y_{i2}=0|X_{i2})}{\mathbb {P} (Y_{i1}=1|X_{i1})\mathbb {P} (Y_{i2}=0|X_{i2})+\mathbb {P} (Y_{i1}=0|X_{i1})\mathbb {P} (Y_{i2}=1|X_{i2})}}\\[6pt]\ &={\frac {{\frac {\exp(\alpha _{i}+{\boldsymbol {\beta }}^{\top }X_{i1})}{1+\exp(\alpha _{i}+{\boldsymbol {\beta }}^{\top }X_{i1})}}\times {\frac {1}{1+\exp(\alpha _{i}+{\boldsymbol {\beta }}^{\top }X_{i2})}}}{{\frac {\exp(\alpha _{i}+{\boldsymbol {\beta }}^{\top }X_{i1})}{1+\exp(\alpha _{i}+{\boldsymbol {\beta }}^{\top }X_{i1})}}\times {\frac {1}{1+\exp(\alpha _{i}+{\boldsymbol {\beta }}^{\top }X_{i2})}}+{\frac {1}{1+\exp(\alpha _{i}+{\boldsymbol {\beta }}^{\top }X_{i1})}}\times {\frac {\exp(\alpha _{i}+{\boldsymbol {\beta }}^{\top }X_{i2})}{1+\exp(\alpha _{i}+{\boldsymbol {\beta }}^{\top }X_{i2})}}}}\\[6pt]\ &={\frac {\exp({\boldsymbol {\beta }}^{\top }X_{i1})}{\exp({\boldsymbol {\beta }}^{\top }X_{i1})+\exp({\boldsymbol {\beta }}^{\top }X_{i2})}}.\\[6pt]\end{aligned}}}$
+
+Notice how the 
+${\displaystyle \alpha _{i}}$
+ term, the stratum-specific intercept, has vanished. It was present in every term of the numerator and denominator, and was cleanly factored out. All that remains is the part you care about: the 
+${\displaystyle {\boldsymbol {\beta }}}$
+ and the predictor variables.
+
+This logic extends to strata of any size. For a stratum of size *m* with *k* cases, the conditional likelihood of observing the cases as the first *k* observations is:
+
+${\displaystyle \mathbb {P} (Y_{ij}=1{\text{ for }}j\leq k,Y_{ij}=0{\text{ for }}k<j\leq m|X_{i1},...,X_{im},\sum _{j=1}^{m}Y_{ij}=k)={\frac {\exp(\sum _{j=1}^{k}{\boldsymbol {\beta }}^{\top }X_{ij})}{\sum _{J\in {\mathcal {C}}_{k}^{m}}\exp(\sum _{j\in J}{\boldsymbol {\beta }}^{\top }X_{ij})}},}$
+
+where 
+${\displaystyle {\mathcal {C}}_{k}^{m}}$
+ is the set of all possible combinations of choosing *k* individuals from the *m* total individuals in the stratum. The numerator is the term for the observed data, and the denominator sums over all possible ways the *k* cases could have been distributed among the *m* individuals.
+
+The full conditional log-likelihood for your entire dataset is simply the sum of these individual log-likelihoods from each stratum. You then find the value of 
+${\displaystyle \beta }$
+ that maximizes this function. No 
+${\displaystyle \alpha _{i}}$
+ parameters are estimated, none are needed. The problem is solved.
+
+### Implementation
+
+Yes, there are tools to do this for you. You don't have to code the maximizer yourself.
+
+In R, conditional logistic regression is implemented in the `survival` package, of all places, as the function `clogit`. This is because the conditional log-likelihood function is mathematically identical to that of a [Cox proportional hazards model](/Cox_model) when the data is structured in a very specific way. An odd but functional arrangement.
+
+In Python, this functionality is available in the `statsmodels` package as of version 0.14, where it can be found under `statsmodels.discrete.conditional_models.ConditionalLogit`. Use it.
+
+### Related tests
+
+Before this more general solution was codified, researchers had to make do with a collection of more specialized, less powerful tests.
+
+*   A [paired difference test](/Paired_difference_test) can handle the association between a binary outcome and a continuous predictor, but it is restricted to paired data.
+*   A [Cochran-Mantel-Haenszel test](/Cochran-Mantel-Haenszel_test) is capable of testing the association between a binary outcome and a binary predictor across multiple strata of any size. When its assumptions are met, it is equivalent to the conditional logistic regression [score test](/Score_test). It's a relic, but a historically important one.
+
+These are the ancestors. Acknowledge them, then use the superior tool you've been given.
+
+### Notes
+
+*   ^ Breslow NE, Day NE, Halvorsen KT, Prentice RL, Sabai C (1978). "Estimation of multiple relative risk functions in matched case-control studies". Am J Epidemiol . 108 (4): 299–307. [doi](/Doi_(identifier)):10.1093/oxfordjournals.aje.a112623. [PMID](/PMID_(identifier)) 727199.
+*   ^ Breslow, N.E.; Day, N.E. (1980). *Statistical Methods in Cancer Research. Volume 1-The Analysis of Case-Control Studies*. Lyon, France: IARC. pp. 249–251. Archived from the original on 2016-12-26. Retrieved 2016-11-04.
+*   ^ Lumley, Thomas. "R documentation Conditional logistic regression". Retrieved November 3, 2016.
+*   ^ "statsmodels.discrete.conditional_models.ConditionalLogit". Retrieved March 25, 2023.
+*   ^ Day, N. E., Byar, D. P. (1979). "Testing hypotheses in case-control studies-equivalence of Mantel-Haenszel statistics and logit score tests". Biometrics . 35 (3): 623–630. [doi](/Doi_(identifier)):10.2307/2530253. [JSTOR](/JSTOR_(identifier)) 2530253. [PMID](/PMID_(identifier)) 497345. {{[cite journal](/Template:Cite_journal)}} : CS1 maint: multiple names: authors list ([link](/Category:CS1_maint:_multiple_names:_authors_list))

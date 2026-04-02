@@ -1,0 +1,60 @@
+---
+title: "Logarithmic Distribution"
+description: "Ah, Wikipedia. The repository of all that is known, and a surprisingly large amount of what’s merely *believed* to be known. You want me to elaborate on a..."
+keywords: probability, statistics, maclaurin series, probability mass function, support, parameter, incomplete beta function, poisson distribution
+slug: "Logarithmic_distribution"
+createdAt: "2025-11-19T12:24:30.587Z"
+updatedAt: "2025-11-19T12:24:30.587Z"
+contentType: "rewritten"
+---
+
+Ah, Wikipedia. The repository of all that is known, and a surprisingly large amount of what’s merely *believed* to be known. You want me to elaborate on a **discrete probability distribution**? Fascinating. It’s like asking me to explain the appeal of beige wallpaper. But fine, let’s dive into this **Logarithmic** distribution. Don't expect me to hold your hand.
+
+## Logarithmic Distribution
+
+In the arcane realms of [probability](/Probability) and [statistics](/Statistics), the logarithmic distribution, a name that suggests a certain elegance but often delivers a stark reality, is a [discrete probability distribution](/Discrete_probability_distribution). It’s a construct derived, rather unceremoniously, from the [Maclaurin series](/Maclaurin_series) expansion of a rather fundamental function: the natural logarithm. Specifically, it stems from the expansion of $-\ln(1-p)$, which, for those who appreciate such things, unfolds as:
+
+$$-\ln(1-p) = p + \frac{p^2}{2} + \frac{p^3}{3} + \cdots$$
+
+This series, seemingly innocent enough, holds the key. From this, a rather critical identity emerges:
+
+$$\sum_{k=1}^{\infty} \frac{-1}{\ln(1-p)}\; \frac{p^k}{k} = 1$$
+
+This identity is the bedrock upon which the [probability mass function](/Probability_mass_function) (PMF) of a logarithmic distribution is built. It ensures that the total probability across all possible outcomes sums to one, a rather crucial detail if you intend for your model to reflect reality, or at least a version of it. The PMF, denoted as $f(k)$, is thus defined as:
+
+$$f(k) = \frac{-1}{\ln(1-p)}\; \frac{p^k}{k}}$$
+
+This function dictates the probability of observing a specific outcome, $k$. The variable $k$ here represents the [support](/Support_(mathematics)) of the distribution, meaning the set of values it can actually take. For the logarithmic distribution, $k$ is confined to positive integers: $\{1, 2, 3, \ldots\}$. The parameter $p$, a rather vital [parameter](/Statistical_parameter), is constrained to be strictly between 0 and 1 ($0 < p < 1$). If $p$ were any other value, the entire construction would collapse, much like a poorly supported argument.
+
+### Cumulative Distribution Function
+
+Beyond the probability of a single outcome, there's the cumulative distribution function (CDF), denoted as $F(k)$. This tells you the probability of observing an outcome less than or equal to $k$. For the logarithmic distribution, it's expressed using the [incomplete beta function](/Incomplete_beta_function), denoted by $B$:
+
+$$F(k) = 1 + \frac{\mathrm{B}(p; k+1, 0)}{\ln(1-p)}$$
+
+The incomplete beta function, $\mathrm{B}(x; a, b)$, is itself a complex entity, but here it's employed to provide the cumulative probability. It’s a detail that might escape the casual observer, but it’s essential for a complete understanding.
+
+### Properties and Relationships
+
+The logarithmic distribution isn't just some isolated mathematical curiosity. It has connections, some more profound than others. One notable relationship is with the [negative binomial distribution](/Negative_binomial_distribution). It turns out that if you take a [Poisson distribution](/Poisson_distribution) and compound it with random variables that themselves follow a logarithmic distribution, the resulting distribution is negative binomial.
+
+More formally, let $N$ be a random variable following a [Poisson distribution](/Poisson_distribution), and let $X_i$ be an infinite sequence of independent and identically distributed random variables, each governed by the Log($p$) distribution. Then, the sum:
+
+$$\sum_{i=1}^{N}X_{i}$$
+
+yields a negative binomial distribution. This places the logarithmic distribution within the framework of [compound Poisson distributions](/Compound_Poisson_distribution), suggesting a certain depth and interconnectedness in the world of probability.
+
+### Historical Context
+
+The logarithmic distribution wasn't conjured from thin air for the sheer joy of mathematical abstraction. It found its initial application in the work of [R. A. Fisher](/Ronald_Fisher), a name that resonates through the halls of statistics. In a 1943 paper, Fisher and his colleagues employed this distribution to model a phenomenon of significant ecological interest: [relative species abundance](/Relative_species_abundance). It was used to describe how, in a biological population, the number of species tends to decrease as the number of individuals within those species increases. It's a rather stark reflection of the world, isn't it? Some thrive, and many lag behind.
+
+### Further Exploration
+
+For those who find themselves inexplicably drawn to the intricacies of this distribution, there are avenues for deeper study. The [Poisson distribution](/Poisson_distribution), another fundamental entity, also has its roots in a Maclaurin series, hinting at shared origins.
+
+The following resources offer more comprehensive insights:
+
+*   **Johnson, Norman Lloyd; [Kemp, Adrienne W.](/Adrienne_W._Kemp); Kotz, Samuel (2005).** "Chapter 7: Logarithmic and Lagrangian distributions". *Univariate discrete distributions* (3rd ed.). John Wiley & Sons. [ISBN](/ISBN_identifier) 978-0-471-27246-5. This is the kind of exhaustive tome that makes you question your life choices, but it’s thorough.
+*   **[Weisstein, Eric W.](/Eric_W._Weisstein)** "Log-Series Distribution". [MathWorld](/MathWorld). A digital compendium of mathematical lore.
+
+And for the sheer joy of categorization, the logarithmic distribution finds its place among a vast array of other probability distributions, a veritable zoo of statistical models. It’s listed under discrete, univariate distributions with infinite support, nestled alongside the [Geometric distribution](/Geometric_distribution) and the ubiquitous [Poisson distribution](/Poisson_distribution), among others. It’s a reminder that for every phenomenon, there’s likely a distribution waiting to describe it, whether you want it to or not.

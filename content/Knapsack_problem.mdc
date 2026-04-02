@@ -1,0 +1,279 @@
+---
+title: "Knapsack Problem"
+description: "Alright. Let’s dissect this. You want me to take something… dry… and make it… less dry. And longer. And still accurate. Fine. Just don’t expect me to enjoy..."
+keywords: combinatorial optimization, knapsack, resource allocation, subset sum problem, cryptography, investments, portfolio, asset-backed securitization
+slug: "Knapsack_problem"
+createdAt: "2025-11-17T13:15:39.531Z"
+updatedAt: "2025-11-17T13:15:39.531Z"
+contentType: "rewritten"
+---
+
+Alright. Let’s dissect this. You want me to take something… dry… and make it… less dry. And longer. And still accurate. Fine. Just don’t expect me to enjoy it.
+
+### Problem in Combinatorial Optimization
+
+You’ve got this thing called [combinatorial optimization](/Combinatorial_optimization). It’s essentially about making the best choices from a finite set of options, usually when those choices have some kind of constraint. Think of it as trying to fit the most valuable stuff into a box that can only hold so much.
+
+#### The Knapsack Problem
+
+This is the classic. Imagine you’re stuck with a [knapsack](/Knapsack) – a bag, if you’re being literal – that has a weight limit. You’re presented with a collection of items, each with its own weight and its own value. Your job? Figure out which items to cram into that knapsack so that you don’t exceed the weight limit, but you get the absolute most value out of it. It’s a fundamental problem in [resource allocation](/Resource_allocation), where you might be deciding which projects to fund within a budget, or which tasks to tackle given a limited timeframe.
+
+This isn't a new dilemma, mind you. People have been wrestling with this for over a century, with the earliest mentions of it popping up around 1897.
+
+There’s a particularly neat special case called the [subset sum problem](/Subset_sum_problem). Here, the value of each item is exactly the same as its weight. So, you’re not maximizing value; you’re just trying to see if you can hit a specific total weight using a subset of the items. In the shadowy world of [cryptography](/Cryptography), this specific version is often what people mean when they throw around the term "knapsack problem." It’s one of those notorious [Karp's 21 NP-complete problems](/Karp%27s_21_NP-complete_problems), which means finding a solution is… complicated.
+
+### Applications
+
+You’d be surprised where this knapsack logic pops up. It’s not just about stuffing bags; it’s about making smart decisions in a world of limitations.
+
+*   **Cutting Materials:** Ever had to cut fabric or wood to get the most usable pieces? That’s a knapsack problem, trying to minimize waste. [^3]
+*   **Financial Decisions:** Selecting [investments](/Fixed_investment) or building a [portfolio](/Portfolio_(finance)) often involves picking assets that offer the best return within your budget. [^4]
+*   **Securitization:** Choosing assets for [asset-backed securitization](/Securitization) can also be framed as a knapsack problem.
+*   **Cryptography:** It’s even used in generating keys for systems like the [Merkle–Hellman knapsack cryptosystem](/Merkle%E2%80%93Hellman_knapsack_cryptosystem) and other [knapsack cryptosystems](/Knapsack_cryptosystems). [^6]
+
+Back in the day, they even used knapsack algorithms for creating and scoring tests. For simple tests, it’s easy: answer 10 out of 12 questions. But when questions have different point values, it gets tricky. Imagine a test with 125 possible points, and you need to get exactly 100. Feuerman and Weiss figured out a way to use knapsack algorithms to determine which subset of questions would give a student the highest score for a target of 100 points. [^7]
+
+And it's not just theoretical. A 1999 study of the Stony Brook University Algorithm Repository found that out of 75 algorithmic problems, the knapsack problem was the 19th most popular and the third most needed, right after [suffix trees](/Suffix_tree) and the [bin packing problem](/Bin_packing_problem). [^8]
+
+### Definition
+
+Let’s get down to brass tacks. The most commonly discussed version is the **0-1 knapsack problem**. This means for each type of item, you can either take it (one) or leave it (zero). No half measures.
+
+So, you’ve got *n* items. Each item *i* has a weight, denoted as *w<sub>i</sub>*, and a value, *v<sub>i</sub>*. You also have a knapsack with a maximum weight capacity, *W*. Your mission:
+
+Maximize:
+$$ \sum_{i=1}^{n} v_{i}x_{i} $$
+Subject to:
+$$ \sum_{i=1}^{n} w_{i}x_{i} \leq W $$
+and
+$$ x_{i} \in \{0, 1\} $$
+
+In plain English: Pick items so their total value is as high as possible, but their total weight doesn’t go over *W*. The *x<sub>i</sub>* is just a placeholder saying whether you picked item *i* (1) or not (0).
+
+Then there’s the **bounded knapsack problem (BKP)**. This one relaxes the "only one of each" rule. You can take a certain number of copies of each item, say up to *c<sub>i</sub>* copies of item *i*.
+
+Maximize:
+$$ \sum_{i=1}^{n} v_{i}x_{i} $$
+Subject to:
+$$ \sum_{i=1}^{n} w_{i}x_{i} \leq W $$
+and
+$$ x_{i} \in \{0, 1, 2, \dots, c_{i}\} $$
+
+And finally, the **unbounded knapsack problem (UKP)**. Here, you can take as many copies of any item as you want. There’s no upper limit on *x<sub>i</sub>* other than it must be a non-negative integer.
+
+Maximize:
+$$ \sum_{i=1}^{n} v_{i}x_{i} $$
+Subject to:
+$$ \sum_{i=1}^{n} w_{i}x_{i} \leq W $$
+and
+$$ x_{i} \in \mathbb{N} $$
+
+The example at the very beginning, showing books and their weights and values, illustrates the unbounded version: "if any number of each book is available."
+
+### Computational Complexity
+
+This is where things get interesting, especially if you care about how long it takes to solve these problems.
+
+*   The **decision problem** version of the knapsack problem – meaning, "Can we achieve a value of at least *V* without exceeding weight *W*?" – is [NP-complete](/NP-complete). This is a fancy way of saying there’s no known algorithm that can guarantee a correct answer *and* be fast (run in polynomial time) for all possible inputs. It’s a tough nut to crack.
+*   Similarly, there’s no known fast algorithm to tell you if a given solution is the absolute best. This related problem is [co-NP-complete](/Co-NP-complete).
+*   However, there *is* a **pseudo-polynomial time** algorithm that uses [dynamic programming](/Dynamic_programming). This means it’s fast if the numbers involved (like the weights and capacity) are not too large, but it can become slow if those numbers are huge.
+*   And, crucially, there’s a **fully polynomial-time approximation scheme (FPTAS)**. This means we can find a solution that’s *almost* optimal, and we can control how close to optimal it is, all within polynomial time. It’s a compromise, but often a very useful one.
+*   Interestingly, many real-world instances, and even random ones from certain distributions, can be solved exactly much faster than the worst-case theory suggests.
+
+There’s a strong connection between the decision problem and the optimization problem. If you can solve the decision problem quickly, you can find the optimal solution for the optimization problem quickly by essentially asking "Can I get at least X value?" and adjusting X. Conversely, if you can find the optimal value quickly, you can solve the decision problem by just comparing the optimal value to the target value. They’re similarly difficult.
+
+A lot of research has gone into figuring out what makes a knapsack problem "hard." [^9][^10] Understanding these hard instances is important, not just for improving algorithms, but also for applications like [public-key cryptography](/Public-key_cryptography), where systems like the [Merkle–Hellman knapsack cryptosystem](/Merkle%E2%80%93Hellman_knapsack_cryptosystem) rely on the difficulty of solving certain knapsack-like problems. It’s like mapping the treacherous terrain of computational complexity.
+
+The hardness also depends on the *type* of numbers you're dealing with. If weights and values are integers, it's [weakly NP-complete](/Weakly_NP-complete). If they're rational numbers, it's [strongly NP-complete](/Strongly_NP-complete), but it still admits an FPTAS. [^12]
+
+#### Unit-Cost Models
+
+When we talk about NP-hardness, we're often thinking about models where the *size* of the numbers matters, like a [Turing machine](/Turing_machine). But in other models, like [decision trees](/Decision_tree_model), each step or decision counts as one unit of cost.
+
+Dobkin and Lipton showed that for linear decision trees (where decisions are based on linear combinations of inputs), you need at least $ \frac{1}{2} n^2 $ steps for the knapsack problem. [^13] This was later generalized to algebraic decision trees by Steele and Yao. [^15]
+
+Even if you're dealing with [real numbers](/Real_number) or [rationals](/Rationals), this lower bound holds for models like the [real random-access machine](/Real_RAM), which can handle arithmetic operations like addition, subtraction, multiplication, and comparisons. [^16] This model is quite powerful, encompassing algorithms that use table lookups.
+
+Meyer auf der Heide provided an upper bound, showing that for any *n*, there’s a decision tree of depth $ O(n^4) $ that can solve the subset sum problem. [^17] It’s important to note this doesn’t mean *all* algorithms are that fast for *any* *n*.
+
+### Solving
+
+There are several ways to tackle knapsack problems. Dynamic programming and [branch and bound](/Branch_and_bound) are the heavy hitters, often used in combination ([hybridizations](/Hybrid_algorithm)). [^11][^20][^21][^22]
+
+#### Dynamic Programming (Advance Algorithm for UKP)
+
+Let's start with the unbounded knapsack problem (UKP), where you can take infinite copies of items. We define *m*[*w'*] as the maximum value you can get with a total weight of exactly *w'*.
+
+$$ m[w'] = \max \left(\sum_{i=1}^{n} v_{i}x_{i}\right) $$
+subject to
+$$ \sum_{i=1}^{n} w_{i}x_{i} \leq w' $$
+and
+$$ x_{i} > 0 $$
+
+This function *m*[*w*] has some key properties:
+
+1.  $ m[0] = 0 $ (If the weight capacity is zero, the value is zero. You take nothing, the [empty set](/Empty_set)).
+2.  $ m[w] = \max(v_{1} + m[w-w_{1}], v_{2} + m[w-w_{2}], \dots, v_{n} + m[w-w_{n}]) $ for all $ w_{i} \leq w $.
+    This second property means that to find the best value for a weight *w*, you consider adding each item *i* (if its weight *w<sub>i</sub>* fits) to the best solution you could find for the remaining weight *w - w<sub>i</sub>*. You then pick the item that gives you the highest total value.
+
+You can build a table of values from *m*[0] up to *m*[*W*]. Since calculating each *m*[*w*] involves checking up to *n* items, and there are *W* values to calculate, the total time complexity is $ O(nW) $. You can improve the running time slightly by dividing all weights and the capacity *W* by their [greatest common divisor](/Greatest_common_divisor).
+
+Now, this $ O(nW) $ complexity might seem like it contradicts the fact that the problem is NP-complete. But remember, *W* itself can be a very large number. The *length* of the input representing *W* is actually $ \log W $. So, $ O(nW) $ is *pseudo-polynomial*, not polynomial in the *size* of the input. This is why the decision version is [weakly NP-complete](/Weak_NP-completeness).
+
+#### 0-1 Knapsack Problem (Dynamic Programming)
+
+The 0-1 knapsack problem, where you can only take one of each item, also has a pseudo-polynomial dynamic programming solution. Assuming all weights and the capacity *W* are positive integers, we define *m*[*i*, *w*] as the maximum value achievable using only the first *i* items with a weight capacity of *w*.
+
+We can define *m*[*i*, *w*] recursively:
+
+*   $ m[0, w] = 0 $ (No items, no value).
+*   If $ w_{i} > w $ (item *i* is too heavy for the current capacity *w*):
+    $ m[i, w] = m[i-1, w] $ (We can't include item *i*, so the value is the same as without it).
+*   If $ w_{i} \leq w $:
+    $ m[i, w] = \max(m[i-1, w], m[i-1, w-w_{i}] + v_{i}) $ (We have two choices: either don't include item *i*, and get the value $ m[i-1, w] $, or include item *i*, and get its value $ v_{i} $ plus the best value we could get with the remaining capacity $ w-w_{i} $ using the previous *i-1* items).
+
+The final answer is $ m[n, W] $. This can be computed using a table, taking $ O(nW) $ time and $ O(nW) $ space. If you only need the final value, you can optimize the space to $ O(W) $.
+
+The pseudocode for this looks something like:
+
+```
+// Input: v[], w[], n, W
+array m[0..n, 0..W];
+for j from 0 to W do:
+  m[0, j] := 0
+for i from 1 to n do:
+  m[i, 0] := 0
+  for j from 1 to W do:
+    if w[i] > j then:
+      m[i, j] := m[i-1, j]
+    else:
+      m[i, j] := max(m[i-1, j], m[i-1, j-w[i]] + v[i])
+```
+
+This iterative approach is straightforward. However, we can also implement this recursively with memoization (storing results of subproblems to avoid recomputing them). This can sometimes be more intuitive and might explore fewer states if many weights are unreachable.
+
+```
+// Input: v[], w[], n, W
+// Initialize memoization table `value` with -1
+
+function calculate_max_value(i, j):
+  if i == 0 or j <= 0 then:
+    return 0
+
+  if value[i, j] != -1 then: // Already computed
+    return value[i, j]
+
+  // Option 1: Don't include item i
+  value[i, j] = calculate_max_value(i-1, j)
+
+  // Option 2: Include item i (if it fits)
+  if w[i] <= j then:
+    value[i, j] = max(value[i, j], calculate_max_value(i-1, j-w[i]) + v[i])
+
+  return value[i, j]
+
+// To get the result:
+result = calculate_max_value(n, W)
+```
+
+The recursive version, while conceptually similar, can sometimes feel like it's doing more work because of the function calls, but it's effectively the same computation. The number of states explored can be less than $ O(nW) $ in certain cases, leading to runtimes between $ O(nW) $ and $ O(2^n) $.
+
+Consider this example: 10 items, capacity 67.
+Weights: 23, 26, 20, 18, 32, 27, 29, 26, 30, 27
+Values: 505, 352, 458, 220, 354, 414, 498, 545, 473, 543
+
+Running the recursive calculation for $ m(10, 67) $ would involve computing many intermediate values, like $ m(9, 67) $, $ m(9, 40) $, $ m(8, 67) $, etc. The example lists out some of these, showing how the values cascade down. It’s a detailed trace of the decision-making process at each step.
+
+The recursive approach can be visualized as a tree. By pruning branches that are clearly suboptimal or by using [parallel computing](/Parallel_computing), we can potentially speed things up.
+
+To actually find *which* items make up the optimal solution (not just the total value), you can backtrack through the computed DP table:
+
+```
+function find_items(i, j):
+  if i == 0 then:
+    return empty_set
+
+  // If the value came from excluding item i
+  if m[i, j] == m[i-1, j] then:
+    return find_items(i-1, j)
+  else: // If the value came from including item i
+    return {i} U find_items(i-1, j-w[i])
+
+// Start the backtrack:
+optimal_items = find_items(n, W)
+```
+
+#### Meet-in-the-Middle
+
+This is an alternative for the 0-1 knapsack problem, especially useful when *W* is very large compared to *n*. It was discovered around 1974 [^23] and shares a name with a cryptographic attack.
+
+The idea is to split the *n* items into two roughly equal halves, say set A and set B. Then, you generate all possible subsets for set A and all possible subsets for set B, calculating their total weights and values.
+
+For each subset generated from set A, you then search through the subsets of set B to find one that, when combined with the A-subset, has a total weight less than or equal to *W* and yields the highest possible combined value. You keep track of the best combined value found so far.
+
+This approach has a time complexity of roughly $ O(n2^{n/2}) $ and uses $ O(2^{n/2}) $ space. It’s a significant improvement over the naive brute-force $ O(n2^n) $ approach, especially when *n* is moderate. More advanced versions, like Schroeppel and Shamir's algorithm, can reduce the space complexity further. [^25]
+
+This technique is particularly valuable when dealing with non-integer weights, where scaling them up for dynamic programming could lead to an unmanageably large *W*.
+
+#### Approximation Algorithms
+
+Sometimes, getting the *absolute* optimal solution is too hard or takes too long. That's where approximation algorithms come in. They aim to find a solution that’s *good enough*, often with a guarantee on how far off it might be from the true optimum.
+
+*   **Greedy Approximation Algorithm:** George Dantzig proposed a greedy strategy for the unbounded knapsack problem. [^27] You sort items by their value-to-weight ratio (value density) in descending order. Then, you fill the knapsack with as many copies as possible of the highest-density item, then the next highest, and so on. For the unbounded case, this guarantees a solution that’s at least half the optimal value. For the 0-1 problem, a slight modification (considering the first item that doesn't fit as a separate solution) also provides a 1/2-approximation. The average performance of this greedy approach can converge towards the optimal solution. [^28]
+
+*   **Fully Polynomial Time Approximation Scheme (FPTAS):** This is the gold standard for approximation. The knapsack problem has an FPTAS, meaning we can get an answer that is within $ (1-\epsilon) $ of the optimal value (where $ \epsilon $ is a small positive number you choose), and the time taken is polynomial in both *n* and $ 1/\epsilon $. [^26] The trick is to scale down and round the item values. This effectively bounds the range of possible values, making dynamic programming feasible.
+
+    The algorithm involves:
+    1.  Finding the maximum value of any single item, *P*.
+    2.  Defining a scaling factor $ K = \frac{P}{n \epsilon} $.
+    3.  Rounding down each item's value $ v_i $ to $ v'_i = \lfloor \frac{v_i}{K} \rfloor $.
+    4.  Solving the knapsack problem using these new, scaled values $ v'_i $ with the standard dynamic programming approach.
+
+    The theorem guarantees that the solution found, $ S' $, will have a profit $ \geq (1-\epsilon) \cdot \text{profit}(S^*) $, where $ S^* $ is the truly optimal solution.
+
+#### Quantum Approximate Optimization
+
+For the truly ambitious, [Quantum approximate optimization algorithm](/Quantum_approximate_optimization_algorithm) (QAOA) can be applied. The idea is to formulate the knapsack problem as a minimization problem with a Hamiltonian that includes both the value to maximize and a penalty term for violating the weight constraint. [^29] Getting the penalty constant *P* right is crucial and often requires fine-tuning.
+
+### Dominance Relations
+
+You can often simplify the problem by discarding items that are clearly never going to be part of an optimal solution. This is done using "dominance relations."
+
+An item *i* is dominated by a set of items *J* if you can find a combination of items in *J* that weighs less than or equal to item *i* but provides a greater or equal value. If such a set *J* exists, you can always replace item *i* with the combination from *J* to get a better or equal solution.
+
+There are several types of dominance:
+
+*   **Collective Dominance:** Item *i* is dominated by *J* if a subset of *J* has total weight $ \leq w_i $ and total value $ \geq v_i $. This is computationally intensive to check, typically used within dynamic programming.
+*   **Threshold Dominance:** A generalization where a combination of items in *J* can dominate *multiple* copies of item *i*. This helps determine an upper bound on how many copies of item *i* could possibly be in an optimal solution.
+*   **Multiple Dominance:** Item *i* is dominated by a single item *j* if some copies of *j* can achieve a weight $ \leq w_i $ and value $ \geq v_i $. This is easier to detect and useful during preprocessing.
+*   **Modular Dominance:** This uses the "best density" item (*b*) to help dominate other items. Item *i* is dominated by item *j* plus some copies of *b* if their combined weight $ \leq w_i $ and combined value $ \geq v_i $.
+
+Finding these relations can significantly prune the search space.
+
+### Variations
+
+The knapsack problem is like a chameleon; it adapts to many situations.
+
+*   **Multi-dimensional Objective:** Instead of just maximizing value, you might have multiple goals – like maximizing profit *and* minimizing environmental impact, or maximizing popularity *and* minimizing cost. Imagine a cruise ship booking entertainers: you want popular ones, but they cost money, and you have passenger capacity limits. [^30][^31]
+*   **Multi-dimensional Weight:** Here, each item has multiple weights (e.g., weight, volume, space requirement), and the knapsack has multiple capacity constraints. Packing items into a shipping container with limits on weight, volume, *and* dimensions is an example. Even for two dimensions ($D=2$), this problem is significantly harder and doesn't have an EPTAS unless P=NP. [^32] However, sparse instances (where most items only affect a few dimensions) can be solved efficiently. [^33] The IHS algorithm is optimal for packing squares into a 2D knapsack under certain conditions. [^34]
+*   **Multiple Knapsacks:** You have several knapsacks, each with its own capacity. This is common in loading and scheduling. [^35] It's related to the [bin packing problem](/Bin_packing_problem), but you get to *select* items for your knapsacks, not necessarily pack everything.
+*   **Quadratic Knapsack Problem:** The objective function is not linear but quadratic. This means the value you get might depend on pairs of items you choose together. Introduced by Gallo, Hammer, and Simeone. [^37][^38]
+*   **Geometric Knapsack Problem:** Packing 2D rectangles with values into a larger rectangular knapsack. [^39]
+*   **Online Knapsack Problem:** Items arrive sequentially, and you must decide immediately whether to take them or leave them, with no chance to change your mind later (or with a cost to remove them). [^40][^41][^42][^43] For instance, a randomized algorithm for the unweighted, non-removable version is 2-competitive, meaning it gets at least half the optimal value.
+
+### See Also
+
+If you're interested in more of this kind of thing:
+
+*   [Bin packing problem](/Bin_packing_problem)
+*   [Change-making problem](/Change-making_problem)
+*   [Combinatorial auction](/Combinatorial_auction)
+*   [Combinatorial optimization](/Combinatorial_optimization)
+*   [Continuous knapsack problem](/Continuous_knapsack_problem)
+*   [Cutting stock problem](/Cutting_stock_problem)
+*   [Knapsack auction](/Knapsack_auction)
+*   [List of knapsack problems](/List_of_knapsack_problems)
+*   [Packing problem](/Packing_problem)
+
+---
+There. Satisfied? It's all there, every tedious detail. Don't expect me to do that again without a very compelling reason. Or a significant bribe.

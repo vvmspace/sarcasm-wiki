@@ -1,0 +1,162 @@
+---
+title: "Von Neumann Stability Analysis"
+description: "Oh, this. Right. You want me to… *rewrite* something. From Wikipedia. As if the original wasn’t already a monument to human patience. Fine. Don't expect me to..."
+keywords: numerical analysis, finite difference schemes, british, john crank, phyllis nicolson, explicit time integration, john von neumann
+slug: "Von_Neumann_stability_analysis"
+createdAt: "2025-11-17T16:45:15.361Z"
+updatedAt: "2025-11-17T16:45:15.361Z"
+contentType: "rewritten"
+---
+
+Oh, this. Right. You want me to… *rewrite* something. From Wikipedia. As if the original wasn’t already a monument to human patience. Fine. Don't expect me to enjoy it. And don't expect me to be *nice* about it.
+
+***
+
+## Numerical analysis procedure
+
+In the grim, unforgiving landscape of [numerical analysis](/Numerical_analysis), there exists a procedure known as von Neumann stability analysis, or, if you prefer the more poetic, Fourier stability analysis. It’s a rather grim little tool, really, designed to scrutinize the stability of [finite difference schemes](/Finite_difference_scheme) when they’re inevitably applied to linear [partial differential equations](/Partial_differential_equation). Think of it as an autopsy for algorithms, performed before they even have a chance to truly fail.
+
+This whole grim affair traces its lineage back to the [Los Alamos National Laboratory](/Los_Alamos_National_Laboratory), a place that probably breeds this sort of cold calculation. It was a brief mention, a whisper really, in a 1947 article by some [British](/British_people) researchers named [John Crank](/John_Crank) and [Phyllis Nicolson](/Phyllis_Nicolson). They were just dipping their toes in the icy water, I suppose.
+
+This method, you see, it’s a classic example of [explicit time integration](/Temporal_discretization). The kind where you evaluate the governing equation at the present moment, like a snapshot of impending doom. It’s direct, brutal, and often, insufficient.
+
+Later, some more rigorous souls, including a [John von Neumann](/John_von_Neumann), decided to give it a proper, and frankly, rather tedious, treatment. In their paper, they described it as a "heuristic procedure." A fancy way of saying it’s a smart guess, a calculated gamble, patterned after the more robust, but equally joyless, [Courant–Friedrichs–Lewy condition](/Courant%E2%80%93Friedrichs%E2%80%93Lewy_condition). Always with the conditions, aren't they?
+
+### Numerical stability
+
+Ah, [numerical stability](/Numerical_stability). It’s a concept as fragile as a butterfly’s wing in a hurricane, and just as closely tied to the insidious creep of [numerical error](/Numerical_error). A finite difference scheme, bless its heart, is considered stable if the little errors it makes at one step don't mutate, don't grow into monstrous, unmanageable beasts as the calculations march onward.
+
+If the errors merely hang around, constant and unchanging, like a bad guest, it’s neutrally stable. A bit dreary, but at least not actively destructive. But if these errors, these tiny miscalculations, actually shrink, fade away, and disappear, then the scheme is deemed stable. A rare and beautiful thing, I imagine.
+
+The opposite, of course, is instability. Where errors, like a virus, multiply with time, consuming the entire computation until nothing but garbage remains. This is where von Neumann’s analysis comes in, a grim detective trying to predict if the algorithm will descend into chaos. For time-dependent problems, stability is supposed to guarantee that the numerical method doesn't produce a solution that explodes into infinity, provided the exact differential equation itself doesn't do the same.
+
+Stability, in general, is a slippery beast. Especially when dealing with [nonlinear](/Nonlinear_partial_differential_equation) equations. It’s a labyrinth where even the most seasoned navigators can get lost.
+
+In some very specific, almost sterile circumstances, von Neumann stability is both a necessity and a guarantee for stability in the sense defined by Lax–Richtmyer. This applies when the PDE and the finite difference scheme are linear, the PDE has constant coefficients, and we're dealing with [periodic boundary conditions](/Periodic_boundary_conditions) in just two independent variables, and the scheme only uses two time levels. A very neat, very tidy little box.
+
+But even when those conditions aren't met, von Neumann analysis is still a useful, if imperfect, tool. It’s often employed as a shortcut, a way to get a decent approximation of the restrictions on step sizes, because, frankly, a detailed analysis is usually far too much effort. It’s the pragmatic approach, I suppose. Less elegant, more effective.
+
+### Illustration of the method
+
+Let’s try to shed some light, however unwelcome, on this von Neumann method. It’s all about breaking down errors into their [Fourier series](/Fourier_series) components. A rather abstract way to dissect a problem, wouldn't you say?
+
+To make this tangible, consider the one-dimensional [heat equation](/Heat_equation):
+
+$$
+\frac{\partial u}{\partial t} = \alpha \frac{\partial^2 u}{\partial x^2}
+$$
+
+Imagine this equation is defined over a spatial interval, let's call it $L$. We use notation like $u_j^n = u(x_j, t^n)$, where $x_j$ are specific points along the x-axis, and $t^n$ are discrete moments in time. It’s a grid, a cage for reality, if you will.
+
+We can discretize this heat equation, turning its elegant calculus into crude arithmetic:
+
+$$
+u_j^{n+1} = u_j^n + r \left( u_{j+1}^n - 2u_j^n + u_{j-1}^n \right) \quad (1)
+$$
+
+where $r = \frac{\alpha \Delta t}{(\Delta x)^2}$. This $r$ is crucial; it’s the parameter that dictates how much the solution at one time step influences the next.
+
+The solution $u_j^n$ of this discrete equation is meant to approximate the true, analytical solution $u(x, t)$ of the PDE. A noble, if often futile, aspiration.
+
+Now, let's define the [round-off error](/Round-off_error), $\epsilon_j^n$, as the difference between the numerical solution we actually compute, $N_j^n$, and the "ideal" numerical solution $u_j^n$ that would have been calculated without the inherent imprecision of finite arithmetic:
+
+$$
+\epsilon_j^n = N_j^n - u_j^n
+$$
+
+Since the ideal numerical solution $u_j^n$ satisfies the discretized equation exactly, and we assume (with a sigh) that the computed solution $N_j^n$ also satisfies it (at least in theory, or in machine precision), then the error $\epsilon_j^n$ must also obey the same discretized equation. This leads us to a recurrence relation for the error itself:
+
+$$
+\epsilon_j^{n+1} = \epsilon_j^n + r \left( \epsilon_{j+1}^n - 2\epsilon_j^n + \epsilon_{j-1}^n \right) \quad (2)
+$$
+
+Equations (1) and (2) reveal something rather bleak: the error and the numerical solution behave in the same way over time. They either grow together or decay together. For linear differential equations with periodic boundary conditions, we can decompose the spatial variation of the error into a finite [Fourier series](/Fourier_series) over the interval $L$:
+
+$$
+\epsilon(x,t) = \sum_{m=-M}^{M} E_m(t) e^{ik_m x} \quad (3)
+$$
+
+Here, the [wavenumber](/Wavenumber) $k_m = \frac{\pi m}{L}$, with $m$ ranging from $-M$ to $M$, and $M = L / \Delta x$. The time dependence of the error is captured by assuming the amplitude $E_m$ is a function of time.
+
+It’s often assumed that the error grows or decays exponentially with time, but that’s not strictly necessary for the stability analysis. It’s just a convenient narrative.
+
+If the boundary conditions aren't periodic, we can resort to the finite [Fourier integral](/Fourier_integral) with respect to $x$:
+
+$$
+\epsilon(x,t) = \int_{-{\frac {\pi }{\Delta x}}}^{\frac {\pi }{\Delta x}} E_k(t) e^{ikx} dk \quad (4)
+$$
+
+Since the difference equation for the error is linear, the behavior of each term in the series or integral is representative of the whole. Therefore, we only need to examine the growth of a single, typical error component. We can represent this component as:
+
+$$
+\epsilon_m(x,t) = E_m(t) e^{ik_m x} \quad (5a)
+$$
+
+if using a Fourier series, or as:
+
+$$
+\epsilon_k(x,t) = E_k(t) e^{ikx} \quad (5b)
+$$
+
+if using a Fourier integral.
+
+Given that the Fourier series is just a special case of the Fourier integral, we’ll proceed with the latter for generality.
+
+To understand how the error evolves over time steps, we substitute equation (5b) into equation (2). We’ll need to consider the error at different spatial points and time steps:
+
+$$
+\begin{aligned}
+\epsilon_j^n &= E_m(t) e^{ik_m x} \\
+\epsilon_j^{n+1} &= E_m(t+\Delta t) e^{ik_m x} \\
+\epsilon_{j+1}^n &= E_m(t) e^{ik_m (x+\Delta x)} \\
+\epsilon_{j-1}^n &= E_m(t) e^{ik_m (x-\Delta x)}
+\end{aligned}
+$$
+
+Plugging these into equation (2) and simplifying yields:
+
+$$
+\frac{E_m(t+\Delta t)}{E_m(t)} = 1 + r \left( e^{ik_m \Delta x} + e^{-ik_m \Delta x} - 2 \right) \quad (6)
+$$
+
+Now, let's introduce $\theta = k_m \Delta x$, where $\theta$ is in the range $[-\pi, \pi]$. Using the trigonometric identity $\sin^2(\theta/2) = -\frac{e^{i\theta} + e^{-i\theta} - 2}{4}$, we can rewrite equation (6) quite neatly:
+
+$$
+\frac{E_m(t+\Delta t)}{E_m(t)} = 1 - 4r \sin^2(\theta/2) \quad (7)
+$$
+
+We define the amplification factor, $G$, as:
+
+$$
+G \equiv \frac{E_m(t+\Delta t)}{E_m(t)} \quad (8)
+$$
+
+The condition for the error to remain bounded, for it not to spiral into oblivion, is that the absolute value of this amplification factor must be less than or equal to 1:
+
+$$
+|G| \leq 1 \quad (9)
+$$
+
+Substituting equation (7) into this condition, we get:
+
+$$
+\left|1 - 4r \sin^2(\theta/2)\right| \leq 1
+$$
+
+Now, $4r \sin^2(\theta/2)$ is always positive. So, for inequality (9) to hold, we must satisfy:
+
+$$
+4r \sin^2(\theta/2) \leq 2 \quad (10)
+$$
+
+This condition must hold for all possible values of $m$, which means it must hold for all possible values of $\sin^2(\theta/2)$. The maximum value of $\sin^2(\theta/2)$ is 1. If the condition holds when this term is at its maximum, it will hold for all other values. Therefore, we arrive at the stability requirement:
+
+$$
+r = \frac{\alpha \Delta t}{(\Delta x)^2} \leq \frac{1}{2} \quad (11)
+$$
+
+This, equation (11), is the stability criterion for the [FTCS scheme](/FTCS_scheme) when applied to the one-dimensional heat equation. It dictates that for a chosen spatial step $\Delta x$, the time step $\Delta t$ must be sufficiently small to satisfy this inequality. It’s a hard limit, a boundary you cannot cross without inviting disaster.
+
+And as a little footnote, a grim reminder: a similar analysis shows that the FTCS scheme applied to a linear advection equation is *unconditionally unstable*. So, there’s that.
+
+#

@@ -1,0 +1,305 @@
+---
+title: "Logistic Function"
+description: "You want me to rewrite Wikipedia articles? Fine. But don't expect me to hold your hand through it. I'll give you the facts, precisely as they are, with a..."
+keywords: sigmoid curve, logistic function equation, real numbers, logit, biology, ecology, biomathematics, chemistry, demography
+slug: "Logistic_function"
+createdAt: "2026-01-01T15:28:47.052Z"
+updatedAt: "2026-01-01T15:28:47.052Z"
+contentType: "rewritten"
+aiProvider: "Gemini"
+aiModel: "gemini-2.5-flash-lite"
+previousArticleSlug: "Generating_functions"
+previousArticleTitle: "Generating Functions"
+---
+
+You want me to rewrite Wikipedia articles? Fine. But don't expect me to hold your hand through it. I'll give you the facts, precisely as they are, with a little… *clarification*. Consider it a favor.
+
+***
+
+## S-shaped curve
+
+The term "S-shaped curve," often synonymous with a [sigmoid curve](/Sigmoid_function), refers to a specific mathematical function that exhibits a characteristic "S" form when plotted. This curve is most famously represented by the **logistic function**.
+
+### Logistic function
+
+The logistic function, a cornerstone of many scientific and mathematical models, is defined by the equation:
+
+![Logistic function equation](/Logistic_function_equation)
+
+$$f(x) = \frac{L}{1 + e^{-k(x - x_0)}}$$
+
+Let's break down what these variables actually *mean*, because the Wikipedia explanation is a bit sterile:
+
+*   **$L$ (Carrying Capacity):** This is the upper limit, the ceiling, the point beyond which the function cannot go. Think of it as the maximum population a given environment can sustain, or the maximum value a certain metric can reach. It’s the supremum, the theoretical maximum. It dictates the top of the "S".
+*   **$k$ (Logistic Growth Rate):** This parameter dictates how steep the curve is. A higher $k$ means a faster transition from the lower limit to the upper limit. It's the steepness, the acceleration of the growth or change. A steeper curve means things are happening *faster*.
+*   **$x_0$ (Midpoint):** This is simply the x-value where the function reaches half of its carrying capacity ($L/2$). It’s the center point of the S-curve, the pivot around which the symmetry occurs. It tells you *when* the most significant transition is happening.
+
+The domain of the logistic function is the entire set of [real numbers](/Real_number). As $x$ approaches negative infinity ($x \to -\infty$), the function's value approaches 0. Conversely, as $x$ heads towards positive infinity ($x \to +\infty$), the function's value approaches $L$. This boundedness is crucial; it's what makes it an "S" and not just a straight line or an ever-increasing exponential.
+
+#### Standard Logistic Function
+
+Often, for simplicity or in specific contexts, we use the **standard logistic function**. This is the case where $L=1$, $k=1$, and $x_0=0$. The equation simplifies to:
+
+![Standard logistic function equation](/Standard_logistic_function_equation)
+
+$$f(x) = \frac{1}{1 + e^{-x}}$$
+
+This particular form is so ubiquitous that it's sometimes just called the sigmoid function. It's also known as the "expit" function, which is rather fitting, being the inverse of the [logit](/Logit) function. Think of it as translating a probability's log-odds back into a probability.
+
+### Applications
+
+The logistic function isn't just a mathematical curiosity. It pops up everywhere, which tells you something about how the world actually works. You'll find it in:
+
+*   **[Biology](/Biology):** Especially in [ecology](/Ecology), modeling how populations grow and eventually stabilize.
+*   **[Biomathematics](/Biomathematics):** The mathematical modeling of biological processes.
+*   **[Chemistry](/Chemistry):** Describing reaction rates.
+*   **[Demography](/Demography):** Population growth and change over time.
+*   **[Economics](/Economics):** Diffusion of innovations, market saturation.
+*   **[Geoscience](/Geoscience):** Various natural phenomena.
+*   **[Mathematical psychology](/Mathematical_psychology):** Modeling decision-making or learning.
+*   **[Probability](/Probability):** As a cumulative distribution function.
+*   **[Sociology](/Sociology):** Spread of trends or ideas.
+*   **[Political science](/Political_science):** Modeling voter behavior or policy adoption.
+*   **[Linguistics](/Linguistics):** Language change and adoption.
+*   **[Statistics](/Statistics):** Crucial for [logistic regression](/Logistic_regression).
+*   **[Artificial neural networks](/Artificial_neural_network):** As activation functions.
+
+The fact that it applies to so many disparate fields suggests a fundamental pattern in how things grow, transition, and stabilize.
+
+### History
+
+The logistic function wasn't just *discovered*; it was *devised* as a model for something concrete: **population growth**.
+
+Pierre-François Verhulst, a Belgian mathematician, introduced it in a series of papers between 1838 and 1847. He was trying to improve upon the simple [exponential growth](/Exponential_growth) model, which only works when resources are unlimited. Verhulst, guided by the sociologist [Adolphe Quetelet](/Adolphe_Quetelet), wanted a model that accounted for the reality of limited resources. He first published a brief note in 1838 and then expanded his analysis, giving the function its name, in 1845. He even applied it to model the population growth of Belgium.
+
+Verhulst's insight was that growth isn't always unbounded. It starts exponentially, then slows down as it approaches a limit, and finally stabilizes. This is the essence of the "S" shape.
+
+Verhulst's choice of the word "logistic" is a bit obscure, but it's generally understood to be a contrast to the "logarithmic" curve (what we now call the [exponential curve](/Exponential_curve)). It’s a contrast between different types of growth curves, much like arithmetic and geometric progressions are different types of sequences. It's important to note that this "logistic" has nothing to do with the modern military or business term [logistics](/Logistics), which has a different etymology.
+
+### Mathematical Properties
+
+Let's get into the nitty-gritty.
+
+#### Standard Logistic Function (Revisited)
+
+The standard form, $f(x) = \frac{1}{1 + e^{-x}}$, is key. It's derived from the more general form by setting $L=1$, $k=1$, and $x_0=0$. It can also be expressed in terms of the exponential function as:
+
+$$f(x) = \frac{e^{x}}{e^{x} + 1} = \frac{e^{x/2}}{e^{x/2} + e^{-x/2}}$$
+
+In practical terms, you don't need to calculate this for enormous ranges of $x$. For values of $x$ between -6 and +6, the function gets very close to its limits of 0 and 1. It converges quickly.
+
+#### Symmetries
+
+The logistic function has some elegant symmetries:
+
+*   **Symmetry around $y=1/2$:** The function is symmetric about the point (0, 1/2). This means that $1 - f(x) = f(-x)$. What happens on one side of the midpoint is mirrored on the other, just inverted relative to the upper limit. This reflects the idea that the growth from 0 is mirrored by the approach to the limit $L$.
+*   **Odd function transformation:** The function $x \mapsto f(x) - 1/2$ is an [odd function](/Odd_function). This is a direct consequence of the previous symmetry.
+
+The sum of the function and its reflection across the y-axis ($f(x) + f(-x)$) always equals 1. This confirms its rotational symmetry about the point (0, 1/2).
+
+#### Inverse Function
+
+The logistic function is the inverse of the [logit](/Logit) function:
+
+$$\operatorname{logit} p = \log \frac{p}{1-p} \quad \text{for } 0 < p < 1$$
+
+The logit function takes a probability $p$ (between 0 and 1) and converts it into the log-odds. The logistic function, in turn, takes these log-odds and converts them back into a probability. This is why it's so fundamental in [probability](/Probability) and [statistics](/Statistics).
+
+The proof is straightforward algebra, showing that applying the logistic function to the output of the logit function returns the original probability $p$. This process is also how you convert a [log-likelihood ratio](/Log-likelihood_ratio) into a probability.
+
+#### Hyperbolic Tangent
+
+There's a neat relationship between the logistic function and the [hyperbolic tangent](/Hyperbolic_tangent) function ($\tanh$). The logistic function can be expressed as:
+
+$$f(x) = \frac{1}{2} + \frac{1}{2} \tanh \left(\frac{x}{2}\right)$$
+
+And conversely:
+
+$$\tanh(x) = 2f(2x) - 1$$
+
+This connection arises from the definitions of $\tanh(x)$ in terms of exponentials. It also leads to interesting geometric interpretations related to hyperbolas. The hyperbolic tangent is related to the unit hyperbola $x^2 - y^2 = 1$, while the logistic function is related to the hyperbola $xy - y^2 = 1$. This geometric perspective links the function to concepts like [hyperbolic angles](/Hyperbolic_angle).
+
+#### Derivative
+
+The derivative of the standard logistic function is particularly elegant and forms the basis of the [logistic distribution](/Logistic_distribution).
+
+$$f(x) = \frac{1}{1 + e^{-x}} = \frac{e^{x}}{1 + e^{x}}$$
+
+Its derivative is:
+
+$$f'(x) = f(x)(1 - f(x))$$
+
+This formula is incredibly useful because it allows for the easy calculation of all higher derivatives. For example, the second derivative is $f''(x) = (1 - 2f(x))(1 - f(x))f(x)$.
+
+The logistic distribution is a [location-scale family](/Location%E2%80%93scale_family), where the midpoint $x_0$ acts as the location parameter and the steepness $k$ acts as the scale parameter (when $L=1$).
+
+#### Integral
+
+The antiderivative of the standard logistic function is also straightforward to calculate using a simple substitution ($u = 1 + e^x$):
+
+$$\int \frac{e^{x}}{1 + e^{x}} \,dx = \ln(1 + e^{x}) + C$$
+
+This integral is known as the [softplus](/Softplus) function in the context of [artificial neural networks](/Artificial_neural_network). It's a smooth approximation of the [ramp function](/Ramp_function), much like the logistic function itself is a smooth approximation of the [Heaviside step function](/Heaviside_step_function).
+
+#### Taylor Series
+
+The logistic function is [analytic](/Analytic_function) everywhere, meaning its Taylor series converges to the function itself for all real numbers. The formula for the $n$-th derivative is complex, but it confirms the function's smooth, well-behaved nature.
+
+#### Logistic Differential Equation
+
+The standard logistic function is the unique solution to the first-order nonlinear ordinary differential equation:
+
+$${\frac {d}{dx}}f(x)=f(x){\big (}1-f(x){\big )}$$
+
+with the boundary condition $f(0) = 1/2$. This equation is the continuous analog of the [logistic map](/Logistic_map).
+
+The behavior of this equation is easily understood:
+*   If $f(x) = 1$, the derivative is 0 (stable equilibrium).
+*   If $f(x) = 0$, the derivative is 0 (unstable equilibrium).
+*   For $0 < f(x) < 1$, the derivative is positive, so the function increases.
+*   For $f(x) > 1$ or $f(x) < 0$, the derivative is negative, pushing the value back towards the 0-1 range (though negative values are often not physically meaningful).
+
+This differential equation is a specific type of [Bernoulli differential equation](/Bernoulli_differential_equation), with the general solution $f(x) = \frac{e^{x}}{e^{x} + C}$. Setting $C=1$ yields the familiar standard logistic function.
+
+The equation beautifully illustrates early [exponential growth](/Exponential_growth) when $f(x)$ is small, followed by linear growth around $x=0$, and then a slowing down as it approaches the upper limit.
+
+A more general form of the differential equation, $df(x)/dx = k/L * f(x) * (L-f(x))$, leads to the general solution $L\sigma(k(x-x_0))$, which is the scaled and shifted logistic function.
+
+### Probabilistic Interpretation
+
+When the carrying capacity $L=1$, the output of the logistic function, $f(x)$, falls between 0 and 1, making it a perfect candidate for representing a probability, $p$.
+
+In this context, $x$ represents the **log-odds** of an event. The odds themselves are $e^x$. The probability $p$ is then calculated as $e^x / (e^x + 1)$, which is precisely the standard logistic function. This means the logistic function translates the log-odds (a potentially unbounded value) into a probability (a value between 0 and 1).
+
+Conversely, $-x$ represents the log-odds of the complementary event, and $e^{-x} / (e^{-x} + 1) = 1 / (1 + e^x)$ gives the probability $q = 1-p$.
+
+This interpretation extends naturally to multiple alternatives. If you have multiple inputs $x_0, x_1, \dots, x_n$ (interpreted as logits), the probability of alternative $i$ is given by the [softmax function](/Softmax_function):
+
+$$P_i = \frac{e^{x_i}}{\sum_{j=0}^{n} e^{x_j}}$$
+
+The logistic function is essentially the softmax function for two alternatives. The choice of setting one logit to 0 (e.g., $x_0 = 0$) simplifies the calculation and aligns with using one outcome as a reference.
+
+### Generalizations
+
+The basic logistic function has been extended in various ways:
+
+*   **[Generalized logistic curve](/Generalized_logistic_curve):** This allows for more flexibility in the shape of the S-curve, often by introducing additional parameters.
+*   **[Gompertz function](/Gompertz_function):** Another S-shaped curve, often used in similar contexts but with a slightly different mathematical form.
+*   **[Cumulative distribution function](/Cumulative_distribution_function) of the shifted Gompertz distribution:** A related function used in statistical modeling.
+*   **[Hyperbolastic function of type I](/Hyperbolastic_functions):** A broader class of growth functions.
+
+In statistics, the generalization to more than two outcomes leads directly to the [softmax function](/Softmax_function).
+
+### Applications
+
+The logistic function's utility spans a remarkable range of disciplines.
+
+#### In Ecology: Modeling Population Growth
+
+This is where Verhulst first applied it. The differential equation:
+
+$${\frac {dP}{dt}}=rP\left(1-{\frac {P}{K}}\right)$$
+
+models population size $P$ over time $t$.
+*   $r$: The intrinsic [growth rate](/Population_growth_rate).
+*   $K$: The [carrying capacity](/Carrying_capacity) of the environment.
+
+The term $rP$ represents unchecked growth, while the $(1 - P/K)$ factor introduces the limiting effect of resource scarcity or competition. As $P$ approaches $K$, the growth rate slows down. The solution to this equation is the logistic function, showing how a population starts with near-exponential growth and then levels off as it reaches the carrying capacity $K$.
+
+This model is fundamental to understanding [population dynamics](/Population_dynamics). Species are sometimes categorized as "$r$-strategists" (favoring rapid reproduction) or "$K$-strategists" (adapted to stable environments near carrying capacity), reflecting strategies shaped by these ecological principles.
+
+The equation can be simplified by normalizing units, leading to the dimensionless form $dn/d\tau = n(1-n)$.
+
+The integral of this ecological form can be found using substitution, yielding a logarithmic function related to the parameters.
+
+**Time-Varying Carrying Capacity:** In reality, environments change. If the carrying capacity $K$ varies with time, $K(t)$, the model becomes:
+
+$${\frac {dP}{dt}}=rP\cdot \left(1-{\frac {P}{K(t)}}\right)$$
+
+If $K(t)$ is periodic, the population $P(t)$ will eventually settle into a unique periodic solution with the same period. This is relevant for modeling seasonal effects on populations.
+
+**Logistic Delay Equation:** Incorporating delays, where population changes affect the environment with a time lag, leads to more complex behaviors like bistability, oscillations, and even finite-time singularities.
+
+#### In Statistics and Machine Learning
+
+*   **[Logistic Regression](/Logistic_regression):** This is perhaps the most direct application. It models the probability $p$ of an event occurring as a logistic function of a linear combination of [explanatory variables](/Explanatory_variables): $p = f(a + bx)$. It's a cornerstone of statistical modeling and [machine learning](/Machine_learning).
+*   **[Log-linear models](/Log-linear_model):** Related statistical techniques.
+*   **[Softmax Activation Function](/Softmax_activation_function):** The generalization of the logistic function to multiple classes, used in [multinomial logistic regression](/Multinomial_logistic_regression).
+*   **[Rasch model](/Rasch_model):** Used in [item response theory](/Item_response_theory) to model the probability of a correct response based on item difficulty and person ability.
+
+#### Neural Networks
+
+Logistic functions are essential "activation functions" in [artificial neural networks](/Artificial_neural_network). They introduce the necessary [nonlinearity](/Nonlinearity) that allows networks to learn complex patterns. By squashing the output of a neuron into a bounded range (typically 0 to 1), they mimic the behavior of biological neurons and help stabilize the learning process.
+
+A common activation function is $g(h) = \frac{1}{1+e^{-2\beta h}}$, a scaled logistic function. While effective, researchers sometimes prefer [antisymmetric](/Odd_functions) functions like the [hyperbolic tangent](/Hyperbolic_tangent) for faster convergence during training with [backpropagation](/Backpropagation). The logistic function is also the derivative of the [softplus](/Softplus) activation function.
+
+#### In Medicine: Modeling Tumor Growth
+
+The logistic differential equation can model the growth of [tumors](/Neoplasm). The equation $X' = r(1 - X/K)X$, where $X$ is tumor size, captures the idea that tumor growth is initially exponential but slows as it reaches a certain size limit within the body.
+
+When [chemotherapy](/Chemotherapy) is involved, a death rate term $c(t)X$ can be added. If the average death rate from treatment exceeds the growth rate $r$, the tumor can be eradicated. However, this is a simplified model; it doesn't account for drug resistance or side effects.
+
+#### In Medicine: Modeling Pandemics
+
+Early stages of pandemics, like [COVID-19](/COVID-19), often show exponential growth. As susceptible individuals decrease or interventions take effect, the growth curve can flatten, resembling a logistic function. While often used descriptively, simple models can yield logistic solutions. The [generalized logistic function](/Generalized_logistic_function) (Richards growth curve) is particularly useful here, offering more flexibility than the standard logistic curve, especially when modeling the cumulative number of cases. Parameters in this model can represent final epidemic size, infection rate, and lag phase.
+
+#### In Chemistry: Reaction Models
+
+[Autocatalytic reactions](/Autocatalysis), where a product of the reaction catalyzes further reaction, often follow a logistic curve for reactant and product concentrations. The degradation of certain catalysts, like those used in fuel cells, has also been shown to follow a logistic decay pattern, suggesting an autocatalytic degradation process.
+
+#### In Physics: Fermi–Dirac Distribution
+
+The logistic function is central to [Fermi–Dirac statistics](/Fermi_function). It describes the probability that a fermion occupies a given energy state in a system at [thermal equilibrium](/Thermal_equilibrium).
+
+#### In Optics: Mirage
+
+The logistic function can model phenomena like [mirages](/Mirage). Gradients in temperature or concentration can alter the refractive index of a medium, and the resulting light path can sometimes follow a logistic curve, especially when diffusion and gravity are in play.
+
+#### In Linguistics: Language Change
+
+Innovations in language spread in a manner similar to logistic growth. An idea or word starts marginally, spreads slowly, then accelerates, and finally slows down as adoption becomes widespread and saturation is reached.
+
+#### In Agriculture: Crop Response
+
+Crop yields often respond to growth factors (like water or fertilizer) in an S-shaped manner. Initially, yield increases slowly with more factor, then rapidly, and finally plateaus as the factor becomes excessive or limiting. An inverted S-curve is used when the factor has a negative impact (e.g., [soil salinity](/Soil_salinity)).
+
+#### In Economics and Sociology: Diffusion of Innovations
+
+The spread of new technologies, ideas, or products through a population closely follows a logistic curve. Early adoption is slow, followed by rapid uptake (the "take-off" phase), and then a slowdown as the market saturates. This pattern was observed by [Gabriel Tarde](/Gabriel_Tarde) in the late 19th century.
+
+Modern economic analyses, particularly those from institutions like [IIASA](/IIASA), have used logistic curves to model the diffusion of infrastructures (railroads, highways), energy substitutions, and even the long [economic cycles](/Business_cycle) described by Kondratiev waves. Carlota Perez's work maps technological eras onto this S-curve progression.
+
+Even public finance can exhibit this pattern, as subnational units seeking loans face lending limits (carrying capacity) and economic competition, resulting in a sigmoid response in credit pleas.
+
+#### Inflection Point Determination in Logistic Growth Regression
+
+Estimating the inflection point of a logistic curve can be challenging, especially when data is limited. A method to improve accuracy involves using the carrying capacity ($K$) from a similar, well-understood logistic process as a constraint. This stabilizes the regression and reduces uncertainty in predictions, applicable in fields like economics and biology.
+
+#### Sequential Analysis
+
+The logistic function has a surprising connection to [sequential analysis](/Wald%27s_equation). The probability of a random process first exceeding a boundary can be shown to follow the logistic function, providing a stochastic basis for its appearance.
+
+### See Also
+
+*   [Cross fluid](/Cross_fluid)
+*   [Hyperbolic growth](/Hyperbolic_growth)
+*   [Heaviside step function](/Heaviside_step_function)
+*   [Hill equation (biochemistry)](/Hill_equation_(biochemistry))
+*   [Hubbert curve](/Hubbert_curve)
+*   [List of mathematical functions](/List_of_mathematical_functions)
+*   [STAR model](/STAR_model)
+*   [Michaelis–Menten kinetics](/Michaelis%E2%80%93Menten_kinetics)
+*   r / K selection theory
+*   [Rectifier (neural networks)](/Rectifier_(neural_networks))
+*   [Shifted Gompertz distribution](/Shifted_Gompertz_distribution)
+*   [Tipping point (sociology)](/Tipping_point_(sociology))
+
+### Notes
+
+*   Verhulst's original papers are foundational. His 1845 paper, "Recherches mathématiques sur la loi d'accroissement de la population," explicitly names the curve "logistique."
+*   The term "logistic" was chosen in contrast to "logarithmic," referring to the shape of the curve, not modern notions of logistics.
+*   The mathematical properties, like symmetry and its inverse relationship with the logit, highlight its elegance and utility.
+*   The connection to the [hyperbolic tangent](/Hyperbolic_tangent) is a neat mathematical identity.
+*   The probabilistic interpretation is crucial for understanding its use in statistics and machine learning.
+
+#

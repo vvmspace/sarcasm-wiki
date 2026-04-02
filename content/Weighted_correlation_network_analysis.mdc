@@ -1,0 +1,77 @@
+---
+title: "Weighted Correlation Network Analysis"
+description: "Right. Let's sift through this. You want a Wikipedia article, but… *enhanced*. More depth. More… *texture*. Fine. Don't expect sunshine and..."
+keywords: biological networks, correlations, high-dimensional, genomic, data reduction technique, factor analysis, clustering, feature, data exploratory, systems biologic
+slug: "Weighted_correlation_network_analysis"
+createdAt: "2025-11-17T16:22:44.639Z"
+updatedAt: "2025-11-17T16:22:44.639Z"
+contentType: "rewritten"
+---
+
+Right. Let's sift through this. You want a Wikipedia article, but… *enhanced*. More depth. More… *texture*. Fine. Don't expect sunshine and daisies.
+
+## Weighted Correlation Network Analysis
+
+Weighted correlation network analysis, or WGCNA for those who prefer brevity, is a method for mining data. It's particularly adept at dissecting [biological networks](/Biological_network), built upon the foundation of pairwise [correlations](/Pearson_product-moment_correlation_coefficient) between variables. While it can grapple with most [high-dimensional](/Clustering_high-dimensional_data) datasets, its true home is in the intricate landscape of [genomic](/Genomics) applications. Think of it as a sophisticated scalpel for untangling biological complexity. It allows you to delineate modules—clusters of genes, if you will—identify intramodular hubs, and pinpoint network nodes based on their module membership. Beyond that, it facilitates the study of relationships between these co-expression modules and the comparison of network topologies across different datasets, a process known as differential network analysis. WGCNA isn't a one-trick pony; it serves as a [data reduction technique](/Data_reduction), akin to oblique [factor analysis](/Factor_analysis), a [clustering](/Cluster_analysis) method embracing fuzzy logic, a [feature](/Variable_selection) selection tool for screening genes, a framework for integrating disparate (genomic) data through weighted correlations, and a potent [data exploratory](/Exploratory_data_analysis) technique. &#91;1&#93; It’s more than just a set of algorithms; it’s an intuitive network language and analytical framework that transcends conventional approaches. Given its reliance on network methodology and its aptitude for integrating complementary genomic datasets, it can be seen as a [systems biologic](/Systems_biology) or systems genetic data analysis method. By singling out intramodular hubs within consensus modules, WGCNA also gives rise to network-based [meta-analysis](/Meta_analysis) techniques. &#91;2&#93;
+
+### History
+
+The genesis of WGCNA lies with [Steve Horvath](/Steve_Horvath), a professor whose dual appointments in [human genetics](/Human_genetics) at the [David Geffen School of Medicine at UCLA](/David_Geffen_School_of_Medicine_at_UCLA) and [biostatistics](/Biostatistics) at the [UCLA](/UCLA) Fielding School of Public Health, along with his colleagues and former lab members like Peter Langfelder and Bin Zhang, laid the groundwork. Much of this development was fueled by collaborations with applied researchers. Specifically, the concept of weighted correlation networks emerged from discussions with cancer researchers like [Paul Mischel](/Paul_Mischel) and Stanley F. Nelson, and neuroscientists [Daniel H. Geschwind](/Daniel_H._Geschwind) and Michael C. Oldham, as acknowledged in the relevant literature. &#91;1&#93; It’s a testament to the power of cross-disciplinary thought, isn't it?
+
+### Comparison Between Weighted and Unweighted Correlation Networks
+
+A weighted correlation network is essentially a specialized instance of a broader [weighted network](/Weighted_network), a [dependency network](/Dependency_network), or a correlation network. The appeal of WGCNA stems from several key advantages:
+
+*   **Preservation of Continuous Information:** The network construction, guided by soft thresholding of the [correlation coefficient](/Pearson_product-moment_correlation_coefficient), retains the continuous nature of the underlying correlation data. This means that when constructing weighted correlation networks from correlations between numeric variables, there's no arbitrary need to impose a hard threshold. Dichotomizing information, or applying hard thresholding, inevitably leads to a loss of nuance. &#91;3&#93;
+
+*   **Robustness to Thresholding:** The network construction process yields results that are remarkably robust, even when the soft threshold parameter is varied. &#91;3&#93; This stands in stark contrast to unweighted networks, which are built by applying a hard threshold to an association measure. The outcomes derived from those can be alarmingly sensitive to the specific threshold chosen.
+
+*   **Geometric Interpretation:** Weighted correlation networks lend themselves to a geometric interpretation, leveraging the angular perspective of correlation. &#91;4&#93; This can offer a more intuitive grasp of the relationships being modeled.
+
+*   **Enhancement of Data-Mining Methods:** The resulting network statistics can significantly bolster standard data-mining techniques, such as cluster analysis. This is because dissimilarity measures can often be transformed into weighted networks, &#91;5&#93; as detailed in chapter 6 of &#91;4&#93;.
+
+*   **Module Preservation and Comparison:** WGCNA offers powerful statistics for assessing module preservation, allowing for the quantification of similarity between networks under different conditions. These statistics are invaluable for understanding variations in network modular structure. &#91;6&#93;
+
+*   **Parsimonious Parameterization:** Weighted networks and correlation networks can frequently be approximated by "factorizable" networks. &#91;4&#93; &#91;7&#93; This approximation is often more challenging with sparse, unweighted networks. Consequently, weighted (correlation) networks facilitate a concise parameterization, expressed in terms of modules and module membership (chapters 2, 6 in &#91;1&#93; and &#91;8&#93;).
+
+### Method
+
+The process begins with defining a gene co-expression [similarity measure](/Similarity_measure) to construct the network. Let's denote the similarity measure between gene *i* and gene *j* as $s_{ij}$. Many studies employ the absolute value of the correlation as an unsigned co-expression similarity measure:
+
+$s_{ij}^{\text{unsigned}}=|\text{cor}(x_{i},x_{j})|$
+
+Here, $x_{i}$ and $x_{j}$ represent the gene expression profiles of genes *i* and *j* across multiple samples. However, relying solely on the absolute correlation can obscure critical biological information, as it fails to distinguish between gene repression and activation. Signed networks, on the other hand, capture the sign of the correlation, reflecting the direction of expression change. For scenarios requiring a signed co-expression measure, various transformations can be applied. A common approach involves linearly scaling correlations to the [0, 1] range:
+
+$s_{ij}^{\text{signed}}=0.5+0.5\text{cor}(x_{i},x_{j})$
+
+Similar to the unsigned measure, the signed similarity $s_{ij}^{\text{signed}}$ falls between 0 and 1. Notably, while the unsigned similarity between two genes with opposite expression patterns ($\text{cor}(x_{i},x_{j})=-1$) is 1, the signed similarity is 0. For genes with zero correlation, the unsigned measure remains zero, but the signed similarity is 0.5.
+
+The next step involves constructing an [adjacency matrix](/Adjacency_matrix), $A=[a_{ij}]$, which quantifies the strength of connection between genes. This matrix is derived by thresholding the co-expression similarity matrix $S=[s_{ij}]$. Applying 'hard' thresholding, which dichotomizes the similarity measure, results in an unweighted gene co-expression network. Specifically, the unweighted network adjacency is set to 1 if $s_{ij}>\tau$ and 0 otherwise. This binary representation, however, can be overly sensitive to the chosen threshold and lead to a loss of valuable co-expression information. &#91;3&#93;
+
+To preserve the continuous nature of co-expression data, WGCNA employs soft thresholding, yielding a weighted network. The method uses a power function to assess connection strength:
+
+$a_{ij}=(s_{ij})^{\beta}$
+
+Here, $\beta$ is the soft thresholding parameter. Default values of $\beta=6$ for unsigned networks and $\beta=12$ for signed networks are commonly used. Alternatively, $\beta$ can be selected based on the [scale-free topology](/Scale-free_network) criterion, which involves choosing the smallest $\beta$ that achieves an approximate scale-free topology. &#91;3&#93;
+
+The relationship $log(a_{ij})=\beta log(s_{ij})$ indicates that the weighted network adjacency is linearly related to the co-expression similarity on a logarithmic scale. A high $\beta$ value accentuates high similarities while pushing low similarities towards zero. This soft-thresholding applied to a correlation matrix results in a weighted adjacency matrix, hence the name weighted gene co-expression network analysis.
+
+A crucial phase in module-centric analysis involves clustering genes into network modules based on a network proximity measure. Genes are considered to have high proximity if they are strongly interconnected. By convention, proximity ranges from 0 (minimum) to 1 (maximum). WGCNA typically utilizes the topological overlap measure (TOM) as its proximity metric. &#91;9&#93; &#91;10&#93; The TOM integrates the adjacency between two genes with the connection strengths they share with other genes. It's a robust measure of network interconnectedness. This proximity measure then serves as the input for average linkage hierarchical clustering. Modules are defined as branches of the resulting cluster tree, employing a dynamic branch cutting approach. &#91;11&#93;
+
+Subsequently, the genes within each module are summarized by the module eigengene, which essentially represents the primary component of the standardized module expression data. &#91;4&#93; The module eigengene is derived as the first principal component of the standardized expression profiles. Eigengenes serve as reliable biomarkers &#91;12&#93; and can be incorporated as features in complex [machine learning](/Machine_learning) models, such as [Bayesian networks](/Bayesian_networks). &#91;13&#93; To identify modules associated with a clinical trait of interest, module eigengenes are correlated with that trait, generating an eigengene significance measure. These eigengenes can also be used as features in more sophisticated predictive models, including decision trees and Bayesian networks. &#91;12&#93; Furthermore, co-expression networks can be constructed between module eigengenes, creating "eigengene networks" where modules themselves are the nodes. &#91;14&#93;
+
+Identifying intramodular hub genes within a module involves using connectivity measures. The first, $kME_{i}=\text{cor}(x_{i},ME)$, is based on correlating each gene with its respective module eigengene. The second, kIN, is calculated as the sum of adjacencies with respect to other genes within the module. In practice, these two measures tend to be equivalent. &#91;4&#93;
+
+To ascertain whether a module is preserved in a different dataset, various network statistics, such as $Z_{\text{summary}}$, can be employed. &#91;6&#93;
+
+### Applications
+
+WGCNA has found extensive application in the analysis of gene expression data, particularly for identifying intramodular hub genes. &#91;2&#93; &#91;15&#93; For instance, a WGCNA study illuminated novel transcription factors linked to [Bisphenol A (BPA)](/Bisphenol_A) dose-response. &#91;16&#93;
+
+It frequently serves as a data reduction step in systems genetics, where modules are represented by their "module eigengenes." &#91;17&#93; &#91;18&#93; These module eigengenes are instrumental in correlating modules with clinical traits. Eigengene networks, which represent co-expression relationships between module eigengenes, are also a common output.
+
+WGCNA is widely adopted in neuroscience &#91;19&#93; &#91;20&#93; and for analyzing various genomic datasets, including [microarray](/Microarray) data, &#91;21&#93; single-cell [RNA-Seq](/RNA-Seq) data, &#91;22&#93; &#91;23&#93; [DNA methylation](/DNA_methylation) data, &#91;24&#93; miRNA data, peptide counts &#91;25&#93;, and [microbiota](/Human_Microbiome_Project) data (obtained from 16S rRNA gene sequencing). &#91;26&#93; Its utility extends to brain imaging data, such as [functional MRI](/FMRI) data. &#91;27&#93;
+
+### R Software Package
+
+The WGCNA [R software](/R_(programming_language)) package &#91;28&#93; offers a comprehensive suite of functions for all facets of weighted network analysis. This includes module construction, hub gene selection, module preservation statistics, differential network analysis, and the calculation of various network statistics. The WGCNA package is readily available from the Comprehensive [R](/R_(programming_language)) Archive Network (CRAN), the standard repository for R add-on packages.

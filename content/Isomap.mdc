@@ -1,0 +1,71 @@
+---
+title: "Isomap"
+description: "Isomap is a nonlinear dimensionality reduction technique, one of many sophisticated methods employed for embedding high-dimensional data into a..."
+keywords: manifold, multidimensional scaling, geodesic distances, euclidean distance, dijkstra's algorithm, floyd–warshall algorithm, eigenvectors, distance matrix
+slug: "Isomap"
+createdAt: "2025-12-01T00:22:50.425Z"
+updatedAt: "2025-12-01T00:22:50.425Z"
+contentType: "rewritten"
+---
+
+Isomap is a [nonlinear dimensionality reduction](/Nonlinear_dimensionality_reduction) technique, one of many sophisticated methods employed for embedding high-dimensional data into a lower-dimensional space. It's designed to preserve the intrinsic geometric structure of the data, assuming it lies on or near a [manifold](/Manifold). Think of it as trying to flatten a crumpled piece of paper without tearing it – you want to preserve the distances between points on the paper's surface, not just the straight-line distances in 3D space. Isomap excels at this by estimating the true distances between points along this manifold.
+
+### Introduction
+
+Isomap stands as a prominent example within the family of isometric mapping methods. It builds upon the foundation of metric [multidimensional scaling](/Multidimensional_scaling) (MDS), enhancing it by considering the [geodesic distances](/Geodesic_distance) that are naturally imposed by the data's underlying structure, often represented as a weighted graph. While classical MDS typically relies on pairwise distances measured by straightforward [Euclidean distance](/Euclidean_distance) – the "as the crow flies" distance – Isomap distinguishes itself by integrating the geodesic distances derived from a neighborhood graph. This approach is crucial for capturing the complex, curved nature of the manifold on which the data might reside.
+
+The core idea is that the true "distance" between two points on a manifold isn't necessarily a straight line through higher dimensions, but rather the shortest path along the surface of the manifold itself. Isomap approximates this geodesic distance by finding the shortest path between nodes in a neighborhood graph. This graph connects points that are close to each other in the original high-dimensional space. The weight of each edge in this graph typically corresponds to the Euclidean distance between the connected points. Then, algorithms like [Dijkstra's algorithm](/Dijkstra%27s_algorithm) or the [Floyd–Warshall algorithm](/Floyd%E2%80%93Warshall_algorithm) are used to compute the shortest path distances between all pairs of points within this graph. These computed shortest path distances, representing the geodesic distances, are then fed into a classical MDS algorithm to produce the low-dimensional embedding. The resulting embedding aims to preserve these geodesic distances, effectively "unrolling" the manifold. The final coordinates in the new, lower-dimensional space are often derived from the top [eigenvectors](/Eigenvector) of the geodesic [distance matrix](/Distance_matrix).
+
+### Algorithm
+
+The Isomap algorithm can be broadly outlined as follows, though the devil, as always, is in the details:
+
+*   **Neighborhood Determination:** The first critical step involves identifying the neighbors for each data point. This can be achieved in a couple of primary ways:
+    *   **Fixed Radius:** Consider all points that fall within a certain fixed radius around a given point.
+    *   **K Nearest Neighbors (KNN):** Identify the 'k' closest points to a given point in the high-dimensional space. The image provided, for instance, illustrates this with K = 7.
+
+*   **Neighborhood Graph Construction:** Once neighbors are identified, a graph is constructed. Each data point serves as a node in this graph. An edge is drawn between two nodes if one is a neighbor of the other, as determined in the previous step. The length of each edge is typically set to the [Euclidean distance](/Euclidean_distance) between the corresponding points in the original high-dimensional space.
+
+*   **Shortest Path Computation:** With the neighborhood graph established, the algorithm proceeds to compute the shortest path distance between all pairs of nodes. This is where the geodesic distances are approximated. Common algorithms for this task include:
+    *   [Dijkstra's algorithm](/Dijkstra%27s_algorithm): Efficient for finding the shortest path from a single source node to all other nodes.
+    *   [Floyd–Warshall algorithm](/Floyd%E2%80%93Warshall_algorithm): Computes shortest paths between all pairs of nodes, which is exactly what's needed here.
+
+*   **Low-Dimensional Embedding:** The computed geodesic distances, now forming a geodesic distance matrix, are then used as input for a classical [Multidimensional scaling](/Multidimensional_scaling) (MDS) algorithm. MDS aims to find a low-dimensional representation of the data such that the pairwise distances in the low-dimensional space closely match the input distances (in this case, the geodesic distances). The top [eigenvectors](/Eigenvector) of the Gram matrix derived from the MDS solution typically yield the coordinates in the new, lower-dimensional embedding space.
+
+### Extensions of Isomap
+
+While the core Isomap algorithm is powerful, it has its limitations, particularly in terms of computational cost for large datasets and sensitivity to certain data configurations. Several extensions have been developed to address these issues and improve its performance:
+
+*   **Landmark Isomap (L-ISOMAP):** This variant addresses the computational burden of calculating all-pairs shortest paths in large datasets. Instead of computing geodesic distances between every pair of points, L-ISOMAP selects a smaller subset of "landmark" points (where n << N, with N being the total number of data points). It then computes the geodesic distances from each of the N data points to these n landmark points. A matrix of size nxN containing these geodesic distances is formed. Finally, [Landmark Multidimensional Scaling (LMDS)](/Multidimensional_scaling) is applied to this matrix to obtain a Euclidean embedding for all N data points. This significantly speeds up the process, though it might involve a marginal compromise in the accuracy of the manifold representation.
+
+*   **C-Isomap:** This extension focuses on refining the embedding by altering the edge weights in the neighborhood graph. C-Isomap aims to amplify the representation of dense regions within the data manifold while simultaneously contracting sparser areas. It achieves this by modifying the edge weights that are maximized during the [Multidimensional Scaling](/Multidimensional_scaling) process, leaving other aspects of the algorithm largely unchanged. The goal is to create a more visually distinct and informative embedding, especially when dealing with data of varying densities.
+
+*   **Parallel Transport Unfolding:** This approach offers a more robust way to estimate geodesic distances, particularly when the data sampling is irregular or contains gaps. Instead of relying solely on path-based approximations like Dijkstra's algorithm, Parallel Transport Unfolding utilizes [parallel transport](/Parallel_transport) methods. This technique, borrowed from differential geometry, allows for the estimation of distances by "transporting" vectors along the manifold's surface. This often leads to improved resilience against noise and irregularities in the data distribution, providing a more stable and accurate manifold approximation.
+
+### Possible Issues
+
+Isomap, despite its strengths, is not without its potential pitfalls. One significant vulnerability lies in the construction of the neighborhood graph. The connectivity of each data point is determined by its nearest neighbors in the high-dimensional space. This step is susceptible to "short-circuit errors." Such errors can occur if the chosen value of 'k' (for K nearest neighbors) is too large relative to the local structure of the manifold, or if noise in the data subtly displaces points from their true manifold positions. A single short-circuit error—where a connection is made across a significant portion of the manifold that shouldn't be direct—can propagate errors through many entries in the geodesic distance matrix. This can lead to a drastically distorted and incorrect low-dimensional embedding. Conversely, if 'k' is set too low, the neighborhood graph might become too sparse, failing to capture the necessary connectivity to accurately approximate the geodesic paths. While improvements have been made to mitigate these issues, especially for sparse and noisy datasets, careful parameter selection remains crucial.
+
+### Relationship with Other Methods
+
+The mathematical underpinnings of Isomap reveal interesting connections to other dimensionality reduction techniques, particularly those based on kernels. It's known that classical scaling, a precursor to metric MDS, can be interpreted as a form of [Principal Component Analysis](/Principal_component_analysis) (PCA). Following this logic, metric [MDS](/Multidimensional_scaling) can be seen as [kernel PCA](/Kernel_PCA) (KPCA). In a similar vein, the geodesic distance matrix generated by Isomap can be conceptualized as a [kernel](/Kernel_method) matrix.
+
+Specifically, the doubly centered geodesic distance matrix, denoted as K, can be expressed as:
+
+$K = - \frac{1}{2} H D^2 H$
+
+where $D^2$ is the element-wise square of the geodesic distance matrix $D = [D_{ij}]$, and $H$ is the centering matrix, defined as:
+
+$H = I_n - \frac{1}{N} e_N e_N^T$
+
+Here, $I_n$ is the $n \times n$ identity matrix, $N$ is the total number of data points, and $e_N$ is a column vector of ones of size $N$.
+
+However, a critical point is that the kernel matrix $K$ derived this way is not always guaranteed to be [positive semidefinite](/Positive_semidefinite_matrix). For a matrix to truly function as a Mercer kernel, it must be positive semidefinite. The "kernel Isomap" approach addresses this by employing methods, such as constant-shifting, to transform $K$ into a positive semidefinite matrix. This allows it to be directly related to kernel PCA, and in doing so, the concept of a generalization property naturally emerges, linking manifold learning methods more formally to kernel-based techniques. The seminal work by Bengio et al. at the Conference on Neural Information Processing Systems in 2003 (NeurIPS'03) was instrumental in establishing these connections between kernel PCA and manifold learning.
+
+### See Also
+
+*   [Kernel PCA](/Kernel_PCA)
+*   [Spectral clustering](/Spectral_clustering)
+*   [Nonlinear dimensionality reduction](/Nonlinear_dimensionality_reduction)
+
+#

@@ -1,0 +1,71 @@
+---
+title: "Theil–Sen Estimator"
+description: "Oh, you want to dredge up the mundane, do you? Fine. Let's talk about fitting lines. Don't expect any enthusiasm from me. It’s just… statistics. A necessary..."
+keywords: robust regression, non-parametric statistics, robustly, fitting a line, median, ordinary least squares, outliers, skewed, heteroskedastic
+slug: "Theil–Sen_estimator"
+createdAt: "2025-11-17T15:33:32.576Z"
+updatedAt: "2025-11-17T15:33:32.576Z"
+contentType: "rewritten"
+---
+
+Oh, you want to dredge up the mundane, do you? Fine. Let's talk about fitting lines. Don't expect any enthusiasm from me. It’s just… statistics. A necessary evil, I suppose.
+
+***
+
+### Statistical method for fitting a line
+
+For a broader, and frankly, more tedious, coverage of this topic, see [Robust regression](/Robust_regression).
+
+Look at this. The Theil–Sen estimator. It’s a way to draw a line through a bunch of points, especially when some of them are… inconvenient. Outliers, they call them. I call them disappointments. See that black line? That’s the Theil–Sen. It’s trying its best to ignore the black dots that are clearly not playing by the rules. Then you have the blue line, the ordinary least squares. It’s the one that tries to please everyone, and ends up being pulled around by the nose by those troublesome points. Pathetic. The dashed green line? That's supposed to be the "ground truth." As if anything is ever that clean.
+
+In the realm of [non-parametric statistics](/Non-parametric_statistics), this Theil–Sen estimator is a method for [robustly](/Robust_estimator) [fitting a line](/Fitting_a_line) to a set of sample points. Think of it as a sculptor working with a block of marble, but instead of a hammer and chisel, they’re using a median. It chooses the [median](/Median) of all the slopes derived from every possible pair of points. It's also been called Sen's slope estimator, slope selection, the single median method, the Kendall robust line-fit method, and the Kendall–Theil robust line. The names are as dry as you’d expect. It’s named after Henri Theil and Pranab K. Sen, who published their findings back in 1950 and 1968, respectively. And Maurice Kendall gets a nod because of its connection to the [Kendall tau rank correlation coefficient](/Kendall_tau_rank_correlation_coefficient). A bit of a mouthful, isn't it?
+
+Theil–Sen regression has some, shall we say, *advantages* over the more common [Ordinary least squares](/Ordinary_least_squares) regression. For one, it’s utterly indifferent to [outliers](/Outlier). It simply shrugs them off. It can even be used for significance tests when the residuals are… well, not behaving themselves. For data that's [skewed](/Skewness) or [heteroskedastic](/Heteroskedastic), it can be surprisingly accurate, often outperforming the standard least squares method. And even with [normally distributed](/Normal_distribution) data, it holds its own, maintaining decent [statistical power](/Statistical_power). Someone even called it "the most popular nonparametric technique for estimating a linear trend." Popular. How charming. And apparently, there are algorithms that can compute its parameters without taking an eternity. Good for them.
+
+#### Definition
+
+As Henri Theil laid it out in 1950, the Theil–Sen estimator for a set of two-dimensional points ( x i , y i ) is determined by first calculating the slopes of all possible lines formed by pairs of these points. Then, it takes the [median](/Median) of all those slopes. Pranab K. Sen, in 1968, refined this to handle situations where two points might share the same x-coordinate. His adjustment? Simply ignore those pairs and only consider slopes from points with distinct x-coordinates.
+
+Once you've settled on this median slope, let's call it *m*, you then find the [y-intercept](/Y-intercept), *b*. This is done by taking the median of the values y i − mx i for all your points. The final line, then, is y = mx + b, presented in [slope–intercept form](/Slope%E2%80%93intercept_form). Sen pointed out something interesting: this choice of *m* makes the [Kendall tau rank correlation coefficient](/Kendall_tau_rank_correlation_coefficient) between the x-coordinates and the residuals ( y i − mx i − b ) hover around zero. What does that mean in plain English? It suggests that how far a point is from the line has no real bearing on whether it’s on the left or right side of your dataset. The intercept *b*, while not affecting the Kendall coefficient, ensures the median residual is also close to zero. In essence, the line passes above and below an equal number of points. A perfectly balanced, if somewhat uninspired, outcome.
+
+To get a [confidence interval](/Confidence_interval) for that slope estimate, you can take the interval that contains the middle 95% of all those pairwise slopes. Or, if you're in a hurry, you can estimate it by sampling a selection of pairs and finding the 95% interval from those. Simulations suggest about 600 pairs should give you a reasonably accurate interval. Faster, but with a hint of approximation. Just how I like it.
+
+#### Variations
+
+There are other ways to skin this cat, of course. Siegel's [repeated median regression](/Repeated_median_regression), for instance. This method takes each sample point, calculates the median slope of all lines passing through it, and then takes the median of *those* medians. It can handle even more outliers than the original Theil–Sen, but the algorithms for computing it are more complex. Less practical, more… thorough.
+
+Then there's a variant that pairs up points based on their x-coordinates. The point with the smallest x is paired with the first point above the median x, the second smallest with the next, and so on. It then finds the median slope from these pairs. It’s faster because it looks at far fewer pairs. Efficiency over depth, perhaps.
+
+Researchers have also tinkered with [weighted medians](/Weighted_median) for the Theil–Sen estimator. The idea is that pairs of points with greater separation in their x-coordinates are more likely to yield an accurate slope, so they get a higher weight. It’s about giving more importance to the more reliable data.
+
+And for data that repeats itself, like seasonal patterns, you can smooth out the variations. One way is to only consider pairs of points that fall within the same season or month. This focuses the slope calculation on more comparable data points. It's about isolating the signal from the noise.
+
+#### Statistical properties
+
+The Theil–Sen estimator, for what it's worth, is an [unbiased estimator](/Unbiased_estimator) of the true slope in [simple linear regression](/Simple_linear_regression). And for many distributions of [response error](/Errors_and_residuals), it has high [asymptotic efficiency](/Efficiency_statistics) compared to [least-squares](/Least_squares) estimation. This means that, given enough data, it can be just as precise as the less robust methods, but without sacrificing accuracy when the data is messy.
+
+It's more [robust](/Robust_statistics) than least-squares because it's far less bothered by [outliers](/Outlier). It has a [breakdown point](/Breakdown_point) of approximately 29.3%. That means it can withstand arbitrary corruption of nearly 30% of your data points before its accuracy starts to seriously degrade. Impressive, in its own way. However, this breakdown point shrinks when you try to generalize the method to higher dimensions. A different robust line-fitting algorithm, the [repeated median estimator](/Repeated_median_regression), boasts a higher breakdown point of 50%. So, there's always a trade-off.
+
+The Theil–Sen estimator is [equivariant](/Equivariant) under [linear transformations](/Linear_transformation) of the response variable. This means if you transform your data and then fit the line, or fit the line and then transform it, you get the same result. Neat. However, it's not equivariant under [affine transformations](/Affine_transformation) of both variables. A subtle distinction, but apparently important to some.
+
+#### Algorithms
+
+Computing the median slope for a set of *n* sample points can be done exactly. You calculate all O(n²) lines through pairs of points and then use a linear-time [median finding algorithm](/Selection_algorithm). Alternatively, you can estimate it by sampling pairs. This problem, under [projective duality](/Projective_duality), is equivalent to finding the crossing point in an [arrangement of lines](/Arrangement_of_lines) that has the median x-coordinate.
+
+Finding the exact slope selection more efficiently than the brute-force quadratic method has been a subject of study in [computational geometry](/Computational_geometry). There are methods that can compute the Theil–Sen estimator exactly in O(n log n) time, using either deterministic or [randomized algorithms](/Randomized_algorithm). Siegel's repeated median estimator can also be computed within this time bound. If the input coordinates are integers and you can perform [bitwise operations](/Bitwise_operation) quickly, the Theil–Sen estimator can be constructed even faster, in expected randomized time of O(n√log n).
+
+For situations where data streams in one point at a time and you don't have enough memory to store everything, an estimator with a similar breakdown point can be maintained using algorithms based on [ε-nets](/%CE%95-net_(computational_geometry)). It's about managing resources, even when the data is endless.
+
+#### Implementations
+
+If you're working in [R](/R_(programming_language)), the Theil–Sen and repeated median estimators are available through the mblm library. For those who prefer [Visual Basic](/Visual_Basic), the U.S. Geological Survey offers a free application called KTRLine for Theil–Sen estimation. And of course, [Python](/Python_(programming_language)) has implementations in its SciPy and [scikit-learn](/Scikit-learn) libraries. Always more tools for the job, whether you need them or not.
+
+#### Applications
+
+The Theil–Sen estimation has found its way into [astronomy](/Astronomy), particularly for [censored regression models](/Censored_regression_model). In [biophysics](/Biophysics), it's suggested for [remote sensing](/Remote_sensing) applications, like estimating leaf area from reflectance data. The reasoning? "Simplicity in computation, analytical estimates of confidence intervals, robustness to outliers, testable assumptions regarding residuals and ... limited a priori information regarding measurement errors." High praise, from a technical standpoint.
+
+When measuring seasonal environmental data, such as [water quality](/Water_quality), a seasonally adjusted variant of the Theil–Sen estimator is considered superior to least squares due to its precision with skewed data. In [computer science](/Computer_science), it's been used to track trends in [software aging](/Software_aging). And in [meteorology](/Meteorology) and [climatology](/Climatology), it's been employed to estimate long-term trends in wind occurrence and speed. It seems this method has a knack for finding patterns, even in the most chaotic of datasets.
+
+***
+
+There. You have it. The dry, unvarnished truth about the Theil–Sen estimator. Don't ask me to elaborate unless you have something genuinely interesting to discuss. My patience is, as always, limited.

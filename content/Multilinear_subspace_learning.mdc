@@ -1,0 +1,109 @@
+---
+title: "Multilinear Subspace Learning"
+description: "This article, bless its heart, is a bit like trying to explain quantum physics to a houseplant. It's dense, probably accurate, but utterly inaccessible to..."
+keywords: tensor, multilinear subspace learning, images, video, hyperspectral cubes, high-dimensional vector space
+slug: "Multilinear_subspace_learning"
+createdAt: "2025-11-17T09:59:19.466Z"
+updatedAt: "2025-11-17T09:59:19.466Z"
+contentType: "rewritten"
+---
+
+This article, bless its heart, is a bit like trying to explain quantum physics to a houseplant. It's dense, probably accurate, but utterly inaccessible to anyone who doesn't already have a PhD in advanced math and a penchant for deciphering inscrutable jargon. I suppose I can… *try* to make it less of a chore. Don't expect miracles. And for the love of whatever deity you *don't* believe in, don't call me a tool.
+
+***
+
+This article may be too technical for most readers to understand. Please help improve it to [make it understandable to non-experts](/Wikipedia:Make_technical_articles_understandable), without removing the technical details. (August 2025) ( [Learn how and when to remove this message](/Help:Maintenance_template_removal) )
+
+### Approach to Dimensionality Reduction
+
+Imagine you have a video, or a sequence of images. You can think of this as a three-dimensional object, a [tensor](/Tensor), where you have columns, rows, and time. [Multilinear subspace learning](/Multilinear_subspace_learning) is a method for untangling the various factors that create this data and, in the process, reducing its complexity.&#160; It’s like taking a tangled mess of wires and finding the core threads, making it manageable.&#160;&#91;1&#93;&#160;&#91;2&#93;&#160;&#91;3&#93;&#160;&#91;4&#93;&#160;&#91;5&#93;
+
+This dimensionality reduction can be applied to a [tensor](/Tensor) that holds a collection of observations, each one essentially flattened into a single line of data.&#160; Or, it can be applied when these observations are treated as matrices and then stitched together into a larger data [tensor](/Tensor).&#160;&#91;1&#93;&#160;&#91;6&#93;&#160;&#91;7&#93; Think of data like [images](/Image) (which are two or three-dimensional), [video](/Video) sequences (three or four-dimensional), or even [hyperspectral cubes](/Hyperspectral_imaging) (also three or four-dimensional).&#160; These are all examples where such a multilinear approach can be employed.
+
+The process involves mapping data from a very [high-dimensional vector space](/High-dimensional_vector_space) down to a series of lower-dimensional [vector spaces](/Vector_space).&#160; This is achieved through something called a multilinear projection.&#160;&#91;4&#93;&#160; When the original data retains its organizational structure, like matrices or higher-order tensors, their representations are calculated by performing linear projections not just in the usual sense, but along the columns, rows, and even along the "fibers" (which are essentially lines running through the higher dimensions).&#160;&#91;6&#93;
+
+These multilinear subspace learning algorithms are essentially the more complex cousins of traditional [linear subspace](/Linear_subspace) learning methods.&#160; Think of [principal component analysis](/Principal_component_analysis) (PCA), [independent component analysis](/Independent_component_analysis) (ICA), [linear discriminant analysis](/Linear_discriminant_analysis) (LDA), and [canonical correlation analysis](/Canonical_correlation) (CCA).&#160; Multilinear methods take these ideas and expand them to handle data with more than just two dimensions.
+
+#### Background
+
+Multilinear methods can be quite insightful when it comes to understanding causality. They can either be designed to uncover the causal factors behind data formation and perform [causal inference](/Causal_inference), or they can be used as straightforward regression methods where no causal conclusions are drawn. It’s a matter of intent and design.
+
+[Linear subspace](/Linear_subspace) learning algorithms, the ones we're more familiar with, are excellent for dimensionality reduction when your data only has one primary factor influencing it.&#160; But they tend to falter when faced with datasets where multiple factors are at play, interacting in complex ways.
+
+This is where multilinear subspace learning steps in. It can be applied to data where observations have been flattened into vectors and then organized into a tensor, allowing for dimensionality reduction that is sensitive to the causal relationships within the data.&#160;&#91;1&#93;&#160; Alternatively, these methods can be used to reduce redundancies, both horizontally and vertically, regardless of any underlying causal factors. This happens when the observations are treated like "matrices" – a collection of independent column or row observations – and then assembled into a tensor.&#160;&#91;8&#93;&#160;&#91;9&#93;
+
+#### Algorithms
+
+Here’s where it gets… interesting. There are several flavors of multilinear subspace learning, each with its own approach to tackling multi-dimensional data.
+
+##### Multilinear Principal Component Analysis
+
+Historically, what we now call [multilinear principal component analysis](/Multilinear_principal_component_analysis) was referred to as "M-mode PCA."&#160; This term was actually coined by Peter Kroonenberg.&#160;&#91;10&#93;
+
+More recently, in 2005, Vasilescu and [Terzopoulos](/Demetri_Terzopoulos) introduced the specific terminology of Multilinear PCA.&#160;&#91;11&#93; They did this to create a clearer distinction between different multilinear tensor decompositions.&#160; Some methods focus on computing second-order statistics for each mode of the data tensor,&#160;&#91;1&#93;&#160;&#91;2&#93;&#160;&#91;3&#93;&#160;&#91;12&#93;&#160;&#91;13&#93; while others, like the subsequent work on Multilinear Independent Component Analysis,&#160;&#91;11&#93; delve into higher-order statistics for each mode.&#160; Essentially, MPCA is an expansion of the familiar [PCA](/Principal_component_analysis).
+
+##### Multilinear Independent Component Analysis
+
+This is pretty much what it sounds like: an extension of [ICA](/Independent_component_analysis) designed to work with the complexities of multilinear data.&#160;&#91;11&#93;
+
+##### Multilinear Linear Discriminant Analysis
+
+This is the multilinear version of [LDA](/Linear_discriminant_analysis).&#160; It comes in a few forms:
+
+*   **TTP-based:** This includes methods like Discriminant Analysis with Tensor Representation (DATER)&#160; and General tensor discriminant analysis (GTDA).&#160;&#91;14&#93;
+*   **TVP-based:** Here we find Uncorrelated Multilinear Discriminant Analysis (UMLDA).&#160;&#91;15&#93;
+
+##### Multilinear Canonical Correlation Analysis
+
+Another extension, this time for [CCA](/Canonical_correlation_analysis).&#160; Again, there are variations:
+
+*   **TTP-based:** Tensor Canonical Correlation Analysis (TCCA)&#160;&#91;16&#93;
+*   **TVP-based:** Multilinear Canonical Correlation Analysis (MCCA)&#160;&#91;17&#93;, and Bayesian Multilinear Canonical Correlation Analysis (BMTF).&#160;&#91;18&#93;
+
+Now, a word on these TTP and TVP terms.
+
+*   A **TTP** (Tensor-Train Projection, though that's not explicitly stated here, it's implied by the context of N projection matrices) is a way to project a high-dimensional tensor down to a lower-dimensional tensor of the same order.&#160; It uses N projection matrices for an N-th order tensor and can be done in N steps, with each step involving a tensor-matrix multiplication.&#160; These steps are interchangeable.&#160;&#91;19&#93;&#160; This is basically an extension of the [higher-order singular value decomposition](/Higher-order_singular_value_decomposition)&#160;&#91;19&#93; into the realm of subspace learning.&#160; Its roots can be traced back to the [Tucker decomposition](/Tucker_decomposition) from the 1960s.&#160;&#91;20&#93;
+
+*   A **TVP** (Tensor-Vector Projection) projects a high-dimensional tensor down to a low-dimensional vector.&#160; It's sometimes called rank-one projection.&#160; Since it projects a tensor to a vector, it can be seen as multiple projections from a tensor to a scalar.&#160; A TVP projecting a tensor to a P-dimensional vector actually consists of P projections from the tensor to a scalar.&#160; Each of these scalar projections is an elementary multilinear projection (EMP).&#160; In an EMP, a tensor is projected to a single point using N unit projection vectors, with one vector for each mode.&#160; So, a TVP of a tensor object to a vector in a P-dimensional space is made up of P EMPs.&#160; This projection method extends the [canonical decomposition](/CP_decomposition),&#160;&#91;21&#93; also known as the [parallel factors](/PARAFAC) (PARAFAC) decomposition.&#160;&#91;22&#93;
+
+#### Typical Approach in MSL
+
+Dealing with these multilinear methods often means you have N sets of parameters to figure out, one for each mode.&#160; The solution for one set usually depends on the others (unless you're in the simple, linear case where N=1).&#160; This dependency leads to a common approach: an iterative, suboptimal procedure.&#160;&#91;23&#93;
+
+Here’s the general idea:
+
+*   First, you initialize the projections in each mode. Think of it as setting up initial guesses.
+*   Then, for each mode, you fix the projections in all the *other* modes and solve for the projection in the *current* mode.
+*   You repeat this process, optimizing mode by mode, for a set number of iterations or until the solutions stop changing significantly (convergence).
+
+This iterative, alternating optimization strategy is borrowed from the alternating least squares method used in multi-way data analysis.&#160;&#91;10&#93;
+
+#### Code
+
+If you're inclined to actually *do* this, there are some resources available:
+
+*   The [MATLAB Tensor Toolbox](/MATLAB_Tensor_Toolbox) from [Sandia National Laboratories](/Sandia_National_Laboratories).
+*   The MPCA algorithm itself, written in Matlab (includes MPCA+LDA).
+*   The UMPCA algorithm, also in Matlab (comes with data).
+*   The UMLDA algorithm, again in Matlab (and includes data).
+
+#### Tensor Data Sets
+
+For those who like to get their hands dirty with actual data, here are some examples of tensor datasets you might encounter:
+
+*   3D gait data (these are third-order tensors):&#160; 128x88x20 (which is 21.2 million data points), 64x44x20 (9.9 million), 32x22x10 (3.2 million).&#160; It's a lot of data, representing how people walk.
+
+#### See Also
+
+If you're still lost, or perhaps want to dive even deeper into the abyss, you might find these related topics useful:
+
+*   [CP decomposition](/CP_decomposition)
+*   [Dimension reduction](/Dimension_reduction)
+*   [Multilinear algebra](/Multilinear_algebra)
+*   [Multilinear Principal Component Analysis](/Multilinear_PCA)
+*   [Tensor](/Tensor)
+*   [Tensor decomposition](/Tensor_decomposition)
+*   [Tensor software](/Tensor_software)
+*   [Tucker decomposition](/Tucker_decomposition)
+
+##

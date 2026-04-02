@@ -1,0 +1,359 @@
+---
+title: "Printf"
+description: "The article needs more citations. This is… inconvenient. It’s like trying to build a skyscraper with a handful of loose change. You can try, but the whole..."
+keywords: c standard library, text, standard output, c-string, variable, serialize, type, undefined behavior, crash, vulnerabilities
+slug: "Printf"
+createdAt: "2025-12-30T10:48:31.682Z"
+updatedAt: "2025-12-30T10:48:31.682Z"
+contentType: "rewritten"
+aiProvider: "Gemini"
+aiModel: "gemini-2.5-flash-lite"
+previousArticleSlug: "Lillian_Goldman_Law_Library"
+previousArticleTitle: "Lillian Goldman Law Library"
+---
+
+The article needs more citations. This is… inconvenient. It’s like trying to build a skyscraper with a handful of loose change. You can *try*, but the whole thing is likely to collapse into a pile of poorly sourced rubble. I’ll endeavor to provide the necessary scaffolding, but don’t expect miracles. Unsourced material simply *will not do*. It’s a liability, a loose thread that unravels the entire tapestry of information. If it’s not verifiable, it’s just conjecture, and I’m not in the business of peddling gossip.
+
+### C Function to Format and Output Text
+
+The `printf` function, a cornerstone of the [C standard library](/C_standard_library), isn't just a function; it's also a rather opinionated Linux terminal (shell) command. Its primary, and frankly, rather tedious, purpose is to format [text](/Plain_text) and then, with what feels like great reluctance, write it to [standard output](/Standard_output). It accepts a format [C-string](/Null-terminated_string) which acts as a set of rather stringent instructions, and then a [variable](/Variadic) number of value arguments. The function then proceeds to [serialize](/Serialization) these values according to the dictates of the format string. The catch? A mismatch between the specified format and the actual count or [type](/Data_type) of values is a recipe for [undefined behavior](/Undefined_behavior). This can manifest in anything from a program [crash](/Crash_(computing)) to more subtle, yet equally infuriating, [vulnerabilities](/Vulnerability_(computing)).
+
+The format string itself is essentially a [template language](/Template_language). It’s a peculiar concoction of verbatim text, meant to be printed as is, and format specifiers. Each specifier is a directive, a command, telling `printf` *how* to serialize a particular value. The process is strictly sequential: as `printf` scans the format string from left to right, it plucks the next available value from the argument list to fulfill each specifier it encounters. A format specifier always begins with a `%` character, followed by one or more characters that define the serialization process.
+
+The standard library, bless its meticulous heart, provides a whole family of these `printf`-like functions. They all share the same formatting capabilities, but each offers a slightly different flavor of output destination or, more importantly, safety measures designed to mitigate those aforementioned vulnerabilities. These functions have, predictably, proliferated into other [computer programming](/Computer_programming) contexts, appearing in various [programming languages](/Programming_language) with syntax and semantics that are either carbon copies or close approximations of the original.
+
+For those who prefer to receive data rather than send it, the [• `scanf()`](/Scanf) C standard library function serves as a complementary counterpart to `printf`. It handles formatted input, a process also known as [lexical analysis](/Lexical_analysis) or [parsing](/Parsing), and employs a remarkably similar format string syntax.
+
+The name, `printf`, is quite literally short for "print formatted." While "print" originally evoked the image of outputting to a [computer printer](/Computer_printer), the function’s reach extends far beyond mere paper. Today, "print" broadly encompasses output to any text-based environment, be it a command-line [terminal](/Computer_terminal) or a more permanent [computer file](/Computer_file).
+
+### History
+
+#### 1950s: Fortran
+
+Back in the primordial soup of programming languages, specifically in the mid-1950s with [Fortran](/Fortran), formatting was a rather distinct affair. Instead of embedding instructions directly within the output calls, special statements were employed, sporting a syntax entirely separate from the usual computational operations. These statements were dedicated solely to the construction of formatting descriptions. Consider this rather quaint example:
+
+```fortran
+601 FORMAT (4H A= ,I5,5H B= ,I5,8H AREA= ,F10.2, 13H SQUARE UNITS)
+PRINT 601, IA, IB, AREA
+```
+
+Here, the formatting instructions are neatly tucked away on line 601, and the `PRINT` command simply refers to it by its line number.
+
+Let’s dissect this relic:
+
+*   `4H` indicates a [string](/String_(computer_science)) literal consisting of exactly 4 [characters](/Character_(computer_science)) – in this case, `" A= "`. The `H` itself denotes a [Hollerith Field](/Hollerith_constant), a historical artifact for representing character data.
+*   `I5` specifies an [integer](/Integer_(computer_science)) field that should occupy a width of 5 characters.
+*   `F10.2` dictates a [floating-point](/Floating-point) number, to be displayed within a field of 10 characters, with precisely 2 digits appearing after the decimal point.
+*   `13H SQUARE UNITS` is another string literal, this time 13 characters long.
+
+If `IA`, `IB`, and `AREA` were assigned the values `100`, `200`, and `1500.25` respectively, the output would unfurl as follows:
+
+```
+A=  100 B=  200 AREA=   1500.25 SQUARE UNITS
+```
+
+Note the judicious use of spaces for padding to meet the specified field widths. It’s a rather rigid, almost architectural approach to output.
+
+#### 1960s: BCPL and ALGOL 68
+
+The landscape shifted somewhat in 1967 with the advent of [BCPL](/BCPL). This language introduced a library routine named `writef`, which bore a striking resemblance to our modern `printf`. An example of its application might look something like this:
+
+```bcpl
+WRITEF("%I2-QUEENS PROBLEM HAS %I5 SOLUTIONS*N", NUMQUEENS, COUNT)
+```
+
+Here’s a breakdown of the formatting specifics:
+
+*   `%I2` denotes an [integer](/Integer_(computer_science)) field with a width of 2. Notice the reversal of field width and type specifier compared to C’s `printf`.
+*   `%I5` similarly specifies an integer field of width 5.
+*   `*N` is a BCPL-specific [escape sequence](/Escape_sequence) representing a [newline](/Newline) character, the equivalent of C’s `\n`.
+
+Then came 1968 and [ALGOL 68](/ALGOL_68), which adopted a more function-like [API](/API). However, it retained a degree of syntactic specialness, particularly with the use of dollar signs (`$`) to delimit formatting syntax:
+
+```algol68
+printf(($"Color "g", number1 "6d,", number2 "4zd,", hex "16r2d,", float "-d.2d,", unsigned value"-3d"."l$,
+"red", 123456, 89, BIN 255, 3.14, 250));
+```
+
+This approach, while more function-oriented than Fortran’s, still relied on specialized syntax. The advantages were clear: simplifying the language and its [compiler](/Compiler), and allowing the [input/output](/Input/output) (I/O) routines to be implemented within the language itself. This was a departure from Fortran, where I/O was often handled by external, specialized mechanisms.
+
+These perceived benefits, including the potential for greater language simplicity, seemed to outweigh the drawbacks, such as the absence of [type safety](/Type_safety) in many scenarios, for quite some time, extending well into the 2000s. Many contemporary languages followed this pattern, with I/O not being an intrinsic part of the language syntax.
+
+However, experience has since taught us [4] that this approach, while convenient, can lead to unfortunate consequences. These range from insidious security exploits to catastrophic hardware failures. A rather infamous example involved the networking capabilities of a phone being permanently disabled simply by attempting to connect to a Wi-Fi access point named `"%p%s%s%s%s%n"` [5]. The inherent lack of type safety in these formatting mechanisms was the culprit. In response, modern languages, including [C++20](/C%2B%2B20) and its successors, have begun to integrate format specifications directly into the language syntax [6]. This reintegration aims to restore a degree of type safety to the formatting process, enabling the compiler to flag certain invalid combinations of format specifiers and data types during compilation.
+
+#### 1970s: C
+
+The year 1973 marked a significant milestone: `printf` was officially incorporated as a standard library routine in the [C](/C_(programming_language)) programming language, becoming an integral part of [Version 4 Unix](/Version_4_Unix). This solidified its position as a fundamental tool for outputting formatted data in the burgeoning world of Unix-like systems.
+
+#### 1990s: Shell Command
+
+The concept of `printf` didn’t remain confined to programming languages. In 1990, a `printf` [shell](/Shell_(computing)) [command](/Command_(computing)), directly inspired by its C standard library counterpart, was introduced as part of [4.3BSD-Reno](/4.3BSD-Reno). Later, in 1991, a `printf` command found its way into GNU shellutils (which is now part of the [GNU Core Utilities](/GNU_Core_Utilities)). It’s crucial to note that the syntax of this shell command differs from its C function progenitor. For instance, the "format section" doesn't employ the positional argument indexing (like `$n`) in the same manner as the C `printf()` function. Consider this shell example:
+
+```bash
+str="AA BB CC" # A simple string with three fields
+set -- $str     # Convert fields into positional parameters
+printf "%s " $2 $3 $1; echo # In C, printf() would use %2$s %3$s %1$s
+# Output: BB CC AA
+```
+
+This illustrates how the shell command treats arguments differently, requiring explicit positional referencing in the `printf` call itself, rather than relying on the format string to dictate the order.
+
+#### 2000s: Java
+
+Java, ever eager to embrace useful paradigms, introduced its own `printf` functionality in version 5.0 (released in 2004). The `java.io.PrintStream` class was extended with a `printf()` method, operating analogously to its C counterpart. To produce formatted output to the standard output stream in Java, one would typically use `System.out.printf()`. Java also went a step further by introducing a `format()` method directly within its `java.lang.String` class, offering a slightly different, yet related, way to achieve formatted string manipulation [10].
+
+#### 2000s: -Wformat Safety
+
+The persistent issues stemming from the lack of type safety in `printf`-style formatting spurred efforts to imbue C++ compilers with `printf`-awareness. The `-Wformat` option within the [GNU Compiler Collection](/GNU_Compiler_Collection) (GCC) proved to be a significant step in this direction. This option empowers the compiler to perform [compile-time](/Compile_time) checks on `printf` calls, thereby detecting a subset of invalid invocations. Depending on the compiler flags, these detected issues can trigger a warning or, more decisively, an error that halts the compilation process [11].
+
+By enabling the compiler to scrutinize `printf` format specifiers, this option effectively extends the C++ syntax, making formatting a more integrated part of the language’s static analysis.
+
+#### 2020s: std::print
+
+In a concerted effort to address long-standing usability challenges with C++'s [input/output support](/Input/output_(C%2B%2B)) and to sidestep the inherent safety pitfalls associated with traditional `printf` [12], the [C++ standard library](/C%2B%2B_standard_library) underwent a significant revision. This culminated in the introduction of a new type-safe formatting mechanism, beginning with [C++20](/C%2B%2B20) [13, 14]. The `std::format()` function, a key component of this overhaul, was largely inspired by and derived from Victor Zverovich's fmtlib [15] API, which was subsequently incorporated into the official language specification [16]. Zverovich himself authored [17] the initial draft of this modern formatting proposal, solidifying fmtlib’s role as a robust implementation of the C++20 format specification.
+
+The evolution continued into [C++23](/C%2B%2B23), where two new functions, `std::print()` and `std::println()`, were introduced. These functions cleverly combine the act of formatting with the immediate output of the result, effectively serving as functional replacements for the venerable `printf()` [18]. While this represents a significant leap forward for output, it’s worth noting that no analogous modernization for [• `::scanf()`](/Scanf) has yet been standardized, although proposals based on scnlib exist [19].
+
+With format specifications now woven into the fabric of the C++ language syntax itself, C++ compilers are equipped to prevent invalid pairings of data types and format specifiers in a multitude of scenarios. This is a fundamental shift from the optional `-Wformat` flag; it’s now an inherent feature of the language.
+
+The format specification employed by fmtlib and `std::format()` is, in essence, an extensible "mini-language," as explicitly stated in the specification document [20]. This makes `std::print` a fascinating culmination of historical development, bringing the state-of-the-art in formatting (as of 2024) full circle, echoing the principles of Fortran’s pioneering `PRINT` implementation from the 1950s.
+
+### Format Specifier
+
+The precise method by which a value is rendered is dictated by a specific markup within the format string. For instance, the following snippet demonstrates how to output the text "Your age is " followed by the decimal representation of the variable `age`:
+
+```c
+printf("Your age is %d", age);
+```
+
+#### Syntax
+
+The general structure of a format specifier follows this pattern:
+
+`%[ parameter ][ flags ][ width ][. precision ][ length ] type`
+
+##### Parameter Field
+
+This field is entirely optional. Its inclusion signifies that the matching of format specifiers to values will not be a straightforward sequential process. Instead, a numeric value `n` explicitly selects the *n*-th value parameter from the argument list for serialization. It’s important to note that this is a [POSIX](/POSIX) extension, not part of the original [C99](/C99) standard.
+
+| Text | Description |
+| :--- | :---------- |
+| `n$` | `n` represents the index of the value parameter to be [serialized](/Serialization) using this particular format specifier. |
+
+This parameter field is particularly useful when you need to reuse the same value multiple times within a format string, thereby avoiding the necessity of passing that value multiple times in the function call. A crucial caveat: if a format specifier includes this `n$` field, all subsequent specifiers within the same format string must also employ this positional indexing.
+
+Consider this example:
+
+```c
+printf("%2$d %2$#x; %1$d %1$#x", 16, 17);
+```
+
+The output of this statement would be:
+
+```
+17 0x11; 16 0x10
+```
+
+This feature is exceptionally valuable for [localizing](/Localization_(computing)) messages into different [natural languages](/Natural_language). Languages often have distinct [word orders](/Word_order), and the parameter field allows the programmer to rearrange the output sequence to match the target language's structure without altering the underlying data.
+
+Within the [Windows API](/Microsoft_Windows_API), support for this specific feature is provided through a separate function, `printf_p`.
+
+##### Flags Field
+
+The flags field is a flexible component, allowing for zero or more of the following characters to be present, and in any order:
+
+| Text | Description |
+| :--- | :---------- |
+| `-`  | Left-aligns the output for this placeholder. The default behavior is right-alignment. |
+| `+`  | Prepends a plus sign (`+`) to positive values. By default, positive numbers are displayed without any prefix sign. |
+| ` ` (space) | Prepends a space character to positive values. This flag is ignored if the `+` flag is also present. It provides a subtle visual separation for positive numbers. |
+| `0`  | When the `width` option is also specified, this flag instructs `printf` to pad with leading zeros instead of spaces for numeric types. For instance, `printf("%4X", 3)` might produce `"   3"`, while `printf("%04X", 3)` would yield `"0003"`. |
+| `'`  | Applies the thousands grouping separator to the integer or exponent part of a decimal number. The specific separator used depends on the system's locale settings. |
+| `#`  | Activates an alternate form of output: <br> For `%g` and `%G` types, trailing zeros are preserved, and the decimal point is always included. <br> For `%f`, `%F`, `%e`, `%E`, `%g`, and `%G` types, the output is guaranteed to contain a decimal point, even for whole numbers. <br> For `%o`, `%x`, and `%X` types, the prefixes `0`, `0x`, or `0X` respectively are prepended to non-zero numbers. |
+
+##### Width Field
+
+The `width` field defines the minimum number of characters that the output for a given specifier should occupy. If the serialized value requires fewer characters than the specified width, the output is padded with spaces. By default, this padding occurs on the left (right-alignment). If the value, however, necessitates more characters than the specified width, the output will simply be longer than the stated width; it is never truncated.
+
+For example, `printf("%3d", 12);` specifies a width of 3. The output will be `12`, with a leading space to ensure a total of 3 characters: `" 12"`. Conversely, if the call were `printf("%3d", 1234);`, the output would be `1234`, which is 4 characters long. The width specified (3) acts as a minimum, not a hard limit that truncates.
+
+If the `width` field is omitted entirely, the output will occupy the minimum number of characters required to represent the value.
+
+A particularly dynamic way to specify width is by using an asterisk (`*`). In this case, the width value is not hardcoded but is read directly from the list of arguments passed to the function. For instance, `printf("%*d", 3, 10);` would output `10`. Here, the `3` is the width parameter (matching the `*`), and `10` is the value to be serialized (matching the `d`).
+
+It's worth noting that while not technically part of the `width` field itself, a leading zero character (`0`) is interpreted as the zero-padding flag mentioned earlier. Similarly, a negative value preceding the width specification is treated in conjunction with the left-alignment flag (`-`) to achieve left-aligned padding.
+
+The `width` field is instrumental in formatting values into tables or aligned columns. However, this alignment breaks down if any single value exceeds the specified width, as demonstrated below:
+
+```
+1   1
+12  12
+123 123
+1234 123  <-- Here, 1234 exceeds the width of 3, breaking column alignment.
+```
+
+##### Precision Field
+
+The `precision` field typically imposes a maximum limit on the output, the exact meaning of which is dependent on the formatting `type` specified.
+
+*   For [floating-point](/Floating-point) numeric types, it dictates the number of digits to appear *after* the decimal point. The output is rounded to this specified precision. For the `%g` and `%G` types, the precision specifies the *total* number of [significant figures](/Significant_figures) (both before and after the decimal point, excluding leading or trailing zeros) to be retained.
+*   For the [string type](/String_(computer_science)), the precision limits the number of characters that will be output from the string. Any characters beyond this limit are truncated.
+
+The `precision` field can be omitted, specified as a literal integer value, or dynamically provided as an additional argument using an asterisk (`*`). For example, `printf("%.*s", 3, "abcdef");` would output `"abc"`, truncating the input string to the specified precision of 3 characters.
+
+##### Length Field
+
+The `length` field modifies the interpretation of the data type for integer and floating-point arguments. It can be omitted or take one of the following forms:
+
+| Text | Description |
+| :--- | :---------- |
+| `hh` | For integer types, indicates that `printf` should expect an argument of `char` type, which has been promoted to `int` size for the variadic function call. |
+| `h`  | For integer types, signifies that `printf` expects an argument of `short` type, promoted to `int` size. |
+| `l`  | For integer types, specifies that `printf` expects a `long`-sized integer argument. For floating-point types, this modifier is ignored, as `float` arguments are always promoted to `double` in a [varargs](/Varargs) call. |
+| `ll` | For integer types, indicates that `printf` expects a `long long`-sized integer argument. |
+| `L`  | For floating-point types, specifies that `printf` expects a `long double` argument. |
+| `z`  | For integer types, signifies that `printf` expects an argument of `size_t` type. `size_t` is an unsigned integer type used for sizes and counts. |
+| `j`  | For integer types, indicates that `printf` expects an argument of `intmax_t` type, the largest available integer type. |
+| `t`  | For integer types, signifies that `printf` expects an argument of `ptrdiff_t` type, which is the signed type of the difference between two pointers. |
+
+Prior to the widespread adoption of the ISO C99 extensions, various platform-specific length modifiers emerged:
+
+| Text | Description | Commonly found platforms |
+| :--- | :---------- | :----------------------- |
+| `I`  | For signed integer types, this modifier causes `printf` to expect a `ptrdiff_t`-sized argument. For unsigned integer types, it expects a `size_t`-sized argument. | [Win32](/Win32)/[Win64](/Win64) |
+| `I32`| For integer types, indicates that `printf` expects a [32-bit](/32-bit_computing) ([double word](/Double_word)) integer argument. | Win32/Win64 |
+| `I64`| For integer types, indicates that `printf` expects a [64-bit](/64-bit_computing) (quad word) integer argument. | Win32/Win64 |
+| `q`  | For integer types, signifies that `printf` expects a 64-bit (quad word) integer argument. | [BSD](/Berkeley_Software_Distribution) |
+
+To foster [cross-platform](/Cross-platform_software) compatibility in `printf` coding, the ISO C99 standard introduced the `inttypes.h` header file. This header provides a set of [macros](/Macro_(computer_science)) designed to abstract away platform-specific length modifiers. For instance, `printf("%" PRId64, t);` specifies that the `t` variable, which is a [64-bit](/64-bit_computing) signed [integer](/Integer_(computer_science)), should be formatted using a decimal representation. These macros evaluate to string literals, and the C compiler’s ability to [concatenate](/Concatenates) adjacent string literals ensures that expressions like `"%"` PRId64 are compiled into a single, unified string.
+
+Some of the commonly defined macros include:
+
+| Macro   | Description                                                                                                                            |
+| :------ | :------------------------------------------------------------------------------------------------------------------------------------- |
+| `PRId32`| Typically equivalent to `I32d` on Win32/Win64 platforms, or simply `d` on others.                                                       |
+| `PRId64`| Commonly expands to `I64d` (Win32/Win64), `lld` (on 32-bit platforms), or `ld` (on 64-bit platforms).                                  |
+| `PRIi32`| Similar to `PRId32`, but for signed integer input using `i` specifier.                                                                |
+| `PRIi64`| Similar to `PRId64`, but for signed integer input using `i` specifier.                                                                |
+| `PRIu32`| Typically equivalent to `I32u` (Win32/Win64) or `u`.                                                                                  |
+| `PRIu64`| Commonly expands to `I64u` (Win32/Win64), `llu` (32-bit platforms), or `lu` (64-bit platforms).                                         |
+| `PRIx32`| Typically equivalent to `I32x` (Win32/Win64) or `x`.                                                                                  |
+| `PRIx64`| Commonly expands to `I64x` (Win32/Win64), `llx` (32-bit platforms), or `lx` (64-bit platforms).                                         |
+
+##### Type Field
+
+The `type` field is the final component of a format specifier, designating the kind of data to be formatted. It can be one of the following:
+
+| Text | Description |
+| :--- | :---------- |
+| `%`  | Outputs a literal percent sign (`%`). This specifier does not accept any flags, width, precision, or length modifiers. |
+| `d`, `i` | (signed) [Integer](/Integer_(computer_science)) formatted as a decimal number. `%d` and `%i` are functionally identical when used with `printf`, though they differ in their behavior with `scanf`. |
+| `u`  | Unsigned integer formatted as a decimal number. |
+| `f`, `F` | `double` formatted as [fixed-point](/Fixed-point_arithmetic) notation. The difference between `f` and `F` lies solely in how special values are represented: `f` uses `inf`, `infinity`, and `nan`, while `F` uses `INF`, `INFINITY`, and `NAN`. |
+| `e`, `E` | `double` formatted in exponential notation (e.g., `d.ddde±dd`). `%E` uses an uppercase `E` to introduce the exponent. The exponent part always includes at least two digits; if the value is zero, the exponent is `00`. In some Windows implementations, the exponent may default to three digits (e.g., `1.5e002`), though this can be controlled by the Microsoft-specific `_set_output_format` function. |
+| `g`, `G` | `double` formatted using either fixed-point or exponential notation, whichever is deemed more appropriate for the magnitude of the number. `%g` uses lowercase letters (`e`), while `%G` uses uppercase (`E`). This type differs from fixed-point notation in that insignificant trailing zeros after the decimal point are omitted, and the `precision` field dictates the total number of significant digits (not just those after the decimal). A decimal point is not displayed for whole numbers. |
+| `x`, `X` | Unsigned integer formatted as a [hexadecimal](/Hexadecimal) number. `%x` uses lowercase letters (`a-f`), while `%X` uses uppercase (`A-F`). |
+| `o`  | Unsigned integer formatted as an [octal](/Octal) number. |
+| `s`  | A null-terminated C-style [string](/String_(computer_science)). |
+| `c`  | A single [character](/Character_(computer_science)) (`char`). |
+| `p`  | A [pointer](/Pointer_(computer_science)) formatted in a way that is implementation-defined. This typically shows the memory address. |
+| `a`, `A` | `double` formatted in hexadecimal notation, prefixed with `0x` or `0X`. `%a` uses lowercase letters, and `%A` uses uppercase letters [23, 24]. This format was introduced in C99. |
+| `n`  | This specifier is unique: it outputs nothing directly. Instead, it writes the number of characters successfully written to the output stream so far into the integer [pointer](/Pointer_(computer_science)) argument provided. In [Java](/Java_(programming_language)), this action results in printing a [newline](/Newline) character [25]. |
+
+#### Custom Data Type Formatting
+
+A common and practical approach to handle the formatting of custom data types involves first serializing the custom type into a standard [string](/String_(computer_science)). Subsequently, the `%s` specifier is employed to incorporate this serialized string into a larger, more complex message.
+
+Certain `printf`-like functions offer extensions to their [escape-character](/Escape-character)-based [mini-language](/Mini-language), thereby providing a mechanism for programmers to associate specific formatting functions with non-built-in types. One such mechanism, now considered [deprecated](/Deprecated), was `register_printf_function()` in the [glibc](/Glibc) library. Its usage is infrequent, primarily because it can conflict with [static format string checking](/Static_program_analysis) tools. Another approach, Vstr custom formatters, allows for the definition of multi-character format names, offering more descriptive formatting options.
+
+Some applications, such as the [Apache HTTP Server](/Apache_HTTP_Server), incorporate their own specialized `printf`-like functions, embedding custom extensions within them. However, these bespoke solutions often suffer from the same limitations and potential issues as the older `register_printf_function()` method.
+
+The [Linux kernel](/Linux_kernel) utilizes a function called `printk`, which supports a variety of methods for displaying kernel structures. It achieves this through the generic `%p` specification, augmented by appending additional format characters. For instance, `%pI4` is used to display an [IPv4 address](/IPv4_address) in the conventional dotted-decimal format. This technique allows for static format string checking (at least for the `%p` portion) while sacrificing complete compatibility with the standard `printf` behavior.
+
+### Vulnerabilities
+
+#### Format String Attack
+
+When the format string provided to `printf` contains more format specifiers than there are corresponding value arguments supplied, the behavior is officially undefined by the C standard. In certain C compilers, an excess format specifier can lead to the function attempting to consume a value that simply isn't there. This discrepancy is the foundation of the infamous [format string attack](/Format_string_attack). Typically, arguments in C are [passed on the stack](/Call_stack). If too few arguments are provided, `printf` might read beyond the boundaries of the current stack frame, inadvertently exposing sensitive data from the stack to an attacker.
+
+To mitigate this, compilers like [the GNU Compiler Collection](/GNU_Compiler_Collection) offer the `-Wformat` option. When enabled (often through flags like `-Wall` or `-Wformat`), this option allows the compiler to perform [static analysis](/Static_program_analysis) on `printf`-like function calls, issuing warnings or errors for potential format string misconfigurations. GCC can even be instructed to warn about user-defined functions that mimic `printf` behavior if they are annotated with the non-standard `__attribute__((format(printf, ...)))`.
+
+#### Uncontrolled Format String Exploit
+
+While it’s common practice to use string literals for format strings (e.g., `printf("Hello")`), which facilitates [static analysis](/Static_analysis) by the compiler, there are scenarios where the format string itself is derived from a [variable](/Variable_(programming)). This dynamic approach, while offering flexibility, opens the door to a severe security vulnerability known as an [uncontrolled format string](/Uncontrolled_format_string) exploit. In such cases, an attacker can potentially inject malicious format specifiers into the variable string, leading to unintended behavior or information disclosure.
+
+#### Memory Write
+
+Although `printf` is primarily known as an output function, its `%n` format specifier introduces a peculiar capability: it allows for writing data to a memory location. The argument corresponding to `%n` must be a [pointer](/Pointer_(computer_science)) to an integer, and `printf` writes the number of characters output so far into that memory location. This functionality, while sometimes used for legitimate, albeit niche, purposes, is frequently exploited as a component of more sophisticated format-string attacks [27].
+
+The existence of the `%n` specifier, enabling memory writes, has an intriguing theoretical implication: it renders `printf` accidentally [Turing-complete](/Turing-complete), even when provided with a seemingly well-formed set of arguments. This theoretical completeness has been demonstrated in practice, with a game of tic-tac-toe, entirely implemented within a `printf` format string, winning the 27th [IOCCC](/IOCCC) (International Obfuscated C Code Contest) [28].
+
+### Related Functions
+
+#### Family
+
+The C standard library offers several variants of `printf`, each tailored for different output destinations or safety requirements:
+
+*   `fprintf`: Similar to `printf`, but directs its output to a specified [file](/File_(computing)) stream instead of standard output.
+*   `sprintf`: Writes formatted output into a character [string buffer](/String_buffer) in memory, rather than directly to the console. This function can be dangerous if the buffer is not large enough to hold the resulting string, potentially leading to buffer overflows.
+*   `snprintf`: A safer alternative to `sprintf`. The caller provides a maximum length `n` for the output buffer, which includes space for the null-terminator. This prevents buffer overflows by ensuring the output does not exceed the allocated space.
+*   `asprintf`: Offers another layer of safety by accepting a string [handle](/Handle_(computing)) (a `char**` argument). The function dynamically [allocates](/Memory_allocation) a buffer of precisely the required size to hold the formatted text and then outputs the pointer to this buffer via the handle.
+
+For each of these functions, including `printf` itself, there exists a corresponding variant that accepts a single `va_list` argument instead of a variable list of arguments. These variants typically have a `v` prefix, such as `vprintf`, `vfprintf`, and `vsprintf`.
+
+Generally, `printf`-like functions are designed to return the number of bytes successfully outputted. In the event of an error, they typically return `-1` [29].
+
+#### Other Contexts
+
+The `printf` paradigm has proven so influential that its core concepts have been adopted, adapted, and implemented across a vast array of [programming languages](/Programming_language) and environments. The following list highlights some of the more notable examples that provide functionality equivalent or similar to the C `printf`-like functions. Languages that employ significantly different formatting string syntaxes (like [AMPL](/AMPL) and [Elixir](/Elixir_(programming_language))), those that inherit their `printf` implementation from the [Java virtual machine](/Java_virtual_machine) (e.g., [Clojure](/Clojure), [Scala](/Scala_(programming_language))), or those relying on external libraries for `printf` emulation (such as [JavaScript](/JavaScript)) are generally excluded here.
+
+*   [awk](/Awk) [30]
+*   [C](/C_(programming_language))
+*   [C++](/C%2B%2B)
+*   [D](/D_(programming_language))
+*   [F#](/F_Sharp_(programming_language))
+*   [LabVIEW](/LabVIEW) (as `g`)
+*   [GNU MathProg](/GNU_Linear_Programming_Kit)
+*   [GNU Octave](/GNU_Octave)
+*   [Go](/Go_(programming_language))
+*   [Haskell](/Haskell)
+*   [J](/J_(programming_language))
+*   [Java](/Java_(programming_language)) (since version 1.5) and other JVM languages
+*   [Julia](/Julia_(programming_language)) (via the `Printf` standard library [31])
+*   [Lua](/Lua_(programming_language)) (using `string.format`)
+*   [Maple](/Maple_(software))
+*   [MATLAB](/MATLAB)
+*   [Max](/Max_(software)) (via the `sprintf` object)
+*   [Objective-C](/Objective-C)
+*   [OCaml](/OCaml) (via the `Printf` module)
+*   [PARI/GP](/PARI/GP)
+*   [Perl](/Perl)
+*   [Raku](/Raku_(programming_language)) (using `printf`, `sprintf`, and `fmt`)
+*   [PHP](/PHP)
+*   [Python](/Python_(programming_language)) (using the `%` operator for string formatting) [32]
+*   [R](/R_(programming_language))
+*   [Red/System](/Red_(programming_language))
+*   [Ruby](/Ruby_(programming_language))
+*   [SQLite](/SQLite) [33] (via its built-in `printf()` function)
+*   [Tcl](/Tcl) (using the `format` command)
+*   [Transact-SQL](/Transact-SQL) (via the `xp_sprintf` extended stored procedure)
+*   [Vala](/Vala_(programming_language)) (using `print()` and `FileStream.printf()`)
+
+### See Also
+
+*   ["Hello, World!" program](/%22Hello,_World!%22_program) – A foundational example program, popularized by "The C Programming Language" (often referred to as the "K&R Book"), which famously uses `printf` to display the message "Hello, World!".
+*   [Format (Common Lisp)](/Format_(Common_Lisp)) – A function in Common Lisp that produces formatted text output, analogous in purpose to `printf`.
+*   [C standard library](/C_standard_library) – The collection of standard functions and routines available in the C programming language.
+*   [Format string attack](/Format_string_attack) – A specific type of software vulnerability that exploits the behavior of format string functions like `printf`.
+*   [Input/output (C++)](/Input/output_(C%2B%2B)) – Details the input and output capabilities within the C++ standard library, including modern formatting features.
+*   [Printf debugging](/Printf_debugging) – A technique for debugging software by strategically inserting `printf` statements to trace program execution and variable states.
+*   [printf (Unix)](/Printf_(Unix)) – The Unix shell command that mirrors the functionality of the C `printf` library function for formatting and outputting text directly from the command line.
+*   [printk](/Printk) – A `printf`-like function specifically designed for the Linux kernel, used for logging kernel messages.
+*   [scanf](/Scanf) – The C standard library function that complements `printf` by handling formatted input from various sources.
+*   [String interpolation](/String_interpolation) – A broader programming concept where placeholders within a string are dynamically replaced with actual values.
+
+### Notes
+
+*   ^ According to the original 1956 Fortran manual [1], the `PRINT` command was intended for outputting to an attached [printer](/Line_printer). The manual also describes a `WRITE OUTPUT TAPE` command, which similarly utilized the `FORMAT` statement but directed its output to a [tape unit](/Magnetic-tape_data_storage).
+
+#

@@ -1,0 +1,320 @@
+---
+title: "Simply Typed Lambda Calculus"
+description: "Alright. You want me to take this… *academic* text and make it… *more*. Like adding a splash of venom to a lukewarm tea. Fine. Don't expect sunshine and..."
+keywords: simply typed lambda calculus, lambda calculus, type constructor, function types, alonzo church, untyped lambda calculus, products, coproducts, natural numbers, system t
+slug: "Simply_typed_lambda_calculus"
+createdAt: "2025-11-17T13:21:10.034Z"
+updatedAt: "2025-11-17T13:21:10.034Z"
+contentType: "rewritten"
+---
+
+Alright. You want me to take this… *academic* text and make it… *more*. Like adding a splash of venom to a lukewarm tea. Fine. Don't expect sunshine and rainbows.
+
+***
+
+## Formal System in Mathematical Logic
+
+The [simply typed lambda calculus](/Type_theory) (&#8288;&#955;<sup>&rarr;</sup>&#8288;), a rather elegant, if somewhat austere, interpretation of the [lambda calculus](/Lambda_calculus), operates with a singular [type constructor](/Type_constructor): the arrow, &rarr; (&#8288;&rarr;&#8288;), which, with a certain ruthless efficiency, builds [function types](/Function_type). It stands as the quintessential, the most basic, example of a typed lambda calculus. This system, the simply typed lambda calculus, was brought into the world by [Alonzo Church](/Alonzo_Church) himself back in 1940. His motivation? To build a logical fortress against the paradoxes that threatened to consume the [untyped lambda calculus](/Untyped_lambda_calculus).&#91;1&#93;
+
+The term "simple type" itself can be a bit of a chameleon, extending to encompass variations of the simply typed lambda calculus that incorporate features like [products](/Cartesian_product), [coproducts](/Coproduct), or even the seemingly innocuous [natural numbers](/Natural_number) (as seen in [System T](/Dialectica_interpretation)), or the full, untamed force of [recursion](/Recursion) (like in the [Programming Language for Computable Functions, PCF](/Programming_language_for_Computable_Functions)). In stark contrast, systems that dare to introduce [polymorphic types](/Parametric_polymorphism) (such as [System F](/System_F)) or the intricate architecture of [dependent types](/Dependent_type) (like the [Logical Framework](/LF_(logical_framework))) are generally not considered "simply typed." The reason for this distinction? The "simple types," barring the absolute surrender to full recursion, can still be rendered using just the &rarr; constructor and a judicious deployment of type variables. Polymorphism and dependency, however, are a different beast entirely.
+
+### Syntax
+
+Back in the fervent intellectual climate of the 1930s, [Alonzo Church](/Alonzo_Church) was wrestling with what he termed the "logistic method."&#91;a&#93; His [lambda calculus](/Lambda_calculus), conceived as a formal language built from symbolic expressions, was a labyrinth of denumerably infinite axioms and variables.&#91;b&#93; Yet, it was also a meticulously crafted system of a finite set of primitive symbols,&#91;c&#93; denoting abstraction and scope. This was augmented by four fundamental constants: negation, disjunction, universal quantification, and selection,&#91;d&#93;&#91;e&#93; alongside a finite set of rules, I through VI. Among these, rule V, the venerable [modus ponens](/Modus_ponens), and rules IV and VI for substitution and generalization, were particularly crucial.&#91;d&#93; Rules I to III, for those who’ve dared to venture into this territory, are known as alpha, beta, and eta conversion within the lambda calculus. Church’s intent was for English to serve merely as a syntax language—a metamathematical stage—for describing these symbolic expressions, devoid of any inherent interpretations.&#91;f&#93;
+
+By 1940, Church had settled on a subscript notation to meticulously denote the type of each symbolic expression.&#91;b&#93; In his original formulation, he employed only two base types: &#8288;`o`&#8288; for "the type of propositions" and &#8288;`&iota;`&#8288; for "the type of individuals." The type &#8288;`o`&#8288; was starkly devoid of term constants, while &#8288;`&iota;`&#8288; had just one. Often, the calculus is considered with a single base type, typically &#8288;`o`&#8288;. Greek letters like &#8288;&alpha;&#8288;, &#8288;&beta;&#8288;, and so on, were used as type variables; the parenthesized subscript &#8288;(&alpha;&#946;)&#8288; denoted the function type &#8288;&beta; &rarr; &alpha;&#8288;. Church, in his 1940 paper (p. 58), employed the "arrow or &rarr;" notation to signify "stands for," or more accurately, as an abbreviation for it.&#91;g&#93; By the 1970s, the standalone arrow notation had become commonplace; in this context, symbols like &#8288;&sigma;&#8288; and &#8288;&tau;&#8288; are permitted to range over types. The infinite array of axioms was then understood as a consequence of applying rules I to VI to these types, echoing the structure of the [Peano axioms](/Peano_axioms). Informally, the function type &#8288;&sigma; &rarr; &tau;&#8288; represents the type of functions that accept an input of type &#8288;&sigma;&#8288; and produce an output of type &#8288;&tau;&#8288;.
+
+By convention, the &rarr; symbol is right-associative: &#8288;&sigma; &rarr; &tau; &rarr; &rho;&#8288; is interpreted as &#8288;&sigma; &rarr; (&tau; &rarr; &rho;)&#8288;.
+
+To formally define these types, we first establish a [set](/Set_(mathematics)) of base types, denoted by &#8288;B&#8288;. These are sometimes referred to as atomic types or type constants. With &#8288;B&#8288; fixed, the syntax of types follows this recursive definition:
+
+&#8288;&tau; ::=&tau; &rarr; &tau; | T &#8288; where &#8288; T &isin; B.&#8288;
+
+For instance, if &#8288;B = {a, b}&#8288;, this generates an infinite hierarchy of types, beginning with &#8288;a&#8288;, &#8288;b&#8288;, then &#8288;a &rarr; a&#8288;, &#8288;a &rarr; b&#8288;, &#8288;b &rarr; b&#8288;, &#8288;b &rarr; a&#8288;, and progressing to more complex forms like &#8288;a &rarr; (a &rarr; a)&#8288;, and even &#8288;(b &rarr; a) &rarr; (a &rarr; b)&#8288;, and so forth.
+
+A set of term constants is also designated for these base types. For example, if one of the base types is designated as `nat`, its term constants might be the natural numbers themselves.
+
+The syntax of the simply typed lambda calculus is, in essence, the syntax of the lambda calculus itself. The notation &#8288;x : &tau;&#8288; signifies that the variable &#8288;x&#8288; possesses type &#8288;&tau;&#8288;. The term syntax, expressed in [Backus–Naur form](/Backus%E2%80%93Naur_form), encompasses variable references, abstractions, applications, or constants:
+
+&#8288;e ::= x | &lambda;x : &tau;. e | e e | c&#8288;
+
+where &#8288;c&#8288; represents a term constant. A variable reference &#8288;x&#8288; is considered "bound" if it falls within the scope of an abstraction that binds &#8288;x&#8288;. A term is deemed "closed" if it contains no unbound variables.
+
+In stark contrast, the syntax of the untyped lambda calculus dispenses with such typing and term constants altogether:
+
+&#8288;e ::= x | &lambda;x. e | e e&#8288;
+
+The crucial difference lies in the typed lambda calculus: every abstraction, that is, every function, is compelled to declare the type of its argument.
+
+### Typing Rules
+
+To precisely define the set of well-typed lambda terms for any given type, we establish a typing relation. This relation operates within typing contexts, also known as [typing environments](/Typing_environment), denoted by &#8288;&Gamma;, &Delta;, ...&#8288;. These contexts are essentially sets of typing assumptions. A typing assumption takes the form &#8288;x : &sigma;&#8288;, asserting that the variable &#8288;x&#8288; belongs to type &#8288;&sigma;&#8288;.
+
+The typing relation &#8288;&Gamma; &vdash; e : &sigma;&#8288; signifies that &#8288;e&#8288; is a term of type &#8288;&sigma;&#8288; within the context &#8288;&Gamma;&#8288;. When this relation holds, &#8288;e&#8288; is considered "well-typed" (possessing type &#8288;&sigma;&#8288;). Instances of this typing relation are termed typing judgments. The validity of a typing judgment is demonstrated by a typing derivation, a structured argument built using [typing rules](/Typing_rule), where the premises positioned above a line logically lead to the conclusion below it. The simply typed lambda calculus employs these specific rules:&#91;h&#93;
+
+<p align="center">
+  <img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/b1729081877620962cb44b3c496c3930c4030464" alt="\frac{x:\sigma \in \Gamma }{\Gamma \vdash x:\sigma }" />
+  (1)
+</p>
+
+<p align="center">
+  <img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/0e2451033690d591854009947336663f85878b50" alt="\frac{c \text{ is a constant of type } T}{\Gamma \vdash c:T}" />
+  (2)
+</p>
+
+<p align="center">
+  <img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/3773426b45a6140f562b80cc6078f4b3283c406d" alt="\frac{\Gamma ,x:\sigma \vdash e:\tau }{\Gamma \vdash (\lambda x:\sigma .~e):(\sigma \to \tau )}" />
+  (3)
+</p>
+
+<p align="center">
+  <img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/c706207b25138c28533c7a0a4571171a8a325a88" alt="\frac{\Gamma \vdash e_{1}:\sigma \to \tau \quad \Gamma \vdash e_{2}:\sigma }{\Gamma \vdash e_{1}~e_{2}:\tau }" />
+  (4)
+</p>
+
+In plain language, these rules dictate:
+
+*   If &#8288;x&#8288; is declared to have type &#8288;&sigma;&#8288; within the context, then &#8288;x&#8288; indeed has type &#8288;&sigma;&#8288;.
+
+*   Term constants are intrinsically linked to their designated base types.
+
+*   For an abstraction &#8288;&lambda;x : &sigma;. e&#8288; to possess type &#8288;&sigma; &rarr; &tau;&#8288; within a given context, it must be the case that within that same context, augmented with the assumption that &#8288;x&#8288; has type &#8288;&sigma;&#8288;, the body &#8288;e&#8288; itself has type &#8288;&tau;&#8288;.
+
+*   When &#8288;e<sub>1</sub>&#8288; is of type &#8288;&sigma; &rarr; &tau;&#8288; and &#8288;e<sub>2</sub>&#8288; is of type &#8288;&sigma;&#8288;, their application &#8288;e<sub>1</sub> e<sub>2</sub>&#8288; consequently yields a result of type &#8288;&tau;&#8288;.
+
+Consider these examples of closed terms—those that can be typed in the absence of any context:
+
+*   For any given type &#8288;&tau;&#8288;, the term &#8288;&lambda;x : &tau;. x&#8288; which has type &#8288;&tau; &rarr; &tau;&#8288;. This is the [identity function](/Identity_function), also known as the I-combinator.
+
+*   For types &#8288;&sigma;&#8288; and &#8288;&tau;&#8288;, the term &#8288;&lambda;x : &sigma;. &lambda;y : &tau;. x&#8288; with type &#8288;&sigma; &rarr; &tau; &rarr; &sigma;&#8288;. This is the K-combinator.
+
+*   For types &#8288;&tau;, &tau;', &tau;''&#8288;, the term &#8288;&lambda;x : &tau; &rarr; &tau;' &rarr; &tau;''. &lambda;y : &tau; &rarr; &tau:'. &lambda;z : &tau;. x z (y z)&#8288;, which possesses the type &#8288;(&tau; &rarr; &tau;' &rarr; &tau;'') &rarr; (&tau; &rarr; &tau;') &rarr; &tau; &rarr; &tau;''&#8288;. This is the S-combinator.
+
+These terms represent the foundational combinators of [combinatory logic](/Combinatory_logic) within the framework of the typed lambda calculus.
+
+Each type &#8288;&tau;&#8288; is assigned an "order," a numerical value &#8288;o(&tau;)&#8288;. For base types &#8288;T&#8288;, &#8288;o(T) = 0&#8288;. For function types, &#8288;o(&sigma; &rarr; &tau;) = max(o(&sigma;) + 1, o(&tau;))&#8288;. In essence, the order of a type quantifies the depth of its most deeply nested left-associative arrow. Consequently:
+
+&#8288;o(&iota; &rarr; &iota; &rarr; &iota;) = 1&#8288;
+&#8288;o((&iota; &rarr; &iota;) &rarr; &iota;) = 2&#8288;
+
+### Semantics
+
+#### Intrinsic vs. Extrinsic Interpretations
+
+Broadly speaking, there are two distinct lenses through which we can assign meaning to the simply typed lambda calculus, much like with typed languages in general. These are often termed intrinsic versus extrinsic, ontological versus semantical, or, in a more historical context, Church-style versus Curry-style.&#91;1&#93;&#91;7&#93;&#91;8&#93;
+
+An *intrinsic semantics* focuses solely on well-typed terms, or more precisely, it assigns meaning directly to the derivations that establish typing. This approach means that terms that might appear identical save for their type annotations can be imbued with distinct meanings. For example, the identity term &#8288;&lambda;x : int. x&#8288; operating on [integers](/Integer) and the identity term &#8288;&lambda;x : bool. x&#8288; operating on [booleans](/Boolean_data_type) might be understood as having different semantic values. (The canonical intended interpretations are, of course, the identity function for integers and the identity function for boolean values, respectively.)
+
+Conversely, an *extrinsic semantics* assigns meaning to terms without regard for their typing. In this view, &#8288;&lambda;x : int. x&#8288; and &#8288;&lambda;x : bool. x&#8288; are considered to mean the same thing – essentially, the same as the untyped &#8288;&lambda;x. x&#8288;.
+
+The distinction between intrinsic and extrinsic semantics is sometimes conflated with the presence or absence of type annotations on lambda abstractions. However, this is an imprecise understanding. It's entirely possible to define an extrinsic semantics on annotated terms simply by ignoring the types—a process known as [type erasure](/Type_erasure). Similarly, an intrinsic semantics can be applied to unannotated terms if their types can be deduced through [type inference](/Type_inference). The fundamental divergence lies in whether the typing rules are seen as defining the language itself or merely as a verification mechanism for properties of a more primitive, underlying language. Most of the semantic interpretations discussed below can be approached from either an intrinsic or an extrinsic perspective.
+
+#### Equational Theory
+
+The simply typed lambda calculus (STLC) shares the same [equational theory](/Equational_theory) of &beta;&eta;-equivalence as its [untyped counterpart](/Untyped_lambda_calculus), albeit with crucial type restrictions. The equation governing [beta reduction](/Beta_reduction)&#91;i&#93;:
+
+<p align="center">
+  <img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/074c5835049c23f40c1b76b914a5a08362f16d23" alt="(\lambda x:\sigma .~t)\,u=_{\beta }t[x:=u]" />
+</p>
+
+holds within a context &#8288;&Gamma;&#8288; provided that &#8288;&Gamma;, x : &sigma; &vdash; t : &tau;&#8288; and &#8288;&Gamma; &vdash; u : &sigma;&#8288;. The equation for [eta reduction](/Eta_reduction)&#91;j&#93;:
+
+<p align="center">
+  <img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/402a41e4574e76d39f2b050a73b976782f711311" alt="\lambda x:\sigma .~t\,x=_{\eta }t" />
+</p>
+
+holds when &#8288;&Gamma; &vdash; t : &sigma; &rarr; &tau;&#8288; and &#8288;x&#8288; does not appear freely within &#8288;t&#8288;.
+
+The undeniable advantage of the typed lambda calculus, and STLC in particular, is its ability to preemptively halt potentially non-terminating computations.&#91;9&#93;
+
+#### Operational Semantics
+
+Similarly, the [operational semantics](/Operational_semantics) of the simply typed lambda calculus can be defined in the same vein as the untyped lambda calculus, employing strategies such as [call by name](/Call_by_name), [call by value](/Call_by_value), or other [evaluation strategies](/Evaluation_strategy). A fundamental property, inherent to any typed language, is [type safety](/Type_safety), which holds true for all these evaluation strategies. Furthermore, the [strong normalization](/Strong_normalization) property, discussed further below, guarantees that every evaluation sequence, regardless of the strategy employed, will inevitably terminate for all simply typed terms.&#91;10&#93;
+
+#### Categorical Semantics
+
+When the simply typed lambda calculus is augmented with product types, pairing, and projection operators (and subject to &beta;&eta;-equivalence), it becomes the [internal language](/Internal_language) of [Cartesian closed categories](/Cartesian_closed_categories) (CCCs). This profound connection was first recognized by [Joachim Lambek](/Joachim_Lambek).&#91;11&#93; In this correspondence, any given CCC gives rise to a corresponding lambda calculus where its [objects](/Object_(category_theory)) are the basic types, and its [morphisms](/Morphism) are the terms. Conversely, the simply typed lambda calculus, equipped with product types and pairing operators over a collection of base types and terms, naturally forms a CCC. In this CCC, the types serve as the objects, and the equivalence classes of terms constitute the morphisms.
+
+The system includes [typing rules](/Typing_rule) for pairing, projection, and a unit term. Given two terms, &#8288;s : &sigma;&#8288; and &#8288;t : &tau;&#8288;, the term &#8288;(s, t)&#8288; is assigned the type &#8288;&sigma; &times; &tau;&#8288;. Analogously, if we have a term &#8288;u : &tau;<sub>1</sub> &times; &tau;<sub>2</sub>&#8288;, then there exist terms &#8288;&pi;<sub>1</sub>(u) : &tau;<sub>1</sub>&#8288; and &#8288;&pi;<sub>2</sub>(u) : &tau;<sub>2</sub>&#8288;, where &#8288;&pi;<sub>i</sub>&#8288; represent the projection operations from the Cartesian product. The unit term, of type 1, denoted as &#8288;()&#8288; and pronounced 'nil', functions as the [final object](/Final_object). The equational theory is extended accordingly, yielding the following identities:
+
+<p align="center">
+  <img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/6179852e03c9f2206b9d9227165122a574092194" alt="\pi _{1}(s:\sigma ,t:\tau )=s:\sigma" />
+</p>
+
+<p align="center">
+  <img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/b62812298c8693f502a31b40510a6d7c765098d2" alt="\pi _{2}(s:\sigma ,t:\tau )=t:\tau" />
+</p>
+
+<p align="center">
+  <img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/36615c950240d68c87e6f433051731c6815152c6" alt="(\pi _{1}(u:\sigma \times \tau ),\pi _{2}(u:\sigma \times \tau ))=u:\sigma \times \tau" />
+</p>
+
+<p align="center">
+  <img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/03d086d5c6c74b7282b193d417df01c117f3e776" alt="t:1=()" />
+</p>
+
+The last identity is interpreted as: "if term &#8288;t&#8288; has type 1, then it reduces to &#8288;nil&#8288;."
+
+This structure can be further abstracted into a category by considering the types as the [objects](/Object_(category_theory)). The [morphisms](/Morphism) from type &#8288;&sigma;&#8288; to &#8288;&tau;&#8288; are then understood as equivalence classes of pairs &#8288;(x : &sigma;, t : &tau;)&#8288;, where &#8288;x&#8288; is a variable of type &#8288;&sigma;&#8288; and &#8288;t&#8288; is a term of type &#8288;&tau;&#8288;, containing no free variables apart from (potentially) &#8288;x&#8288;. The set of terms in the language is the closure of these pairs under the operations of abstraction and [application](/Apply).
+
+This correspondence can be extended to encompass "language homomorphisms" and [functors](/Functor) between the category of Cartesian closed categories and the category of simply typed lambda theories. Furthermore, certain aspects of this correspondence can be generalized to [closed symmetric monoidal categories](/Closed_monoidal_category) through the use of a [linear type system](/Linear_type_system).
+
+#### Proof-theoretic Semantics
+
+A profound connection exists between the simply typed lambda calculus and the implicational fragment of propositional [intuitionistic logic](/Intuitionistic_logic), specifically the [implicational propositional calculus](/Implicational_propositional_calculus). This relationship is illuminated by the [Curry–Howard isomorphism](/Curry%E2%80%93Howard_isomorphism): here, terms of the calculus precisely mirror proofs in [natural deduction](/Natural_deduction), and the [inhabited types](/Type_inhabitation) correspond directly to the [tautologies](/Tautology_(logic)) of this logical system.
+
+From his foundational "logistic method," Church, in his 1940 work,&#91;1&#93; p. 58, presented an [axiom schema](/Axiom_schema).&#91;1&#93; p. 60. Later, in 1949, Henkin&#91;3&#93; augmented this by introducing type domains, such as the natural numbers or real numbers. In his 1996 publication, Henkin (p. 144) elaborated on how Church's logistic method could serve as a bedrock for mathematics, including Peano arithmetic and real analysis,&#91;4&#93; through the lens of [model theory](/Model_theory).
+
+### Alternative Syntaxes
+
+The presentation of the simply typed lambda calculus described above is not the sole approach. An alternative involves dispensing with type annotations entirely, rendering its syntax indistinguishable from the untyped lambda calculus. The assurance of well-typedness is then maintained through [Hindley–Milner type inference](/Hindley%E2%80%93Milner_type_inference). This inference algorithm is both terminating and complete: if a term can be typed, the algorithm will successfully compute its type. More accurately, it computes the term's [principal type](/Principal_type), as a single, untyped term (like &#8288;&lambda;x. x&#8288;) can often possess multiple types (e.g., &#8288;int &rarr; int&#8288;, &#8288;bool &rarr; bool&#8288;, and so forth). These are all instances of a more general principal type, such as &#8288;&alpha; &rarr; &alpha;&#8288;.
+
+Another syntactical perspective on the simply typed lambda calculus is based on bidirectional type checking. This approach necessitates more type annotations than Hindley–Milner inference but is generally simpler to articulate. The [type system](/Type_system) is bifurcated into two judgments: one for checking and one for synthesis. These are represented as &#8288;&Gamma; &vdash; e &Leftarrow; &tau;&#8288; (checking) and &#8288;&Gamma; &vdash; e &Rightarrow; &tau;&#8288; (synthesis), respectively. Operationally, the checking judgment &#8288;&Gamma; &vdash; e &Leftarrow; &tau;&#8288; takes &#8288;&Gamma;&#8288;, &#8288;e&#8288;, and &#8288;&tau;&#8288; as inputs. In contrast, the synthesis judgment &#8288;&Gamma; &vdash; e &Rightarrow; &tau;&#8288; accepts only &#8288;&Gamma;&#8288; and &#8288;e&#8288;, producing the type &#8288;&tau;&#8288; as its output. The derivation of these judgments follows these rules:
+
+<p align="center">
+  <img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/b1729081877620962cb44b3c496c3930c4030464" alt="\frac{x:\sigma \in \Gamma }{\Gamma \vdash x:\sigma }" />
+  [1]
+</p>
+
+<p align="center">
+  <img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/0e2451033690d591854009947336663f85878b50" alt="\frac{c \text{ is a constant of type } T}{\Gamma \vdash c:T}" />
+  [2]
+</p>
+
+<p align="center">
+  <img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/955f04a99426a4081e177e182572f6257f06269d" alt="\frac{\Gamma ,x:\sigma \vdash e\Leftarrow \tau }{\Gamma \vdash \lambda x.~e\Leftarrow \sigma \to \tau }" />
+  [3]
+</p>
+
+<p align="center">
+  <img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/d59c4573c778e059c342674837e9331f5493ea62" alt="\frac{\Gamma \vdash e_{1}\Rightarrow \sigma \to \tau \quad \Gamma \vdash e_{2}\Leftarrow \sigma }{\Gamma \vdash e_{1}~e_{2}\Rightarrow \tau }" />
+  [4]
+</p>
+
+<p align="center">
+  <img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/d00f2319c3f001402d1278000f9406b062213041" alt="\frac{\Gamma \vdash e\Rightarrow \tau }{\Gamma \vdash e\Leftarrow \tau }" />
+  [5]
+</p>
+
+<p align="center">
+  <img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/32377ff85653076f1c82019a476395e6414021a8" alt="\frac{\Gamma \vdash e\Leftarrow \tau }{\Gamma \vdash (e:\tau )\Rightarrow \tau }" />
+  [6]
+</p>
+
+It’s worth noting that rules [1]–[4] bear a strong resemblance to rules (1)–(4) presented earlier, with the key difference being the deliberate choice between checking and synthesis judgments. These choices can be understood as follows:
+
+*   If &#8288;x : &sigma;&#8288; is present in the context, we are empowered to synthesize the type &#8288;&sigma;&#8288; for &#8288;x&#8288;.
+
+*   The types of term constants are fixed and readily synthesizable.
+
+*   To verify that &#8288;&lambda;x. e&#8288; possesses the type &#8288;&sigma; &rarr; &tau;&#8288; within a specific context, we extend that context by adding &#8288;x : &sigma;&#8288; and then proceed to check if &#8288;e&#8288; conforms to type &#8288;&tau;&#8288;.
+
+*   If &#8288;e<sub>1</sub>&#8288; synthesizes the type &#8288;&sigma; &rarr; &tau;&#8288; (within a given context), and &#8288;e<sub>2</sub>&#8288; checks against type &#8288;&sigma;&#8288; (in the same context), then the application &#8288;e<sub>1</sub> e<sub>2</sub>&#8288; synthesizes type &#8288;&tau;&#8288;.
+
+Observe how the synthesis rules are applied top-to-bottom, while the checking rules operate bottom-to-top. Crucially, rule [3] requires no explicit type annotation on the lambda abstraction, as the type of the bound variable can be inferred from the type against which the function itself is being checked. Finally, rules [5] and [6] facilitate transitions between synthesis and checking:
+
+*   To check if &#8288;e&#8288; has type &#8288;&tau;&#8288;, it suffices to synthesize type &#8288;&tau;&#8288; for it.
+
+*   If &#8288;e&#8288; checks against type &#8288;&tau;&#8288;, then the explicitly annotated term &#8288;(e : &tau;)&#8288; synthesizes type &#8288;&tau;&#8288;.
+
+Due to these mechanisms for coercing between synthesis and checking, it becomes evident that any well-typed but unannotated term can be validated within the bidirectional system, provided sufficient type annotations are strategically inserted. In fact, annotations are typically only necessitated at &beta;-redexes.
+
+### General Observations
+
+When considered with its standard semantics, the simply typed lambda calculus exhibits the property of [strong normalization](/Normalization_property_(lambda-calculus)): every sequence of reductions is guaranteed to terminate.&#91;10&#93; This is a direct consequence of the typing rules, which effectively prohibit recursion. It is impossible, within this system, to assign types to [fixed-point combinators](/Fixed-point_combinator) or to construct looping terms like &#8288;&Omega; = (&lambda;x. x x)( &lambda;x. x x)&#8288;. Recursion can be reintroduced, but it requires either a dedicated operator, such as &#8288;fix<sub>&alpha;</sub>&#8288; of type &#8288;(&alpha; &rarr; &alpha;) &rarr; &alpha;&#8288;, or the incorporation of general [recursive types](/Recursive_type). Either of these additions, however, sacrifices the property of strong normalization.
+
+Unlike its untyped predecessor, the simply typed lambda calculus is not [Turing complete](/Turing_complete). All programs written within the simply typed lambda calculus are guaranteed to halt. The untyped lambda calculus, on the other hand, harbors programs that fail to terminate, and furthermore, lacks any general procedure to definitively determine whether a given program will halt.
+
+### Important Results
+
+*   [Tait](/William_W._Tait) established in 1967 that &beta;-reduction is [strongly normalizing](/Normalization_property_(lambda-calculus)).&#91;10&#93; As a direct consequence, &beta;&eta;-equivalence is [decidable](/Decidability_(logic)). Later, in 1979, Statman demonstrated that the normalization problem is not [elementary recursive](/Elementary_recursive),&#91;12&#93; a finding later simplified by Mairson.&#91;13&#93; This problem is known to reside within the &#8288;&Escr;<sup>4</sup>&#8288; set of the [Grzegorczyk hierarchy](/Grzegorczyk_hierarchy).&#91;14&#93; A purely semantic proof of normalization, utilizing the technique of [normalization by evaluation](/Normalisation_by_evaluation), was presented by Berger and Schwichtenberg in 1991.&#91;15&#93;
+
+*   The [unification](/Unification_(computing)) problem for &beta;&eta;-equivalence has been proven to be undecidable. Gérard Huet demonstrated in 1973 that unification in the third order is undecidable.&#91;16&#93; This result was subsequently refined by Baxter in 1978&#91;17&#93; and further by Goldfarb in 1981,&#91;18&#93; who showed that even second-order unification is already undecidable. A significant development occurred in 2006 when Colin Stirling announced the decidability of higher-order matching (a form of unification where only one term contains existential variables), with a full proof published in 2009.&#91;19&#93;
+
+*   [Natural numbers](/Natural_number) can be encoded using terms of type &#8288;(o &rarr; o) &rarr; (o &rarr; o)&#8288;, known as [Church numerals](/Church_numeral). Helmut Schwichtenberg showed in 1975 that within &#8288;&lambda;<sup>&rarr;</sup>&#8288;, the representable functions over Church numerals are precisely the extended [polynomials](/Polynomial). These are, in essence, polynomials augmented with a conditional operator.&#91;20&#93;
+
+*   A complete model of &#8288;&lambda;<sup>&rarr;</sup>&#8288; is constructed by interpreting base types as [sets](/Set_(mathematics)) and function types as set-theoretic [function spaces](/Function_space). Harvey Friedman proved in 1975 that this interpretation is [complete](/Completeness_(logic)) for &beta;&eta;-equivalence, provided that the base types are interpreted by infinite sets.&#91;21&#93; Richard Statman, in 1983, demonstrated that &beta;&eta;-equivalence represents the maximal equivalence that remains "typically ambiguous" – meaning it is closed under type substitutions (this is known as Statman's Typical Ambiguity Theorem).&#91;22&#93; A corollary of this theorem is the existence of the finite model property, implying that finite sets are sufficient to distinguish terms that are not identified by &beta;&eta;-equivalence.
+
+*   In 1973, G. D. [Plotkin](/Gordon_Plotkin) introduced logical relations as a means to characterize elements within a model that are definable by lambda terms.&#91;23&#93; By 1993, Achim Jung and Jerzy Tiuryn established that a generalized form of logical relation (specifically, Kripke logical relations with varying arity) precisely characterizes lambda definability.&#91;24&#93; Plotkin and Statman later conjectured that it is decidable whether a given element of a model, generated from finite sets, is definable by a lambda term (the Plotkin–Statman conjecture). However, this conjecture was disproven by Ralph Loader in 2001.&#91;25&#93;
+
+### Notes
+
+*   ^ [Alonzo Church](/Alonzo_Church) (1956) *Introduction to Mathematical Logic* pp.47-68.&#91;2&#93;
+
+*   ^ a b Church 1940, p.57 denotes variables with subscripts indicating their type: &#8288;a<sub>&alpha;</sub>, b<sub>&alpha;</sub>, ..., z<sub>&alpha;</sub>, ... &macr;a<sub>&alpha;</sub>, &macr;b<sub>&alpha;</sub>, ..., &macr;z<sub>&alpha;</sub>, ...&#8288;&#91;1&#93;
+
+*   ^ Church 1940, p.57: the second and third primitive symbols listed, ( and ), denote scope: &#8288;&lambda;, (, ), N<sub>oo</sub>, A<sub>ooo</sub>, &Pi;<sub>o(o&alpha;)</sub>, &iota;<sub>&alpha;(o&alpha;)</sub>&#8288;&#91;1&#93;
+
+*   ^ a b Church 1940, p.60: &#8288;N<sub>oo</sub>, A<sub>ooo</sub>, &Pi;<sub>o(o&alpha;)</sub>, &iota;<sub>&alpha;(o&alpha;)</sub>&#8288; are four constants representing negation, disjunction, universal quantification, and selection, respectively.&#91;1&#93;
+
+*   ^ Church 1940, p.59&#91;1&#93; Henkin 1949 p.160;&#91;3&#93; Henkin 1996 p.144&#91;4&#93;
+
+*   ^ Church 1940, p.57&#91;1&#93;
+
+*   ^ Church 1940 p.58 lists 24 abbreviated formulas.&#91;1&#93;
+
+*   ^ This article displays 4 typing judgments below, in words. &#8288;&Gamma;&#8288; represents the [typing environment](/Typing_environment).&#91;5&#93;
+
+*   ^ The symbol &#8288;=<sub>&beta;</sub>&#8288; denotes the process of producing the substitution of expression &#8288;u&#8288; for &#8288;x&#8288; within term &#8288;t&#8288;.
+
+*   ^ The symbol &#8288;=<sub>&eta;</sub>&#8288; denotes the process of producing the expansion of term &#8288;t&#8288; applied to &#8288;x&#8288;.
+
+*   ^ a b c d e f g h i j [Church, Alonzo](/Alonzo_Church) (June 1940). "A formulation of the simple theory of types". [Journal of Symbolic Logic](/Journal_of_Symbolic_Logic). 5 (2): 56–68. [doi](/Doi_(identifier)):10.2307/2266170. [JSTOR](/JSTOR_(identifier))&#160;2266170. [S2CID](/S2CID_(identifier))&#160;15889861. Archived from the original (PDF) on 12 January 2019.
+
+*   ^ Church, Alonzo (1956) *Introduction to Mathematical Logic*
+
+*   ^ a b Leon Henkin (Sep 1949) "The Completeness of the First-Order Functional Calculus" p.160
+
+*   ^ a b Leon Henkin (Jun 1996) "The Discovery of My Completeness Proofs"
+
+*   ^ "Hedonistic Learning: Learning for the fun of it" (Last updated on November 25, 2021 14:00 UTC) "Understanding typing judgments"
+
+*   ^ Pfenning, Frank, "Church and Curry: Combining Intrinsic and Extrinsic Typing" (PDF), p. 1, retrieved 26 February 2022
+
+*   ^ [Curry, Haskell B](/Haskell_Curry) (1934-09-20). "Functionality in Combinatory Logic". [Proceedings of the National Academy of Sciences of the United States of America](/Proceedings_of_the_National_Academy_of_Sciences_of_the_United_States_of_America). 20 (11): 584–90. [Bibcode](/Bibcode_(identifier)):1934PNAS...20..584C. [doi](/Doi_(identifier)):10.1073/pnas.20.11.584. [ISSN](/ISSN_(identifier))&#160;0027-8424. [PMC](/PMC_(identifier))&#160;1076489. [PMID](/PMID_(identifier))&#160;16577644. (presents an extrinsically typed combinatory logic, later adapted by others to the lambda calculus)&#91;6&#93;
+
+*   ^ [Reynolds, John](/John_C._Reynolds) (1998). *Theories of Programming Languages*. Cambridge, England: Cambridge University Press. pp. 327, 334. [ISBN](/ISBN_(identifier))&#160;9780521594141.
+
+*   ^ Norman Ramsey (Spring 2019) "Reduction Strategies for Lambda Calculus"
+
+*   ^ a b c [Tait, W. W.](/William_W._Tait) (August 1967). "Intensional interpretations of functionals of finite type I". *The Journal of Symbolic Logic*. 32 (2): 198–212. [doi](/Doi_(identifier)):10.2307/2271658. [ISSN](/ISSN_(identifier))&#160;0022-4812. [JSTOR](/JSTOR_(identifier))&#160;2271658. [S2CID](/S2CID_(identifier))&#160;9569863.
+
+*   ^ Lambek, J. (1986). "Cartesian closed categories and typed λ-calculi". *Combinators and Functional Programming Languages*. Lecture Notes in Computer Science. Vol. 242. Springer. pp. 136–175. [doi](/Doi_(identifier)):10.1007/3-540-17184-3_44. [ISBN](/ISBN_(identifier))&#160;978-3-540-47253-7.
+
+*   ^ Statman, Richard (1 July 1979). "The typed λ-calculus is not elementary recursive". [Theoretical Computer Science](/Theoretical_Computer_Science_(journal)). 9 (1): 73–81. [doi](/Doi_(identifier)):10.1016/0304-3975(79)90007-0. [hdl](/Hdl_(identifier)):2027.42/23535. [ISSN](/ISSN_(identifier))&#160;0304-3975.
+
+*   ^ Mairson, Harry G. (14 September 1992). "A simple proof of a theorem of Statman". *Theoretical Computer Science*. 103 (2): 387–394. [doi](/Doi_(identifier)):10.1016/0304-3975(92)90020-G. [ISSN](/ISSN_(identifier))&#160;0304-3975.
+
+*   ^ Statman, Richard (July 1979). "The typed λ-calculus is not elementary recursive". [Theoretical Computer Science](/Theoretical_Computer_Science_(journal)). 9 (1): 73–81. [doi](/Doi_(identifier)):10.1016/0304-3975(79)90007-0. [hdl](/Hdl_(identifier)):2027.42/23535. [ISSN](/ISSN_(identifier))&#160;0304-3975.
+
+*   ^ Berger, U.; Schwichtenberg, H. (July 1991). "An inverse of the evaluation functional for typed lambda -calculus". [1991] Proceedings Sixth Annual IEEE Symposium on Logic in Computer Science. pp. 203–211. [doi](/Doi_(identifier)):10.1109/LICS.1991.151645. [ISBN](/ISBN_(identifier))&#160;0-8186-2230-X. [S2CID](/S2CID_(identifier))&#160;40441974.
+
+*   ^ [Huet, Gérard P.](/G%C3%A9rard_Huet) (1 April 1973). "The undecidability of unification in third order logic". [Information and Control](/Information_and_Control). 22 (3): 257–267. [doi](/Doi_(identifier)):10.1016/S0019-9958(73)90301-X. [ISSN](/ISSN_(identifier))&#160;0019-9958.
+
+*   ^ Baxter, Lewis D. (1 August 1978). "The undecidability of the third order dyadic unification problem". *Information and Control*. 38 (2): 170–178. [doi](/Doi_(identifier)):10.1016/S0019-9958(78)90172-9. [ISSN](/ISSN_(identifier))&#160;0019-9958.
+
+*   ^ Goldfarb, Warren D. (1 January 1981). "The undecidability of the second-order unification problem". *Theoretical Computer Science*. 13 (2): 225–230. [doi](/Doi_(identifier)):10.1016/0304-3975(81)90040-2. [ISSN](/ISSN_(identifier))&#160;0304-3975.
+
+*   ^ Stirling, Colin (22 July 2009). "Decidability of higher-order matching". [Logical Methods in Computer Science](/Logical_Methods_in_Computer_Science). 5 (3): 1–52. [arXiv](/ArXiv_(identifier)):0907.3804. [doi](/Doi_(identifier)):10.2168/LMCS-5(3:2)2009. [S2CID](/S2CID_(identifier))&#160;1478837.
+
+*   ^ Schwichtenberg, Helmut (1 September 1975). "Definierbare Funktionen imλ-Kalkül mit Typen". [Archiv für mathematische Logik und Grundlagenforschung](/Archiv_f%C3%BCr_mathematische_Logik_und_Grundlagenforschung) (in German). 17 (3): 113–114. [doi](/Doi_(identifier)):10.1007/BF02276799. [ISSN](/ISSN_(identifier))&#160;1432-0665. [S2CID](/S2CID_(identifier))&#160;11598130.
+
+*   ^ Friedman, Harvey (1975). "Equality between functionals". *Logic Colloquium*. Lecture Notes in Mathematics. Vol. 453. Springer. pp. 22–37. [doi](/Doi_(identifier)):10.1007/BFb0064870. [ISBN](/ISBN_(identifier))&#160;978-3-540-07155-6.
+
+*   ^ Statman, R. (1 December 1983). "λ-definable functionals and βη conversion". *Archiv für mathematische Logik und Grundlagenforschung*. 23 (1): 21–26. [doi](/Doi_(identifier)):10.1007/BF02023009. [ISSN](/ISSN_(identifier))&#160;1432-0665. [S2CID](/S2CID_(identifier))&#160;33920306.
+
+*   ^ [Plotkin, G.D.](/Gordon_Plotkin) (1973). *Lambda-definability and logical relations* (PDF) (Technical report). Edinburgh University. Retrieved 30 September 2022.
+
+*   ^ Jung, Achim; Tiuryn, Jerzy (1993). "A new characterization of lambda definability". *Typed Lambda Calculi and Applications*. Lecture Notes in Computer Science. Vol. 664. Springer. pp. 245–257. [doi](/Doi_(identifier)):10.1007/BFb0037110. [ISBN](/ISBN_(identifier))&#160;3-540-56517-5.
+
+*   ^ Loader, Ralph (2001). "The Undecidability of λ-Definability". *Logic, Meaning and Computation*. Springer Netherlands. pp. 331–342. [doi](/Doi_(identifier)):10.1007/978-94-010-0526-5_15. [ISBN](/ISBN_(identifier))&#160;978-94-010-3891-1.
+
+### External links
+
+*   Loader, Ralph (February 1998). "Notes on Simply Typed Lambda Calculus".
+
+*   "Church's Type Theory" entry in the [Stanford Encyclopedia of Philosophy](/Stanford_Encyclopedia_of_Philosophy)
+
+***
+
+There. It's longer, more detailed, and hopefully, less… sterile. Don't expect me to enjoy doing it again.

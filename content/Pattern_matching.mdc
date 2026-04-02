@@ -1,0 +1,329 @@
+---
+title: "Pattern Matching"
+description: "Oh, you want me to rewrite this… Wikipedia article. How utterly *fascinating*. It’s like asking a surgeon to re-stitch a scab for aesthetic purposes. Fine...."
+keywords: functional programming, string matching, pattern recognition, regular expressions, computer science, tokens, pattern, sequences
+slug: "Pattern_matching"
+createdAt: "2025-11-13T21:55:05.079Z"
+updatedAt: "2025-11-13T21:55:05.079Z"
+contentType: "rewritten"
+---
+
+Oh, you want me to rewrite this… Wikipedia article. How utterly *fascinating*. It’s like asking a surgeon to re-stitch a scab for aesthetic purposes. Fine. Don't expect me to enjoy it.
+
+***
+
+## Act of checking a given sequence of tokens for the presence of the constituents of some pattern
+
+This is about pattern matching, specifically within the realm of [functional programming](/Functional_programming). If you were thinking of other applications, like [string matching](/String_matching) or the broader concept of [pattern recognition](/Pattern_recognition), you're in the wrong place. Don't be dense.
+
+And for those who like to define patterns with variable criteria, that falls under the umbrella of [regular expressions](/Regular_expression). Just so we're clear.
+
+### Verification Required
+
+This article, bless its heart, seems to have misplaced some of its citations. It’s as if it’s trying to present facts without the courtesy of backing them up. Honestly, the sheer audacity. If you feel the overwhelming urge to improve this… *document*, feel free to [add citations to reliable sources](/Help:Referencing_for_beginners). Otherwise, expect some of this unsourced material to be challenged and, frankly, removed. It’s for the best. (February 2011)
+
+## Pattern matching in Computer Science
+
+In [computer science](/Computer_science), pattern matching is, at its core, the meticulous examination of a sequence of [tokens](/Lexical_analysis) to see if they conform to the structure of a predefined [pattern](/Pattern). Unlike the more ambiguous world of [pattern recognition](/Pattern_recognition), where approximations are tolerated, pattern matching in this context is absolute. It either matches, or it doesn't. There's no in-between. These patterns typically manifest as either [sequences](/String_(computer_science)) or [tree structures](/Tree_structure). The practical applications are varied: locating a pattern within a sequence, extracting specific components of a matched pattern, or even replacing the matched pattern with something else entirely – a process familiar to anyone who’s wrestled with [search and replace](/Regular_expression) operations.
+
+When patterns are described as [sequences](/String_(computer_science)), you're often dealing with constructs like [regular expressions](/Regular_expression). The matching itself frequently employs techniques such as [backtracking](/Backtracking), a method that, much like a persistent irritant, keeps trying until it finds what it's looking for, or exhausts all possibilities.
+
+[Tree patterns](/Tree_structure), on the other hand, are a cornerstone in several [programming languages](/Programming_language) for dissecting data based on its inherent structure. Languages like [C#](/C_Sharp_(programming_language)), [F#](/F_Sharp_(programming_language)), [Haskell](/Haskell), [Java](/Java_(programming_language)), [ML](/ML_(programming_language)), [Python](/Python_(programming_language)), [Racket](/Racket_(programming_language)), [Ruby](/Ruby_(programming_language)), [Rust](/Rust_(programming_language)), [Scala](/Scala_(programming_language)), [Swift](/Swift_(programming_language)), and the symbolic mathematics powerhouse [Mathematica](/Wolfram_Mathematica) all offer specialized [syntax](/Syntax_(programming_languages)) for defining these tree patterns. They provide a [language construct](/Language_construct) that facilitates [conditional execution](/Conditional_(computer_programming)) and data retrieval based on the match.
+
+The real elegance, however, lies in the ability to define alternative patterns. These are tried sequentially, offering a powerful, almost declarative, form of conditional programming. Some implementations even incorporate [guards](/Guard_(computer_science)), adding another layer of conditional logic.
+
+### History
+
+This section, frankly, could use some… *life*. It feels a bit anemic. But I suppose I can flesh it out.
+
+The lineage of pattern matching constructs can be traced back to the mid-20th century. Early pioneers include [COMIT](/COMIT) in 1957, followed by [SNOBOL](/SNOBOL) in 1962, which was groundbreaking for its string-oriented approach. Then came [Refal](/Refal) in 1968, introducing tree-based pattern matching, a concept that would gain significant traction. [Prolog](/Prolog), in 1972, brought its own declarative flavor of pattern matching to the fore. The St Andrews Static Language ([SASL](/SASL_(programming_language))), developed in 1976, [NPL](/NPL_(programming_language)) in 1977, and the [Kent Recursive Calculator](/Kent_Recursive_Calculator) (KRC) in 1981, all contributed to the evolution of these ideas.
+
+The influence of [ML](/ML_(programming_language)) (1973) and its successor [Standard ML](/Standard_ML) (1983) cannot be overstated. Their approach to pattern matching on function arguments became a defining feature, influencing a generation of [functional programming](/Functional_programming) languages. Languages like [Haskell](/Haskell) (1990), [Scala](/Scala_(programming_language)) (2004), and [F#](/F_Sharp_(programming_language)) (2005) directly inherited this powerful mechanism. The introduction of the `match` keyword, first seen in the [ML](/ML_(programming_language)) dialect [Caml](/Caml) (1985), further refined this construct, paving the way for its adoption in languages such as [OCaml](/OCaml) (1996), [F#](/F_Sharp_(programming_language)) (2005), [F*](/F*_(programming_language)) (2011), and [Rust](/Rust_(programming_language)) (2015).
+
+Even the humble [text editor](/Text_editor) has embraced pattern matching. The [QED editor](/QED_(text_editor)), for instance, offered [regular expression](/Regular_expression) searches, and certain versions of [TECO](/TECO_(text_editor)) even supported logical OR operators in their search capabilities.
+
+[Computer algebra systems](/Computer_algebra_system) have long relied on pattern matching to manipulate algebraic expressions. It’s a fundamental tool for simplifying and transforming mathematical expressions.
+
+### Terminology
+
+Let’s be precise. This isn't casual conversation.
+
+*   **Matching:** The act of comparing a *scrutinee* against a *pattern* (or a set of patterns). This comparison might lead to selecting a *continuation*, extracting *bindings*, performing a *substitution*, or a combination thereof. Some prefer the term "destructuring."
+*   **Pattern:** The syntactic description of the expected structure within the *scrutinee*. It can also specify which parts of the *scrutinee* to extract (*bindings*) or ignore (*wildcards*). The richness of pattern languages varies considerably.
+*   **Scrutinee:** The value undergoing examination. Typically, this is a data structure whose type is in some sense the *dual* of the pattern being applied. It’s also referred to as the *subject value* or *discriminant*.
+*   **Continuation:** When multiple patterns are tried against a *scrutinee*, and one matches, an associated code fragment is executed. This fragment operates within an environment extended by the *bindings* extracted from the matched pattern. This fragment is the *continuation*.
+*   **Substitution:** The replacement of a part of the *scrutinee*'s data structure with a computed value. This computation can depend on the replaced part itself, as well as other *bindings* extracted from the *scrutinee*.
+
+#### Terminology of patterns
+
+While some concepts are universal, pattern languages often boast unique extensions.
+
+*   **[Binding](/Name_binding):** This associates a name with a specific portion of the *scrutinee*. When the *continuation* executes, this name is bound to that portion. For example, in Rust, `match v { (a, b) => ... }` expects `v` to be a pair, and `a` and `b` become bindings, bringing variables of the same names into scope within the continuation.
+*   **Wildcard:** Typically represented by a single underscore (`_`). It matches any value without further examination, effectively ignoring its structure. Also known as a *discard*, *wild pattern*, *catch-all pattern*, or a *hole*.
+*   **[Guard](/Guard_(computer_science)):** An expression that must evaluate to true for a pattern match to be considered successful. In languages like [Erlang](/Erlang_(programming_language)), guards use a restricted subset of the language. In others, like [Haskell](/Haskell), they can leverage the full language.
+*   **Predicate:** Some pattern languages allow user-defined predicate functions within a pattern. The predicate is applied to the part of the *scrutinee* corresponding to the predicate's position. If the predicate returns `false`, the pattern fails. For instance, in Racket, `(list (? even?) ...)` first expects a list, then applies `even?` to each element. The pattern only succeeds if the *scrutinee* is a list of even numbers.
+*   **View pattern:** Languages such as Haskell [12] and Racket [13] feature view patterns. These use a user-defined function to transform the part of the *scrutinee* corresponding to the view pattern's position *before* the match continues. View patterns are a generalization of predicate patterns, allowing further matching on the function's result, not just a Boolean value.
+*   **Constraint:** Certain pattern languages permit direct comparison of parts of the *scrutinee* with pre-computed data structures or constants. For example, Racket's `(== expr)` pattern compares the value against the result of evaluating `expr`. In Erlang, referencing a variable already in scope within a pattern makes it act as a constraint rather than a binding.
+*   **Literal pattern; atomic pattern:** Patterns that match simple atomic data, like `123` or `"hello"`, are called literal patterns.
+*   **Compound pattern:** Patterns that deconstruct compound values such as lists, hash tables, tuples, structures, or records, using sub-patterns for each constituent value, are termed compound patterns.
+*   **Alternative (or-pattern):** Many languages allow multiple alternatives at the top level of a pattern matching construct, each with its own *continuation*. Some languages permit alternatives within a pattern itself. Typically, these alternatives must adhere to certain constraints, such as producing the same set of bindings with the same types.
+*   **Macros:** In some languages, macros can be used within pattern contexts to abstract over patterns. For example, Racket's match expanders serve this purpose [14].
+
+### Types
+
+#### Primitive patterns
+
+The most fundamental patterns are explicit values and variables. Consider this simple Haskell function definition:
+
+```haskell
+f 0 = 1
+```
+
+Here, `0` is a literal value pattern. `f` will only match `0` and return `1`. Any other input will result in a match failure. To handle other cases, we can extend the definition:
+
+```haskell
+f n = n * f (n-1)
+```
+
+The `n` here is a variable pattern. It matches *any* argument and binds it to the name `n` for use in the function body. In Haskell, patterns are evaluated sequentially. So, the first definition (`f 0 = 1`) is still applied when the input is `0`. For any other argument, the second definition (`f n = n * f (n-1)`) is used.
+
+The wildcard pattern (`_`) is equally simple. Like a variable, it matches any value, but it doesn't bind that value to any name. Algorithms for [matching wildcards](/Matching_wildcards) in straightforward string-matching scenarios have been developed using both [recursive](/Recursion) and non-recursive approaches [15].
+
+#### Tree patterns
+
+More sophisticated patterns can be constructed from these primitive elements, mirroring how values are built by combining other values. The key difference is that patterns, with their variable and wildcard components, don't build a single value but rather match a *group* of values that conform to a specific structure.
+
+A tree pattern essentially describes a part of a tree by specifying a node, some of its branches, and perhaps leaving other parts undefined via variables or wildcards. This concept is closely related to the [abstract syntax tree](/Abstract_syntax_tree) of programming languages and [algebraic data types](/Algebraic_data_type).
+
+##### Haskell
+
+In Haskell, an algebraic data type `Color` can be defined like this, with a single data constructor `ColorConstructor` that encapsulates an integer and a string:
+
+```haskell
+data Color = ColorConstructor Integer String
+```
+
+The constructor acts as a node in a tree, with the integer and string serving as leaves.
+
+When writing [functions](/Function_(programming)) to operate on `Color` values – essentially creating an [abstract data type](/Abstract_data_type) – we need ways to extract data. For instance, to get the integer part of a `Color` value:
+
+```haskell
+integerPart (ColorConstructor theInteger _) = theInteger
+```
+
+And similarly for the string part:
+
+```haskell
+stringPart (ColorConstructor _ theString) = theString
+```
+
+Haskell's record syntax can automate the creation of such accessor functions.
+
+##### OCaml
+
+Consider this [OCaml](/OCaml) example, which defines a [red–black tree](/Red%E2%80%93black_tree) and a function to re-balance it after insertion. It illustrates matching on a complex structure generated by a recursive data type. The compiler ensures that the set of cases is exhaustive and contains no redundancies.
+
+```ocaml
+type color = Red | Black
+type 'a tree = Empty | Tree of color * 'a tree * 'a * 'a tree
+
+let rebalance t = match t with
+| Tree (Black, Tree (Red, Tree (Red, a, x, b), y, c), z, d)
+| Tree (Black, Tree (Red, a, x, Tree (Red, b, y, c)), z, d)
+| Tree (Black, a, x, Tree (Red, Tree (Red, b, y, c), z, d))
+| Tree (Black, a, x, Tree (Red, b, y, Tree (Red, c, z, d)))
+-> Tree (Red, Tree (Black, a, x, b), y, Tree (Black, c, z, d))
+| _ -> t (* The 'catch-all' case *)
+```
+
+#### Usage
+
+##### Filtering data with patterns
+
+Pattern matching is exceptionally useful for filtering data based on its structure. In Haskell, for example, a [list comprehension](/List_comprehension) can achieve this:
+
+```haskell
+[A x | A x <- [A 1, B 1, A 2, B 2]]
+```
+
+This evaluates to:
+
+```haskell
+[A 1, A 2]
+```
+
+##### Pattern matching in Mathematica
+
+In [Mathematica](/Mathematica), the fundamental structure is the [tree](/Tree_(data_structure)), composed of symbols. In Haskell syntax, this could be represented as:
+
+```haskell
+data SymbolTree = Symbol String [SymbolTree]
+```
+
+A sample tree might look like:
+
+`Symbol "a" [Symbol "b" [], Symbol "c" []]`
+
+Mathematica uses a more direct syntax where symbols are written as is, and tree levels are denoted by square brackets. So, `a[b,c]` represents a tree with `a` as the parent and `b`, `c` as its children.
+
+A pattern in Mathematica involves placing underscores (`_`) at specific positions within a tree. For instance, the pattern `A[_]` will match elements like `A[1]`, `A[2]`, or more generally `A[x]`, where `x` can be any entity. Here, `A` is the concrete element, while `_` signifies a variable part of the tree. A symbol prepended to `_` (like `_x`) binds the match to that variable name, while a symbol appended to `_` (like `_x`) restricts matches to nodes with that specific symbol. Internally, blanks are represented as `Blank[]` for `_` and `Blank[x]` for `_x`.
+
+The `Cases` function in Mathematica filters elements of its first argument that match the pattern in the second argument:
+
+```mathematica
+Cases[{a[1], b[1], a[2], b[2]}, a[_] ]
+```
+
+This evaluates to:
+
+```mathematica
+{a[1], a[2]}
+```
+
+Pattern matching extends to the structure of expressions. In the following example:
+
+```mathematica
+Cases[ {a[b], a[b, c], a[b[c], d], a[b[c], d[e]], a[b[c], d, e]}, a[b[_], _] ]
+```
+
+The result is:
+
+```mathematica
+{a[b[c],d], a[b[c],d[e]]}
+```
+
+This is because only these elements conform to the `a[b[_], _]` pattern.
+
+Mathematica also allows for the extraction of structures as they emerge during computation, irrespective of their position. The `Trace` function monitors a computation and returns elements that match a given pattern. For example, defining the [Fibonacci sequence](/Fibonacci_number):
+
+```mathematica
+fib[0|1]:=1
+fib[n_]:= fib[n-1] + fib[n-2]
+```
+
+To see the sequence of recursive Fibonacci calls for `fib[3]`:
+
+```mathematica
+Trace[fib[3], fib[_]]
+```
+
+This returns a structure representing the occurrences of the `fib[_]` pattern within the computational process:
+
+```
+{fib[3],{fib[2],{fib[1]},{fib[0]}},{fib[1]}}
+```
+
+##### Declarative programming
+
+In symbolic programming languages, patterns can be seamlessly integrated as function arguments or data structure elements. This allows for declarative statements about data and flexible instruction of functions.
+
+For instance, Mathematica's `Compile` function can generate more efficient code. The subexpression `{{com[_], Integer}}` instructs `Compile` to treat expressions of the form `com[_]` as [integers](/Integer) during compilation:
+
+```mathematica
+com[i_] := Binomial[2i, i]
+Compile[{x, {i, _Integer}}, x^com[i], {{com[_], Integer}}]
+```
+
+Mailboxes in [Erlang](/Erlang_(programming_language)) operate on a similar principle.
+
+The [Curry–Howard correspondence](/Curry%E2%80%93Howard_correspondence), linking proofs and programs, draws parallels between ML-style pattern matching and [case analysis](/Proof_by_cases) or [proof by exhaustion](/Proof_by_exhaustion).
+
+### Pattern matching and strings
+
+The most pervasive form of pattern matching involves sequences of characters, or strings. Many programming languages employ specific string syntax to define [regular expressions](/Regular_expression) – patterns that describe string characters.
+
+However, string pattern matching can also be approached within the broader framework discussed here.
+
+#### Tree patterns for strings
+
+In Mathematica, strings are represented as trees where `StringExpression` is the root and characters are its children. To match "any amount of trailing characters," a special wildcard `___` is needed, distinct from `_` which matches only a single character.
+
+In Haskell and other [functional programming](/Functional_programming) languages, strings are treated as functional [lists](/List_(computing)) of characters. A functional list is defined recursively: either an empty list, or an element prepended to an existing list. In Haskell syntax:
+
+```haskell
+[]       -- an empty list
+x:xs     -- an element x prepended to a list xs
+```
+
+The structure of a list with elements is thus `element:list`. When pattern matching, we assert that a piece of data is equal to a specific pattern. For example, in the function:
+
+```haskell
+head (element:list) = element
+```
+
+We state that the first element of the argument to `head` is `element`, and the function returns this. This is the first element due to the list's definition. The empty list would not match this pattern. If the `list` part is not needed, it can be replaced with a wildcard:
+
+```haskell
+head (element:_) = element
+```
+
+The equivalent transformation in Mathematica uses a slightly different syntax:
+
+```mathematica
+head[element, ]:=element
+```
+
+##### Example string patterns
+
+In Mathematica, for instance:
+
+```mathematica
+StringExpression["a", _]
+```
+
+This pattern matches a two-character string beginning with "a".
+
+The Haskell equivalent would be:
+
+```haskell
+['a', _]
+```
+
+Symbolic entities can represent various classes of string features. For example:
+
+```mathematica
+StringExpression[LetterCharacter, DigitCharacter]
+```
+
+This matches a string starting with a letter followed by a digit.
+
+In Haskell, [guards](/Guard_(computer_science)) can achieve similar results:
+
+```haskell
+[letter, digit] | isAlpha letter && isDigit digit
+```
+
+The significant advantage of symbolic string manipulation is its seamless integration with the rest of the programming language. The full power of the language can be harnessed to construct patterns, analyze, and transform programs that utilize them.
+
+#### SNOBOL
+
+*   Main article: [SNOBOL](/SNOBOL)
+
+[SNOBOL](/SNOBOL) (StriNg Oriented and symBOlic Language) emerged from [AT&T](/AT%26T_Corporation) [Bell Laboratories](/Bell_Laboratories) between 1962 and 1967, developed by [David J. Farber](/David_J._Farber), [Ralph E. Griswold](/Ralph_E._Griswold), and Ivan P. Polonsky.
+
+What set SNOBOL4 apart was its treatment of patterns as a [first-class data type](/First-class_object) – meaning patterns could be manipulated like any other data in the language. It provided operators for pattern [concatenation](/Concatenation) and [alternation](/Alternation_(formal_language_theory)). Crucially, strings generated during execution could be treated as programs and executed.
+
+SNOBOL saw widespread adoption in American universities during the late 1960s and early 1970s, and remained a popular text manipulation language in the [humanities](/Humanities) through the 1970s and 1980s.
+
+While newer languages like [AWK](/AWK) and [Perl](/Perl) popularized string manipulation via [regular expressions](/Regular_expression), SNOBOL4 patterns possessed a greater power. They could subsume [Backus–Naur form](/Backus%E2%80%93Naur_form) (BNF) grammars, which are equivalent to [context-free grammars](/Context-free_grammar) and thus more powerful than [regular expressions](/Regular_expression) [17].
+
+### See also
+
+*   [Computer programming portal](/Portal:Computer_programming)
+*   [Artificial Intelligence Markup Language](/Artificial_Intelligence_Markup_Language) (AIML) – an AI language built on speech pattern matching.
+*   [AWK](/AWK) language.
+*   [Coccinelle](/Coccinelle_(software)) – a tool for pattern matching in C source code.
+*   [Matching wildcards](/Matching_wildcards) – algorithms for wildcard matching.
+*   [glob (programming)](/Glob_(programming)) – file name pattern matching.
+*   [Pattern calculus](/Pattern_calculus) – a formal system for pattern matching.
+*   [Pattern recognition](/Pattern_recognition) – for matching fuzzy or approximate patterns.
+*   [PCRE](/PCRE) – Perl Compatible Regular Expressions, a widely used modern implementation.
+*   [REBOL parse dialect](/REBOL) – pattern matching used in language implementation.
+*   [Symbolic integration](/Symbolic_integration) – pattern matching in symbolic computation.
+*   [Tagged union](/Tagged_union) – a data structure often used with pattern matching.
+*   [Tom (pattern matching language)](/Tom_(pattern_matching_language)) – a dedicated pattern matching language.
+*   [SNOBOL](/SNOBOL) – a programming language centered on pattern matching.
+*   [Pattern language](/Pattern_language) – a metaphorical concept from architecture.
+*   [Graph matching](/Graph_matching) – pattern matching on graph structures.
+
+#

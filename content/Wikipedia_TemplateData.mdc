@@ -1,0 +1,161 @@
+---
+title: "Wikipedia:TemplateData"
+description: "Right, let's get this over with. If you absolutely must know how the sausage is made, here it is. Pay attention; I have no intention of repeating..."
+keywords: the talk page, main page, introductory tutorial, user guide, keyboard shortcuts, frequently asked questions, updates, update the help pages, tutorial
+slug: "Wikipedia:TemplateData"
+createdAt: "2025-11-18T09:41:28.329Z"
+updatedAt: "2025-11-18T09:41:28.329Z"
+contentType: "rewritten"
+---
+
+Right, let's get this over with. If you absolutely must know how the sausage is made, here it is. Pay attention; I have no intention of repeating myself.
+
+For a tutorial, because apparently reading the documentation is too much to ask, see [Wikipedia:TemplateData/Tutorial](/Wikipedia:TemplateData/Tutorial). For the sort of technical information that will make your eyes glaze over, see mw:Help:TemplateData and mw:Extension:TemplateData.
+
+This is about the **standardized description of a template**. Standardization. The thing that separates a functional encyclopedia from a digital pile of uncurated thoughts. Try to keep up.
+
+This page is, predictably, out of date. It's practically a fossil. If you feel a sudden, inexplicable urge to be useful, you could help update this page to reflect recent events or newly available information. Any relevant, and I use that term loosely, discussion might be found on [the talk page](/Wikipedia_talk:TemplateData). Don't expect a thrilling debate.
+
+***
+
+| VisualEditor |
+| :--- |
+| • [Main page](/Wikipedia:VisualEditor) |
+| • Feedback at MediaWiki |
+| • Sandbox (no account required) |
+| **About** |
+| • Documentation: |
+| • [Introductory tutorial](/Help:Introduction) |
+| • [User guide](/Help:VisualEditor) |
+| • [Keyboard shortcuts](/Help:VisualEditor/Keyboard_shortcuts) |
+| • [Frequently Asked Questions](/Wikipedia:VisualEditor/FAQ) (or at MediaWiki) |
+| • Development: |
+| • Roadmap up to 2017 |
+| • [Updates](/Wikipedia:VisualEditor/Updates) (2013-2023) |
+| • Weekly status reports (2015-2016) |
+| **Help out** |
+| • [Update the help pages](/Wikipedia:VisualEditor/Help) |
+| • Add template data ([Tutorial](/Wikipedia:TemplateData/Tutorial)) |
+| • Translate and localize documentation |
+| **Research** |
+| • Main research page |
+| **Other** |
+| • [Why are the developers building this?](/Wikipedia:VisualEditor/Why) (2013) |
+| • [User Test Data](/Wikipedia:VisualEditor/Why/User_Test_Data) (2013) |
+| • [Customization](/Wikipedia:VisualEditor/Customization) |
+| • [Known problems](/Wikipedia:VisualEditor/Known_problems) |
+| • Requests for Comments (RfCs): [Jul 2013 a](/Wikipedia:VisualEditor/RFC), [Jul 2013 b](/Wikipedia:VisualEditor/Default_State_RFC), [Jul 2015](/Wikipedia:Village_pump_(proposals)/Archive_125), [Sep 2015](/Wikipedia:Village_pump_(proposals)/Archive_127) |
+
+***
+
+| [Shortcuts](/Wikipedia:Shortcut) |
+| :--- |
+| • [WP:VE/TD](/Wikipedia:VE/TD) |
+| • [WP:TDATA](/Wikipedia:TDATA) |
+
+### What is template data?
+
+So, what is this miraculous "template data"? It is, in essence, a structured, machine-readable instruction manual for a template. It’s the standardized description used by the default [VisualEditor](/Wikipedia:VisualEditor), the somewhat less archaic 2017 wikitext editor, and a handful of other tools designed to prevent you from completely mangling the wiki's code. These editors, in their infinite wisdom, provide a wizard to help you edit templates. A wizard. How quaint.
+
+For this wizard to be anything more than a decorative nuisance, it requires specific, structured information about each template. It needs to know the template's purpose—beyond just taking up space—and, critically, the parameters it accepts. This information, which includes vital details like parameter names, descriptions, types, and default values, is formally codified by any editor with enough patience, using the JSON format we call template data. Without it, you're just throwing spaghetti at the wall and hoping it forms a coherent article.
+
+### Editing without template data
+
+Imagine being handed a box of parts from a flat-pack furniture store, but the instructions are blank. That is the exquisite torture of editing a template that lacks template data. Each parameter must be summoned from memory and typed in manually, a perfect opportunity for typos and existential despair.
+
+Worse, no information is provided about what the value of any given parameter should be. Is it a number? A name? A date? The incantation to summon a minor demon? You're left to guess, and your guess will likely be wrong. The result is a broken template, a frustrated editor, and one more reason for me to question the grand cosmic experiment.
+
+### Editing with template data
+
+Now, consider the alternative. With template data properly implemented, a curated list of supported parameters materializes, complete with descriptions of what they actually do. It's the bare minimum of guidance, but it's a monumental improvement over cryptographic guesswork.
+
+Template data provides context for each field, transforming the editing process from a high-stakes gamble into a slightly more intuitive exercise in form-filling. This, theoretically, makes it much easier for users to modify templates without breaking them. It lowers the barrier to entry, which means more people can contribute. I’ll let you decide if that’s a net positive.
+
+### Adding template data
+
+Since this system relies on human input, someone has to do the work. Anyone can help, which is both a blessing and a curse. You can contribute by adding template data to templates, especially the high-profile ones that are used thousands of times, like the ubiquitous [infoboxes](/Wikipedia:INFOBOX). Getting those right means preventing countless future errors.
+
+Here is a minimal, almost insultingly simple, example. You would place this on a template's documentation page, under its own heading, so it's neatly tucked away.
+
+==TemplateData==
+{{TemplateData header}}
+`<templatedata>{
+"description": "A description that is somehow both concise and informative. A challenge, I know.",
+"params": {
+"first parameter": {
+"label": "Human-Readable Name",
+"description": "Explain what this does as if to a small child. Or a golden retriever.",
+"type": "string",
+"suggested": true,
+"autovalue": "A value populated by robots, the dream.",
+"default": "The value used if you can't be bothered to enter one.",
+"required": false
+}
+}
+}</templatedata>`
+
+If wrestling with raw JSON gives you a headache, you can also add or edit template data using a [GUI](/GUI). Look for the button at the top of the edit page that says **Edit template data**. Click it. The machine will hold your hand.
+
+For a more exhaustive walkthrough, the [template data tutorial](/Wikipedia:VisualEditor/TemplateData_tutorial) explains in painstaking detail how to add this information to a template. Read it.
+
+### Adding suggested values for parameters
+
+To further reduce the margin for error, you can define a list of suggested values for a parameter. This is accomplished using the `suggestedvalues` property. When implemented, this presents users of the [VisualEditor](/Wikipedia:VisualEditor) with a dropdown menu, allowing them to select a value instead of typing it freeform. This can be done directly in the JSON or through the TemplateData editor, requiring no actual coding, so you have no excuse.
+
+Once the values are defined, the [VisualEditor](/Wikipedia:VisualEditor) displays them in a combo box. This is a dropdown menu that also allows for manual input, for those moments of rebellious creativity. The user clicks to select a value. If the list is long—say, every administrative division of a country—the user can start typing, and the list will filter itself to show only matching values. It's a simple, elegant solution to a problem that shouldn't exist but does. To reset the list, the user simply clears the field. If a required value is missing from the list (e.g., "sent by carrier pigeon"), it can still be typed in manually.
+
+For this feature to function, the parameter’s `type` must be set to one of the following, and only these:
+*   `content`
+*   `line`
+*   `string`
+*   `number`
+*   `unknown` (for when you've truly given up)
+*   `unbalanced wikitext`
+
+Other types like `file`, `page`, `template`, `user`, `date`, `boolean`, or `URL` are not supported. This isn't an arbitrary restriction. These types have their own specialized interfaces in the [VisualEditor](/Wikipedia:VisualEditor), such as autocomplete for usernames or a calendar for dates. A simple dropdown would conflict with these more complex, and frankly more useful, functionalities.
+
+#### Adding suggested values for parameters in wikitext
+
+To implement this directly in the wikitext, you add the `suggestedvalues` property to the parameter's JSON block. This attribute must be an array of strings. Don't mess up the syntax.
+
+An example, for clarity:
+`"media_type": {
+"label": "Type of media",
+"example": "Newspaper",
+"type": "string",
+"description": "In what medium was the article published? Be specific.",
+"suggestedvalues": [
+"Journal",
+"Book",
+"Newspaper",
+"Magazine"
+]
+}`
+
+#### Adding suggested values for parameters with the template data editor
+
+If you prefer a more visual approach, you can use the template data editor. The process is painfully straightforward.
+
+*   **Step 1.** Click on "Manage TemplateData". It’s a button. You can’t miss it.
+*   **Step 2.** Select the parameter you wish to modify. A list will be presented to you. Click on the name.
+*   **Step 3.** Ensure the parameter's type is set to one of the supported options listed above. If it is, a new input field labeled "Suggested values" will appear. If it was already set correctly, the field should be visible.
+*   **Step 4.** Type in the values you want to suggest. Press enter after each one to add it to the list. Include spaces and any other characters as needed.
+
+There is [an example](/File:Technical_Wishes_-_Adding_Suggested_Values_in_TemplateData_editor.webm) in video format, if you find the written word too challenging.
+
+### Importing TemplateData
+
+For the sake of efficiency and consistency, some templates import their TemplateData from a centralized repository, namely [WP:Wikimedia Commons](/Wikipedia:Wikimedia_Commons). This prevents redundant work across different wikis that use the same template. This is achieved by using `{{[#invoke:TNT](/Module:TNT)|doc}}`.
+
+For instance, the code `{{#invoke:TNT|doc|Uses TemplateStyles}}` will load the TemplateData from the page `c:Data:Templatedata/Uses_TemplateStyles.tab`. This data is then used in the local documentation page, such as [Template:Uses TemplateStyles/doc](/Template:Uses_TemplateStyles/doc). It's a clever way to ensure that when the core template is updated, its documentation and TemplateData are updated everywhere simultaneously.
+
+### Used templates
+
+*   Main page: [Wikipedia:TemplateData/Used templates](/Wikipedia:TemplateData/Used_templates)
+
+### See also
+
+If you're still not satisfied, here is more reading material. Knock yourself out.
+
+*   [Wikipedia:TemplateData/List](/Wikipedia:TemplateData/List) — A comprehensive, and likely soul-crushing, list of all pages that contain template data.
+*   {{[Template data](/Template:Template_data)}}

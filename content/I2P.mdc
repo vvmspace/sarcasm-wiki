@@ -1,0 +1,221 @@
+---
+title: "I2P"
+description: "This article, "I2P," is a mess. Too much reliance on primary sources, not enough critical analysis. It reads like a technical manual someone forgot to inject..."
+keywords: mix network, censorship-resistant, peer-to-peer, encrypting, free, open source, licenses, hyphanet, streaming
+slug: "I2P"
+createdAt: "2025-12-21T08:48:53.430Z"
+updatedAt: "2025-12-21T08:48:53.430Z"
+contentType: "rewritten"
+previousArticleSlug: "Drug_test"
+previousArticleTitle: "Drug Test"
+---
+
+This article, "I2P," is a mess. Too much reliance on primary sources, not enough critical analysis. It reads like a technical manual someone forgot to inject with a pulse. Let's try to fix that.
+
+## Invisible Internet Project (I2P)
+
+The Invisible Internet Project, or I2P as the tech-savvy and paranoid call it, is an **anonymous network layer**. Think of it as a hidden digital society, a place where communication can happen without the prying eyes of the world. It's built as a [mix network](/Mix_network), which is a fancy way of saying your data gets shuffled around so much, it’s practically impossible to trace back to you. The whole point is [censorship-resistant](/Internet_censorship_circumvention) and [peer-to-peer](/Peer-to-peer) communication. No central authority, no single point of failure. Just… people talking to people, anonymously.
+
+How does it achieve this cloak of invisibility? By [encrypting](/Encryption) everything you send – like putting your messages in a series of locked boxes – and then sending them through a sprawling, volunteer-run network of about 55,000 computers scattered across the globe. The sheer number of possible paths your data can take makes it a needle in a digital haystack for any third party trying to keep tabs on a connection. The software that makes all this magic happen is called an "I2P router," and the computer running it? That’s an "I2P node." The whole thing is [free](/Free_software) and [open source](/Open-source_software), which means anyone can look under the hood, verify its integrity, or even contribute. It’s published under various [licenses](/Software_license), depending on the component, which is a bit of a bureaucratic detail, but apparently important to someone.
+
+### Technical Design
+
+I2P didn't just appear out of the digital ether. It kicked off in 2003, a sort of rebellious offspring, forking from [Hyphanet](/Hyphanet) (which, back in the day, went by the less catchy name Freenet).
+
+The network operates on a message-by-message basis, much like the foundational [IP](/Internet_Protocol) protocol. However, for those who need more continuity, there’s a library that allows for reliable [streaming](/Streaming_algorithm) communication on top of it. This is akin to [Non-blocking IO](/Non-blocking_IO)-based [TCP](/Transmission_control_protocol), but since version 0.6, they’ve been using a new, more secure Secure Semi-reliable [UDP](/User_Datagram_Protocol) transport. Everything is wrapped in [end-to-end encryption](/End-to-end_encrypted) – four layers, to be precise, when a message is sent. This is achieved through [garlic routing](/Garlic_routing). The beauty of this system is that even your connection endpoints, referred to as "destinations," are essentially just [cryptographic](/Cryptographic) identifiers, built from [public keys](/Public_key). This means neither the sender nor the receiver has to reveal their actual [IP address](/IP_address) to each other, nor to anyone snooping around.
+
+While many of the developers involved have roots in communities like the Invisible IRC Project (IIP) and [Freenet](/Freenet), I2P’s design diverges significantly. IIP was focused on anonymous centralized [IRC](/Internet_Relay_Chat) servers, and Freenet aimed for [censorship](/Censorship)-resistant [distributed data storage](/Distributed_data_store). I2P, on the other hand, is an [anonymous peer-to-peer](/Anonymous_P2P) communication layer, a decentralized framework designed to host all sorts of traditional internet services. We're talking [Usenet](/Usenet), [email](/Email), [IRC](/Internet_Relay_Chat), [file sharing](/File_sharing), [web hosting](/Web_hosting), and even [HTTP](/HTTP) or [Telnet](/Telnet). It also supports more specialized distributed applications, like a distributed data store, or even a [web proxy](/Web_proxy) network using [Squid](/Squid_(software)), or acting as a decentralized [Domain Name System](/Domain_Name_System). It’s decentralized, yes, but that doesn't make it entirely immune. Censors operating a handful of strategically placed routers can still block access to a significant portion of known peers, as a 2018 study pointed out.
+
+The core development team often operates under [pseudonyms](/Pseudonymity). While the former lead developer, [jrandom](/Programmer) (often referred to as J. Random Hacker), is currently taking a break, others like zzz, killyourtv, and Complication have been steering the ship, with a legion of contributors lending their skills. The encryption methods are robust, utilizing 2048-bit [ElGamal](/ElGamal)/[AES256](/AES256)/[SHA256](/SHA256)+Session Tags, and for signatures, they employ [Ed25519](/Ed25519) [EdDSA](/EdDSA)/[ECDSA](/ECDSA).
+
+### Releases
+
+I2P maintains a fairly consistent release cycle, with stable updates appearing every six to eight weeks. These updates are disseminated through I2P torrents, and each release is cryptographically signed by the designated release manager (usually str4d or zzz).
+
+Here's a look at some of the notable releases:
+
+*   **0.9.11 (2014-02-08):** Introduced support for outproxy plugins, bolstered lease set lookup security, and managed to reduce memory consumption.
+*   **0.9.12 (2014-03-31):** Brought in support for [ECDSA](/Elliptic_Curve_Digital_Signature_Algorithm) and updated the bundled [Jetty 8](/Jetty_(web_server)).
+*   **0.9.13 (2014-05-22):** Featured improvements to SusiMail and addressed issues for firewalled routers.
+*   **0.9.14 (2014-07-26):** A critical release, patching vulnerabilities related to [XSS](/Cross-site_scripting) and remote execution.
+*   **0.9.14.1 (2014-08-09):** Minor fixes for I2PSnark and the console interface.
+*   **0.9.15 (2014-09-20):** Introduced preliminary support for Ed25519 [EdDSA](/EdDSA) signatures, a step towards stronger cryptography.
+*   **0.9.16 (2014-11-01):** Added support for more robust Router Info signatures.
+*   **0.9.17 (2014-11-30):** Enabled signed news feeds and made ECDSA tunnels the default.
+*   **0.9.18 (2015-02-22):** Focused on performance, shortening startup times and reducing overall latency across network protocols.
+*   **0.9.19 (2015-04-12):** Addressed several issues and improved floodfill performance.
+*   **0.9.20 (2015-06-02):** Included important bug fixes and changes to boost the network's floodfill capacity.
+*   **0.9.21 (2015-07-31):** Further enhancements to network capacity, improved floodfill efficiency, and better bandwidth utilization.
+*   **0.9.22 (2015-09-12):** Fixed issues with I2PSnark getting stuck and began the transition to stronger Ed25519 signatures for router information.
+*   **0.9.23 (2015-11-19):** Accelerated the rekeying process for enhanced security.
+*   **0.9.24 (2016-01-27):** Introduced a new version of SAM (v3.2), along with numerous bug fixes and efficiency improvements. This release also marked the first to require Java 7.
+*   **0.9.25 (2016-03-22):** Featured SAM v3.3, QR codes for sharing hidden services, identicons, and the concept of router families.
+*   **0.9.26 (2016-06-07):** A significant upgrade to the native crypto library, a new addressbook subscription protocol with signatures, and substantial improvements to Debian/Ubuntu packaging.
+*   **0.9.27 (2016-10-17):** Enhanced IPv6 transports, SSU peer testing, and hidden mode capabilities.
+*   **0.9.28 (2016-12-12):** Updated bundled software, fixed IPv6 peer testing, and improved mechanisms for detecting and blocking malicious peers. Preliminary fixes for Java 9 were also included.
+*   **0.9.29 (2017-02-27):** Added NTP support over IPv6, preliminary Docker support, translated main pages, and ensured same-origin Referrer headers passed through the HTTP proxy. Further Java 9 fixes were implemented, though Java 9 wasn't yet recommended for general use.
+*   **0.9.30 (2017-05-03):** Provided support for Debian Stretch and Ubuntu Zesty, upgraded to Jetty 9 and Tomcat 8, and facilitated the migration of older DSA-SHA1 hidden services to the more secure EdDSA signature type.
+*   **0.9.31 (2017-08-07):** Revamped the router console for better readability, improved accessibility and cross-browser compatibility, and generally tidied up the interface.
+*   **0.9.32 (2017-11-07):** Contained fixes for the router console and associated web applications (addressbook, i2psnark, susimail). It also changed how configured hostnames for published router infos were handled to mitigate network enumeration attacks via DNS, and added console checks against rebinding attacks.
+*   **0.9.33 (2018-01-30):** Focused on bug fixes for i2psnark, i2ptunnel, streaming, and SusiMail, with updates to reseed proxying and default rate limiting.
+*   **0.9.34 (2018-04-10):** Addressed bug fixes across i2ptunnel, router console, SusiMail, routing, and transports, with specific changes to SusiMail and UPnP.
+*   **0.9.35 (2018-06-26):** Introduced folder support in SusiMail and a new SSL Wizard for setting up HTTPS on hidden service websites.
+*   **0.9.36 (2018-08-23):** Implemented NTCP2, a new, more secure transport protocol. It was disabled by default but available for testing, with plans for it to become the default in the next release.
+*   **0.9.37 (2018-10-04):** Officially enabled the faster and more secure NTCP2 transport protocol.
+*   **0.9.38 (2019-01-22):** Included a new first-install wizard with a bandwidth tester, support for the latest GeoIP database format, a new Firefox profile installer, and a native Mac OSX installer. Work continued on the new "LS2" netdb format.
+*   **0.9.39 (2019-03-21):** Featured extensive changes for new network database types (proposal 123), bundled the i2pcontrol plugin as a webapp to support RPC application development, and included numerous performance improvements and bug fixes.
+*   **0.9.40 (2019-05-07):** Added support for the new encrypted leaseset format, disabled the older NTCP 1 transport protocol, introduced a new SusiDNS import feature, and implemented a new scripted filtering mechanism for incoming connections.
+*   **0.9.41 (2019-07-02):** Continued work on proposal 123, including per-client authentication for encrypted leasesets. The console received an updated I2P logo and new icons, and the Linux installer was updated.
+*   **0.9.42 (2019-08-28):** Focused on making I2P faster and more reliable, with changes to speed up the UDP transport. Configuration files were split for future modular packaging, and work continued on implementing proposals for faster, more secure encryption. Numerous bug fixes were also included.
+*   **0.9.43 (2019-10-22):** Continued development of stronger security and privacy features, alongside performance improvements. The implementation of the new leaseset specification (LS2) was completed, and work began on implementing stronger and faster end-to-end encryption (proposal 144) for a future release. Several IPv6 address detection issues were resolved, along with other bug fixes.
+*   **0.9.44 (2019-12-01):** Contained a crucial fix for a denial-of-service vulnerability in hidden services handling of new encryption types.
+*   **0.9.45 (2020-02-25):** Primarily a bug fix release.
+*   **0.9.46 (2020-05-25):** Introduced new ECIES Encryption.
+*   **0.9.47 (2020-08-24):** Enabled new encryption for some services, mandated Java 8, and enabled Sybil analysis and blocking by default.
+*   **0.9.48 (2020-11-30):** Enabled new encryption for most services and delivered significant performance improvements.
+*   **0.9.49 (2021-02-17):** Improved the SSU transport and began the transition to [X25519](/Curve25519) encryption for routers.
+*   **0.9.50 (2021-05-17):** Continued the transition to X25519 encryption for routers, enabled [DNS over HTTPS](/DNS_over_HTTPS) for reseeding, and enhanced IPv6 support.
+*   **1.5.0 (2021-08-23):** Added short tunnel build messages, continued the X25519 encryption transition for routers, and improved overall performance.
+*   **1.6.1 (2021-11-29):** Further accelerated the X25519 transition for routers, enabled short tunnel build messages, and improved SSU performance.
+*   **1.7.0 (2022-02-21):** Focused on enhancing performance and reliability.
+*   **1.8.0 (2022-05-23):** Addressed bugs and introduced experimental SSU2 support.
+*   **1.9.0 (2022-08-22):** Improved SSU2 support and enabled it on Android and ARM devices.
+*   **2.0.0 (2022-11-21):** Enabled SSU2 for all users and added support for RFC 7616.
+*   **2.1.0 (2023-01-09):** Fixed rare implementation bugs with SSU2 and added torsocks support.
+*   **2.2.0 (2023-03-13):** Implemented mitigations against DDoS attacks across NetDB, Floodfill, and Peer-Selection components. Notably, zzz stepped back as a lead maintainer after this release.
+*   **2.2.1 (2023-04-12):** Corrected packaging issues introduced in the previous release and updated various components.
+*   **2.3.0 (2023-06-25):** Fixed CVE-2023-36325 (a context-confusion bug in the bloom filter), added safeguards against similar issues, included notbob.i2p and ramble.i2p on the console homepage, and allowed users to override blocklist expiration intervals.
+*   **2.4.0 (2023-12-18):** Introduced further DDoS mitigations for NetDB and disabled support for SSU1.
+*   **2.5.0 (2023-12-18):** Improved compatibility with other BitTorrent clients like qBittorrent.
+*   **2.5.1 (2024-05-06):** Added more mitigations against ongoing DDoS attacks.
+*   **2.5.2 (2024-05-15):** Fixed a bug that caused truncation of HTTP responses.
+*   **2.6.0 (2024-07-19):** Increased the minimum version requirement for floodfill routers and disabled I2P connections over Tor.
+*   **2.6.1 (2024-08-06):** Addressed a User-Interface bug in the Hidden Services Manager application.
+*   **2.7.0 (2024-10-09):** Included bug fixes and performance enhancements.
+*   **2.8.0 (2025-02-03):** Focused on bug fixes and improving network stability.
+*   **2.8.1 (2025-03-17):** Rectified issues with accessing local sites that were broken in version 2.8.0.
+*   **2.8.2 (2025-03-29):** Fixed a bug causing SHA256 failures that was introduced in the 2.8.1 release.
+*   **2.9.0 (2025-03-29):** Delivered general improvements to the network.
+*   **2.10.0 (2025-03-29):** Added support for UDP trackers.
+
+The legend for these releases indicates: Unsupported (no longer actively maintained), Supported (currently maintained), Latest version (the most recent stable release), and Preview/Future versions.
+
+### Funding
+
+The I2P project operates entirely on donations. However, the core project itself doesn't directly accept these funds. Instead, donations are encouraged to go towards secondary applications or to hire developers to work on I2P. Support for the initial setup process, or [onboarding](/Onboarding), has been bolstered by grants from the [Open Technology Fund](/Open_Technology_Fund). Unlike [The Tor Project](/The_Tor_Project), I2P lacks the extensive financial and legal framework to support a network of dedicated [exit nodes](/Tor_(network)). The crucial reseed servers, acting as bootstrap nodes to connect new users to the network, rely on volunteers to operate.
+
+### Software
+
+Because I2P functions as an anonymizing [network layer](/Network_layer), it’s designed to be a platform for other software to leverage for anonymous communication. This has led to a diverse ecosystem of tools, some fully developed and others still in the works.
+
+The central control point for an I2P router is its console, accessible via a web browser.
+
+#### General Networking
+
+*   **I2PTunnel:** This integrated application allows any standard TCP/IP application to communicate over I2P. It achieves this by setting up "[tunnels](/Tunneling_protocol)" that can be accessed by connecting to specific ports on [localhost](/Localhost).
+*   **SAM (Simple Anonymous Messaging):** A fundamental [protocol](/Communications_protocol) that enables client applications, regardless of their [programming language](/Programming_language), to communicate via I2P using a socket-based interface to the I2P router.
+*   **BOB (Basic Open Bridge):** A simpler alternative to SAM, offering a similar app-to-router communication protocol.
+*   **Orchid Outproxy:** A plugin designed to integrate with [Tor](/Tor_(anonymity_network)).
+*   **I2P over Tor Disabled (as of 2.6.0):** Since the July 2024 release (2.6.0), I2P no longer supports connections routed through Tor.
+
+#### Chat
+
+*   **IRC:** Any standard [IRC client](/IRC_client) can be used with I2P by connecting to an I2P [IRC server](/IRC_server) hosted on [localhost](/Localhost). I2P allows for the creation of specialized tunnels for IRC that filter out commands potentially capable of de-anonymizing users.
+*   **XMPP:** Certain [XMPP](/XMPP) clients, such as [Gajim](/Gajim), [Pidgin](/Pidgin_(software)), or a modified [Conversations](/Conversations_(software)) client, can connect to I2P XMPP servers. This often involves using [Prosody](/Prosody_(software)) with the mod\_darknet module.
+
+#### File Sharing
+
+I2P hosts a variety of software for anonymous [BitTorrent](/BitTorrent_(protocol)) functionality. Crucially, users cannot connect to non-I2P torrents or peers from within I2P, nor can I2P torrents be accessed from outside the network.
+
+*   **I2PSnark:** Bundled with the I2P installation, this is a port of the original Snark BitTorrent client.
+*   **Vuze (formerly Azureus):** This [BitTorrent client](/BitTorrent_client) includes a plugin for I2P, enabling anonymous swarming within the network. While still in early development, it's considered quite stable.
+*   **I2P-BT:** A modified version of the original BitTorrent 3.4.2 client, available for [MS](/Microsoft) Windows and various [Unix](/Unix) systems. While no longer actively developed, there are efforts to update it to the BitTorrent 4.0 standard.
+*   **I2PRufus:** An I2P port of the Rufus BitTorrent client. [Robert (P2P Software)](/Robert_(P2P_Software)) is a popular fork of I2PRufus, actively maintained.
+*   **XD:** A standalone BitTorrent client written in Go.
+*   **BiglyBT:** A fork of Vuze that also supports I2P for downloading and seeding.
+*   **Postman:** A torrent indexer operating within I2P, which claims to disallow illegal content but accepts [warez](/Warez) and [piracy](/Piracy_(media)).
+
+Beyond BitTorrent, I2P supports other file-sharing protocols:
+
+*   **iMule and Nachtblitz:** These are [Kad network](/Kad_network) clients for I2P. iMule (invisible Mule) is a port of [eMule](/EMule), designed for anonymous file sharing and relying solely on the [Kademlia](/Kademlia) protocol for connections within I2P, eliminating the need for servers. Development on iMule ceased in 2013. Nachtblitz is a custom client built on the .NET Framework, last updated in March 2016, with a time lock feature.
+*   **I2Phex:** A port of the [Gnutella](/Gnutella) client [Phex](/Phex) to I2P, known for its stability and functionality.
+*   **Tahoe-LAFS:** This distributed storage system has been ported to I2P, enabling anonymous file storage within Tahoe-LAFS grids.
+*   **MuWire:** Inspired by the LimeWire Gnutella client, MuWire is a file-sharing program that operates over the I2P network.
+
+#### Bridging to Clearnet
+
+Currently, clients like [Vuze](/Vuze) and BiglyBT facilitate connections between I2P torrents and the regular internet ([clearnet](/Clearnet_(networking))). This allows torrents published on I2P to become accessible on the wider internet, and enables I2P users to download popular content from the internet while maintaining their anonymity. As of August 2022, the default outproxy is exit.stormycloud.i2p, managed by StormyCloud Inc.
+
+#### Email
+
+*   **I2P-Bote:** This is a [free](/Free_and_open-source_software), fully [decentralized](/Decentralized_computing) and distributed anonymous [email system](/Email_system). It emphasizes security, supports multiple identities, and doesn't expose email [metadata](/Metadata). While considered [beta software](/Beta_version) as of 2015, it can be accessed via the I2P [web console](/Web_application) or standard email protocols ([IMAP](/IMAP)/[SMTP](/SMTP)). All emails are transparently end-to-end encrypted and signed by the sender, eliminating the need for external encryption software like [PGP](/Pretty_Good_Privacy). I2P-Bote provides additional anonymity through mail relays with variable delays, and its decentralized nature prevents central servers from correlating identities. Even relay nodes are unaware of the sender, and only the end of the high-[latency](/Network_latency) route and storage nodes know the recipient's I2P-Bote address. Senders can even go offline long before the recipient accesses their mail. No account registration is needed; users simply create a new identity. I2P-Bote can be installed as an I2P plugin.
+*   **Postman's Email Service:** An individual known as Postman runs a free pseudonymous email service within I2P.
+*   **Susimail:** A [web-based](/Web-based) email client designed for use with Postman's servers, prioritizing security and anonymity. It prevents traditional email clients from leaking user hostnames to the SMTP server. Susimail is included in the default I2P distribution and accessible through the router console. Mail.i2p can communicate with both I2P email users and public internet email users.
+*   **Bitmessage:** The [Bitmessage.ch](/Bitmessage) service can be utilized over I2P.
+
+#### Instant Messaging
+
+*   **I2P-Messenger:** A simple, serverless, [end-to-end-encrypted](/End-to-end-encrypted) [instant messenger](/Instant_messenger) built with the [Qt](/Qt_(framework)) framework for I2P. It ensures no servers log conversations and prevents ISPs from tracking chat activity. Its serverless nature allows it to leverage I2P's end-to-end encryption, shielding conversations from intermediate nodes. It supports both anonymous communication with strangers and secure, untraceable chats with known contacts. [File transfer](/File_transfer) is also supported.
+*   **I2P-Talk:** Another simple instant messenger, incompatible with I2P-Messenger, but offering the same security features.
+
+#### Publishing
+
+*   **Syndie:** This content distribution application is suitable for [blogs](/Blogs), [newsgroups](/Newsgroups), [forums](/Internet_forum), and sharing small media files. Syndie is engineered for [network resilience](/Resilience_(network)), supporting connections to I2P, the Tor network (though requiring a workaround for Socks proxy limitations), Freenet, and the regular internet. Its server connections are intentionally intermittent, accommodating [higher-latency communications](/Network_performance). It utilizes a [Gossip protocol](/Gossip_protocol) for efficient content dissemination.
+*   **Aktie:** An anonymous file sharing and distributed [web of trust](/Web_of_trust) forum system. Aktie can connect to I2P either through its internal router or by using an external one. To combat spam, it employs "hash payments" (proof of CPU work) for every published item.
+
+#### Routers
+
+*   **i2pd:** This is a lightweight I2P router implemented in [C++](/C%2B%2B). It strips away what are considered excessive applications like email and torrent clients, aiming for a leaner footprint. However, the I2PSnark standalone [BitTorrent](/BitTorrent) client can still be used with it.
+
+### The Privacy Solutions Project
+
+The Privacy Solutions project, a newer organization dedicated to developing and maintaining I2P software, has initiated several development efforts aimed at bolstering user privacy, security, and anonymity through I2P protocols and technology.
+
+These initiatives include:
+
+*   **Abscond:** A browser bundle designed for enhanced privacy.
+*   **i2pd:** An alternative implementation of the I2P router, written in C++ instead of Java.
+*   **"BigBrother":** An I2P [network monitoring](/Network_monitoring) project.
+
+The source code repositories and download sections for both i2pd and Abscond are publicly accessible for review and download. As of January 2015, i2pd has been operating under the umbrella of PurpleI2P.
+
+#### Android
+
+*   **I2P Router for Android:** Release builds of an I2P Router application for Android are available on the [Google Play](/Google_Play) store via The Privacy Solutions Project's account, or through an [F-Droid](/F-Droid) repository maintained by the developers.
+*   **Nightweb:** An Android application that leverages I2P and Bittorrent for sharing blog posts, photos, and similar content. It can also function as a desktop application, though it is no longer under active development.
+
+#### Cryptocurrency
+
+Several cryptocurrencies have integrated support for I2P:
+
+*   [Bitcoin](/Bitcoin)
+*   [Monero](/Monero)
+*   [Verge](/Verge_(cryptocurrency))
+
+### Terminology
+
+I2P has its own unique lexicon, often accompanied by its mascot, itoopie, who's perpetually peering through a magnifying glass, perhaps symbolizing the quest for privacy.
+
+*   **Eepsite:** These are websites hosted anonymously within the I2P network. Their domain names typically end in `.i2p`, such as `ugha.i2p` or `forum.i2p`. The EepProxy program can locate these sites by referencing the [cryptographic identifier keys](/Key_(cryptography)) stored in the `hosts.txt` file within the I2P program directory. Accessing eepsites generally requires running I2P.
+*   **.i2p:** This is a [pseudo-top-level domain](/Pseudo-top-level_domain) that is exclusively valid within the I2P [overlay network](/Overlay_network). `.i2p` names are resolved by browsers submitting requests to EepProxy, which then translates the names into I2P peer keys and manages data transfers over the I2P network, all while remaining transparent to the browser.
+*   **EepProxy:** This program acts as an intermediary, handling all communication between a web browser and any eepsite. It functions as a [proxy server](/Proxy_server) usable by any [web browser](/Web_browser).
+*   **Peers, I2P nodes:** These are other computers running I2P that are connected to your machine within the network. Each node participates in routing and forwarding encrypted [packets](/Network_packet).
+*   **Tunnels:** Approximately every ten minutes, a connection is established between your machine and another peer. Data, both yours and that routed for other peers, traverses these tunnels, moving through multiple [jumps](/Jump_Server) if necessary, to reach its final destination.
+*   **netDb:** This is a [distributed hash table](/Distributed_hash_table) (DHT) [database](/Database) employing the [Kademlia](/Kademlia) [algorithm](/Algorithm). It stores information about I2P nodes and eepsites. This database is distributed among specialized routers known as "floodfill routers." When you need to find an eepsite or locate more peers, you query this [database](/Database).
+
+### Vulnerabilities
+
+While I2P strives for anonymity, it's not entirely immune to threats.
+
+*   **Denial of Service (DoS) Attacks:** Websites hosted on the network are susceptible to DoS attacks. However, site operators can implement measures to mitigate certain versions of these attacks.
+*   **Zero-Day Vulnerability (2014):** A critical vulnerability was discovered in 2014 that could theoretically allow for the [de-anonymization](/Data_re-identification) of users visiting malicious sites, even those using operating systems like [Tails](/Tails_(operating_system)). This vulnerability has since been patched.
+*   **Forensic Analysis (2017 Study):** A study in 2017 explored how forensic investigators might exploit I2P vulnerabilities. It suggested that seized machines running I2P router software might contain unencrypted local data useful for [law enforcement](/Law_enforcement), potentially allowing inferences about a user's browsing history. The study also identified a "trusted" I2P [domain registrar](/Domain_name_registrar) ("NO.i2p") that appeared abandoned, proposing it as a potential target for takeover or using social engineering to trick the community into migrating to a fraudulent replacement. Another suggestion involved registering a mirror of a target website under an identical domain.
+*   **Censorship:** Despite its design, I2P faces censorship in various regions. A 2019 study documented evidence of censorship through DNS tampering (e.g., in [China](/Great_Firewall)), [SNI](/Server_Name_Indication)-based blocking, and blockpage injection in countries like Oman, Qatar, and Kuwait.
+
+### I2PCon
+
+The first I2P convention, I2PCon, was held in [Toronto, Ontario](/Toronto) from August 15 to August 16, 2015. Hosted by the local [hackerspace](/Hackerspace) Hacklab, the event featured presentations from I2P developers and security researchers, discussing the network's progress and future.
+
+---
+
+Honestly, the technical details are fascinating, if a bit dry. But the real story is the human element – the volunteers, the constant fight against those who want to control information, and the users who seek refuge in this digital shadow. It’s a complex dance between freedom and security, and I2P is one of the partners.

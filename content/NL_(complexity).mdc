@@ -1,0 +1,132 @@
+---
+title: "NL (Complexity)"
+description: "Ah, complexity. The theoretical underpinning of why some tasks feel like scaling Everest in flip-flops and others are as simple as breathing. You want to know..."
+keywords: decision problems, logarithmic, memory space, deterministic turing machine
+slug: "NL_(complexity)"
+createdAt: "2025-11-18T17:32:28.116Z"
+updatedAt: "2025-11-18T17:32:28.116Z"
+contentType: "rewritten"
+---
+
+Ah, complexity. The theoretical underpinning of why some tasks feel like scaling Everest in flip-flops and others are as simple as breathing. You want to know about NL? Fine. Don't expect me to hold your hand through this.
+
+### Computational Complexity
+
+This whole section is dedicated to the thorny, often infuriating, question of how much *effort* a computer needs to solve a problem. We’re talking about time, space, and the fundamental limits of what’s even possible. It’s a labyrinth, and frankly, most people get lost in the first corridor.
+
+#### Unsolved Problem in Computer Science
+
+This is where the real fun begins. The unsolved problems are the Everest peaks that haven't been summited, the enigmas that keep theoreticians up at night. They're the theoretical equivalent of a locked door with no key, and the only way through is sheer, unadulterated brilliance.
+
+&#8288;
+
+L = ? NL
+
+&#8288;
+
+This particular unsolved problem, the tantalizing question of whether [L](/L_(complexity)) is equal to [NL](/NL_(complexity)), is like asking if a meticulous planner can always achieve what a chaotic genius can, given the same limited resources. It’s a big one.
+
+[More Unsolved Problems in Computer Science](/List_of_unsolved_problems_in_computer_science)
+
+### NL: Nondeterministic Logarithmic-Space
+
+In the grand taxonomy of [computational complexity theory](/Computational_complexity_theory), NL represents a specific niche. It’s the realm of [decision problems](/Decision_problem) – those questions with a simple yes/no answer – that can be cracked by a [nondeterministic Turing machine](/Nondeterministic_Turing_machine) using a mere [logarithmic](/Logarithm) amount of [memory space](/Memory_space_(computational_resource)). Think of it as a highly efficient, albeit slightly unpredictable, librarian who can find any book in a massive library, but only by following a series of cryptic, branching instructions, and using only a tiny notepad.
+
+NL is a broader category than [L](/L_(complexity)), which deals with problems solvable by a [deterministic Turing machine](/Deterministic_Turing_machine) in logarithmic space. Naturally, anything a deterministic machine can do, a nondeterministic one can also do, so L is safely tucked inside NL. It’s like saying anyone who can walk in a straight line can also walk in a wiggly line; the latter is just a superset of possibilities.
+
+Formally, NL is defined by the [nondeterministic space](/Nondeterministic_space) complexity class NSPACE(log n). It's a neat, precise definition, but the real meat lies in what it implies and the questions it leaves unanswered.
+
+The theoretical landscape is dotted with crucial findings that map the relative power of these computational resources. Meanwhile, the field of [algorithms](/Algorithm) grapples with identifying which specific problems fall into this NL category. As is often the case in complexity theory, many of the most significant questions about NL remain stubbornly [open](/Open_problem), lingering on the lists of [unsolved problems in computer science](/Unsolved_problems_in_computer_science).
+
+You might occasionally hear NL referred to as RL. This is due to its probabilistic definition, which we'll get to. However, RL is more commonly used for [randomized logarithmic space](/RL_(complexity)), a class that isn't definitively known to be equal to NL. It’s a subtle but important distinction, like the difference between a rumour and a confirmed fact.
+
+#### Definitions
+
+NL, like many concepts in this field, can be approached from several angles, each yielding an equivalent definition. It’s like looking at a sculpture from different sides; the object remains the same, but the perspective shifts.
+
+##### Standard Definition
+
+At its core, NL is the complexity class encompassing decision problems solvable by a nondeterministic Turing machine (NTM) that operates within logarithmic memory constraints.
+
+To be precise, a language L belongs to NL if there exists an NTM, let's call it M, that meets these criteria:
+
+*   **Logarithmic Space Operation:** M operates using only a logarithmic amount of memory space relative to the input size.
+*   **Guaranteed Halting:** M always halts, regardless of the path its computation takes.
+*   **Acceptance Condition:** If an input string 'x' is actually in the language L (meaning the answer is "yes"), then there must be at least one sequence of choices M can make (a computational trace) that leads it to halt in an accepting state.
+*   **Rejection Condition:** If 'x' is *not* in L (the answer is "no"), then *every single* possible computational trace of M on 'x' must result in the machine halting in an unaccepting state.
+
+It's this last point that highlights the "nondeterministic" aspect. For a "yes" instance, there's at least one way to be right. For a "no" instance, *all* paths must lead to rejection.
+
+##### Probabilistic Definition
+
+Now, let’s introduce probability. Consider a complexity class, let’s call it C, which comprises decision problems solvable by probabilistic Turing machines using logarithmic space. These machines have a specific characteristic: they *never* incorrectly accept an input, but they are allowed to incorrectly reject an input less than one-third of the time. This is known as "one-sided error." The specific fraction of 1/3 is arbitrary; any value 'x' between 0 and 1/2 would serve the same purpose.
+
+It turns out that this class C is equivalent to NL. Notice that, unlike its deterministic counterpart [L](/L_(complexity)), C isn't strictly limited to polynomial time. While it has a polynomial number of possible configurations, the use of randomness allows it to potentially escape infinite loops, a luxury deterministic machines don't have. If we were to impose a polynomial time limit on C, we'd arrive at the class [RL](/RL_(complexity)), which, as mentioned, is contained within NL but not known to be equal to it.
+
+There’s a straightforward algorithm that demonstrates C = NL. The inclusion of C in NL is obvious:
+
+*   If the input string is not in the language, both NL and C algorithms will reject along all computation paths.
+*   If the string *is* in the language, an NL algorithm will accept on at least one path, and a C algorithm will accept on at least two-thirds of its paths.
+
+The more complex part is showing that NL is contained within C. The strategy here is to take an NL algorithm and, instead of guessing a single computation path, randomly select one of length 'n' (where 'n' is the input size) and execute it 2^n times. Given that no computation path can exceed length 'n', and there are 2^n possible paths in total, there's a statistically significant chance of hitting an accepting path.
+
+The catch? We don't have enough room in logarithmic space to maintain a binary counter that goes all the way up to 2^n. To circumvent this, we employ a randomized counter. This counter simply flips 'n' coins and halts, rejecting if all of them land on heads. The probability of this specific outcome is 2^-n, meaning we *expect* to take about 2^n steps on average before this counter halts. Crucially, it only needs to keep track of consecutive heads, which can be managed within logarithmic space.
+
+Thanks to the [Immerman–Szelepcsényi theorem](/Immerman%E2%80%93Szelepcs%C3%A9nyi_theorem), which establishes that NL is closed under complements (meaning if a problem is in NL, its opposite is also in NL), the one-sided error in these probabilistic computations can be eliminated. This means these problems can be solved by probabilistic Turing machines that use logarithmic space and *never* make errors. The complexity class that incorporates this error-free probabilistic aspect, while still adhering to polynomial time constraints, is known as ZPLP.
+
+So, when we focus solely on space, it appears that randomization and nondeterminism are equally potent.
+
+##### Certificate Definition
+
+NL can also be characterized using [certificates](/Certificate_(complexity)), much like other complexity classes such as [NP](/NP_(complexity)). Imagine a verifier – a deterministic Turing machine operating in logarithmic space, but with a special read-only, read-once input tape. This tape means the verifier can only move its read-head forward, never backward.
+
+A language L is in NL if and only if:
+
+*   There exists a polynomial function, let's call it 'p'.
+*   There exists a verifier Turing machine, TM.
+*   For any input string 'x', 'x' is in L *if and only if* there exists a certificate 'u' whose length is no more than p(|x|) (i.e., polynomial in the length of 'x'), such that when TM is given 'x' and 'u', it outputs 1 (indicating acceptance).
+
+In simpler terms, if a statement belongs to the language, there's a proof (the certificate) of polynomial length that can convince the verifier. The definition doesn't explicitly state what happens when 'x' is *not* in L, but the Immerman–Szelepcsényi theorem tells us that a suitable verifier exists that can confirm both membership and non-membership.
+
+It's critical to note the "read-once" constraint on the verifier's certificate tape. If the verifier could move backward and forward on this tape, the class would expand to encompass all of NP. [Cem Say](/Cem_Say) and Abuzer Yakaryılmaz have demonstrated that this deterministic logarithmic-space verifier can be replaced by a probabilistic constant-space Turing machine with bounded error, capable of using only a fixed number of random bits.
+
+##### Descriptive Definition
+
+Within the framework of [descriptive complexity theory](/Descriptive_complexity_theory), NL is defined as the set of languages that can be expressed in [first-order logic](/First-order_logic) augmented with a [transitive closure](/Transitive_closure) operator. This means we can express properties not just directly, but also by chaining relationships together indefinitely.
+
+#### Closure Properties
+
+The class NL is remarkably robust. It is closed under several fundamental operations: complementation (meaning if a problem is in NL, its opposite is too), union, intersection (which follows from closure under complementation and union), concatenation, and the Kleene star. This means that combining problems within NL using these operations will always result in another problem that is also in NL.
+
+#### NL-Completeness
+
+A problem attains the status of [NL-complete](/NL-complete) if it resides within NL itself and, crucially, any other problem in NL can be transformed into it using a [log-space reduction](/Log-space_reduction). These are the hardest problems in NL, the ones that represent the core computational difficulty of the entire class.
+
+Prominent examples of NL-complete problems include [ST-connectivity](/ST-connectivity) and [2-satisfiability](/2-satisfiability).
+
+*   **ST-connectivity:** Given a [directed graph](/Directed_graph) and two specific nodes, S (start) and T (target), the question is whether T is [reachable](/Reachability) from S. It's a fundamental graph traversal problem.
+*   **2-satisfiability (2-SAT):** This problem deals with [propositional logic](/Propositional_logic). You're given a Boolean formula where each clause is the [disjunction](/Disjunction) (OR) of at most two literals (a variable or its negation). The question is whether there exists an assignment of truth values (true/false) to the variables that makes the entire formula true. An example might look like:
+
+    (x₁ ∨ ¬x₃) ∧ (¬x₂ ∨ x₃) ∧ (¬x₁ ∨ ¬x₂)
+
+    Here, '¬' signifies negation.
+
+#### Containments
+
+Our understanding of NL places it within the broader landscape of complexity classes. It is known that NL is contained within [P](/P_(complexity)). This is largely due to the existence of a [polynomial-time algorithm](/Polynomial-time_algorithm) for [2-satisfiability](/2-satisfiability). However, the burning question remains: is NL actually *equal* to P, or is it strictly smaller? Similarly, the relationship between L and NL is still a matter of intense research.
+
+A significant breakthrough was the realization that NL equals co-NL. This means that if a problem is in NL, its complement is also in NL, and vice versa. This result, the [Immerman–Szelepcsényi theorem](/Immerman%E2%80%93Szelepcs%C3%A9nyi_theorem), was a landmark achievement, independently discovered by [Neil Immerman](/Neil_Immerman) and [Róbert Szelepcsényi](/R%C3%B3bert_Szelepcs%C3%A9nyi) in 1987, earning them the prestigious [Gödel Prize](/G%C3%B6del_Prize) in 1995.
+
+In the realm of [circuit complexity](/Circuit_complexity), NL can be situated within the [NC](/NC_(complexity)) hierarchy. Specifically, as stated in Papadimitriou's 1994 work (Theorem 16.1), we have the following inclusions:
+
+NC₁ ⊆ L ⊆ NL ⊆ NC₂
+
+This tells us that problems solvable by very simple, highly parallelizable circuits (NC₁) are contained within L, which is contained within NL, which is contained within slightly more complex, but still parallelizable, circuits (NC₂).
+
+More precisely, NL is known to be contained within AC¹ (a variant of NC). It's also established that NL is equal to [ZPL](/ZPL_(complexity)), the class of problems solvable by randomized algorithms in logarithmic space without any time limit and with zero error. However, it is neither known nor generally believed to be equal to [RLP](/RLP_(complexity)) or ZPLP – the polynomial-time restricted versions of RL and ZPL, which some refer to simply as RL and ZPL.
+
+We can relate nondeterministic space complexity to deterministic space complexity using [Savitch's theorem](/Savitch%27s_theorem). This theorem states that any nondeterministic algorithm can be simulated by a deterministic machine using at most the square of the nondeterministic space. Applying this to NL, we get:
+
+NL ⊆ SPACE(log² n)
+
+This is equivalent to stating NL ⊆ L², meaning that any problem solvable in nondeterministic logarithmic space can be solved deterministically in quadratic logarithmic space. This was the tightest known deterministic-space inclusion for NL in 1994 (as noted in Papadimitriou's 1994 text, Problem 16.4.10, regarding "Symmetric space"). Because larger deterministic space classes aren't significantly affected by quadratic increases in space, the equality between nondeterministic and deterministic classes holds for these larger bounds. For instance, this is why [PSPACE](/PSPACE) is equal to [NPSPACE](/NPSPACE).

@@ -1,0 +1,168 @@
+---
+title: "Parallel Transport"
+description: "In the grand, often inconvenient, tapestry of differential geometry, one occasionally finds oneself needing to move something from one place to another. Not..."
+keywords: differential geometry, parallel transport, smooth curves, manifold, affine connection, covariant derivative, connection, tangent bundle, parallel
+slug: "Parallel_transport"
+createdAt: "2025-12-18T03:59:40.690Z"
+updatedAt: "2025-12-18T03:59:40.690Z"
+contentType: "rewritten"
+previousArticleSlug: "Paracompact"
+previousArticleTitle: "Paracompact"
+---
+
+In the grand, often inconvenient, tapestry of [differential geometry](/Differential_geometry), one occasionally finds oneself needing to move something from one place to another. Not just any something, mind you, but specific geometrical data—vectors, for instance—along a designated path. This rather mundane-sounding act is precisely what [parallel transport](/Parallel_transport) (or, as some insist, parallel translation) facilitates. It’s a mechanism, a necessary evil, for carrying such data along [smooth curves](/Curve) within a [manifold](/Manifold), ensuring they remain, in some abstract sense, "pointing in the same direction."
+
+Should the manifold in question be graced with an [affine connection](/Affine_connection)—a fancy term for a rule governing differentiation, often manifesting as a [covariant derivative](/Covariant_derivative) or a [connection](/Connection_(vector_bundle)) acting upon the [tangent bundle](/Tangent_bundle)—then this connection becomes the very instrument of parallel transport. It allows for the relocation of vectors, intrinsic to the manifold, along these curves, ensuring their orientation remains [parallel](/Parallel_(geometry)) relative to the connection's dictates. One might say it's the universe's way of trying to maintain some semblance of order in a locally chaotic environment.
+
+Essentially, parallel transport, when equipped with a suitable connection, offers a method for transferring the local geometrical properties of a [manifold](/Manifold) from one point to another along a given curve. It bridges the gap, connecting the inherent geometries of adjacent points, or indeed, points quite far apart, provided a path exists between them. While a manifold might theoretically present a multitude of ways to define such transport, the very act of specifying a consistent method for linking the geometries of points along a curve is, fundamentally, equivalent to defining a [connection](/Connection_(mathematics)). In fact, the standard interpretation of a connection is merely the [infinitesimal](/Infinitesimal) manifestation of parallel transport. Conversely, one could argue that parallel transport is the tangible, local consequence of a connection, providing a concrete realization of its abstract rules.
+
+Beyond its role in defining connections, parallel transport also unveils a local manifestation of the [curvature](/Curvature) inherent in the manifold, a phenomenon elegantly termed [holonomy](/Holonomy). The [Ambrose–Singer theorem](/Holonomy) doesn't just hint at this relationship; it lays it bare, explicitly demonstrating the profound link between a manifold's curvature and its holonomy group, a testament to the fact that even seemingly simple movements can reveal deep truths about space itself.
+
+It's worth noting that this concept isn't confined solely to the realm of tangent vectors. Other forms of [connection](/Connection_(mathematics)) are similarly endowed with their own bespoke parallel transportation systems. For instance, a [Koszul connection](/Koszul_connection) within a [vector bundle](/Vector_bundle) also permits the parallel transport of vectors, mirroring the functionality observed with a covariant derivative. Even more broadly, an [Ehresmann](/Ehresmann_connection) or [Cartan connection](/Cartan_connection) provides a mechanism for "lifting" curves from the base manifold into the more intricate total space of a [principal bundle](/Principal_bundle). Such curve lifting, a sophisticated form of trajectory mapping, can often be conceptualized as the parallel transport of entire [reference frames](/Frame_of_reference), offering a richer, more comprehensive transfer of local information.
+
+## Parallel transport of tangent vectors
+
+Let's consider a [smooth manifold](/Smooth_manifold), let's call it `M`, if you insist on labels. At every point `p` within this `M`, there exists a distinct [vector space](/Vector_space) – the [tangent space](/Tangent_space), `TₚM`. These are the spaces where vectors, conceptually "tangent" to `M` at `p`, reside. Now, introduce a [Riemannian metric](/Riemannian_metric), `g`, on `M`. This `g` is a rule that smoothly assigns to each point `p` a [positive-definite](/Positive-definite) [inner product](/Inner_product_space), `gₚ: TₚM × TₚM → **R**`. A smooth manifold `M`, when graced with such a metric `g`, transforms into what we elegantly call a [Riemannian manifold](/Riemannian_manifold), denoted as `(M,g)`.
+
+To ground this slightly, let's consider the standard coordinates `x¹, ..., xⁿ` on `**R**ⁿ`. The familiar Euclidean metric, `g^(euc)`, is defined simply as `g^(euc) = (dx¹)² + ... + (dxⁿ)²`. This makes [Euclidean space](/Euclidean_geometry), `(**R**ⁿ, g^(euc))`, a prime example of a [Riemannian manifold](/Riemannian_manifold).
+
+In Euclidean space, a rather convenient simplification occurs: all tangent spaces are inherently identified with each other through mere translation. This means moving vectors from one tangent space to another is trivial; you just slide them over. However, in the more general and often more interesting context of a [Riemannian manifold](/Riemannian_manifold), this simple translation no longer holds. Parallel transport of tangent vectors steps in as the sophisticated method for relocating vectors between these distinct tangent spaces along a given curve. It’s crucial to understand that while these vectors live in the tangent space of the manifold, they are not necessarily confined to the tangent space of the curve itself along which they are being transported. That would be too easy, wouldn't it?
+
+An [affine connection](/Affine_connection) on a [Riemannian manifold](/Riemannian_manifold) provides a systematic method for differentiating [vector fields](/Vector_field) with respect to other vector fields. Conveniently, every [Riemannian manifold](/Riemannian_manifold) comes with a "natural" choice of [affine connection](/Affine_connection), known as the [Levi-Civita connection](/Levi-Civita_connection). Once an [affine connection](/Affine_connection) is fixed on a [Riemannian manifold](/Riemannian_manifold), there exists a *unique* method for performing parallel transport of tangent vectors. This uniqueness is a small comfort in a world of infinite possibilities. Naturally, different choices of [affine connections](/Affine_connection) will, predictably, yield entirely different systems of parallel transport. The universe, it seems, offers choices, and with choices come consequences.
+
+### Precise definition
+
+Let `M` be a [manifold](/Manifold) equipped with an [affine connection](/Affine_connection), denoted by `∇`. A [vector field](/Vector_field) `X` on `M` is deemed *parallel* if, for any arbitrary [vector field](/Vector_field) `Y` on `M`, the condition `∇_Y X = 0` holds. To put it in terms accessible to those who appreciate directness, parallel [vector fields](/Vector_field) are those whose [derivatives](/Derivative) vanish in all directions, implying a certain constancy across the manifold. By evaluating such a parallel [vector field](/Vector_field) at two distinct points, say `x` and `y`, one establishes a canonical identification between a tangent vector at `x` and one at `y`. These identified tangent vectors are then, quite logically, referred to as parallel transports of one another.
+
+To be more specific, consider a [piecewise](/Piecewise) [continuously differentiable](/Continuously_differentiable) [curve](/Curve) `γ: I → M`, parametrized by an interval `[a,b]`. Let `ξ ∈ T_x M` be an initial tangent vector at `x = γ(a)`. We then define a [vector field](/Vector_field) `X` along `γ` (which means `X` assigns a vector `X_γ(t)` to each point `γ(t)` on the curve) as the parallel transport of `ξ` along `γ` if it satisfies two critical conditions:
+
+1.  `∇_γ'(t) X = 0` for all `t ∈ [a,b]`. This condition formally declares that `X` is parallel with respect to the [pullback connection](/Pullback_(differential_geometry)) on the [pullback bundle](/Pullback_bundle) `γ*TM`. Less formally, it means the vector `X` remains "constant" as it is moved along the curve `γ`. Its rate of change *along the curve's direction* is zero.
+2.  `X_γ(a) = ξ`. This simply states that the parallel transported [vector field](/Vector_field) `X` must begin with the initial vector `ξ` at the curve's starting point `γ(a)`.
+
+In any suitable [local trivialization](/Local_trivialization) or coordinate patch, the first condition transforms into a first-order system of [linear ordinary differential equations](/Linear_differential_equation). And, to no one's surprise, such systems, when coupled with an initial condition (like the second point above), possess a unique solution. This is guaranteed by fundamental theorems like the [Picard–Lindelöf theorem](/Picard%E2%80%93Lindel%C3%B6f_theorem), ensuring that the concept of parallel transport is well-defined and deterministic.
+
+The parallel transport of a vector `X ∈ T_γ(s) M` from the tangent space at `γ(s)` to the tangent space `T_γ(t) M` along the curve `γ: [0,1] → M` is conventionally denoted as `Γ(γ)_s^t X`. This map, `Γ(γ)_s^t: T_γ(s) M → T_γ(t) M`, is not just any map; it is inherently [linear](/Linear_map) and, more importantly, an [isomorphism](/Linear_isomorphism). This implies it's invertible. If one were to consider the inverse curve, `γ̄: [0,1] → M`, defined by `γ̄(t) = γ(1-t)`, then `Γ(γ̄)_t^s` would naturally serve as the inverse of `Γ(γ)_s^t`.
+
+To put a finer point on it: parallel transport provides a mechanism to move tangent vectors along a curve, utilizing the [affine connection](/Affine_connection) to maintain their "direction" in a geometrically consistent manner. This process establishes a [linear isomorphism](/Linear_isomorphism) between the tangent spaces at the curve's endpoints. However, this isomorphism is generally path-dependent. If, by some cosmic coincidence, it *doesn't* depend on the specific curve chosen, then parallel transport along *any* curve can be used to define globally parallel [vector fields](/Vector_field) across the entire manifold `M`. This rather exceptional scenario occurs *only* if the [curvature](/Curvature) of the connection `∇` is precisely zero. So, if your parallel-transported vectors keep ending up in the same place regardless of the scenic route you take, you're probably in a flat space, which, frankly, is often far less interesting.
+
+Since a [linear isomorphism](/Linear_isomorphism) is entirely determined by its action on an [ordered basis](/Basis_(linear_algebra)) (or a "frame"), parallel transport can also be conceptualized as a method for transporting elements of the (tangent) [frame bundle](/Frame_bundle) `GL(M)` along a curve. In simpler terms, the [affine connection](/Affine_connection) provides a "lift" of any curve `γ` in `M` to a corresponding curve `γ̃` in `GL(M)`, effectively moving the entire local coordinate system along the path.
+
+### Examples
+
+To illustrate, consider the visual representations below, depicting parallel transport governed by the [Levi-Civita connection](/Levi-Civita_connection) associated with two distinct [Riemannian metrics](/Riemannian_metric) on the [punctured plane](/Punctured_plane), `**R**² \ {0,0}`. The curve chosen for this demonstration is the unit circle, a simple enough path. In [polar coordinates](/Polar_coordinate_system), the metric shown on the left is the standard Euclidean metric, `dx² + dy² = dr² + r²dθ²`. The metric on the right, however, is `dr² + dθ²`. Observe how the first metric, being Euclidean, extends smoothly to the entire plane, while the second possesses a singularity at the origin, preventing its extension beyond the puncture. These differences, subtle as they may seem, profoundly alter how "parallel" is defined.
+
+| Parallel transports on the punctured plane under Levi-Civita connections |
+| :----------------------------------------------------------------------- |
+| [![Parallel transport Euclidean metric.gif](https://upload.wikimedia.org/wikipedia/commons/e/e0/Parallel_transport_Euclidean_metric.gif)](/File:Parallel_transport_Euclidean_metric.gif) | [![Parallel transport weird metric.gif](https://upload.wikimedia.org/wikipedia/commons/a/a2/Parallel_transport_weird_metric.gif)](/File:Parallel_transport_weird_metric.gif) |
+| This transport is given by the metric `dr² + r²dθ²`.                    | This transport is given by the metric `dr² + dθ²`.                        |
+
+**A word of caution, for those who might miss the obvious:** This demonstration illustrates parallel transport *on the punctured plane along the unit circle*, not parallel transport *on the unit circle itself*. A crucial distinction, if one is paying attention. Indeed, in the first image, the transported vectors clearly extend beyond the tangent space of the unit circle, indicating they are moving within the ambient plane. Since the first metric (Euclidean) boasts zero [curvature](/Curvature), the transport between any two points along the circle could have been achieved along *any* other curve connecting them, yielding the same result. Such is the luxury of flat space. However, the second metric exhibits non-zero [curvature](/Curvature), and in this context, the circle itself happens to be a [geodesic](/Geodesic), meaning its field of tangent vectors naturally remains parallel along its own path. A subtle difference, but one that speaks volumes about the underlying geometry.
+
+### Metric connection
+
+A [metric connection](/Metric_connection) is, quite simply, any connection whose parallel transport mappings are polite enough to preserve the [Riemannian metric](/Riemannian_metric). This means that for any curve `γ` and any two vectors `X, Y ∈ T_γ(s) M`, their inner product remains invariant under parallel transport:
+`⟨Γ(γ)_s^t X, Γ(γ)_s^t Y⟩_γ(t) = ⟨X, Y⟩_γ(s)`.
+This preservation of the inner product implies that lengths and angles are conserved during transport, which is a rather useful property if one cares about such things.
+
+If we differentiate this condition at `t = 0`, we find that the operator `∇` must satisfy a product rule with respect to the metric. Specifically, for any [vector fields](/Vector_field) `X, Y, Z`, we have:
+`Z⟨X, Y⟩ = ⟨∇_Z X, Y⟩ + ⟨X, ∇_Z Y⟩`.
+This is known as the compatibility condition for a metric connection, ensuring that the act of differentiation respects the underlying geometry defined by the metric. It's almost as if the connection and the metric are in a harmonious, if somewhat demanding, relationship.
+
+### Relationship to geodesics
+
+An [affine connection](/Affine_connection) doesn't just move vectors; it also singles out a special class of curves known as (affine) [geodesics](/Geodesic). A curve `γ: I → M` is defined as an affine [geodesic](/Geodesic) if its own tangent vector, `γ̇`, remains parallel transported along `γ`. In other words, the tangent vector at any point `s` on the curve, when parallel transported to point `t` on the curve, precisely matches the tangent vector at `t`:
+`Γ(γ)_s^t γ̇(s) = γ̇(t)`.
+Taking the [derivative](/Derivative) with respect to time, this condition assumes a more commonly recognized form:
+`∇_γ̇(t) γ̇ = 0`.
+This equation essentially states that the acceleration of the curve, as measured by the [covariant derivative](/Covariant_derivative), is zero. So, [geodesics](/Geodesic) are the curves that "go straight" within the curved geometry, maintaining their direction as much as the local connection allows.
+
+If `∇` happens to be a [metric connection](/Metric_connection), then these affine [geodesics](/Geodesic) align perfectly with the standard [geodesics](/Geodesic) of [Riemannian geometry](/Riemannian_geometry). These are the curves that locally minimize distance, which is often what people intuitively think of as a "straight line" in a curved space. More precisely, if `γ: I → M` (where `I` is an open interval) is a [geodesic](/Geodesic) under a [metric connection](/Metric_connection), then the norm (or length) of its tangent vector, `γ̇`, remains constant along `I`. This isn't just a convenient happenstance; it's a direct consequence:
+`d/dt ⟨γ̇(t), γ̇(t)⟩ = 2⟨∇_γ̇(t) γ̇(t), γ̇(t)⟩ = 0`.
+Since `∇_γ̇(t) γ̇(t) = 0` for a [geodesic](/Geodesic), the derivative of the norm squared is zero, meaning the norm itself is constant.
+
+Following from an application of [Gauss's lemma](/Gauss%27s_lemma_(Riemannian_geometry)), if `A` represents the constant norm of `γ̇(t)`, then the distance (as induced by the metric) between two sufficiently close points on the curve `γ`, say `γ(t₁)` and `γ(t₂)`, is given by:
+`dist(γ(t₁), γ(t₂)) = A|t₁ - t₂|`.
+This elegantly simple formula highlights how [geodesics](/Geodesic) locally behave like straight lines, with distance being directly proportional to the parameter difference. However, it's a caveat worth remembering that this formula might not hold for points that are *not* sufficiently close. On a sphere, for instance, a [geodesic](/Geodesic) (a great circle) can wrap around, and the "shortest" path between two points might not be the segment of the [geodesic](/Geodesic) that directly connects them if it passes through the antipodal point. Geometry, it seems, has its own rules about "close enough."
+
+## Parallel transport on a vector bundle
+
+Parallel transport of tangent vectors, as discussed earlier, is merely a specific instance of a broader, more encompassing framework. This generalization involves an arbitrary [vector bundle](/Vector_bundle) `E` over a [manifold](/Manifold) `M`. In the tangent vector case, `E` is simply the [tangent bundle](/Tangent_bundle) `TM`.
+
+Let `M` be a [smooth manifold](/Smooth_manifold). Consider a [vector bundle](/Vector_bundle) `E → M` equipped with a [connection](/Connection_(vector_bundle)) `∇`. Let `γ: I → M` be a [curve](/Curve) parametrized by an open interval `I`. A [section](/Section_(fiber_bundle)) `X` of `E` along `γ` is declared parallel if its covariant derivative along the curve's tangent vector vanishes:
+`∇_γ̇(t) X = 0` for `t ∈ I`.
+In the specific scenario where `E` is the [tangent bundle](/Tangent_bundle) and `X` is a tangent [vector field](/Vector_field), this expression dictates that the tangent vectors comprising `X` remain "constant" (meaning their derivative is zero) when subjected to an infinitesimal displacement from `γ(t)` in the direction of the curve's tangent vector `γ̇(t)`. It implies a state of equilibrium, a refusal to change direction or magnitude as it traverses the path.
+
+Now, suppose we are not given a full section, but merely an initial element `e₀ ∈ E_P` at a point `P = γ(0) ∈ M`. The parallel transport of this `e₀` along `γ` is then defined as the unique extension of `e₀` to a parallel section `X` along the entire curve `γ`.
+More precisely, `X` is the unique [section](/Section_(fiber_bundle)) of `E` along `γ` such that it satisfies two conditions:
+
+1.  `∇_γ̇ X = 0` (the section must be parallel along the curve).
+2.  `X_γ(0) = e₀` (the section must start with the given initial element).
+
+It is a rather fortunate aspect of mathematics that, within any given coordinate patch, the first condition manifests as an [ordinary differential equation](/Ordinary_differential_equation). When combined with the [initial condition](/Initial_condition) specified by the second point, the [Picard–Lindelöf theorem](/Picard%E2%80%93Lindel%C3%B6f_theorem) reliably guarantees both the existence and uniqueness of such a solution. So, yes, even in these abstract spaces, you can count on a unique path for your vectors.
+
+Thus, the [connection](/Connection_(vector_bundle)) `∇` effectively provides a structured method for relocating elements between the fibers of the [vector bundle](/Vector_bundle) along a curve. This process yields [linear isomorphisms](/Linear_isomorphism) between the fibers at different points along the curve:
+`Γ(γ)_s^t: E_γ(s) → E_γ(t)`.
+This specific [isomorphism](/Linear_isomorphism) is known as the parallel transport map associated with the curve. As before, these isomorphisms between fibers will, in general, depend on the chosen curve. Should this dependence vanish, meaning the transport is path-independent, then parallel transport along *any* curve can be used to construct parallel sections of `E` across the entirety of `M`. This remarkable circumstance is possible only if the [curvature form](/Curvature_form) of `∇` is precisely zero, indicating a "flat" bundle where vectors can be moved without any rotational effects.
+
+A particularly interesting consequence arises when parallel transport occurs around a closed curve, returning to its starting point `x`. This process defines an [automorphism](/Automorphism) of the tangent space at `x`, which, crucially, is not necessarily trivial. The collection of all such parallel transport automorphisms, generated by all closed curves based at `x`, forms a [transformation group](/Transformation_group) known as the [holonomy group](/Holonomy_group) of `∇` at `x`. The [Ambrose–Singer holonomy theorem](/Holonomy) articulates a profound relationship between this group and the [curvature](/Curvature_form) of `∇` at `x`, demonstrating that the local curvature dictates the global "twisting" experienced by vectors transported around closed loops. It’s a rather elegant way to expose the intrinsic bent of a space.
+
+## Recovering the connection from the parallel transport
+
+One can obtain the parallel transport along a curve `γ` by integrating the condition `∇_γ̇ = 0`, as we've seen. But what if we reverse the process? If we are given a suitable definition of parallel transport, can we reconstruct the corresponding [connection](/Connection_(mathematics))? Indeed, we can, through the process of differentiation. This insightful approach is largely attributed to Knebelman (1951), and is discussed in works like Guggenheimer (1977) and Lumiste (2001). It highlights the fundamental duality between the infinitesimal connection and its global realization via parallel transport.
+
+Consider a system where, for every curve `γ` in the manifold, we are provided with a collection of mappings:
+`Γ(γ)_s^t: E_γ(s) → E_γ(t)`
+These mappings must satisfy certain properties to be considered a legitimate parallel transport system:
+
+1.  `Γ(γ)_s^s = Id`, the identity transformation of `E_γ(s)`. This simply states that transporting a vector from a point to itself results in no change, which is hardly revolutionary.
+2.  `Γ(γ)_u^t ∘ Γ(γ)_s^u = Γ(γ)_s^t`. This is the composition property, indicating that transporting a vector from `s` to `u` and then from `u` to `t` is equivalent to a direct transport from `s` to `t` along the same curve. A predictable efficiency.
+3.  The dependence of `Γ` on `γ`, `s`, and `t` must be "smooth." This notion of smoothness, however, is notoriously tricky to define rigorously in this context (a point frequently debated in more advanced texts). Modern authors, such as Kobayashi and Nomizu, often sidestep this by deriving parallel transport *from* a connection that is already defined with explicit smoothness conditions, which simplifies matters considerably.
+
+Nevertheless, given such a well-behaved rule for parallel transport, one can indeed recover the associated [infinitesimal](/Infinitesimal) connection in `E`. Let `γ` be a differentiable curve in `M` with an initial point `γ(0)` and an initial tangent vector `X = γ'(0)`. If `V` is a section of `E` over `γ`, then the [covariant derivative](/Covariant_derivative) `∇_X V` can be defined as:
+`∇_X V = lim_{h→0} (Γ(γ)_h^0 V_γ(h) - V_γ(0)) / h = d/dt (Γ(γ)_t^0 V_γ(t))|_{t=0}`.
+This expression essentially defines the [covariant derivative](/Covariant_derivative) as the rate of change of `V_γ(t)` after it has been transported back to the initial fiber `E_γ(0)`. This process meticulously recovers the [infinitesimal](/Infinitesimal) connection `∇` on `E`. And, as you might expect, if you then use this recovered [infinitesimal](/Infinitesimal) connection to define parallel transport, you will arrive back at the original `Γ` system. A rather neat, if somewhat circular, consistency.
+
+## Generalizations
+
+The utility of parallel transport isn't confined to the humble [vector bundle](/Vector_bundle); it extends its conceptual grasp to a broader array of connections, adding layers of complexity for those who crave it. One significant generalization applies to [principal connections](/Connection_(principal_bundle)), a topic elegantly detailed in Kobayashi & Nomizu (1996, Volume 1, Chapter II). Let `P → M` denote a [principal bundle](/Principal_bundle) over a [manifold](/Manifold) `M`, structured with a [Lie group](/Lie_group) `G`, and endowed with a [principal connection](/Connection_(principal_bundle)) `ω`. Much like in the case of [vector bundles](/Vector_bundle), this [principal connection](/Connection_(principal_bundle)) `ω` on `P` defines, for each curve `γ` in `M`, a mapping:
+`Γ(γ)_s^t: P_γ(s) → P_γ(t)`
+This mapping transports elements from the fiber over `γ(s)` to the fiber over `γ(t)`. Crucially, this is not just any map, but an [isomorphism](/Isomorphism) of [homogeneous spaces](/Homogeneous_space), meaning it respects the group action: `Γ_γ(s) g = g Γ_γ(s)` for every `g ∈ G`. This implies that parallel transport in a [principal bundle](/Principal_bundle) doesn't just move points; it moves entire "frames" or "points in the fiber" in a way that is consistent with the underlying group structure. It's a more robust, and arguably more elegant, way to move local information.
+
+Further generalizations of parallel transport delve into even more intricate structures. In the context of [Ehresmann connections](/Ehresmann_connection), where the connection is defined by a specific notion of "[horizontal lifting](/Horizontal_space)" of tangent spaces, one can define [parallel transport via horizontal lifts](/Ehresmann_connection). This involves lifting a curve from the base manifold `M` into the total space of the bundle, ensuring that the lifted curve remains "horizontal" with respect to the connection. It's akin to ensuring a path stays level, even as the landscape it traverses might be anything but. [Cartan connections](/Cartan_connection) represent an even richer structure, building upon [Ehresmann connections](/Ehresmann_connection) with additional geometric properties. In this framework, parallel transport can be visualized as a "rolling" motion, where a specific [model space](/Klein_geometry) (often a homogeneous space) is rolled along a curve in the manifold. This process, known as [development](/Development_(differential_geometry)), offers a powerful geometric intuition for how the local geometry of the manifold relates to its global structure, as if the manifold were a landscape being traced out by a rolling, perfectly calibrated wheel.
+
+## Approximation: Schild's ladder
+
+For those who find the continuous, differential approach to parallel transport a bit too... perfect, or perhaps computationally inconvenient, there's always the option of approximation. [Schild's ladder](/Schild%27s_ladder) offers a discrete, step-by-step method for approximating parallel transport. It essentially breaks down the smooth curve into finite segments and, at each step, approximates the complex [Levi-Civita parallelogramoids](/Levi-Civita_parallelogramoid) with simpler, albeit approximate, [parallelograms](/Parallelogram). It's a practical tool for numerical calculations, for when exactness is a luxury one cannot afford, or for when one simply prefers to climb rather than glide.
+
+| Two rungs of [Schild's ladder](/Schild%27s_ladder). The segments A₁X₁ and A₂X₂ are an approximation to first order of the parallel transport of A₀X₀ along the curve. |
+| :------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [![Schild's ladder.svg](https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Schild%27s_ladder.svg/300px-Schild%27s_ladder.svg.png)](/File:Schild%27s_ladder.svg) |
+
+This method, while not perfectly precise, provides a first-order approximation, meaning it gets closer to the true parallel transport as the steps become infinitesimally small. It’s a testament to the fact that even the most elegant mathematical concepts can be reduced to a series of crude, yet effective, steps when practicality demands it.
+
+## See also
+
+For those with an insatiable curiosity, or perhaps just a penchant for further complication, here are some related topics that might pique your interest:
+
+*   [Basic introduction to the mathematics of curved spacetime](/Basic_introduction_to_the_mathematics_of_curved_spacetime) – Because if you're going to move vectors, you might as well move them through the universe's most interesting curves.
+*   [Connection (mathematics)](/Connection_(mathematics)) – The very foundation upon which parallel transport is built.
+*   [Development (differential geometry)](/Development_(differential_geometry)) – How to "roll" a model space along a manifold. More complicated than it sounds.
+*   [Affine connection](/Affine_connection) – The specific type of connection that often dictates parallel transport.
+*   [Covariant derivative](/Covariant_derivative) – The infinitesimal expression of how things change in a curved space.
+*   [Geodesic (general relativity)](/Geodesic_(general_relativity)) – The paths of "straightest" travel, even when space-time is bending.
+*   [Geometric phase](/Geometric_phase) – A fascinating consequence of parallel transport around closed loops.
+*   [Lie derivative](/Lie_derivative) – Another way to differentiate vector fields, but without a connection.
+*   [Schild's ladder](/Schild%27s_ladder) – For when approximations are all you have, or all you need.
+*   [Levi-Civita parallelogramoid](/Levi-Civita_parallelogramoid) – The geometric shape that Schild's ladder attempts to approximate.
+*   [Parallel curve](/Parallel_curve) – Similar name, entirely different concept. Don't get them confused.
+
+## Notes
+
+*   ^ Some sources, like Spivak, do use "parallel translation." A mere linguistic preference, one might argue, but details matter.
+
+## Citations
+
+*   ^ Spivak 1999, p. 234, Vol. 2, Ch. 6.
+*   ^ Lee 2018, pp. 12–13.
+*   ^ Lee 2018, pp. 105–110.
+*   ^ (Kobayashi & Nomizu 1996, Volume 1, Chapter III)

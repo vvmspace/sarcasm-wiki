@@ -1,0 +1,140 @@
+---
+title: "Graph Isomorphism"
+description: "In the often-overlooked yet fundamentally crucial realm of graph theory, the concept of an isomorphism of graphs G and H serves as a cornerstone, defining when..."
+keywords: graph theory, isomorphism of graphs, isomorphism, graphs, bijection, vertex sets, adjacent, if and only if
+slug: "Graph_isomorphism"
+createdAt: "2025-11-17T20:04:54.264Z"
+updatedAt: "2025-11-17T20:04:54.264Z"
+contentType: "rewritten"
+---
+
+## Bijection between the Vertex Set of Two Graphs: Understanding Graph Isomorphism
+
+In the often-overlooked yet fundamentally crucial realm of [graph theory](/Graph_theory), the concept of an [isomorphism of graphs](/Graph_isomorphism) G and H serves as a cornerstone, defining when two seemingly distinct graphical representations are, in fact, structurally identical. It's not about how they're drawn, how their vertices are labeled, or even what cosmic alignment brought them into being; it's about their intrinsic relational architecture.
+
+Formally, an [isomorphism](/Isomorphism) between two [graphs](/Graph_(discrete_mathematics)), G and H, is meticulously defined as a [bijection](/Bijection) (a one-to-one and onto mapping) between their respective [vertex sets](/Vertex_(graph_theory)). This mapping, denoted as:
+
+$$f\colon V(G)\to V(H)$$
+
+ensures that for any two vertices, `u` and `v`, within the graph G, they are considered [adjacent](/Adjacent_(graph_theory)) (connected by an edge) in G [if and only if](/If_and_only_if) their corresponding images under the function `f`, specifically `f(u)` and `f(v)`, are also adjacent in graph H. This stringent condition implies a perfect preservation of the adjacency relationship across the two graphs. This type of bijective mapping is frequently, and quite accurately, characterized as an "edge-preserving bijection," a descriptor that resonates deeply with the broader, more general understanding of an [isomorphism](/Isomorphism) as a function that preserves the fundamental structure between two mathematical objects. It's less about the superficial differences and more about the underlying blueprint.
+
+### Isomorphic Graphs, Automorphisms, and the Unsolved Problem
+
+When such an [isomorphism](/Isomorphism) can be demonstrably established between two graphs, G and H, these graphs are then declared to be **isomorphic**. This structural equivalence is commonly symbolized by the notation:
+
+$$G\simeq H$$
+
+This symbol, a tilde, quietly asserts that G and H are, for all intents and purposes relevant to their graph-theoretic properties, the same graph. They might look different on paper, their vertices might have different names, but their internal connectivity is identical.
+
+A particularly intriguing special case arises when the [isomorphism](/Isomorphism) is a mapping of a graph onto itself; that is, when G and H are, in fact, one and the same graph. In this scenario, the [isomorphism](/Isomorphism) takes on the specific designation of an [automorphism](/Graph_automorphism) of G. An [automorphism](/Graph_automorphism) reveals the symmetries inherent within a single graph, showing how its vertices can be rearranged while maintaining all original adjacencies. It's a self-reflection, a glimpse into the graph's internal balance.
+
+The concept of [graph isomorphism](/Graph_isomorphism) fundamentally establishes an [equivalence relation](/Equivalence_relation) among graphs. Like any respectable [equivalence relation](/Equivalence_relation), it diligently partitions the vast [class](/Class_(set_theory)) of all possible graphs into distinct [equivalence classes](/Equivalence_class). Each of these [equivalence classes](/Equivalence_class) comprises a collection of graphs that are all [isomorphic](/Isomorphism) to one another, hence earning the moniker of an [isomorphism class](/Isomorphism_class) of graphs. Within any given [isomorphism class](/Isomorphism_class), every graph shares the exact same structural properties.
+
+Despite the seemingly straightforward definition, the computational challenge of determining whether [graph isomorphism](/Graph_isomorphism) can be identified in [polynomial time](/Polynomial_time) remains one of the most significant and persistently unsolved problems in the sprawling landscape of [computer science](/Computer_science). This enduring enigma is famously known as the [graph isomorphism problem](/Graph_isomorphism_problem). It’s a recurring thorn in the side of theoretical computer scientists, a testament to the fact that sometimes, even what appears simple can hide profound complexities. \[1] \[2]
+
+To illustrate this point, consider the two graphs presented below. They are undeniably [isomorphic](/Isomorphism), a fact that often eludes the casual observer due to their strikingly different visual [drawings](/Graph_drawing). Their superficial arrangements might differ, but the underlying connections are preserved.
+
+| Graph G | Graph H | An isomorphism between G and H |
+| :------- | :------- | :------------------------------ |
+| ![Graph G](https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Isomorphic_graphs_G.svg/100px-Isomorphic_graphs_G.svg.png) | ![Graph H](https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Isomorphic_graphs_H.svg/100px-Isomorphic_graphs_H.svg.png) | `f(a) = 1` <br> `f(b) = 6` <br> `f(c) = 8` <br> `f(d) = 3` <br> `f(g) = 5` <br> `f(h) = 2` <br> `f(i) = 4` <br> `f(j) = 7` |
+
+One can trace the connections in G and see that they perfectly mirror the connections in H, even if the spatial layout is entirely different. This mapping `f` demonstrates that for every edge in G, there is a corresponding edge in H between the mapped vertices, and vice-versa.
+
+### Variations: Expanding the Scope of Isomorphism
+
+The foundational definition of [graph isomorphism](/Graph_isomorphism) typically presumes that we are dealing with [undirected](/Directed_graph), [non-labeled](/Labeled_graph), and [non-weighted graphs](/Weighted_graph). However, the elegance of the concept lies in its adaptability. The notion of [isomorphism](/Isomorphism) is not confined to these basic structures; it can be readily extended and applied to virtually all other variants of graphs. This is achieved by simply layering additional requirements onto the initial definition: the [isomorphism](/Isomorphism) must then also preserve the corresponding supplementary elements of structure that define these more complex graph types. For instance, when dealing with [directed graphs](/Directed_graph) (or [digraphs](/Digraph_(mathematics))), the bijection must also preserve the [direction of arcs](/Arc_(graph_theory)). For [weighted graphs](/Weighted_graph), the weights associated with edges must be maintained. And for [labeled graphs](/Labeled_graph), the labels themselves become part of the structure that must be preserved, though with an important nuance.
+
+### Isomorphism of Labeled Graphs: A Tale of Two Definitions
+
+When venturing into the territory of [labeled graphs](/Labeled_graph), the definition of [isomorphism](/Isomorphism) becomes slightly more nuanced, leading to the co-existence of two distinct, yet valid, interpretations. It's almost as if the universe decided to offer a multiple-choice question where both 'A' and 'B' have merit, depending on the context.
+
+Under the first, and perhaps more intuitive, definition, an [isomorphism](/Isomorphism) is understood as a [vertex bijection](/Bijection) that not only preserves edges (as in the standard definition) but also rigorously preserves the specific labels assigned to vertices and/or edges. \[3] \[4] This means that a vertex with a particular label in graph G must be mapped to a vertex with the *exact same label* in graph H. There's no room for interpretation here; labels are treated as integral, immutable parts of the structure.
+
+The second definition offers a slightly more flexible perspective. Here, an [isomorphism](/Isomorphism) is still an edge-preserving [vertex bijection](/Bijection), but its requirement for label preservation is relaxed to preserving *equivalence classes* of labels. \[5] This implies that vertices with equivalent labels (for example, simply having the same label value) in graph G must be mapped onto vertices with equivalent labels in graph H, and vice versa. The same principle applies to edge labels. This distinction is subtle but carries significant implications.
+
+To illustrate this semantic divergence, consider the graph known as $K_2$, which is essentially a single edge connecting two vertices. If these two vertices are uniquely labeled, say with '1' and '2', the implications of each definition become clear. Under the first definition, which demands exact label preservation, $K_2$ possesses only a single [automorphism](/Graph_automorphism): the identity mapping where vertex '1' maps to '1' and '2' maps to '2'. Swapping them would violate the label preservation. However, under the second definition, which merely requires preservation of *equivalence classes* (and if '1' and '2' are considered equivalent in some abstract sense, or if their unique numerical identity is merely for distinction, not intrinsic property), there would be *two* [automorphisms](/Graph_automorphism): the identity mapping and the mapping where '1' maps to '2' and '2' maps to '1'. This highlights how the precise interpretation of "label-preserving" can drastically alter the perceived symmetries or equivalences.
+
+This second definition is frequently adopted in scenarios where graphs are furnished with unique labels, often drawn from a simple integer range like 1, ..., *n*, where *n* represents the total number of vertices in the graph. In these cases, the labels serve primarily as unique identifiers for the vertices rather than carrying intrinsic structural meaning. Consequently, when applying this second definition, two [labeled graphs](/Labeled_graph) are sometimes considered [isomorphic](/Isomorphism) if their underlying *unlabeled* graphs are [isomorphic](/Isomorphism). Otherwise, if exact label matching were always required for such arbitrary identifiers, the definition of [isomorphism](/Isomorphism) would become trivially restrictive, effectively stating that two labeled graphs are isomorphic only if they are identical in every single detail, including their arbitrary vertex enumeration – a rather uninteresting conclusion.
+
+### Motivation: Why Structure Matters More Than Appearance
+
+The formal concept of "[isomorphism](/Isomorphism)," and specifically "[graph isomorphism](/Graph_isomorphism)," is not merely an academic exercise. It serves a profound purpose: it meticulously captures the informal, yet deeply intuitive, notion that certain objects possess "the same structure," even when one deliberately chooses to disregard the individual distinctions of their "atomic" components. In the context of graphs, these "atomic" components are the vertices and edges. It's about seeing past the superficial to the inherent relational framework.
+
+Whenever the individual identity of these "atomic" components (vertices and edges for graphs) becomes critical for accurately representing whatever real-world phenomenon the graphs are modeling, the model itself must be refined. This refinement involves imposing additional, more stringent restrictions on the graph's structure, leading to the utilization of other specialized mathematical objects. This includes, but is not limited to, [digraphs](/Digraph_(mathematics)) (for directional relationships), [labeled graphs](/Labeled_graph) (for distinct properties of nodes or connections), [colored graphs](/Colored_graph) (for categorizing elements), and [rooted trees](/Rooted_tree) (for hierarchical structures with a defined origin). For each of these sophisticated generalizations of graphs, the [isomorphism](/Isomorphism) relation must be redefined to ensure that the bijective mapping preserves *all* the elements of structure that specifically define that object type. This includes [arcs](/Arc_(graph_theory)) for [digraphs](/Digraph_(mathematics)), labels for [labeled graphs](/Labeled_graph), vertex or edge colors for [colored graphs](/Colored_graph), and the designated [root](/Rooted_tree) for a [rooted tree](/Rooted_tree). The principle remains constant: if a feature defines the object, it must be preserved under [isomorphism](/Isomorphism).
+
+The notion of "[graph isomorphism](/Graph_isomorphism)" grants us the invaluable ability to cleanly differentiate between intrinsic [graph properties](/Graph_properties) – those characteristics that are fundamental to the very structure of the graphs themselves – and properties that are merely artifacts or consequences of a particular graph representation. These representational properties might arise from how a graph is physically drawn ([graph drawings](/Graph_drawing)), how its data is organized ([data structures for graphs](/Graph_(data_structure))), or how its vertices are arbitrarily numbered or assigned ([graph labelings](/Graph_labeling)).
+
+For instance, if a graph possesses the inherent structural property of having exactly one [cycle](/Cycle_(graph_theory)), then it is an absolute certainty that all other graphs residing within its [isomorphism class](/Isomorphism_class) will also exhibit this exact same property – they too will have precisely one [cycle](/Cycle_(graph_theory)). This is a structural invariant, unaffected by how we choose to depict or name the vertices.
+
+On the other hand, consider a common scenario where the vertices of a graph are, for convenience or necessity, represented by the [integers](/Integer) 1, 2, ..., N. Now, imagine calculating a sum such as:
+
+$$\sum _{v\in V(G)}v\cdot {\text{deg }}v$$
+
+where `deg v` denotes the [degree](/Degree_(graph_theory)) of vertex `v`. This expression, while mathematically sound, can yield entirely different results for two graphs that are, in fact, [isomorphic](/Isomorphism). Why? Because the specific numerical labels (1, 2, ..., N) assigned to the vertices are arbitrary and do not inherently reflect the graph's structure. If we simply re-label the vertices of an [isomorphic](/Isomorphism) graph, the sum will change, even though the graph's underlying connectivity remains identical. This starkly illustrates the distinction between an intrinsic structural property (like the number of [cycles](/Cycle_(graph_theory))) and a property that is dependent on a specific, non-canonical representation (like a sum involving arbitrary vertex labels). The former is preserved by [isomorphism](/Isomorphism); the latter is not.
+
+### Whitney Theorem: A Glimmer of Structural Correspondence
+
+The [Whitney graph isomorphism theorem](/Whitney_graph_isomorphism_theorem), a notable contribution from [Hassler Whitney](/Hassler_Whitney), offers a powerful statement about the relationship between a graph and its derived structures. \[6] It posits that two [connected graphs](/Connected_graph) are [isomorphic](/Isomorphism) [if and only if](/If_and_only_if) their respective [line graphs](/Line_graph) are [isomorphic](/Isomorphism). This theorem provides a remarkable bridge, suggesting that the structure of a graph is often uniquely encoded in the graph formed by its edges.
+
+However, as is often the case in mathematics, there is a single, rather famous, exception to this rule. The theorem does not hold for the pair consisting of $K_3$ (the [complete graph](/Complete_graph) on three vertices, a triangle) and the [complete bipartite graph](/Complete_bipartite_graph) $K_{1,3}$ (a star graph with one central vertex connected to three others). These two graphs are demonstrably *not* [isomorphic](/Isomorphism) to each other, yet both of them yield $K_3$ as their [line graph](/Line_graph). This exception serves as a cautionary tale, reminding us that even elegant theorems have their boundaries.
+
+![Whitney's Theorem Exception](https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Line_graph_exception.svg/200px-Line_graph_exception.svg.png)
+*The exception to Whitney's theorem: these two graphs are not isomorphic but have isomorphic line graphs.*
+
+Beyond standard graphs, the [Whitney graph theorem](/Whitney_graph_isomorphism_theorem) has even found extensions into the more generalized domain of [hypergraphs](/Hypergraph), demonstrating its underlying robustness as a principle. \[7]
+
+### Recognition of Graph Isomorphism: The Algorithmic Pursuit
+
+While the study of [graph isomorphism](/Graph_isomorphism) can certainly be approached through traditional mathematical avenues, as beautifully demonstrated by theorems like Whitney's, it is perhaps even more prominently recognized as a problem demanding an algorithmic solution. The computational challenge of definitively determining whether two finite graphs are [isomorphic](/Isomorphism) is formally known as the [graph isomorphism problem](/Graph_isomorphism_problem). This is where theoretical elegance clashes with practical computational limits.
+
+The practical applications stemming from the efficient recognition of [graph isomorphism](/Graph_isomorphism) are diverse and impactful. They include, but are by no means limited to:
+*   **[Cheminformatics](/Cheminformatics)** and **[mathematical chemistry](/Mathematical_chemistry)**: Here, [graph isomorphism](/Graph_isomorphism) is indispensable for the unambiguous identification of chemical compounds. Molecules can be represented as graphs where atoms are vertices and chemical bonds are edges. Determining if two molecular structures are identical, despite different orientations or drawing conventions, relies entirely on [graph isomorphism](/Graph_isomorphism).
+*   **[Electronic design automation](/Electronic_design_automation) (EDA)**: In the complex world of integrated circuits, [graph isomorphism](/Graph_isomorphism) is crucial for verifying the functional equivalence of various representations of an [electronic circuit](/Electronic_circuit) design. Whether comparing a high-level logical design to a physical layout, ensuring that two different circuit implementations perform the same function hinges on their underlying graph structures being [isomorphic](/Isomorphism).
+
+### Computational Complexity: A Persistent Enigma
+
+From the perspective of [computational complexity theory](/Computational_complexity_theory), the [graph isomorphism problem](/Graph_isomorphism_problem) holds a rather unique and vexing position. It is one of a select few standard problems that definitively belong to the complexity class [NP](/NP_(complexity)), meaning that if a proposed isomorphism exists, it can be verified in [polynomial time](/Polynomial_time). However, crucially, it is *not* known to belong to either of [NP](/NP_(complexity))'s two most prominent (and, if [P ≠ NP](/P_versus_NP_problem), disjoint) subsets: [P](/P_(complexity)) (problems solvable in [polynomial time](/Polynomial_time)) or [NP-complete](/NP-complete) (the "hardest" problems in [NP](/NP_(complexity))). This makes it a fascinating outlier.
+
+Indeed, in the seminal 1979 work by Garey & Johnson, which cataloged 12 foundational problems, the [graph isomorphism problem](/Graph_isomorphism_problem) stood as one of only two whose complexity remained stubbornly unresolved, the other being the notoriously difficult [integer factorization](/Integer_factorization). The enduring uncertainty surrounding its precise classification continues to fuel intense research. It is, however, theoretically significant that if the [graph isomorphism problem](/Graph_isomorphism_problem) were to be proven [NP-complete](/NP-complete), it would lead to a profound consequence: the entire [polynomial hierarchy](/Polynomial_hierarchy) would collapse to a finite level, a scenario that most complexity theorists view as highly unlikely. \[8]
+
+A significant development in this ongoing saga occurred in November 2015, when [László Babai](/L%C3%A1szl%C3%B3_Babai), a distinguished mathematician and computer scientist at the University of Chicago, announced a monumental claim: he had, he stated, proven that the [graph isomorphism problem](/Graph_isomorphism_problem) is solvable in [quasi-polynomial time](/Quasi-polynomial_time). \[9] \[10] This would place it squarely outside the realm of [NP-complete](/NP-complete) problems, suggesting it is significantly easier than many had feared, though not quite in [P](/P_(complexity)). He subsequently published preliminary versions of these groundbreaking results in the proceedings of the 2016 [Symposium on Theory of Computing](/Symposium_on_Theory_of_Computing) \[11] and the 2018 [International Congress of Mathematicians](/International_Congress_of_Mathematicians). \[12] The path to scientific consensus, however, is rarely linear. In January 2017, Babai briefly retracted his [quasi-polynomiality claim](/Quasi-polynomial_time), instead positing a [sub-exponential time](/Sub-exponential_time) complexity bound. Yet, with a swift turn, he restored his original claim just five days later. \[13] As of 2024 \[update], the complete, peer-reviewed journal version of Babai's intricate paper is still eagerly awaited by the wider scientific community, a testament to the meticulous scrutiny required for such a profound result.
+
+In contrast to the general [graph isomorphism problem](/Graph_isomorphism_problem), its generalization, known as the [subgraph isomorphism problem](/Subgraph_isomorphism_problem) (determining if a smaller graph is [isomorphic](/Isomorphism) to a subgraph of a larger one), is unequivocally known to be [NP-complete](/NP-complete). This distinction is vital, as the added constraint of finding a specific pattern makes the problem significantly harder.
+
+The primary avenues of research concerning this problem continue to revolve around two core objectives: the design and refinement of increasingly fast algorithms for practical applications, and rigorous theoretical investigations into its [computational complexity](/Analysis_of_algorithms), both for the general problem and for specific, more constrained classes of graphs.
+
+### Algorithms for Isomorphism Recognition
+
+While a definitive [polynomial-time algorithm](/Polynomial_time) for the general [graph isomorphism problem](/Graph_isomorphism_problem) remains elusive, several powerful algorithms and heuristic tests have been developed to tackle it in practice.
+
+One such method is the [Weisfeiler-Leman graph isomorphism test](/Weisfeiler_Leman_graph_isomorphism_test). \[14] This test operates heuristically, meaning it's a good guide but not an absolute guarantee. If the [Weisfeiler-Leman test](/Weisfeiler_Leman_graph_isomorphism_test) fails for two input graphs, it provides a strong guarantee: the graphs are definitively non-isomorphic. However, if the test "succeeds," indicating that the graphs appear similar structurally, it does *not* provide a definitive proof of [isomorphism](/Isomorphism). The graphs *may* or *may not* be [isomorphic](/Isomorphism). This ambiguity highlights the challenge of the problem. There exist generalizations of the [Weisfeiler-Leman test](/Weisfeiler_Leman_graph_isomorphism_test) algorithm that *are* guaranteed to detect [isomorphisms](/Isomorphism), but these enhanced versions invariably come with the significant computational cost of an exponential runtime, rendering them impractical for very large graphs.
+
+Another widely recognized and practically effective algorithm for [graph isomorphism](/Graph_isomorphism) is the `vf2` algorithm, which was meticulously developed by Cordella et al. in 2001. \[15] The `vf2` algorithm employs a [depth-first search](/Depth-first_search) strategy, systematically attempting to construct an [isomorphism](/Isomorphism) between two graphs in an incremental fashion. Its efficiency stems from the clever use of a set of "feasibility rules" that intelligently prune the vast search space. These rules allow the algorithm to discard branches of the search tree that cannot possibly lead to a valid [isomorphism](/Isomorphism), thereby enabling it to handle graphs with thousands of nodes relatively efficiently in many real-world scenarios. The `vf2` algorithm has found extensive application across diverse fields, including [pattern recognition](/Pattern_recognition), [computer vision](/Computer_vision), and [bioinformatics](/Bioinformatics). While its theoretical worst-case time complexity remains exponential, its empirical performance for a wide range of practical graph instances is remarkably good, making it a go-to choice for many researchers and developers.
+
+### See also
+
+*   [Graph homomorphism](/Graph_homomorphism)
+*   [Graph automorphism](/Graph_automorphism)
+*   [Graph isomorphism problem](/Graph_isomorphism_problem)
+*   [Graph canonization](/Graph_canonization)
+*   [Fractional graph isomorphism](/Fractional_graph_isomorphism)
+
+### Notes
+
+1.  ^ Grohe, Martin (2020-11-01). "The Graph Isomorphism Problem". [Communications of the ACM](/Communications_of_the_ACM). 63 (11): 128–134. [doi](/Doi_(identifier)):10.1145/3372123. Retrieved 2023-03-06.
+2.  ^ Klarreich, Erica (2015-12-14). "Landmark Algorithm Breaks 30-Year Impasse". [Quanta Magazine](/Quanta_Magazine). Retrieved 2023-03-06.
+3.  ^ p.424
+4.  ^ Hsieh, Shu-Ming; Hsu, Chiun-Chieh; Hsu, Li-Fu (2006). "Efficient Method to Perform Isomorphism Testing of Labeled Graphs". *Computational Science and Its Applications - ICCSA 2006*. [Lecture Notes in Computer Science](/Lecture_Notes_in_Computer_Science). Vol. 3984. pp. 422–431. [doi](/Doi_(identifier)):10.1007/11751649_46. [ISBN](/ISBN_(identifier)) 978-3-540-34079-9.
+5.  ^ Pierre-Antoine Champin, Christine Solnon, "Measuring the Similarity of Labeled Graphs" in: [Lecture Notes in Computer Science](/Lecture_Notes_in_Computer_Science), vol. 2689, pp 80–95
+6.  ^ Whitney, Hassler (January 1932). "Congruent Graphs and the Connectivity of Graphs". *American Journal of Mathematics*. 54 (1): 150–168. [doi](/Doi_(identifier)):10.2307/2371086. [hdl](/Hdl_(identifier)):10338.dmlcz/101067. [JSTOR](/JSTOR_(identifier)) 2371086.
+7.  ^ Dirk L. Vertigan, Geoffrey P. Whittle: A 2-Isomorphism Theorem for Hypergraphs. J. Comb. Theory, Ser. B 71(2): 215–230. 1997.
+8.  ^ Schöning, Uwe (1988). "Graph isomorphism is in the low hierarchy". [Journal of Computer and System Sciences](/Journal_of_Computer_and_System_Sciences). 37 (3): 312–323. [doi](/Doi_(identifier)):10.1016/0022-0000(88)90010-4.
+9.  ^ Cho, Adrian (November 10, 2015), "Mathematician claims breakthrough in complexity theory", [Science](/Science_(journal)), [doi](/Doi_(identifier)):10.1126/science.aad7416.
+10. ^ Klarreich, Erica (December 14, 2015), "Landmark Algorithm Breaks 30-Year Impasse", [Quanta Magazine](/Quanta_Magazine)
+11. ^ Babai, László (2016), "Graph isomorphism in quasipolynomial time [extended abstract]", *STOC'16—Proceedings of the 48th Annual ACM SIGACT Symposium on Theory of Computing*, ACM, New York, pp. 684–697, [doi](/Doi_(identifier)):10.1145/2897518.2897542, [ISBN](/ISBN_(identifier)) 978-1-4503-4132-5, [MR](/MR_(identifier)) 3536606, [S2CID](/S2CID_(identifier)) 17118954
+12. ^ Babai, László (2018), "Group, graphs, algorithms: the graph isomorphism problem", *Proceedings of the International Congress of Mathematicians—Rio de Janeiro 2018. Vol. IV. Invited lectures*, World Sci. Publ., Hackensack, NJ, pp. 3319–3336, [MR](/MR_(identifier)) 3966534
+13. ^ Babai, László (January 9, 2017), Graph isomorphism update
+14. ^ Huang, Ningyuan Teresa; Villar, Soledad (2021). "A Short Tutorial on the Weisfeiler-Lehman Test and Its Variants". *ICASSP 2021 - 2021 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)*. pp. 8533–8537. [arXiv](/ArXiv_(identifier)):2201.07083. [doi](/Doi_(identifier)):10.1109/ICASSP39728.2021.9413523. [ISBN](/ISBN_(identifier)) 978-1-7281-7605-5. [S2CID](/S2CID_(identifier)) 235780517.
+15. ^ Cordella, L. P.; Foggia, P.; Sansone, C.; Vento, M. (2001). "An Improved Algorithm for Matching Large Graphs". *3rd IAPR-TC15 Workshop on Graph-based Representations in Pattern Recognition*: 149–159.
+
+#

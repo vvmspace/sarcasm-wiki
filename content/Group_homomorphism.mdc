@@ -1,0 +1,249 @@
+---
+title: "Group Homomorphism"
+description: "In the grand, often tedious, theatre of mathematics, a group homomorphism stands as a rather essential concept, a function designed not merely to map elements,..."
+keywords: mathematics, group homomorphism, group, groups, function, identity element, group theory, topological groups, continuous
+slug: "Group_homomorphism"
+createdAt: "2025-12-19T13:07:31.719Z"
+updatedAt: "2025-12-19T13:07:31.719Z"
+contentType: "rewritten"
+previousArticleSlug: "Shift_space"
+previousArticleTitle: "Shift Space"
+---
+
+In the grand, often tedious, theatre of [mathematics](/Mathematics), a [group homomorphism](/Group_homomorphism) stands as a rather essential concept, a function designed not merely to map elements, but to faithfully translate the very *structure* of one [group](/Group_(mathematics)) into another. Consider it a linguistic bridge between distinct algebraic worlds, ensuring that the grammar of one is perfectly understood in the other, albeit perhaps with a different alphabet.
+
+Specifically, given two [groups](/Group_(mathematics)), let's call them ( G ,∗) and ( H , ·), a group homomorphism, denoted as h &#160;: G → H , is a [function](/Function_(mathematics)) that operates under a single, profound rule. For any two arbitrary elements, u and v , drawn from the domain group G , the application of h must satisfy the condition:
+
+```
+h(u*v) = h(u)·h(v)
+```
+
+Here, the operation on the left, denoted by ∗, is, rather obviously, the binary operation defined within the group G . Conversely, the operation on the right, ·, is the corresponding binary operation within the codomain group H . This fundamental property is what grants a homomorphism its power: it "preserves" the group operation. It means that performing the operation in G and *then* mapping the result to H yields precisely the same outcome as mapping the individual elements to H and *then* performing the operation there. If you're paying attention, you'll see why this is critical; it’s not just a map, it’s a structural echo.
+
+From this singular, defining characteristic, several other properties naturally, and quite predictably, emerge. One can readily deduce that such a function h is compelled to map the [identity element](/Identity_element) of G to the identity element of H . If we denote the identity of G as e G and that of H as e H , then it must hold that:
+
+```
+h(e_G) = e_H
+```
+
+Furthermore, a group homomorphism also gracefully handles the concept of inverses. It maps the inverse of an element in G to the inverse of its image in H . That is, for any element u in G :
+
+```
+h(u⁻¹) = h(u)⁻¹
+```
+
+Thus, one isn't merely observing a function; one is witnessing a transformation that is inherently "compatible with the group structure." It respects the fundamental rules of engagement within each group, ensuring that the algebraic relationships are maintained across the mapping. This compatibility is not merely a convenience; it's the very essence of what makes a homomorphism a meaningful concept in [group theory](/Group_theory).
+
+It's worth noting, for those who appreciate the finer distinctions, that in certain esoteric corners of [mathematics](/Mathematics) where groups are adorned with additional structures – perhaps a topology or a manifold structure – the definition of a homomorphism may be further constrained. For instance, a homomorphism between [topological groups](/Topological_group) is frequently, and quite reasonably, expected to be [continuous](/Continuous_group) in addition to preserving the group operation. Because what's the point of preserving algebra if you tear apart the very fabric of space?
+
+### Properties
+
+Let's delve into the mechanics, if you insist on seeing the gears turn. The properties mentioned above are not arbitrary assertions but direct consequences of the homomorphism's defining characteristic.
+
+To demonstrate that the identity element is preserved, consider an arbitrary element u from G . We know that the identity element e H in H satisfies the property that for any element in H , say h ( u ), we have h ( u ) · e H = h ( u ). We also know that in G , u ∗ e G = u . Applying the homomorphism h to this equality in G , and leveraging its defining property, we get:
+
+```
+h(u)·e_H = h(u)
+```
+Yet, by the very definition of a homomorphism, and the identity property in G:
+```
+h(u) = h(u*e_G) = h(u)·h(e_G)
+```
+Comparing these two expressions, we arrive at:
+```
+h(u)·e_H = h(u)·h(e_G)
+```
+Now, in any group, we can apply the cancellation rule, or equivalently, multiply by the inverse of h ( u ) (which exists, of course, because H is a group). This elegantly leads us to the conclusion:
+```
+e_H = h(e_G)
+```
+Which, frankly, should have been obvious. The identity of the domain *must* map to the identity of the codomain, otherwise the structural preservation would be a rather flimsy claim.
+
+Similarly, we can establish the preservation of inverses. We already know that e H = h ( e G ). We also know that for any element u in G , its inverse u⁻¹ satisfies u ∗ u⁻¹ = e G . Applying the homomorphism h to this identity in G :
+
+```
+e_H = h(e_G) = h(u*u⁻¹)
+```
+By the defining property of a homomorphism, this expands to:
+```
+h(u*u⁻¹) = h(u)·h(u⁻¹)
+```
+Thus, we have:
+```
+e_H = h(u)·h(u⁻¹)
+```
+Given that h ( u ) is an element in the group H , and e H is the unique identity element, it follows directly from the definition of an inverse in a group that h ( u⁻¹ ) must be the unique inverse of h ( u ). Hence:
+
+```
+h(u⁻¹) = h(u)⁻¹
+```
+This confirms that inverses are mapped to inverses, a crucial detail for maintaining the integrity of the group structure. Without this, the entire edifice would crumble.
+
+### Types
+
+Not all homomorphisms are created equal; some are more "equal" than others, depending on their injectivity and surjectivity. These classifications offer insight into the nature of the mapping and the relationship between the groups involved.
+
+*   **[Monomorphism](/Monomorphism)**: This is a group homomorphism that possesses the property of being [injective](/Injective_function) (or, as some prefer, one-to-one). What this means, in plain terms, is that distinct elements in G are always mapped to distinct elements in H . No two different elements in G ever converge to the same element in H . It's a map that preserves distinctness, ensuring that no information is lost in terms of individual element identity. Think of it as a projection where no two objects cast the same shadow.
+
+*   **[Epimorphism](/Epimorphism)**: Conversely, an epimorphism is a group homomorphism that is [surjective](/Surjective_function) (or, "onto"). This implies that every single element in the codomain group H has at least one corresponding element in the domain group G that maps to it. The homomorphism "reaches" every point in H ; there are no elements in H left untouched or unreached by the mapping from G . It's a complete covering, leaving no gaps.
+
+*   **[Isomorphism](/Group_isomorphism)**: The holy grail of homomorphisms, an isomorphism is a group homomorphism that is simultaneously [bijective](/Bijection) – meaning it is both injective and surjective. This implies a perfect, one-to-one and onto correspondence between the elements of G and H that also preserves their respective group operations. If a homomorphism is an isomorphism, then its inverse function is also, quite conveniently, a group homomorphism. When two groups G and H are connected by an isomorphism, they are termed *isomorphic*. For all practical, and indeed theoretical, purposes, these groups are structurally identical. They may use different symbols or labels for their elements, but their internal algebraic architecture is indistinguishable. Relabeling elements, perhaps, but certainly not altering their fundamental nature.
+
+*   **[Endomorphism](/Endomorphism)**: This is a special case of a group homomorphism where the domain and codomain are the same group, i.e., h &#160;: G → G . It's a homomorphism of a group to itself, often revealing internal symmetries or transformations within the group's structure. It's the group looking in a mirror, perhaps seeing a slightly altered, yet fundamentally familiar, reflection.
+
+*   **[Automorphism](/Automorphism)**: Building upon the endomorphism, an automorphism is an endomorphism that is also bijective, and therefore, an isomorphism from a group to itself. These are the self-isomorphisms of a group, essentially structural rearrangements that leave the group's overall architecture perfectly intact. The collection of all such automorphisms for a given group G , when equipped with [functional composition](/Functional_composition) as its operation, itself forms a group, known as the [automorphism group](/Automorphism) of G . This group is conventionally denoted by Aut( G ). For instance, consider the [cyclic group](/Cyclic_group) of [integers](/Integer) under addition, ( Z , +). Its automorphism group, Aut( Z , +), contains only two elements: the identity transformation (x ↦ x) and multiplication by -1 (x ↦ -x). This rather small group is, perhaps surprisingly, isomorphic to ( Z /2 Z , +), the group of integers modulo 2 under addition. It's a testament to the internal rigidity of Z.
+
+### Image and kernel
+
+These two concepts, the [kernel](/Kernel_(algebra)) and the [image](/Image_(mathematics)), are perhaps the most insightful aspects of a homomorphism, acting as diagnostic tools to understand precisely how much of the source group's structure is 'captured' by the target group, and how much is 'lost' or 'collapsed.'
+
+We define the [kernel](/Kernel_(algebra)) of a homomorphism h , denoted as `ker(h)`, to be the precise set of all elements in the domain group G that are mapped to the identity element e H in the codomain group H . In formal notation:
+
+```
+ker(h) := {u ∈ G : h(u) = e_H}
+```
+
+Conversely, the [image](/Image_(mathematics)) of h , denoted as `im(h)` or `h(G)`, is simply the set of all elements in H that are actually reached by the homomorphism from G . It's the collection of all possible outputs of the function:
+
+```
+im(h) := h(G) ≡ {h(u) : u ∈ G}
+```
+
+One can intuitively interpret the kernel and image of a homomorphism as critical indicators of how closely the homomorphism approximates an [isomorphism](/Group_isomorphism). A "small" kernel implies that few elements collapse to the identity, suggesting a more "faithful" representation. A "large" image indicates that a significant portion of the codomain group is covered, suggesting a "comprehensive" mapping. The profound relationship between these two concepts is elegantly encapsulated by the [first isomorphism theorem](/Isomorphism_theorem), which unequivocally states that the image of a group homomorphism, h ( G ), is structurally isomorphic to the [quotient group](/Quotient_group) formed by G divided by its kernel, G /ker h . This theorem essentially declares that everything "lost" in the kernel is precisely what defines the structure of the image.
+
+It is a crucial property, and one worth proving, that the kernel of h is not just any [subgroup](/Subgroup) of G ; it is, in fact, a [normal subgroup](/Normal_subgroup) of G . To demonstrate this, let u be an arbitrary element within `ker(h)`, meaning h ( u ) = e H . We must show that for any element g in G , the conjugate `g⁻¹ * u * g` also resides within `ker(h)`. That is, we need to show `h(g⁻¹ * u * g) = e_H`.
+
+Let's apply the homomorphism property:
+
+```
+h(g⁻¹ * u * g) = h(g⁻¹) · h(u) · h(g)
+```
+
+From our earlier deductions, we know that `h(g⁻¹) = h(g)⁻¹`. And, by definition of the kernel, `h(u) = e_H`. Substituting these into the expression:
+
+```
+= h(g)⁻¹ · e_H · h(g)
+```
+
+Since e H is the identity element in H , `e_H` multiplied by any element leaves that element unchanged. Thus:
+
+```
+= h(g)⁻¹ · h(g)
+```
+
+And finally, any element multiplied by its inverse in a group yields the identity element:
+
+```
+= e_H
+```
+
+Therefore, `g⁻¹ * u * g` is indeed an element of `ker(h)`, confirming that `ker(h)` is, without a doubt, a [normal subgroup](/Normal_subgroup) of G . This normality is not just a mathematical nicety; it's what allows the formation of the [quotient group](/Quotient_group) `G/ker(h)`, which is fundamental to the [First Isomorphism Theorem](/Isomorphism_theorem).
+
+Furthermore, the image of h , `im(h)`, is always a [subgroup](/Subgroup) of H . One can quickly verify the group axioms: `e_H` is in `im(h)` (since `h(e_G) = e_H`), it's closed under the operation (if `h(u)` and `h(v)` are in `im(h)`, then `h(u)·h(v) = h(u*v)` is also in `im(h)`), and it contains inverses (if `h(u)` is in `im(h)`, then `h(u)⁻¹ = h(u⁻¹)` is also in `im(h)`).
+
+Finally, a homomorphism h is a group [monomorphism](/Monomorphism) – meaning it is [injective](/Injective_function) (one-to-one) – if and only if its kernel consists solely of the identity element of G , i.e., `ker(h) = {e_G}`. This is a powerful equivalence. If `h` is injective, then only `e_G` can map to `e_H`. Conversely, if only `e_G` maps to `e_H`, then `h` must be injective. Let's trace the logic:
+
+Suppose `h(g_1) = h(g_2)` for two elements `g_1, g_2 ∈ G`.
+```
+h(g_1) = h(g_2)
+```
+Multiplying by the inverse `h(g_2)⁻¹` on the right in H:
+```
+h(g_1) · h(g_2)⁻¹ = e_H
+```
+Using the property `h(g_2)⁻¹ = h(g_2⁻¹)`:
+```
+h(g_1) · h(g_2⁻¹) = e_H
+```
+Applying the homomorphism property in reverse:
+```
+h(g_1 * g_2⁻¹) = e_H
+```
+Now, if we assume `ker(h) = {e_G}`, this means the only element in G that maps to `e_H` is `e_G` itself. Therefore:
+```
+g_1 * g_2⁻¹ = e_G
+```
+Multiplying by `g_2` on the right in G:
+```
+g_1 = g_2
+```
+This demonstrates that if `ker(h)` is trivial (contains only the identity), then `h` must be injective. The converse, that injectivity implies a trivial kernel, is simpler: if `h` is injective, and `h(u) = e_H`, then since we also know `h(e_G) = e_H`, by injectivity, `u` must be equal to `e_G`. Thus, the kernel can only contain `e_G`. This provides a very practical test for injectivity in the context of group homomorphisms.
+
+### Examples
+
+To ground these abstract notions, let's look at a few concrete instances of group homomorphisms. Some are obvious, some less so, but all illustrate the core principle.
+
+*   Consider the familiar [cyclic group](/Cyclic_group) of integers modulo 3 under addition, Z 3 = ( Z /3 Z , +) = ({0, 1, 2}, +), and the infinite group of [integers](/Integer) under addition, ( Z , +). The function h &#160;: Z → Z /3 Z defined by h ( u ) = u [mod](/Modular_arithmetic) 3 is a quintessential group homomorphism. It's quite clearly [surjective](/Surjective_function), as every element in Z /3 Z (0, 1, 2) is the image of some integer. Its kernel consists of all integers u for which u mod 3 = 0; that is, all integers that are perfectly divisible by 3. This forms the normal subgroup {..., -6, -3, 0, 3, 6, ...}.
+
+*   Consider a more exotic example involving matrices. The set:
+    ```
+    G ≡ { ( a  b ) | a > 0, b ∈ R }
+        { ( 0  1 ) }
+    ```
+    forms a group under standard [matrix multiplication](/Matrix_multiplication). For any complex number u , the function f u &#160;: G → C * (where C * denotes the multiplicative group of non-zero [complex numbers](/Complex_number)) defined by:
+    ```
+    ( a  b ) ↦ a^u
+    ( 0  1 )
+    ```
+    is a group homomorphism. This demonstrates how a complex exponentiation can preserve the group structure from a matrix group to a multiplicative group of complex numbers.
+
+*   Staying with the theme of exponents and roots, consider the multiplicative group of [positive real numbers](/Positive_real_numbers), ( R + , ⋅), and for any complex number u , the function f u &#160;: R + → C defined by `f_u(a) = a^u` is a group homomorphism. The multiplicative structure of `R+` is mapped to the multiplicative structure of `C`. This highlights the power of generalized exponentiation in maintaining algebraic relationships.
+
+*   The ubiquitous [exponential map](/Exponential_function) provides another elegant example. It yields a group homomorphism from the additive group of [real numbers](/Real_number) ( R , +) to the multiplicative group of non-zero real numbers ( R * , ⋅). That is, `exp: (R, +) → (R*, ·)` where `exp(x) = e^x`. The kernel of this homomorphism is just {0}, as `e^x = 1` only for `x = 0`. The image, however, consists exclusively of the [positive real numbers](/Positive_real_numbers) ( R + ), as `e^x` is always positive. This map is not surjective onto all of `R*` because it never produces negative numbers.
+
+*   The [exponential map](/Exponential_function) is even more fascinating when extended to the [complex numbers](/Complex_number). It yields a group homomorphism from the additive group of [complex numbers](/Complex_number) ( C , +) to the multiplicative group of non-zero complex numbers ( C * , ⋅). This particular map, `exp: (C, +) → (C*, ·)` where `exp(z) = e^z`, is remarkably [surjective](/Surjective_function) onto C *; every non-zero complex number can be expressed as `e^z` for some complex `z`. Its kernel is a set of purely imaginary numbers: `{2π ki &#160;: k ∈ Z }`, as can be readily deduced from [Euler's formula](/Euler%27s_formula) (`e^(iθ) = cos θ + i sin θ`). Fields like R and C that possess such homomorphisms from their additive group to their multiplicative group are, quite logically, termed [exponential fields](/Exponential_field).
+
+*   Consider the function `Φ: (Z, +) → (R, +)`, defined by `Φ(x) = √2x`. This is a homomorphism from the additive group of [integers](/Integer) to the additive group of [real numbers](/Real_number). If `x, y ∈ Z`, then `Φ(x+y) = √2(x+y) = √2x + √2y = Φ(x) + Φ(y)`. It's injective but not surjective, mapping integers to a sparse set of irrational numbers on the real line.
+
+*   Finally, let's consider the relationship between the multiplicative group of [positive real numbers](/Positive_real_numbers), `(R+, *)`, and the additive group of all [real numbers](/Real_number), `(R, +)`. If we represent these as `G = (R+, *)` and `H = (R, +)` respectively, then the function `f: G → H` defined by the [logarithm function](/Logarithm) (e.g., `f(a) = ln(a)`) is a group homomorphism. This is because `ln(a*b) = ln(a) + ln(b)`, perfectly translating multiplication into addition. This is a classic example of an isomorphism, demonstrating how these two seemingly different groups are, in fact, structurally identical.
+
+### Category of groups
+
+For those who appreciate structure on an even grander scale, the concept of group homomorphisms naturally leads to the realm of [category theory](/Category_theory). If you have a homomorphism `h: G → H` and another homomorphism `k: H → K`, then their composition, `k ∘ h: G → K`, is also, quite conveniently, a group homomorphism. This property is not trivial; it means that the "preservation of structure" is transitive. If G's structure is preserved in H, and H's structure is preserved in K, then G's structure is inherently preserved in K.
+
+This compositional closure is precisely what allows us to declare that the class of all [groups](/Group_(mathematics)), when considered alongside group homomorphisms as their [morphisms](/Morphism), forms a [category](/Category_theory). Specifically, this is known as the [category of groups](/Category_of_groups), often denoted as `Grp`. In this categorical framework, groups are the "objects," and homomorphisms are the "arrows" that connect them, providing a powerful and abstract way to study relationships between algebraic structures. It's a way of organizing the universe of groups, if you will, into a coherent, interconnected system.
+
+### Homomorphisms of abelian groups
+
+When we restrict our attention to [abelian groups](/Abelian_group) – those groups where the binary operation is [commutative](/Commutative_property) (u ∗ v = v ∗ u) – something rather interesting, and incredibly useful, occurs. If G and H are both [abelian groups](/Abelian_group), then the set of all possible group homomorphisms from G to H , conventionally denoted as Hom( G , H ), itself acquires the structure of an [abelian group](/Abelian_group).
+
+The group operation on Hom( G , H ) is defined as the addition of homomorphisms. For any two homomorphisms h and k in Hom( G , H ), their sum, denoted `h + k`, is a new function defined point-wise for every u in G as:
+
+```
+(h + k)(u) = h(u) + k(u)
+```
+
+Now, why is the commutativity of H absolutely essential here? Because we need to prove that `h + k` is, in fact, *still* a group homomorphism. Let's check the homomorphism property for `(h + k)`:
+
+`(h + k)(u * v) = h(u * v) + k(u * v)` (by definition of homomorphism addition)
+`= (h(u) + h(v)) + (k(u) + k(v))` (since h and k are homomorphisms)
+
+If H were not [abelian](/Abelian_group), we couldn't simply rearrange these terms. But since H *is* [abelian](/Abelian_group), addition in H is commutative and associative, allowing us to rearrange them as:
+
+`= (h(u) + k(u)) + (h(v) + k(v))` (by commutativity and associativity in H)
+`= (h + k)(u) + (h + k)(v)` (by definition of homomorphism addition)
+
+This confirms that `h + k` is indeed a homomorphism. The commutativity of H is the linchpin; without it, this elegant structure wouldn't hold. The identity element for this new group Hom( G , H ) is the zero homomorphism (mapping all elements of G to `e_H`), and the inverse of h is the homomorphism `(-h)(u) = -h(u)`.
+
+This addition of homomorphisms exhibits a beautiful compatibility with the composition of homomorphisms. Specifically, if f is a homomorphism from K to G (f ∈ Hom( K , G )), and h , k are elements of Hom( G , H ), and g is a homomorphism from H to L (g ∈ Hom( H , L )), then the following distributive-like properties hold:
+
+```
+(h + k) ∘ f = (h ∘ f) + (k ∘ f)
+```
+and
+```
+g ∘ (h + k) = (g ∘ h) + (g ∘ k)
+```
+
+This compatibility, combined with the fact that composition itself is [associative](/Associative), has significant implications. It means that the set of all endomorphisms of an [abelian group](/Abelian_group) G (i.e., Hom( G , G )), denoted End( G ), forms a [ring](/Ring_(algebra)). This is known as the [endomorphism ring](/Endomorphism_ring) of G . For a more concrete illustration, consider an [abelian group](/Abelian_group) formed by the [direct sum](/Direct_sum_of_groups) of m copies of Z / n Z . Its endomorphism ring is remarkably isomorphic to the ring of m -by- m [matrices](/Matrix_(mathematics)) whose entries are drawn from Z / n Z . It's almost as if matrices are just a fancy way of representing endomorphisms in certain contexts.
+
+The existence of direct sums, combined with these well-behaved kernels and the preadditive structure provided by Hom( G , H ), elevates the [category of all abelian groups](/Abelian_category) (often denoted `Ab`) to the status of a [preadditive category](/Preadditive_category), and even more importantly, a prototypical example of an [abelian category](/Abelian_category). These are categories with particularly rich and useful structures, forming the bedrock for much of modern homological algebra. It's where the abstract meets the incredibly powerful.
+
+### See also
+
+*   [Homomorphism](/Homomorphism)
+*   [Fundamental theorem on homomorphisms](/Fundamental_theorem_on_homomorphisms)
+*   [Quasimorphism](/Quasimorphism)
+*   [Ring homomorphism](/Ring_homomorphism)
+
+#

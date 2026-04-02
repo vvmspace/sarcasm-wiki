@@ -1,0 +1,571 @@
+---
+title: "Logistic Regression"
+description: "Right. Let's get this over with. You want a rewrite, extended, of this Wikipedia article. Don't expect sunshine and rainbows. I'll give you the facts, the gory..."
+keywords: logit function, example, statistics, log-odds, linear combination, independent variables, regression analysis, estimating, binary logistic regression, binary
+slug: "Logistic_regression"
+createdAt: "2025-11-17T06:18:31.006Z"
+updatedAt: "2025-11-17T06:18:31.006Z"
+contentType: "rewritten"
+---
+
+Right. Let's get this over with. You want a rewrite, extended, of this Wikipedia article. Don't expect sunshine and rainbows. I'll give you the facts, the gory details, and then some. Just try not to break anything.
+
+***
+
+## Statistical Model for a Binary Dependent Variable
+
+The term "logit model" redirects here. It's crucial to distinguish this from the [Logit function](/Logit_function) itself, though they are intimately related.
+
+### Example Graph of a Logistic Regression Curve
+
+Imagine a graph where the x-axis represents hours spent studying for an exam, and the y-axis shows the estimated probability of passing. A logistic regression curve would illustrate this relationship. It starts low, indicating a low probability of passing with minimal study, then gracefully curves upwards, showing how the probability of passing increases with more study, eventually leveling off near 1, signifying near certainty of passing. This curve visualizes the core concept: modeling a binary outcome (pass/fail) based on an independent variable (hours studying). For a deeper dive into the worked example, refer to the §&#160;[Example](/Logistic_regression#Example) section.
+
+### Introduction to the Logit Model
+
+In the realm of [statistics](/Statistics), a logistic model, often referred to as a logit model, is a statistical construct designed to model the [log-odds](/Logit) of an event occurring. This log-odds is then expressed as a [linear combination](/Linear_function_(calculus)) of one or more [independent variables](/Independent_variable). Within the framework of [regression analysis](/Regression_analysis), the process of [estimating](/Estimation_theory) the parameters of such a logistic model is known as logistic regression, or sometimes logit regression.
+
+For the specific case of [binary logistic regression](/Binary_regression), the focus is on a single [binary](/Binary_variable) [dependent variable](/Dependent_variable). This variable is typically encoded using an [indicator variable](/Indicator_variable), where the two possible values are labeled as "0" (representing, say, failure or absence) and "1" (representing success or presence). The [independent variables](/Independent_variable), on the other hand, can be either binary themselves (with two classes, also coded by an indicator variable) or [continuous variables](/Continuous_variable), capable of taking any real value.
+
+The probability of the dependent variable equaling the value "1" is what the logistic model aims to predict. This probability can range anywhere from 0 (indicating absolute certainty of the "0" outcome) to 1 (indicating absolute certainty of the "1" outcome). The mathematical bridge that converts the log-odds into this probability is the [logistic function](/Logistic_function), which is precisely where the model derives its name. The fundamental unit of measurement on the log-odds scale is called a [logit](/Logit), a term derived from "logistic unit," hence the alternative name for the model. For a more formal mathematical exposition, consult §&#160;[Background](/Logistic_regression#Background) and §&#160;[Definition](/Logistic_regression#Definition).
+
+### Applications of Binary Variables and Logistic Regression
+
+Binary variables are ubiquitous in statistical modeling. They are the go-to choice for representing the probability of a specific event or class occurring. Think of predicting whether a sports team will win, whether a patient is healthy or ill, or whether a customer will click on an advertisement. Since around 1970, the logistic model has been the predominant choice for modeling such [binary regression](/Binary_regression) scenarios.
+
+The versatility of logistic regression extends beyond binary outcomes. When dealing with [categorical variables](/Categorical_variable) that have more than two possible values (e.g., classifying an image as a cat, dog, or lion), the model can be generalized to [multinomial logistic regression](/Multinomial_logistic_regression). If these multiple categories possess a natural order, then [ordinal logistic regression](/Ordinal_logistic_regression), such as the proportional odds ordinal logistic model, becomes the appropriate tool. Further extensions are detailed in §&#160;[Extensions](/Logistic_regression#Extensions).
+
+It's important to note that logistic regression itself is a probability model; it doesn't directly perform [statistical classification](/Statistical_classification). However, it serves as a powerful foundation for building classifiers. By setting a threshold probability, one can classify observations: those with a probability above the threshold are assigned to one class, and those below are assigned to the other. This is a common technique for constructing a [binary classifier](/Binary_classifier).
+
+### Analogous Models and the Odds Ratio
+
+Other [sigmoid functions](/Sigmoid_function) can be employed in analogous linear models for binary variables, with the [probit model](/Probit_model) being a notable example discussed in §&#160;[Alternatives](/Logistic_regression#Alternatives). The defining characteristic of the logistic model lies in its multiplicative scaling of the odds of a given outcome. As an independent variable increases, the odds of the outcome change by a constant rate, with each variable having its own parameter. This mechanism effectively generalizes the concept of the [odds ratio](/Odds_ratio) for binary dependent variables. More abstractly, the logistic function represents the [natural parameter](/Natural_parameter) for the [Bernoulli distribution](/Bernoulli_distribution), making it a fundamentally "simple" way to map a real number to a probability.
+
+### Model Fitting and Estimation
+
+The parameters of a logistic regression model are most commonly estimated using [maximum-likelihood estimation](/Maximum-likelihood_estimation) (MLE). Unlike the straightforward [linear least squares](/Linear_least_squares_(mathematics)) method used in linear regression, MLE for logistic regression does not yield a simple closed-form solution. Instead, it requires iterative numerical methods, as detailed in §&#160;[Model fitting](/Logistic_regression#Model_fitting). Logistic regression, when fitted using MLE, plays a foundational role for binary or categorical responses, much like linear regression with ordinary least squares (OLS) does for scalar responses. It serves as a fundamental, well-understood baseline model, as explored further in §&#160;[Comparison with linear regression](/Logistic_regression#Comparison_with_linear_regression). The conceptualization and popularization of logistic regression as a general statistical model are largely attributed to [Joseph Berkson](/Joseph_Berkson), who introduced the term "logit" in his foundational work starting in 1944 (Berkson, 1944). This historical context is elaborated in §&#160;[History](/Logistic_regression#History).
+
+***
+
+### Applications
+
+Logistic regression finds its utility across a broad spectrum of disciplines, including the intricate fields of [machine learning](/Machine_learning), the critical domain of [medical research](/Medical_research), and the complex landscape of the [social sciences](/Social_sciences). For instance, the Trauma and Injury Severity Score ([TRISS](/TRISS)), a widely recognized tool for predicting mortality in trauma patients, was originally conceived by Boyd et al. utilizing logistic regression. Numerous other medical scales designed to assess patient severity have also been developed through this methodology.
+
+Consider the prediction of disease risk, such as [diabetes](/Diabetes_mellitus) or [coronary heart disease](/Coronary_artery_disease). Logistic regression can analyze observed patient characteristics—like age, sex, [body mass index](/Body_mass_index), and various [blood test](/Blood_test) results—to estimate the probability of developing such conditions. Similarly, in political science, one might use logistic regression to predict whether a voter will support a particular party, based on factors such as age, income, sex, race, geographic location, and past voting behavior.
+
+The applicability extends to [engineering](/Engineering), where it can predict the likelihood of failure in a process, system, or product. In [marketing](/Marketing), it's employed to forecast a customer's propensity to purchase a product or, conversely, to discontinue a service. In [economics](/Economics), it can model the probability of an individual participating in the labor force, or predict the likelihood of a homeowner defaulting on a [mortgage](/Mortgage). Furthermore, [conditional random fields](/Conditional_random_field), which are an extension of logistic regression for sequential data, are instrumental in [natural language processing](/Natural_language_processing). Disaster planners and engineers also rely on these models to anticipate the decision-making behavior of individuals during evacuations from events like fires, wildfires, or hurricanes, thereby aiding in the development of robust [disaster managing plans](/Emergency_management) and safer [built environment](/Built_environment) designs.
+
+#### Supervised Machine Learning
+
+Within the domain of [supervised machine learning](/Supervised_machine_learning), logistic regression stands out as a highly utilized algorithm, particularly for [binary classification](/Binary_classification) tasks. Think of distinguishing spam emails from legitimate ones, or diagnosing diseases by assessing the presence or absence of specific conditions based on patient data. This method ingenously employs the logistic (or sigmoid) function to transform a linear combination of input features into a probability estimate, neatly confined between 0 and 1. This probability signifies the likelihood that a given input belongs to one of two predefined categories. The core of logistic regression's efficacy lies in the logistic function's capacity to accurately model the probability of binary outcomes. Its characteristic S-shaped curve effectively maps any real-valued input to a value within the crucial 0-to-1 interval, making it exceptionally well-suited for tasks like sorting emails. By calculating the probability of the dependent variable falling into a specific group, logistic regression provides a probabilistic framework that underpins informed decision-making.
+
+***
+
+### Example
+
+#### Problem Statement
+
+Let’s consider a simplified scenario to illustrate the concept. Imagine a group of 20 students, each dedicating between 0 and 6 hours to studying for an exam. The question we aim to answer is: How does the duration of study time influence the probability of a student passing the exam?
+
+The rationale for employing logistic regression here is that the dependent variable—pass or fail—is inherently binary, typically coded as "1" for passing and "0" for failing. These are not cardinal numbers. If the dependent variable were a numerical grade on a scale, say 0–100, then a simpler [regression analysis](/Regression_analysis) would suffice.
+
+The provided data details the hours each student studied ( x k ) and their exam outcome ( y k ):
+
+| Hours Studied ( x k ) | Pass ( y k ) |
+| :------------------ | :----------- |
+| 0.50                | 0            |
+| 0.75                | 0            |
+| 1.00                | 0            |
+| 1.25                | 0            |
+| 1.50                | 0            |
+| 1.75                | 0            |
+| 1.75                | 1            |
+| 2.00                | 0            |
+| 2.25                | 1            |
+| 2.50                | 0            |
+| 2.75                | 1            |
+| 3.00                | 0            |
+| 3.25                | 1            |
+| 3.50                | 0            |
+| 4.00                | 1            |
+| 4.25                | 1            |
+| 4.50                | 1            |
+| 4.75                | 1            |
+| 5.00                | 1            |
+| 5.50                | 1            |
+
+Our objective is to fit a logistic function to this dataset, mapping study hours ( x k ) to exam outcomes ( y k ). The index k iterates from 1 to K=20, representing each student. The variable 'x' is termed the "[explanatory variable](/Explanatory_variable)", and 'y' is the "[categorical variable](/Categorical_variable)" with two levels: "pass" (1) and "fail" (0).
+
+#### Model Specification
+
+The [logistic function](/Logistic_function) takes the following form:
+
+$$ p(x) = \frac{1}{1 + e^{-(x - \mu) / s}} $$
+
+Here, μ represents a [location parameter](/Location_parameter), marking the midpoint of the curve where $ p(\mu) = 1/2 $. The parameter 's' is a [scale parameter](/Scale_parameter). This equation can be rewritten as:
+
+$$ p(x) = \frac{1}{1 + e^{-(\beta_0 + \beta_1 x)}} $$
+
+where $\beta_0 = -\mu / s$ is the [intercept](/Vertical_intercept) (the y-intercept of the line $ y = \beta_0 + \beta_1 x $), and $\beta_1 = 1/s$ is the slope, often referred to as the inverse scale parameter or [rate parameter](/Rate_parameter). These coefficients are derived from the linear relationship between the log-odds and x. Conversely, we can recover μ and s:
+
+$$ \mu = -\beta_0 / \beta_1 $$
+$$ s = 1 / \beta_1 $$
+
+It's worth noting that this model is a simplification; it implies that with enough study, everyone will eventually pass, which might not hold true in all real-world scenarios as it assumes a limit of 1.
+
+#### Model Fitting
+
+The standard metric for assessing [goodness of fit](/Goodness_of_fit) in logistic regression is [logistic loss](/Logistic_loss), also known as [log loss](/Log_loss). For each data point k, with study hours x k and outcome y k, we define:
+
+$$ \ell_k = \begin{cases} -\ln p_k & \text{ if } y_k=1, \\ -\ln(1-p_k) & \text{ if } y_k=0. \end{cases} $$
+
+This $\ell_k$ can be interpreted as the "[surprisal](/Surprisal)" of the observed outcome $y_k$ given the predicted probability $p_k$. It quantifies how unexpected the actual result was based on the model's prediction. Log loss is always non-negative, equaling zero only for perfect predictions and increasing as predictions deviate from the truth. Since $p_k$ is strictly between 0 and 1, log loss remains finite. Unlike linear regression where zero loss is achievable by perfectly hitting a data point, in logistic regression, zero loss is impossible because the predicted probability $p_k$ is never exactly 0 or 1.
+
+This can be condensed into a single expression:
+
+$$ \ell_k = -y_k \ln p_k - (1-y_k) \ln(1-p_k) $$
+
+This formula represents the [cross-entropy](/Cross-entropy) between the predicted probability distribution $(p_k, 1-p_k)$ and the actual distribution $(y_k, 1-y_k)$.
+
+The total loss, $-\ell$, is the negative log-likelihood, and the best fit is achieved when this quantity is minimized. Alternatively, we can maximize the log-likelihood itself:
+
+$$ \ell = \sum_{k=1}^{K} \left(\,y_{k}\ln(p_{k})+(1-y_{k})\ln(1-p_{k})\right) $$
+
+Maximizing this is equivalent to maximizing the [likelihood function](/Likelihood_function), $L$, which represents the probability of observing the given data under the fitted logistic function:
+
+$$ L = \prod_{k:y_{k}=1}p_{k}\,\prod_{k:y_{k}=0}(1-p_{k}) $$
+
+This approach is known as [maximum likelihood estimation](/Maximum_likelihood_estimation).
+
+#### Parameter Estimation
+
+Since the log-likelihood function $\ell$ is non-linear with respect to $\beta_0$ and $\beta_1$, their optimal values must be found using numerical optimization techniques. Setting the derivatives of $\ell$ with respect to $\beta_0$ and $\beta_1$ to zero provides the conditions for maximization:
+
+$$ 0 = \frac{\partial \ell}{\partial \beta_0} = \sum_{k=1}^{K}(y_{k}-p_{k}) $$
+$$ 0 = \frac{\partial \ell}{\partial \beta_1} = \sum_{k=1}^{K}(y_{k}-p_{k})x_{k} $$
+
+Solving these two equations for $\beta_0$ and $\beta_1$ generally requires iterative numerical methods.
+
+For the given data, the estimated coefficients that maximize $\ell$ are approximately:
+
+$$ \beta_0 \approx -4.1 $$
+$$ \beta_1 \approx 1.5 $$
+
+This yields values for $\mu$ and $s$:
+
+$$ \mu = -\beta_0 / \beta_1 \approx 2.7 $$
+$$ s = 1 / \beta_1 \approx 0.67 $$
+
+#### Predictions
+
+With the estimated coefficients $\beta_0$ and $\beta_1$, we can now predict the probability of passing the exam for any given study hours.
+
+For a student studying 2 hours ($x=2$):
+
+$$ t = \beta_0 + 2\beta_1 \approx -4.1 + 2 \cdot 1.5 = -1.1 $$
+$$ p = \frac{1}{1 + e^{-t}} \approx 0.25 $$
+
+So, the estimated probability of passing for a student studying 2 hours is approximately 0.25.
+
+For a student studying 4 hours ($x=4$):
+
+$$ t = \beta_0 + 4\beta_1 \approx -4.1 + 4 \cdot 1.5 = 1.9 $$
+$$ p = \frac{1}{1 + e^{-t}} \approx 0.87 $$
+
+The estimated probability of passing for a student studying 4 hours is approximately 0.87.
+
+The table below summarizes the estimated probabilities for various study hours:
+
+| Hours of study ( x ) | Log-odds ( t ) | Odds ( e<sup>t</sup> ) | Probability ( p ) |
+| :------------------- | :------------- | :----------------- | :---------------- |
+| 1                    | -2.57          | 0.076 ≈ 1:13.1     | 0.07              |
+| 2                    | -1.07          | 0.34 ≈ 1:2.91      | 0.26              |
+| 2.7 ( μ )            | 0              | 1                  | 0.50              |
+| 3                    | 0.44           | 1.55               | 0.61              |
+| 4                    | 1.94           | 6.96               | 0.87              |
+| 5                    | 3.45           | 31.4               | 0.97              |
+
+#### Model Evaluation
+
+The output of the logistic regression analysis typically includes coefficient estimates, standard errors, and significance tests. For our example:
+
+| Coefficient        | Std. Error | z-value | p-value (Wald) |
+| :----------------- | :--------- | :------ | :------------- |
+| Intercept ( β<sub>0</sub> ) | -4.1       | 1.8     | -2.3           | 0.021          |
+| Hours ( β<sub>1</sub> )    | 1.5        | 0.9     | 1.7            | 0.017          |
+
+The [Wald test](/Wald_test) indicates that hours studying is significantly associated with the probability of passing (p=0.017). However, the [likelihood-ratio test](/Likelihood-ratio_test) (LRT) is generally recommended for logistic regression, yielding a p-value of approximately 0.00064 for this data. The LRT is often preferred for its better performance, especially with smaller sample sizes or when coefficients are large.
+
+***
+
+### Generalizations
+
+This simple model exemplifies binary logistic regression, featuring a single explanatory variable and a binary categorical outcome. The concept expands significantly with [multinomial logistic regression](/Multinomial_logistic_regression), which accommodates any number of explanatory variables and more than two categories. When these multiple categories are ordered, [ordinal logistic regression](/Ordinal_logistic_regression), such as the proportional odds model, is employed. Further extensions, like [mixed logit](/Mixed_logit) models, allow for correlations among choices, and [conditional random fields](/Conditional_random_field) extend logistic regression to sequential data. These generalizations highlight the model's adaptability to complex scenarios.
+
+***
+
+### Background
+
+#### Definition of the Logistic Function
+
+The journey into logistic regression begins with understanding the [logistic function](/Logistic_function), a fundamental [sigmoid function](/Sigmoid_function). This function takes any real number input, denoted as 't', and transforms it into an output value strictly between zero and one. In the context of logit models, 't' represents the [log-odds](/Log-odds), and the function's output is interpreted as a [probability](/Probability). The standard logistic function, $\sigma(t)$, is defined as:
+
+$$ \sigma(t) = \frac{e^t}{e^t + 1} = \frac{1}{1 + e^{-t}} $$
+
+This function, graphed between $t=-6$ and $t=6$, exhibits its characteristic 'S' shape.
+
+Let's assume 't' is a linear function of a single [explanatory variable](/Dependent_and_independent_variables), 'x'. This relationship can be expressed as:
+
+$$ t = \beta_0 + \beta_1 x $$
+
+Here, $\beta_0$ and $\beta_1$ are the regression coefficients. The generalized logistic function, $p(x)$, can then be written as:
+
+$$ p(x) = \sigma(t) = \frac{1}{1 + e^{-(\beta_0 + \beta_1 x)}} $$
+
+In this logistic model, $p(x)$ is interpreted as the probability that the dependent variable, $Y$, takes on the value "1" (representing success). It's important to recognize that the response variables $Y_i$ are not identically distributed across all data points $i$. Instead, $P(Y_i = 1 \mid X)$ varies depending on the specific explanatory variables $X_i$, although the trials are independent given the design matrix $X$ and the shared parameters $\beta$.
+
+#### Definition of the Inverse of the Logistic Function
+
+The inverse of the standard logistic function, denoted as $g = \sigma^{-1}$, is known as the [logit](/Logit) function. It maps probabilities back to the log-odds scale. Applying the logit function to $p(x)$:
+
+$$ g(p(x)) = \sigma^{-1}(p(x)) = \operatorname{logit} p(x) = \ln \left(\frac{p(x)}{1-p(x)}\right) = \beta_0 + \beta_1 x $$
+
+Exponentiating both sides of this equation reveals the odds:
+
+$$ \frac{p(x)}{1-p(x)} = e^{\beta_0 + \beta_1 x} $$
+
+#### Interpretation of Terms
+
+*   **g**: The logit function, which establishes a linear relationship between the log-odds and the explanatory variables.
+*   **ln**: The [natural logarithm](/Natural_logarithm).
+*   **p(x)**: The probability of the dependent variable being a "success" (coded as 1), given the explanatory variables. The logistic function ensures this probability stays within the (0, 1) range, regardless of the linear predictor's output.
+*   **$\beta_0$**: The [intercept](/Y-intercept) of the linear model. It represents the log-odds when all predictor variables are zero.
+*   **$\beta_1 x$**: The contribution of the explanatory variable 'x' to the log-odds, scaled by its coefficient $\beta_1$.
+*   **e**: The base of the natural logarithm, representing the [exponential function](/Exponential_function).
+
+#### Definition of the Odds
+
+The odds of the dependent variable being a "success" are directly related to the exponential of the linear predictor:
+
+$$ \text{odds} = e^{\beta_0 + \beta_1 x} $$
+
+This relationship underscores the logit's role as a "link function" connecting the probability scale to the linear predictor.
+
+#### The Odds Ratio
+
+For a continuous independent variable 'x', the odds ratio quantifies how the odds of the outcome change with a unit increase in 'x':
+
+$$ \mathrm{OR} = \frac{\operatorname{odds}(x+1)}{\operatorname{odds}(x)} = \frac{\left(\frac{p(x+1)}{1-p(x+1)}\right)}{\left(\frac{p(x)}{1-p(x)}\right)} = e^{\beta_1} $$
+
+This implies that for every one-unit increase in 'x', the odds of success multiply by $e^{\beta_1}$. For a binary independent variable, the odds ratio is calculated from a 2x2 [contingency table](/Contingency_table) as $ad/bc$.
+
+#### Multiple Explanatory Variables
+
+When multiple explanatory variables ($x_1, x_2, \dots, x_m$) are involved, the linear predictor expands:
+
+$$ t = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \dots + \beta_m x_m = \beta_0 + \sum_{i=1}^{m} \beta_i x_i $$
+
+The model then becomes a [multiple regression](/Multiple_regression), with each $\beta_i$ representing the effect of $x_i$ on the log-odds, holding other variables constant. The probability is then calculated using the logistic function with this expanded linear predictor.
+
+***
+
+### Definition
+
+A dataset comprises $N$ points, where each point $i$ is characterized by a set of $m$ input variables $x_{1,i}, \dots, x_{m,i}$ (also known as independent variables, explanatory variables, predictor variables, features, or attributes) and a [binary](/Binary_variable) outcome variable $Y_i$ (the [dependent variable](/Dependent_variable), response variable, output variable, or class). This outcome variable can only take two values: 0 (typically representing "no" or "failure") or 1 (typically representing "yes" or "success"). The fundamental objective of logistic regression is to leverage this dataset to construct a predictive model for the outcome variable.
+
+Similar to linear regression, the outcome variables $Y_i$ are modeled as being dependent on the explanatory variables $x_{1,i}, \dots, x_{m,i}$.
+
+#### Explanatory Variables
+
+The explanatory variables can be of any [type](/Statistical_data_type), including [real-valued](/Real-valued), [binary](/Binary_variable), or [categorical](/Categorical_variable). The primary distinction lies between [continuous variables](/Continuous_variable) and [discrete variables](/Discrete_variable). For discrete variables with more than two possible values, [dummy variables](/Dummy_variable_(statistics)) (or [indicator variables](/Indicator_variable)) are typically used. These are created as separate explanatory variables, each taking a value of 0 or 1, where a 1 indicates the presence of a specific value for the discrete variable.
+
+#### Outcome Variables
+
+Formally, the outcomes $Y_i$ are modeled as following a [Bernoulli distribution](/Bernoulli_distribution). Each outcome is governed by an unobserved probability $p_i$, which is specific to that outcome but is related to the explanatory variables. This can be expressed in several equivalent ways:
+
+$$
+\begin{aligned}
+Y_{i} \mid x_{1,i}, \dots, x_{m,i} \ &\sim \operatorname {Bernoulli} (p_{i}) \\
+\operatorname {\mathbb {E} } [Y_{i} \mid x_{1,i}, \dots, x_{m,i}] &= p_{i} \\
+\Pr(Y_{i}=y \mid x_{1,i}, \dots, x_{m,i}) &= \begin{cases} p_{i} & \text{if } y=1 \\ 1-p_{i} & \text{if } y=0 \end{cases} \\
+\Pr(Y_{i}=y \mid x_{1,i}, \dots, x_{m,i}) &= p_{i}^{y}(1-p_{i})^{(1-y)}
+\end{aligned}
+$$
+
+These equations convey:
+*   The [probability distribution](/Probability_distribution) of each $Y_i$ is Bernoulli, conditional on the explanatory variables, with parameter $p_i$ being the probability of a "success" (outcome 1) for trial $i$. Each trial has its own probability of success, $p_i$, based on its unique explanatory variables.
+*   The [expected value](/Expected_value) of $Y_i$ is $p_i$. This means that over many repetitions of the same trial, the average outcome would approach $p_i$.
+*   The probability mass function explicitly states the probability for each of the two outcomes (0 or 1).
+*   The final equation provides a compact way to express the probability mass function, useful for calculations.
+
+#### Linear Predictor Function
+
+The core idea of logistic regression is to adapt the principles of [linear regression](/Linear_regression) by modeling the probability $p_i$ using a [linear predictor function](/Linear_predictor_function). This function is a [linear combination](/Linear_combination) of the explanatory variables and a set of [regression coefficients](/Regression_coefficient) specific to the model. For a data point $i$, this function is written as:
+
+$$ f(i) = \beta_0 + \beta_1 x_{1,i} + \dots + \beta_m x_{m,i} $$
+
+The coefficients $\beta_0, \dots, \beta_m$ quantify the relative influence of each explanatory variable on the outcome.
+
+This can be expressed more compactly using vector notation:
+
+*   The coefficients $\beta_0, \dots, \beta_m$ form a vector $\boldsymbol{\beta}$.
+*   An additional pseudo-variable $x_{0,i}=1$ is added for each data point, corresponding to the intercept coefficient $\beta_0$.
+*   The explanatory variables are then grouped into a vector $\mathbf{X}_i = [x_{0,i}, x_{1,i}, \dots, x_{m,i}]^T$.
+
+This allows the linear predictor function to be written as a dot product:
+
+$$ f(i) = \boldsymbol{\beta} \cdot \mathbf{X}_i $$
+
+#### Multiple Explanatory Variables and Categories
+
+The simple binary logistic regression model can be extended to handle multiple explanatory variables ($x_1, x_2, \dots, x_M$) and multiple categorical outcomes ($y = 0, 1, 2, \dots$). For the binary case ($y=0$ or $y=1$), the relationship between the predictor variables and the log-odds (logit) of the outcome $y=1$ is assumed to be linear:
+
+$$ t = \log_b \frac{p}{1-p} = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \dots + \beta_M x_M $$
+
+Here, $t$ is the log-odds, and $\beta_i$ are the model parameters. The base of the logarithm, $b$, is typically $e$ (Euler's number), but can be other bases like 2 or 10 for easier interpretation.
+
+Using vector notation, where $\mathbf{x} = [x_0, x_1, \dots, x_M]^T$ and $\boldsymbol{\beta} = [\beta_0, \beta_1, \dots, \beta_M]^T$ (with $x_0=1$), the logit becomes:
+
+$$ t = \sum_{m=0}^{M} \beta_m x_m = \boldsymbol{\beta} \cdot \mathbf{x} $$
+
+Solving for the probability $p$ that $y=1$ gives:
+
+$$ p(\mathbf{x}) = \frac{b^{\boldsymbol{\beta} \cdot \mathbf{x}}}{1 + b^{\boldsymbol{\beta} \cdot \mathbf{x}}} = \frac{1}{1 + b^{-\boldsymbol{\beta} \cdot \mathbf{x}}} = S_b(t) $$
+
+where $S_b(t)$ is the [sigmoid function](/Sigmoid_function) with base $b$. This formula allows us to estimate the probability of the event $y=1$ for a given observation $\mathbf{x}$. The optimal coefficients $\beta_m$ are found by maximizing the log-likelihood function:
+
+$$ \ell = \sum_{k=1}^{K} y_k \log_b (p(\mathbf{x}_k)) + \sum_{k=1}^{K} (1-y_k) \log_b (1-p(\mathbf{x}_k)) $$
+
+This maximization typically requires numerical methods, often by setting the derivatives of the log-likelihood with respect to each $\beta_m$ to zero.
+
+***
+
+### Interpretations
+
+Logistic regression offers several equivalent ways to interpret its results, fitting into broader statistical frameworks and allowing for various generalizations.
+
+#### As a Generalized Linear Model
+
+Logistic regression is a specific type of [generalized linear model](/Generalized_linear_model). The key distinguishing feature from standard [linear regression](/Linear_regression) is how the probability of an outcome is linked to the linear predictor function. In logistic regression, this link is the [logit function](/Logit_function):
+
+$$ \operatorname{logit} \left( \operatorname {\mathbb {E} } [Y_{i} \mid x_{1,i}, \dots, x_{m,i}] \right) = \operatorname{logit} (p_{i}) = \ln \left(\frac{p_{i}}{1-p_{i}}\right) = \beta_0 + \beta_1 x_{1,i} + \dots + \beta_m x_{m,i} $$
+
+Using compact vector notation:
+
+$$ \operatorname{logit} (p_i) = \boldsymbol{\beta} \cdot \mathbf{X}_i $$
+
+This formulation expresses logistic regression as a generalized linear model where the [probability distribution](/Probability_distribution) of the dependent variable (Bernoulli) is linked to a linear predictor via a specific transformation. The logit function is chosen because it maps the probability (bounded between 0 and 1) to an unbounded scale ($(-\infty, +\infty)$), matching the range of the linear predictor.
+
+The coefficients $\beta_j$ are interpreted as the additive effect on the log of the [odds](/Odds) for a unit change in the $j$-th explanatory variable. For instance, $e^{\beta_j}$ estimates the odds ratio associated with a unit increase in $x_j$.
+
+The model can also be expressed using the inverse of the logit function, the [logistic function](/Logistic_function):
+
+$$ E[Y_i \mid \mathbf{X}_i] = p_i = \operatorname{logit}^{-1}(\boldsymbol{\beta} \cdot \mathbf{X}_i) = \frac{1}{1 + e^{-\boldsymbol{\beta} \cdot \mathbf{X}_i}} $$
+
+This form explicitly shows the probability $p_i$ as a function of the linear predictor.
+
+#### As a Latent-Variable Model
+
+Logistic regression is equivalent to a [latent-variable model](/Latent_variable_model). This perspective is common in [discrete choice](/Discrete_choice) theory and facilitates extensions to more complex models. For each trial $i$, a latent variable $Y_i^*$ is defined:
+
+$$ Y_i^{\ast} = \boldsymbol{\beta} \cdot \mathbf{X}_i + \varepsilon_i $$
+
+where $\varepsilon_i$ is a random error term following a standard [logistic distribution](/Logistic_distribution) ($\varepsilon_i \sim \operatorname{Logistic}(0,1)$). The observed binary outcome $Y_i$ is then determined by whether $Y_i^*$ is positive:
+
+$$ Y_i = \begin{cases} 1 & \text{if } Y_i^{\ast} > 0 \\ 0 & \text{otherwise} \end{cases} $$
+
+The choice of the standard logistic distribution for $\varepsilon_i$ is not restrictive, as its location and scale parameters can be adjusted by modifying the intercept and scaling the coefficients $\boldsymbol{\beta}$. This formulation is mathematically equivalent to the generalized linear model approach, as the cumulative distribution function (CDF) of the standard logistic distribution is the logistic function itself. This perspective also clarifies the relationship with the [probit model](/Probit_model), which uses a normally distributed error term.
+
+#### Two-Way Latent-Variable Model
+
+A more elaborate latent-variable formulation uses two separate latent variables, one for each outcome category:
+
+$$
+\begin{aligned}
+Y_i^{0\ast } &= \boldsymbol{\beta}_0 \cdot \mathbf{X}_i + \varepsilon_0 \\
+Y_i^{1\ast } &= \boldsymbol{\beta}_1 \cdot \mathbf{X}_i + \varepsilon_1
+\end{aligned}
+$$
+
+where $\varepsilon_0$ and $\varepsilon_1$ are independent and identically distributed according to a standard type-1 [extreme value distribution](/Extreme_value_distribution). The observed outcome $Y_i$ is 1 if $Y_i^{1\ast} > Y_i^{0\ast}$, and 0 otherwise. This model is particularly useful for extending logistic regression to multi-outcome categorical variables, as seen in the [multinomial logit](/Multinomial_logit) model, where each choice might have its own utility function represented by a latent variable. This formulation is often employed in [econometrics](/Econometrics) and [political science](/Political_science) within the framework of [utility theory](/Utility_theory).
+
+Mathematically, this model can be shown to be equivalent to the previous latent-variable model by setting $\boldsymbol{\beta} = \boldsymbol{\beta}_1 - \boldsymbol{\beta}_0$ and $\varepsilon = \varepsilon_1 - \varepsilon_0$. The difference between two type-1 extreme value variables follows a logistic distribution, thus bridging this formulation back to the standard logistic regression model.
+
+#### As a "Log-Linear" Model
+
+This formulation connects to the generalized linear model by expressing the log of the probability for each outcome category as a linear predictor. For $N+1$ categories, the probabilities $p_n(\mathbf{x})$ are given by:
+
+$$ p_n(\mathbf{x}) = \frac{e^{\boldsymbol{\beta}_n \cdot \mathbf{x}}}{1 + \sum_{u=1}^{N} e^{\boldsymbol{\beta}_u \cdot \mathbf{x}}} \quad \text{for } n=1, \dots, N $$
+$$ p_0(\mathbf{x}) = \frac{1}{1 + \sum_{u=1}^{N} e^{\boldsymbol{\beta}_u \cdot \mathbf{x}}} $$
+
+where each $p_n(\mathbf{x})$ for $n>0$ has its own set of regression coefficients $\boldsymbol{\beta}_n$. This generalizes to the [softmax function](/Softmax_function). To ensure identifiability, one set of coefficients (e.g., $\boldsymbol{\beta}_0$) is often fixed to zero. This formulation is directly related to the [multinomial logit](/Multinomial_logit) model and is frequently used in [machine learning](/Machine_learning) and [natural language processing](/Natural_language_processing).
+
+#### As a Single-Layer Perceptron
+
+The functional form of logistic regression, where the probability $p_i$ is given by:
+
+$$ p_i = \frac{1}{1 + e^{-(\beta_0 + \beta_1 x_{1,i} + \dots + \beta_k x_{k,i})}} $$
+
+is identical to that of a single-layer [perceptron](/Perceptron) or [artificial neural network](/Artificial_neural_network). The key difference is that logistic regression outputs a continuous probability, whereas a traditional perceptron might output a binary step function. The continuous output and its easily calculable derivative allow logistic regression to be trained using [backpropagation](/Backpropagation).
+
+#### In Terms of Binomial Data
+
+When the dependent variable follows a [binomial distribution](/Binomial_distribution) (i.e., $Y_i$ represents the number of successes in $n_i$ independent trials), the logistic model is adapted accordingly. The probability of success $p_i$ for each trial is modeled using the logistic function:
+
+$$ p_i = \frac{1}{1 + e^{-\boldsymbol{\beta} \cdot \mathbf{X}_i}} $$
+
+The probability of observing $y_i$ successes in $n_i$ trials is then given by the binomial probability mass function:
+
+$$ \Pr(Y_i=y \mid \mathbf{X}_i) = {n_i \choose y} p_i^y (1-p_i)^{n_i-y} $$
+
+This model is fitted using methods similar to the basic binary logistic regression.
+
+***
+
+### Model Fitting
+
+#### Maximum Likelihood Estimation (MLE)
+
+The parameters of logistic regression models are typically estimated using [maximum likelihood estimation](/Maximum_likelihood_estimation). Unlike linear regression, where a closed-form solution exists for the parameters using [least squares](/Least_squares), MLE for logistic regression requires iterative numerical methods, such as [Newton's method](/Newton%27s_method). This process involves starting with an initial guess for the parameters and iteratively refining them until the likelihood function is maximized.
+
+Convergence issues can arise in MLE. Non-convergence suggests that the iterative process failed to find appropriate solutions, potentially due to:
+*   **High predictor-to-case ratio**: Too many predictors relative to the number of observations can lead to unstable estimates. [Regularized](/Regularization_(mathematics)) logistic regression is often used in such scenarios.
+*   **Multicollinearity**: High correlations between predictor variables can inflate standard errors and hinder convergence.
+*   **Data Sparseness**: A large proportion of zero counts, especially with categorical predictors, can make the log-likelihood undefined. Solutions include collapsing categories or adding a small constant to all counts.
+*   **Complete Separation**: When predictors perfectly predict the outcome, leading to infinite coefficients. This indicates a potential data error or a need for model revision.
+
+#### Iteratively Reweighted Least Squares (IRLS)
+
+Binary logistic regression can be efficiently solved using [iteratively reweighted least squares (IRLS)](/Iteratively_reweighted_least_squares) (IRLS). This method is mathematically equivalent to maximizing the [log-likelihood](/Log-likelihood) using Newton's method. The algorithm iteratively updates parameter estimates ($\mathbf{w}$) using a weighted least squares approach, where the weights are derived from the current estimates of the probabilities. The update step is generally formulated as:
+
+$$ \mathbf{w}_{k+1} = (\mathbf{X}^T \mathbf{S}_k \mathbf{X})^{-1} \mathbf{X}^T (\mathbf{S}_k \mathbf{X} \mathbf{w}_k + \mathbf{y} - \boldsymbol{\mu}_k) $$
+
+Here, $\mathbf{S}_k$ is a diagonal weighting matrix based on the probabilities $\boldsymbol{\mu}_k$ at iteration $k$, and $\mathbf{X}$ is the design matrix.
+
+#### Bayesian Inference
+
+In a [Bayesian statistics](/Bayesian_statistics) framework, [prior distributions](/Prior_distribution) are placed on the regression coefficients. While there isn't a [conjugate prior](/Conjugate_prior) for the logistic likelihood, modern computational methods like Markov chain Monte Carlo (MCMC) simulations (using software like [JAGS](/Just_another_Gibbs_sampler), [PyMC](/PyMC), or [Stan](/Stan_(software))) allow for the estimation of posterior distributions. For large datasets, approximate methods like [variational Bayesian methods](/Variational_Bayesian_methods) are often employed for computational efficiency.
+
+#### The "Rule of Ten"
+
+A widely cited, though debated, guideline is the "[one in ten rule](/One_in_ten_rule)," suggesting a minimum of 10 events (cases in the less frequent outcome category) per explanatory variable for stable model estimates. However, simulation studies show varying degrees of reliability for this rule, with some suggesting it might be overly conservative, while others indicate more events might be needed for precise prediction. The necessary sample size can depend on the desired precision of predicted probabilities and the complexity of the model.
+
+***
+
+### Error and Significance of Fit
+
+#### Deviance and Likelihood Ratio Tests
+
+Assessing the fit of a logistic regression model involves evaluating how well the model explains the observed data. [Deviance](/Deviance_(statistics)) is a key measure, analogous to the sum of squared errors in linear regression. It quantifies the discrepancy between the fitted model and the data.
+
+The [likelihood-ratio test](/Likelihood-ratio_test) is fundamental for assessing model fit and comparing nested models. It compares the likelihood of the fitted model to that of a "saturated" model (a model that perfectly fits the data) or a "null" model (a model with only an intercept). The deviance statistic, calculated as $-2 \ln(\text{Likelihood ratio})$, approximately follows a [chi-squared distribution](/Chi-squared_distribution).
+
+*   **Null Deviance**: Measures the fit of a model with only an intercept.
+*   **Model Deviance**: Measures the fit of the proposed model with predictors.
+
+The difference between the null deviance and the model deviance, assessed on a chi-square distribution, indicates the significance of the added predictors. A significantly smaller model deviance suggests that the predictors substantially improve the model's fit.
+
+#### Pseudo-R-Squared Measures
+
+Unlike linear regression's $R^2$, which directly represents the proportion of variance explained, logistic regression lacks a single, universally accepted equivalent. Several [pseudo-R-squared](/Pseudo-R-squared) measures exist (e.g., Likelihood Ratio $R^2_L$, Cox and Snell $R^2_{CS}$, Nagelkerke $R^2_N$), each offering a different perspective on model fit but with inherent limitations.
+
+#### Hosmer–Lemeshow Test
+
+The [Hosmer–Lemeshow test](/Hosmer%E2%80%93Lemeshow_test) assesses goodness-of-fit by comparing observed and expected event rates across deciles of predicted probabilities. However, its reliance on arbitrary binning makes it less favored by some statisticians.
+
+#### Coefficient Significance
+
+To understand the contribution of individual predictors, their significance is assessed. In logistic regression, coefficients represent changes in the log-odds. Their statistical significance is typically evaluated using:
+
+*   **Likelihood Ratio Test**: Compares nested models (e.g., model with and without a specific predictor) to determine if the predictor significantly improves fit. This is generally the preferred method.
+*   **Wald Statistic**: Analogous to the t-test in linear regression, it assesses the significance of individual coefficients. However, it can be unreliable with large coefficients or sparse data.
+
+#### Case-Control Sampling
+
+Logistic regression is uniquely suited for analyzing [case-control studies](/Case-control_study) where outcomes are rare. It can provide correct coefficient estimates for the effects of independent variables even with "unbalanced" data (where cases are oversampled), although the intercept estimate may need adjustment based on the true population prevalence.
+
+***
+
+### Discussion
+
+Logistic regression, like other [regression analysis](/Regression_analysis) techniques, models relationships between predictor variables (continuous or categorical) and a dependent variable. However, unlike linear regression, it's designed for categorical dependent variables, specifically modeling the probability of an event occurring (akin to a [Bernoulli trial](/Bernoulli_trial)). This distinction necessitates different assumptions and modeling approaches.
+
+To bridge the gap between the binary outcome and the continuous nature of regression, logistic regression transforms the probability $p$ into its [logit](/Logit):
+
+$$ \operatorname{logit} p = \ln \frac{p}{1-p} \quad \text{for } 0 < p < 1 $$
+
+This logit is then modeled as a linear function of the predictors:
+
+$$ \operatorname{logit} E(Y) = \beta_0 + \beta_1 x $$
+
+where $Y$ is the Bernoulli-distributed response variable and $x$ is the predictor. The $\beta$ values are the model parameters. The predicted logit is then converted back to predicted odds using the [exponential function](/Exponential_function). This allows the model to estimate the probability of "success" (outcome 1) as a continuous variable, even though the observed outcome is binary. For specific classification tasks, a threshold can be set on these predicted odds to make a definitive yes/no prediction.
+
+#### Machine Learning and Cross-Entropy Loss Function
+
+In [machine learning](/Machine_learning) contexts, logistic regression is used for binary classification. The [maximum likelihood estimation](/Maximum_likelihood_estimation) process for logistic regression is equivalent to minimizing the [cross-entropy](/Cross-entropy) loss function. The model aims to find parameters $\theta$ that maximize the likelihood of observing the data, which, under the assumption of independent Bernoulli trials, leads to maximizing the log-likelihood:
+
+$$ N^{-1} \log L(\theta \mid y;x) = N^{-1} \sum_{i=1}^{N} \log \Pr(y_i \mid x_i; \theta) $$
+
+where $\Pr(y \mid X; \theta) = h_{\theta}(X)^y (1-h_{\theta}(X))^{(1-y)}$ and $h_{\theta}(X) = \frac{1}{1 + e^{-\theta^T X}}$. This optimization process, often achieved through [gradient descent](/Gradient_descent), effectively minimizes the divergence between the model's predicted distribution and the true data distribution.
+
+***
+
+### Comparison with Linear Regression
+
+Logistic regression shares similarities with [linear regression](/Linear_regression) as both are forms of [regression analysis](/Regression_analysis) and can be viewed as [generalized linear models](/Generalized_linear_model). However, their underlying assumptions and applications differ significantly:
+
+*   **Dependent Variable Distribution**: Linear regression assumes normally distributed residuals, suitable for continuous outcomes. Logistic regression assumes a [Bernoulli distribution](/Bernoulli_distribution) for the dependent variable, reflecting its binary nature.
+*   **Predicted Values**: Linear regression predicts the actual value of the dependent variable. Logistic regression predicts the *probability* of the outcome being 1, constrained between 0 and 1 by the [logistic function](/Logistic_function). This avoids nonsensical predictions outside the 0-1 range that linear regression might produce for binary outcomes.
+*   **Link Function**: Linear regression uses an identity link function (no transformation). Logistic regression uses the logit link function to relate the linear predictor to the probability.
+
+#### Alternatives
+
+A prominent alternative to the logistic model is the [probit model](/Probit_model). Both are sigmoid functions used for binary outcomes. They differ in the specific link function employed (logit vs. probit) and, in their latent variable interpretations, in the distribution of the error term (logistic vs. normal). The choice between them often depends on empirical performance and theoretical considerations. Other [sigmoid functions](/Sigmoid_function) or error distributions can also be used.
+
+Logistic regression also contrasts with older methods like Fisher's [linear discriminant analysis](/Linear_discriminant_analysis). While discriminant analysis requires assumptions of multivariate normality for predictors, logistic regression is more flexible in this regard. Techniques like [spline functions](/Spline_(mathematics)) can be used to relax the assumption of linear predictor effects.
+
+***
+
+### History
+
+The conceptual roots of the logistic function trace back to [Pierre François Verhulst](/Pierre_Fran%C3%A7ois_Verhulst) in the 1830s and 1840s, who used it to model [population growth](/Population_growth) and termed it "logistic." His early methods of fitting the curve were rudimentary. Independently, the logistic function emerged in chemistry to model [autocatalysis](/Autocatalysis).
+
+In the early 20th century, [Raymond Pearl](/Raymond_Pearl) and [Lowell Reed](/Lowell_Reed) rediscovered the logistic function for population growth modeling, though their initial fitting methods also proved suboptimal. The term "logistic" was revived by [Udny Yule](/Udny_Yule) in 1925.
+
+The 1930s saw the development of the [probit model](/Probit_model) by [Chester Ittner Bliss](/Chester_Ittner_Bliss) and [John Gaddum](/John_Gaddum), with [Ronald A. Fisher](/Ronald_A._Fisher) refining its estimation. The probit model, widely used in [bioassay](/Bioassay), competed with the emerging logit model.
+
+[Edwin Bidwell Wilson](/Edwin_Bidwell_Wilson) and [Jane Worcester](/Jane_Worcester) applied the logistic function in bioassay in the 1940s. However, the logistic model's broader development and popularization are largely credited to [Joseph Berkson](/Joseph_Berkson), who coined the term "logit" in 1944. Initially viewed as a less favorable alternative to probit, the logit model gradually gained parity and eventually surpassed probit in popularity by the 1970s due to its computational simplicity, mathematical elegance, and wider applicability across various fields. [David Cox](/David_Cox_(statistician)) made significant contributions to refining the model in the 1950s.
+
+The introduction of the [multinomial logit model](/Multinomial_logit) by [Cox](/David_Cox_(statistician)) and [Henri Theil](/Henri_Theil) in the late 1960s further expanded the model's scope. [Daniel McFadden](/Daniel_McFadden) later linked the multinomial logit to [utility theory](/Utility_theory) and [discrete choice](/Discrete_choice) models, providing a strong theoretical foundation for logistic regression.
+
+***
+
+### Extensions
+
+Logistic regression has numerous extensions to handle more complex data structures and research questions:
+
+*   **[Multinomial logistic regression](/Multinomial_logistic_regression)**: For dependent variables with more than two unordered categories.
+*   **[Ordered logistic regression](/Ordered_logistic_regression)**: For dependent variables with ordered categories.
+*   **[Mixed logit](/Mixed_logit)**: Accounts for correlations among choices in multinomial settings.
+*   **[Conditional random field](/Conditional_random_field)**: Extends logistic regression to interdependent variables, often used for sequential data.
+*   **[Conditional logistic regression](/Conditional_logistic_regression)**: Specifically designed for matched or stratified data, commonly used in [observational studies](/Observational_studies).
+
+***
+
+### See Also
+
+*   [Mathematics portal](/Portal:Mathematics)
+*   [Logistic function](/Logistic_function)
+*   [Discrete choice](/Discrete_choice)
+*   [Jarrow–Turnbull model](/Jarrow%E2%80%93Turnbull_model)
+*   [Limited dependent variable](/Limited_dependent_variable)
+*   [Multinomial logit model](/Multinomial_logit)
+*   [Ordered logit](/Ordered_logit)
+*   [Hosmer–Lemeshow test](/Hosmer%E2%80%93Lemeshow_test)
+*   [Brier score](/Brier_score)
+*   [mlpack](/Mlpack) - C++ implementation of logistic regression.
+*   [Local case-control sampling](/Local_case-control_sampling)
+*   [Logistic model tree](/Logistic_model_tree)
+
+***
+
+#

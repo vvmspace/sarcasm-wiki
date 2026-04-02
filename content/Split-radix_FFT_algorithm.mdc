@@ -1,0 +1,69 @@
+---
+title: "Split-Radix FFT Algorithm"
+description: "The split-radix fast Fourier transform (FFT) is a rather elegant, if initially overlooked, algorithm for computing the discrete Fourier transform (DFT). Its..."
+keywords: fast fourier transform, discrete fourier transform, cooley–tukey fft algorithm, real, power-of-two, computer, root of unity, twiddle factors, butterfly diagram
+slug: "Split-radix_FFT_algorithm"
+createdAt: "2025-11-19T04:09:40.793Z"
+updatedAt: "2025-11-19T04:09:40.793Z"
+contentType: "rewritten"
+---
+
+The split-radix [fast Fourier transform](/Fast_Fourier_transform) (FFT) is a rather elegant, if initially overlooked, algorithm for computing the [discrete Fourier transform](/Discrete_Fourier_transform) (DFT). Its genesis is a bit of a historical curio, first appearing in a paper by R. Yavne in 1968, which, frankly, didn’t exactly set the world alight at the time. It wasn’t until 1984 that the algorithm was independently rediscovered by several researchers. It was P. Duhamel and H. Hollmann who, in their wisdom, bestowed upon it the rather descriptive moniker "split radix." Fundamentally, it’s a clever variation of the venerable [Cooley–Tukey FFT algorithm](/Cooley%E2%80%93Tukey_FFT_algorithm), specifically designed to achieve remarkable efficiency by employing a mixed radix approach, blending radices 2 and 4. What this means, in essence, is that it breaks down a DFT of size N into one smaller DFT of size N/2 and two even smaller DFTs of size N/4. A recursive decomposition, if you will, that chips away at the problem until it’s manageable.
+
+For a considerable period, the split-radix FFT, along with its various offshoots, held the undisputed crown for the lowest published count of arithmetic operations – that is, the precise number of [real](/Real_number) additions and multiplications required to compute a DFT when N is a [power-of-two](/Power_of_two). The original algorithm’s count was eventually nudged down in 2004, a feat initially achieved through manual optimization for N=64 by J. Van Buskirk, as documented in later publications. Even then, the record-breaking count was ultimately attained by a refined version of the split radix itself, a testament to its inherent efficiency, as detailed by Johnson and Frigo in 2007. Now, while the sheer number of arithmetic operations isn't the sole determinant of how fast a DFT can be computed on a [computer](/Computer] – other factors like memory access patterns and instruction-level parallelism play significant roles – the pursuit of the minimum possible operation count has been a persistent theoretical fascination for decades. It’s worth noting, however, that a definitive, tight lower bound for this count remains elusive.
+
+The split-radix algorithm, in its pure form, is restricted to cases where N is a multiple of 4. However, its recursive nature means it can be seamlessly integrated with other FFT algorithms, allowing for flexibility and optimization across different scenarios.
+
+### Split-Radix Decomposition
+
+Let’s delve into the mechanics. The [discrete Fourier transform](/Discrete_Fourier_transform) (DFT) is mathematically defined by the following summation:
+
+$X_{k}=\sum _{n=0}^{N-1}x_{n}\omega _{N}^{nk}$
+
+Here, $k$ is an integer that spans from 0 to $N-1$. The term $\omega_{N}$ represents the primitive [root of unity](/Root_of_unity), defined as:
+
+$\omega_{N}=e^{-{\frac {2\pi i}{N}}}$
+
+A crucial property we’ll leverage is that $\omega_{N}^{N}=1$.
+
+The split-radix algorithm ingeniously decomposes this large summation into three smaller ones. For clarity, we’ll focus on the "decimation in time" variant; the "decimation in frequency" version is essentially its mirror image. The strategy involves separating the input sequence $x_n$ based on the parity of the index $n$.
+
+First, we consider the terms where $n$ is even, which can be represented as $x_{2n_{2}}$. Second, we take the terms where $n$ is odd. These odd-indexed terms are further subdivided into two groups: those where $n$ is of the form $4n_{4}+1$, and those where $n$ is of the form $4n_{4}+3$. This partitioning is determined by the index modulo 4. In this context, $n_m$ signifies an index that iterates from 0 up to $N/m - 1$.
+
+The resulting decomposition of the summation takes this form:
+
+$X_{k}=\sum _{n_{2}=0}^{N/2-1}x_{2n_{2}}\omega _{N/2}^{n_{2}k}+\omega _{N}^{k}\sum _{n_{4}=0}^{N/4-1}x_{4n_{4}+1}\omega _{N/4}^{n_{4}k}+\omega _{N}^{3k}\sum _{n_{4}=0}^{N/4-1}x_{4n_{4}+3}\omega _{N/4}^{n_{4}k}$
+
+This expression relies on the fundamental property $\omega_{N}^{mnk}=\omega_{N/m}^{nk}$. These three summations are precisely DFTs of lengths $N/2$ and $N/4$. The brilliance lies in the fact that these smaller DFTs can be computed recursively, and their results then efficiently combined.
+
+To be more precise, let $U_k$ represent the result of the DFT of length $N/2$ (for $k = 0, \dots, N/2 - 1$), and let $Z_k$ and $Z'_k$ denote the results of the DFTs of length $N/4$ (for $k = 0, \dots, N/4 - 1$). The final output $X_k$ is then a straightforward combination:
+
+$X_{k}=U_{k}+\omega _{N}^{k}Z_{k}+\omega _{N}^{3k}Z'_{k}$
+
+However, this initial formulation involves some redundant computations. Specifically, when $k \geq N/4$, many calculations overlap with those for $k < N/4$. The key insight here is that if we increment $k$ by $N/4$, the DFTs of length $N/4$ remain unchanged due to their periodicity. The DFT of length $N/2$ also remains invariant if we increment $k$ by $N/2$. The only elements that change are the $\omega_{N}^{k}$ and $\omega_{N}^{3k}$ terms, which are known as [twiddle factors](/Twiddle_factor).
+
+By employing the identities:
+
+$\omega_{N}^{k+N/4}=-i\omega_{N}^{k}$
+
+and
+
+$\omega_{N}^{3(k+N/4)}=i\omega_{N}^{3k}$
+
+we can arrive at a more optimized structure for combining the results. This leads to the following expressions for the complete output $X_k$:
+
+$X_{k}=U_{k}+\left(\omega _{N}^{k}Z_{k}+\omega _{N}^{3k}Z'_{k}\right),$
+
+$X_{k+N/2}=U_{k}-\left(\omega _{N}^{k}Z_{k}+\omega _{N}^{3k}Z'_{k}\right),$
+
+$X_{k+N/4}=U_{k+N/4}-i\left(\omega _{N}^{k}Z_{k}-\omega _{N}^{3k}Z'_{k}\right),$
+
+$X_{k+3N/4}=U_{k+N/4}+i\left(\omega _{N}^{k}Z_{k}-\omega _{N}^{3k}Z'_{k}\right),$
+
+These four equations, when $k$ ranges from $0$ to $N/4 - 1$, provide all the necessary output values $X_k$.
+
+Observe how these expressions are structured to combine the various DFT outputs through pairs of additions and subtractions. These fundamental operations are visually represented in a [butterfly diagram](/Butterfly_diagram). To achieve the absolute minimal operation count in this algorithm, careful consideration must be given to specific cases. For instance, when $k=0$, the twiddle factors simplify to unity. Similarly, at $k=N/8$, the twiddle factors take on values of $(1 \pm i)/\sqrt{2}$, allowing for more efficient multiplication. These optimizations were explored in detail by Sorensen et al. in 1986. It's standard practice to consider multiplications by $\pm 1$ and $\pm i$ as "free" operations, as any required sign changes can be absorbed by converting additions to subtractions or vice versa.
+
+This recursive decomposition is applied iteratively when $N$ is a power of two. The foundational steps of this recursion involve the base cases: for $N=1$, the DFT is simply a direct copy, $X_0 = x_0$; and for $N=2$, it involves a simple addition, $X_0 = x_0 + x_1$, and a subtraction, $X_1 = x_0 - x_1$.
+
+These meticulous considerations culminate in an operation count of $4N\log _{2}N-6N+8$ real additions and multiplications for $N > 1$ being a power of two. This count assumes that any residual factor of 2, after the repeated split-radix steps that divide $N$ by 4, is handled either by the direct DFT definition (requiring 4 real additions and multiplications) or, equivalently, by a radix-2 Cooley–Tukey FFT step. It's a rather efficient way to untangle complex signals, wouldn't you agree?

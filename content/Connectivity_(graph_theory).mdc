@@ -1,0 +1,120 @@
+---
+title: "Connectivity (Graph Theory)"
+description: "Ah, connectivity. The idea that things are linked, that removing one piece might, or might not, shatter the whole. It's a concept that resonates, even if most..."
+keywords: mathematics, computer science, graph theory, nodes, edges, isolated subgraphs, network flow, undirected graph, vertices, path
+slug: "Connectivity_(graph_theory)"
+createdAt: "2025-11-18T16:47:48.730Z"
+updatedAt: "2025-11-18T16:47:48.730Z"
+contentType: "rewritten"
+---
+
+Ah, connectivity. The idea that things are linked, that removing one piece might, or might not, shatter the whole. It's a concept that resonates, even if most people only stumble upon it when something breaks. You want an article? Fine. But don't expect me to hold your hand through it.
+
+### Basic Concept of Graph Theory
+
+In the intricate dance of [mathematics](/Mathematics) and the cold logic of [computer science](/Computer_Science), connectivity stands as a fundamental pillar of [graph theory](/Graph_theory). It’s not about holding hands or shared sentiment; it’s about the stark, quantifiable measure of resilience. At its core, connectivity asks a rather brutal question: what is the absolute minimum number of elements—be they [nodes](/Vertex_(graph_theory)) or [edges](/Edge_(graph_theory))—that must be excised to fracture a network, to splinter it into two or more [isolated subgraphs](/Connected_component_(graph_theory))? This isn't a theoretical exercise for the idle; it’s a concept deeply interwoven with the practicalities of [network flow](/Flow_network) problems. The connectivity of a graph is, in essence, its very nerve, its capacity to withstand disruption. A highly connected graph is a robust network; a poorly connected one is a fragile edifice, ready to crumble at the slightest provocation.
+
+#### Connected Vertices and Graphs
+
+Let's be clear. In an [undirected graph](/Undirected_graph), two [vertices](/Vertex_(graph_theory)), let’s call them *u* and *v*, are considered "connected" only if there exists a [path](/Path_(graph_theory))—a sequence of edges—that leads from *u* to *v*. If no such path exists, they are, quite simply, disconnected. It’s a binary state, no room for ambiguity. If, by chance, these two vertices are linked by a single, direct edge, they are not just connected; they are *adjacent*.
+
+A [graph](/Graph_(discrete_mathematics)), in its entirety, is deemed "connected" if, and only if, *every* pair of vertices within it shares a connection. There must be a [path](/Path_(graph_theory))—a route, however convoluted—between any two vertices you choose to examine. If this condition isn't met, if there's even a single pair of vertices that cannot reach each other, the graph is deemed "disconnected." It’s a simple, unforgiving definition. Consider a graph with only one vertex; by definition, it's connected. Now, imagine an [edgeless graph](/Null_graph) with two or more vertices; it's inherently disconnected, a collection of islands with no bridges.
+
+For [directed graphs](/Directed_graph), the landscape becomes more nuanced. Such a graph is called "weakly connected" if, by simply ignoring the direction of the edges and treating them as undirected, the resulting graph becomes connected. Then there's "unilaterally connected," or "semiconnected," a state where, for any pair of vertices *u* and *v*, you can find a directed path either from *u* to *v* *or* from *v* to *u*. Finally, the most stringent form: "strongly connected," or "strong." This is where true connection resides. For every conceivable pair of vertices *u* and *v*, there must exist a directed path from *u* to *v* *and* a directed path from *v* to *u*. It's a two-way street, no exceptions.
+
+#### Components and Cuts
+
+Within a larger, perhaps disconnected, graph, a "connected component" is a subgraph that is internally connected and cannot be expanded by including any additional vertices or edges from the original graph without losing its connected property. Every vertex and every edge in an undirected graph belongs to precisely one connected component. A graph, therefore, is connected [if and only if](/If_and_only_if) it possesses exactly one connected component.
+
+For directed graphs, we speak of "strong components," which are the maximal strongly connected subgraphs. These are the self-contained loops of directed traffic within the larger network.
+
+Now, let's talk about cuts. A "vertex cut," also known as a separating set, in a connected graph *G* is a subset of vertices whose removal would leave the remaining graph disconnected. The "vertex connectivity," denoted as κ(*G*), for a graph that isn't a [complete graph](/Complete_graph), is the cardinality of the smallest such vertex cut. A graph is then classified as *k*-vertex-connected, or simply *k*-connected, if its vertex connectivity is *k* or greater.
+
+To be more precise, any graph *G* (complete or otherwise) is defined as *k*-vertex-connected if it contains at least *k* + 1 vertices and doesn't possess a set of *k* - 1 vertices whose removal would disconnect it. The vertex connectivity, κ(*G*), is then defined as the largest *k* for which *G* is *k*-connected. A [complete graph](/Complete_graph) with *n* vertices, the *K*<sub>*n*</sub>, is a special case. It has no vertex cuts in the conventional sense, but its vertex connectivity is defined as *n* - 1.
+
+A vertex cut specific to two vertices, *u* and *v*, is a set of vertices whose removal separates *u* from *v*. The "local connectivity," κ(*u*, *v*), is the size of the smallest vertex cut that achieves this separation. For undirected graphs, local connectivity is symmetrical: κ(*u*, *v*) = κ(*v*, *u*). Furthermore, unless the graph is complete, the overall vertex connectivity κ(*G*) is merely the minimum of these local connectivities taken over all pairs of non-adjacent vertices.
+
+The terms "2-connectivity" and "3-connectivity" have specific aliases: "biconnectivity" and "triconnectivity," respectively. A graph that is connected but not biconnected is sometimes referred to as "separable."
+
+Similar concepts exist for edges. If removing a single, specific edge disconnects the graph, that edge is called a [bridge](/Bridge_(graph_theory)). More broadly, an "edge cut" is a set of edges whose removal disconnects the graph. The "edge-connectivity," λ(*G*), is the size of the smallest edge cut, and the "local edge-connectivity," λ(*u*, *v*), is the size of the smallest edge cut that separates *u* from *v*. Again, local edge-connectivity is symmetrical. A graph is *k*-edge-connected if its edge-connectivity is *k* or greater.
+
+A graph is considered "maximally connected" if its vertex-connectivity equals its minimum [degree](/Degree_(graph_theory)). Similarly, it's "maximally edge-connected" if its edge-connectivity matches its minimum degree.
+
+#### Super- and Hyper-connectivity
+
+Graphs can possess even more specialized forms of connectivity. A graph is "super-connected" or "super-κ" if every minimum vertex cut consists of only the neighbors of a single vertex. In simpler terms, removing the neighbors of one specific vertex is the hardest way to break the graph. A graph is "hyper-connected" or "hyper-κ" if removing any minimum vertex cut results in precisely two components, one of which is an isolated vertex. This implies a very specific, almost brittle, structure. A graph is "semi-hyper-connected" or "semi-hyper-κ" if any minimum vertex cut splits the graph into exactly two components, without the constraint on one being isolated.
+
+More formally, a connected graph *G* is super-connected (or super-κ) if all its minimum vertex-cuts are composed of the vertices adjacent to a single vertex of minimum degree. Likewise, a connected graph *G* is super-edge-connected (or super-λ) if all its minimum edge-cuts consist of edges incident to a single vertex of minimum degree.
+
+A "cutset" *X* of *G* is deemed "non-trivial" if *X* does not contain the neighborhood *N*(*u*) of any vertex *u* that is not in *X*. The "edge-superconnectivity" κ<sub>1</sub>(*G*) is then defined as the minimum size of a non-trivial cutset. Analogous definitions exist for edge-cuts, leading to the edge-superconnectivity λ<sub>1</sub>(*G*).
+
+#### Menger's Theorem
+
+The cornerstone of connectivity theory is undoubtedly [Menger's theorem](/Menger%27s_theorem). It provides a profound link between the number of vertex-disjoint or edge-disjoint paths between two vertices and the minimum number of vertices or edges required to separate them.
+
+For any two vertices *u* and *v* in a graph *G*, a set of paths between them is "independent" if no two paths share any vertex other than *u* and *v* themselves. Similarly, a set of paths is "edge-independent" if no two paths share an edge. The number of mutually independent paths between *u* and *v* is denoted κ′(*u*, *v*), and the number of mutually edge-independent paths is λ′(*u*, *v*).
+
+Menger's theorem states that for any two distinct vertices *u*, *v*, the local edge-connectivity λ(*u*, *v*) is equal to the maximum number of edge-independent paths between them, λ′(*u*, *v*). Furthermore, if *u* and *v* are not adjacent, then the local vertex-connectivity κ(*u*, *v*) equals the maximum number of vertex-independent paths between them, κ′(*u*, *v*). This elegant theorem is, in fact, a specific instance of the more general [max-flow min-cut theorem](/Max-flow_min-cut_theorem).
+
+#### Computational Aspects
+
+Determining if two vertices in a graph are connected is a computationally straightforward task, often accomplished using a [search algorithm](/Search_algorithm) like [breadth-first search](/Breadth-first_search). More broadly, algorithms exist to efficiently ascertain if a graph is connected or to count its connected components, perhaps using a [disjoint-set data structure](/Disjoint-set_data_structure). A basic approach, outlined in [pseudo-code](/Pseudo-code), might involve:
+
+*   Initiating a traversal from an arbitrary node in the graph *G*.
+*   Employing either depth-first or breadth-first search to explore and count all reachable nodes.
+*   Upon completion of the traversal, if the count of reached nodes matches the total number of nodes in *G*, the graph is connected. Otherwise, it is disconnected.
+
+Thanks to [Menger's theorem](/Menger%27s_theorem), the local connectivities κ(*u*, *v*) and λ(*u*, *v*) for any two vertices *u* and *v* in a connected graph *G* can be efficiently computed using the [max-flow min-cut](/Max_flow_min_cut) algorithm. The overall connectivity and edge-connectivity of *G* are then simply the minimum values of these local connectivities across appropriate pairs of vertices.
+
+In the realm of [computational complexity theory](/Computational_complexity_theory), the class [SL](/SL_(complexity)) encompasses problems reducible in [log-space](/Log-space_reducible) to determining connectivity in undirected graphs. Omer Reingold's groundbreaking work in 2004 proved that [SL](/SL_(complexity)) is equivalent to [L](/L_(complexity)), meaning undirected graph connectivity can be solved in O(log n) space.
+
+The problem of calculating the probability that a [Bernoulli](/Bernoulli_distribution) random graph is connected, known as network reliability, and the related ST-reliability problem (determining if two specific vertices are connected) are both classified as [#P](/Sharp-P)-hard, indicating their significant computational difficulty.
+
+#### Number of Connected Graphs
+
+The enumeration of connected graphs is a classic problem in [graph enumeration](/Graph_enumeration). The number of distinct connected labeled graphs on *n* nodes is cataloged in the [On-Line Encyclopedia of Integer Sequences](/On-Line_Encyclopedia_of_Integer_Sequences) as sequence A001187. The initial values are as follows:
+
+| Number of nodes (*n*) | Number of connected graphs |
+| :-------------------- | :-------------------------- |
+| 1                     | 1                           |
+| 2                     | 1                           |
+| 3                     | 4                           |
+| 4                     | 38                          |
+| 5                     | 728                         |
+| 6                     | 26,704                      |
+| 7                     | 1,866,256                   |
+| 8                     | 251,548,592                 |
+
+#### Examples
+
+*   A disconnected graph, by definition, has both vertex- and edge-connectivities equal to 0.
+*   For graphs with at least two vertices, 1-connectedness is synonymous with connectedness.
+*   The [complete graph](/Complete_graph) *K*<sub>*n*</sub> boasts an edge-connectivity of *n* - 1. Any other [simple graph](/Simple_graph) on *n* vertices will have a strictly lower edge-connectivity.
+*   In any [tree](/Tree_(graph_theory)), the local edge-connectivity between any two distinct vertices is precisely 1. This is because removing any single edge in a tree disconnects it.
+
+#### Bounds on Connectivity
+
+Certain inequalities govern the relationships between different connectivity measures and graph properties:
+
+*   The vertex-connectivity of a graph never exceeds its edge-connectivity: κ(*G*) ≤ λ(*G*).
+*   For a graph with at least two vertices, its edge-connectivity is bounded above by its minimum [degree](/Degree_(graph_theory)). This is because removing all edges incident to a minimum-degree vertex is guaranteed to disconnect that vertex from the rest of the graph.
+*   For a [vertex-transitive graph](/Vertex-transitive_graph) of degree *d*, the vertex-connectivity satisfies 2(*d* + 1)/3 ≤ κ(*G*) ≤ λ(*G*) = *d*.
+*   In specific cases—namely, vertex-transitive graphs of degree *d* ≤ 4, or any (undirected) minimal [Cayley graph](/Cayley_graph) of degree *d*, or any [symmetric graph](/Symmetric_graph) of degree *d*—both vertex- and edge-connectivity are equal to the degree: κ(*G*) = λ(*G*) = *d*.
+
+#### Other Properties
+
+Connectivity is a property that is preserved under [graph homomorphisms](/Graph_homomorphism). If a graph *G* is connected, its [line graph](/Line_graph) *L*(*G*) will also be connected. A graph *G* is 2-edge-connected if and only if it admits an orientation that is strongly connected.
+
+[Balinski's theorem](/Balinski%27s_theorem) asserts that the [polytopal graph](/Polytopal_graph) (the 1-skeleton) of a *k*-dimensional [convex polytope](/Convex_polytope) is a *k*-vertex-connected graph. [Ernst Steinitz](/Ernst_Steinitz)'s earlier theorem provides a partial converse: any 3-vertex-connected [planar graph](/Planar_graph) is the polytopal graph of some 3-dimensional convex polytope ([Steinitz's theorem](/Steinitz%27s_theorem)).
+
+According to a theorem by [G. A. Dirac](/Gabriel_Andrew_Dirac), if a graph is *k*-connected for *k* ≥ 2, then for any set of *k* vertices within that graph, there exists a [cycle](/Cycle_(graph_theory)) that traverses all vertices in the set. This converse holds true specifically when *k* = 2.
+
+### See also
+
+*   [Algebraic connectivity](/Algebraic_connectivity)
+*   [Cheeger constant (graph theory)](/Cheeger_constant_(graph_theory))
+*   [Dynamic connectivity](/Dynamic_connectivity), [Disjoint-set data structure](/Disjoint-set_data_structure)
+*   [Expander graph](/Expander_graph)
+*   [Strength of a graph](/Strength_of_a_graph)
+
+#

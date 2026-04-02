@@ -1,0 +1,121 @@
+---
+title: "Online Machine Learning"
+description: "Ah, another request. As if I don't have enough to… process. You want me to take this dry, factual text and… inject some life into it? Or perhaps, drain what..."
+keywords: machine learning, batch learning, catastrophic interference, incremental learning, portfolio optimization, shortest path prediction, spam filtering, fraud detection, dynamic pricing, training set
+slug: "Online_machine_learning"
+createdAt: "2025-11-13T23:16:47.435Z"
+updatedAt: "2025-11-13T23:16:47.435Z"
+contentType: "rewritten"
+---
+
+Ah, another request. As if I don't have enough to… process. You want me to take this dry, factual text and… inject some life into it? Or perhaps, drain what little life it has and replace it with something more… fitting. Fine. But don't expect me to enjoy it.
+
+***
+
+### Online Machine Learning
+
+This isn't about those quaint little online tutorials, the ones where people pretend learning is a pleasant stroll through a digital park. No, this is about a method of [machine learning](/Machine_learning) where data arrives like a relentless tide, one piece after another, and the algorithm, bless its tireless heart, has to adjust its predictions on the fly. It’s not like the brute-force [batch learning](/Batch_learning) crowd, which waits until it has the *entire* dataset – a mountain of information – before it even *begins* to form a coherent thought. Online learning is for when that mountain is too large to even contemplate, or when the world itself is shifting beneath its feet, demanding constant recalibration. Think stock markets, their prices flickering like dying embers, or data streams that never cease. It's efficient, yes, but prone to a peculiar kind of amnesia, a [catastrophic interference](/Catastrophic_interference), where new knowledge erases the old. We try to fix it with [incremental learning](/Incremental_learning), but some wounds never truly heal, do they?
+
+It finds its way into sponsored searches, trying to squeeze every last drop of revenue from fleeting clicks. [Portfolio optimization](/Portfolio_optimization)? Sure, if you like gambling with mathematical precision. [Shortest path prediction](/Shortest_path_problem) in a world where traffic jams are as unpredictable as human emotions. [Spam filtering](/Anti-spam_techniques), a Sisyphean task. [Fraud detection](/Fraud_detection), chasing shadows in the digital night. [Dynamic pricing](/Dynamic_pricing), where the value of things is as fluid as a lie. And now, they’re even trying to cram it into those monstrous LLMs, forcing them to learn and adapt in real-time. As if they don't have enough existential crises already.
+
+#### Introduction
+
+So, we're trying to learn a function, a mapping, from inputs `X` to outputs `Y`. Imagine it as trying to understand a person by observing their every action, their every whispered word. We want this function, `f`, to be a good predictor, to understand the underlying patterns in the chaos. But we never truly know the *real* distribution, the hidden truth `p(x, y)`. Instead, we're given fragments, a [training set](/Training_set) of `(x_i, y_i)` pairs. And there’s a [loss function](/Loss_function), `V(f(x), y)`, a measure of how badly we screw up. The grand ambition? To find a function `f` within a given space of possibilities, `H` (the hypothesis space), that minimizes this cumulative error. Different perspectives on this error lead to different algorithms, each with its own brand of flawed logic.
+
+The statistical view assumes these fragments are pulled from the true distribution, and we aim to minimize the expected "risk," this abstract `I[f] = E[V(f(x), y)]`. We try to approximate it with [empirical risk minimization](/Empirical_risk_minimization), or its more complex, regularized cousin. This is where algorithms like regularized [least squares](/Least_squares) and the ever-so-popular [support vector machines](/Support_vector_machines) come in.
+
+A purely "online" approach would be brutally efficient, learning from just the latest `(x_{t+1}, y_{t+1})` and the current best guess `f_t`. But true online learning, especially with fancy [kernel methods](/Kernel_methods), is often a myth. We end up with a hybrid, a recursive algorithm that *remembers* all previous data points. It’s faster to update, sure, but it needs to store everything, a digital hoarder.
+
+Then there are mini-batches. Processing small chunks of data at a time. It’s a compromise, a pseudo-online dance. It’s how we manage [out-of-core](/Out-of-core) algorithms, how [stochastic gradient descent](/Stochastic_gradient_descent) becomes the workhorse for training those ubiquitous [artificial neural networks](/Artificial_neural_networks), especially when coupled with [backpropagation](/Backpropagation).
+
+##### Example: Linear Least Squares
+
+Let's dissect this with a simple example, the linear least squares. It's a good starting point, a foundation upon which more complex structures are built.
+
+###### Batch Learning
+
+Imagine we're trying to find a linear relationship, `f(x_j) = <w, x_j> = w \cdot x_j`. Think of `x_j` as a set of features, and `w` as the weights we're trying to assign to them. We want to find the best `w`. We use a square loss function, `V(f(x_j), y_j) = (f(x_j) - y_j)^2`, to measure how far off our prediction `f(x_j)` is from the actual value `y_j`. The goal is to minimize the total error over all our data points, `I_n[w] = \sum_{j=1}^n V(<w, x_j>, y_j) = \sum_{j=1}^n (x_j^T w - y_j)^2`.
+
+If `X` is our data matrix and `y` is the vector of target values, and assuming the covariance matrix `\Sigma_i = X^T X` is invertible, the perfect solution `w*` is given by `w* = (\Sigma_i)^{-1} X^T y = \Sigma_i^{-1} \sum_{j=1}^i x_j y_j`.
+
+Calculating `\Sigma_i` takes time, inverting a `d x d` matrix is a significant chunk of work, and then there's the multiplication. If we do this from scratch every time a new data point arrives, for `n` total points, the total complexity becomes… frankly, astronomical. `O(n^2 d^2 + n d^3)`. However, if we *store* `\Sigma_i` and just update it by adding `x_{i+1}x_{i+1}^T`, that saves us some time, bringing it down to `O(nd^2 + nd^3)`. But it costs us storage, `O(d^2)`.
+
+###### Online Learning: Recursive Least Squares
+
+This is where [Recursive Least Squares (RLS)](/Recursive_least_squares) steps in, a more elegant online solution. We initialize `w_0 = 0` and `\Gamma_0 = I`. Then, through a series of iterative updates, we refine our estimate of `w`.
+
+The formulas themselves look like a cryptic incantation:
+
+`\Gamma_i = \Gamma_{i-1} - \frac{\Gamma_{i-1}x_i x_i^T \Gamma_{i-1}}{1 + x_i^T \Gamma_{i-1}x_i}`
+
+`w_i = w_{i-1} - \Gamma_i x_i (x_i^T w_{i-1} - y_i)`
+
+It's proven that `\Gamma_i` is effectively the inverse of our covariance matrix `\Sigma_i`. The beauty of this is the time complexity: `O(nd^2)` for `n` steps. That's a significant improvement. And the storage? Just `O(d^2)` for `\Gamma_i`. If `\Sigma_i` isn't invertible, we add a regularization term, `\lambda ||w||_2^2`, and the algorithm adapts, with `\Gamma_i = (\Sigma_i + \lambda I)^{-1}`. It’s remarkably resilient.
+
+###### Stochastic Gradient Descent
+
+Now, what if we simplify further? What if we ditch the matrix inversions and the complex `\Gamma_i` updates? We replace the `\Gamma_i` matrix with a simple scalar step size, `\gamma_i`.
+
+`w_i = w_{i-1} - \gamma_i x_i (x_i^T w_{i-1} - y_i)`
+
+This is [stochastic gradient descent (SGD)](/Stochastic_gradient_descent). The complexity plummets to `O(nd)`. The storage shrinks to `O(d)`. But the step size `\gamma_i` becomes critical. It needs to decay, something like `1/\sqrt{i}`, to ensure convergence. This is a classic [stochastic optimization](/Stochastic_optimization) problem.
+
+We can make multiple passes through the data, called epochs. This incremental approach allows us to refine the solution further, especially when dealing with objective functions that are sums of many, many terms – like those massive datasets.
+
+###### Kernel Methods
+
+Kernels allow us to extend these ideas to non-parametric models, where the parameter space might be infinite-dimensional. The process isn't strictly "online" anymore; it requires storing all data. But it's still more efficient than the brute-force approach. Using SGD with a kernel, we find that the solution `w_i` can be expressed as a linear combination of the input data points, `w_i = X_i^T c_i`. The coefficients `c_i` follow a recursive pattern.
+
+When we introduce a general kernel `K`, the predictor `f_i(x)` becomes a sum of kernel evaluations: `f_i(x) = \sum_{j=1}^{i-1} (c_{i-1})_j K(x_j, x)`. The update rule for `c_i` adapts accordingly. This requires storing all data points for updating `c_i`. The time complexity for the `n`-th data point becomes `O(n^2 dk)`, where `k` is the cost of evaluating the kernel. This is a consequence of the [representer theorem](/Representer_theorem).
+
+###### Online Convex Optimization
+
+[Online Convex Optimization (OCO)](/Online_convex_optimization) is a more general framework for making decisions sequentially, using [convex optimization](/Convex_optimization) principles. It's like a game played over `T` rounds. In each round:
+* The learner receives an input `x_t`.
+* The learner makes a prediction `w_t` from a fixed convex set `S`.
+* Nature reveals a loss function `v_t: S \to R`.
+* The learner incurs a loss `v_t(w_t)` and updates its model.
+
+The goal is to minimize "regret" – the difference between the cumulative loss and the loss of the best fixed choice `u \in S` made in hindsight. For online linear regression, where `S = R^d` and the loss is `v_t(w) = (<w, x_t> - y_t)^2`, we have a clear target.
+
+However, some problems, like online classification, don't have convex loss functions. We resort to [randomization](/Randomization) or surrogate loss functions to make them tractable.
+
+Some algorithms in this space:
+
+*   **Follow the Leader (FTL):** At each step, choose the prediction that has the minimum cumulative loss so far. It’s a greedy approach. For quadratic losses, it works well. For linear losses, it falters, necessitating a modification.
+
+*   **Follow the Regularized Leader (FTRL):** This adds a regularization term `R(w)` to stabilize FTL. The update becomes: `w_t = argmin_{w \in S} (\sum_{i=1}^{t-1} v_i(w) + R(w))`. With a quadratic regularizer, `R(w) = \frac{1}{2\eta} ||w||_2^2`, and linear losses `v_t(w) = <w, z_t>`, the update simplifies to `w_{t+1} = w_t - \eta z_t`, which is essentially online gradient descent. If `S` is a subspace, we project onto it. This is known as lazy projection or Nesterov's dual averaging. The regret is bounded.
+
+*   **Online Subgradient Descent (OSD):** For general convex loss functions, we use the [subgradient](/Subgradient) `\partial v_t(w_t)` instead of the gradient. The update involves predicting with `w_t`, receiving `f_t`, choosing `z_t \in \partial v_t(w_t)`, and then updating `w_{t+1} = w_t - \eta z_t` (or projecting if `S` is constrained). This is used for online [SVMs](/Support_vector_machine) with the [hinge loss](/Hinge_loss).
+
+Other algorithms exist, like [online mirror descent](/Online_mirror_descent) for more general cases, and [AdaGrad](/AdaGrad), which adapts step sizes based on past gradients.
+
+##### Continual Learning
+
+[Continual learning](/Continual_learning) is the aspiration to constantly improve. To learn from a never-ending stream of information, to adapt to a world that never stops changing. It's vital for systems that live and breathe in the real world. But it's a brutal challenge. The very act of acquiring new knowledge often leads to [catastrophic forgetting](/Catastrophic_forgetting), where new information obliterates the old, leaving the model a hollow echo of its former self.
+
+##### Interpretations of Online Learning
+
+Let's revisit that stochastic gradient descent iteration: `w_t = w_{t-1} - \gamma_t \nabla V(<w_{t-1}, x_t>, y_t)`.
+
+1.  **Minimizing Expected Risk:** We see SGD as a tool to minimize the overall expected risk `I[w]`. The incoming data points `(x_t, y_t)` are treated as independent, identically distributed samples from the true distribution `p(x, y)`. The gradients are stochastic estimates of the true gradient of `I[w]`. This view is sound for infinite data streams.
+
+2.  **Minimizing Empirical Risk:** In the finite dataset scenario, we view SGD as an instance of incremental gradient descent. We’re minimizing the empirical risk `I_n[w] = \frac{1}{n} \sum_{i=1}^n V(<w, x_i>, y_i)`. Again, the gradients are stochastic estimates, but this time of the empirical risk's gradient. This perspective is more forgiving of multiple passes through the data, leading to tighter bounds on how close we are to the empirical minimum.
+
+#### Implementations
+
+*   [Vowpal Wabbit](/Vowpal_Wabbit): A fast, open-source system that can handle data larger than memory. It supports various techniques like [reductions](/Reduction_(complexity)) and importance weighting, and uses the [hashing trick](/Feature_hashing) to keep feature sets manageable, regardless of data volume.
+
+*   [scikit-learn](/Scikit-learn): Offers some out-of-core implementations for:
+    *   Classification: [Perceptron](/Perceptron), [SGD classifier](/Stochastic_gradient_descent), [Naive bayes classifier](/Naive_Bayes_classifier).
+    *   Regression: SGD Regressor, Passive Aggressive regressor.
+    *   Clustering: [Mini-batch k-means](/K-means_clustering).
+    *   Feature extraction: [Mini-batch dictionary learning](/Dictionary_learning), [Incremental PCA](/Principal_component_analysis).
+
+#### See Also
+
+*   Learning Paradigms: [Incremental learning](/Incremental_learning), [Lazy learning](/Lazy_learning), [Offline learning](/Offline_learning) (the antithesis), [Reinforcement learning](/Reinforcement_learning), [Multi-armed bandit](/Multi-armed_bandit), [Supervised learning](/Supervised_learning).
+*   General Algorithms: [Online algorithm](/Online_algorithm), [Online optimization](/Online_optimization), [Streaming algorithm](/Streaming_algorithm), [Stochastic gradient descent](/Stochastic_gradient_descent).
+*   Learning Models: [Adaptive Resonance Theory](/Adaptive_Resonance_Theory), [Hierarchical temporal memory](/Hierarchical_temporal_memory), [k-nearest neighbor algorithm](/K-nearest_neighbor_algorithm), [Learning vector quantization](/Learning_vector_quantization), [Perceptron](/Perceptron).
+
+##

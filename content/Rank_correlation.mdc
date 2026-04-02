@@ -1,0 +1,136 @@
+---
+title: "Rank Correlation"
+description: "In the sprawling, often perplexing realm of statistics, where humanity attempts to quantify the unquantifiable, a particular construct emerges for those..."
+keywords: statistics, rank correlation, ordinal association, rankings, ordinal variables, rank correlation coefficient, significance, nonparametric, mann–whitney u test, wilcoxon signed-rank test
+slug: "Rank_correlation"
+createdAt: "2026-01-01T08:38:03.286Z"
+updatedAt: "2026-01-01T08:38:03.286Z"
+contentType: "rewritten"
+aiProvider: "Gemini"
+aiModel: "gemini-2.5-flash"
+previousArticleSlug: "Heat_spreader"
+previousArticleTitle: "Heat Spreader"
+---
+
+In the sprawling, often perplexing realm of [statistics](/Statistics), where humanity attempts to quantify the unquantifiable, a particular construct emerges for those moments when raw numbers just won't do: the [rank correlation](/Rank_correlation). This isn't about precise numerical values, mind you, but rather about the more abstract notion of "order." Specifically, it encompasses various statistical measures designed to gauge an [ordinal association](/Ordinal_association) — that delicate, often elusive relationship between the [rankings](/Ranking) of distinct [ordinal variables](/Ordinal_data), or even varying rankings applied to the very same variable. A "ranking," for the uninitiated, is merely the assignment of sequential labels like "first," "second," "third," and so on, to different observations of a particular characteristic.
+
+A [rank correlation coefficient](/Rank_correlation_coefficient) serves a dual purpose, as if merely observing the world weren't enough. It quantifies the degree of similarity, or dissimilarity, between two sets of rankings. Beyond that, it's frequently employed to assess the [significance](/Statistical_significance) of the relationship observed between them. For instance, two of the more commonly encountered [nonparametric](/Nonparametric) methods for determining statistical significance that cleverly leverage rank correlation are the venerable [Mann–Whitney U test](/Mann%E2%80%93Whitney_U_test) and the equally respected [Wilcoxon signed-rank test](/Wilcoxon_signed-rank_test). Because, apparently, simple observation isn't enough; we need a number, and then another number to tell us what the first number *really* means.
+
+## Context
+
+Consider, for a moment, the peculiar human obsession with athletic prowess. If, by some statistical whim, one variable represents the identity of a college basketball program and another variable denotes the identity of a college football program, one might, against all better judgment, embark on a quest to uncover a relationship between their respective poll rankings. The burning question, of course, being: do institutions boasting a higher-ranked basketball program also tend to possess a higher-ranked football program? A [rank correlation coefficient](/Rank_correlation_coefficient) stands ready to quantify this relationship, while its accompanying measure of [significance](/Statistical_significance) can then reveal whether the observed connection is so minuscule as to be dismissed as mere happenstance or, perhaps, a cosmic joke.
+
+Alternatively, if one were to focus solely on a single variable — say, the identity of a college football program — but this program is subjected to the scrutiny of two distinct ranking methodologies (for example, one by the esteemed coaches and another by the often-opinionated sportswriters), then the inherent similarity, or divergence, between these two disparate polls' rankings can be precisely measured using a [rank correlation coefficient](/Rank_correlation_coefficient). Because if there's anything humans love, it's comparing how they compare things.
+
+As a final illustration, cast your gaze upon a [contingency table](/Contingency_table) meticulously crafted with categories such as "low income," "medium income," and "high income" populating the row variable, and educational attainment levels — "no high school," "high school," "university" — gracing the column variable. Here, as noted by Kruskal (1958) [^1], a [rank correlation](/Rank_correlation) serves to illuminate the intrinsic relationship, if any, between an individual's income bracket and their level of educational achievement. It’s almost as if some things are intuitively linked, but we still need a formula to confirm it.
+
+## Correlation coefficients
+
+Among the pantheon of popular rank [correlation](/Correlation) [statistics](/Statistics), a few names consistently rise to prominence. These include:
+
+*   [Spearman's ρ](/Spearman%27s_rank_correlation_coefficient) (rho)
+*   [Kendall's τ](/Kendall_tau_rank_correlation_coefficient) (tau)
+*   Goodman and Kruskal's γ (gamma)
+*   Somers' D
+
+An ever-increasing value of a [rank correlation coefficient](/Rank_correlation_coefficient) signifies a correspondingly escalating level of agreement between the rankings under consideration. This [coefficient](/Coefficient) is constrained within the tidy interval of [−1, 1], adopting specific values that, in their stark clarity, reveal the nature of the relationship:
+
+*   **1** if the agreement between the two rankings is utterly flawless; in essence, the two rankings are identical, a rare and beautiful alignment.
+*   **0** if the rankings are entirely independent, suggesting no discernible relationship or shared order whatsoever.
+*   **−1** if the disagreement between the two rankings is absolute and perfect; one ranking is the precise inverse of the other, a mirror image of discord.
+
+Following the insights of Diaconis (1988), one can conceptualize a ranking as nothing more than a [permutation](/Permutation) of a specific [set](/Set_(mathematics)) of objects. This perspective allows us to treat observed rankings as data points obtained from a sample space that is, in essence, identifiable with a [symmetric group](/Symmetric_group). By then introducing a suitable [metric](/Metric_(mathematics)), this [symmetric group](/Symmetric_group) can be transformed into a [metric space](/Metric_space). The fascinating implication here is that distinct choices of [metrics](/Metric_(mathematics)) will, in turn, correspond to different expressions of rank correlation. Because sometimes, the universe aligns, and a complex formula collapses into something... almost comprehensible. Don't get used to it.
+
+## General correlation coefficient
+
+In a rather elegant demonstration, Kendall (1970) [^2] revealed that his eponymous [τ](/Kendall_tau_rank_correlation_coefficient) (tau) and [Spearman's ρ](/Spearman%27s_rank_correlation_coefficient) (rho) are not isolated phenomena but rather specific, particular instances of a more expansive, general correlation coefficient.
+
+Imagine a collection of `n` distinct objects, each being scrutinized in relation to two inherent properties, which we shall denote as `x` and `y`. These properties manifest as sets of values: `$\{x_{i}\}_{i\leq n}$` and `$\{y_{i}\}_{i\leq n}$`. For any given pair of these individuals — say, the `i`-th and the `j`-th — we assign an `x`-score, precisely denoted by `$a_{ij}$`, and a `y`-score, denoted by `$b_{ij}$`. The sole, yet crucial, prerequisite for these functions is their adherence to anti-symmetry, meaning that `$a_{ij}=-a_{ji}$` and `$b_{ij}=-b_{ji}$`. (It's worth noting, as a logical consequence, that `$a_{ij}=b_{ij}=0$` when `i=j`.) With these foundations laid, the generalized correlation coefficient, `$\Gamma$`, is then defined with an almost poetic symmetry as:
+
+`$\Gamma ={\frac {\sum _{i,j=1}^{n}a_{ij}b_{ij}}{\sqrt {\sum _{i,j=1}^{n}a_{ij}^{2}\sum _{i,j=1}^{n}b_{ij}^{2}}}}$`
+
+Alternatively, and perhaps more concisely for those inclined towards linear algebra, if all these coefficients are meticulously gathered and organized into matrices, `$A=(a_{ij})$` and `$B=(b_{ij})$`, with the inherent properties that `$A^{\textsf {T}}=-A$` and `$B^{\textsf {T}}=-B$` (indicating they are skew-symmetric matrices), then `$\Gamma$` can be expressed with a formidable elegance:
+
+`$\Gamma ={\frac {\langle A,B\rangle _{\rm {F}}}{\|A\|_{\rm {F}}\|B\|_{\rm {F}}}}$`
+
+Here, `$\langle A,B\rangle _{\rm {F}}$` represents the [Frobenius inner product](/Frobenius_inner_product), a measure of similarity between matrices, and `$\|A\|_{\rm {F}}={\sqrt {\langle A,A\rangle _{\rm {F}}}}$` denotes the [Frobenius norm](/Frobenius_norm), which quantifies the "size" of a matrix. What this mathematically profound statement ultimately implies is that this general correlation coefficient, `$\Gamma$`, is, in fact, precisely the cosine of the angle subtended between the matrices `$A$` and `$B$`. For further exploration of such norms within vector spaces, one might consult [Inner product space § Norms on inner product spaces](/Inner_product_space). Ah, the elegant simplicity of defining everything in terms of everything else. It's almost recursive, like most human endeavors.
+
+### Kendall's τ as a particular case
+
+Let us consider the scenario where `$r_{i}$` and `$s_{i}$` denote the ranks assigned to the `i`-th member according to the `x`-quality and `y`-quality, respectively. In this specific context, the anti-symmetric scores `$a_{ij}$` and `$b_{ij}$` can be defined using the signum function, which returns -1, 0, or 1 depending on the sign of its argument:
+
+`$a_{ij}=\operatorname {sgn}(r_{j}-r_{i}),\quad b_{ij}=\operatorname {sgn}(s_{j}-s_{i}).$`
+
+When these definitions are applied, the sum `$\sum a_{ij}b_{ij}$` takes on a very specific and interpretable meaning: it quantifies the difference between the number of concordant pairs and the number of discordant pairs (a concept thoroughly elaborated upon in the discussion of the [Kendall tau rank correlation coefficient](/Kendall_tau_rank_correlation_coefficient)). Furthermore, the sum `$\sum a_{ij}^{2}$` simply evaluates to `$n(n-1)/2$`, which is precisely the total number of distinct pairs `$(i,j)$` where `i ≠ j`, as each `$a_{ij}$` will be either 1 or -1 (or 0 if ties are present, though often rankings assume no ties). Similarly, `$\sum b_{ij}^{2}$` yields the same value.
+
+Consequently, in this specific formulation, the generalized correlation coefficient `$\Gamma$` elegantly simplifies to:
+
+`$\Gamma ={\frac {2\,(({\text{number of concordant pairs}})-({\text{number of discordant pairs}}))}{n(n-1)}}={\text{Kendall's }}\tau$`
+
+Thus, [Kendall's τ](/Kendall_tau_rank_correlation_coefficient) is revealed as a direct manifestation of this broader correlation framework, designed to capture the proportion of concordant versus discordant pairs in ranked data.
+
+### Spearman's ρ as a particular case
+
+Now, let's turn our attention to another prominent figure in the world of rank correlation. If `$r_{i}$` and `$s_{i}$` once again represent the ranks of the `i`-th member based on the `x`-quality and the `y`-quality, respectively, we can construct the anti-symmetric matrices, `$A=(a_{ij})$` and `$B=(b_{ij})$`, where `$a,b\in M(n\times n;\mathbb {R} )$` (meaning they are `n` by `n` matrices with real entries), defined by the more direct difference of ranks:
+
+`$a_{ij}:=r_{j}-r_{i}$`
+`$b_{ij}:=s_{j}-s_{i}$`
+
+A crucial observation here is that the sums `$\sum a_{ij}^{2}$` and `$\sum b_{ij}^{2}$` are inherently equal. This equality arises from the fact that both `$r_{i}$` and `$s_{i}$` are simply permutations of the integers from `1` to `n`. Therefore, the set of all possible differences `$(r_j - r_i)$` will be the same as the set of all possible differences `$(s_j - s_i)$`, just potentially ordered differently. This leads to the generalized correlation coefficient `$\Gamma$` simplifying considerably to:
+
+`$\Gamma ={\frac {\sum (r_{j}-r_{i})(s_{j}-s_{i})}{\sum (r_{j}-r_{i})^{2}}}$`
+
+To further simplify this expression and arrive at a more recognizable form, let us define `$d_{i}:=r_{i}-s_{i}$` as the difference in ranks for each individual `i`. Furthermore, let `$U$` be a uniformly distributed discrete random variable spanning the set `$\{1,2,\ldots ,n\}$`. Since the ranks `$r$` and `$s$` are nothing more than permutations of these integers, we can conceptualize both `$r$` and `$s$` as random variables exhibiting the same distribution as `$U$`.
+
+Leveraging fundamental [summation results](/Summation) from the realm of discrete mathematics, we can readily establish the expected value and variance for this uniformly distributed random variable `$U$`:
+
+The expected value, `$\mathbb {E} [U]$`, is given by:
+`$\mathbb {E} [U]=\textstyle {\frac {n+1}{2}}$`
+
+The expected value of `$U^2$`, `$\mathbb {E} [U^{2}]$`, is:
+`$\mathbb {E} [U^{2}]=\textstyle {\frac {(n+1)(2n+1)}{6}}$`
+
+And consequently, the variance of `$U$`, `$\mathrm {Var} (U)$`, is derived as:
+`$\mathrm {Var} (U)=\textstyle {\frac {(n+1)(2n+1)}{6}}-\textstyle {\frac {(n+1)(n+1)}{4}}=\textstyle {\frac {n^{2}-1}{12}}$`
+
+Now, by meticulously observing symmetries and performing algebraic manipulations, we can compute the components of `$\Gamma$` as follows. This is where the magic (or the tedious algebra, depending on your disposition) happens:
+
+The numerator, scaled by `$1/n^2$`, can be expanded:
+`${\begin{aligned}{\frac {1}{n^{2}}}\sum _{i,j=1}^{n}(r_{j}-r_{i})(s_{j}-s_{i})&=2\left({\frac {1}{n^{2}}}\cdot n\sum _{i=1}^{n}r_{i}s_{i}-\left({\frac {1}{n}}\sum _{i=1}^{n}r_{i}\right)\left({\frac {1}{n}}\sum _{j=1}^{n}s_{j}\right)\right)\\&={\frac {1}{n}}\sum _{i=1}^{n}(r_{i}^{2}+s_{i}^{2}-d_{i}^{2})-2\left(\mathbb {E} [U]\right)^{2}\\&={\frac {1}{n}}\sum _{i=1}^{n}r_{i}^{2}+{\frac {1}{n}}\sum _{i=1}^{n}s_{i}^{2}-{\frac {1}{n}}\sum _{i=1}^{n}d_{i}^{2}-2\left(\mathbb {E} [U]\right)^{2}\\&=2\left(\mathbb {E} [U^{2}]-(\mathbb {E} [U])^{2}\right)-{\frac {1}{n}}\sum _{i=1}^{n}d_{i}^{2}\\\end{aligned}}$`
+
+And the denominator, also scaled by `$1/n^2$`, simplifies to:
+`${\begin{aligned}{\frac {1}{n^{2}}}\sum _{i,j=1}^{n}(r_{j}-r_{i})^{2}&={\frac {1}{n^{2}}}\cdot n\sum _{i,j=1}^{n}(r_{i}^{2}+r_{j}^{2}-2r_{i}r_{j})\\&=2{\frac {1}{n}}\sum _{i=1}^{n}r_{i}^{2}-2\left({\frac {1}{n}}\sum _{i=1}^{n}r_{i}\right)\left({\frac {1}{n}}\sum _{j=1}^{n}r_{j}\right)\\&=2(\mathbb {E} [U^{2}]-(\mathbb {E} [U])^{2})\\\end{aligned}}$`
+
+By substituting these simplified expressions back into the formula for `$\Gamma$`, we finally arrive at the distinct form:
+
+`$\Gamma =1-{\frac {\sum _{i=1}^{n}d_{i}^{2}}{2n\mathrm {Var} (U)}}=1-{\frac {6\sum _{i=1}^{n}d_{i}^{2}}{n(n^{2}-1)}}$`
+
+where, as previously defined, `$d_{i}=r_{i}-s_{i}$` represents the difference between the ranks for each `i`. This final expression is, precisely, [Spearman's rank correlation coefficient](/Spearman%27s_rank_correlation_coefficient) `$\rho$`. Another classic. Because if you can't reduce it to a difference of squares, are you even doing statistics?
+
+## Rank-biserial correlation
+
+The [rank-biserial correlation](/Mann%E2%80%93Whitney_U_test) is a measure that often flies under the radar but holds significant utility, particularly when dealing with data categorized into two distinct groups. Gene Glass (1965) insightfully noted that this coefficient could be logically derived from [Spearman's ρ](/Spearman%27s_rank_correlation_coefficient). As Glass himself articulated, "One can derive a coefficient defined on X, the dichotomous variable, and Y, the ranking variable, which estimates Spearman's rho between X and Y in the same way that biserial r estimates Pearson's r between two normal variables" (p. 91). This highlights its role as an analogue for situations where one variable is binary and the other is ranked.
+
+However, the concept itself predates Glass's observation. The [rank-biserial correlation](/Mann%E2%80%93Whitney_U_test) was, in fact, introduced nine years earlier by Edward Cureton (1956) [^3] as a practical measure of rank correlation specifically tailored for scenarios where the ranks are naturally divided into two identifiable groups. Because sometimes, you just need to categorize things into 'us' and 'them,' and then measure how well that categorization holds up.
+
+### Kerby simple difference formula
+
+Dave Kerby (2014) put forth a compelling argument for introducing students to the concept of rank correlation through the [rank-biserial correlation](/Mann%E2%80%93Whitney_U_test), largely because its underlying logic is remarkably accessible and can be explained effectively even at an introductory level. This particular rank correlation is the very measure employed in conjunction with the [Mann–Whitney U test](/Mann%E2%80%93Whitney_U_test), a [nonparametric](/Nonparametric) method frequently covered in initial college-level [statistics](/Statistics) courses. The data structure required for this test is straightforward: it involves two distinct groups, and for every member within these groups, an outcome is ranked across the entire study population.
+
+Kerby demonstrated, with admirable clarity, that this [rank correlation](/Rank_correlation) can be elegantly articulated using just two fundamental concepts: the proportion of data points that lend support to a stated hypothesis, and conversely, the proportion of data points that do not. This led to the formulation of the Kerby simple difference formula, which posits that the [rank correlation](/Rank_correlation) can be expressed simply as the difference between the proportion of favorable evidence (denoted as `f`) and the proportion of unfavorable evidence (denoted as `u`).
+
+`$r=f-u$`
+
+Simplicity, for the masses. I suppose someone has to make these things accessible, even if it strips away all the... charm.
+
+### Example and interpretation
+
+To truly grasp the mechanics of this computation, let us conjure a hypothetical scenario. Imagine a coach, determined to optimize performance, training a group of long-distance runners over a single month, employing two distinct methodologies. Group A consists of 5 runners, while Group B comprises 4 runners. The coach's stated hypothesis, a bold claim, is that method A is inherently superior, producing faster runners. A grueling race is then conducted to assess the efficacy of these methods. The results, meticulously recorded, show that the runners from Group A indeed claim the top spots, securing ranks 1, 2, 3, 4, and 6. Consequently, the comparatively slower runners from Group B are assigned the remaining ranks: 5, 7, 8, and 9.
+
+The subsequent analysis unfolds by examining all possible pairs, defined as one member from Group A compared against one member from Group B. For instance, the fastest runner in the entire study (rank 1) forms four such pairs: (1,5), (1,7), (1,8), and (1,9). In each of these four pairs, the runner from Group A demonstrably outpaces their counterpart from Group B, thus unequivocally supporting the coach's initial hypothesis. Given 5 runners in Group A and 4 in Group B, there are a total of 5 × 4 = 20 possible pairs. A diligent count reveals that 19 of these pairs align with and support the hypothesis. The sole dissenting pair, the one that refuses to conform, consists of the two runners with ranks 5 (from Group B) and 6 (from Group A), as in this singular instance, the runner from Group B surprisingly achieved the faster time.
+
+Applying the elegant Kerby simple difference formula, we find that 95% of the data (19 out of 20 pairs) lend their support to the hypothesis, while a mere 5% (1 out of 20 pairs) do not. Therefore, the [rank correlation](/Rank_correlation) is calculated as `$r = .95 - .05 = .90$`. Because nothing clarifies abstract math like a good old-fashioned footrace. Though, one might argue the outcome was predictable from the start.
+
+The interpretation of this coefficient is straightforward: a maximum value for the correlation, `$r = 1$`, would signify a perfect alignment, meaning that 100% of the possible pairs unequivocally favor the hypothesis. Conversely, a correlation of `$r = 0$` indicates a complete lack of directional preference — half the pairs support the hypothesis, and half do not. In practical terms, this suggests that the sample groups do not exhibit any significant difference in their ranks, providing no compelling evidence that they originate from two distinct populations. An effect size of `$r = 0$` can thus be succinctly described as indicating no discernible relationship between group membership and the ranks attained by its members.
+
+In their comprehensive and forward-looking article, "Improving statistical reporting in psychology," Anna-Lena Schubert and her esteemed colleagues (2025) laid out a set of indispensable guidelines for best practices in statistical reporting, drawing upon both established recommendations and burgeoning methodologies. Within Table 5 of their publication, they provided a detailed overview of [effect sizes](/Effect_size) for commonly utilized statistical models. Notably, they cited the Kerby (2014) paper as a pivotal resource for the appropriate application and nuanced interpretation of the [rank-biserial correlation](/Mann%E2%80%93Whitney_U_test).

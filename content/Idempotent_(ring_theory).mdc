@@ -1,0 +1,160 @@
+---
+title: "Idempotent (Ring Theory)"
+description: "In the esoteric corners of mathematics, specifically within the intricate architecture of ring theory, there exists a peculiar type of element. It's called an..."
+keywords: mathematics, ring theory, ring, integer, matrix rings, idempotent matrix, modules, homological, boolean algebra, square-free integer
+slug: "Idempotent_(ring_theory)"
+createdAt: "2025-11-18T14:54:06.231Z"
+updatedAt: "2025-11-18T14:54:06.231Z"
+contentType: "rewritten"
+---
+
+In the esoteric corners of [mathematics](/Mathematics), specifically within the intricate architecture of [ring theory](/Ring_theory), there exists a peculiar type of element. It's called an idempotent, or more simply, an element that equals its own square. Imagine an element, let’s call it 'a', within a [ring](/Ring_(mathematics)). If, when you multiply 'a' by itself, you get 'a' back, then you've found an idempotent. Mathematically, this is expressed as $a^2 = a$.
+
+This isn't just a one-off trick; once an element reveals itself as idempotent, it's committed. Inductively, you can deduce that $a = a^2 = a^3 = a^4$, and so on, extending to any positive whole [integer](/Integer) $n$. It’s a fixed point in the multiplicative landscape of the ring. A prime example of this behavior can be observed in [matrix rings](/Matrix_ring), where an idempotent element corresponds precisely to an [idempotent matrix](/Idempotent_matrix). These are matrices that, when multiplied by themselves, return the original matrix.
+
+For the broader spectrum of rings, these idempotent elements are far from mere curiosities. They play a crucial role in the decomposition of [modules](/Module_(mathematics)), offering insights into the [homological](/Homological_algebra) characteristics of the ring itself. In the fascinating realm of [Boolean algebra](/Boolean_algebra), the very foundation is built upon rings where every single element exhibits this idempotent property under both addition and multiplication. It’s a universe where everything is its own square.
+
+### Examples
+
+#### Quotients of Z
+
+Let’s delve into the ring of integers modulo $n$, specifically when $n$ is a [square-free integer](/Square-free_integer). Thanks to the elegance of the [Chinese remainder theorem](/Chinese_remainder_theorem), this ring can be dissected into a [product of rings](/Product_of_rings) of integers modulo each prime factor of $n$. Now, each of these individual factors is a [field](/Field_(mathematics)), a structure where the only idempotents are the trivial ones: 0 and 1. So, if there are $m$ such prime factors, you’ll find $2^m$ idempotents in total.
+
+Consider the integers modulo 6, denoted as $R = \mathbb{Z}/6\mathbb{Z}$. Since 6 has two prime factors, 2 and 3, we anticipate $2^2 = 4$ idempotents. Let's test this:
+
+*   $0^2 \equiv 0 \equiv 0 \pmod{6}$
+*   $1^2 \equiv 1 \equiv 1 \pmod{6}$
+*   $2^2 \equiv 4 \equiv 4 \pmod{6}$
+*   $3^2 \equiv 9 \equiv 3 \pmod{6}$
+*   $4^2 \equiv 16 \equiv 4 \pmod{6}$
+*   $5^2 \equiv 25 \equiv 1 \pmod{6}$
+
+As the calculations show, the idempotents in this ring are 0, 1, 3, and 4. The elements 2 and 5, despite their numerical presence, do not satisfy the idempotent condition. This also illustrates the decomposition properties: because $3 + 4 \equiv 1 \pmod{6}$, we can see a ring decomposition $3\mathbb{Z}/6\mathbb{Z} \oplus 4\mathbb{Z}/6\mathbb{Z}$. Within $3\mathbb{Z}/6\mathbb{Z}$, the multiplicative identity is $3+6\mathbb{Z}$, and within $4\mathbb{Z}/6\mathbb{Z}$, it’s $4+6\mathbb{Z}$.
+
+#### Quotient of polynomial ring
+
+For any given ring $R$ and an element $f \in R$ where $f^2 \neq 0$, the [quotient ring](/Quotient_ring) $R/(f^2 - f)$ will contain $f$ as an idempotent. This principle extends to more complex structures. For instance, if we consider the polynomial ring $\mathbb{Z}[x]$, the element $x$ itself is an idempotent in the quotient ring $\mathbb{Z}[x]/(x^2-x)$. This concept can be generalized to any [polynomial](/Polynomial) $f$ within $k[x_1, \dots, x_n]$, where $k$ is a field.
+
+#### Idempotents in the ring of split-quaternions
+
+The ring of [split-quaternions](/Split-quaternion) harbors a rather elegant [circle](/Circle) of idempotents. These split-quaternions, structured as a [real algebra](/Algebra_over_a_field), can be expressed as $w + xi + yj + zk$ over the [basis](/Basis_(linear_algebra)) $\{1, i, j, k\}$, with the peculiar properties $j^2 = k^2 = +1$. For any angle $\theta$, the element
+
+$s = j\cos\theta + k\sin\theta$
+
+satisfies $s^2 = +1$ because $j$ and $k$ engage in an [anticommutative property](/Anticommutative_property). Now, consider the element $\frac{1+s}{2}$. Its square is:
+
+$\left(\frac{1+s}{2}\right)^2 = \frac{1 + 2s + s^2}{4} = \frac{1+s}{2}$
+
+This confirms its idempotent nature. The element $s$ is what’s known as a [hyperbolic unit](/Hyperbolic_unit). If we've been considering the case where the $i$-coordinate is zero, this $s$ forms a circle of idempotents. However, when the $i$-coordinate is non-zero, these hyperbolic units populate a [hyperboloid of one sheet](/Hyperboloid_of_one_sheet) within the split-quaternions. The same algebraic identity $\left(\frac{1+s}{2}\right)^2 = \frac{1+s}{2}$ still holds, underscoring the idempotent property of $\frac{1+s}{2}$ where $s$ resides on this hyperboloid.
+
+### Types of ring idempotents
+
+The idempotents within a ring, while sharing the fundamental $a^2=a$ property, exhibit various distinct forms and behaviors:
+
+*   **Orthogonal Idempotents:** Two idempotents, say $a$ and $b$, are deemed orthogonal if their product in both orders is zero: $ab = ba = 0$. If $a$ is an idempotent in a ring $R$ with a [unity](/Ring_(mathematics)) (a multiplicative identity), then $b = 1 - a$ is also an idempotent. Furthermore, $a$ and $b$ are guaranteed to be orthogonal.
+
+*   **Central Idempotents:** An idempotent $a$ residing in $R$ is classified as central if it commutes with every element $x$ in $R$. In other words, $ax = xa$ for all $x \in R$. This means the idempotent must lie within the [center](/Center_(ring_theory)) of $R$.
+
+*   **Trivial Idempotents:** These are the universally present idempotents: 0 and 1. They are always idempotent in any ring with unity.
+
+*   **Primitive Idempotents:** A nonzero idempotent $a$ in ring $R$ is called primitive if the right $R$-module $aR$ is [indecomposable](/Indecomposable_module). This means $aR$ cannot be expressed as the [direct sum](/Direct_sum_of_modules) of two [nonzero](/Zero_module) [submodules](/Submodule). Equivalently, $a$ is primitive if it cannot be written as the sum of two nonzero, orthogonal idempotents, $a = e + f$.
+
+*   **Local Idempotents:** An idempotent $a$ is local if the ring $aRa$ forms a [local ring](/Local_ring). This property implies that $aR$ is directly indecomposable, making local idempotents a subset of primitive idempotents.
+
+*   **Right Irreducible Idempotents:** An idempotent $a$ is right irreducible if the right $R$-module $aR$ is a [simple module](/Simple_module). According to [Schur's lemma](/Schur%27s_lemma), the [endomorphism ring](/Ring_of_endomorphisms) of $aR$, denoted as End$_R(aR)$, is isomorphic to $aRa$. Since End$_R(aR)$ is a [division ring](/Division_ring), it is inherently a local ring, meaning right (and by extension, left) irreducible idempotents are always local.
+
+*   **Centrally Primitive Idempotents:** A central idempotent $a$ is termed centrally primitive if it cannot be expressed as the sum of two nonzero, orthogonal central idempotents.
+
+*   **Lifting Idempotents:** An idempotent $a+I$ in a [quotient ring](/Quotient_ring) $R/I$ is said to "lift modulo $I$" if there exists an idempotent $b$ in the original ring $R$ such that $b+I = a+I$.
+
+*   **Full Idempotents:** An idempotent $a$ in ring $R$ is considered full if it generates the entire ring $R$ through the doubly sided ideal $RaR = R$.
+
+*   **Separability Idempotents:** These are specific idempotents found in the context of [Separable algebra](/Separable_algebra).
+
+It's worth noting that any non-trivial idempotent $a$ (meaning $a \neq 0$ and $a \neq 1$) is necessarily a [zero divisor](/Zero_divisor). This is because $b = 1-a$ is also an idempotent, and $ab = a(1-a) = a - a^2 = a - a = 0$. Since neither $a$ nor $b$ is zero, they act as zero divisors. This fundamental property explains why [integral domains](/Integral_domain) and [division rings](/Division_ring), which by definition contain no zero divisors, cannot possess non-trivial idempotents. [Local rings](/Local_ring) also present a unique case, often lacking non-trivial idempotents for distinct structural reasons. A crucial theorem states that the only idempotent contained within the [Jacobson radical](/Jacobson_radical) of any ring is the zero element.
+
+### Rings Characterized by Idempotents
+
+The presence and behavior of idempotents serve as defining characteristics for various classes of rings:
+
+*   **Boolean Rings:** A ring where every element is idempotent under multiplication is termed a [Boolean ring](/Boolean_ring). Some mathematicians also refer to these as "idempotent rings." A fascinating consequence is that multiplication in such rings is always [commutative](/Commutative_ring), and each element is its own [additive inverse](/Additive_inverse).
+
+*   **Semisimple Rings:** A ring is classified as [semisimple](/Semisimple_ring) if and only if every right (or equivalently, every left) [ideal](/Ideal_(ring_theory)) can be generated by an idempotent.
+
+*   **Von Neumann Regular Rings:** A ring possesses the property of being [von Neumann regular](/Von_Neumann_regular_ring) if and only if every [finitely generated](/Finitely_generated_module) right (or left) ideal is generated by an idempotent.
+
+*   **Baer Rings and Rickart Rings:** A ring is called a [Baer ring](/Baer_ring) if the annihilator of every subset $S$ of $R$, denoted $r.\text{Ann}(S)$, is generated by an idempotent. If this condition is restricted solely to singleton subsets of $R$, the ring is termed a right [Rickart ring](/Rickart_ring). These concepts are particularly relevant even in rings that [lack a multiplicative identity](/Rng_(algebra)).
+
+*   **Abelian Rings:** A ring where all idempotents are [central](/Center_(ring_theory)) is known as an abelian ring. It's important to note that abelian rings are not necessarily commutative.
+
+*   **Directly Irreducible Rings:** A ring is directly irreducible if and only if its only central idempotents are the trivial ones, 0 and 1.
+
+*   **Semiperfect Rings:** A ring $R$ can be decomposed as a direct sum of right modules $e_1R \oplus e_2R \oplus \dots \oplus e_nR$, where each $e_i$ is a local idempotent, if and only if $R$ is a [semiperfect ring](/Semiperfect_ring).
+
+*   **SBI Rings (Lift/rad Rings):** A ring is designated as an [SBI ring](/SBI_ring) or a Lift/rad ring if all its idempotents can be "lifted" modulo the [Jacobson radical](/Jacobson_radical).
+
+*   **Finite Orthogonal Idempotent Sets:** A ring satisfies the [ascending chain condition](/Ascending_chain_condition) on right direct summands if and only if it satisfies the [descending chain condition](/Descending_chain_condition) on left direct summands. This equivalence is tied to the condition that every set of pairwise orthogonal idempotents within the ring must be finite.
+
+*   **Corner Rings:** If $a$ is an idempotent in ring $R$, then the set $aRa$ itself forms a ring, with $a$ serving as its multiplicative identity. This structure, $aRa$, is frequently referred to as a "corner ring" of $R$. The corner ring emerges naturally because the [ring of endomorphisms](/Ring_of_endomorphisms) of the right $R$-module $aR$, denoted as End$_R(aR)$, is isomorphic to $aRa$.
+
+### Role in Decompositions
+
+The idempotents of a ring $R$ hold a profound connection to how $R$-[modules](/Module_(mathematics)) can be decomposed. If $M$ is an $R$-module and $E = \text{End}_R(M)$ is its [ring of endomorphisms](/Ring_of_endomorphisms), then $M$ can be split into a direct sum $A \oplus B$ if and only if there exists a unique idempotent $e \in E$ such that $A = eM$ and $B = (1-e)M$. Consequently, $M$ is directly indecomposable precisely when 0 and 1 are the only idempotents in its endomorphism ring $E$.
+
+When we consider the specific case where $M = R$ (assuming $R$ has a multiplicative identity), the endomorphism ring $\text{End}_R(R)$ is isomorphic to $R$ itself, where each endomorphism is realized through left multiplication by a specific element of $R$. With this notational adjustment, $R$ decomposes into a direct sum $A \oplus B$ as right modules if and only if there is a unique idempotent $e$ such that $eR = A$ and $(1-e)R = B$. This elegantly demonstrates that every direct summand of $R$ is generated by an idempotent.
+
+Furthermore, if $a$ is a central idempotent in $R$, the corner ring $aRa = Ra$ becomes a ring with $a$ as its multiplicative identity. Just as idempotents dictate the direct decompositions of $R$ as a module, central idempotents govern the decompositions of $R$ as a [direct sum](/Direct_sum_of_modules) of rings. If $R$ is the direct sum of rings $R_1, \dots, R_n$, then the identity elements of these constituent rings $R_i$ are central idempotents in $R$. These idempotents are pairwise orthogonal, and their sum equals 1. Conversely, given a set of pairwise orthogonal central idempotents $a_1, \dots, a_n$ in $R$ whose sum is 1, $R$ can be decomposed as the direct sum of the rings $Ra_1, \dots, Ra_n$. Therefore, any central idempotent $a$ in $R$ directly leads to a decomposition of $R$ into a direct sum of the corner rings $aRa$ and $(1-a)R(1-a)$. This implies that a ring $R$ is directly indecomposable as a ring if and only if its identity element, 1, is centrally primitive.
+
+By applying this principle inductively, one can attempt to break down the identity element 1 into a sum of centrally primitive elements. If 1 itself is centrally primitive, the process terminates. If not, it can be expressed as a sum of central orthogonal idempotents. Each of these, in turn, might be primitive or further decomposable into sums of more central idempotents. The potential challenge is that this decomposition might continue indefinitely, yielding an infinite sequence of central orthogonal idempotents. The condition that " $R$ does not contain infinite sets of central orthogonal idempotents" represents a crucial finiteness condition for a ring. This condition can be satisfied through various means, such as requiring the ring to be right [Noetherian](/Noetherian_ring). If a decomposition $R = c_1R \oplus c_2R \oplus \dots \oplus c_nR$ exists, where each $c_i$ is a centrally primitive idempotent, then $R$ is directly a sum of the corner rings $c_iRc_i$, each of which is itself ring irreducible.
+
+In the context of [associative algebras](/Associative_algebra) or [Jordan algebras](/Jordan_algebra) over a field, the [Peirce decomposition](/Peirce_decomposition) offers a structured way to break down an algebra into a sum of eigenspaces corresponding to commuting idempotent elements.
+
+### Relation with Involutions
+
+If $a$ is an idempotent in a ring $R$, then the element $f = 1 - 2a$ possesses a remarkable property: it is its own inverse, meaning $f^2 = 1$. Thus, for any left $R$-module $M$, the operation of multiplication by $f$ acts as an [involution](/Involution_(mathematics)) on $M$. An involution is an $R$-[module homomorphism](/Module_homomorphism) whose square is the identity endomorphism of the module.
+
+If $M$ is an $R$-[bimodule](/Bimodule), and particularly when $M = R$, the operations of left and right multiplication by $f$ yield two distinct involutions on the module.
+
+Conversely, suppose $b$ is an element in $R$ such that $b^2 = 1$. Then, $(1-b)^2 = 1 - 2b + b^2 = 1 - 2b + 1 = 2 - 2b = 2(1-b)$. If 2 is an [invertible element](/Invertible_element) in $R$ (meaning it has a multiplicative inverse), then we can define $a = 2^{-1}(1-b)$. This element $a$ will be an idempotent, satisfying $a^2 = a$, and importantly, $b = 1 - 2a$. This establishes a direct, one-to-one correspondence between idempotent elements and elements whose square is 1, provided that 2 is invertible in the ring.
+
+### Category of R-modules
+
+The concept of lifting idempotents carries significant implications for the category of $R$-modules. A key theorem states that all idempotents lift modulo an ideal $I$ if and only if every right $R$-module direct summand of $R/I$ possesses a [projective cover](/Projective_cover). Idempotents invariably lift modulo [nil ideals](/Nil_ideal) and for rings that are $I$-adically complete.
+
+The phenomenon of lifting is particularly crucial when the ideal $I$ is the [Jacobson radical](/Jacobson_radical) $J(R)$. Another characterization of [semiperfect rings](/Semiperfect_ring) is that they are [semilocal rings](/Semilocal_ring) whose idempotents lift modulo $J(R)$.
+
+### Lattice of Idempotents
+
+The idempotents within a ring can be organized into a [partial order](/Partial_order). If $a$ and $b$ are idempotents, we write $a \le b$ if and only if $ab = ba = a$. Under this ordering, 0 is the smallest idempotent and 1 is the largest. For any pair of orthogonal idempotents $a$ and $b$, their sum $a+b$ is also idempotent, and we have $a \le a+b$ and $b \le a+b$. The "atoms" of this partial order, the smallest non-zero elements, correspond precisely to the primitive idempotents.
+
+When this partial order is restricted to the central idempotents of $R$, a [lattice](/Lattice_(order)) structure emerges, and in many cases, even a full [Boolean algebra](/Boolean_algebra) structure. For any two central idempotents $e$ and $f$:
+
+*   The [complement](/Boolean_algebra) of $e$ is given by $\neg e = 1 - e$.
+*   The [meet](/Meet_(mathematics)) operation is defined as $e \wedge f = ef$.
+*   The [join](/Join_(mathematics)) operation is defined as $e \vee f = \neg(\neg e \wedge \neg f) = e + f - ef$.
+
+In this lattice context, the ordering $e \le f$ is equivalent to $eR \subseteq fR$. The join and meet operations correspond to module sum and intersection: $(e \vee f)R = eR + fR$ and $(e \wedge f)R = eR \cap fR = (eR)(fR)$. It has been demonstrated that if $R$ is [von Neumann regular](/Von_Neumann_regular) and right [self-injective](/Injective_module), this lattice becomes a [complete lattice](/Complete_lattice).
+
+**Notes**
+
+*   The concepts of idempotent and [nilpotent](/Nilpotent) elements were first introduced by [Benjamin Peirce](/Benjamin_Peirce) in his seminal work in 1870.
+
+**Citations**
+
+*   Hazewinkel, Gubareni & Kirichenko 2004, p. 2
+*   Anderson & Fuller 1992, pp. 69–72
+*   Lam 2001, p. 326
+*   Anderson & Fuller 1992, p. 302
+*   Lam 2001, p. 336
+*   Lam 2001, p. 323
+
+**References**
+
+*   Anderson, Frank Wylie; Fuller, Kent R (1992). *Rings and Categories of Modules*. Berlin, New York: [Springer-Verlag](/Springer-Verlag). [ISBN](/ISBN_(identifier)) 978-0-387-97845-1.
+*   Idempotent at [FOLDOC](/FOLDOC).
+*   Goodearl, K. R. (1991). *von Neumann regular rings* (2nd ed.). Malabar, FL: Robert E. Krieger Publishing Co. Inc. pp. xviii+412. [ISBN](/ISBN_(identifier)) 0-89464-632-X. [MR](/MR_(identifier)) 1150975.
+*   Hazewinkel, Michiel; Gubareni, Nadiya; Kirichenko, V. V. (2004). *Algebras, rings and modules. Vol. 1*. Mathematics and its Applications, vol. 575. Dordrecht: Kluwer Academic Publishers. pp. xii+380. [ISBN](/ISBN_(identifier)) 1-4020-2690-0. [MR](/MR_(identifier)) 2106764.
+*   Lam, T. Y. (2001). *A first course in noncommutative rings*. Graduate Texts in Mathematics, vol. 131 (2nd ed.). New York: Springer-Verlag. pp. xx+385. [doi](/Doi_(identifier)):10.1007/978-1-4419-8616-0. [ISBN](/ISBN_(identifier)) 0-387-95183-0. [MR](/MR_(identifier)) 1838439.
+*   [Lang, Serge](/Serge_Lang) (1993). *Algebra* (Third ed.). Reading, Mass.: Addison-Wesley. p. 443. [ISBN](/ISBN_(identifier)) 978-0-201-55540-0. [Zbl](/Zbl_(identifier)) 0848.13001.
+*   Peirce, Benjamin (1870). *Linear Associative Algebra*.
+*   Polcino Milies, César; Sehgal, Sudarshan K. (2002). *An introduction to group rings*. Algebras and Applications, vol. 1. Dordrecht: Kluwer Academic Publishers. pp. xii+371. [doi](/Doi_(identifier)):10.1007/978-94-010-0405-3. [ISBN](/ISBN_(identifier)) 1-4020-0238-6. [MR](/MR_(identifier)) 1896125.

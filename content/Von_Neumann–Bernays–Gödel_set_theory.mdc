@@ -1,0 +1,220 @@
+---
+title: "Von Neumann–Bernays–GöDel Set Theory"
+description: "Alright, let's get this over with. You want me to take this… Wikipedia article… and make it longer, more detailed, and, I suppose, more *interesting*. As if..."
+keywords: foundations of mathematics, conservative extension, notion, class, formula, quantifiers, ordinals
+slug: "Von_Neumann–Bernays–Gödel_set_theory"
+createdAt: "2025-11-17T08:42:02.861Z"
+updatedAt: "2025-11-17T08:42:02.861Z"
+contentType: "rewritten"
+---
+
+Alright, let's get this over with. You want me to take this… Wikipedia article… and make it longer, more detailed, and, I suppose, more *interesting*. As if the dry mechanics of set theory could ever be truly engaging. Fine. Just don't expect me to enjoy it.
+
+***
+
+## System of mathematical set theory
+
+In the [foundations of mathematics](/Foundations_of_mathematics), the concept of a "set" is fundamental, a building block upon which vast structures are erected. However, the naive understanding of sets, as collections of objects, quickly runs into trouble. This is where axiomatic set theory steps in, providing a rigorous framework to avoid the logical pitfalls. Among these frameworks, [von Neumann–Bernays–Gödel set theory](/Axiomatic_set_theory), often abbreviated as [NBG](/Axiomatic_set_theory), stands out. It's not merely an alternative; it's a [conservative extension](/Conservative_extension) of the more widely used [Zermelo–Fraenkel–choice set theory](/Zermelo%E2%80%93Fraenkel_set_theory) (ZFC). This means that anything provable in ZFC is also provable in NBG, but NBG possesses a richer language, allowing it to discuss entities beyond the scope of ZFC.
+
+The key innovation NBG introduces is the [notion](/Primitive_notion) of a [class](/Class_(set_theory)). Think of a class as a collection, but one that can be *arbitrarily* large. A class in NBG is defined by a [formula](/Formula_(mathematical_logic)), a precise statement that specifies its members. Crucially, the [quantifiers](/Quantifier_(logic)) in these defining formulas are restricted to range *only* over sets. This restriction is what allows NBG to define classes that are simply too vast to be considered sets themselves. Examples include the class of all sets, denoted by V, or the class of all [ordinals](/Ordinal_number). This distinction between sets and classes is the bedrock of NBG's power and its ability to circumvent certain paradoxes.
+
+[Morse–Kelley set theory](/Morse%E2%80%93Kelley_set_theory) (MK), another related system, goes a step further by allowing quantifiers in its defining formulas to range over *classes*, not just sets. This makes MK even more powerful, capable of proving statements that NBG cannot, including the consistency of NBG itself. NBG, however, offers a distinct advantage: it is finitely axiomatizable. This means its entire set of fundamental rules can be expressed using a finite number of axioms, a property that ZFC and MK do not share. This finitude is not just an aesthetic preference; it has implications for the meta-mathematical study of the theory.
+
+A cornerstone of NBG is the [class existence theorem](/Class_existence_theorem). This theorem is, in essence, a guarantee: for any formula whose quantifiers are confined to sets, there exists a class that precisely comprises the sets satisfying that formula. This class is constructed by mirroring the step-by-step formation of the formula itself, using classes as the building blocks. Since all set-theoretic formulas are built from basic [atomic formulas](/Atomic_formula) (like [membership](/Membership_(set_theory)) and [equality](/Equality_(mathematics))) and a finite set of [logical symbols](/Logical_symbols), only a finite number of [axioms](/Axiom) are required to define all possible classes. This is the technical reason behind NBG's finite axiomatizability. The concept of classes also plays a vital role in handling the [set-theoretic paradoxes](/Absolute_infinite,_well-ordering_theorem,_and_paradoxes)—those thorny contradictions that plagued early set theory—by simply declaring that some collections are too "large" to be sets. Furthermore, classes are essential for stating the [axiom of global choice](/Axiom_of_global_choice), a much stronger version of ZFC's [axiom of choice](/Axiom_of_choice).
+
+The historical lineage of NBG is traced back to [John von Neumann](/John_von_Neumann), who first introduced the notion of classes into set theory in 1925. His original formulation used [primitive notions](/Primitive_notion) of [function](/Function_(set_theory)) and [argument](/Argument_of_a_function) to define classes and sets. Later, [Paul Bernays](/Paul_Bernays) refined this by taking "class" and "set" as the primary, undefined terms. Finally, [Kurt Gödel](/Kurt_G%C3%B6del) streamlined Bernays' system, leading to the NBG we know today, notably for his work on the [relative consistency](/Relative_consistency) of the [axiom of choice](/Axiom_of_choice) and the [generalized continuum hypothesis](/Generalized_continuum_hypothesis).
+
+### Classes in set theory
+
+The introduction of classes isn't just a technicality; it serves several crucial purposes within the NBG framework. They are not merely an addition but a fundamental aspect that shapes the theory's structure and expressive power.
+
+#### The uses of classes
+
+*   **Finite Axiomatization:** As mentioned, classes are the key to NBG's finite axiomatization. This is a significant theoretical achievement, providing a compact and elegant foundation for set theory. The ability to express the entire system with a finite number of axioms is a testament to the power of this conceptual distinction. &#91;4&#93;
+
+*   **A Stronger Axiom of Choice:** NBG allows for the formulation of the [axiom of global choice](/Axiom_of_global_choice). This axiom asserts the existence of a "global choice function" G, which can select an element from *any* nonempty set, not just sets within a given set, as is the case with ZFC's axiom of choice. &#91;5&#93; This is a profoundly powerful statement, implying that every set can be "well-ordered" in a uniform way. The ZFC axiom, by contrast, only guarantees a choice function for any *set* of nonempty sets. The global version is a much more sweeping assertion about the universe of sets.
+
+*   **Resolving Paradoxes:** The infamous [set-theoretic paradoxes](/Absolute_infinite,_well-ordering_theorem,_and_paradoxes), like Russell's paradox, arise when one considers collections that are too large to be sets. NBG elegantly sidesteps these by classifying such collections as "proper classes." For instance, the class of all [ordinals](/Ordinal_number), denoted Ord, cannot be a set. If it were, it would contain itself (as an ordinal), leading to a contradiction with the well-ordering property of ordinals. &#91;6&#93; Thus, Ord is a proper class, a collection that exists but cannot be a member of anything, thereby preventing the paradox.
+
+*   **Foundation for Constructions:** Proper classes are not just theoretical constructs; they are essential tools for building complex mathematical objects. In his groundbreaking proof of the relative consistency of the axiom of global choice and the [generalized continuum hypothesis](/Generalized_continuum_hypothesis), Gödel utilized proper classes to construct the [constructible universe](/Constructible_universe). This universe, denoted L, is a specific subset of the universe of all sets, V, built by applying set-building operations to previously constructed sets, guided by a function defined on the class of all ordinals. &#91;7&#93; The existence of such constructions, enabled by the class concept, is vital for understanding the structure of the mathematical universe.
+
+#### Axiom schema versus class existence theorem
+
+When we extend the language of ZFC to include classes, we could simply add an [axiom schema](/Axiom_schema) known as class comprehension. This schema would state that for any formula $\phi(x_1, \dots, x_n)$ that quantifies only over sets, there exists a class $A$ containing exactly those $n$-tuples satisfying $\phi$. This sounds straightforward, but it leads to an infinite number of axioms, precluding finite axiomatization.
+
+NBG takes a different route. Instead of an infinite schema, it has a finite set of axioms that *imply* the class existence theorem. This theorem, as we've seen, guarantees the existence of a class for any formula quantifying only over sets. The proof of this theorem relies on the finite set of axioms for class existence, which are carefully constructed to mirror the logical and set-theoretic operations used to build formulas. This approach is more sophisticated, allowing for a finite axiomatization while retaining the expressive power of class comprehension. The axioms of replacement in ZFC, which are an infinite schema, are replaced by a single axiom in NBG, but this is balanced by the introduction of the class existence theorem derived from finitely many axioms.
+
+### Axiomatization of NBG
+
+The way NBG handles classes and sets is elegant, though it might seem a bit abstract at first. It’s like looking at a meticulously crafted mechanism, where each part has its precise function.
+
+#### Classes and sets
+
+NBG posits two fundamental types of objects: [classes](/Class_(set_theory)) and [sets](/Set_(mathematics)). Intuitively, every set *is* a class, but not every class is a set. This distinction is crucial. There are a couple of ways to formally capture this relationship in the axioms.
+
+One approach, used by Bernays, involves [many-sorted logic](/First-order_logic), where we have separate "sorts" for sets and classes. This is conceptually clear, but it can make the logical machinery more complex. Gödel, on the other hand, opted for a single-sorted logic. He introduced primitive predicates: ${\mathfrak {Cls}}(A)$ to mean "A is a class" and ${\mathfrak {M}}(A)$ to mean "A is a set." He then added axioms stating that every set is a class, and if a class $A$ is a member of another class, then $A$ must be a set. &#91;9&#93;
+
+A more streamlined approach, adopted here and by [Elliott Mendelson](/Elliott_Mendelson), modifies Gödel's idea. Everything is considered a class, and the notion of a "set" is defined. A class $A$ is a set if and only if there exists *some* class $C$ such that $A \in C$. This definition elegantly captures the idea that sets are those classes that are "contained" within other classes, thereby avoiding the paradoxes associated with unrestricted collections. This approach eliminates the need for a separate class predicate and some of the axioms Bernays or Gödel might have used.
+
+While the two-sorted approach might seem more intuitive initially, the single-sorted logic with a defined notion of "set" is generally preferred for its conciseness. It avoids the redundancy of having two representations for every set and simplifies the logical structure. In this approach, the membership relation, denoted by $\in$, applies to classes. If $A$ and $C$ are classes, $A \in C$ is a meaningful statement.
+
+So, to be clear, in this formulation, NBG is an [axiomatic system](/Axiomatic_system) within [first-order predicate logic](/First-order_predicate_logic), complete with [equality](/Equality_in_set_theory). The only fundamental, undefined entities are classes and the membership relation $\in$.
+
+#### Definitions and axioms of extensionality and pairing
+
+Let's lay down some of the foundational rules, the bedrock upon which everything else is built.
+
+*   **Set Definition:** A class $A$ is declared a [set](/Set_(mathematics)) if and only if there exists some class $C$ such that $A \in C$. This is the core definition: sets are simply those classes that are members of some other class.
+
+*   **Proper Class Definition:** Conversely, a class that is *not* a set is termed a [proper class](/Proper_class). This means for a proper class $A$, there is no class $C$ such that $A \in C$. Every class is either a set or a proper class, never both. &#91;12&#93; This sharp distinction is essential for avoiding paradoxes.
+
+Gödel's convention, which we'll follow, is that uppercase variables (like $A, B, C$) range over classes, while lowercase variables (like $x, y, z$) range over sets. This isn't just a stylistic choice; it helps keep the logical statements clear and unambiguous.
+
+This convention allows us to simplify quantifications. For instance, $\exists x \, \phi(x)$ (there exists a *set* $x$ such that $\phi(x)$ holds) is shorthand for $\exists x \, (\exists C (x \in C) \land \phi(x))$. Similarly, $\forall x \, \phi(x)$ (for all *sets* $x$, $\phi(x)$ holds) is shorthand for $\forall x \, (\exists C (x \in C) \implies \phi(x))$. It's a way of saying "for all sets" without explicitly having to state "for all classes $x$ such that $x$ is a set."
+
+Now, for the axioms themselves:
+
+*   **Axiom of Extensionality:** This is a fundamental principle. If two classes, $A$ and $B$, contain precisely the same elements, then they are, in fact, the same class. Mathematically:
+    $$ \forall A \, \forall B \, [\forall x (x \in A \iff x \in B) \implies A = B] $$
+    This axiom is crucial. It ensures that a class is uniquely determined by its members. It’s the generalization of the same principle for sets in ZFC. &#91;13&#93;
+
+*   **Axiom of Pairing:** This axiom guarantees that for any two *sets*, $x$ and $y$, there exists a *set* $p$ whose only members are $x$ and $y$.
+    $$ \forall x \, \forall y \, \exists p \, \forall z \, [z \in p \iff (z = x \, \lor \, z = y)] $$
+    The axiom of extensionality ensures that this set $p$ is unique, so we can confidently denote it as $\{x, y\}$. This is the basic mechanism for constructing new sets from existing ones. &#91;14&#93;
+
+From this, we can define ordered pairs, a fundamental concept for relations and functions:
+$$ (x, y) = \{\{x\}, \{x, y\}\} $$
+And then, recursively, we define $n$-tuples using ordered pairs. For $n > 1$:
+$$ (x_1, x_2, \dots, x_{n-1}, x_n) = ((x_1, x_2, \dots, x_{n-1}), x_n) $$
+This inductive definition means that any tuple can ultimately be broken down into nested ordered pairs, which are themselves constructed from sets. &#91;c&#93;
+
+#### Class existence axioms and axiom of regularity
+
+These axioms are the engine driving the class existence theorem. They provide the fundamental operations on classes that allow us to build new classes corresponding to logical combinations of formulas.
+
+*   **Axioms for handling language primitives:** These axioms ensure that basic logical operations correspond to operations on classes.
+    *   **Membership:** There exists a class $E$ that contains all ordered pairs $(x, y)$ such that $x \in y$. This is essentially encoding the membership relation itself as a class. &#91;18&#93;
+        $$ \exists E \, \forall x \, \forall y \, [(x, y) \in E \iff x \in y] $$
+    *   **Intersection (conjunction):** For any two classes $A$ and $B$, there exists a class $C$ containing precisely those sets that belong to both $A$ and $B$. This class $C$ is denoted $A \cap B$. &#91;19&#93;
+        $$ \forall A \, \forall B \, \exists C \, \forall x \, [x \in C \iff (x \in A \land x \in B)] $$
+    *   **Complement (negation):** For any class $A$, there exists a class $B$ containing precisely those sets that do *not* belong to $A$. This class $B$ is denoted $\complement A$. &#91;20&#93;
+        $$ \forall A \, \exists B \, \forall x \, [x \in B \iff \neg (x \in A)] $$
+    *   **Domain (existential quantifier):** For any class $A$, there exists a class $B$ containing precisely the first components of the ordered pairs in $A$. This class $B$ is denoted $Dom(A)$. This is how existential quantification is translated into a class operation. &#91;21&#93;
+        $$ \forall A \, \exists B \, \forall x \, [x \in B \iff \exists y ((x, y) \in A)] $$
+
+    By the axiom of extensionality, the classes $C$ and $B$ in these axioms are unique. These axioms, along with extensionality, also allow us to prove the existence of the empty class, $\emptyset$, and the universal class of all sets, $V$. &#91;e&#93;
+
+*   **Axioms for handling tuples:** These axioms deal with manipulating the components of ordered tuples, which are essential for building more complex relations and functions.
+    *   **Product by $V$:** For any class $A$, there exists a class $B$ containing all ordered pairs $(x, y)$ where $x \in A$. This is essentially $A \times V$. &#91;23&#93;
+        $$ \forall A \, \exists B \, \forall u \, [u \in B \iff \exists x \, \exists y \, (u = (x, y) \land x \in A)] $$
+    *   **Circular permutation:** For any class $A$, there exists a class $B$ whose 3-tuples $(x, y, z)$ are obtained by cyclically permuting the components of the 3-tuples of $A$, i.e., $(y, z, x) \in A$. &#91;24&#93;
+        $$ \forall A \, \exists B \, \forall x \, \forall y \, \forall z \, [(x, y, z) \in B \iff (y, z, x) \in A] $$
+    *   **Transposition:** For any class $A$, there exists a class $B$ whose 3-tuples $(x, y, z)$ are obtained by swapping the last two components of the 3-tuples of $A$, i.e., $(x, z, y) \in A$. &#91;25&#93;
+        $$ \forall A \, \exists B \, \forall x \, \forall y \, \forall z \, [(x, y, z) \in B \iff (x, z, y) \in A] $$
+
+These tuple axioms, along with the domain axiom, lead to the "Tuple Lemma," which is a crucial technical tool in proving the class existence theorem. &#91;h&#93;
+
+*   **Axiom of Regularity:** This axiom, also known as the axiom of foundation, states that every nonempty set $a$ has at least one element $u$ such that $u$ and $a$ are disjoint (i.e., $u \cap a = \emptyset$). &#91;f&#93;
+    $$ \forall a \, [a \neq \emptyset \implies \exists u (u \in a \land u \cap a = \emptyset)] $$
+    This axiom is fundamental for ensuring that sets are "well-founded." It prohibits sets from belonging to themselves ($x \in x$) and prevents infinite descending membership chains ($\dots \in x_2 \in x_1 \in x_0$). It essentially imposes a hierarchical structure on the universe of sets. &#91;t&#93;
+
+#### Class existence theorem
+
+This is the heart of NBG’s axiomatization. It’s a meta-theorem, meaning it’s a theorem *about* the system NBG, proved within its meta-theory. It guarantees that any property expressible by a formula quantifying only over sets corresponds to an actual class.
+
+*   **Class Existence Theorem:** Let $\phi(x_1, \dots, x_n, Y_1, \dots, Y_m)$ be a formula that quantifies only over sets, with no free variables other than $x_1, \dots, x_n, Y_1, \dots, Y_m$. Then, for any classes $Y_1, \dots, Y_m$, there exists a unique class $A$ of $n$-tuples such that $(x_1, \dots, x_n) \in A$ if and only if $\phi(x_1, \dots, x_n, Y_1, \dots, Y_m)$ holds. This class $A$ is denoted by $\{(x_1, \dots, x_n) : \phi(x_1, \dots, x_n, Y_1, \dots, Y_m)\}$. &#91;g&#93;
+
+The proof of this theorem is intricate, involving transforming the given formula $\phi$ into an equivalent one that only uses negation, conjunction, and existential quantification, and then using induction and the class existence axioms to construct the corresponding class. This process effectively shows that NBG can define any collection of sets that can be described by a formula.
+
+##### Transformation rules
+
+Before diving into the inductive proof, the formula $\phi$ is "transformed." This involves eliminating class variables and equality, and ensuring that all quantifiers are properly managed with respect to their nesting depth. These rules are systematic and ensure the formula can be handled by the inductive steps. For example, a formula like $Y_k \in \Gamma$ is transformed using existential quantification and equality, while $\Delta = \Gamma$ is handled via the axiom of extensionality. Logical connectives like disjunction ($\lor$), implication ($\implies$), and universal quantification ($\forall$) are rewritten in terms of negation ($\neg$), conjunction ($\land$), and existential quantification ($\exists$). &#91;Example 2&#93;
+
+##### Proof of the class existence theorem for transformed formulas
+
+The proof proceeds by induction on the number of logical symbols in the transformed formula $\phi$.
+
+*   **Basis Step:** For formulas with zero logical symbols (atomic formulas like $x_i \in x_j$ or $x_i \in Y_k$), the existence of the corresponding class is directly guaranteed by the membership axiom and the tuple axioms. For instance, the class $\{(x_1, \dots, x_n) : x_i \in x_j\}$ is constructed using the axiom of membership and the expansion lemma. &#91;Case 1, Case 2&#93;
+
+*   **Inductive Step:** Assuming the theorem holds for formulas with fewer than $k$ logical symbols, it is proven for formulas with $k$ symbols. This involves considering formulas built using negation ($\neg$), conjunction ($\land$), and existential quantification ($\exists$).
+    *   For $\neg \psi$, the class is the complement of the class for $\psi$.
+    *   For $\psi_1 \land \psi_2$, the class is the intersection of the classes for $\psi_1$ and $\psi_2$.
+    *   For $\exists x_{n+1} \psi$, the class is the domain of the class for $\psi$ (which will be a class of $(n+1)$-tuples). &#91;Case 1, Case 2, Case 3&#93;
+
+This inductive construction ensures that for any formula, the corresponding class can be built using the axioms. The process is entirely constructive, mirroring the structure of the formula itself. The pseudocode example provided illustrates this constructive nature, showing how a class can be generated algorithmically from its defining formula. &#91;Pseudocode&#93;
+
+#### Extending the class existence theorem
+
+The power of the class existence theorem is amplified by its ability to handle more complex formulas, including those involving relations, special classes, and operations. This is achieved through a process of "transformation rules" that convert these complex formulas into simpler ones that fit the theorem's basic requirements.
+
+*   **Relations, Special Classes, and Operations:** Formulas can define relations (like $Y_1 \subseteq Y_2$), special classes (like $Ord$), and operations (like $x_1 \cap Y_1$). The transformation rules systematically replace these constructs with their defining formulas, which themselves quantify only over sets. &#91;Example 3, Example 4&#93;
+
+*   **Extended Class Existence Theorem:** With these transformations, the class existence theorem can be extended to encompass formulas involving these more complex structures, as long as their definitions are set-quantifying. This means NBG can handle a much wider range of set-theoretic descriptions. &#91;Extended version&#93;
+
+### Set axioms
+
+While NBG's strength lies in its handling of classes, it also includes axioms that govern the behavior of sets, ensuring that the theory behaves as expected for basic set operations. These are largely analogous to the axioms of ZFC, but often with a broader scope due to the presence of classes.
+
+*   **Axiom of Replacement:** If $F$ is a function (a class of ordered pairs satisfying the function property) and $a$ is a set, then the image of $a$ under $F$, denoted $F[a]$, is also a set. This axiom is crucial for constructing larger sets from smaller ones. &#91;Axiom of replacement&#93; The NBG version is stronger than ZFC's because the definition of $F[A]$ does not require $A$ to be a subset of the domain of $F$. This leads to a powerful result:
+
+*   **Theorem (NBG's [axiom of separation](/Axiom_of_separation)):** If $a$ is a set and $B$ is a subclass of $a$, then $B$ is a set. This means that any subclass of a set is itself a set. The proof cleverly uses the axiom of replacement applied to the identity function restricted to $B$. &#91;Proof&#93;
+
+*   **Axiom of Union:** For any set $a$, the union of all its members, $\cup a$, is also a set. &#91;Axiom of union&#93;
+
+*   **Axiom of Power Set:** For any set $a$, the collection of all its subsets, $\mathcal{P}(a)$, is also a set. &#91;Axiom of power set&#93;
+
+These axioms, combined with the axiom of separation (which is provable in NBG, as shown above), ensure that basic set operations like union, intersection, and power set, when applied to sets, yield sets.
+
+*   **Axiom of Infinity:** This axiom asserts the existence of at least one infinite set. It guarantees that there's a set $a$ containing the empty set $\emptyset$ and, for every $x \in a$, also containing $x \cup \{x\}$. This construction generates the set of natural numbers. &#91;Axiom of infinity&#93; This axiom is implied by ZFC's axiom of infinity. &#91;Second conjunct of ZFC's axiom&#93;
+
+### Axiom of global choice
+
+The distinction between sets and classes allows NBG to formulate a significantly stronger version of the axiom of choice.
+
+*   **Global Choice Function:** While ZFC's axiom of choice guarantees a choice function for any *set* of nonempty sets, NBG's axiom of global choice asserts the existence of a choice function that works for *any* nonempty set, regardless of whether those sets form a set themselves. &#91;Axiom of global choice&#93; This is a much more sweeping statement about the universe of sets. It implies that every class can be well-ordered, a result far beyond what ZFC can prove. &#91;a&#93; This axiom is equivalent to stating that every class has a well-ordering.
+
+### History
+
+The development of NBG is a fascinating journey through the evolution of mathematical logic and the foundations of mathematics. It’s a story of refinement, of grappling with paradoxes, and of striving for elegance and rigor.
+
+#### History of approaches that led to NBG set theory
+
+*   **Von Neumann's 1925 axiom system:** John von Neumann initiated the formalization of set theory with classes in 1925. His system was built on the primitives of functions and arguments, with functions corresponding to classes and argument-functions to sets. He introduced an axiom of "limitation of size," which essentially stated that a class is not a set if and only if it can be mapped onto the class of all sets ($V$). This axiom was powerful, avoiding paradoxes but also seeming "too strong" to some, raising concerns about its consistency. &#91;57&#93; &#91;r&#93;
+
+*   **Von Neumann's 1929 axiom system:** In response to consistency concerns, von Neumann revised his system in 1929, removing the problematic axiom of limitation of size and replacing it with its consequences: the axiom of replacement and a choice axiom. This system was closer to the "necessary Cantorian framework." &#91;57&#93;
+
+*   **Bernays' axiom system:** Paul Bernays, beginning in 1929 and publishing through the 1950s, began modifying von Neumann's system. He adopted a [two-sorted logic](/Many-sorted_first-order_logic) with separate sorts for sets and classes, introducing two membership primitives. This approach aimed to stay closer to Zermelo's original system while incorporating familiar logical concepts. &#91;60&#93;
+
+*   **Gödel's axiom system (NBG):** In 1931, Kurt Gödel received Bernays' work and, in 1940, published his influential monograph. Gödel simplified Bernays' theory by using a single sort for classes, where sets are defined as those classes that are members of other classes. He also introduced the axiom of global choice and proved the relative consistency of the axiom of choice and the generalized continuum hypothesis with his system. &#91;62&#93; Gödel's choice of NBG was strategic: the global axiom of choice yielded a stronger consistency theorem, and the class formalism allowed him to develop the constructible universe without relying heavily on model theory, making his work more accessible. &#91;67&#93; &#91;68&#93;
+
+Over time, ZFC became more prevalent, partly due to the technicalities of handling forcing in NBG and the elegance of Cohen's presentation of forcing within ZF. However, NBG remains a significant theory, offering a different perspective on the foundations of mathematics.
+
+### NBG, ZFC, and MK
+
+NBG and ZFC are closely related, yet distinct. NBG's language is richer because it includes classes, allowing it to make statements about collections that are too large to be sets – statements that are impossible to express in ZFC. However, NBG is a [conservative extension](/Conservative_extension) of ZFC. This means that any statement about *sets* that can be proven in NBG can also be proven in ZFC, and vice versa. This property is why NBG and ZFC are considered [equiconsistent](/Equiconsistent) – if one is consistent, the other must be too.
+
+The difference lies in what NBG can prove about *proper classes*. For example, NBG can prove that the axiom of global choice implies that the class of all sets ($V$) can be well-ordered, a statement about a proper class that goes beyond ZFC.
+
+[Morse–Kelley set theory](/Morse%E2%80%93Kelley_set_theory) (MK) is even more powerful than NBG. MK can prove the consistency of NBG, a feat impossible for NBG itself due to [Gödel's second incompleteness theorem](/G%C3%B6del%27s_second_incompleteness_theorem). This makes MK a stronger axiomatic system.
+
+### Models
+
+The existence and structure of models for NBG are deeply tied to the cumulative hierarchy $V_\alpha$ and the constructible hierarchy $L_\alpha$. These hierarchies provide a way to build up the universe of sets in stages.
+
+*   **Models of ZFC:** Models like $(V_\kappa, \in)$ and $(L_\kappa, \in)$, where $\kappa$ is an [inaccessible cardinal](/Inaccessible_cardinal), are standard models of ZFC. &#91;77&#93;
+
+*   **Models of MK:** A model for MK can be constructed as $(V_\kappa, V_{\kappa+1}, \in)$, where $V_\kappa$ represents the sets and $V_{\kappa+1}$ represents the classes. Since MK is stronger than NBG, any model of MK is also a model of NBG. &#91;78&#93;
+
+*   **Models of NBG:** Models like $(V_\kappa, \operatorname{Def}(V_\kappa), \in)$ and $(L_\kappa, L_{\kappa^+}, \in)$ serve as models for NBG. The former, $(V_\kappa, \operatorname{Def}(V_\kappa), \in)$, is particularly interesting because $\operatorname{Def}(V_\kappa)$ consists of first-order definable subsets within $V_\kappa$. This model satisfies ZFC's axioms and the NBG class existence axioms because any class definable by a formula quantifying only over sets can be constructed. &#91;79&#93; The latter, $(L_\kappa, L_{\kappa^+}, \in)$, is a model of NBG, including the axiom of global choice, because the constructible universe $L$ is intrinsically well-ordered. &#91;ac&#93;
+
+The study of models provides crucial insights into the consistency and relative strengths of these set theories.
+
+#### Category theory
+
+NBG's framework, with its distinction between sets and proper classes, is particularly useful in [category theory](/Category_theory).
+
+*   **Large Categories:** In category theory, a "[large category](/Large_category)" is defined as one whose objects and morphisms form a proper class. This allows us to discuss categories like the "category of all sets" without paradox, as the collection of all sets is itself a proper class.
+
+*   **Limitations and Conglomerates:** However, NBG cannot support a "category of all categories" because proper classes cannot be members of other classes. To address this, the concept of a [conglomerate](/Conglomerate_(mathematics)) was introduced—a collection of classes. This extension allows for the formalization of structures like the "category of all categories." &#91;83&#93;
+
+The ontological richness of NBG provides a flexible foundation for various branches of mathematics, including the abstract and highly structured world of category theory.

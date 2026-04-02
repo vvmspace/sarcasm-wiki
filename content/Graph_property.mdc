@@ -1,0 +1,138 @@
+---
+title: "Graph Property"
+description: "Right. So, you want me to… elaborate. On abstract structures. How quaint. Fine. Just try not to bore..."
+keywords: graph theory, graph, planar, connected, diameter, girth, vertex connectivity, degree sequence, isomorphism, isomorphic
+slug: "Graph_property"
+createdAt: "2025-11-17T03:24:59.291Z"
+updatedAt: "2025-11-17T03:24:59.291Z"
+contentType: "rewritten"
+---
+
+Right. So, you want me to… elaborate. On abstract structures. How quaint. Fine. Just try not to bore me.
+
+### Property of Graphs That Depends Only on Abstract Structure
+
+In the rather dreary realm of [graph theory](/Graph_theory), a property—or, if you prefer, a graph invariant—is essentially a characteristic of a [graph](/Graph_(discrete_mathematics)) that remains steadfast, regardless of how you choose to draw it or label its bits. It’s about the graph’s soul, not its superficial presentation. Think of it as the underlying architecture, divorced from the paint job or the furniture arrangement. It’s what makes a graph *that* graph, even if you shuffle its vertices around.
+
+Consider this rather unremarkable example graph:
+![Example graph](https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Graph_with_properties.svg/300px-Graph_with_properties.svg.png)
+It’s [planar](/Planar_graph), meaning you could draw it on a flat surface without any lines crossing. It’s also [connected](/Connectivity_(graph_theory)), a single, unbroken entity. It has six vertices (its order), seven edges (its size), a [diameter](/Diameter_(graph_theory)) of 3, a [girth](/Girth_(graph_theory)) of 3, and a [vertex connectivity](/Connectivity_(graph_theory)) of 1. Its [degree sequence](/Degree_sequence)—the list of how many edges connect to each vertex—is <3, 3, 3, 2, 2, 1>. These are all properties that define its intrinsic nature, its very essence, independent of whether you call vertex A "A" or "Z."
+
+### Definitions
+
+To truly focus on the inherent structure of graphs, a graph property is rigorously defined as something that is preserved under any [isomorphism](/Graph_isomorphism). In simpler terms, if two graphs are structurally identical—meaning one is just a relabeling or rearrangement of the other—they must share the same properties. It’s not about the labels or the drawings; it’s about the connections, the patterns, the fundamental relationships between the nodes.
+
+The term "graph invariant" is often used when referring to quantitative measures—numbers, sequences, or values associated with a graph. "Property," on the other hand, tends to describe qualitative, descriptive characteristics. For instance, stating that a graph "does not have any vertices of degree 1" is a property. Conversely, stating that a graph "has exactly three vertices of degree 1" is an invariant, a specific numerical value.
+
+More formally, a graph property can be seen as a specific *class* of graphs. If two graphs are [isomorphic](/Graph_isomorphism), they either both belong to this class, or neither does. It’s an all-or-nothing affair for structurally identical graphs. This can also be viewed through the lens of an [indicator function](/Indicator_function)—a mathematical tool that returns `true` for graphs possessing the property and `false` for those that don’t. Again, isomorphic graphs will yield the same `true` or `false` result. A graph invariant, in this formal sense, is a function that maps graphs to a broader set of values—integers, [real numbers](/Real_number), sequences, or even [polynomials](/Polynomial)—always returning the same value for isomorphic graphs. It’s a consistent measure of their abstract nature.
+
+### Properties of Properties
+
+Many graph properties behave in predictable ways when we consider them in relation to certain inherent structures or relationships within graphs. These relationships often form [partial orders](/Partial_order) or [preorders](/Preorder).
+
+*   **Hereditary Property**: A property is [hereditary](/Hereditary_property) if any [induced subgraph](/Induced_subgraph) of a graph possessing that property also inherits it. Think of it as a trait passed down through generations of subgraphs. For example, being a [perfect graph](/Perfect_graph) or a [chordal graph](/Chordal_graph) are hereditary properties. If a graph is perfect, any part of it you isolate (an induced subgraph) will also be perfect. It’s a fundamental characteristic.
+
+*   **Monotone Property**: A property is [monotone](/Hereditary_property) if any [subgraph](/Glossary_of_graph_theory)—not necessarily induced—of a graph with the property also possesses it. This is a slightly looser condition than hereditary. For instance, being [bipartite](/Bipartite_graph) or [triangle-free](/Triangle-free_graph) are monotone properties. If a graph can be colored with two colors, or if it contains no triangles, any subgraph you take from it will also have these qualities. All monotone properties are hereditary, but the reverse isn't always true. A chordal graph, for example, is hereditary, but its subgraphs aren't guaranteed to be chordal.
+
+*   **Minor-Closed Property**: A property is [minor-closed](/Hereditary_property) if any [graph minor](/Graph_minor) derived from a graph with the property also retains that property. A graph minor is what you get by deleting edges, deleting vertices, and contracting edges. Being a [planar graph](/Planar_graph) is a classic example of a minor-closed property. If a graph can be drawn without edge crossings, any graph derived from it through these operations will also be planar. Every minor-closed property is monotone, but again, not vice versa. A triangle-free graph, for instance, might produce a minor that *does* contain a triangle.
+
+These classifications can also be applied to numerical invariants. A graph invariant is considered hereditary, monotone, or minor-closed if the function describing it behaves monotonically with respect to the corresponding partial orders on graphs. It’s like saying the numerical value of the invariant decreases (or stays the same) as you move to smaller or simpler graph structures.
+
+Furthermore, graph invariants are often analyzed based on their behavior when dealing with [disjoint unions](/Disjoint_union) of graphs:
+
+*   **Additive Invariant**: An invariant is additive if the value for a disjoint union of two graphs is simply the sum of the values for each individual graph. The number of vertices is a prime example. If you combine two graphs, the total number of vertices is just the sum of their original vertex counts.
+
+*   **Multiplicative Invariant**: Conversely, a multiplicative invariant’s value for a disjoint union is the *product* of the values for the constituent graphs. The [Hosoya index](/Hosoya_index), which counts the number of matchings in a graph, is multiplicative.
+
+*   **Maxing Invariant**: An invariant is "maxing" if its value for a disjoint union is the *maximum* of the values of the individual graphs. The [chromatic number](/Chromatic_number)—the minimum number of colors needed to color the vertices—is maxing. If you combine two graphs, the number of colors needed for the combined graph is determined by the more complex of the two.
+
+Beyond these structural behaviors, properties can also be categorized by the type of graph they apply to—whether the graph is [undirected](/Undirected_graph), [directed](/Directed_graph), or if the property is relevant to [multigraphs](/Multigraph).
+
+### Values of Invariants
+
+The "output" of a graph invariant—the value it returns—can take various forms:
+
+*   **Truth Value**: This is for the indicator function of a graph property, returning `true` or `false`. Does the graph have the property or not? Simple, yet fundamental.
+
+*   **Integer**: Many common invariants return integers. The [order](/Order_(graph_theory)) (number of vertices), the [size](/Size_(graph_theory)) (number of edges), the number of [connected components](/Connected_component_(graph_theory)), the [diameter](/Distance_(graph_theory)), the [girth](/Girth_(graph_theory)), various connectivity measures ([vertex connectivity](/Connectivity_(graph_theory)), [edge connectivity](/Edge_connectivity)), and coloring numbers like the [chromatic number](/Chromatic_number) and [chromatic index](/Chromatic_index) all fall into this category. Even more complex ones like the [Hosoya index](/Hosoya_index) or the [Wiener index](/Wiener_index) yield integers.
+
+*   **Real Number**: Some invariants, particularly those arising from continuous mathematical frameworks applied to discrete structures, return [real numbers](/Real_number). The [fractional chromatic number](/Fractional_chromatic_number) or measures of centrality like [betweenness centrality](/Betweenness_centrality) are examples. The [clustering coefficient](/Clustering_coefficient) also fits here.
+
+*   **Sequence of Integers**: Some properties are best described by a collection of numbers. The most prominent example is the [degree sequence](/Degree_sequence) of a graph, which lists the degrees of all its vertices. The [graph spectrum](/Graph_spectrum), derived from the eigenvalues of the [adjacency matrix](/Adjacency_matrix), also results in a sequence of numbers.
+
+*   **Polynomial**: Certain invariants are represented by [polynomials](/Polynomial). The [chromatic polynomial](/Chromatic_polynomial), for instance, describes the number of ways to color a graph with `k` colors as a function of `k`. The [Tutte polynomial](/Tutte_polynomial) is another powerful example, encoding significant information about a graph's connectivity.
+
+### Graph Invariants and Graph Isomorphism
+
+The real utility of easily computable graph invariants often lies in their ability to quickly tell us when two graphs are *not* isomorphic. If two graphs have different invariant values, they simply cannot be the same abstract structure. It’s a definitive "no." However, if their invariant values match, it doesn't guarantee isomorphism; it just means they *might* be. It’s like finding two people with the same favorite color; it doesn’t mean they are the same person.
+
+A graph invariant `I(G)` is called "complete" if, whenever `I(G) = I(H)`, it necessarily implies that `G` and `H` are isomorphic. Finding an efficiently computable complete invariant would be a monumental achievement, as it would effectively solve the notoriously difficult [graph isomorphism problem](/Graph_isomorphism_problem)—the challenge of determining, algorithmically, whether two graphs are structurally identical. Unfortunately, most even seemingly complex invariants are not complete. Take the [chromatic polynomial](/Chromatic_polynomial), for instance. The [claw graph](/Claw_(graph_theory)) and the [path graph](/Path_graph) on four vertices, despite their distinct structures, share the same chromatic polynomial. This is why the problem remains so challenging.
+
+### Examples
+
+To ground this abstract discussion, let’s list some concrete examples.
+
+**Properties** (Descriptive Characteristics):
+
+*   [Connected graph](/Connected_graph): Is the graph a single piece?
+*   [Bipartite graph](/Bipartite_graph): Can its vertices be divided into two sets such that no two vertices within the same set are connected?
+*   [Planar graph](/Planar_graph): Can it be drawn on a plane without edge crossings?
+*   [Triangle-free graph](/Triangle-free_graph): Does it contain any cycles of length three?
+*   [Perfect graph](/Perfect_graph): A class with specific structural properties related to its cliques and independent sets.
+*   [Eulerian graph](/Eulerian_graph): Does it have an Eulerian circuit (a trail that visits every edge exactly once and ends where it started)?
+*   [Hamiltonian graph](/Hamiltonian_graph): Does it have a Hamiltonian cycle (a cycle that visits every vertex exactly once)?
+
+**Integer Invariants** (Numerical Measures):
+
+*   [Order](/Order_(graph_theory)): Number of vertices. The most basic count.
+*   [Size](/Size_(graph_theory)): Number of edges. The next most basic count.
+*   Number of [connected components](/Connected_component_(graph_theory)): How many separate pieces make up the graph?
+*   [Circuit rank](/Circuit_rank): Related to the number of independent cycles.
+*   [Diameter](/Distance_(graph_theory)): The longest shortest path between any two vertices. The "span" of the graph.
+*   [Girth](/Girth_(graph_theory)): The length of the shortest cycle. The "tightness" of the graph's loops.
+*   [Vertex connectivity](/Connectivity_(graph_theory)): The minimum number of vertices you need to remove to disconnect the graph. A measure of robustness against vertex failure.
+*   [Edge connectivity](/Edge_connectivity): The minimum number of edges you need to remove to disconnect the graph. Robustness against edge failure.
+*   [Chromatic number](/Chromatic_number): The fewest colors needed for a valid vertex coloring. A measure of "colorability."
+*   [Chromatic index](/Chromatic_index): The fewest colors needed for a valid edge coloring.
+*   [Choosability](/Choosability) (or list chromatic number): A stronger form of colorability, related to pre-assigned lists of colors.
+*   [Independence number](/Independence_number): The largest set of vertices where no two are connected by an edge. The maximum number of "independent" nodes.
+*   [Clique number](/Clique_number): The size of the largest complete subgraph (where every pair of vertices is connected). The maximum size of a "fully connected" group.
+*   [Arboricity](/Arboricity): The minimum number of forests needed to cover all edges.
+*   [Graph genus](/Graph_genus): The minimum number of handles needed to embed the graph on a surface.
+*   [Pagenumber](/Book_embedding): Related to how "nicely" a graph can be laid out in a book.
+*   [Hosoya index](/Hosoya_index): Number of matchings (sets of non-adjacent edges).
+*   [Wiener index](/Wiener_index): Sum of distances between all pairs of vertices.
+*   [Colin de Verdière graph invariant](/Colin_de_Verdi%C3%A8re_graph_invariant): A more advanced invariant related to linear algebra and spectral graph theory.
+*   [Boxicity](/Boxicity): The minimum dimension needed to represent the graph as intersections of unit cubes.
+
+**Real Number Invariants**:
+
+*   [Clustering coefficient](/Clustering_coefficient): Measures how close the neighbors of a vertex are to being a clique.
+*   [Betweenness centrality](/Betweenness_centrality): How often a vertex lies on the shortest path between other pairs of vertices.
+*   [Fractional chromatic number](/Fractional_chromatic_number): A relaxation of the chromatic number.
+*   [Algebraic connectivity](/Algebraic_connectivity): The second smallest eigenvalue of the graph Laplacian.
+*   [Isoperimetric number](/Cheeger_constant_(graph_theory)): Relates the size of a vertex set to the number of edges crossing the boundary.
+*   [Estrada index](/Estrada_index): Another spectral invariant.
+*   [Strength of a graph](/Strength_of_a_graph_(graph_theory)): A measure of connectivity.
+
+**Sequences and Polynomials**:
+
+*   [Degree sequence](/Degree_sequence): The ordered list of vertex degrees.
+*   [Graph spectrum](/Graph_spectrum): The eigenvalues of the adjacency matrix.
+*   [Characteristic polynomial](/Characteristic_polynomial): The determinant of `(A - λI)`, where `A` is the adjacency matrix and `λ` is a variable.
+*   [Chromatic polynomial](/Chromatic_polynomial): `P(G, k)`, the number of `k`-colorings.
+*   [Tutte polynomial](/Tutte_polynomial): `T(G; x, y)`, a bivariate polynomial encoding topological and structural information.
+
+**Edge Partition**:
+
+*   [(a, b)-decomposition](/(a,_b)-decomposition): Partitions of edges based on certain properties.
+
+### See Also
+
+For those who wish to delve deeper into the labyrinthine world of graph properties and their formalisms, consider these related concepts:
+
+*   [Hereditary property](/Hereditary_property): A foundational concept for classifying how properties are passed down.
+*   [Logic of graphs](/Logic_of_graphs): The formal languages used to precisely describe graph properties.
+*   [Topological index](/Topological_index): A concept closely related in [chemical graph theory](/Chemical_graph_theory), often focusing on molecular structures.
+
+#

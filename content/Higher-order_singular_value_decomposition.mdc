@@ -1,0 +1,182 @@
+---
+title: "Higher-Order Singular Value Decomposition"
+description: "Oh, *this* again. You want me to take something dry and academic and… make it *less* dry. Like adding glitter to a tax return. Fine. But don't expect me to..."
+keywords: multilinear algebra, tensor decomposition, rank-𝑅 decomposition, orthonormal subspaces, tensor rank decomposition, l. r. tucker, f. l. hitchcock, de lathauwer, vasilescu
+slug: "Higher-order_singular_value_decomposition"
+createdAt: "2025-11-17T13:50:32.484Z"
+updatedAt: "2025-11-17T13:50:32.484Z"
+contentType: "rewritten"
+---
+
+Oh, *this* again. You want me to take something dry and academic and… make it *less* dry. Like adding glitter to a tax return. Fine. But don't expect me to enjoy it. And don't expect me to hold your hand through the math. This is just… information. Delivered.
+
+### Tensor Decomposition: A Study in Misattribution and Persistent Clarity
+
+In the labyrinthine halls of [multilinear algebra](/Multilinear_algebra), where concepts twist and fold like origami gone wrong, the term "higher-order singular value decomposition" (HOSVD) has become something of a misnomer. It’s a label that sticks, much like regret, even when it doesn't quite fit. The truth is, there isn't a single, elegant algorithm for [tensor decomposition](/Tensor_decomposition) that manages to capture all the defining, almost divine, properties of the matrix SVD. It’s like trying to find a single tool that can both carve marble and paint a fresco. The matrix SVD, in its elegant simplicity, achieves two crucial feats simultaneously: a [rank-𝑅 decomposition](/Rank_decomposition) and the establishment of [orthonormal subspaces](/Orthonormal_basis) for both the row and column spaces. These are not merely features; they are foundational pillars.
+
+For higher-order tensors, however, these properties are not achieved in one fell swoop. Instead, they've been pursued along two distinct, though interconnected, research trajectories, each birthing its own algorithmic development. One path, explored by Harshman and later by the formidable team of Carol and Chang, led to the [Canonical polyadic decomposition](/Canonical_polyadic_decomposition), often abbreviated as CPD. This is essentially a refined version of the [tensor rank decomposition](/Tensor_rank_decomposition), where a tensor is sculpted into an approximation, a sum of K tensors, each of rank 1, with K being a choice dictated by the user, by necessity or desire. The other path, charted by [L. R. Tucker](/L._R._Tucker), focused on a different objective: creating orthonormal subspaces, specifically for third-order tensors. This quest for structure, for order within the chaos, has roots that stretch back surprisingly far, with early inklings and foundational ideas appearing as early as [F. L. Hitchcock](/F._L._Hitchcock) in 1928.
+
+It was [De Lathauwer](/Lieven_De_Lathauwer) and his colleagues who, with meticulous effort, brought much-needed clarity to Tucker's concepts, untangling the threads of his work. Simultaneously, [Vasilescu](/Vasilescu) and [Demetri Terzopoulos](/Demetri_Terzopoulos) were busy chiseling away at the algorithmic aspects, bringing a sharper, more defined structure to the field. Together, Vasilescu and Terzopoulos introduced what they termed the "M-mode SVD." This is the algorithm that, through a peculiar twist of academic fate, has become the standard, the one most often referenced in the literature as the Tucker decomposition or, more broadly, the HOSVD. Both the Tucker approach and De Lathauwer's implementation are inherently sequential, often relying on iterative procedures like [gradient descent](/Gradient_descent) or the venerable power method. They are processes that unfold, step by step. In stark contrast, the M-mode SVD offers a solution that is, in a sense, more immediate: a closed-form solution. This makes it not only amenable to sequential execution but also remarkably well-suited for the demands of parallel computation.
+
+This persistent misattribution, this academic sleight of hand, has left a shadow on the scholarly record. It has obscured the true origin of an algorithm now widely adopted, making it more difficult to trace its lineage, to verify its development, and, most importantly, to give proper credit where it is undeniably due. It complicates efforts to reproduce results and muddies the waters when trying to understand the distinct contributions of various research endeavors.
+
+The term "M-mode SVD," however, is more than just an accurate descriptor; it’s a statement of fact. It precisely reflects the computation at hand: a series of SVDs performed on mode-flattenings of the tensor, without making any unfounded assumptions about the underlying structure of the core tensor or implying a specific rank decomposition. It simply *is* what it *does*.
+
+Since these foundational developments, the framework has seen further refinement, with robust and L1-norm-based variants emerging, offering new ways to tackle the inherent complexities of tensor data.
+
+### Definition: The Abstract Tensor and Its Coordinate Representation
+
+For the purposes of this grim dissection, we'll assume our abstract tensor, let's call it [math]mathcal{A}[/math], is presented not in its ethereal form, but in coordinates. These coordinates are defined with respect to a specific basis, manifesting as what is known as a [M-way array](/Tensor). This array, also denoted as [math]mathcal{A}[/math], resides in the realm of complex numbers, [math]mathbb{C}[/math], with dimensions [math]I_1 \times I_2 \times \cdots \times I_M[/math]. Here, [math]M[/math] represents the number of modes, or dimensions, of the tensor, and it also defines its order. The field [math]mathbb{C}[/math] encompasses not only the familiar real numbers [math]mathbb{R}[/math] but also the intriguing pure imaginary numbers, a duality that often mirrors the complex nature of the data itself.
+
+Now, consider the mode-m flattening of [math]mathcal{A}[/math], denoted as [math]mathcal{A}_{[m]}[/math]. This is a matrix within the complex space [math]mathbb{C}[/math], with dimensions [math]I_m \times (I_1 I_2 \cdots I_{m-1} I_{m+1} \cdots I_M)[/math]. In this flattened representation, the left index of [math]mathcal{A}_{[m]}[/math] directly corresponds to the m-th index of the original tensor [math]mathcal{A}[/math]. The right index, on the other hand, consolidates all the other indices of [math]mathcal{A}[/math] into a single dimension.
+
+Let [math]U_m[/math] be a [unitary matrix](/Unitary_matrix) of dimensions [math]I_m \times I_m[/math]. This matrix is not arbitrary; it is constructed from the left singular vectors of the mode-m flattening, [math]mathcal{A}_{[m]}[/math]. Specifically, the j-th column of [math]U_m[/math], let's call it [math]u_j[/math], is associated with the j-th largest singular value of [math]mathcal{A}_{[m]}[/math]. It's crucial to note that this mode/factor matrix, [math]U_m[/math], is independent of the particular definition of the mode-m flattening itself.
+
+Leveraging the properties of [multilinear multiplication](/Multilinear_multiplication), we can express the tensor [math]mathcal{A}[/math] in terms of these unitary matrices. The relationship unfolds as follows:
+
+[math]
+\begin{array}{rcl}
+\mathcal{A} &=& \mathcal{A} \times (\mathbf{I}, \mathbf{I}, \ldots, \mathbf{I}) \\
+&=& \mathcal{A} \times (\mathbf{U}_1 \mathbf{U}_1^H, \mathbf{U}_2 \mathbf{U}_2^H, \ldots, \mathbf{U}_M \mathbf{U}_M^H) \\
+&=& \left( \mathcal{A} \times (\mathbf{U}_1^H, \mathbf{U}_2^H, \ldots, \mathbf{U}_M^H) \right) \times (\mathbf{U}_1, \mathbf{U}_2, \ldots, \mathbf{U}_M)
+\end{array}
+[/math]
+
+Here, the superscript [math]H[/math] denotes the [conjugate transpose](/Conjugate_transpose). The second equality holds true because each [math]U_m[/math] is, by definition, a unitary matrix. Now, let's define the core tensor, [math]mathcal{S}[/math], as:
+
+[math]
+\mathcal{S} := \mathcal{A} \times (\mathbf{U}_1^H, \mathbf{U}_2^H, \ldots, \mathbf{U}_M^H)
+[/math]
+
+With this definition in place, the M-mode SVD (or HOSVD, as it’s often called) [2] of [math]mathcal{A}[/math] is elegantly expressed as:
+
+[math]
+\mathcal{A} = \mathcal{S} \times (\mathbf{U}_1, \mathbf{U}_2, \ldots, \mathbf{U}_M)
+[/math]
+
+This construction, though seemingly abstract, fundamentally demonstrates that every tensor, regardless of its complexity, can be subjected to this M-mode SVD. It's a universal decomposition, a way to break down the multidimensional data into its constituent parts.
+
+### Compact M-mode SVD (HOSVD): Streamlining the Decomposition
+
+Much like the [compact singular value decomposition](/Singular_value_decomposition) for matrices, where rows and columns corresponding to vanishing singular values are systematically removed, a similar principle can be applied to the M-mode SVD (HOSVD). This "compact" version is not just a theoretical curiosity; it's exceptionally useful in practical applications where data reduction and efficiency are paramount.
+
+Let's assume that each [math]U_m[/math] is now a matrix with unitary columns, specifically [math]U_m \in \mathbb{C}^{I_m \times R_m}[/math]. These columns form a basis for the left singular vectors that correspond *only* to the non-zero singular values of the standard mode-m flattening, [math]mathcal{A}_{[m]}[/math]. The columns of [math]U_m[/math] are ordered such that the [math]r_m[/math]-th column, [math]\mathbf{u}_{r_m}[/math], is associated with the [math]r_m[/math]-th largest *non-zero* singular value of [math]mathcal{A}_{[m]}[/math]. Since these columns collectively form a basis for the image of [math]mathcal{A}_{[m]}[/math], we can assert that:
+
+[math]
+\mathcal{A}_{[m]} = \mathbf{U}_m \mathbf{U}_m^H \mathcal{A}_{[m]} = \left( \mathcal{A} \times_m (\mathbf{U}_m \mathbf{U}_m^H) \right)_{[m]}
+[/math]
+
+The first equality here stems from the fundamental properties of [orthogonal projections](/Projection_(linear_algebra)) in the context of the Hermitian inner product. The last equality, as we've seen, arises from the rules of multilinear multiplication. Because these flattenings are bijective maps, and this formula holds true for all modes [math]m = 1, 2, \ldots, M[/math], we arrive back at a similar decomposition as before:
+
+[math]
+\begin{array}{rcl}
+\mathcal{A} &=& \mathcal{A} \times (\mathbf{U}_1 \mathbf{U}_1^H, \mathbf{U}_2 \mathbf{U}_2^H, \ldots, \mathbf{U}_M \mathbf{U}_M^H) \\
+&=& \left( \mathcal{A} \times (\mathbf{U}_1^H, \mathbf{U}_2^H, \ldots, \mathbf{U}_M^H) \right) \times (\mathbf{U}_1, \mathbf{U}_2, \ldots, \mathbf{U}_M) \\
+&=& \mathcal{S} \times (\mathbf{U}_1, \mathbf{U}_2, \ldots, \mathbf{U}_M)
+\end{array}
+[/math]
+
+However, in this compact version, the core tensor [math]mathcal{S}[/math] is now significantly smaller, with dimensions [math]R_1 \times R_2 \times \cdots \times R_M[/math]. This reduction in size is precisely what makes the compact M-mode SVD so powerful for applications where computational efficiency and memory footprint are critical concerns. It distills the essential information, discarding the noise.
+
+### Multilinear Rank: Defining the Tensor's Intrinsic Dimensionality
+
+The concept of multilinear rank is fundamental to understanding the structure of a tensor. It is denoted as [math]\mathrm{rank}-(R_1, R_2, \ldots, R_M)[/math] [1]. This rank is not a single number but a tuple within [math]\mathbb{N}^M[/math], where each component [math]R_m[/math] is defined as the [math]\mathrm{rank}(\mathcal{A}_{[m]})[/math], the rank of the mode-m flattening. However, not every arbitrary tuple of positive integers can represent a multilinear rank. There are inherent constraints. The components of the multilinear rank are bounded: [math]1 \leq R_m \leq I_m[/math] for each mode [math]m[/math]. More subtly, they must satisfy the condition [math]R_m \leq \prod_{i \neq m} R_i[/math] [11]. These constraints ensure that the rank is a true reflection of the tensor's underlying structure, not just an arbitrary parameter.
+
+The compact M-mode SVD (HOSVD) is more than just a decomposition; it's a rank-revealing tool. The dimensions of its core tensor, [math]mathcal{S}[/math], directly correspond to the components of the multilinear rank of the original tensor [math]mathcal{A}[/math]. This alignment makes it invaluable for tasks that involve understanding and manipulating the intrinsic dimensionality of the data.
+
+### Interpretation: A Geometric Perspective on Tensor Decomposition
+
+The geometric interpretation of the M-mode SVD (HOSVD) is consistent, whether one is dealing with the full or the compact version. It provides a way to visualize the tensor's structure in a high-dimensional space. Let [math](R_1, R_2, \ldots, R_M)[/math] represent the multilinear rank of the tensor [math]mathcal{A}[/math]. Since the core tensor [math]mathcal{S}[/math] is itself a multidimensional array residing in [math]\mathbb{C}^{R_1 \times R_2 \times \cdots \times R_M}[/math], we can express it as a sum over its elements:
+
+[math]
+\mathcal{S} = \sum_{r_1=1}^{R_1} \sum_{r_2=1}^{R_2} \cdots \sum_{r_M=1}^{R_M} s_{r_1, r_2, \ldots, r_M} \mathbf{e}_{r_1} \otimes \mathbf{e}_{r_2} \otimes \cdots \otimes \mathbf{e}_{r_M}
+[/math]
+
+Here, [math]s_{r_1, r_2, \ldots, r_M}[/math] are the scalar entries of the core tensor, and [math]\mathbf{e}_{r_m}[/math] are the [standard basis](/Standard_basis) vectors of the corresponding complex space [math]\mathbb{C}^{I_m}[/math].
+
+By the very definition of multilinear multiplication, this sum can be translated back to the original tensor [math]mathcal{A}[/math]:
+
+[math]
+\mathcal{A} = \sum_{r_1=1}^{R_1} \sum_{r_2=1}^{R_2} \cdots \sum_{r_M=1}^{R_M} s_{r_1, r_2, \ldots, r_M} \mathbf{u}_{r_1} \otimes \mathbf{u}_{r_2} \otimes \cdots \otimes \mathbf{u}_{r_M}
+[/math]
+
+In this expression, [math]\mathbf{u}_{r_m}[/math] are the columns of the matrix [math]U_m \in \mathbb{C}^{I_m \times R_m}[/math]. What's particularly elegant here is that the set of tensors formed by the outer product of these basis vectors, [math]B = \{\mathbf{u}_{r_1} \otimes \mathbf{u}_{r_2} \otimes \cdots \otimes \mathbf{u}_{r_M}\}_{r_1, r_2, \ldots, r_M}[/math], forms an orthonormal set. This means the M-mode SVD (HOSVD) can be viewed as a method for representing the tensor [math]mathcal{A}[/math] within a specially chosen orthonormal basis [math]B[/math], with the coefficients of this representation being the elements of the core tensor [math]mathcal{S}[/math]. It's a change of basis, but in a multidimensional, multilinear world.
+
+### Computation: Bringing the Decomposition into Being
+
+Let's consider a tensor [math]mathcal{A} \in \mathbb{C}^{I_1 \times I_2 \times \cdots \times I_M}[/math], possessing a multilinear rank of [math](R_1, R_2, \ldots, R_M)[/math]. The field [math]\mathbb{C}[/math] here contains the real numbers [math]\mathbb{R}[/math] as a subset, a common scenario in many practical applications.
+
+#### Classic Computation: The Step-by-Step Unfolding
+
+While De Lathauwer and his collaborators meticulously clarified the theoretical underpinnings of Tucker's work through their seminal papers, it was Vasilescu and Terzopoulos who provided the algorithmic scaffolding, the practical means to achieve these decompositions. Their approach, the M-mode SVD, stands apart from the sequential, iterative methods like gradient descent or the power method, which characterize the Tucker algorithm and De Lathauwer's companion algorithm. The M-mode SVD, by contrast, computes the orthonormal subspaces in a closed form. This makes it not only suitable for sequential execution but also remarkably efficient when parallel processing is an option.
+
+##### M-mode SVD (also referred to as HOSVD or Tucker)
+
+This is the algorithm that has become synonymous with HOSVD or Tucker decomposition, primarily due to the work of Vasilescu and Terzopoulos [4, 6]. The process unfolds as follows:
+
+*   **For each mode [math]m = 1, \ldots, M[/math]:**
+    *   First, construct the mode-m flattening of the tensor, [math]mathcal{A}_{[m]}[/math]. This is the process of reshaping the multidimensional array into a matrix.
+    *   Next, compute the (compact) [singular value decomposition](/Singular_value_decomposition) of this flattened matrix: [math]\mathcal{A}_{[m]} = \mathbf{U}_m \Sigma_m V_m^T[/math]. From this, we extract and store the left singular vectors, which form the matrix [math]\mathbf{U} \in \mathbb{C}^{I_m \times R_m}[/math]. These vectors capture the primary directions of variance in that mode.
+    *   Finally, compute the core tensor [math]mathcal{S}[/math]. This is achieved through the [mode-m product](/Mode-k_multiplication) of the original tensor [math]mathcal{A}[/math] with the conjugate transpose of the extracted unitary matrices: [math]\mathcal{S} = \mathcal{A} \times_1 \mathbf{U}_1^H \times_2 \mathbf{U}_2^H \ldots \times_m \mathbf{U}_m^H \ldots \times_M \mathbf{U}_M^H[/math]. This step effectively "squeezes" the tensor along each mode using the computed bases.
+
+#### Interlacing Computation: A Faster Approach for Reduced Ranks
+
+When the multilinear rank components [math]R_m[/math] are significantly smaller than their corresponding tensor dimensions [math]I_m[/math] (i.e., [math]R_m \ll I_m[/math]), a more efficient computational strategy emerges: interlacing the computation. This approach interleaves the calculation of the core tensor and the factor matrices, often leading to substantial speedups [5, 12, 13, 14]. The process is as follows:
+
+*   **Initialization:** Begin with [math]\mathcal{A}^0 = \mathcal{A}[/math]. This is our starting point, the original tensor.
+*   **For each mode [math]m = 1, 2, \ldots, M[/math]:**
+    *   Construct the standard mode-m flattening of the tensor from the previous step: [math]\mathcal{A}_{[m]}^{m-1}[/math].
+    *   Compute the (compact) singular value decomposition of this flattened matrix: [math]\mathcal{A}_{[m]}^{m-1} = U_m \Sigma_m V_m^T[/math]. Store the resulting left singular vectors in [math]U_m \in \mathbb{F}^{I_m \times R_m}[/math] (where [math]\mathbb{F}[/math] denotes the field, typically real or complex numbers).
+    *   Update the tensor for the next iteration by performing a mode-m product with the conjugate transpose of [math]U_m[/math]: [math]\mathcal{A}^m = U_m^H \times_m \mathcal{A}^{m-1}[/math]. Alternatively, this can be expressed as [math]\mathcal{A}_{[m]}^m = \Sigma_m V_m^T[/math], directly yielding a transformed flattened matrix.
+
+This interlaced approach, by progressively refining the representation of the tensor in each mode, can be significantly more efficient, especially for high-dimensional tensors with low intrinsic ranks.
+
+#### In-place Computation: Minimizing Memory Footprint
+
+The M-mode SVD (HOSVD) can also be computed "in-place," meaning it can be performed by overwriting the original tensor data. This is achieved through algorithms like the Fused In-place Sequentially Truncated Higher Order Singular Value Decomposition (FIST-HOSVD) [14]. This technique is crucial for managing memory consumption, especially when dealing with massive tensors, as it avoids the need to store multiple copies of intermediate data structures. The algorithm directly modifies the input tensor to become the HOSVD core tensor, thereby drastically reducing memory overhead.
+
+### Approximation: Seeking the Best Low Multilinear Rank Representation
+
+In many practical applications, the goal is not to perfectly reconstruct the original tensor but to approximate it with a tensor of a lower, more manageable multilinear rank. This is often a necessity when dealing with large datasets where exact representation is computationally prohibitive or unnecessary.
+
+Formally, if the multilinear rank of a tensor [math]mathcal{A} \in \mathbb{C}^{I_1 \times I_2 \times \cdots \times I_M}[/math] is [math]\mathrm{rank}-(R_1, R_2, \ldots, R_M)[/math], the problem is to find the "best" approximation [math]{\mathcal {\bar {A}}}[/math] with a reduced multilinear rank, say [math]\mathrm{rank-}(\bar{R}_1, \bar{R}_2, \ldots, \bar{R}_M)[/math]. The "best" is typically defined in the sense of minimizing the [Frobenius norm](/Frobenius_norm) of the difference between the original and approximated tensor. This translates to a nonlinear, non-convex [math]\ell_2[/math]-optimization problem:
+
+[math]
+\min_{{\mathcal {\bar {A}}}\in \mathbb{C} ^{I_{1}\times I_{2}\times \cdots \times I_{M}}}{\frac {1}{2}}\|{\mathcal {A}}-{\mathcal {\bar {A}}}\|_{F}^{2}\quad {\text{s.t.}}\quad \mathrm {rank-}(\bar{R}_{1},{\bar {R}}_{2},\ldots ,{\bar {R}}_{M}),
+[/math]
+
+where [math](\bar{R}_{1},{\bar {R}}_{2},\ldots ,{\bar {R}}_{M})\in \mathbb {N} ^{M}[/math] represents the reduced multilinear rank, with the constraint [math]1\leq {\bar {R}}_{m}<R_{m}\leq I_{m}[/math] for each mode [math]m[/math].
+
+A straightforward approach to tackling this optimization problem is to truncate the SVD computations performed in step 2 of either the classic or interlaced M-mode SVD algorithms.
+
+*   **Classically Truncated M-mode SVD/HOSVD:** This involves modifying step 2 of the classic computation. Instead of computing the full SVD, we compute a rank-[math]\bar{R}_m[/math] truncated SVD: [math]\mathcal{A}_{[m]} \approx U_m \Sigma_m V_m^T[/math]. We then store only the top [math]\bar{R}_m[/math] left singular vectors in [math]U_m \in \mathbb{F}^{I_m \times \bar{R}_m}[/math].
+
+*   **Sequentially Truncated M-mode SVD (HOSVD) (or Successively Truncated):** This modification is applied to the interlaced computation. In step 2, we compute a rank-[math]\bar{R}_m[/math] truncated SVD of [math]\mathcal{A}_{[m]}^{m-1}[/math]: [math]\mathcal{A}_{[m]}^{m-1} \approx U_m \Sigma_m V_m^T[/math], storing the top [math]\bar{R}_m[/math] left singular vectors in [math]U_m \in \mathbb{F}^{I_m \times \bar{R}_m}[/math].
+
+Unfortunately, this direct truncation does not guarantee an optimal solution to the best low multilinear rank approximation problem [2, 5, 12, 14]. However, both the classically and interleaved truncated M-mode SVD/HOSVD yield a *quasi-optimal* solution. The theoretical bound suggests that if [math]{\mathcal {\bar {A}}}_{t}[/math] denotes the classically or sequentially truncated M-mode SVD(HOSVD) and [math]{\mathcal {\bar {A}}}^{*}[/math] is the truly optimal solution, then:
+
+[math]
+\|{\mathcal {A}}-{\mathcal {\bar {A}}}_{t}\|_{F}\leq {\sqrt {M}}\|{\mathcal {A}}-{\mathcal {\bar {A}}}^{*}\|_{F}
+[/math]
+
+In practical terms, this means that if an optimal solution exists with a small approximation error, a truncated M-mode SVD/HOSVD will often provide a sufficiently good solution for many intended purposes. It's a pragmatic compromise between optimality and computational feasibility.
+
+### Applications: Where Tensors Find Their Purpose
+
+The M-mode SVD (HOSVD/Tucker) finds its most common applications in the extraction of meaningful information from multi-way arrays. It’s a powerful tool for uncovering hidden patterns and structures within complex, multidimensional datasets.
+
+Beginning in the early 2000s, Vasilescu began to reframe data analysis, recognition, and synthesis problems as multilinear tensor problems, thereby addressing causal questions in novel ways. The sheer power of this tensor framework was vividly demonstrated when he decomposed and represented images based on their causal factors of data formation. This was particularly evident in domains such as Human Motion Signatures for gait recognition [16], face recognition – leading to the development of TensorFaces [17, 18] – and in computer graphics with TensorTextures [19].
+
+The M-mode SVD (HOSVD) has also proven its worth in signal processing and the burgeoning field of big data, with notable success in areas like genomic signal processing [20, 21, 22]. These applications not only utilized the existing framework but also inspired the development of related techniques, such as a higher-order GSVD (HO GSVD) [23] and a general tensor GSVD [24].
+
+Furthermore, a synergistic combination of M-mode SVD (HOSVD) and standard SVD has been employed for real-time event detection from complex data streams. This is particularly relevant in [disease surveillance](/Disease_surveillance), where multivariate data with both spatial and temporal dimensions needs to be analyzed rapidly to identify emerging patterns [25].
+
+The decomposition is also a key component in [tensor product model transformation](/Tensor_product_model_transformation)-based controller design [26, 27]. This concept, extending the M-mode SVD to functions, was further developed by Baranyi and Yam through the [TP model transformation](/TP_model_transformation). This extension paved the way for defining the M-mode SVD/HOSVD canonical form for tensor product functions and Linear Parameter Varying (LPV) system models [28]. It also underpinned advancements in [convex hull](/Convex_hull) manipulation for control optimization theory, a topic explored in [TP model transformation in control theories](/TP_model_transformation_in_control_theories).
+
+M-mode SVD (HOSVD) was also proposed as a method for unsupervised analysis of multi-way data [29] and has shown success in applications such as in silico drug discovery from gene expression data [30].
+
+### Robust L1-norm Variant: Embracing Imperfection
+
+While the standard M-mode SVD (HOSVD) operates within the [math]\ell_2[/math]-norm framework, there's a growing need for methods that are more resilient to outliers and noise. This has led to the development of robust variants. L1-Tucker represents such an advancement, serving as the [math]\ell_1[/math]-norm-based, [robust](/Robust_statistics) counterpart to the traditional [Tucker decomposition](/Tucker_decomposition) [8, 9]. Analogously, L1-HOSVD is the M-mode SVD equivalent designed to solve the L1-Tucker problem [8, 10]. These variants offer a more stable and reliable decomposition when data contamination is a concern, allowing for the extraction of meaningful patterns even in the presence of aberrant data points.
+
+#

@@ -1,0 +1,214 @@
+---
+title: "Insertion Sort"
+description: "Insertion sort. It’s a thing. A simple one, at that. Builds a sorted array piece by piece, comparing each new element to the ones already settled. Don't expect..."
+keywords: sorted array, quicksort, heapsort, jon bentley, selection sort, bubble sort, adaptive
+slug: "insertion_sort"
+createdAt: "2025-11-18T08:43:23.461Z"
+updatedAt: "2025-11-18T08:43:23.461Z"
+contentType: "rewritten"
+---
+
+Insertion sort. It’s a thing. A simple one, at that. Builds a [sorted array](/Sorted_array) piece by piece, comparing each new element to the ones already settled. Don't expect it to dance circles around the heavy hitters like [quicksort](/Quicksort) or [heapsort](/Heapsort) when you’ve got a mountain of data. But for a small, manageable pile? It has its charms.
+
+For starters, it’s ridiculously easy to implement. [Jon Bentley](/Jon_Bentley_(computer_scientist)) himself managed to condense a version into three lines of C-like gibberish. Five if you’re being a bit more thorough. It’s efficient for those smaller data sets, much like other algorithms that take a quadratic, [O](/Big_O_notation)(n²) approach. And surprisingly, it often outperforms its simpler quadratic cousins like [selection sort](/Selection_sort) or [bubble sort](/Bubble_sort). Though, mind you, the data’s initial state and the cost of reading/writing matter. If things are a complete mess and writing is expensive, [selection sort](/Selection_sort) might just leave it in the dust.
+
+It’s also [adaptive](/Adaptive_sort). If your data is already mostly in order, it doesn't break a sweat. It’s quick, with a time complexity of [O](/Big_O_notation)(kn) if each element is only a few spots away from its final resting place. And it’s [stable](/Stable_sort); the order of equal elements remains undisturbed. Plus, it’s [in-place](/In-place_algorithm), meaning it barely uses any extra memory—just a constant O(1) auxiliary space. Oh, and it's [online](/Online_algorithm), capable of sorting a stream of data as it arrives.
+
+Think about how you’d sort a hand of [bridge](/Contract_bridge) cards. Most people naturally use something akin to insertion sort. It’s intuitive, really.
+
+### Algorithm
+
+Picture this: a graphical representation of insertion sort. You’ve got a partially sorted list, initially just the first element. With each pass, an element is plucked from the unsorted pile and slotted into its correct position within the growing sorted sequence. This continues until the input is exhausted.
+
+The sorting usually happens right there in the array, working from left to right. As it progresses, it expands the sorted section. At each position, it glances at the value and compares it to the largest value already sorted (which is conveniently right next to it). If the new value is larger, it’s left alone, and the algorithm moves on. If it's smaller, it hunts for the right spot in the sorted section, nudges all the larger values over to make room, and then drops the new value into place.
+
+After *k* iterations, the first *k* + 1 elements are sorted. The algorithm takes the next available element from the input and inserts it into its proper home within the already sorted portion.
+
+The most common way this plays out with arrays can be described like this:
+
+*   Imagine a function, let’s call it `Insert`. Its job is to take a value and wedge it into a sorted sequence at the beginning of an array. It does this by starting at the end of the sequence and shifting elements one by one to the right until it finds the perfect spot for the new value. This process overwrites whatever was sitting immediately after the sorted sequence.
+*   To perform the insertion sort, you start at the far left of the array. For each element you encounter, you call `Insert` to place it correctly within the sorted sequence that's accumulating at the start of the array. Each insertion replaces a single value: the one being inserted.
+
+Here’s a taste of the [pseudocode](/Pseudocode), assuming zero-based indexing:
+
+```
+i ← 1
+while i < length(A)
+  j ← i
+  while j > 0 and A[j-1] > A[j]
+    swap A[j] and A[j-1]
+    j ← j - 1
+  end while
+  i ← i + 1
+end while
+```
+
+The outer loop marches through every element but the first, because a single element is inherently sorted. The inner loop’s mission is to move `A[i]` to its rightful place, ensuring that the first `i`+1 elements are sorted after it finishes. Crucially, the `and` operator needs [short-circuit evaluation](/Short-circuit_evaluation). Otherwise, if `j` happens to be 0, you’ll hit an [array bounds error](/Bounds_checking) trying to access `A[-1]`.
+
+If you expand the `swap` operation, replacing it with a temporary variable, you can shave off a bit of time. This version moves `A[i]` to its spot in one go, performing only one assignment in the inner loop:
+
+```
+i ← 1
+while i < length(A)
+  x ← A[i]
+  j ← i
+  while j > 0 and A[j-1] > x
+    A[j] ← A[j-1]
+    j ← j - 1
+  end while
+  A[j] ← x
+  i ← i + 1
+end while
+```
+
+This revised inner loop meticulously shifts elements to the right, carving out the space needed for `x`, which was originally `A[i]`.
+
+It’s also possible to implement this recursively. The recursion essentially takes the place of the outer loop. It calls itself, pushing progressively smaller values of *n* onto the stack. Once *n* hits 0, the function unwinds, executing the code after each recursive call, starting with *n* = 1 and incrementing. The initial call would look something like `insertionSortR(A, length(A)-1)`.
+
+```
+function insertionSortR(array A, int n)
+  if n > 0
+    insertionSortR(A, n-1)
+    x ← A[n]
+    j ← n-1
+    while j >= 0 and A[j] > x
+      A[j+1] ← A[j]
+      j ← j - 1
+    end while
+    A[j+1] ← x
+  end if
+end function
+```
+
+This recursive approach doesn't make the code any shorter, nor does it improve execution speed. What it *does* do is increase the memory overhead from O(1) to O(N) due to the call stack.
+
+### Best, Worst, and Average Cases
+
+When the input array is already sorted, that's the [best case](/Best,_worst_and_average_case) for insertion sort, and it runs in linear time, O(n). Each element is compared only with the last element of the sorted portion.
+
+The worst case? An array sorted in reverse order. Or any array where each element is smaller than or equal to the second-smallest of the preceding elements. In these scenarios, every inner loop iteration has to scan and shift the entire sorted portion before inserting the next element. This brings the running time to quadratic, O(n²).
+
+The [average case](/Best,_worst_and_average_case) is also quadratic, making insertion sort impractical for large datasets. However, it’s surprisingly quick for very small arrays, often beating even [quicksort](/Quicksort). In fact, many efficient [quicksort](/Quicksort) implementations switch to insertion sort for subarrays below a certain size threshold (typically around ten elements, though this needs empirical testing).
+
+Let’s trace an example: sorting {3, 7, 4, 9, 5, 2, 6, 1}. The underlined number is the one being considered in each step. An asterisk marks the element that was just moved or left in place.
+
+| Step | Array              | Notes                                    |
+| :--- | :----------------- | :--------------------------------------- |
+| 1    | **3** 7 4 9 5 2 6 1 | Initial state                            |
+| 2    | 3 **7*** 4 9 5 2 6 1 | 7 is larger than 3, stays put.            |
+| 3    | 3 7 **4*** 9 5 2 6 1 | 4 is smaller than 7, shift 7. 4 < 3? No. Insert 4. |
+| 4    | 3 4 7 **9*** 5 2 6 1 | 9 is larger than 7, stays put.            |
+| 5    | 3 4 7 9 **5*** 2 6 1 | 5 < 9, shift 9. 5 < 7, shift 7. 5 < 4? No. Insert 5. |
+| 6    | **2*** 3 4 5 7 9 6 1 | 2 < 5, shift 5. 2 < 4, shift 4. 2 < 3, shift 3. 2 < 2? No. Insert 2. |
+| 7    | 2 3 4 5 **6*** 7 9 1 | 6 is larger than 5, stays put.            |
+| 8    | **1*** 2 3 4 5 6 7 9 | 1 < 6, shift 6. 1 < 5, shift 5. 1 < 4, shift 4. 1 < 3, shift 3. 1 < 2, shift 2. 1 < 1? No. Insert 1. |
+
+### Relation to Other Sorting Algorithms
+
+Insertion sort shares similarities with [selection sort](/Selection_algorithm). In both, after *k* passes, the first *k* elements are sorted. The key difference lies in their scanning strategy. Selection sort scans the entire unsorted portion to find the absolute smallest element, while insertion sort scans backward from the current element. This means selection sort guarantees the first *k* elements are the *k* smallest overall, whereas insertion sort simply ensures the first *k* elements of the original input are now sorted amongst themselves.
+
+The main advantage of insertion sort over selection sort is its ability to be more efficient when the data is partially sorted. Selection sort *always* has to examine every remaining element. Insertion sort, however, can finish quickly if the current element is larger than the last sorted element. In many cases, insertion sort performs roughly half the comparisons of selection sort on average.
+
+In the worst case (reverse-sorted array), insertion sort performs just as many comparisons as selection sort. But here's the catch: insertion sort requires significantly more writes. Each insertion involves shifting multiple elements, leading to O(n²) writes. Selection sort, on the other hand, performs only one swap per pass, resulting in O(n) writes. This makes selection sort a better choice when memory writes are costly, like with [EEPROM](/EEPROM) or [flash memory](/Flash_memory).
+
+While [divide-and-conquer algorithms](/Divide-and-conquer_algorithm) like [quicksort](/Quicksort) and [mergesort](/Mergesort) dominate for larger datasets, simpler sorts like insertion and selection sort are often faster for very small arrays (typically between 7 and 50 elements). This leads to hybrid approaches where these algorithms are used for small subarrays generated by the more complex ones.
+
+### Variants
+
+[D.L. Shell](/Donald_Shell) introduced significant enhancements, resulting in [Shell sort](/Shellsort). This algorithm compares elements separated by a decreasing gap. Shell sort offers much improved practical performance, with common variants achieving O(n³/²) and O(n⁴/³) running times.
+
+If comparing elements is more expensive than swapping them—think string keys or human judgment—then [binary insertion sort](/Binary_insertion_sort) might be the way to go. It uses [binary search](/Binary_search_algorithm) to pinpoint the insertion spot, requiring only ⌈log₂n⌉ comparisons in the worst case. For the entire sort, this leads to O(n log n) comparisons. However, the overall algorithm remains O(n²) on average due to the shifting required for each insertion.
+
+The number of swaps can be reduced by calculating the final positions of multiple elements before moving them. This approach, similar in spirit to [merge sort](/Merge_sort), can cut down swaps by about 25% for random data.
+
+[Binary merge sort](/Binary_merge_sort) is another variant. It uses binary insertion sort for small chunks (e.g., 32 elements) and then applies [merge sort](/Merge_sort) for the final pass. This cleverly combines the strengths of both algorithms.
+
+To bypass the costly element shifting in arrays, data can be stored in a [linked list](/Linked_list). Splicing elements in or out takes constant time once the position is known. The downside? Searching a linked list is sequential, meaning it can't leverage faster methods like binary search. This keeps the search time at O(n) and the overall sorting time at O(n²). More advanced [data structures](/Data_structure) like [heaps](/Heap_(data_structure)) or [binary trees](/Binary_tree) can speed up searching and insertion, forming the basis of [heap sort](/Heap_sort) and [binary tree sort](/Binary_tree_sort).
+
+In 2006, Bender, [Martin Farach-Colton](/Martin_Farach-Colton), and Mosteiro proposed [library sort](/Library_sort), or gapped insertion sort. This method intentionally leaves unused spaces (gaps) within the array. Insertions only need to shift elements until a gap is encountered, significantly reducing the work. Their research suggests this algorithm achieves O(n log n) time with high probability.
+
+Using a [skip list](/Skip_list) can further reduce insertion time to O(log n) and eliminates the need for swaps due to its linked-list implementation. The overall insertion sort time then becomes O(n log n).
+
+#### List Insertion Sort Code in C
+
+If your items are chained together in a linked list, you can sort it using only O(1) extra space. The process begins with an empty, sorted list. Items are taken one by one from the input list and inserted into their correct position in the sorted list. Once the input list is empty, the sorted list holds the final result.
+
+```c
+struct LIST * SortList1(struct LIST * pList)
+{
+  // Handle empty or single-element lists
+  if (pList == NULL || pList->pNext == NULL)
+    return pList;
+
+  // 'head' will point to the first element of the sorted list
+  struct LIST * head = NULL;
+
+  while (pList != NULL) {
+    struct LIST * current = pList; // Node to be inserted
+    pList = pList->pNext;         // Move to the next input node
+
+    // If sorted list is empty or 'current' is smaller than the head
+    if (head == NULL || current->iValue < head->iValue) {
+      current->pNext = head; // Insert at the beginning
+      head = current;
+    } else {
+      // Find the correct position in the non-empty sorted list
+      struct LIST * p = head;
+      while (p != NULL) {
+        // Found the insertion point (end of list or before a smaller element)
+        if (p->pNext == NULL || current->iValue < p->pNext->iValue) {
+          current->pNext = p->pNext; // Splice 'current' in
+          p->pNext = current;
+          break; // Done with this insertion
+        }
+        p = p->pNext; // Move to the next node in the sorted list
+      }
+    }
+  }
+  return head; // Return the head of the fully sorted list
+}
+```
+
+The algorithm below utilizes a trailing pointer for more efficient insertion into the sorted list. A simpler recursive method rebuilds the list at each step, consuming O(n) stack space.
+
+```c
+struct LIST
+{
+  struct LIST * pNext;
+  int iValue;
+};
+
+struct LIST * SortList(struct LIST * pList)
+{
+  // Handle empty or single-element lists
+  if (!pList || !pList->pNext)
+    return pList;
+
+  /* Build up the sorted list from an empty one */
+  struct LIST * pSorted = NULL;
+
+  /* Take items off the input list one by one until it's empty */
+  while (pList != NULL) {
+    /* Remember the head of the current input list */
+    struct LIST * pHead = pList;
+    /* Trailing pointer for efficient splicing */
+    struct LIST ** ppTrail = &pSorted;
+
+    /* Pop the head off the input list */
+    pList = pList->pNext;
+
+    /* Splice 'pHead' into the sorted list at the proper place */
+    while (!(*ppTrail == NULL || pHead->iValue < (*ppTrail)->iValue)) { /* Does 'pHead' belong here? */
+      /* No - move down the sorted list */
+      ppTrail = &(*ppTrail)->pNext;
+    }
+
+    pHead->pNext = *ppTrail; // Link 'pHead' to the rest of the sorted list
+    *ppTrail = pHead;        // Insert 'pHead' into the sorted list
+  }
+
+  return pSorted; // Return the head of the fully sorted list
+}
+```
+
+#

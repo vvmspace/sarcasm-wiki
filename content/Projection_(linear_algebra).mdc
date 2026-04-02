@@ -1,0 +1,234 @@
+---
+title: "Projection (Linear Algebra)"
+description: "Oh, *this* again. Fine. You want to dissect the sterile world of linear transformations? Let's get this over with. Don't expect..."
+keywords: linear algebra, functional analysis, linear transformation, vector space, endomorphism, idempotence, image, graphical projection, points, inner product
+slug: "Projection_(linear_algebra)"
+createdAt: "2025-11-17T06:04:38.520Z"
+updatedAt: "2025-11-17T06:04:38.520Z"
+contentType: "rewritten"
+---
+
+Oh, *this* again. Fine. You want to dissect the sterile world of linear transformations? Let's get this over with. Don't expect enthusiasm.
+
+## Idempotent Linear Transformation from a Vector Space to Itself
+
+So, we're talking about projections. Not the kind you see in a poorly lit movie theater, but the mathematical kind. In the rather dry realm of [linear algebra](/Linear_algebra) and [functional analysis](/Functional_analysis), a projection is a peculiar beast: a [linear transformation](/Linear_transformation), let's call it `P`, that maps a [vector space](/Vector_space) onto itself. It's an [endomorphism](/Endomorphism), if you want to be fancy about it. The defining characteristic, the thing that makes it *tick*, is that applying `P` twice is precisely the same as applying it once. Mathematically, this looks like:
+
+`P ∘ P = P`
+
+Or, if you prefer your equations with a bit more dramatic flair, `P² = P`. It means that once a vector has been "projected," it stays put. It's like trying to push something that's already sunk into the mud; further effort is redundant. This property, this `P² = P`, is what we call [idempotence](/Idempotent). It leaves its [image](/Image_mathematics) utterly unchanged. This concept, you see, formalizes and broadens the rather pedestrian idea of [graphical projection](/Graphical_projection). You can even think about how a projection warps or transforms a geometric object by examining its effect on individual [points](/Point_geometry).
+
+### Definitions
+
+Let's be brutally clear. A projection on a vector space `V` is a linear operator `P: V → V` such that `P² = P`. Simple, brutal, and utterly unambiguous.
+
+Now, when `V` has an [inner product](/Inner_product) and, crucially, is [complete](/Complete_metric_space) – meaning it’s a [Hilbert space](/Hilbert_space) – we can bring [orthogonality](/Orthogonality) into play. A projection `P` on such a space is deemed an *orthogonal projection* if it satisfies this condition for all `x`, `y` in `V`:
+
+`<Px, y> = <x, Py>`
+
+Where `< , >` denotes the inner product. If a projection doesn't play nice with orthogonality, it's just an *oblique projection*. Less elegant, more…slanted.
+
+### Projection Matrix
+
+Matrices. The bread and butter of calculations.
+
+*   A [square matrix](/Square_matrix) `P` is a projection matrix if `P² = P`. Again, idempotence. No surprises here, just a different notation.
+*   If `P` is a projection matrix and also satisfies `P = Pᵀ` for real matrices, or `P = P*` (the [Hermitian transpose](/Hermitian_transpose)) for complex matrices, then it's an *orthogonal projection matrix*. This is where the geometry gets cleaner.
+*   Anything else, any projection matrix that isn't orthogonal, is an *oblique projection matrix*. It’s the awkward cousin at the family reunion.
+
+The [eigenvalues](/Eigenvalue) of any projection matrix are always confined to the thrilling set {0, 1}. A rather limited spectrum, wouldn't you say?
+
+### Examples
+
+Let's look at how this plays out in practice.
+
+#### Orthogonal Projection
+
+Imagine our familiar three-dimensional space, `ℝ³`. Consider the transformation that takes a point `(x, y, z)` and maps it to `(x, y, 0)`. This is an orthogonal projection onto the xy-plane. It’s straightforward. The matrix representing this is:
+
+`P = [[1, 0, 0], [0, 1, 0], [0, 0, 0]]`
+
+Applying this matrix to any vector `[x, y, z]` yields `[x, y, 0]`. To confirm it's a projection, we check `P² = P`:
+
+`P² [x, y, z] = P [x, y, 0] = [x, y, 0] = P [x, y, z]`
+
+See? It’s idempotent. And because `Pᵀ = P`, it’s an orthogonal projection. The geometry is preserved in a way that’s pleasingly symmetrical.
+
+#### Oblique Projection
+
+Now, for something less… orderly. Consider the matrix:
+
+`P = [[0, 0], [α, 1]]`
+
+Multiplying it by itself:
+
+`P² = [[0, 0], [α, 1]] * [[0, 0], [α, 1]] = [[0, 0], [α, 1]] = P`
+
+It’s a projection. But is it orthogonal? Only if `α = 0`. Because only then `Pᵀ = P`. Otherwise, it’s oblique. It slants. It’s… imperfect. Much like most things.
+
+### Properties and Classification
+
+Let's not get bogged down in the minutiae, but there are some fundamental truths.
+
+#### Idempotence
+
+This is the core. `P² = P`. It’s the definition. Anything else is just… noise.
+
+#### Open Map
+
+Every projection is an [open map](/Open_map) onto its image. It takes [open sets](/Open_set) and turns them into open sets within that image. It doesn't collapse things into oblivion. There’s always a little room to breathe, even if it's just a sliver.
+
+#### Complementarity of Image and Kernel
+
+For a finite-dimensional space `W` and a projection `P`, let `U` be its [image](/Image_mathematics) and `V` be its [kernel](/Kernel_mathematics).
+
+*   `P` acts as the [identity operator](/Identity_operator) on `U`. If you're already in the image, you stay there. `∀x ∈ U: Px = x`.
+*   `W` is the [direct sum](/Direct_sum_of_vector_spaces) of `U` and `V`: `W = U ⊕ V`. Any vector `x ∈ W` can be uniquely broken down into `x = u + v`, where `u = Px` (in `U`) and `v = (I - P)x` (in `V`).
+
+The image and kernel are complementary. `P` and `Q = I - P` are also complementary projections. `Q` is just the "other side" of the projection. We say `P` projects along `V` onto `U`.
+
+#### Spectrum
+
+In the infinite-dimensional abyss of [Hilbert spaces](/Hilbert_space), the [spectrum](/Spectrum_mathematics) of a projection is still confined to {0, 1}. It’s a limited universe. This means orthogonal projections are always [positive semi-definite](/Positive-definite_matrix). The [eigenspaces](/Eigenspace) are, predictably, the kernel and the range.
+
+If a projection isn't trivial, its [minimal polynomial](/Minimal_polynomial_linear_algebra) is `x² - x = x(x-1)`. This factors nicely, meaning `P` is [diagonalizable](/Diagonalizable). It can be simplified.
+
+#### Product of Projections
+
+The product of two projections? Usually not a projection. Unless they commute. If they do, their product is indeed a projection. If they're orthogonal and commute, their product is an orthogonal projection. The converse isn't always true, though. Sometimes non-commuting projections can multiply to form another projection. It's a bit of a mess, honestly.
+
+### Orthogonal Projections
+
+This is where things get cleaner, assuming you appreciate clean. When a vector space `W` has an [inner product](/Inner_product) and is complete (a [Hilbert space](/Hilbert_space)), we can talk about orthogonality. An orthogonal projection is one where the range `U` and the kernel `V` are [orthogonal subspaces](/Orthogonality).
+
+This means for any `x`, `y` in `W`:
+
+`<Px, y - Py> = <x - Px, Py> = 0`
+
+Or, more concisely:
+
+`<x, Py> = <Px, Py> = <Px, y>`
+
+A projection is orthogonal if and only if it’s [self-adjoint](/Self-adjoint_operator). The properties `P² = P` and `P = P*` (for complex spaces) are intrinsically linked. For orthogonal projections, `P` and `I - P` are also orthogonal projections.
+
+The [Hilbert projection theorem](/Hilbert_projection_theorem) assures us that an orthogonal projection onto a closed subspace always exists.
+
+#### Properties and Special Cases
+
+An orthogonal projection is a [bounded operator](/Bounded_operator). It doesn't blow up. This is because, by the [Cauchy–Schwarz inequality](/Cauchy%E2%80%93Schwarz_inequality):
+
+`||Pv||² = <Pv, Pv> = <Pv, v> ≤ ||Pv|| ⋅ ||v||`
+
+Which simplifies to:
+
+`||Pv|| ≤ ||v||`
+
+It doesn't stretch vectors beyond their original length.
+
+#### Formulas
+
+The simplest case is projecting onto a line. If `u` is a [unit vector](/Unit_vector) on that line, the projection `Pᵤ` is given by the [outer product](/Outer_product):
+
+`Pᵤ = u uᵀ`
+
+(Or `u u*` for complex vectors). This operator leaves `u` unchanged and annihilates anything orthogonal to it. If `u` isn't normalized, you divide by `uᵀu` (or `u*u`). It’s a way to isolate the component of a vector along a specific direction.
+
+For higher dimensions, let `u₁, ..., u<0xE2><0x82><0x96>` be an [orthonormal basis](/Orthonormal_basis) for a subspace `U`. Let `A` be the matrix with these vectors as columns. Then the projection is:
+
+`P<0xE2><0x82><0x90> = AAᵀ`
+
+Which can also be written as:
+
+`P<0xE2><0x82><0x90> = Σᵢ <uᵢ, ⋅> uᵢ`
+
+This is the sum of individual projections onto each basis vector. If the basis isn't orthonormal, the formula gets a bit more complicated:
+
+`P<0xE2><0x82><0x90> = A(AᵀA)⁻¹Aᵀ`
+
+Here, `(AᵀA)⁻¹` is a "normalizing factor." Without it, if the columns of `A` aren't orthogonal, you don't get a projection.
+
+If you introduce a matrix `D` to define a different inner product, `<x, y>_D = y†Dx`, the projection formula becomes:
+
+`P<0xE2><0x82><0x90>x = argmin_{y ∈ range(A)} ||x - y||²_D`
+
+And the matrix form is:
+
+`P<0xE2><0x82><0x90> = A(AᵀDA)⁻¹AᵀD`
+
+When the subspace is generated by a [frame](/Frame_vector_space), the projection can be expressed using the [Moore–Penrose pseudoinverse](/Moore%E2%80%93Penrose_pseudoinverse):
+
+`P<0xE2><0x82><0x90> = AA⁺`
+
+If `[A B]` is an invertible matrix and `AᵀB = 0`, then the identity matrix can be decomposed as:
+
+`I = A(AᵀA)⁻¹Aᵀ + B(BᵀB)⁻¹Bᵀ`
+
+This shows how projections onto complementary subspaces add up to the identity.
+
+### Oblique Projections
+
+These are the projections that don't bother with orthogonality. They're less "pure," but useful. Think of [oblique projection](/Oblique_projection) in technical drawing, or how they appear in [instrumental variables regression](/Instrumental_variable).
+
+A projection is defined by its kernel and a set of basis vectors for its range. If these basis vectors aren't orthogonal to the kernel, it's oblique.
+
+#### Matrix Representation Formula for a Nonzero Projection Operator
+
+Let `P` be a nonzero projection (`P² = P`). Let `u₁, ..., u<0xE2><0x82><0x96>` be a basis for the range of `P`, forming matrix `A`. Let `v₁, ..., v<0xE2><0x82><0x96>` be a basis for the orthogonal complement of the kernel of `P`, forming matrix `B`. Then:
+
+`P = A(BᵀA)⁻¹Bᵀ`
+
+This formula is more general than the orthogonal case. It breaks down any vector `x` into `x = x₁ + x₂`, where `x₁` is in the image of `P` and `x₂` is in the kernel. The formula then reconstructs `x₁` from `x`.
+
+If `P` is orthogonal, we can set `A = B`, and the formula simplifies back to the orthogonal projection formula.
+
+### Singular Values
+
+The singular values of `P` and `I - P` have a relationship. For oblique projections, they aren't as neatly tied to 0 and 1 as for orthogonal ones. The largest singular values of `P` and `I - P` are equal, which means their [matrix norms](/Matrix_norm) are the same. However, their [condition numbers](/Condition_number) can differ significantly.
+
+### Finding Projection with an Inner Product
+
+In a space spanned by orthogonal vectors `u₁, u₂, ..., uₚ`, the projection of a vector `y` onto that space is:
+
+`proj<0xE1><0xB5><0xAB> y = (y ⋅ uⁱ / uⁱ ⋅ uⁱ) uⁱ`
+
+(Using Einstein notation, where repeated indices are summed). This projected vector, often written as `ŷ`, is the closest point in `V` to `y`. It’s the foundation of many [machine learning](/Machine_learning) algorithms.
+
+### Canonical Forms
+
+Any projection `P` on a finite-dimensional space `d` is diagonalizable. Its matrix can be simplified to:
+
+`P = Iᵣ ⊕ 0_{d-r}`
+
+Where `r` is the rank. `Iᵣ` is the identity matrix, `0_{d-r}` is the zero matrix, and `⊕` denotes the [direct sum](/Matrix_addition). This means that in some basis, a projection simply picks out the first `r` components and sets the rest to zero.
+
+For complex spaces with an inner product, the canonical form is more complex, involving blocks with singular values:
+
+`P = [[1, σ₁], [0, 0]] ⊕ ... ⊕ [[1, σ<0xE2><0x82><0x96>], [0, 0]] ⊕ I<0xE2><0x82><0x98> ⊕ 0<0xE2><0x82><0x9B>`
+
+Where `σ₁ ≥ ... ≥ σ<0xE2><0x82><0x96> > 0`. The `I<0xE2><0x82><0x98> ⊕ 0<0xE2><0x82><0x9B>` part corresponds to the orthogonal component, while the `[[1, σᵢ], [0, 0]]` blocks are the oblique parts.
+
+### Projections on Normed Vector Spaces
+
+When we move to infinite-dimensional [normed vector spaces](/Normed_vector_space), things get more complicated. Projections don't have to be [continuous](/Bounded_linear_operator). If a subspace `U` isn't closed, the projection onto it won't be continuous. Continuous projections require both the range and kernel to be closed subspaces.
+
+The [closed graph theorem](/Closed_graph_theorem) tells us that if a subspace `U` has a closed complement `V` (meaning `X = U ⊕ V`), then the projection is continuous. This is always true for [Hilbert spaces](/Hilbert_space) where the complement can be the [orthogonal complement](/Orthogonal_complement).
+
+For [Banach spaces](/Banach_space), a one-dimensional subspace always has a closed complement, thanks to the [Hahn–Banach theorem](/Hahn%E2%80%93Banach_theorem).
+
+### Applications and Further Considerations
+
+Projections are not just abstract curiosities. They're workhorses:
+
+*   [QR decomposition](/QR_decomposition) and [Gram–Schmidt decomposition](/Gram%E2%80%93Schmidt_decomposition) rely on them.
+*   [Singular value decomposition](/Singular_value_decomposition) wouldn't exist without them.
+*   Reducing matrices to [Hessenberg](/Hessenberg_matrix) form.
+*   [Linear regression](/Linear_regression).
+
+They are also deeply connected to [operator algebras](/Operator_algebra). A [von Neumann algebra](/Von_Neumann_algebra), for instance, is generated by its lattice of projections. They're like the fundamental building blocks of these complex structures.
+
+### Generalizations
+
+Beyond the standard definition, one can consider maps between normed vector spaces. If a map `T: V → W` is an isometry on the orthogonal complement of its kernel, it’s a [partial isometry](/Partial_isometry). Orthogonal projections are a special case where `W` is a subspace of `V`. This concept finds use in [Riemannian geometry](/Riemannian_geometry) in the definition of [Riemannian submersions](/Riemannian_submersion).
+
+---
+There. Is that enough detail for your insatiable curiosity? Don't expect me to elaborate further unless absolutely necessary.

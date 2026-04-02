@@ -1,0 +1,357 @@
+---
+title: "RSA Cryptosystem"
+description: "Right. You need something explained. Fine. Don't expect me to hold your hand. If you can't keep up, that sounds like a you..."
+keywords: cryptosystem, rsa security, ron rivest, adi shamir, leonard adleman, pkcs#1, key sizes, rounds, cryptanalysis, general number field sieve
+slug: "RSA_cryptosystem"
+createdAt: "2025-11-17T19:17:21.544Z"
+updatedAt: "2025-11-17T19:17:21.544Z"
+contentType: "rewritten"
+---
+
+Right. You need something explained. Fine. Don't expect me to hold your hand. If you can't keep up, that sounds like a you problem.
+
+This is about a [cryptosystem](/Cryptosystem). If you're looking for the company, that's over at [RSA Security](/RSA_Security). Try to pay attention to the details.
+
+| RSA cryptosystem                                                                                                                                                                     |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **General**                                                                                                                                                                          |
+| Designers                                                                                                                                                                            | [Ron Rivest](/Ron_Rivest), [Adi Shamir](/Adi_Shamir), and [Leonard Adleman](/Leonard_Adleman) |
+| First published                                                                                                                                                                      | 1977                                                                                         |
+| Certification                                                                                                                                                                        | [PKCS#1](/PKCS1), ANSI X9.31                                                                 |
+| **Cipher detail**                                                                                                                                                                    |
+| [Key sizes](/Key_size)                                                                                                                                                               | Variable, though civilized implementations stick to 2,048 to 4,096 bits.                     |
+| [Rounds](/Round_(cryptography))                                                                                                                                                      | 1. One and done. Efficiency is a virtue.                                                     |
+| **Best public [cryptanalysis](/Cryptanalysis)**                                                                                                                                      |
+| [General number field sieve](/General_number_field_sieve) for classical computers; <br> [Shor's algorithm](/Shor%27s_algorithm) for the quantum boogeyman you keep hearing about. <br> An [829-bit key](/RSA-250) has been broken. Don't get cocky. |
+
+The RSA (Rivest–Shamir–Adleman) cryptosystem is a family of [public-key cryptosystems](/Public-key_cryptography) and one of the first that actually worked well enough for widespread use in securing data transmission. The [initialism](/Initialism), "RSA," is derived from the surnames of [Ron Rivest](/Ron_Rivest), [Adi Shamir](/Adi_Shamir), and [Leonard Adleman](/Leonard_Adleman), who had the good fortune of publicly describing the algorithm in 1977. [1] [2] [3] Of course, history has a sense of irony. An equivalent system was quietly developed in 1973 at the [Government Communications Headquarters](/Government_Communications_Headquarters) (GCHQ), the British agency for [signals intelligence](/Signals_intelligence), by the English mathematician [Clifford Cocks](/Clifford_Cocks). His work was, naturally, locked away and [declassified](/Classified_information) only in 1997, long after others had claimed the glory. [4]
+
+RSA is the backbone for a number of tedious but necessary digital functions. It's used for [digital signatures](/Digital_signature) like [RSASSA-PSS](/Probabilistic_signature_scheme) or the less elegant [RSA-FDH](/Full_Domain_Hash). [5] [6] [7] [8] [9] [10] It handles [public-key encryption](/Public-key_encryption) for very small amounts of data—almost always a single-use [symmetric key](/Symmetric_key) within a [hybrid cryptosystem](/Hybrid_cryptosystem), as seen in [RSAES-OAEP](/Optimal_asymmetric_encryption_padding). [11] [12] [13] [10] And it's used for [public-key key encapsulation](/Key_encapsulation_mechanism). [14] [15] [16]
+
+The entire premise is built on a simple asymmetry. A user's private key—the thing that lets them sign messages or decrypt information sent to them—is a pair of enormous prime numbers, chosen at random and guarded jealously. The user's public key—the part they can post on a billboard if they want—is simply the product of those two secret primes. This public key is what others use to verify the user's signatures or to encrypt messages that only the user can read.
+
+The security of RSA hinges on a deceptively simple mathematical challenge: the difficulty of [factoring](/Factorization) the product of two large [prime numbers](/Prime_number). This is known as the "[factoring problem](/Factoring_problem)." The effort to break RSA encryption directly is called the [RSA problem](/RSA_problem). Whether solving the RSA problem is as computationally difficult as the factoring problem remains an open question, a little piece of academic torture for mathematicians. [17] As of now, there are no published methods to defeat the system, assuming you've used a key large enough to be taken seriously.
+
+### History
+
+[Adi Shamir](/Adi_Shamir), one of the inventors of RSA. The other two are [Ron Rivest](/Ron_Rivest) and [Leonard Adleman](/Leonard_Adleman).
+
+The concept of an asymmetric public-private key cryptosystem wasn't born in a vacuum. The idea is generally credited to [Whitfield Diffie](/Whitfield_Diffie) and [Martin Hellman](/Martin_Hellman), who unleashed this paradigm-shifting concept in 1976. They introduced digital signatures and made attempts to ground their work in number theory. Their formulation relied on a shared-secret-key derived from exponentiation of a number, modulo a prime. However, they left a critical piece of the puzzle unsolved: the realization of a practical one-way function. This was likely because the sheer difficulty of factoring large numbers was not a well-appreciated field of study at the time. [18] It's worth noting that, much like the [Diffie-Hellman key exchange](/Diffie%E2%80%93Hellman_key_exchange), RSA's core mechanic is [modular exponentiation](/Modular_exponentiation).
+
+Enter the trio at the [Massachusetts Institute of Technology](/Massachusetts_Institute_of_Technology): [Ron Rivest](/Ron_Rivest), [Adi Shamir](/Adi_Shamir), and [Leonard Adleman](/Leonard_Adleman). For over a year, they struggled to create a function that was easy to compute in one direction but brutally difficult to reverse. Rivest and Shamir, the computer scientists, threw potential functions at the wall, while Adleman, the mathematician, meticulously found their flaws. They explored numerous dead ends, including systems based on the "[knapsack problem](/Knapsack_problem)" and "permutation polynomials." For a while, the contradictory requirements made the entire endeavor seem impossible. [19]
+
+Then came the breakthrough, fueled, as breakthroughs often are, by exhaustion and alcohol. In April 1977, after spending [Passover](/Passover) at a student's home and consuming a significant quantity of wine, the three went their separate ways around midnight. [20] Rivest, unable to sleep, found himself on his couch with a math textbook, his mind still wrestling with their one-way function. In a flash of late-night insight, he formalized the idea that would become RSA. He spent the remainder of the night drafting the paper, having most of it ready by sunrise. The algorithm was named RSA—the initials of their surnames, in the same order as they appeared on their seminal paper. [21]
+
+Meanwhile, across the Atlantic, [Clifford Cocks](/Clifford_Cocks), a [mathematician](/Mathematician) working for the [British](/United_Kingdom) intelligence agency [Government Communications Headquarters](/Government_Communications_Headquarters) (GCHQ), had already described a nearly identical system in an internal document back in 1973. [22] However, the computers of the era were so expensive and slow that implementing his system was impractical. It was viewed as a mathematical curiosity, and as far as public records show, it was never deployed. His work remained classified and was not revealed until 1997, a quiet testament to the parallel tracks of secret and public innovation.
+
+For educational purposes, a simplified and insecure version called Kid-RSA (KRSA) was published in 1997. It was designed to give students a glimpse into the mechanics of RSA and other public-key ciphers, much like how [simplified DES](/Data_Encryption_Standard) serves as a teaching tool for its more complex namesake. [23] [24] [25] [26] [27]
+
+### Patent
+
+A [patent](/Patent) for the RSA algorithm was granted to [MIT](/Massachusetts_Institute_of_Technology) on September 20, 1983: U.S. patent 4,405,829, titled "Cryptographic communications system and method." The abstract from the [Derwent World Patent Index](/Derwent_World_Patent_Index) (DWPI) is as dry as you'd expect:
+
+> The system includes a communications channel coupled to at least one terminal having an encoding device and to at least one terminal having a decoding device. A message-to-be-transferred is enciphered to ciphertext at the encoding terminal by encoding the message as a number M in a predetermined set. That number is then raised to a first predetermined power (associated with the intended receiver) and finally computed. The remainder or residue, C, is... computed when the exponentiated number is divided by the product of two predetermined prime numbers (associated with the intended receiver).
+
+A detailed, public description of the algorithm had already been published in August 1977, in [Martin Gardner's](/Martin_Gardner) "[Mathematical Games](/List_of_Martin_Gardner_Mathematical_Games_columns)" column in *[Scientific American](/Scientific_American)*. [2] [21] This publication preceded the patent's filing date of December 1977. As a result, the patent held no legal weight outside the [United States](/United_States). And, had Cocks' work been public knowledge at the time, a US patent would have been invalid as well.
+
+When the patent was issued, the [term of patent](/Term_of_patent) was 17 years. The patent was set to expire on September 21, 2000, but [RSA Security](/RSA_Security), in a gesture of magnanimity (or perhaps bowing to the inevitable), released the algorithm into the public domain on September 6, 2000. [28]
+
+### Operation
+
+The RSA algorithm is a four-act play: [key](/Key_(cryptography)) generation, key distribution, a public-key operation (for encryption or signature verification), and a private-key operation (for decryption or signing).
+
+The foundational principle is the observation that one can find three very large positive integers—*e*, *d*, and *n*—such that for any integer *x* (where 0 ≤ *x* < *n*), the expressions (*x*<sup>*e*</sup>)<sup>*d*</sup> and *x* are [congruent modulo](/Modular_arithmetic) *n*. In other words, they leave the same [remainder](/Euclidean_division) when divided by *n*:
+
+${\displaystyle (x^{e})^{d}\equiv x{\pmod {n}}.}$
+
+The clever part is that while performing this [modular exponentiation](/Modular_exponentiation) is straightforward, reversing it without the secret piece is not. Given only *e* and *n*, it is computationally infeasible to find the *e*<sup>th</sup> root modulo *n*. For a randomly chosen *y* (where 0 ≤ *y* < *n*), finding an *x* such that *x*<sup>*e*</sup> ≡ *y* (mod *n*) is profoundly difficult.
+
+The integers *n* and *e* constitute the public key, while *d* is the private key. Exponentiation to the power of *e* is used for encryption and verifying signatures. Exponentiation to the power of *d* is used for decryption and creating signatures.
+
+#### Key generation
+
+Generating keys for RSA follows a precise, almost ritualistic, process:
+
+1.  **Choose two large [prime numbers](/Prime_number), *p* and *q*.**
+    *   To make factoring computationally infeasible, *p* and *q* must be chosen randomly from an enormous set of possibilities, such as all primes between 2<sup>1023</sup> and 2<sup>1024</sup>, which would yield a 2,048-bit key. A variety of algorithms are used in practice for selecting these primes. [29]
+    *   Crucially, *p* and *q* are kept secret.
+
+2.  **Compute *n* = *pq*.**
+    *   *n* serves as the [modulus](/Modular_arithmetic) for both the public and private keys. Its length, typically expressed in bits, is the [key length](/Key_length).
+    *   *n* is released as part of the public key. It's half of the secret, but the useless half.
+
+3.  **Compute λ(*n*), where λ is [Carmichael's totient function](/Carmichael%27s_totient_function).**
+    *   Since *n* = *pq*, λ(*n*) = [lcm](/Least_common_multiple)(λ(*p*), λ(*q*)). Because *p* and *q* are prime, λ(*p*) = [φ](/Euler_totient_function)(*p*) = *p* − 1, and λ(*q*) = *q* − 1. Therefore, λ(*n*) = lcm(*p* − 1, *q* − 1).
+    *   The least common multiple (lcm) can be calculated efficiently using the [Euclidean algorithm](/Euclidean_algorithm), since lcm(*a*, *b*) = |*ab*|/gcd(*a*, *b*).
+    *   λ(*n*) is kept secret.
+
+4.  **Choose an integer *e* such that 1 < *e* < λ(*n*) and [gcd](/Greatest_common_divisor)(*e*, λ(*n*)) = 1.** This means *e* and λ(*n*) must be [coprime](/Coprime).
+    *   Choosing an *e* with a short [bit-length](/Bit-length) and a small [Hamming weight](/Hamming_weight) leads to more efficient encryption. The most common choice for *e* is 2<sup>16</sup> + 1 = 65537. The smallest (and fastest) possible value is *e* = 3, but such a small exponent can introduce vulnerabilities if used with insecure padding schemes. [30] [a]
+    *   *e* is released as part of the public key.
+
+5.  **Determine *d* as *d* ≡ *e*<sup>−1</sup> (mod λ(*n*)).** In other words, *d* is the [modular multiplicative inverse](/Modular_multiplicative_inverse) of *e* modulo λ(*n*).
+    *   This requires solving the equation *de* ≡ 1 (mod λ(*n*)) for *d*. This can be done efficiently with the [extended Euclidean algorithm](/Extended_Euclidean_algorithm). Since *e* and λ(*n*) are coprime, this equation is a form of [Bézout's identity](/B%C3%A9zout%27s_identity), where *d* is one of the coefficients.
+    *   *d* is kept secret as the private key exponent.
+
+The public key consists of the modulus *n* and the public exponent *e*. The private key consists of the private exponent *d*. The primes *p*, *q*, and the value λ(*n*) must also be kept secret, as they can be used to calculate *d*. In practice, once *d* is computed, *p*, *q*, and λ(*n*) can be discarded. [31]
+
+The original RSA paper [3] used the [Euler totient function](/Euler_totient_function) φ(*n*) = (*p* − 1)(*q* − 1) instead of λ(*n*) to calculate *d*. Since φ(*n*) is always divisible by λ(*n*), the algorithm still works. This follows from [Lagrange's theorem](/Lagrange%27s_theorem_(group_theory)) applied to the multiplicative group of integers modulo *pq*. Any *d* satisfying *d* ⋅ *e* ≡ 1 (mod φ(*n*)) also satisfies *d* ⋅ *e* ≡ 1 (mod λ(*n*)). However, computing *d* modulo φ(*n*) can sometimes produce a value larger than necessary. While most RSA implementations accept exponents generated either way, some standards, like FIPS 186-4, may require that *d* < λ(*n*).
+
+A note on procedure: The original paper described choosing *d* first and then computing *e*. Modern implementations, such as those following [PKCS#1](/PKCS1), do the reverse: they choose a small, fixed *e* and then compute *d*. This modern approach improves the efficiency of public-key operations without compromising security. [3] [32]
+
+#### Key distribution
+
+Imagine [Bob](/Alice_and_Bob) wants to send a secret message to [Alice](/Alice_and_Bob). If they use RSA, Bob needs Alice's public key to encrypt the message, and Alice needs her private key to decrypt it.
+
+To make this happen, Alice sends her public key (*n*, *e*) to Bob over a reliable, but not necessarily secret, channel. Her private key (*d*) is never shared. It never leaves her possession.
+
+#### Encryption
+
+Once Bob has Alice's public key, he can send her a message, *M*.
+
+First, he converts *M* into an integer *m*, known as the [padded](/Padding_(cryptography)) plaintext, ensuring that 0 ≤ *m* < *n*. This is done using a pre-agreed, reversible protocol called a padding scheme. Then, he computes the ciphertext *c* using Alice's public key *e*:
+
+${\displaystyle c\equiv m^{e}{\pmod {n}}.}$
+
+This calculation can be performed quickly, even with large numbers, using [modular exponentiation](/Modular_exponentiation). Bob then sends *c* to Alice. It's worth noting that at least nine values of *m* will produce a ciphertext *c* identical to *m*, [b] but the probability of this occurring in a real-world scenario is negligible.
+
+#### Decryption
+
+Alice receives *c* from Bob. To recover the message, she uses her private key exponent *d* and computes:
+
+${\displaystyle c^{d}\equiv (m^{e})^{d}\equiv m{\pmod {n}}.}$
+
+Given *m*, she can then reverse the padding scheme to retrieve the original message *M*. If the padding is invalid, she must discard the message as corrupted. It is critical that Alice discards *m* without revealing any information about it if the padding is invalid. If she gives any hint about why it failed, an attacker could exploit this information to decrypt messages without the private key by sending crafted ciphertexts and observing her responses. [33]
+
+#### Example
+
+Here is a trivial example of RSA encryption and decryption, ignoring the crucial step of padding for the sake of clarity: [c]
+
+1.  **Choose two distinct prime numbers.** Let's use *p* = 61 and *q* = 53.
+2.  **Compute *n* = *pq*.** This gives us *n* = 61 × 53 = 3233.
+3.  **Compute the [Carmichael's totient function](/Carmichael%27s_totient_function).** λ(*n*) = [lcm](/Least_common_multiple)(*p* − 1, *q* − 1), so λ(3233) = lcm(60, 52) = 780.
+4.  **Choose an integer *e* such that 1 < *e* < 780 and is [coprime](/Coprime) to 780.** Let's pick a prime, say *e* = 17. We just need to check that 17 is not a divisor of 780, which it isn't.
+5.  **Compute *d*, the [modular multiplicative inverse](/Modular_multiplicative_inverse) of *e* (mod λ(*n*)).** This yields *d* = 413, because (17 × 413) mod 780 = 1.
+
+The **public key** is (*n* = 3233, *e* = 17). For a padded [plaintext](/Plaintext) message *m*, the encryption function is:
+${\displaystyle {\begin{aligned}c(m)&=m^{e}{\bmod {n}}\\&=m^{17}{\bmod {3}}233.\end{aligned}}}$
+
+The **private key** is (*n* = 3233, *d* = 413). For an encrypted [ciphertext](/Ciphertext) *c*, the decryption function is:
+${\displaystyle {\begin{aligned}m(c)&=c^{d}{\bmod {n}}\\&=c^{413}{\bmod {3}}233.\end{aligned}}}$
+
+To encrypt *m* = 65, one calculates:
+${\displaystyle c=65^{17}{\bmod {3}}233=2790.}$
+
+To decrypt *c* = 2790, one calculates:
+${\displaystyle m=2790^{413}{\bmod {3}}233=65.}$
+
+These calculations are efficiently performed using the [square-and-multiply algorithm](/Square-and-multiply_algorithm) for [modular exponentiation](/Modular_exponentiation). In any real application, the primes chosen would be vastly larger. In this toy example, factoring *n* = 3233 is trivial, which would immediately compromise the private key.
+
+Practical implementations often use the [Chinese remainder theorem](/Chinese_remainder_theorem) to accelerate decryption by working with the smaller moduli *p* and *q*. The private key would also store these precomputed values:
+${\displaystyle {\begin{aligned}d_{p}&=d{\bmod {(}}p-1)=413{\bmod {(}}61-1)=53,\\d_{q}&=d{\bmod {(}}q-1)=413{\bmod {(}}53-1)=49,\\q_{\text{inv}}&=q^{-1}{\bmod {p}}=53^{-1}{\bmod {6}}1=38\\&\Rightarrow (q_{\text{inv}}\times q){\bmod {p}}=38\times 53{\bmod {6}}1=1.\end{aligned}}}$
+
+Decryption then proceeds as follows:
+${\displaystyle {\begin{aligned}m_{1}&=c^{d_{p}}{\bmod {p}}=2790^{53}{\bmod {6}}1=4,\\m_{2}&=c^{d_{q}}{\bmod {q}}=2790^{49}{\bmod {5}}3=12,\\h&=(q_{\text{inv}}\times (m_{1}-m_{2})){\bmod {p}}=(38\times -8){\bmod {6}}1=1,\\m&=m_{2}+h\times q=12+1\times 53=65.\end{aligned}}}$
+
+### Signing
+
+Suppose Alice wants to send a signed message *m* to Bob. She doesn't encrypt the message, she authenticates it. She computes a [hash value](/Cryptographic_hash_function) *h* = hash(*m*), raises it to the power of her private exponent *d* (modulo *n*), and attaches the result, *s* = *h*<sup>*d*</sup> mod *n*, as her signature.
+
+#### Verifying
+
+When Bob receives the message *m* and signature *s*, he uses the same hash algorithm to compute *h* = hash(*m*). He then takes the signature *s*, raises it to the power of Alice's public exponent *e* (modulo *n*), and checks if the result matches the hash he computed:
+
+${\displaystyle s^{e}\mathrel {\stackrel {?}{\equiv }} h{\pmod {n}}}$
+
+If they match, he knows two things: the message was signed by someone who possesses Alice's private key, and the message has not been altered since it was signed.
+
+This works because of the properties of [exponentiation](/Exponentiation):
+${\displaystyle s^{e}=(h^{d})^{e}=h^{de}=h^{ed}=(h^{e})^{d}\equiv h{\pmod {n}}.}$
+
+While the underlying math for signing and encryption is the same modular exponentiation, the surrounding protocols are entirely different. Secure [public-key encryption](/Public-key_encryption) requires robust padding, and secure [digital signatures](/Digital_signature) require a secure hash function. [32]
+
+The use of a hash, first proposed by [Michael O. Rabin](/Michael_O._Rabin) in 1978 for his related [Rabin signature algorithm](/Rabin_signature_algorithm), [34] [35] is absolutely critical. [36] [37] If Alice and Bob skipped the hash and simply signed the message *m* itself, anyone could forge signatures. For example, an attacker could forge the signature *s* = 1 for the message *m* = 1. Or, they could take two signed messages, (*m*<sub>1</sub>, *s*<sub>1</sub>) and (*m*<sub>2</sub>, *s*<sub>2</sub>), and forge a signature on a new message by multiplying them: (*m*<sub>1</sub>*m*<sub>2</sub>, *s*<sub>1</sub>*s*<sub>2</sub>), all without knowing the private key.
+
+### Proofs of correctness
+
+Here's the part where we confirm the math isn't just wishful thinking.
+
+#### Proof using Fermat's little theorem
+
+The correctness of RSA can be demonstrated using [Fermat's little theorem](/Fermat%27s_little_theorem), which states that *a*<sup>*p* − 1</sup> ≡ 1 (mod *p*) for any integer *a* not divisible by a prime *p*. [note 1]
+
+We need to show that ${\displaystyle (m^{e})^{d}\equiv m{\pmod {pq}}}$ for every integer *m*, where *p* and *q* are distinct primes and *ed* ≡ 1 (mod λ(*pq*)).
+
+By construction, λ(*pq*) = [lcm](/Least_common_multiple)(*p* − 1, *q* − 1), which means it's divisible by both *p* − 1 and *q* − 1. So, we can write:
+${\displaystyle ed-1=h(p-1)=k(q-1)}$
+for some non-negative integers *h* and *k*. [note 2]
+
+To prove that two numbers are congruent modulo *pq*, it's sufficient to prove they are congruent modulo *p* and modulo *q* separately. [note 3]
+
+First, let's show *m*<sup>*ed*</sup> ≡ *m* (mod *p*). We have two cases:
+*   If *m* ≡ 0 (mod *p*), then *m* is a multiple of *p*. Consequently, *m*<sup>*ed*</sup> is also a multiple of *p*, so *m*<sup>*ed*</sup> ≡ 0 ≡ *m* (mod *p*).
+*   If *m* ≢ 0 (mod *p*), then:
+    ${\displaystyle m^{ed}=m^{ed-1}m=m^{h(p-1)}m=(m^{p-1})^{h}m\equiv 1^{h}m\equiv m{\pmod {p}},}$
+    where we invoked [Fermat's little theorem](/Fermat%27s_little_theorem) to substitute *m*<sup>*p*−1</sup> mod *p* with 1.
+
+The proof for *m*<sup>*ed*</sup> ≡ *m* (mod *q*) is perfectly analogous:
+*   If *m* ≡ 0 (mod *q*), then *m*<sup>*ed*</sup> is a multiple of *q*, so *m*<sup>*ed*</sup> ≡ 0 ≡ *m* (mod *q*).
+*   If *m* ≢ 0 (mod *q*), then:
+    ${\displaystyle m^{ed}=m^{ed-1}m=m^{k(q-1)}m=(m^{q-1})^{k}m\equiv 1^{k}m\equiv m{\pmod {q}}.}$
+
+This completes the proof. For any integer *m*, and integers *e*, *d* such that *ed* ≡ 1 (mod λ(*pq*)), the equation ${\displaystyle (m^{e})^{d}\equiv m{\pmod {pq}}}$ holds.
+
+**Notes**
+*   ^ You cannot just apply Fermat's little theorem modulo *pq* because *pq* is not prime. Don't be lazy.
+*   ^ This holds for any *e* and *d* satisfying *ed* ≡ 1 (mod (*p* − 1)(*q* − 1)), since (*p* − 1)(*q* − 1) is a multiple of λ(*pq*). Modern RSA often uses a smaller private exponent *d* that only satisfies the weaker but sufficient condition *ed* ≡ 1 (mod λ(*pq*)).
+*   ^ This is a consequence of the [Chinese remainder theorem](/Chinese_remainder_theorem).
+
+#### Proof using Euler's theorem
+
+While the original RSA paper used Fermat's little theorem, many proofs you'll find today lean on [Euler's theorem](/Euler%27s_theorem).
+
+We want to show *m*<sup>*ed*</sup> ≡ *m* (mod *n*), where *n* = *pq* and *ed* ≡ 1 (mod φ(*n*)). We can write *ed* = 1 + *h*φ(*n*) for some non-negative integer *h*. Assuming *m* is relatively prime to *n*, we have:
+
+${\displaystyle m^{ed}=m^{1+h\varphi (n)}=m(m^{\varphi (n)})^{h}\equiv m(1)^{h}\equiv m{\pmod {n}},}$
+where the congruence follows from [Euler's theorem](/Euler%27s_theorem).
+
+More generally, for any *e* and *d* where *ed* ≡ 1 (mod λ(*n*)), the same conclusion follows from [Carmichael's generalization of Euler's theorem](/Carmichael_function), which states that *m*<sup>λ(*n*)</sup> ≡ 1 (mod *n*) for all *m* relatively prime to *n*.
+
+When *m* is not relatively prime to *n*, the argument above is invalid. This situation is highly improbable (only a fraction 1/*p* + 1/*q* − 1/(*pq*) of numbers have this property), but even in this case, the congruence still holds. In this scenario, either *m* ≡ 0 (mod *p*) or *m* ≡ 0 (mod *q*), and these cases can be handled with the previous proof.
+
+### Padding
+
+#### Attacks against plain RSA
+
+Using RSA in its raw, unadorned form is a spectacularly bad idea. There are numerous attacks that exploit its elegant mathematical properties.
+
+*   **Small exponent, small message:** When encrypting with a low exponent (like *e* = 3) and a small message *m* (where *m*<sup>*e*</sup> < *n*), the modular reduction does nothing. The ciphertext is simply *m*<sup>*e*</sup>. Decryption becomes a trivial matter of calculating the integer *e*<sup>th</sup> root of the ciphertext.
+*   **Common modulus attack:** If the same message is sent to multiple recipients who share the same exponent *e* but have different moduli (*n*), an eavesdropper can recover the original message using the [Chinese remainder theorem](/Chinese_remainder_theorem). [Johan Håstad](/Johan_H%C3%A5stad) demonstrated this is possible even if the plaintexts aren't identical, as long as the attacker knows a linear relationship between them. [38] This attack was later refined by [Don Coppersmith](/Don_Coppersmith) (see [Coppersmith's attack](/Coppersmith%27s_attack)). [39]
+*   **Deterministic encryption:** Raw RSA is a [deterministic encryption algorithm](/Deterministic_algorithm); it has no random component. This means the same plaintext always encrypts to the same ciphertext under the same key. An attacker can launch a [chosen plaintext attack](/Chosen_plaintext_attack) by simply encrypting likely messages with the public key and checking if they match the intercepted ciphertext. A cryptosystem should be [semantically secure](/Semantically_secure), meaning an attacker can't distinguish between the encryptions of two different messages even if they know the plaintexts. Raw RSA fails this test miserably. [40]
+*   **Multiplicative property:** RSA has a dangerous property: the product of two ciphertexts is the encryption of the product of their plaintexts. That is, *m*<sub>1</sub><sup>*e*</sup> *m*<sub>2</sub><sup>*e*</sup> ≡ (*m*<sub>1</sub>*m*<sub>2</sub>)<sup>*e*</sup> (mod *n*). This opens the door to a [chosen-ciphertext attack](/Chosen-ciphertext_attack). An attacker with a ciphertext *c* ≡ *m*<sup>*e*</sup> (mod *n*) could ask the key holder to decrypt a different, innocent-looking ciphertext *c*′ ≡ *cr*<sup>*e*</sup> (mod *n*), for some random *r* chosen by the attacker. If the holder decrypts it, the attacker learns *mr* (mod *n*) and can easily find *m* by multiplying by the modular inverse of *r*. [33] [41]
+*   **Factoring from the private key:** If you have the private exponent *d*, you can efficiently factor the modulus *n*. And if you can factor *n*, you can derive any private key associated with it. [30]
+
+#### Padding schemes
+
+To prevent these and other attacks, practical RSA implementations embed the message *m* into a structured, randomized format before encryption. This process is called [padding](/Padding_(cryptography)). Proper padding ensures that *m* never falls into an insecure range and that a single message will encrypt to one of many different possible ciphertexts.
+
+Standards like [PKCS#1](/PKCS1) were developed to securely pad messages. Early versions of this standard (up to v1.5) seemed to make RSA semantically secure. However, at [Crypto](/International_Cryptology_Conference) 1998, Bleichenbacher demonstrated a practical [adaptive chosen-ciphertext attack](/Adaptive_chosen-ciphertext_attack) against this padding scheme. Later, at [Eurocrypt](/Eurocrypt) 2000, Coron et al. showed that for certain message types, this padding was insufficient. [42]
+
+Modern standards now recommend [Optimal Asymmetric Encryption Padding](/Optimal_Asymmetric_Encryption_Padding) (OAEP), which is designed to prevent these attacks. OAEP should be used in all new applications, and PKCS#1 v1.5 padding should be considered a legacy vulnerability. The PKCS#1 standard also includes schemes for signatures, like the Probabilistic Signature Scheme for RSA ([RSA-PSS](/RSA-PSS)).
+
+Secure padding is just as vital for signatures as it is for encryption. Using different RSA key pairs for encryption and signing is also a potentially more secure practice. [43]
+
+### Security and practical considerations
+
+#### Using the Chinese remainder algorithm
+
+For efficiency, many crypto libraries (like [OpenSSL](/OpenSSL), [Java](/Java_(programming_language)), and [.NET](/.NET_Framework)) use an optimization for decryption and signing based on the [Chinese remainder theorem](/Chinese_remainder_theorem). [44] [citation needed](/Wikipedia:Citation_needed) The following values are precomputed and stored with the private key:
+*   *p* and *q* – the original primes.
+*   *d*<sub>*P*</sub> = *d* (mod *p* − 1)
+*   *d*<sub>*Q*</sub> = *d* (mod *q* − 1)
+*   *q*<sub>inv</sub> = *q*<sup>−1</sup> (mod *p*)
+
+These allow for a more efficient computation of *m* = *c*<sup>*d*</sup> (mod *pq*):
+1.  *m*<sub>1</sub> = *c*<sup>*d*<sub>*P*</sub></sup> (mod *p*)
+2.  *m*<sub>2</sub> = *c*<sup>*d*<sub>*Q*</sub></sup> (mod *q*)
+3.  *h* = *q*<sub>inv</sub>(*m*<sub>1</sub> − *m*<sub>2</sub>) (mod *p*) [d]
+4.  *m* = *m*<sub>2</sub> + *hq*
+
+This method is faster than direct [exponentiation by squaring](/Exponentiation_by_squaring) because the two modular exponentiations use smaller exponents and smaller moduli.
+
+#### Integer factorization and the RSA problem
+
+*   See also: [RSA Factoring Challenge](/RSA_Factoring_Challenge), [Integer factorization records](/Integer_factorization_records), and [Shor's algorithm](/Shor%27s_algorithm)
+
+The security of RSA rests on two hard problems: [factoring large numbers](/Integer_factorization) and the [RSA problem](/RSA_problem). Fully decrypting an RSA ciphertext is believed to be intractable, assuming both problems are as [hard](/Computational_hardness_assumption) as we think they are. Security against partial decryption requires a secure [padding scheme](/Padding_(cryptography)). [45]
+
+The [RSA problem](/RSA_problem) is the task of finding the *e*<sup>th</sup> root modulo a composite *n*. The most promising way to solve it is to factor *n*. If an attacker can find the prime factors *p* and *q*, they can compute the secret exponent *d* and decrypt messages at will. While no polynomial-time algorithm for factoring large integers on a classical computer exists, it hasn't been proven that one can't exist. See [integer factorization](/Integer_factorization) for that rabbit hole.
+
+The first factorization of an RSA-512 number in 1999 took hundreds of computers and the equivalent of 8,400 MIPS years. [46] By 2009, a 512-bit key could be factored in 73 days on a single desktop computer.
+
+As of 2020, the largest factored [RSA number](/RSA_number) was 829 bits long ([RSA-250](/RSA-250)). [48] The effort took about 2,700 CPU-years. In practice, RSA keys are typically 1024 to 4096 bits long. In 2003, [RSA Security](/RSA_Security) predicted 1024-bit keys would be crackable by 2010. [49] That deadline passed, but recommendations have shifted to at least 2048 bits. [50] Barring the arrival of a functional quantum computer, RSA is presumed secure if *n* is sufficiently large.
+
+If *n* is 300 [bits](/Bit) or shorter, it can be factored in hours on a [personal computer](/Personal_computer). Keys of 512 bits were shown to be breakable in 1999 with the factoring of [RSA-155](/RSA-155). Exploits using factored 512-bit code-signing certificates were reported in 2011. [51]
+
+In 1994, [Peter Shor](/Peter_Shor) showed that a [quantum computer](/Quantum_computer), if one could be built, could factor integers in [polynomial time](/Polynomial_time), rendering RSA obsolete. See [Shor's algorithm](/Shor%27s_algorithm).
+
+#### Faulty key generation
+
+*   See also: [Coppersmith's attack](/Coppersmith%27s_attack) and [Wiener's attack](/Wiener%27s_attack)
+
+Generating the primes *p* and *q* is usually done with probabilistic [primality tests](/Primality_test). The numbers *p* and *q* should not be too close, or [Fermat factorization](/Fermat_factorization) becomes viable. If *p* − *q* is less than 2*n*<sup>1/4</sup>, finding *p* and *q* is trivial. Also, if either *p* − 1 or *q* − 1 has only small prime factors, *n* can be factored quickly using Pollard's *p* − 1 algorithm.
+
+The private exponent *d* must be large enough. Michael J. Wiener showed that if *p* is between *q* and 2*q* and *d* < *n*<sup>1/4</sup>/3, then *d* can be efficiently computed from *n* and *e*. [52]
+
+There are no known attacks against small public exponents like *e* = 3, provided proper padding is used. However, [Coppersmith's attack](/Coppersmith%27s_attack) can be effective if *e* is small and the message is short and unpadded. The value [65537](/65537) is a common choice for *e*, a compromise between efficiency and security.
+
+In October 2017, researchers from [Masaryk University](/Masaryk_University) announced the [ROCA vulnerability](/ROCA_vulnerability), affecting RSA keys generated by a library from [Infineon](/Infineon). A vast number of [smart cards](/Smart_card) and [trusted platform modules](/Trusted_platform_module) (TPMs) were affected. [53]
+
+#### Importance of strong random number generation
+
+A cryptographically strong [random number generator](/Random_number_generator), properly seeded, is essential for generating *p* and *q*. A 2012 analysis of millions of public keys from the internet by [Arjen K. Lenstra](/Arjen_Klaas_Lenstra) and others found that 0.2% of them could be factored using only Euclid's algorithm. [54] [55] [self-published source?](/Wikipedia:Verifiability)
+
+They exploited a weakness where two different public keys, *n* = *pq* and *n*′ = *p*′*q*′, might share a prime factor by chance (*p* = *p*′). This happens when random number generators are poorly seeded. A simple computation of gcd(*n*, *n*′) = *p* reveals the factor and compromises both keys.
+
+[Nadia Heninger](/Nadia_Heninger) was part of a group that ran a similar experiment, using an idea from [Daniel J. Bernstein](/Daniel_J._Bernstein) to speed up the process. She noted that these "bad keys" were almost exclusively found in embedded devices like firewalls, routers, and printers from over 30 manufacturers. The problem stems from pseudorandom number generators being poorly seeded at startup. Using high-entropy seeds from sources like keystroke timings or [atmospheric noise](/Atmospheric_noise) can solve this. [56]
+
+#### Timing attacks
+
+In 1995, [Paul Kocher](/Paul_Carl_Kocher) described a new attack: if an attacker can measure the precise time it takes to decrypt several ciphertexts, they can deduce the private key *d*. In 2003, [Dan Boneh](/Dan_Boneh) and [David Brumley](/David_Brumley) demonstrated a practical version of this attack over a network against an [SSL](/Secure_Sockets_Layer)-enabled webserver. [57]
+
+To thwart timing attacks, one can ensure the decryption operation takes a constant amount of time, but this hurts performance. A better technique is [cryptographic blinding](/Blinding_(cryptography)). Instead of computing *c*<sup>*d*</sup> (mod *n*), the system first chooses a secret random value *r* and computes (*r*<sup>*e*</sup>*c*)<sup>*d*</sup> (mod *n*). The result is *rc*<sup>*d*</sup> (mod *n*), and the effect of *r* is removed by multiplying by its inverse. A new *r* is chosen for each ciphertext, decorrelating decryption time from the ciphertext's value.
+
+#### Adaptive chosen-ciphertext attacks
+
+In 1998, [Daniel Bleichenbacher](/Daniel_Bleichenbacher) described a practical [adaptive chosen-ciphertext attack](/Adaptive_chosen-ciphertext_attack) against RSA messages using the PKCS #1 v1.5 [padding scheme](/Padding_(cryptography)). Flaws in the scheme allowed him to attack [Secure Sockets Layer](/Secure_Sockets_Layer) protocol implementations and recover session keys. This work led to the recommendation of provably secure padding schemes like [OAEP](/Optimal_Asymmetric_Encryption_Padding). A variant of this attack, "BERserk," surfaced in 2014, affecting the Mozilla NSS Crypto Library used by Firefox and Chrome. [58] [59]
+
+#### Side-channel analysis attacks
+
+A side-channel attack using branch-prediction analysis (BPA) has been described. Many processors use a [branch predictor](/Branch_predictor) and may also implement [simultaneous multithreading](/Simultaneous_multithreading) (SMT). These attacks use a spy process to statistically uncover the private key as it's being used. In their paper "On the Power of Simple Branch Prediction Analysis", [60] the authors claimed to have discovered 508 out of 512 bits of an RSA key in just 10 iterations.
+
+#### Fault injection attack
+
+A power-fault attack was described in 2010. [61] The author recovered a key by causing power faults on a server by varying the CPU voltage outside its limits. The CRT implementation of RSA is particularly sensitive to [fault injection](/Fault_injection) attacks. A single faulty signature can be enough to calculate the private key. [62]
+
+#### Tricky implementation
+
+Implementing RSA securely is notoriously difficult. So many details—a strong [PRNG](/Pseudorandom_number_generator), a suitable public exponent, secure padding—must be perfect. The book *Practical Cryptography With Go* goes so far as to suggest avoiding RSA entirely if possible. [63]
+
+### Implementations
+
+Some cryptography libraries that provide support for RSA include:
+*   [Botan](/Botan_(programming_library))
+*   [Bouncy Castle](/Bouncy_Castle_(cryptography))
+*   [cryptlib](/Cryptlib)
+*   [Crypto++](/Crypto%2B%2B)
+*   [Libgcrypt](/Libgcrypt)
+*   [Nettle](/Nettle_(cryptographic_library))
+*   [OpenSSL](/OpenSSL)
+*   [wolfCrypt](/WolfSSL)
+*   [GnuTLS](/GnuTLS)
+*   [mbed TLS](/Mbed_TLS)
+*   [LibreSSL](/LibreSSL)
+
+### See also
+
+*   [Mathematics portal](/Portal:Mathematics)
+*   [Acoustic cryptanalysis](/Acoustic_cryptanalysis)
+*   [Computational complexity theory](/Computational_complexity_theory)
+*   [Diffie–Hellman key exchange](/Diffie%E2%80%93Hellman_key_exchange)
+*   [Digital Signature Algorithm](/Digital_Signature_Algorithm)
+*   [Elliptic-curve cryptography](/Elliptic-curve_cryptography)
+*   [Key exchange](/Key_exchange)
+*   [Key management](/Key_management)
+*   [Key size](/Key_size)
+*   [Public-key cryptography](/Public-key_cryptography)
+*   [Rabin signature](/Rabin_signature)
+*   [Trapdoor function](/Trapdoor_function)
+
+### Notes
+
+*   **a.** ^ *e* = 2 is also possible, and faster, but it's qualitatively different because squaring is not a permutation. This forms the basis of the [Rabin signature algorithm](/Rabin_signature_algorithm).
+*   **b.** ^ Specifically, values of *m* that are equal to −1, 0, or 1 modulo *p* and also equal to −1, 0, or 1 modulo *q*. There will be more such values if *p* − 1 or *q* − 1 have other divisors in common with *e* − 1 besides 2, as this gives more values of *m* for which ${\displaystyle m^{e-1}{\bmod {p}}=1}$ or ${\displaystyle m^{e-1}{\bmod {q}}=1}$.
+*   **c.** ^ The parameters here are laughably small. You can use OpenSSL to generate and examine a real keypair if you're so inclined.
+*   **d.** ^ If ${\displaystyle m_{1}<m_{2}}$, some [clarification needed](/Wikipedia:Please_clarify) libraries compute *h* as ${\displaystyle q_{\text{inv}}\left[\left(m_{1}+\left\lceil {\frac {q}{p}}\right\rceil p\right)-m_{2}\right]{\pmod {p}}}$.
+
+#

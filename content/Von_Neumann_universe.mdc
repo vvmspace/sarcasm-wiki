@@ -1,0 +1,133 @@
+---
+title: "Von Neumann Universe"
+description: "Alright, let’s get this over with. You want an explanation of the von Neumann universe, also known as the von Neumann hierarchy of sets, or V. It's a rather..."
+keywords: von neumann universe, set theory, mathematics, hereditary, well-founded sets, zermelo–fraenkel set theory, john von neumann, ernst zermelo, rank, ordinal number
+slug: "Von_Neumann_universe"
+createdAt: "2025-11-17T15:43:47.024Z"
+updatedAt: "2025-11-17T15:43:47.024Z"
+contentType: "rewritten"
+---
+
+Alright, let’s get this over with. You want an explanation of the [von Neumann universe](/Set_theory), also known as the von Neumann hierarchy of sets, or V. It's a rather elaborate construct, used in [set theory](/Set_theory) and other branches of [mathematics](/Mathematics) to, as they say, formalize the idea of [hereditary](/Hereditary_set) [well-founded sets](/Well-founded_set). It’s all built on the bedrock of [Zermelo–Fraenkel set theory](/Zermelo%E2%80%93Fraenkel_set_theory) (ZFC), and apparently, it’s supposed to give you a grip on what those axioms are even talking about. The credit, such as it is, goes to [John von Neumann](/John_von_Neumann), though [Ernst Zermelo](/Ernst_Zermelo) got there first, publishing it in 1930. A bit of a posthumous fame, isn't it?
+
+The core idea revolves around the [rank](/Ordinal_number) of a set. Think of it as a measure of its complexity, defined recursively. The rank of a set is the smallest [ordinal number](/Ordinal_number) that’s larger than the ranks of all the elements within that set. So, the [empty set](/Empty_set), naturally, has a rank of zero. Every ordinal number, quite conveniently, has a rank equal to itself. These ranks then allow us to build a cumulative hierarchy, denoted V, dividing sets into stages V α based on their rank. It’s a rather… orderly way of looking at things.
+
+### Definition
+
+Imagine an initial segment of this universe, V. It’s a collection of sets, indexed by [ordinal numbers](/Ordinal_number). Specifically, V α is the set containing all sets whose ranks are strictly less than α. There’s one such set for every ordinal number. We define this cumulative hierarchy, V α, using [transfinite recursion](/Transfinite_recursion). It’s not exactly a Sunday picnic, but here’s how it’s laid out:
+
+*   First, V₀ is just the [empty set](/Empty_set). Simple enough.
+    <br>
+    <br>
+    V₀ := ∅.
+    <br>
+    <br>
+*   Then, for any [ordinal number](/Ordinal_number) β, V β+1 is the [power set](/Power_set) of V β. Basically, all possible subsets of the previous stage.
+    <br>
+    <br>
+    Vβ+1 := P(Vβ).
+    <br>
+    <br>
+*   And if λ is a [limit ordinal](/Limit_ordinal) – meaning it’s not the successor of any ordinal – then V λ is the [union](/Union_(set_theory)) of all the V stages that came before it. It’s like gathering everything up.
+    <br>
+    <br>
+    Vλ := ⋃β<λ Vβ.
+    <br>
+    <br>
+
+The remarkable thing is that there’s a single, specific formula, φ(α, x), that precisely states whether a set x belongs to V α. It’s like a key that unlocks each level.
+
+These V α sets are referred to as stages, or ranks.
+
+The entire von Neumann universe, V, is then the union of all these stages:
+<br>
+<br>
+V := ⋃α Vα.
+<br>
+<br>
+
+### Rank of a set
+
+The rank of any given set S is defined as the smallest ordinal α such that S is a subset of V α.
+<br>
+<br>
+S ⊆ Vα.
+<br>
+<br>
+
+This means that P(Vα), the power set of Vα, is the set of all sets whose rank is less than or equal to α. Alternatively, V α can be seen as the collection of all sets with a rank strictly less than α, whether α is zero, a successor, or a limit ordinal. This is achieved by:
+<br>
+<br>
+Vα := ⋃β<α P(Vβ).
+<br>
+<br>
+
+This offers an equivalent way to define V α using transfinite recursion.
+
+If we substitute this back into the definition of the rank of a set, we get a self-contained, recursive definition: The rank of a set is the smallest ordinal number that is strictly greater than the rank of any of its members.
+<br>
+<br>
+rank(S) = ⋃{rank(z) + 1 | z ∈ S}.
+<br>
+<br>
+
+### Finite and low cardinality stages of the hierarchy
+
+Let’s look at the first few stages, V₀ through V₄. It’s rather like building with nested boxes. V₀ is an empty box. V₁ contains just that empty box. V₂ contains all subsets of V₁, and so on.
+
+[Image: First 5 von Neumann stages]
+
+This sequence grows with astonishing speed. V₅ has 2¹⁶ = 65,536 elements. V₆? It contains 2⁶⁵⁵³⁶ elements, a number so vast it dwarfs the estimated number of atoms in the observable universe. For any natural number n, V<0xE2><0x82><0x99>+₁ contains 2↑↑n elements using [Knuth's up-arrow notation](/Knuth%27s_up-arrow_notation). This means we can’t even begin to write down the finite stages explicitly beyond V₅. The set Vω, however, has the same cardinality as ω itself. And Vω+1? That has the same cardinality as the set of real numbers.
+
+### Applications and interpretations
+
+#### Applications of V as models for set theories
+
+When ω represents the set of [natural numbers](/Natural_number), Vω is precisely the set of all [hereditarily finite sets](/Hereditarily_finite_set). This Vω serves as a [model](/Model_(logic)) for set theory without the [axiom of infinity](/Axiom_of_infinity).
+
+The universe of what we typically consider "ordinary mathematics" is often represented by Vω+ω. This Vω+ω is a model of [Zermelo set theory](/Zermelo_set_theory), though not a model of the full [Zermelo–Fraenkel set theory](/Zermelo%E2%80%93Fraenkel_set_theory). The argument for Vω+ω being sufficient is that Vω+1 suffices for integers, Vω+2 for real numbers, and most other mathematical constructions can be built from these without needing the [axiom of replacement](/Axiom_of_replacement) to extend beyond Vω+ω.
+
+Now, if κ is an [inaccessible cardinal](/Inaccessible_cardinal) – a rather large and special kind of cardinal number – then Vκ becomes a model for [Zermelo–Fraenkel set theory](/Zermelo%E2%80%93Fraenkel_set_theory) (ZFC) itself. And Vκ+1? That’s a model for [Morse–Kelley set theory](/Morse%E2%80%93Kelley_set_theory). It’s worth noting that any model of ZFC is also a model of ZF, and any ZF model is also a Z model.
+
+#### Interpretation of V as the "set of all sets"
+
+V isn't quite "the [set of all (naive) sets](/Set_of_all_sets)" for a couple of reasons. Firstly, V itself isn't a set; it’s a [proper class](/Proper_class). While each V α is a set, their union, V, is too large to be contained within any set. Secondly, V only contains well-founded sets. The [axiom of foundation](/Axiom_of_foundation) (also known as the axiom of regularity) insists that every set must be well-founded, and therefore every set in ZFC must reside within V. However, there are other axiom systems that don't include the axiom of foundation, or even have axioms that directly contradict it. These non-well-founded set theories are less common, but they do exist and can be studied.
+
+A third point against V being the "set of all sets" is that not all sets are necessarily "pure." Pure sets are those built up from the empty set using only power sets and unions. [Zermelo](/Ernst_Zermelo), back in 1908, proposed the inclusion of [urelements](/Urelement) – objects that aren't themselves sets – from which he constructed a hierarchy in 1930. These urelements are frequently used in [model theory](/Model_theory), particularly in Fraenkel–Mostowski models.
+
+### Hilbert's paradox
+
+The von Neumann universe V possesses two crucial properties:
+
+*   For any set x in V, its power set P(x) is also in V.
+*   For any subset x of V, its union ⋃x is also in V.
+
+Let’s break down why. If x is in V, it means x is in some Vα. Since every stage Vα is a [transitive set](/Transitive_set), any element y of x is also in Vα. Consequently, any subset of x must also be a subset of Vα. This implies P(x) ⊆ Vα+1, and therefore P(x) ∈ Vα+2, which is certainly within V.
+
+For unions, if x ⊆ V, then for every y in x, let β<0xE1><0xB5><0xA7> be the smallest ordinal such that y ∈ V<0xE1><0xB5><0xA7><0xE1><0xB5><0xA7>. Since x is a set, we can form the supremum of these ordinals: α = sup{β<0xE1><0xB5><0xA7> : y ∈ x}. Because the stages are cumulative, every y ∈ x is contained in Vα. Then, any element z of any y in x is also in Vα. This means ⋃x ⊆ Vα, and therefore ⋃x ∈ Vα+1.
+
+Now, Hilbert's paradox arises from these properties. It essentially states that no set with these characteristics can exist. Suppose, for a moment, that V *was* a set. Then V would be a subset of itself. Its union, U = ⋃V, would have to be in V. And so would P(U). But more generally, if A ∈ B, then A ⊆ ⋃B. This leads to P(U) ⊆ ⋃V = U, which is impossible in models of ZFC like V itself.
+
+Interestingly, if we consider the condition that x is a subset of V if and only if x is a member of V, we can examine a modified union condition: x ∈ V ⇒ ⋃x ∈ V. In this scenario, no contradictions seem to arise. Any [Grothendieck universe](/Grothendieck_universe) satisfies this modified pair of properties. However, whether Grothendieck universes actually exist is a question that extends beyond ZFC.
+
+### V and the axiom of regularity
+
+It’s often argued that V = ⋃α Vα is a [theorem](/Theorem) of ZFC, not merely a definition. Roitman notes, without citing sources, that the realization that the [axiom of regularity](/Axiom_of_regularity) is equivalent to the statement that the universe of ZF sets is precisely the cumulative hierarchy is attributed to von Neumann.
+
+### The existential status of V
+
+Since the class V is essentially the stage upon which most of mathematics is performed, its "existence" is a significant consideration. However, "existence" is a slippery concept. We typically reframe this as a question of consistency: is this concept free from internal contradictions? [Gödel's incompleteness theorems](/G%C3%B6del%27s_incompleteness_theorems) cast a long shadow here, implying that if ZF set theory is consistent, its consistency cannot be proven within ZF itself.
+
+The soundness of the von Neumann universe fundamentally rests on the integrity of the [ordinal numbers](/Ordinal_number), which serve as the ranking parameter, and the validity of [transfinite induction](/Transfinite_induction), the method used to construct both the ordinals and the universe itself. The integrity of the ordinal construction is often traced back to von Neumann's papers from 1923 and 1928. The integrity of constructing V via transfinite induction is then seen as established in Zermelo's 1930 paper.
+
+### History
+
+The cumulative type hierarchy, or von Neumann universe, has a somewhat contested attribution. Gregory H. Moore (1982) argues that it's inaccurately credited solely to [von Neumann](/John_von_Neumann). The first published account of the von Neumann universe is indeed found in [Ernst Zermelo](/Ernst_Zermelo)'s 1930 paper.
+
+Von Neumann demonstrated the existence and uniqueness of general transfinite recursive definitions of sets in 1928, for both Zermelo-Fraenkel set theory and his own set theory, which later evolved into [NBG set theory](/NBG_set_theory). However, in these works, he didn't apply his method to construct the universe of all sets. Presentations of the von Neumann universe by Bernays and Mendelson credit von Neumann with the transfinite induction construction method, but not specifically its application to the construction of the universe of ordinary sets.
+
+The notation V is not a direct nod to von Neumann. It was first used for the universe of sets by Peano in 1889, where V stood for "Verum," meaning truth. Whitehead and Russell adopted this notation for the class of all sets in 1910. Von Neumann himself didn't use V for the class of all sets in his 1920s papers. Paul Cohen explicitly traces his use of V to a 1940 paper by Gödel, who likely inherited it from earlier sources like Whitehead and Russell.
+
+### Philosophical perspectives
+
+There are essentially two main ways to conceptualize the relationship between the von Neumann universe V and ZFC. Formalists tend to see V as a consequence of the ZFC axioms – ZFC proves, for instance, that every set belongs to V. Realists, on the other hand, are more inclined to view the von Neumann hierarchy as something intuitively accessible, with the ZFC axioms then being propositions that can be intuitively justified within V. A middle ground suggests that the mental image of the von Neumann hierarchy provides motivation for the ZFC axioms, making them seem less arbitrary, without necessarily asserting that V describes objects with actual, independent existence.

@@ -1,0 +1,122 @@
+---
+title: "One-Sided Limit"
+description: "The concept of a limit of a function is a cornerstone of calculus, describing the behavior of a function as its input approaches a particular value. However,..."
+keywords: limit of a function, calculus, function, real, interval, domain of a function, topology, half-open interval topology, power series, abel's theorem
+slug: "One-sided_limit"
+createdAt: "2025-12-25T09:16:56.015Z"
+updatedAt: "2025-12-25T09:16:56.015Z"
+contentType: "rewritten"
+aiProvider: "Gemini"
+aiModel: "gemini-2.5-flash-lite"
+previousArticleSlug: "Reciprocal_function"
+previousArticleTitle: "Reciprocal Function"
+---
+
+The concept of a [limit of a function](/Limit_of_a_function) is a cornerstone of [calculus](/Calculus), describing the behavior of a function as its input approaches a particular value. However, sometimes we're only interested in how a function behaves as its input approaches a value from one specific direction. This is where the notion of a one-sided limit becomes crucial. A one-sided limit, as the name rather unhelpfully suggests, refers to either the limit of a [function](/Function_mathematics) of a [real](/Real_number) variable as the variable approaches a given point exclusively from values less than that point (from the left) or exclusively from values greater than that point (from the right).
+
+### Notation
+
+The limit as the variable, let's call it $x$, decreases in value while approaching a point $a$ is often referred to as the limit from the right, or from above. This is formally denoted in several ways:
+$$ \lim _{x\to a^{+}}f(x) $$
+$$ \lim _{x\,\downarrow \,a}\,f(x) $$
+$$ \lim _{x\searrow a}\,f(x) $$
+$$ f(a+) $$
+Each of these notations signifies the same concept: we are observing the behavior of $f(x)$ as $x$ gets arbitrarily close to $a$, but only considering values of $x$ that are strictly greater than $a$.
+
+Conversely, the limit as $x$ increases in value while approaching $a$ is known as the limit from the left, or from below. This is indicated by these notations:
+$$ \lim _{x\to a^{-}}f(x) $$
+$$ \lim _{x\,\uparrow \,a}\,f(x) $$
+$$ \lim _{x\nearrow a}\,f(x) $$
+$$ f(a-) $$
+These notations capture the behavior of $f(x)$ as $x$ approaches $a$, but exclusively from values of $x$ that are strictly less than $a$.
+
+### Existence of Limits
+
+For the overall limit of $f(x)$ as $x$ approaches $a$ to exist, a fundamental condition must be met: both the left-sided limit and the right-sided limit must exist, and they must be equal. If $\lim _{x\to a^{-}}f(x) = L$ and $\lim _{x\to a^{+}}f(x) = R$, then the two-sided limit $\lim _{x\to a}f(x)$ exists if and only if $L = R$. In such a case, the two-sided limit is equal to this common value.
+
+It's quite common in mathematics for the two-sided limit to fail to exist precisely because the one-sided limits differ. In these scenarios, the individual one-sided limits might still be perfectly well-defined. This is why the term "two-sided limit" is sometimes used synonymously with the general limit of a function at a point; it implies that both directional approaches yield the same result.
+
+Furthermore, it's entirely possible for exactly one of the one-sided limits to exist while the other does not. Imagine a function that behaves predictably from one side but becomes chaotic or undefined from the other. Even more extremely, neither one-sided limit might exist. This can occur in functions with particularly erratic behavior near a point.
+
+### Formal Definition
+
+The formal definition of one-sided limits, often expressed using the epsilon-delta ($\varepsilon$-$\delta$) framework, provides a rigorous underpinning to these intuitive ideas.
+
+Let $I$ be an [interval](/Interval_mathematics) that is a subset of the [domain of a function](/Domain_of_function) $f$, and let $a$ be a point within $I$.
+
+The **right-sided limit** of $f(x)$ as $x$ approaches $a$, denoted by $R$, is rigorously defined as follows:
+For every positive number $\varepsilon$ (no matter how small), there exists a positive number $\delta$ such that for all $x$ in the interval $I$, if the distance between $x$ and $a$ is positive but less than $\delta$ (i.e., $0 < x - a < \delta$), then the distance between $f(x)$ and $R$ is less than $\varepsilon$ (i.e., $|f(x) - R| < \varepsilon$).
+
+Symbolically, this is expressed as:
+$$ \lim _{x\to a^{+}}f(x)=R \iff \forall \varepsilon \in \mathbb {R} _{+},\exists \delta \in \mathbb {R} _{+},\forall x\in I,0<x-a<\delta \longrightarrow |f(x)-R|<\varepsilon $$
+
+The **left-sided limit** of $f(x)$ as $x$ approaches $a$, denoted by $L$, is defined similarly:
+For every positive number $\varepsilon$, there exists a positive number $\delta$ such that for all $x$ in the interval $I$, if the distance between $a$ and $x$ is positive but less than $\delta$ (i.e., $0 < a - x < \delta$), then the distance between $f(x)$ and $L$ is less than $\varepsilon$ (i.e., $|f(x) - L| < \varepsilon$).
+
+Symbolically:
+$$ \lim _{x\to a^{-}}f(x)=L \iff \forall \varepsilon \in \mathbb {R} _{+},\exists \delta \in \mathbb {R} _{+},\forall x\in I,0<a-x<\delta \longrightarrow |f(x)-L|<\varepsilon $$
+
+### Intuition Behind the Definition
+
+Comparing these definitions to the formal definition of the general limit of a function at a point, $\lim _{x\to a}f(x)=L$, which states:
+$$ \lim _{x\to a}f(x)=L \iff \forall \varepsilon \in \mathbb {R} _{+},\exists \delta \in \mathbb {R} _{+},\forall x\in I,0<|x-a|<\delta \implies |f(x)-L|<\varepsilon $$
+we can see the crucial modification. The absolute value $|x-a|$ in the general definition encompasses both possibilities: $x-a > 0$ (when $x$ is to the right of $a$) and $a-x > 0$ (when $x$ is to the left of $a$).
+
+To isolate the right-sided limit, we require $x$ to be greater than $a$, meaning $x-a$ is positive. The condition $0 < |x-a| < \delta$ then becomes $0 < x-a < \delta$. This ensures we are only considering values of $x$ to the right of $a$ within a $\delta$-neighborhood.
+
+For the left-sided limit, we require $x$ to be less than $a$, meaning $a-x$ is positive. The condition $0 < |x-a| < \delta$ transforms into $0 < a-x < \delta$. This restricts our consideration to values of $x$ to the left of $a$ within a $\delta$-neighborhood.
+
+In both one-sided definitions, the goal remains the same: for any arbitrarily small tolerance $\varepsilon$ around the proposed limit value ($R$ for the right, $L$ for the left), we must be able to find a $\delta$ such that all $x$ values within that $\delta$ range (on the specified side of $a$) produce function outputs $f(x)$ within the $\varepsilon$ tolerance of the limit.
+
+### Examples
+
+Let's illustrate these concepts with some concrete examples.
+
+**Example 1: The Reciprocal Function**
+
+Consider the function $g(x) = - \frac{1}{x}$ as $x$ approaches $a = 0$.
+
+*   **Left-sided limit:** As $x$ approaches $0$ from the left ($x \to 0^{-}$), $x$ takes on increasingly large negative values. For instance, $x$ could be $-0.1, -0.01, -0.001$, and so on. In this case, $-1/x$ will be $-1/(-0.1) = 10$, $-1/(-0.01) = 100$, $-1/(-0.001) = 1000$. The values of $g(x)$ are becoming arbitrarily large and positive. Therefore, the left-sided limit is:
+    $$ \lim _{x\to 0^{-}} - \frac{1}{x} = +\infty $$
+    This limit doesn't "converge" to a finite number; it diverges to positive infinity.
+
+*   **Right-sided limit:** As $x$ approaches $0$ from the right ($x \to 0^{+}$), $x$ takes on increasingly small positive values. For instance, $x$ could be $0.1, 0.01, 0.001$. Then, $-1/x$ becomes $-1/(0.1) = -10$, $-1/(0.01) = -100$, $-1/(0.001) = -1000$. The values of $g(x)$ are becoming arbitrarily large and negative. Thus, the right-sided limit is:
+    $$ \lim _{x\to 0^{+}} - \frac{1}{x} = -\infty $$
+    This limit diverges to negative infinity.
+
+Since the left-sided limit ($+\infty$) and the right-sided limit ($-\infty$) are not equal (in fact, neither is a finite number), the overall limit $\lim _{x\to 0} - \frac{1}{x}$ does not exist.
+
+**Example 2: A Function with Discontinuous Jumps**
+
+Consider the function $f(x) = \frac{1}{1 + 2^{-1/x}}$. This function exhibits interesting behavior around $x=0$.
+
+To evaluate the one-sided limits, we first need to understand the behavior of the term $2^{-1/x}$.
+
+*   As $x \to 0^{-}$ (from the left), we know from Example 1 that $-1/x \to +\infty$. Therefore, $2^{-1/x} \to 2^{+\infty}$, which tends towards infinity.
+    $$ \lim _{x\to 0^{-}} 2^{-1/x} = +\infty $$
+    Now, consider the function $f(x)$:
+    $$ \lim _{x\to 0^{-}} f(x) = \lim _{x\to 0^{-}} \frac{1}{1 + 2^{-1/x}} $$
+    Since the denominator $1 + 2^{-1/x}$ approaches $1 + \infty = \infty$, the fraction approaches $0$.
+    $$ \lim _{x\to 0^{-}} f(x) = 0 $$
+
+*   As $x \to 0^{+}$ (from the right), we know from Example 1 that $-1/x \to -\infty$. Therefore, $2^{-1/x} \to 2^{-\infty}$, which tends towards $0$.
+    $$ \lim _{x\to 0^{+}} 2^{-1/x} = 0 $$
+    Now, let's evaluate the function $f(x)$ from the right:
+    $$ \lim _{x\to 0^{+}} f(x) = \lim _{x\to 0^{+}} \frac{1}{1 + 2^{-1/x}} = \frac{1}{1 + \lim _{x\to 0^{+}} 2^{-1/x}} = \frac{1}{1 + 0} = 1 $$
+    So, the right-sided limit is $1$.
+
+Since $\lim _{x\to 0^{-}} f(x) = 0$ and $\lim _{x\to 0^{+}} f(x) = 1$, the one-sided limits are different. Consequently, the two-sided limit $\lim _{x\to 0} f(x)$ does not exist. This function has a jump discontinuity at $x=0$.
+
+### Relation to Topological Definitions
+
+In the broader context of [topology](/Topology), the concept of limits can be generalized. A one-sided limit at a point $p$ can be understood as the application of the general definition of a limit, but with the domain of the function restricted to one side of $p$. This can be achieved by considering the function's domain as a subset of a topological space, or by examining a one-sided subspace that includes $p$. Another perspective involves using a [half-open interval topology](/Half-open_interval_topology).
+
+### Abel's Theorem
+
+A significant result in the study of [power series](/Power_series) is [Abel's theorem](/Abel%27s_theorem). This theorem specifically addresses the behavior of power series at the boundaries of their [intervals of convergence](/Radius_of_convergence). It establishes a connection between the limit of the power series as the variable approaches the boundary from within the interval and the sum of the series evaluated at the boundary point, provided certain conditions related to one-sided convergence are met.
+
+### Notes
+
+*   When a limit equals $\infty$ or $-\infty$, it is said to diverge to that value, rather than converge to it.
+
+#

@@ -1,130 +1,424 @@
 ---
 title: "Random Variable"
-description: "A variable that embodies the unpredictable, the "what if." It's a mathematical construct, a placeholder for something that hasn't quite decided what it wants..."
-keywords: random variable, possible outcomes, measurement, sample space, omega, range, real numbers, probability distributions, measurement error
-slug: "Random_variable"
-createdAt: "2025-11-13T14:04:02.559Z"
-updatedAt: "2025-11-13T14:04:02.559Z"
+description: "Part of a series on statistics Probability..."
+keywords: "statistics, probability theory, probability, axioms, determinism, system, indeterminism, randomness, probability space, sample space"
+slug: "random_variable"
+createdAt: "2025-12-01T00:30:59.986Z"
+updatedAt: "2025-12-01T00:30:59.986Z"
+contentType: "rewritten"
 ---
 
-A variable that embodies the unpredictable, the "what if." It's a mathematical construct, a placeholder for something that hasn't quite decided what it wants to be yet. We call it a [random variable](/Random_variable), though the name itself is a bit of a misnomer. It’s not inherently random, nor is it wildly variable in the way a spilled ink blot is. Instead, it’s a function, a rather precise mapping from the chaotic realm of [possible outcomes](/Outcome_(probability)) to something we can actually work with – usually numbers. Think of it as a translator, taking the messy language of chance and rendering it into the sterile, logical prose of mathematics.
+Part of a series on [statistics](/Statistics) [Probability theory](/Probability_theory)
 
-This isn't about some abstract notion of fate or destiny. It’s about formalizing the inherent uncertainty in phenomena, whether it's the flip of a coin, the error in a [measurement](/Measurement_error), or the sheer, cosmic indifference of the universe. The philosophical debates about what "probability" even *means* are… tedious. They don't get in the way of the mathematics, though. The rigor comes from a carefully constructed axiomatic framework, a set of rules that allow us to play this game of chance with a semblance of order.
+*   [Probability](/Probability)
+*   [Axioms](/Probability_axioms)
+*   [Determinism](/Determinism)
+*   [System](/Deterministic_system)
+*   [Indeterminism](/Indeterminism)
+*   [Randomness](/Randomness)
 
-### The Mechanics of Uncertainty
+*   [Probability space](/Probability_space)
+*   [Sample space](/Sample_space)
+*   [Event](/Event_(probability_theory))
+*   [Collectively exhaustive events](/Collectively_exhaustive_events)
+*   [Elementary event](/Elementary_event)
+*   [Mutual exclusivity](/Mutual_exclusivity)
+*   [Outcome](/Outcome_(probability))
+*   [Singleton](/Singleton_(mathematics))
+*   [Experiment](/Experiment_(probability_theory))
+*   [Bernoulli trial](/Bernoulli_trial)
+*   [Probability distribution](/Probability_distribution)
+*   [Bernoulli distribution](/Bernoulli_distribution)
+*   [Binomial distribution](/Binomial_distribution)
+*   [Exponential distribution](/Exponential_distribution)
+*   [Normal distribution](/Normal_distribution)
+*   [Pareto distribution](/Pareto_distribution)
+*   [Poisson distribution](/Poisson_distribution)
+*   [Probability measure](/Probability_measure)
+*   Random variable
+*   [Bernoulli process](/Bernoulli_process)
+*   [Continuous or discrete](/Continuous_or_discrete_variable)
+*   [Expected value](/Expected_value)
+*   [Variance](/Variance)
+*   [Markov chain](/Markov_chain)
+*   [Observed value](/Realization_(probability))
+*   [Random walk](/Random_walk)
+*   [Stochastic process](/Stochastic_process)
 
-At its core, a random variable `X` is a function. Its domain isn't some mundane set of inputs; it's the very collection of all possible results, the [sample space](/Sample_space), denoted by the Greek letter [omega](/Omega) (Ω). Imagine flipping a coin: the sample space is {Heads, Tails}. That's Ω. The random variable, `X`, then maps these outcomes to numbers. If Heads means a win (+1) and Tails a loss (-1), then `X(Heads) = 1` and `X(Tails) = -1`. The [range](/Range_of_a_function) of `X` is thus {-1, 1}. Typically, this range is a subset of the [real numbers](/Real_number), making things neatly quantifiable.
+*   [Complementary event](/Complementary_event)
+*   [Joint probability](/Joint_probability_distribution)
+*   [Marginal probability](/Marginal_distribution)
+*   [Conditional probability](/Conditional_probability)
 
-This function `X` is what allows us to define [probability distributions](/Probability_distribution). It’s the bridge between the abstract possibilities and the concrete probabilities we can assign to them. It’s also the mechanism by which we can attach numerical values to events, making them amenable to statistical analysis.
+*   [Independence](/Independence_(probability_theory))
+*   [Conditional independence](/Conditional_independence)
+*   [Law of total probability](/Law_of_total_probability)
+*   [Law of large numbers](/Law_of_large_numbers)
+*   [Bayes' theorem](/Bayes%27_theorem)
+*   [Boole's inequality](/Boole%27s_inequality)
 
-### Beyond the Binary: A Spectrum of Randomness
+*   [Venn diagram](/Venn_diagram)
+*   [Tree diagram](/Tree_diagram_(probability_theory))
 
-Informally, we associate randomness with chance – the roll of a [die](/Dice), the unpredictable flutter of a butterfly's wings. It can also represent the fuzziness of uncertainty, the unavoidable inaccuracies in our observations, the [measurement error](/Measurement_error) that dogs every experiment. But the *interpretation* of probability itself is a philosophical minefield. Fortunately, the purely mathematical dissection of random variables is blissfully free of such existential dread. It's built on a solid, [axiomatic](/Axiom) foundation.
+*   v
+*   t
+*   e
 
-In the more sophisticated language of [measure theory](/Measure_theory), a random variable is a [measurable function](/Measurable_function). It maps from a [probability measure space](/Probability_measure_space), which is our sample space, to a [measurable space](/Measurable_space). This allows us to define something called the [pushforward measure](/Pushforward_measure), which is essentially the [distribution](/Probability_distribution) of the random variable. It's a probability measure on the set of all possible values the variable can take. It's crucial to remember that two random variables can share the exact same distribution and still be quite different beasts, particularly concerning their [independence](/Independence_(probability_theory)).
+## A Formalization of the Unpredictable: The Random Variable
 
-We often encounter special cases: [discrete random variables](/Discrete_random_variable), whose values are countable, and [absolutely continuous random variables](/Probability_distribution), which can take on any value within a given interval. The theory of [stochastic processes](/Stochastic_process) expands this further, dealing with random sequences or even random functions. Sometimes, "random variable" is used strictly for real-valued ones, with more general cases relegated to the term [random element](/Random_element).
+A [random variable](/Random_variable) (which you might also encounter under the slightly more descriptive, though less common, monikers of *random quantity*, *aleatory variable*, or *stochastic variable*) represents the [mathematical](/Mathematics) attempt to formalize a quantity or an object whose value is inextricably tied to [random](/Randomness) events. It's an interesting semantic choice, considering the term 'random variable' itself, in its precise [mathematical definition](/Function_(mathematics)), refers to neither inherent randomness nor intrinsic variability. Instead, it serves as a sophisticated [mathematical function](/Function_(mathematics)) designed to bridge the gap between abstract possibilities and quantifiable outcomes.
 
-The mathematician George Mackey credited Pafnuty Chebyshev with being the first to "think systematically in terms of random variables." A rather dry observation, but perhaps it hints at the underlying rigor that was beginning to solidify.
+To be precise, this function operates with a specific structure:
+*   Its [domain](/Domain_of_a_function) encompasses the entire set of potential [outcomes](/Outcome_(probability)) within a defined [sample space](/Sample_space). For instance, if one were to consider the simple act of flipping a coin, the [sample space](/Sample_space) would be the rather concise set {H, T}, representing the possible upper sides of the flipped coin: [heads](/H) (H) or [tails](/T) (T). This is the raw material, the unfiltered reality of the [experiment](/Experiment_(probability_theory)).
+*   Its [range](/Range_of_a_function), on the other hand, is a [measurable space](/Measurable_space). Continuing the coin toss example, if we decided to map heads (H) to -1 and tails (T) to 1, the [range](/Range_of_a_function) of our [random variable](/Random_variable) would then be the set {−1, 1}. This transformation is crucial; it converts qualitative or abstract outcomes into a numerical format that can be mathematically manipulated and analyzed. Typically, and rather conveniently for most applications, the [range](/Range_of_a_function) of a [random variable](/Random_variable) is a subset of the [real numbers](/Real_number).
 
-### The Formal Definition: A Function with Rules
+This conceptual mapping, often visualized as a graph showing the transition from abstract outcomes to concrete real values, also serves as the foundational stepping stone for defining [probability mass functions](/Probability_mass_function) when dealing with discrete scenarios.
 
-Formally, a random variable `X` is a [measurable function](/Measurable_function) mapping from a sample space Ω to a measurable space `E`:
+Informally, the notion of randomness usually conjures images of pure chance, like the unpredictable tumble of a [die](/Dice). It can also represent irreducible uncertainty, such as the inherent [measurement error](/Measurement_error) in any observation. However, the exact [interpretation of probability](/Interpretation_of_probability) is a philosophically thorny issue, one that even in specific contexts remains stubbornly complex and far from straightforward. The beauty, or perhaps the cold efficiency, of the purely [mathematical analysis](/Mathematics) of [random variables](/Random_variable) is that it manages to bypass these interpretational quagmires entirely, establishing its edifice upon a rigorous [axiomatic](/Axiom) framework that demands no philosophical commitments.
 
-`X: Ω → E`
+Within the formal, somewhat intimidating, language of [measure theory](/Measure_theory), a [random variable](/Random_variable) is precisely defined as a [measurable function](/Measurable_function). This function acts as a bridge, mapping from a [probability measure space](/Probability_measure_space) (which we so quaintly call the [sample space](/Sample_space)) to another [measurable space](/Measurable_space). This rigorous definition then allows for the consideration of the [pushforward measure](/Pushforward_measure), which is given the rather grand title of the *distribution* of the [random variable](/Random_variable). This distribution, in essence, becomes a [probability measure](/Probability_measure) residing on the set of all possible numerical values that the [random variable](/Random_variable) can assume. It's worth noting, with a touch of cosmic irony, that two [random variables](/Random_variable) can possess identical distributions yet diverge significantly in other crucial aspects; for example, they might be entirely [independent](/Independence_(probability_theory)) of one another.
 
-For this to hold water, the sample space Ω must be part of a [probability triple](/Probability_space) `(Ω, F, P)`. This `F` is a [sigma-algebra](/Sigma-algebra), a collection of subsets of Ω that we deem "measurable" – meaning we can assign probabilities to them. `P` is the [probability measure](/Probability_measure) itself, assigning a probability to each set in `F`.
+Common practice often leads us to consider specific, simplified instances: [discrete random variables](/Discrete_random_variable) and [absolutely continuous random variables](/Probability_distribution). These categories correspond to whether a [random variable](/Random_variable) takes values from a [countable subset](/Countable_set) or from an unbroken [interval](/Interval_(mathematics)) of [real numbers](/Real_number), respectively. Yet, the universe of possibilities extends beyond these. In the realm of [stochastic processes](/Stochastic_process), for instance, it becomes entirely natural and necessary to consider more intricate constructs such as [random sequences](/Random_sequence) or even [random functions](/Random_function). Occasionally, the term [random variable](/Random_variable) is implicitly understood to refer exclusively to real-valued entities, with more generalized random quantities being designated as [random elements](/Random_element) to avoid confusion.
 
-Random variables are typically denoted by capital letters from the [Latin alphabet](/Latin_script), such as `X`, `Y`, `Z`, or `T`.
+Credit where it's due: [George Mackey](/George_Mackey) observed that [Pafnuty Chebyshev](/Pafnuty_Chebyshev) was arguably the first to approach the concept of [random variables](/Random_variable) with systematic thought, truly paving the way for their modern understanding.
 
-The probability that `X` lands in a specific measurable set `S` within `E` is denoted as:
+## Definition
 
-`P(X ∈ S) = P({ω ∈ Ω | X(ω) ∈ S})`
+A [random variable](/Random_variable), typically denoted by a capital [Roman letter](/Latin_script) such as *X*, *Y*, *Z*, or *T*, is formally a [measurable function](/Measurable_function) that maps from a [sample space](/Sample_space) $\Omega$ (which represents the set of all possible [outcomes](/Outcome_(probability))) to a [measurable space](/Measurable_space) $E$. For the concept of *measurability* of *X* to hold any actual meaning, the [sample space](/Sample_space) $\Omega$ must itself be part of a [probability triple](/Probability_space) $(\Omega, \mathcal{F}, P)$, a foundational structure in [measure theory](/Measure_theory).
 
-This simply means we're looking at the probability of all the outcomes `ω` in Ω for which the function `X` maps to a value within `S`.
+The probability that this [random variable](/Random_variable) *X* assumes a value within a particular [measurable set](/Measurable_space) $S \subseteq E$ is expressed with elegant mathematical conciseness as:
 
-### The Standard Case: Real Numbers Reign Supreme
+$P(X \in S) = P(\{\omega \in \Omega \mid X(\omega) \in S\})$
 
-In most practical scenarios, the target space `E` is the set of [real numbers](/Real_number), `ℝ`. This is where things get particularly useful for statistical analysis. When the [image](/Image_of_a_function) of `X` – the set of all possible values it can actually take – is finite or countably infinite, we call it a [discrete random variable](/Discrete_random_variable). Its behavior is described by a [probability mass function](/Probability_mass_function) (PMF), which assigns a specific probability to each individual value.
+This notation effectively states that the probability of *X* landing in set *S* is equivalent to the probability of the original [outcomes](/Outcome_(probability)) $\omega$ (from the [sample space](/Sample_space) $\Omega$) that, when transformed by *X*, fall into *S*.
 
-If the image is uncountably infinite, usually an [interval](/Interval_of_a_function) of real numbers, then `X` is a [continuous random variable](/Continuous_random_variable). If it's "well-behaved" enough to have a [probability density function](/Probability_density_function) (PDF), it's called [absolutely continuous](/Absolutely_continuous_random_variable). For these, probabilities aren't assigned to individual points (they're zero), but to intervals.
+### Standard Case
 
-Regardless of its type, any random variable can be characterized by its [cumulative distribution function](/Cumulative_distribution_function) (CDF), `F_X(x)`, which tells us the probability that the random variable `X` will take on a value less than or equal to `x`.
+In the vast majority of practical applications and theoretical discussions, *X* is considered [real-valued](/Real_number); that is, $E = \mathbb{R}$. In more generalized contexts, where the [random variable](/Random_variable) might not conform to this real-valued structure, the term [random element](/Random_element) is often employed to distinguish it (see the "Extensions" section below for a deeper dive into these more exotic entities).
 
-### Expanding the Horizon: Beyond Real Numbers
+When the [image](/Image_(mathematics)) (or more simply, the [range](/Range_of_a_function)) of *X* is either finite or [countably](/Countable_set) infinite, the [random variable](/Random_variable) is designated as a [discrete random variable](/Discrete_random_variable). Its corresponding [distribution](/Probability_distribution) is a [discrete probability distribution](/Discrete_probability_distribution), which can be fully characterized by a [probability mass function](/Probability_mass_function) (PMF) that assigns a specific probability to each individual value within the [image](/Image_(mathematics)) of *X*.
 
-While statisticians often stick to `ℝ`, the mathematical definition allows for `E` to be any [measurable space](/Measurable_space). This opens the door to [random elements](/Random_element) that aren't just numbers: random [Boolean values](/Boolean-valued_function), random [categorical variables](/Categorical_variable), even random [vectors](/Random_vector), [matrices](/Random_matrix), [sequences](/Random_sequence), [trees](/Tree_(graph_theory)), [sets](/Random_compact_set), [shapes](/Shape), [manifolds](/Manifold), and [functions](/Random_function).
+Conversely, if the [image](/Image_(mathematics)) of *X* is uncountably infinite (typically forming an unbroken [interval](/Interval_(mathematics)) on the [real number](/Real_number) line), then *X* is termed a [continuous random variable](/Continuous_random_variable). In the particular scenario where it is [absolutely continuous](/Absolutely_continuous), its [distribution](/Probability_distribution) can be elegantly described by a [probability density function](/Probability_density_function) (PDF). This PDF assigns probabilities not to individual points (which, for an [absolutely continuous random variable](/Absolutely_continuous_random_variable), must necessarily have zero probability), but rather to [intervals](/Interval_(mathematics)). It's an important nuance that not all [continuous random variables](/Continuous_random_variable) are [absolutely continuous](/Absolutely_continuous); some can be rather more... *singular*.
 
-This broader perspective is invaluable in fields like [graph theory](/Graph_theory), [machine learning](/Machine_learning), and [natural language processing](/Natural_language_processing), where we model randomness in non-numerical data. Sometimes, we represent these non-numerical random elements using real numbers. A random word, for instance, could be an index into a dictionary, or an indicator vector where a single '1' marks the chosen word. A random sentence might be a vector of random words. A random graph could be an adjacency matrix of random variables. A random function is essentially a collection of random variables, `F(x)`, each giving the function's value at a point `x`. This is precisely what a [stochastic process](/Stochastic_process) is: a random function of time.
+Regardless of its type, any [random variable](/Random_variable) can be comprehensively described by its [cumulative distribution function](/Cumulative_distribution_function) (CDF), which quantifies the probability that the [random variable](/Random_variable) will assume a value less than or equal to a given threshold. It's the unifying framework, if you will, for all these disparate manifestations of chance.
 
-### Distribution Functions: The Heart of the Matter
+### Extensions
 
-When we have a real-valued random variable `X` defined on a probability space `(Ω, F, P)`, we can ask concrete questions: "What's the probability that `X` equals 2?" This is `P(X=2)`. The collection of all such probabilities for all possible output values constitutes the [probability distribution](/Probability_distribution) of `X`.
+The term "[random variable](/Random_variable)" within the field of [statistics](/Statistics) has, for a long time, been rather narrowly confined to the [real-valued](/Real_number) case, where $E = \mathbb{R}$. This convention is largely due to the inherent structure of the [real numbers](/Real_number) themselves, which conveniently allows for the definition of crucial quantities like the [expected value](/Expected_value) and [variance](/Variance) of a [random variable](/Random_variable), its [cumulative distribution function](/Cumulative_distribution_function), and the various [moments](/Moment_(mathematics)) of its [distribution](/Probability_distribution).
 
-This distribution is key. It abstracts away the messy details of the underlying probability space `Ω` and focuses solely on the probabilities of the variable's values. For real-valued random variables, this distribution is fully captured by the [cumulative distribution function](/Cumulative_distribution_function), `F_X(x) = P(X ≤ x)`, and often also by a [probability density function](/Probability_density_function), `f_X`.
+However, the foundational definition provided earlier is robust enough to accommodate any [measurable space](/Measurable_space) $E$ for the values. This expansive view allows us to consider [random elements](/Random_element) that exist within other sets $E$, moving beyond mere numbers to encompass entities such as random [Boolean values](/Boolean-valued_function), [categorical values](/Categorical_variable), [complex numbers](/Covariance_matrix) (though these are often treated as [random vectors](/Random_vector) of two real numbers), [vectors](/Random_vector), [matrices](/Random_matrix), [sequences](/Random_sequence), [trees](/Tree_(graph_theory)), [sets](/Random_compact_set), [shapes](/Shape), [manifolds](/Manifold), and even [functions](/Random_function). In these more generalized contexts, one might specifically refer to a [random variable](/Random_variable) of *type* $E$, or more simply, an $E$-valued [random variable](/Random_variable).
 
-In measure-theoretic terms, the random variable `X` acts as a "pushforward" operator, transforming the probability measure `P` on `Ω` into a measure `p_X` on `ℝ`. This `p_X` is the distribution, or the "law," of `X`. If `p_X` is absolutely continuous with respect to the [Lebesgue measure](/Lebesgue_measure) (for continuous variables) or the [counting measure](/Counting_measure) (for discrete ones), its derivative is the PDF, `f_X = dp_X/dμ`.
+This broader concept of a [random element](/Random_element) proves particularly invaluable in diverse disciplines like [graph theory](/Graph_theory), [machine learning](/Machine_learning), [natural language processing](/Natural_language_processing), and various other fields within [discrete mathematics](/Discrete_mathematics) and [computer science](/Computer_science). Here, the focus often shifts to modeling the unpredictable variations of non-numerical [data structures](/Data_structure). Even in these cases, it's frequently convenient to represent each element of $E$ by using one or more [real numbers](/Real_number). When this mapping occurs, a [random element](/Random_element) can optionally be represented as a [vector of real-valued random variables](/Random_vector), all of which are defined on the *same* underlying [probability space](/Probability_space) $\Omega$. This shared foundation is critical, as it allows for the analysis of how these different [random variables](/Random_variable) might [covary](/Mutual_information) with each other.
 
-The underlying probability space `Ω` is a technical necessity, ensuring the existence of random variables and allowing us to define concepts like [correlation](/Correlation_and_dependence) and [independence](/Independence_(probability_theory)) through joint distributions. However, in practice, we often dispense with `Ω` and work directly with probability distributions.
+To illustrate, consider these specific examples:
+*   A [random word](/Random_sequence) might be conceptualized as a [random integer](/Random_number_generation) that functions as an index into a predefined vocabulary of all possible words. Alternatively, it could be represented as a [random indicator vector](/Random_vector), whose length matches the size of the vocabulary. In this vector, the only values with a positive probability would be those where a single '1' appears at a specific position, indicating the chosen word, such as $(1\ 0\ 0\ 0\ \cdots)$, $(0\ 1\ 0\ 0\ \cdots)$, or $(0\ 0\ 1\ 0\ \cdots)$. The position of the '1' is the key.
+*   A [random sentence](/Random_sequence) of a predetermined length *N* could then be represented as a [vector of N random words](/Random_vector), each word being a random element as described above.
+*   A [random graph](/Random_graph) constructed on *N* given vertices might be represented as an $N \times N$ [matrix](/Random_matrix) of [random variables](/Random_variable), where the values within this matrix directly specify the [adjacency matrix](/Adjacency_matrix) of the random graph.
+*   A [random function](/Random_function) *F* could be represented as a collection of [random variables](/Random_variable) $F(x)$, which provide the function's values at various points *x* within its [domain](/Domain_of_a_function). These $F(x)$ are essentially ordinary [real-valued random variables](/Real_number), provided that the function itself is [real-valued](/Real_number). For instance, a [stochastic process](/Stochastic_process) is inherently a [random function](/Random_function) of time, a [random vector](/Random_vector) is a [random function](/Random_function) over some defined [index set](/Index_set) (e.g., $1, 2, \ldots, n$), and a [random field](/Random_field) generalizes this further as a [random function](/Random_function) defined on any set (which typically includes time, space, or a discrete collection).
 
-### Illustrative Examples: Making it Tangible
+## Distribution Functions
 
-**Discrete Random Variable: The Height of Humanity**
+Given a [real-valued random variable](/Real_number) $X\colon \Omega \to \mathbb{R}$ defined on a [probability space](/Probability_space) $(\Omega, \mathcal{F}, P)$, one inevitably finds oneself asking questions like, "What is the likelihood that the value of $X$ will precisely equal 2?" This seemingly simple query translates directly into the probability of the event $\{\omega : X(\omega) = 2\}$, which is often abbreviated and more commonly written as $P(X=2)$ or, even more compactly, $p_X(2)$.
 
-Imagine selecting a person at random. Their height is a random variable. Mathematically, it's a function mapping that person to their height. The associated distribution tells us the probability of finding someone within a certain height range, say, between 180 and 190 cm. Or perhaps the number of children they have – a discrete variable. We can calculate the probability of having an even number of children by summing the PMFs of 0, 2, 4, and so on. Often, we just treat the possible values (heights, number of children) as the sample space, especially when we aren't concerned with the specific individuals.
+The act of systematically recording all these probabilities for every conceivable output of a [random variable](/Random_variable) *X* culminates in what we call the [probability distribution](/Probability_distribution) of *X*. This [probability distribution](/Probability_distribution) possesses a rather convenient characteristic: it "forgets" the specifics of the particular [probability space](/Probability_space) that was initially used to define *X*. Instead, it retains only the essential information—the probabilities associated with the various output values of *X*. When *X* is [real-valued](/Real_number), such a [probability distribution](/Probability_distribution) can invariably be captured by its [cumulative distribution function](/Cumulative_distribution_function) (CDF), which is defined as:
 
-**Coin Toss: A Simple Dichotomy**
+$F_X(x) = P(X \leq x)$
 
-For a single coin toss, the sample space is `Ω = {Heads, Tails}`. A real-valued random variable `Y` can be defined: `Y(Heads) = 1`, `Y(Tails) = 0`. If the coin is fair, the PMF is `f_Y(1) = 1/2` and `f_Y(0) = 1/2`. Simple, clean.
+And, in many cases, it can also be characterized by a [probability density function](/Probability_density_function), denoted as $f_X$. From a [measure-theoretic](/Measure_theory) perspective, we employ the [random variable](/Random_variable) *X* to "push-forward" the original [measure](/Probability_measure) $P$ on $\Omega$ to a new [measure](/Probability_measure), $p_X$, residing on $\mathbb{R}$. This transformed [measure](/Probability_measure), $p_X$, is precisely what we refer to as the "(probability) [distribution](/Probability_distribution) of *X*" or the "law of *X*". The [density](/Probability_density_function) $f_X = dp_X/d\mu$ is, in fact, the [Radon–Nikodym derivative](/Radon%E2%80%93Nikodym_derivative) of $p_X$ with respect to some carefully chosen reference [measure](/Probability_measure) $\mu$ on $\mathbb{R}$. This reference [measure](/Probability_measure) is typically the [Lebesgue measure](/Lebesgue_measure) for [continuous random variables](/Continuous_random_variable) or the [counting measure](/Counting_measure) for [discrete random variables](/Discrete_random_variable).
 
-**Dice Roll: Summing the Chances**
+The underlying [probability space](/Probability_space) $\Omega$ often feels like a phantom limb in practical applications—it's a technical construct. Its primary purpose is to guarantee the very existence of [random variables](/Random_variable), to facilitate their construction, and crucially, to define concepts such as [correlation and dependence](/Correlation_and_dependence) or [independence](/Independence_(probability_theory)) when dealing with a [joint distribution](/Joint_distribution) of two or more [random variables](/Random_variable) operating within the same [probability space](/Probability_space). In day-to-day practice, one frequently dispenses with the explicit consideration of $\Omega$ altogether, opting instead to simply place a [measure](/Probability_measure) directly onto $\mathbb{R}$ that assigns a total [measure](/Probability_measure) of 1 to the entire [real line](/Real_number). In essence, this means one often works directly with [probability distributions](/Probability_distribution) rather than with the [random variables](/Random_variable) themselves. For a more comprehensive exploration of this simplification, consult the article on [quantile functions](/Quantile_function).
 
-Rolling two dice. The sample space is pairs like (1,1), (1,2), etc. The random variable `X` is the sum of the numbers: `X((n1, n2)) = n1 + n2`. For fair dice, the PMF `f_X(S)` gives the probability of rolling a sum `S`. It peaks at 7 and tapers off symmetrically towards 2 and 12.
+## Examples
 
-### Continuous Random Variables: The Smooth Uncertainty
+### Discrete Random Variable
 
-A continuous random variable’s [cumulative distribution function](/Cumulative_distribution_function) is continuous everywhere. There are no sudden jumps, no specific values with a finite probability. Instead, the probability of hitting an exact value `c` is always zero: `Pr(X=c) = 0`. Probability is reserved for intervals.
+Let's consider a simple, relatable [experiment](/Experiment_(probability_theory)): a person is chosen entirely at random from a population. An exemplary [random variable](/Random_variable) in this scenario might be the person's height. Mathematically, this [random variable](/Random_variable) is interpreted as a [function](/Function_(mathematics)) that maps the chosen individual directly to their measured height. Intricately linked with this [random variable](/Random_variable) is a [probability distribution](/Probability_distribution) that empowers us to compute the likelihood that the height falls within any conceivable subset of possible values. For instance, we could determine the probability that the person's height lies between 180 and 190 cm, or perhaps the probability that their height is either less than 150 cm or, conversely, more than 200 cm.
 
-**The Spinner: A Uniform Spread**
+Now, consider a different [random variable](/Random_variable) for the same randomly chosen person: their number of children. This is a quintessential [discrete random variable](/Discrete_random_variable), as it can only take on non-negative [integer](/Integer) values. This type of [random variable](/Random_variable) allows for the calculation of probabilities for specific, individual [integer](/Integer) values—this is the domain of the [probability mass function](/Probability_mass_function) (PMF)—or for broader sets of values, which can even include infinite sets. For example, an event of particular interest might be "an even number of children." For both finite and infinite collections of such events, their probabilities can be ascertained by simply summing the PMFs of the constituent elements. Thus, the probability of encountering an even number of children would be the infinite sum:
+$\operatorname{PMF}(0) + \operatorname{PMF}(2) + \operatorname{PMF}(4) + \cdots$
 
-Consider a spinner that can land at any angle from 0 to 360 degrees. The random variable `X` is the angle. Each specific angle has a probability of zero. But the probability of landing in the range [0, 180] is 1/2. This is a [continuous uniform distribution](/Continuous_uniform_distribution) on `[0, 360)`. Its [probability density function](/Probability_density_function) is a constant `1/360` over this interval. The probability of landing in any subinterval `[c, d]` within `[a, b]` is simply the length of `[c, d]` divided by the length of `[a, b]`. The uniform distribution on the [unit interval](/Unit_interval) `[0, 1]` is particularly powerful, as its samples can be transformed into samples from virtually any other distribution using [quantile functions](/Quantile_function).
+In examples such as these, the underlying [sample space](/Sample_space) is frequently left implicit or "suppressed," primarily because its explicit mathematical description can be notoriously complex. Consequently, the possible values that the [random variables](/Random_variable) can assume are often treated as if *they* constitute the [sample space](/Sample_space). However, when two or more [random variables](/Random_variable) are being measured on the *same* fundamental [sample space](/Sample_space) of [outcomes](/Outcome_(probability))—for instance, both the height and the number of children being recorded for the very same randomly selected individuals—it becomes significantly easier to trace and understand their interrelationships if one acknowledges that both height and number of children originate from the same random person. This acknowledgment is vital for posing and answering questions regarding whether such [random variables](/Random_variable) are [correlated](/Correlation_and_dependence) or entirely [independent](/Independence_(probability_theory)).
 
-**Mixed Types: A Blend of the Discrete and Continuous**
+More formally, if $\{a_n\}$ and $\{b_n\}$ represent [countable sets](/Countable_set) of [real numbers](/Real_number), with the condition that $b_n > 0$ for all $n$ and $\sum_n b_n = 1$, then the function $F = \sum_n b_n \delta_{a_n}(x)$ describes a [discrete distribution function](/Discrete_probability_distribution). Here, $\delta_t(x)$ is a step function, taking the value 0 for $x < t$ and 1 for $x \geq t$. If, for example, we were to enumerate all [rational numbers](/Rational_number) as $\{a_n\}$, we would arrive at a [discrete function](/Discrete_random_variable) that, surprisingly, is not necessarily a simple [step function](/Step_function) (i.e., [piecewise](/Piecewise) constant).
 
-Some random variables are neither purely discrete nor purely continuous. Their CDFs show both jumps and continuous segments. Imagine a process where you first flip a coin. If it's tails, the variable `X` is -1. If it's heads, then `X` takes a value from a continuous distribution. This results in a mixed-type random variable.
+#### Coin Toss
 
-### The Measure-Theoretic Foundation: Rigor and Abstraction
+The potential [outcomes](/Outcome_(probability)) for a single, unembellished coin toss can be comprehensively described by the [sample space](/Sample_space) $\Omega = \{\text{heads}, \text{tails}\}$. We can then introduce a [real-valued random variable](/Real_number) *Y* to model, for instance, a $1 payoff for a successful bet on heads. This is formalized as follows:
 
-The most rigorous definition of a random variable lives in the realm of [measure theory](/Measure_theory). It requires a [probability space](/Probability_space) `(Ω, F, P)`, where `F` is a [sigma-algebra](/Sigma-algebra) of measurable subsets of `Ω`, and `P` is the probability measure. The random variable `X` is then a [measurable function](/Measurable_function) `X: Ω → E` to a [measurable space](/Measurable_space) `(E, E)`. Measurability ensures that for any "well-behaved" set `B` in `E` (i.e., `B ∈ E`), the set of outcomes in `Ω` that map into `B` (the preimage `X⁻¹(B)`) is itself measurable (i.e., `X⁻¹(B) ∈ F`).
+$Y(\omega) = \begin{cases} 1, & \text{if } \omega = \text{heads}, \\ 0, & \text{if } \omega = \text{tails}. \end{cases}$
 
-When `E` is a topological space, the standard choice for `E` is the [Borel σ-algebra](/Borel_%CF%83-algebra), denoted `B(E)`, generated by the open sets. If `E` is the set of real numbers `ℝ`, then `X: Ω → ℝ` is a real-valued random variable if `X⁻¹((-∞, r]) ∈ F` for all `r ∈ ℝ`. This condition is sufficient because the intervals `(-∞, r]` generate the Borel σ-algebra on `ℝ`.
+Assuming the coin in question is a [fair coin](/Fair_coin), the [random variable](/Random_variable) *Y* will possess a [probability mass function](/Probability_mass_function) (PMF), denoted $f_Y$, which is given by:
 
-### Moments: Summarizing the Distribution
+$f_Y(y) = \begin{cases} \tfrac{1}{2}, & \text{if } y=1, \\ \tfrac{1}{2}, & \text{if } y=0. \end{cases}$
 
-Often, the full distribution of a random variable is more information than we need. We can summarize it using [moments](/Moment_(mathematics)). The most important is the [expected value](/Expected_value), `E[X]`, also known as the first moment. It represents the "average" value. The [variance](/Variance), related to the second moment, tells us how spread out the values typically are around the mean.
+Each outcome has an equal, non-zero probability, as one would expect from a truly fair coin.
 
-These moments provide a concise description of the distribution. The [problem of moments](/Problem_of_moments) explores whether a set of moments uniquely determines a distribution. Moments can be calculated for real-valued functions of random variables, allowing us to analyze even non-numerical random quantities.
+#### Dice Roll
 
-### Functions of Random Variables: Transformations
+If our [sample space](/Sample_space) consists of the myriad possible numbers that can be rolled on two standard dice, and the [random variable](/Random_variable) of particular interest is *S*, representing the sum of the numbers appearing on the two dice, then *S* is undeniably a [discrete random variable](/Discrete_random_variable). Its [distribution](/Probability_distribution) is eloquently characterized by the [probability mass function](/Probability_mass_function) (PMF), which, if visualized, would appear as a series of columns with varying heights, much like the histogram you might see associated with such an event.
 
-If `X` is a random variable and `g` is a [Borel measurable function](/Measurable_function), then `Y = g(X)` is also a random variable. The [cumulative distribution function](/Cumulative_distribution_function) of `Y` can be derived from that of `X`. If `g` is invertible and monotonic, the relationship between their [probability density functions](/Probability_density_function) is straightforward, involving the derivative of the inverse function. If `g` is not monotonic, the densities are summed over all preimages.
+A [random variable](/Random_variable) can, in fact, be skillfully employed to describe the entire process of rolling dice, including all its potential [outcomes](/Outcome_(probability)). The most straightforward representation for the case involving two dice is to define the [sample space](/Sample_space) as the set of all ordered pairs $(n_1, n_2)$, where $n_1$ and $n_2$ are individual numbers drawn from {1, 2, 3, 4, 5, 6} (each representing the outcome of one die). The total number rolled—that is, the sum of the numbers in each pair—then becomes our [random variable](/Random_variable) *X*. This *X* is given by the [function](/Function_(mathematics)) that maps each pair to its sum:
 
-**Example: Squaring a Normal Variable**
+$X((n_1, n_2)) = n_1 + n_2$
 
-Let `X` have a [standard normal distribution](/Standard_normal_distribution). What about `Y = X²`? The CDF `F_Y(y)` for `y ≥ 0` is `P(X² ≤ y) = P(-√y ≤ X ≤ √y) = F_X(√y) - F_X(-√y)`. The resulting PDF for `Y` turns out to be a [chi-squared distribution](/Chi-squared_distribution) with one [degree of freedom](/Degrees_of_freedom_(statistics)). If `X` is a general [normal distribution](/Normal_distribution), `Y = X²` follows a [noncentral chi-squared distribution](/Noncentral_chi-squared_distribution).
+And, assuming both dice are [fair](/Fair_die), it possesses a [probability mass function](/Probability_mass_function) $f_X$ defined by:
 
-### Equivalence: When Are Random Variables "The Same"?
+$f_X(S) = \frac{\min(S-1, 13-S)}{36}, \quad \text{ for } S \in \{2,3,4,5,6,7,8,9,10,11,12\}$
 
-Random variables can be considered equivalent in several ways, from strongest to weakest:
+This formula neatly captures the increasing and then decreasing probabilities as the sum *S* moves from the extremes (2 or 12) towards the most likely outcome (7).
 
-1.  **Equality:** `X(ω) = Y(ω)` for *all* `ω ∈ Ω`. This is rarely useful as we seldom know the precise `Ω`.
-2.  **Almost Sure Equality:** `P(X ≠ Y) = 0`. They are identical except possibly on a set of outcomes with probability zero. This is the practical standard for equality in many contexts. The distance metric here is the [essential supremum](/Essential_supremum).
-3.  **Equality in Distribution:** `P(X ≤ x) = P(Y ≤ x)` for all `x`. They have the same CDF, hence the same probabilities for any given outcome range. This is crucial for statistical inference, as we often care more about the distributions than the specific underlying probability spaces. Two random variables with the same [moment generating function](/Moment_generating_function) are equal in distribution.
+### Continuous Random Variable
 
-The distinction is important. If `A = a.s. B` but `A =d C`, then `A + D = a.s. B + D`, but `A + D` is generally not equal to `C + D` (not even in distribution). This affects things like [covariance](/Covariance).
+Formally speaking, a [continuous random variable](/Continuous_random_variable) is characterized by a [cumulative distribution function](/Cumulative_distribution_function) (CDF) that is [continuous](/Continuous_function) across its entire [domain](/Domain_of_a_function). This implies an absence of any discernible "[gaps](/Discontinuity_(mathematics))" in the CDF, which would otherwise correspond to specific numerical values having a finite probability of [occurring](/Outcome_(probability)). Instead, [continuous random variables](/Continuous_random_variable) will [almost never](/Almost_never) assume an exact, precisely prescribed value *c*. Formally, this is expressed as $\forall c \in \mathbb{R} : P(X=c) = 0$. However, there is always a positive probability that its value will fall within particular [intervals](/Interval_(mathematics)), even if these intervals can be made [arbitrarily small](/Arbitrarily_small). Most [continuous random variables](/Continuous_random_variable) conveniently allow for [probability density functions](/Probability_density_function) (PDFs), which serve to characterize both their CDF and their underlying [probability measures](/Probability_measure). Such distributions are also frequently referred to as [absolutely continuous](/Absolutely_continuous_random_variable). It's a subtle but important distinction that not all [continuous distributions](/Continuous_probability_distribution) are [absolutely continuous](/Absolutely_continuous); some are classified as [singular](/Singular_distribution), or even as intricate mixtures of an [absolutely continuous](/Absolutely_continuous) part and a [singular part](/Singular_distribution).
 
-### Convergence: The Long Game
+Consider, as an example, a [continuous random variable](/Continuous_random_variable) derived from a spinner that can land on any horizontal direction. The values taken by this [random variable](/Random_variable) are, conceptually, directions. While we could label these as North, West, East, South, Southeast, and so on, it is almost always more convenient to map this conceptual [sample space](/Sample_space) onto a [random variable](/Random_variable) that takes values as [real numbers](/Real_number). This can be achieved, for instance, by mapping each direction to a bearing measured in degrees clockwise from North. The [random variable](/Random_variable) would then assume values that are [real numbers](/Real_number) within the [interval](/Interval_(mathematics)) [0, 360), with the understanding that all parts of this [range](/Range_of_a_function) are "equally likely." In this scenario, *X* simply represents the angle spun. Any single, specific [real number](/Real_number) within this range has a probability of zero of being selected, yet any *range* of values, no matter how small, can be assigned a positive probability. For example, the probability of the spinner landing on an angle within [0, 180] degrees is exactly 1/2. Rather than discussing a [probability mass function](/Probability_mass_function), we declare that the [probability density](/Probability_density_function) of *X* is 1/360. The probability of any given subset within the [interval](/Interval_(mathematics)) [0, 360) can then be calculated by simply multiplying the [Lebesgue measure](/Lebesgue_measure) of that set by 1/360. More generally, for any given [continuous random variable](/Continuous_random_variable), the probability of a set is found by [integrating](/Integral) the [probability density function](/Probability_density_function) over that specific set.
 
-A cornerstone of probability theory and statistics is the study of how sequences of random variables behave. The [law of large numbers](/Law_of_large_numbers) and the [central limit theorem](/Central_limit_theorem) are prime examples, describing convergence to predictable outcomes. There are various modes of convergence: convergence in probability, almost sure convergence, convergence in `Lᵖ` spaces, and convergence in distribution. Each has its own strengths and applications.
+To be more formal about it, given any [interval](/Interval_(mathematics)) $I = [a,b] = \{x \in \mathbb{R} : a \leq x \leq b\}$, a [random variable](/Random_variable) $X_I \sim \operatorname{U}(I) = \operatorname{U}[a,b]$ is known as a "[continuous uniform random variable](/Continuous_uniform_distribution)" (CURV). This designation implies that the probability of it taking a value within any [subinterval](/Subinterval) depends *solely* on the length of that [subinterval](/Subinterval). Consequently, if $a \leq c \leq d \leq b$, the probability of $X_I$ falling within any [subinterval](/Subinterval) $[c,d] \subseteq [a,b]$ is directly [proportional](/Proportionality_(mathematics)) to the [length](/Lebesgue_measure) of that [subinterval](/Subinterval). That is:
 
-This intricate dance between the certain and the uncertain, the abstract and the concrete, is the essence of random variables. They are the tools we use to quantify the unpredictable, to find patterns in chaos, and to make sense of a world that rarely offers straightforward answers.
+$\operatorname{Pr}\left(X_I \in [c,d]\right) = \frac{d-c}{b-a}$
+
+The final equality here is a direct consequence of the [unitarity axiom](/Probability_axioms) of probability, which states that the total probability of all possible outcomes must sum to 1. The [probability density function](/Probability_density_function) (PDF) of a CURV $X \sim \operatorname{U}[a,b]$ is given by the [indicator function](/Indicator_function) of its [interval of support](/Support_(mathematics)), appropriately normalized by the length of that interval:
+
+$f_X(x) = \begin{cases} \displaystyle {1 \over b-a}, & a \leq x \leq b \\ 0, & \text{otherwise}. \end{cases}$
+
+Of particular theoretical and practical interest is the [uniform distribution](/Continuous_uniform_distribution) defined over the [unit interval](/Unit_interval) $[0,1]$. Samples conforming to any desired [probability distribution](/Probability_distribution) $D$ can be generated by calculating the [quantile function](/Quantile_function) of $D$ applied to a [randomly-generated number](/Random_number_generation) that is itself distributed uniformly over the [unit interval](/Unit_interval). This clever technique leverages the powerful [properties of cumulative distribution functions](/Cumulative_distribution_function), which provide a unifying framework for understanding and manipulating all types of [random variables](/Random_variable).
+
+### Mixed Type
+
+A [mixed random variable](/Mixed_type_random_variable) occupies a fascinating, if sometimes inconvenient, middle ground. Its [cumulative distribution function](/Cumulative_distribution_function) (CDF) is neither exclusively [discrete](/Discrete_random_variable) nor [everywhere-continuous](/Continuous_function). Such a variable can be conceptualized as a blend, a deliberate mixture of a [discrete random variable](/Discrete_random_variable) and a [continuous random variable](/Continuous_random_variable). In such cases, the resulting CDF will manifest as a weighted average of the CDFs of its component variables.
+
+Consider an example of a [random variable](/Random_variable) of mixed type: an [experiment](/Experiment_(probability_theory)) where a coin is flipped. The spinner (from our previous example) is only brought into play if the coin toss results in heads. If the coin lands on tails, we definitively set $X = -1$. Conversely, if it's heads, $X$ takes on the value indicated by the spinner, as detailed in the preceding example. In this scenario, there is a clear, finite probability of 1/2 that this [random variable](/Random_variable) will assume the precise value of -1. Any other range of values will, consequently, have half the probabilities observed in the purely continuous spinner example.
+
+Most generally, it's a fundamental tenet of [measure theory](/Measure_theory) that every [probability distribution](/Probability_distribution) on the [real line](/Real_number) can be decomposed into three distinct parts: a [discrete part](/Discrete_random_variable), a [singular part](/Singular_distribution), and an [absolutely continuous part](/Absolutely_continuous_random_variable). This profound insight is formalized by [Lebesgue's decomposition theorem](/Lebesgue%27s_decomposition_theorem). It's important to note that while the [discrete part](/Discrete_random_variable) is concentrated on a [countable set](/Countable_set), this set is not necessarily sparse; it can, in fact, be dense, much like the set of all [rational numbers](/Rational_number). The universe, it seems, enjoys its complexities.
+
+## Measure-Theoretic Definition
+
+The most rigorous, [axiomatic](/Axiomatic) definition of a [random variable](/Random_variable) delves into the rather abstract, yet powerful, realm of [measure theory](/Measure_theory). [Continuous random variables](/Continuous_random_variable), for instance, are defined not just in terms of sets of numbers, but in conjunction with [functions](/Function_(mathematics)) that map these sets to probabilities. Due to inherent mathematical quandaries (such as the infamous [Banach–Tarski paradox](/Banach%E2%80%93Tarski_paradox)), which inevitably arise if such sets are left insufficiently constrained, it becomes absolutely necessary to introduce a construct known as a [sigma-algebra](/Sigma-algebra). This [sigma-algebra](/Sigma-algebra) serves to precisely constrain the permissible sets over which probabilities can be meaningfully defined. Typically, a specific and widely adopted [sigma-algebra](/Sigma-algebra) is employed: the [Borel σ-algebra](/Borel_%CF%83-algebra). This particular [sigma-algebra](/Sigma-algebra) allows for probabilities to be defined over any sets that can be constructed either directly from continuous [intervals](/Interval_(mathematics)) of numbers or through a finite or [countably infinite](/Countably_infinite) number of [unions](/Union_(set_theory)) and/or [intersections](/Intersection_(set_theory)) of such intervals. It's the mathematical equivalent of setting down the rules for what constitutes a valid "event."
+
+The [measure-theoretic definition](/Measure_theory) is as follows, for those who appreciate precision:
+
+Let $(\Omega, \mathcal{F}, P)$ be a [probability space](/Probability_space) and $(E, \mathcal{E})$ be a [measurable space](/Measurable_space). Then an $(E, \mathcal{E})$-valued [random variable](/Random_variable) is a [measurable function](/Measurable_function) $X\colon \Omega \to E$. This "measurability" specifically means that for every subset $B \in \mathcal{E}$, its [preimage](/Preimage) under $X$ is $\mathcal{F}$-measurable. In other words, $X^{-1}(B) \in \mathcal{F}$, where $X^{-1}(B) = \{\omega : X(\omega) \in B\}$. This definition is crucial because it ensures that we can indeed assign a probability to any subset $B \in \mathcal{E}$ in the target space, by simply examining its [preimage](/Preimage), which, by fundamental assumption, is measurable within the original [probability space](/Probability_space).
+
+To translate this slightly more intuitively: a member $\omega$ of $\Omega$ represents a single, possible [outcome](/Outcome_(probability)) of an [experiment](/Experiment_(probability_theory)). A member of $\mathcal{F}$ is a measurable subset of these possible [outcomes](/Outcome_(probability)), and the [function](/Function_(mathematics)) $P$ is what assigns the probability to each such measurable subset. $E$ itself represents the comprehensive set of values that the [random variable](/Random_variable) can potentially take (for instance, the entire set of [real numbers](/Real_number)). A member of $\mathcal{E}$ is a "well-behaved" (i.e., measurable) subset of $E$ – precisely those subsets for which a probability can be unambiguously determined. The [random variable](/Random_variable) then acts as a [function](/Function_(mathematics)) that maps any given [outcome](/Outcome_(probability)) $\omega$ to a specific quantity in $E$. The critical condition is that the collection of [outcomes](/Outcome_(probability)) in $\Omega$ that lead to *any useful subset of quantities* for the [random variable](/Random_variable) (i.e., any $B \in \mathcal{E}$) must have a well-defined probability within the original [probability space](/Probability_space).
+
+When $E$ is a [topological space](/Topological_space), the most commonly adopted choice for the [σ-algebra](/%CE%A3-algebra) $\mathcal{E}$ is the [Borel σ-algebra](/Borel_%CF%83-algebra) $\mathcal{B}(E)$. This is the [σ-algebra](/%CE%A3-algebra) that is generated by the collection of all open sets within $E$. In such a case, an $(E, \mathcal{E})$-valued [random variable](/Random_variable) is more simply referred to as an $E$-valued [random variable](/Random_variable). Furthermore, when the space $E$ happens to be the [real line](/Real_number) $\mathbb{R}$, such a [real-valued random variable](/Real_number) is simply called a [random variable](/Random_variable) without further ado. It's important to note that we are not endowing $\mathbb{R}$ with its usual [Lebesgue σ-algebra](/Lebesgue_measure), which is a completion of the [Borel σ-algebra](/Borel_%CF%83-algebra). This specific choice allows for a broader class of [measurable functions](/Measurable_function) $f: \Omega \to \mathbb{R}$ and simplifies the process of verifying that a [function](/Function_(mathematics)) $f: \Omega \to \mathbb{R}$ is indeed measurable, as one only needs to confirm that the [preimages](/Preimage) of open sets are measurable.
+
+### Real-valued Random Variables
+
+In this ubiquitous case, the observation space—the set of values our [random variable](/Random_variable) can possibly take—is the set of [real numbers](/Real_number) $\mathbb{R}$. As a reminder, $(\Omega, \mathcal{F}, P)$ remains our foundational [probability space](/Probability_space). For a [real-valued](/Real_number) observation space, the [function](/Function_(mathematics)) $X\colon \Omega \rightarrow \mathbb{R}$ is classified as a [real-valued random variable](/Real_number) if, and only if, the following condition holds:
+
+$\{\omega : X(\omega) \leq r\} \in \mathcal{F} \qquad \forall r \in \mathbb{R}.$
+
+This condition dictates that for any [real number](/Real_number) *r*, the set of all [outcomes](/Outcome_(probability)) $\omega$ in the [sample space](/Sample_space) for which $X(\omega)$ is less than or equal to *r* must be a measurable set within $\mathcal{F}$. This definition is, in fact, a specific instance of the more general [measure-theoretic definition](/Measure_theory) provided above. This is because the collection of all [intervals](/Interval_(mathematics)) of the form $(-\infty, r]$ for $r \in \mathbb{R}$ serves to *generate* the [Borel σ-algebra](/Borel_%CF%83-algebra) on the set of [real numbers](/Real_number). Therefore, it is sufficient to verify measurability only on any such generating set. Here, we can readily demonstrate measurability on this generating set by leveraging the fundamental identity that $\{\omega : X(\omega) \leq r\} = X^{-1}((-\infty, r])$.
+
+## Moments
+
+The [probability distribution](/Probability_distribution) of a [random variable](/Random_variable) is quite frequently, and rather efficiently, characterized by a select few parameters. These parameters not only offer a compact summary but often carry a significant practical interpretation. For instance, it's often deemed sufficient to grasp what its "average value" is. This intuitive concept is rigorously captured by the [mathematical](/Mathematics) notion of the [expected value](/Expected_value) of a [random variable](/Random_variable), conventionally denoted as $\operatorname{E}[X]$. This is also known as the first [moment](/Moment_(mathematics)) of the [distribution](/Probability_distribution). It is a critical point to remember that, in general, $\operatorname{E}[f(X)]$ is *not* equivalent to $f(\operatorname{E}[X])$. Once this "average value" is established, one might naturally inquire about the typical deviation of *X*'s values from this average. This question finds its answer in the concepts of the [variance](/Variance) and [standard deviation](/Standard_deviation) of a [random variable](/Random_variable). The [expected value](/Expected_value) $\operatorname{E}[X]$ can be intuitively understood as an average value that would be obtained from an infinitely large population, where each member of this hypothetical population represents a particular evaluation or [realization](/Realization_(probability)) of *X*.
+
+Mathematically, this pursuit falls under the umbrella of the (generalized) "[problem of moments](/Problem_of_moments)." For a given class of [random variables](/Random_variable) *X*, the challenge lies in identifying a collection $\{f_i\}$ of [functions](/Function_(mathematics)) such that their [expectation values](/Expected_value) $\operatorname{E}[f_i(X)]$ provide a complete and unambiguous characterization of the [distribution](/Probability_distribution) of the [random variable](/Random_variable) *X*.
+
+It's important to note that [moments](/Moment_(mathematics)) can only be defined for [real-valued functions](/Real_number) of [random variables](/Random_variable) (or [complex-valued](/Complex_number), etc.). If the [random variable](/Random_variable) itself is [real-valued](/Real_number), then one can directly compute the [moments](/Moment_(mathematics)) of the variable, which is equivalent to taking the [moments](/Moment_(mathematics)) of the identity [function](/Function_(mathematics)) $f(X)=X$ of the [random variable](/Random_variable). However, even for [random variables](/Random_variable) that are not [real-valued](/Real_number), [moments](/Moment_(mathematics)) can still be extracted by considering their [real-valued functions](/Real_number). For instance, imagine a [categorical random variable](/Categorical_variable) *X* that can assume the [nominal](/Nominal_data) values "red," "blue," or "green." We can construct a [real-valued function](/Real_number) such as $[X=\text{green}]$. This utilizes the [Iverson bracket](/Iverson_bracket) notation, yielding a value of 1 if *X* is "green" and 0 otherwise. Subsequently, the [expected value](/Expected_value) and other [moments](/Moment_(mathematics)) of *this* specific [function](/Function_(mathematics)) can be determined, providing quantifiable insights even from non-numerical data.
+
+## Functions of Random Variables
+
+A fascinating aspect of [random variables](/Random_variable) is their transformability. A brand new [random variable](/Random_variable), let's call it *Y*, can be meticulously defined by [applying](/Function_composition) a [real Borel measurable function](/Measurable_function) $g\colon \mathbb{R} \rightarrow \mathbb{R}$ to the [outcomes](/Outcome_(probability)) of an existing [real-valued random variable](/Real_number) *X*. In essence, we create $Y = g(X)$. The [cumulative distribution function](/Cumulative_distribution_function) (CDF) of this newly formed [random variable](/Random_variable) *Y* is then determined as:
+
+$F_Y(y) = P(g(X) \leq y).$
+
+Should the [function](/Function_(mathematics)) *g* be [invertible](/Inverse_function) (meaning its [inverse function](/Inverse_function), $h = g^{-1}$, exists) and furthermore be either strictly [increasing or decreasing](/Monotonic_function), then this fundamental relationship can be elegantly extended to yield:
+
+$F_Y(y) = P(g(X) \leq y) = \begin{cases} P(X \leq h(y)) = F_X(h(y)), & \text{if } h=g^{-1} \text{ increasing}, \\ P(X \geq h(y)) = 1-F_X(h(y)), & \text{if } h=g^{-1} \text{ decreasing}. \end{cases}$
+
+Maintaining the same hypotheses of *g*'s [invertibility](/Inverse_function) and additionally assuming [differentiability](/Differentiability), the crucial relationship between the [probability density functions](/Probability_density_function) (PDFs) can be uncovered by differentiating both sides of the preceding expression with respect to *y*, leading to:
+
+$f_Y(y) = f_X{\bigl (}h(y){\bigr )}\left|{\frac{dh(y)}{dy}}\right|.$
+
+Now, if the [function](/Function_(mathematics)) *g* is *not* [invertible](/Inverse_function) in a simple one-to-one manner, but each specific value of *y* corresponds to at most a [countable number](/Countable_set) of roots (meaning a finite, or [countably infinite](/Countably_infinite), number of $x_i$ such that $y = g(x_i)$), then the relationship between the [probability density functions](/Probability_density_function) can be generalized as a summation:
+
+$f_Y(y) = \sum_{i}f_X(g_i^{-1}(y))\left|{\frac{dg_i^{-1}(y)}{dy}}\right|$
+
+where $x_i = g_i^{-1}(y)$, a consequence of the [inverse function theorem](/Inverse_function_theorem). It's worth noting that these formulas for [densities](/Probability_density_function) do not impose the constraint that *g* must be an [increasing function](/Monotonic_function).
+
+Within the more stringent [measure-theoretic](/Measure_theory), [axiomatic approach](/Probability_axioms) to [probability](/Probability), if we have a [random variable](/Random_variable) *X* defined on $\Omega$ and a [Borel measurable function](/Measurable_function) $g\colon \mathbb{R} \rightarrow \mathbb{R}$, then $Y = g(X)$ is also, by definition, a [random variable](/Random_variable) on $\Omega$. This is a direct result of the fact that the [composition](/Function_composition) of [measurable functions](/Measurable_function) [is itself measurable](/Closure_(mathematics)). (However, this is not necessarily true if *g* is merely [Lebesgue measurable](/Lebesgue_measurable), a subtle detail that often escapes casual observation.) The same systematic procedure that allowed us to transition from a [probability space](/Probability_space) $(\Omega, P)$ to $(\mathbb{R}, dF_X)$ can be precisely employed to derive the [distribution](/Probability_distribution) of *Y*.
+
+### Example 1
+
+Let *X* be a [real-valued](/Real_number), [continuous random variable](/Continuous_random_variable), and let us define a new [random variable](/Random_variable) $Y = X^2$.
+
+The [cumulative distribution function](/Cumulative_distribution_function) (CDF) of *Y* is given by:
+
+$F_Y(y) = P(X^2 \leq y).$
+
+If $y < 0$, then it's impossible for $X^2$ to be less than or equal to $y$ (since $X^2$ must be non-negative). Consequently, $P(X^2 \leq y) = 0$, leading to:
+
+$F_Y(y) = 0 \qquad \text{if} \quad y < 0.$
+
+However, if $y \geq 0$, the situation changes. The condition $X^2 \leq y$ is equivalent to $|X| \leq \sqrt{y}$, which further expands to $-\sqrt{y} \leq X \leq \sqrt{y}$. Therefore, for $y \geq 0$:
+
+$P(X^2 \leq y) = P(|X| \leq \sqrt{y}) = P(-\sqrt{y} \leq X \leq \sqrt{y}),$
+
+And thus, the CDF of *Y* becomes:
+
+$F_Y(y) = F_X(\sqrt{y}) - F_X(-\sqrt{y}) \qquad \text{if} \quad y \geq 0.$
+
+This illustrates how the transformation affects the cumulative probabilities.
+
+### Example 2
+
+Suppose *X* is a [random variable](/Random_variable) characterized by a [cumulative distribution function](/Cumulative_distribution_function) (CDF) defined as:
+
+$F_X(x) = P(X \leq x) = \frac{1}{(1+e^{-x})^{\theta}}$
+
+where $\theta > 0$ is a fixed, positive parameter. Now, let's consider the [random variable](/Random_variable) $Y = \log(1+e^{-X})$. We aim to find the CDF of *Y*.
+
+The CDF of *Y* is given by:
+
+$F_Y(y) = P(Y \leq y) = P(\log(1+e^{-X}) \leq y).$
+
+To simplify the inequality, we exponentiate both sides (since the logarithm is a [monotonic function](/Monotonic_function)) and rearrange:
+$\log(1+e^{-X}) \leq y \implies 1+e^{-X} \leq e^y \implies e^{-X} \leq e^y - 1$.
+For this to be meaningful, $e^y - 1$ must be positive, implying $y > 0$. Assuming this, we take the natural logarithm again and multiply by -1 (reversing the inequality sign):
+$-X \leq \log(e^y - 1) \implies X \geq -\log(e^y - 1)$.
+
+So, the expression for $F_Y(y)$ becomes:
+
+$F_Y(y) = P(X \geq -\log(e^y - 1)).$
+
+The last expression can now be conveniently calculated in terms of the [cumulative distribution function](/Cumulative_distribution_function) of *X*, using the property $P(X \geq a) = 1 - P(X < a) = 1 - F_X(a^-)$. Assuming $X$ is continuous or we are dealing with $F_X(a)$, we get:
+
+$F_Y(y) = 1 - F_X(-\log(e^y - 1))$
+Now substitute the given form of $F_X(x)$:
+$F_Y(y) = 1 - \frac{1}{(1+e^{-(-\log(e^y - 1))})^{\theta}}$
+$F_Y(y) = 1 - \frac{1}{(1+e^{\log(e^y - 1)})^{\theta}}$
+Since $e^{\log(A)} = A$:
+$F_Y(y) = 1 - \frac{1}{(1+(e^y - 1))^{\theta}}$
+$F_Y(y) = 1 - \frac{1}{(e^y)^{\theta}}$
+$F_Y(y) = 1 - e^{-y\theta}.$
+
+This result is precisely the [cumulative distribution function](/Cumulative_distribution_function) (CDF) of an [exponential distribution](/Exponential_distribution) with rate parameter $\theta$. A rather neat transformation, if I do say so myself.
+
+### Example 3
+
+Assume *X* is a [random variable](/Random_variable) that adheres to a [standard normal distribution](/Standard_normal_distribution), whose [probability density function](/Probability_density_function) (PDF) is given by:
+
+$f_X(x) = \frac{1}{\sqrt{2\pi}}e^{-x^{2}/2}.$
+
+Now, let's consider the new [random variable](/Random_variable) $Y = X^2$. Our goal is to derive the density of *Y* using the general formula for a change of variables:
+
+$f_Y(y) = \sum_{i}f_X(g_i^{-1}(y))\left|{\frac{dg_i^{-1}(y)}{dy}}\right|.$
+
+In this particular case, the transformation $g(x) = x^2$ is not [monotonic](/Monotonic_function), which means that for a given value of *Y*, there are two corresponding values of *X* (one positive and one negative, for $y > 0$). However, due to the inherent symmetry of the [standard normal distribution](/Standard_normal_distribution) around zero, both the positive and negative halves of the transformation contribute identically to the density of *Y*. Thus, we can simplify the summation:
+
+$f_Y(y) = 2f_X(g^{-1}(y))\left|{\frac{dg^{-1}(y)}{dy}}\right|.$
+
+The [inverse transformation](/Inverse_function) for $y = x^2$ is $x = g^{-1}(y) = \sqrt{y}$ (considering the positive root for this simplified calculation due to symmetry). Its derivative with respect to *y* is:
+
+${\frac{dg^{-1}(y)}{dy}} = {\frac{1}{2\sqrt{y}}}.$
+
+Substituting these back into our modified formula, we get:
+
+$f_Y(y) = 2 \left( \frac{1}{\sqrt{2\pi}}e^{-(\sqrt{y})^2/2} \right) \left| \frac{1}{2\sqrt{y}} \right|$
+$f_Y(y) = 2 \left( \frac{1}{\sqrt{2\pi}}e^{-y/2} \right) \left( \frac{1}{2\sqrt{y}} \right)$
+$f_Y(y) = \frac{1}{\sqrt{2\pi y}}e^{-y/2}.$
+
+This derived [probability density function](/Probability_density_function) is precisely that of a [chi-squared distribution](/Chi-squared_distribution) with one [degree of freedom](/Degrees_of_freedom_(statistics)). A classic result that demonstrates the power of these transformations.
+
+### Example 4
+
+Consider *X* as a [random variable](/Random_variable) following a general [normal distribution](/Normal_distribution), with its [probability density function](/Probability_density_function) (PDF) given by:
+
+$f_X(x) = \frac{1}{\sqrt{2\pi \sigma^2}}e^{-(x-\mu)^2/(2\sigma^2)}.$
+
+We are again interested in the [random variable](/Random_variable) $Y = X^2$. We will employ the same change of variables formula for the density:
+
+$f_Y(y) = \sum_{i}f_X(g_i^{-1}(y))\left|{\frac{dg_i^{-1}(y)}{dy}}\right|.$
+
+Similar to the previous example, the transformation $g(x) = x^2$ is not [monotonic](/Monotonic_function). For any given value of $Y$ (where $y > 0$), there exist two corresponding values of $X$: $x_1 = \sqrt{y}$ and $x_2 = -\sqrt{y}$. However, in contrast to the [standard normal distribution](/Standard_normal_distribution) where $\mu=0$, here there is no inherent symmetry around zero unless $\mu=0$. Therefore, we must explicitly compute both distinct terms in the summation:
+
+$f_Y(y) = f_X(g_1^{-1}(y))\left|{\frac{dg_1^{-1}(y)}{dy}}\right| + f_X(g_2^{-1}(y))\left|{\frac{dg_2^{-1}(y)}{dy}}\right|.$
+
+The [inverse transformations](/Inverse_function) for $y = x^2$ are $x = g_{1,2}^{-1}(y) = \pm\sqrt{y}$. The derivative of these [inverse functions](/Inverse_function) with respect to *y* is:
+
+${\frac{dg_{1,2}^{-1}(y)}{dy}} = \pm{\frac{1}{2\sqrt{y}}}.$
+
+Substituting these into the formula for $f_Y(y)$:
+
+$f_Y(y) = \frac{1}{\sqrt{2\pi \sigma^2}} \left| \frac{1}{2\sqrt{y}} \right| \left( e^{-(\sqrt{y}-\mu)^2/(2\sigma^2)} + e^{-(-\sqrt{y}-\mu)^2/(2\sigma^2)} \right)$
+$f_Y(y) = \frac{1}{\sqrt{2\pi \sigma^2}} \frac{1}{2\sqrt{y}} \left( e^{-(\sqrt{y}-\mu)^2/(2\sigma^2)} + e^{-(\sqrt{y}+\mu)^2/(2\sigma^2)} \right).$
+
+This resulting [probability density function](/Probability_density_function) describes a [noncentral chi-squared distribution](/Noncentral_chi-squared_distribution) with one [degree of freedom](/Degree_of_freedom_(statistics)). The presence of the mean $\mu$ introduces the "noncentrality" characteristic, distinguishing it from the simpler chi-squared distribution obtained when $\mu = 0$.
+
+## Some Properties
+
+The universe of [random variables](/Random_variable) might seem chaotic, but it adheres to certain fundamental properties that bring a semblance of order:
+
+*   **Convolution of Distributions:** A rather elegant property states that the [probability distribution](/Probability_distribution) of the sum of two [independent random variables](/Independence_(probability_theory)) is precisely the [convolution](/Convolution) of their individual distributions. This provides a powerful tool for analyzing combined effects.
+*   **Convex Combination of Distributions:** While [probability distributions](/Probability_distribution) do not form a [vector space](/Vector_space)—they are not closed under arbitrary [linear combinations](/Linear_combination) because such operations would generally fail to preserve the crucial properties of non-negativity or a total integral of 1—they *are* closed under [convex combination](/Convex_combination). This means that a weighted average of two valid [probability distributions](/Probability_distribution), where the weights are non-negative and sum to 1, will always result in another valid [probability distribution](/Probability_distribution). Consequently, the set of all [probability distributions](/Probability_distribution) forms a [convex subset](/Convex_subset) within the broader space of [functions](/Function_(mathematics)) (or [measures](/Probability_measure)).
+
+## Equivalence of Random Variables
+
+The notion of "equivalence" for [random variables](/Random_variable) is, perhaps unsurprisingly, not a monolithic concept. There are several distinct senses in which two [random variables](/Random_variable) can be considered equivalent, each implying a different level of correspondence. They can be equal, equal [almost surely](/Almost_surely), or merely equal in [distribution](/Probability_distribution).
+
+These notions of equivalence are presented below in increasing order of their mathematical strength and specificity.
+
+### Equality in Distribution
+
+Two [random variables](/Random_variable) *X* and *Y* are said to be equal in [distribution](/Probability_distribution) (denoted $X \stackrel{d}{=} Y$) if they share the exact same [distribution functions](/Cumulative_distribution_function). This means:
+
+$P(X \leq x) = P(Y \leq x) \quad \text{for all } x.$
+
+For this type of equivalence, it is not a prerequisite that the [random variables](/Random_variable) *X* and *Y* be defined on the same [probability space](/Probability_space). They can originate from entirely different experimental setups, yet still exhibit identical probabilistic behavior. A practical and often useful criterion is that two [random variables](/Random_variable) possessing equal [moment generating functions](/Moment_generating_function) are guaranteed to have the same [distribution](/Probability_distribution). This provides a convenient method, for example, to verify the equality of certain [functions](/Function_(mathematics)) of [independent, identically distributed (IID) random variables](/Independent_and_identically_distributed_random_variables). However, this method is not universally applicable, as the [moment generating function](/Moment_generating_function) only exists for those [distributions](/Probability_distribution) that have a well-defined [Laplace transform](/Laplace_transform).
+
+### Almost Sure Equality
+
+Two [random variables](/Random_variable) *X* and *Y* are considered equal [almost surely](/Almost_surely) (denoted $X \stackrel{\text{a.s.}}{=} Y$) if, and only if, the probability that they assume different values is precisely [zero](/Null_set):
+
+$P(X \neq Y) = 0.$
+
+For all pragmatic purposes within [probability theory](/Probability_theory), this particular notion of equivalence is as robust as actual, point-wise equality. It implies that any difference between *X* and *Y* can only occur on a set of [outcomes](/Outcome_(probability)) that is so vanishingly small as to have zero probability. This concept is intimately associated with the following distance metric:
+
+$d_{\infty}(X,Y) = \operatorname{ess} \sup_{\omega} |X(\omega)-Y(\omega)|,$
+
+where "ess sup" refers to the [essential supremum](/Essential_supremum) in the precise language of [measure theory](/Measure_theory). This distance effectively measures the largest difference between *X* and *Y* that occurs on a set of positive probability.
+
+### Equality
+
+Finally, the most stringent definition: two [random variables](/Random_variable) *X* and *Y* are considered truly equal if they are identical as [functions](/Function_(mathematics)) on their shared [measurable space](/Measurable_space). This means:
+
+$X(\omega) = Y(\omega) \qquad \text{for all } \omega.$
+
+This notion, while seemingly the most straightforward, is paradoxically the least useful in the practical application of [probability theory](/Probability_theory). The reason lies in the fact that, both in practice and in theory, the underlying [measure space](/Measure_space) of the [experiment](/Experiment_(probability_theory)) is rarely, if ever, explicitly characterized or even characterizable in its entirety. It's an ideal, rather than a practical, state of affairs.
+
+### Practical Difference Between Notions of Equivalence
+
+Since the underlying [probability space](/Probability_space) of a [random variable](/Random_variable) is so rarely explicitly constructed, the distinctions between these various notions of equivalence can be rather subtle, almost an academic exercise, until you trip over them. Essentially, if you consider two [random variables](/Random_variable) in perfect isolation, they are "practically equivalent" if they are merely equal in [distribution](/Probability_distribution). Their individual probabilistic behavior is indistinguishable. However, the moment you introduce other [random variables](/Random_variable) defined on the *same* [probability space](/Probability_space) and start exploring their relationships, then *only* if they are equal [almost surely](/Almost_surely) do they remain "practically equivalent."
+
+For instance, let's consider four [real random variables](/Real_number), *A*, *B*, *C*, and *D*, all operating within the same [probability space](/Probability_space). Suppose *A* and *B* are equal [almost surely](/Almost_surely) ($A \stackrel{\text{a.s.}}{=} B$), but *A* and *C* are only equal in [distribution](/Probability_distribution) ($A \stackrel{d}{=} C$). In this scenario, it logically follows that $A+D \stackrel{\text{a.s.}}{=} B+D$. The "almost sure" equivalence carries through the addition. However, in general, $A+D \neq C+D$, and this inequality holds even if we consider their [distributions](/Probability_distribution). Similarly, we find that their [expected values](/Expected_value) are equal, $\mathbb{E}(AD) = \mathbb{E}(BD)$, but generally, $\mathbb{E}(AD) \neq \mathbb{E}(CD)$. This crucial distinction means that two [random variables](/Random_variable) that are equal in [distribution](/Probability_distribution) (but not equal [almost surely](/Almost_surely)) can exhibit entirely different [covariances](/Covariance) with a third [random variable](/Random_variable). It's a testament to the fact that context, even in the realm of randomness, is everything.
+
+## Convergence
+
+Main article: [Convergence of random variables](/Convergence_of_random_variables)
+
+A pervasive and significant theme in the grand narrative of [mathematical statistics](/Statistics) involves the pursuit and derivation of [convergence results](/Convergence_of_random_variables) for specific [sequences](/Sequence) of [random variables](/Random_variable). These results are not merely academic curiosities; they form the bedrock of much of statistical inference. Prime examples include the fundamental [law of large numbers](/Law_of_large_numbers), which assures us that sample averages tend towards the true population mean, and the ubiquitous [central limit theorem](/Central_limit_theorem), a cornerstone that explains why averages of many independent random variables tend towards a [normal distribution](/Normal_distribution), regardless of the original distribution.
+
+It's not a simple, singular concept, however. There are various nuanced senses in which a [sequence](/Sequence) $X_n$ of [random variables](/Random_variable) can be said to [converge](/Convergence_of_random_variables) to a limiting [random variable](/Random_variable) *X*. These distinct modes of [convergence](/Convergence_of_random_variables)—each with its own implications and applications—are meticulously elaborated upon in the dedicated article on [convergence of random variables](/Convergence_of_random_variables). One might almost say that even in their approach to a defined limit, random variables insist on a certain level of complexity.
+
+## See also
+
+*   [Mathematics portal](/Portal:Mathematics)
+*   [Aleatoricism](/Aleatoricism)
+*   [Algebra of random variables](/Algebra_of_random_variables)
+*   [Event (probability theory)](/Event_(probability_theory))
+*   [Multivariate random variable](/Multivariate_random_variable)
+*   [Pairwise independent random variables](/Pairwise_independence)
+*   [Observable variable](/Observable_variable)
+*   [Random compact set](/Random_compact_set)
+*   [Random element](/Random_element)
+*   [Random function](/Random_function)
+*   [Random measure](/Random_measure)
+*   [Random number generator](/Random_number_generator)
+*   [Random variate](/Random_variate)
+*   [Random vector](/Random_vector)
+*   [Randomness](/Randomness)
+*   [Stochastic process](/Stochastic_process)
+*   [Relationships among probability distributions](/Relationships_among_probability_distributions)

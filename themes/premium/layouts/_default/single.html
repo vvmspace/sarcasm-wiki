@@ -1,0 +1,21 @@
+{{ define "main" }}
+<article class="card">
+    <header class="article-header" style="margin-bottom: 2rem; border-bottom: 1px solid var(--glass-border); padding-bottom: 2rem;">
+        <h1 style="font-size: 3.5rem; letter-spacing: -2px; margin-bottom: 1rem; color: #fff;">{{ .Title }}</h1>
+        <p class="description" style="font-size: 1.2rem; color: #aaa; margin-bottom: 1.5rem; font-style: italic;">
+            {{ .Params.description }}
+        </p>
+        <div class="metadata" style="display: flex; gap: 1rem; flex-wrap: wrap;">
+            {{ range .Params.keywords }}
+            <span style="background: var(--accent-color); color: white; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600;">
+                #{{ . }}
+            </span>
+            {{ end }}
+        </div>
+    </header>
+
+    <div class="content" style="color: #ddd; font-size: 1.1rem; line-height: 1.8;">
+        {{ .Content }}
+    </div>
+</article>
+{{ end }}

@@ -1,0 +1,24 @@
+{{ define "main" }}
+<section class="hero" style="text-align: center; margin-bottom: 5rem;">
+    <h1 style="font-size: 5rem; font-weight: 800; letter-spacing: -4px; margin-bottom: 1rem; color: #fff;">{{ .Site.Title }}</h1>
+    <p style="font-size: 1.5rem; color: #888; max-width: 600px; margin: 0 auto; line-height: 1.4;">
+        A meticulously curated archive of existential dread and mildly accurate information.
+    </p>
+</section>
+
+<section class="latest-articles" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem;">
+    {{ range first 50 (sort .Site.RegularPages "Date" "desc") }}
+    <a href="{{ .RelPermalink }}" style="text-decoration: none; display: block;">
+        <div class="card" style="padding: 1.5rem; transition: transform 0.3s ease; height: 100%;">
+            <h2 style="font-size: 1.5rem; color: #fff; margin-bottom: 0.8rem; font-weight: 700;">{{ .Title }}</h2>
+            <p style="color: #666; font-size: 0.9rem; margin-bottom: 1rem;">
+                {{ if .Params.description }}
+                {{ .Params.description | truncate 100 }}
+                {{ end }}
+            </p>
+            <span style="font-size: 0.8rem; color: var(--accent-color); font-weight: 600;">Read More &rarr;</span>
+        </div>
+    </a>
+    {{ end }}
+</section>
+{{ end }}

@@ -1,0 +1,38 @@
+baseURL = "/"
+languageCode = "en-us"
+title = "Sarcasm Wiki"
+theme = "premium"
+publishDir = "public"
+
+[mediaTypes]
+  [mediaTypes."text/markdown"]
+    suffixes = ["md", "mdc"]
+
+[outputFormats]
+  [outputFormats.HTML]
+    mediaType = "text/html"
+    isHTML = true
+
+[module]
+  [[module.mounts]]
+    source = "content"
+    target = "content"
+  [[module.mounts]]
+    source = "themes/premium/layouts"
+    target = "layouts"
+  [[module.mounts]]
+    source = "themes/premium/assets"
+    target = "assets"
+  [[module.mounts]]
+    source = "static"
+    target = "static"
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+  [markup.highlight]
+    codeFences = true
+    guessSyntax = true
+    lineNos = true
+    style = "monokai"

@@ -107,12 +107,16 @@ export function parseMDC(mdcContent: string): MDCContent {
 }
 
 export function generateMDC(metadata: ContentMetadata, content: string): string {
+  const sanitize = (val: string) => {
+    return val.replace(/"/g, "'").replace(/\\'/g, "'").replace(/\\/g, "")
+  }
+
   const lines: string[] = [
     '---',
-    `title: "${metadata.title}"`,
-    `description: "${metadata.description}"`,
-    `keywords: ${metadata.keywords.join(', ')}`,
-    `slug: "${metadata.slug}"`
+    `title: "${sanitize(metadata.title)}"`,
+    `description: "${sanitize(metadata.description)}"`,
+    `keywords: "${sanitize(metadata.keywords.join(', '))}"`,
+    `slug: "${sanitize(metadata.slug)}"`
   ]
   
   if (metadata.createdAt) {
@@ -128,14 +132,14 @@ export function generateMDC(metadata: ContentMetadata, content: string): string 
     lines.push(`isOriginalContent: "${metadata.isOriginalContent}"`)
   }
   if (metadata.aiProvider) {
-    lines.push(`aiProvider: "${metadata.aiProvider}"`)
+    lines.push(`aiProvider: "${sanitize(metadata.aiProvider || '')}"`)
   }
   if (metadata.aiModel) {
-    lines.push(`aiModel: "${metadata.aiModel}"`)
+    lines.push(`aiModel: "${sanitize(metadata.aiModel || '')}"`)
   }
   if (metadata.previousArticle) {
-    lines.push(`previousArticleSlug: "${metadata.previousArticle.slug}"`)
-    lines.push(`previousArticleTitle: "${metadata.previousArticle.title}"`)
+    lines.push(`previousArticleSlug: "${sanitize(metadata.previousArticle.slug)}"`)
+    lines.push(`previousArticleTitle: "${sanitize(metadata.previousArticle.title)}"`)
   }
   
   lines.push('---', '', content)

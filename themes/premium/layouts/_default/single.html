@@ -1,21 +1,48 @@
 {{ define "main" }}
-<article class="card">
-    <header class="article-header" style="margin-bottom: 2rem; border-bottom: 1px solid var(--glass-border); padding-bottom: 2rem;">
-        <h1 style="font-size: 3.5rem; letter-spacing: -2px; margin-bottom: 1rem; color: #fff;">{{ .Title }}</h1>
-        <p class="description" style="font-size: 1.2rem; color: #aaa; margin-bottom: 1.5rem; font-style: italic;">
-            {{ .Params.description }}
-        </p>
-        <div class="metadata" style="display: flex; gap: 1rem; flex-wrap: wrap;">
-            {{ range .Params.keywords }}
-            <span style="background: var(--accent-color); color: white; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600;">
-                #{{ . }}
-            </span>
-            {{ end }}
-        </div>
-    </header>
-
-    <div class="content" style="color: #ddd; font-size: 1.1rem; line-height: 1.8;">
-        {{ .Content }}
+<div class="infobox">
+    <div class="infobox-title">QUICK FACTS</div>
+    <div class="infobox-row">
+        <span class="infobox-label">Created</span>
+        <span class="infobox-value">{{ if .Params.createdAt }}{{ .Date.Format "Jan 2006" }}{{ else }}Ancient Era{{ end }}</span>
     </div>
-</article>
+    <div class="infobox-row">
+        <span class="infobox-label">Status</span>
+        <span class="infobox-value" style="color: #10b981; font-weight: 700;">Verified Sarcastic</span>
+    </div>
+    <div class="infobox-row">
+        <span class="infobox-label">Type</span>
+        <span class="infobox-value">Existential Dread</span>
+    </div>
+    
+    <div class="nav-label" style="margin-top: 1.5rem; border-top: 1px solid var(--border); padding-top: 1rem;">Keywords</div>
+    <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem;">
+        {{ range .Params.keywords }}
+        <span style="background: rgba(167, 139, 250, 0.1); color: var(--accent); padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; border: 1px solid rgba(167, 139, 250, 0.2);">
+            {{ . }}
+        </span>
+        {{ end }}
+    </div>
+</div>
+
+<header class="article-header">
+    <h1 class="article-title">{{ .Title }}</h1>
+    {{ if .Params.description }}
+    <p class="description" style="font-size: 1.25rem; line-height: 1.4; color: var(--text-dim); margin-top: -1.5rem; margin-bottom: 3rem; font-style: italic;">
+        &ldquo;{{ .Params.description }}&rdquo;
+    </p>
+    {{ end }}
+</header>
+
+<div class="article-content" style="font-size: 1.15rem; color: var(--text-main); line-height: 1.8;">
+    <div class="toc" style="background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 0.5rem; padding: 1rem; margin-bottom: 2rem; width: fit-content; min-width: 200px;">
+        <span style="font-weight: 700; font-size: 0.8rem; text-transform: uppercase;">Contents</span>
+        <ul style="list-style: none; margin-top: 0.5rem; font-size: 0.9rem;">
+            <li>1. Overview</li>
+            <li>2. Etymology</li>
+            <li>3. Cultural Impact</li>
+        </ul>
+    </div>
+    
+    {{ .Content }}
+</div>
 {{ end }}

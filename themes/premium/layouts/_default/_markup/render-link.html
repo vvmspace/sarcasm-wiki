@@ -1,0 +1,24 @@
+{{- $href := .Destination -}}
+{{- $isExternal := or (hasPrefix .Destination "http") (hasPrefix .Destination "mailto") -}}
+{{- $class := "" -}}
+
+{{- if not $isExternal -}}
+  {{- /* Remove .mdc extension if present for lookup */ -}}
+  {{- $linkPath := strings.TrimSuffix ".mdc" .Destination -}}
+  {{- /* Standardize path /Foo/ -> Foo */ -}}
+  {{- $linkPath = strings.TrimPrefix "/" $linkPath -}}
+  {{- $linkPath = strings.TrimSuffix "/" $linkPath -}}
+
+  {{- /* Look up page in Hugo index */ -}}
+  {{- $targetPage := .Page.GetPage $linkPath -}}
+  {{- if not $targetPage -}}
+    {{- /* Fallback: try case-insensitive check or direct path check */ -}}
+    {{- $targetPage = site.GetPage (lower $linkPath) -}}
+  {{- end -}}
+
+  {{- if not $targetPage -}}
+    {{- $class = "new" -}}
+  {{- end -}}
+{{- end -}}
+
+<a href="{{ .Destination | safeURL }}"{{ with .Title }} title="{{ . }}"{{ end }}{{ if $class }} class="{{ $class }}"{{ end }}{{ if $isExternal }} target="_blank" rel="noopener noreferrer"{{ end }}>{{ .Text | safeHTML }}</a>

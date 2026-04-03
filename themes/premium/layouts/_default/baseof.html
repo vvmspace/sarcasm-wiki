@@ -4,97 +4,234 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} - {{ .Site.Title }}{{ end }}</title>
+    <script>
+        (function() {
+            const theme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+    {{ if or (strings.Contains (lower .Params.description) "redirect") (lt (len .Content) 50) }}
+    <meta name="robots" content="noindex, nofollow">
+    {{ end }}
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
     <style>
         :root {
-            --bg-color: #050505;
-            --text-color: #e5e5e5;
-            --accent-color: #7c3aed;
-            --secondary-color: #3b82f6;
-            --glass-bg: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.1);
+            /* Light Mode (Default) */
+            --bg-body: #ffffff;
+            --bg-sidebar: #f6f8fa;
+            --bg-content: #ffffff;
+            --text-main: #1f2328;
+            --text-dim: #656d76;
+            --accent: #0969da;
+            --accent-bg: rgba(9, 105, 218, 0.1);
+            --border: rgba(31, 35, 40, 0.12);
+            --link-visited: #8250df;
+            --link-red: #ba0000;
+            --sidebar-width: 280px;
+        }
+
+        [data-theme='dark'] {
+            /* Dark Mode */
+            --bg-body: #0a0a0c;
+            --bg-sidebar: #0f0f12;
+            --bg-content: #141418;
+            --text-main: #e5e5e7;
+            --text-dim: #94949b;
+            --accent: #a78bfa;
+            --accent-bg: rgba(167, 139, 250, 0.1);
+            --border: rgba(255, 255, 255, 0.08);
+            --link-visited: #d8b4fe;
+            --link-red: #f87171;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            background-color: var(--bg-color);
-            background-image: 
-                radial-gradient(at 0% 0%, rgba(124, 58, 237, 0.1) 0px, transparent 50%),
-                radial-gradient(at 100% 0%, rgba(59, 130, 246, 0.1) 0px, transparent 50%);
-            color: var(--text-color);
+            background-color: var(--bg-body);
+            color: var(--text-main);
             font-family: 'Inter', sans-serif;
             line-height: 1.6;
             min-height: 100vh;
-        }
-
-        h1, h2, h3, h4 { font-family: 'Outfit', sans-serif; }
-
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-
-        nav {
-            backdrop-filter: blur(10px);
-            background: var(--glass-bg);
-            border-bottom: 1px solid var(--glass-border);
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .nav-content {
-            max-width: 1000px;
-            margin: 0 auto;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 2rem;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Sidebar */
+        aside.sidebar {
+            width: var(--sidebar-width);
+            background: var(--bg-sidebar);
+            border-right: 1px solid var(--border);
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            padding: 2rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            transition: background-color 0.3s, border-color 0.3s;
         }
 
         .logo {
+            font-family: 'Outfit', sans-serif;
             font-size: 1.5rem;
             font-weight: 800;
-            background: linear-gradient(to right, var(--accent-color), var(--secondary-color));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
             text-decoration: none;
+            color: var(--text-main);
+            letter-spacing: -1px;
+            margin-bottom: 2rem;
+            display: block;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            background: var(--border);
+            border: none;
+            color: var(--text-main);
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            width: fit-content;
+        }
+
+        .nav-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-dim);
+            margin: 1.5rem 0 0.5rem;
+            font-weight: 700;
+        }
+
+        .nav-link {
+            display: block;
+            color: var(--text-main);
+            text-decoration: none;
+            padding: 0.4rem 0;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+        .nav-link:hover { color: var(--accent); }
+
+        /* Main Content */
+        main {
+            margin-left: var(--sidebar-width);
+            padding: 4rem 6rem;
+            flex-grow: 1;
+            max-width: calc(100vw - var(--sidebar-width));
+        }
+
+        .content-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1, h2, h3 { font-family: 'Outfit', sans-serif; color: var(--text-main); }
+        h1 { font-size: 3.5rem; line-height: 1.1; margin-bottom: 2.5rem; letter-spacing: -2px; }
+
+        /* Links */
+        .article-content a {
+            color: var(--accent);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s;
+        }
+        .article-content a:visited { color: var(--link-visited); }
+        .article-content a:hover { border-bottom-color: var(--accent); }
+        .article-content a.new { color: var(--link-red); }
+        .article-content a.new:hover { border-bottom-color: var(--link-red); }
+
+        /* Infobox */
+        .infobox {
+            float: right;
+            width: 300px;
+            background: var(--bg-sidebar);
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-left: 2rem;
+            margin-bottom: 2rem;
+            font-size: 0.85rem;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+        .infobox-title {
+            font-weight: 800;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.75rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            color: var(--accent);
             font-family: 'Outfit', sans-serif;
         }
 
-        .main-content { margin-top: 3rem; }
-
-        .card {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 1.5rem;
-            padding: 2.5rem;
-            backdrop-filter: blur(5px);
+        .infobox-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
         }
 
-        footer {
-            margin-top: 5rem;
-            padding: 4rem 0;
-            border-top: 1px solid var(--glass-border);
-            text-align: center;
-            color: #666;
+        .infobox-label { color: var(--text-dim); font-weight: 600; }
+
+        @media (max-width: 1024px) {
+            aside.sidebar { display: none; }
+            main { margin-left: 0; padding: 2rem; }
         }
     </style>
 </head>
 <body>
-    <nav>
-        <div class="nav-content">
-            <a href="/" class="logo">SARCASM WIKI</a>
+    <aside class="sidebar">
+        <a href="/" class="logo">SARCASM WIKI</a>
+        
+        <button class="theme-toggle" id="theme-toggle">
+            <span id="theme-toggle-icon">🌙</span>
+            <span id="theme-toggle-text">Dark Mode</span>
+        </button>
+
+        <div class="nav-label">Navigation</div>
+        <a href="/" class="nav-link">Home Portal</a>
+        <a href="https://github.com/vvmspace/sarcasm-wiki" class="nav-link">Contribute</a>
+        
+        <div class="nav-label">Tools</div>
+        <a href="#" class="nav-link">What links here</a>
+        <a href="#" class="nav-link">Related changes</a>
+        <a href="#" class="nav-link">Permanent link</a>
+        
+        <div class="nav-label">Legal</div>
+        <a href="#" class="nav-link">Privacy Policy</a>
+        <a href="#" class="nav-link">Terms of Service</a>
+    </aside>
+
+    <main>
+        <div class="content-container">
+            {{ block "main" . }}{{ end }}
         </div>
-    </nav>
-    <div class="container main-content">
-        {{ block "main" . }}{{ end }}
-    </div>
-    <footer>
-        &copy; {{ now.Format "2006" }} Sarcasm Wiki - Generated with Lightning Speed.
-    </footer>
+    </main>
+    <script>
+        const toggleBtn = document.getElementById('theme-toggle');
+        const icon = document.getElementById('theme-toggle-icon');
+        const text = document.getElementById('theme-toggle-text');
+
+        function updateUI(theme) {
+            icon.innerText = theme === 'dark' ? '☀️' : '🌙';
+            text.innerText = theme === 'dark' ? 'Light Mode' : 'Dark Mode';
+        }
+
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        updateUI(currentTheme);
+
+        toggleBtn.addEventListener('click', () => {
+            const newTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateUI(newTheme);
+        });
+    </script>
 </body>
 </html>
